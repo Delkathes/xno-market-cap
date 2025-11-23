@@ -1,26 +1,10 @@
 "use client"
 
-import useSWR from "swr"
+import { useQuery } from "@tanstack/react-query"
+import type { MarketDataResponse } from "@/lib/market-data-service"
 
-interface CryptoData {
-  id: string
-  symbol: string
-  name: string
-  image: string
-  current_price: number
-  market_cap: number
-  market_cap_rank: number
-  price_change_percentage_24h: number
-  total_volume: number
-}
-
-interface MarketDataResponse {
-  data: CryptoData[]
-  eurRate: number
-}
-
-const fetcher = async (url: string) => {
-  const response = await fetch(url)
+const fetcher = async () => {
+  const response = await fetch("/api/market-data")
   if (!response.ok) {
     throw new Error("Failed to fetch market data")
   }
@@ -28,18 +12,16 @@ const fetcher = async (url: string) => {
 }
 
 export function useMarketData() {
-  const {
-    data: response,
-    error,
-    isLoading,
-  } = useSWR<MarketDataResponse>("/api/market-data", fetcher, {
-    refreshInterval: 120000, // Refresh every 2:00min
-    revalidateOnFocus: false,
+  const { data, error, isLoading } = useQuery<MarketDataResponse>({
+    queryKey: ["market-data"],
+    queryFn: fetcher,
+    refetchInterval: 120000, // Refresh every 2:00min
+    refetchOnWindowFocus: false,
   })
 
   return {
-    data: response?.data,
-    eurRate: response?.eurRate ?? 0,
+    data: data?.data,
+    eurRate: data?.eurRate ?? 0.92,
     isLoading,
     error,
   }
