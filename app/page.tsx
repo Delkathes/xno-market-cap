@@ -17,10 +17,7 @@ export default async function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">Cryptocurrency Market Cap Tracker</h1>
-        <p className="text-muted-foreground text-lg">Track top cryptocurrencies with XNO (Nano) comparison</p>
-      </div>
+      
 
       {/* Hydrate the query cache with the initial data */}
       <HydrationBoundary state={dehydrate(queryClient)}>

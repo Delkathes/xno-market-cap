@@ -13,6 +13,11 @@ export interface CryptoData {
 export interface MarketDataResponse {
   data: CryptoData[]
   eurRate: number
+  gbpRate: number
+  jpyRate: number
+  chfRate: number
+  cadRate: number
+  audRate: number
 }
 
 const MOCK_DATA: CryptoData[] = [
@@ -93,7 +98,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
         ...(apiKey && { "x-cg-demo-api-key": apiKey }),
       },
       next: {
-        revalidate: 60, // Revalidate every 60 seconds
+        revalidate: 60,
       },
     }
 
@@ -106,7 +111,15 @@ export async function getMarketData(): Promise<MarketDataResponse> {
     if (!top25Response.ok) {
       if (top25Response.status === 429) {
         console.error("CoinGecko API rate limit exceeded, using mock data")
-        return { data: MOCK_DATA, eurRate: 0.92 }
+        return {
+          data: MOCK_DATA,
+          eurRate: 0.92,
+          gbpRate: 0.79,
+          jpyRate: 149.5,
+          chfRate: 0.88,
+          cadRate: 1.36,
+          audRate: 1.53,
+        }
       }
       throw new Error("Failed to fetch top 25 cryptocurrencies")
     }
@@ -129,17 +142,16 @@ export async function getMarketData(): Promise<MarketDataResponse> {
       fetchPromises.push(Promise.resolve(null))
     }
 
-    // Fetch EUR/USD exchange rate
     fetchPromises.push(
-      fetch("https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=eur", {
+      fetch("https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=eur,gbp,jpy,chf,cad,aud", {
         ...options,
         next: {
-          revalidate: 3600, // Exchange rates change less frequently, cache for 1 hour
+          revalidate: 3600,
         },
       }),
     )
 
-    const [xnoResponse, eurResponse] = await Promise.all(fetchPromises)
+    const [xnoResponse, ratesResponse] = await Promise.all(fetchPromises)
 
     let xnoData: CryptoData | null = null
     if (xnoResponse) {
@@ -148,15 +160,34 @@ export async function getMarketData(): Promise<MarketDataResponse> {
         xnoData = xnoArray[0] || null
       } else if (xnoResponse.status === 429) {
         console.error("CoinGecko API rate limit exceeded for XNO, using mock data")
-        return { data: MOCK_DATA, eurRate: 0.92 }
+        return {
+          data: MOCK_DATA,
+          eurRate: 0.92,
+          gbpRate: 0.79,
+          jpyRate: 149.5,
+          chfRate: 0.88,
+          cadRate: 1.36,
+          audRate: 1.53,
+        }
       }
     }
 
-    let eurRate = 0.92 // Fallback EUR/USD rate
-    if (eurResponse) {
-      if (eurResponse.ok) {
-        const eurData = await eurResponse.json()
-        eurRate = eurData.usd?.eur || 0.92
+    let eurRate = 0.92
+    let gbpRate = 0.79
+    let jpyRate = 149.5
+    let chfRate = 0.88
+    let cadRate = 1.36
+    let audRate = 1.53
+
+    if (ratesResponse) {
+      if (ratesResponse.ok) {
+        const ratesData = await ratesResponse.json()
+        eurRate = ratesData.usd?.eur || 0.92
+        gbpRate = ratesData.usd?.gbp || 0.79
+        jpyRate = ratesData.usd?.jpy || 149.5
+        chfRate = ratesData.usd?.chf || 0.88
+        cadRate = ratesData.usd?.cad || 1.36
+        audRate = ratesData.usd?.aud || 1.53
       }
     }
 
@@ -166,9 +197,17 @@ export async function getMarketData(): Promise<MarketDataResponse> {
     // Sort by market cap rank
     combinedData.sort((a, b) => a.market_cap_rank - b.market_cap_rank)
 
-    return { data: combinedData, eurRate }
+    return { data: combinedData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
   } catch (error) {
     console.error("Error fetching market data:", error)
-    return { data: MOCK_DATA, eurRate: 0.92 }
+    return {
+      data: MOCK_DATA,
+      eurRate: 0.92,
+      gbpRate: 0.79,
+      jpyRate: 149.5,
+      chfRate: 0.88,
+      cadRate: 1.36,
+      audRate: 1.53,
+    }
   }
 }

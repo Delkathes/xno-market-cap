@@ -22,6 +22,11 @@ export function useMarketData() {
   return {
     data: data?.data,
     eurRate: data?.eurRate ?? 0.92,
+    gbpRate: data?.gbpRate ?? 0.79,
+    jpyRate: data?.jpyRate ?? 149.5,
+    chfRate: data?.chfRate ?? 0.88,
+    cadRate: data?.cadRate ?? 1.36,
+    audRate: data?.audRate ?? 1.53,
     isLoading,
     error,
   }

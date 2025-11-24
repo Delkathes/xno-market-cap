@@ -1,19 +1,33 @@
 import { DominanceChart } from "@/components/dominance-chart"
 import { DominanceTable } from "@/components/dominance-table"
+import { getMarketData } from "@/lib/market-data-service"
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query"
 
-export default function DominancePage() {
+export const dynamic = "force-static"
+export const revalidate = 60
+
+export default async function DominancePage() {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ["market-data"],
+    queryFn: getMarketData,
+  })
+
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">Market Dominance</h1>
-        <p className="text-muted-foreground text-lg">Analyze cryptocurrency market share and dominance</p>
-      </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">Market Dominance</h1>
+          <p className="text-muted-foreground text-lg">Analyze cryptocurrency market share and dominance</p>
+        </div>
 
-      <div className="grid gap-6 mb-8">
-        <DominanceChart />
-      </div>
+        <div className="grid gap-6 mb-8">
+          <DominanceChart />
+        </div>
 
-      <DominanceTable />
-    </main>
+        <DominanceTable />
+      </main>
+    </HydrationBoundary>
   )
 }

@@ -60,7 +60,7 @@ export function DominanceTable() {
                       isXNO && "bg-primary/5",
                     )}
                   >
-                    <td className="p-4">{!isXNO && <span className="font-medium">{index + 1}</span>}</td>
+                    <td className="p-4">{!isXNO && <span className="font-medium">{index}</span>}</td>
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img
