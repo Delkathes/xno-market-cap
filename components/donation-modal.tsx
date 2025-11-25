@@ -7,7 +7,14 @@ import { Input } from "@/components/ui/input"
 import { Progress } from "@/components/ui/progress"
 import { Card, CardContent } from "@/components/ui/card"
 import { Check, Copy, ExternalLink, Loader2 } from "lucide-react"
-import { QRCodeSVG } from "qrcode.react"
+import dynamic from "next/dynamic"
+import { validateDonationAmount, validateWebSocketConfirmation } from "@/lib/validation"
+import { xnoToRaw, rawToXno } from "@/lib/nano-utils"
+
+const QRCodeSVG = dynamic(() => import("qrcode.react").then((mod) => mod.QRCodeSVG), {
+  loading: () => <div className="w-[180px] h-[180px] animate-pulse bg-muted rounded" />,
+  ssr: false,
+})
 
 interface DonationModalProps {
   open: boolean
@@ -22,21 +29,9 @@ const FIXED_AMOUNTS = [1, 5, 10, 25, 50]
 
 const WS_ENDPOINTS = ["wss://ws.nano.to"]
 
-function xnoToRaw(xno: number): string {
-  // Use BigInt for precision with large numbers
-  const rawPerXno = BigInt("1000000000000000000000000000000") // 10^30
-  const wholePart = BigInt(Math.floor(xno))
-  const decimalPart = xno - Math.floor(xno)
-
-  // Calculate raw for whole part
-  const wholeRaw = wholePart * rawPerXno
-
-  // Calculate raw for decimal part (up to 6 decimal places for precision)
-  const decimalMultiplier = BigInt(Math.round(decimalPart * 1e6))
-  const decimalRaw = (decimalMultiplier * rawPerXno) / BigInt(1e6)
-
-  return (wholeRaw + decimalRaw).toString()
-}
+const WS_INITIAL_RECONNECT_DELAY = 3000
+const WS_MAX_RECONNECT_DELAY = 30000
+const WS_MAX_RECONNECT_ATTEMPTS = 10
 
 export function DonationModal({
   open,
@@ -52,8 +47,11 @@ export function DonationModal({
   const [wsConnected, setWsConnected] = useState(false)
   const [paymentReceived, setPaymentReceived] = useState(false)
   const [receivedAmount, setReceivedAmount] = useState<number | null>(null)
+  const [amountError, setAmountError] = useState<string | null>(null)
   const wsRef = useRef<WebSocket | null>(null)
   const wsEndpointIndexRef = useRef(0)
+  const reconnectAttemptRef = useRef(0)
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const amount = selectedAmount ?? (customAmount ? Number.parseFloat(customAmount) : 0)
   const progress = Math.min((currentDonations / donationGoal) * 100, 100)
@@ -61,14 +59,28 @@ export function DonationModal({
   const rawAmount = amount > 0 ? xnoToRaw(amount) : "0"
   const nanoUri = amount > 0 ? `nano:${DONATION_WALLET}?amount=${rawAmount}` : ""
 
+  const getReconnectDelay = useCallback(() => {
+    const delay = Math.min(
+      WS_INITIAL_RECONNECT_DELAY * Math.pow(2, reconnectAttemptRef.current),
+      WS_MAX_RECONNECT_DELAY,
+    )
+    return delay
+  }, [])
+
   const connectWebSocket = useCallback(() => {
     if (!DONATION_WALLET || wsRef.current?.readyState === WebSocket.OPEN) return
+
+    if (reconnectAttemptRef.current >= WS_MAX_RECONNECT_ATTEMPTS) {
+      console.error("Max WebSocket reconnection attempts reached")
+      return
+    }
 
     const endpoint = WS_ENDPOINTS[wsEndpointIndexRef.current]
     const ws = new WebSocket(endpoint)
 
     ws.onopen = () => {
       setWsConnected(true)
+      reconnectAttemptRef.current = 0
       ws.send(
         JSON.stringify({
           action: "subscribe",
@@ -89,23 +101,25 @@ export function DonationModal({
 
         const data = JSON.parse(text)
 
-        // Check if this is a confirmation for our wallet
-        if (data.topic === "confirmation" && data.message) {
-          const msg = data.message
-          const block = msg.block
+        const validation = validateWebSocketConfirmation(data)
+        if (!validation.success) {
+          return
+        }
 
-          // For "send" subtype, link_as_account is the recipient
-          const isIncomingToWallet = block?.subtype === "send" && block?.link_as_account === DONATION_WALLET
-          // For "receive" subtype, account is the recipient
-          const isReceiveByWallet = block?.subtype === "receive" && msg.account === DONATION_WALLET
+        const validData = validation.output
+        const msg = validData.message
+        const block = msg.block
 
-          if (isIncomingToWallet || isReceiveByWallet) {
-            const amountRaw = BigInt(msg.amount || "0")
-            const receivedXno = Number(amountRaw / BigInt("1000000000000000000000000")) / 1000000
-            setReceivedAmount(receivedXno)
-            setPaymentReceived(true)
-            onDonationReceived?.()
-          }
+        // For "send" subtype, link_as_account is the recipient
+        const isIncomingToWallet = block.subtype === "send" && block.link_as_account === DONATION_WALLET
+        // For "receive" subtype, account is the recipient
+        const isReceiveByWallet = block.subtype === "receive" && msg.account === DONATION_WALLET
+
+        if (isIncomingToWallet || isReceiveByWallet) {
+          const receivedXno = rawToXno(msg.amount)
+          setReceivedAmount(receivedXno)
+          setPaymentReceived(true)
+          onDonationReceived?.()
         }
       } catch {
         // Ignore parse errors
@@ -120,28 +134,40 @@ export function DonationModal({
     ws.onclose = () => {
       setWsConnected(false)
       if (open && !paymentReceived) {
-        setTimeout(connectWebSocket, 3000)
+        reconnectAttemptRef.current++
+        const delay = getReconnectDelay()
+        reconnectTimeoutRef.current = setTimeout(connectWebSocket, delay)
       }
     }
 
     wsRef.current = ws
-  }, [open, onDonationReceived, paymentReceived])
+  }, [open, onDonationReceived, paymentReceived, getReconnectDelay])
 
   useEffect(() => {
-    if (showQR && amount > 0 && !paymentReceived) {
+    if (open && showQR && amount > 0 && !paymentReceived) {
       connectWebSocket()
     }
 
     return () => {
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current)
+        reconnectTimeoutRef.current = null
+      }
       if (wsRef.current && !paymentReceived) {
         wsRef.current.close()
         wsRef.current = null
       }
     }
-  }, [showQR, amount, connectWebSocket, paymentReceived])
+  }, [open, showQR, amount, connectWebSocket, paymentReceived])
 
   const handleAmountSelect = (amt: number) => {
     if (paymentReceived) return
+    const validation = validateDonationAmount(amt)
+    if (!validation.success) {
+      setAmountError(validation.error || "Invalid amount")
+      return
+    }
+    setAmountError(null)
     setSelectedAmount(amt)
     setCustomAmount("")
     setShowQR(true)
@@ -150,10 +176,28 @@ export function DonationModal({
   const handleCustomAmountChange = (value: string) => {
     if (paymentReceived) return
     const num = Number.parseFloat(value)
-    if (value === "" || (!isNaN(num) && num >= 0)) {
+
+    if (value === "") {
+      setCustomAmount("")
+      setSelectedAmount(null)
+      setShowQR(false)
+      setAmountError(null)
+      return
+    }
+
+    if (!isNaN(num)) {
+      const validation = validateDonationAmount(num)
+      if (!validation.success) {
+        setAmountError(validation.error || "Invalid amount")
+        setCustomAmount(value)
+        setSelectedAmount(null)
+        setShowQR(false)
+        return
+      }
+      setAmountError(null)
       setCustomAmount(value)
       setSelectedAmount(null)
-      setShowQR(value !== "" && num > 0)
+      setShowQR(num > 0)
     }
   }
 
@@ -170,6 +214,12 @@ export function DonationModal({
       setShowQR(false)
       setPaymentReceived(false)
       setReceivedAmount(null)
+      setAmountError(null)
+      reconnectAttemptRef.current = 0
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current)
+        reconnectTimeoutRef.current = null
+      }
       if (wsRef.current) {
         wsRef.current.close()
         wsRef.current = null
@@ -274,9 +324,11 @@ export function DonationModal({
                     className="font-mono"
                     min="0"
                     step="0.01"
+                    max="1000000"
                   />
                   <span className="text-sm text-muted-foreground">XNO</span>
                 </div>
+                {amountError && <p className="text-sm text-destructive">{amountError}</p>}
               </div>
 
               {/* QR Code Section */}

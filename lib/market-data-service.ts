@@ -1,24 +1,9 @@
-export interface CryptoData {
-  id: string
-  symbol: string
-  name: string
-  image: string
-  current_price: number
-  market_cap: number
-  market_cap_rank: number
-  price_change_percentage_24h: number
-  total_volume: number
-}
+import * as v from "valibot"
+import { CryptoDataArraySchema, ExchangeRatesSchema } from "./validation"
+import { fetchWithTimeout } from "./fetch-with-timeout"
+import type { CryptoData, MarketDataResponse } from "./types"
 
-export interface MarketDataResponse {
-  data: CryptoData[]
-  eurRate: number
-  gbpRate: number
-  jpyRate: number
-  chfRate: number
-  cadRate: number
-  audRate: number
-}
+export type { MarketDataResponse }
 
 const MOCK_DATA: CryptoData[] = [
   {
@@ -89,23 +74,25 @@ const MOCK_DATA: CryptoData[] = [
   },
 ]
 
+const REQUEST_TIMEOUT_MS = 10000
+
 export async function getMarketData(): Promise<MarketDataResponse> {
   try {
     const apiKey = process.env.COINGECKO_API_KEY
-    const options: RequestInit = {
-      headers: {
-        Accept: "application/json",
-        ...(apiKey && { "x-cg-demo-api-key": apiKey }),
-      },
-      next: {
-        revalidate: 60,
-      },
+    const headers: HeadersInit = {
+      Accept: "application/json",
+      ...(apiKey && { "x-cg-demo-api-key": apiKey }),
     }
 
-    // Fetch top 25 cryptocurrencies by market cap
-    const top25Response = await fetch(
+    const top25Response = await fetchWithTimeout(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=25&page=1&sparkline=false&price_change_percentage=24h",
-      options,
+      {
+        headers,
+        next: {
+          revalidate: 60,
+        },
+      } as RequestInit,
+      REQUEST_TIMEOUT_MS,
     )
 
     if (!top25Response.ok) {
@@ -124,18 +111,43 @@ export async function getMarketData(): Promise<MarketDataResponse> {
       throw new Error("Failed to fetch top 25 cryptocurrencies")
     }
 
-    const top25Data: CryptoData[] = await top25Response.json()
+    const top25Json = await top25Response.json()
+
+    const top25Result = v.safeParse(CryptoDataArraySchema, top25Json)
+    if (!top25Result.success) {
+      console.error("Invalid API response structure for top 25:", top25Result.issues)
+      return {
+        data: MOCK_DATA,
+        eurRate: 0.92,
+        gbpRate: 0.79,
+        jpyRate: 149.5,
+        chfRate: 0.88,
+        cadRate: 1.36,
+        audRate: 1.53,
+      }
+    }
+
+    const top25Data: CryptoData[] = top25Result.output.map((item) => ({
+      ...item,
+      price_change_percentage_24h: item.price_change_percentage_24h ?? 0,
+    }))
 
     // Check if XNO (Nano) is already in top 25
     const hasXNO = top25Data.some((crypto) => crypto.id === "nano")
 
-    const fetchPromises = []
+    const fetchPromises: Promise<Response | null>[] = []
 
     if (!hasXNO) {
       fetchPromises.push(
-        fetch(
+        fetchWithTimeout(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=nano&sparkline=false&price_change_percentage=24h",
-          options,
+          {
+            headers,
+            next: {
+              revalidate: 60,
+            },
+          } as RequestInit,
+          REQUEST_TIMEOUT_MS,
         ),
       )
     } else {
@@ -143,12 +155,16 @@ export async function getMarketData(): Promise<MarketDataResponse> {
     }
 
     fetchPromises.push(
-      fetch("https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=eur,gbp,jpy,chf,cad,aud", {
-        ...options,
-        next: {
-          revalidate: 3600,
-        },
-      }),
+      fetchWithTimeout(
+        "https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=eur,gbp,jpy,chf,cad,aud",
+        {
+          headers,
+          next: {
+            revalidate: 3600,
+          },
+        } as RequestInit,
+        REQUEST_TIMEOUT_MS,
+      ),
     )
 
     const [xnoResponse, ratesResponse] = await Promise.all(fetchPromises)
@@ -156,8 +172,14 @@ export async function getMarketData(): Promise<MarketDataResponse> {
     let xnoData: CryptoData | null = null
     if (xnoResponse) {
       if (xnoResponse.ok) {
-        const xnoArray: CryptoData[] = await xnoResponse.json()
-        xnoData = xnoArray[0] || null
+        const xnoJson = await xnoResponse.json()
+        const xnoResult = v.safeParse(CryptoDataArraySchema, xnoJson)
+        if (xnoResult.success && xnoResult.output[0]) {
+          xnoData = {
+            ...xnoResult.output[0],
+            price_change_percentage_24h: xnoResult.output[0].price_change_percentage_24h ?? 0,
+          }
+        }
       } else if (xnoResponse.status === 429) {
         console.error("CoinGecko API rate limit exceeded for XNO, using mock data")
         return {
@@ -181,13 +203,16 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
     if (ratesResponse) {
       if (ratesResponse.ok) {
-        const ratesData = await ratesResponse.json()
-        eurRate = ratesData.usd?.eur || 0.92
-        gbpRate = ratesData.usd?.gbp || 0.79
-        jpyRate = ratesData.usd?.jpy || 149.5
-        chfRate = ratesData.usd?.chf || 0.88
-        cadRate = ratesData.usd?.cad || 1.36
-        audRate = ratesData.usd?.aud || 1.53
+        const ratesJson = await ratesResponse.json()
+        const ratesResult = v.safeParse(ExchangeRatesSchema, ratesJson)
+        if (ratesResult.success && ratesResult.output.usd) {
+          eurRate = ratesResult.output.usd.eur ?? 0.92
+          gbpRate = ratesResult.output.usd.gbp ?? 0.79
+          jpyRate = ratesResult.output.usd.jpy ?? 149.5
+          chfRate = ratesResult.output.usd.chf ?? 0.88
+          cadRate = ratesResult.output.usd.cad ?? 1.36
+          audRate = ratesResult.output.usd.aud ?? 1.53
+        }
       }
     }
 
@@ -199,7 +224,11 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
     return { data: combinedData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
   } catch (error) {
-    console.error("Error fetching market data:", error)
+    if (error instanceof Error && error.name === "AbortError") {
+      console.error("Request timed out, using mock data")
+    } else {
+      console.error("Error fetching market data:", error)
+    }
     return {
       data: MOCK_DATA,
       eurRate: 0.92,

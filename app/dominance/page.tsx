@@ -1,13 +1,14 @@
 import { DominanceChart } from "@/components/dominance-chart"
 import { DominanceTable } from "@/components/dominance-table"
 import { getMarketData } from "@/lib/market-data-service"
-import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query"
+import getQueryClient from "@/lib/get-query-client"
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
 
 export const dynamic = "force-static"
 export const revalidate = 60
 
 export default async function DominancePage() {
-  const queryClient = new QueryClient()
+  const queryClient = getQueryClient()
 
   await queryClient.prefetchQuery({
     queryKey: ["market-data"],

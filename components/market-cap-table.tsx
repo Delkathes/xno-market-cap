@@ -1,9 +1,81 @@
 "use client"
 
+import { memo } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useMarketData } from "@/hooks/use-market-data"
 import { TrendingUp, TrendingDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
+import type { CryptoData } from "@/lib/market-data-service"
+
+interface CryptoRowProps {
+  crypto: CryptoData
+  isXNO: boolean
+  valueInXNO: number
+  marketCapInXNO: number
+  relativeChange: number
+}
+
+const CryptoRow = memo(function CryptoRow({
+  crypto,
+  isXNO,
+  valueInXNO,
+  marketCapInXNO,
+  relativeChange,
+}: CryptoRowProps) {
+  return (
+    <tr className={cn("border-b border-border hover:bg-muted/50 transition-colors", isXNO && "bg-primary/5")}>
+      <td className="p-4">
+        <div className="flex items-center gap-2">
+          {!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
+        </div>
+      </td>
+      <td className="p-4">
+        <div className="flex items-center gap-3">
+          <Image
+            src={crypto.image || "/placeholder.svg"}
+            alt={crypto.name}
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+          <div>
+            <p className="font-semibold">{crypto.name}</p>
+            <p className="text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+          </div>
+        </div>
+      </td>
+      <td className="p-4 text-right font-mono text-primary">
+        {isXNO ? (
+          <span>1.00</span>
+        ) : (
+          valueInXNO.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        )}
+      </td>
+      <td className="p-4 text-right">
+        {isXNO ? (
+          <span className="text-muted-foreground">—</span>
+        ) : (
+          <div
+            className={cn(
+              "flex items-center justify-end gap-1 font-medium",
+              relativeChange >= 0 ? "text-accent" : "text-destructive",
+            )}
+          >
+            {relativeChange >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+            {Math.abs(relativeChange).toFixed(2)}%
+          </div>
+        )}
+      </td>
+      <td className="p-4 text-right font-mono text-primary">
+        {marketCapInXNO >= 1e9 ? `${(marketCapInXNO / 1e9).toFixed(2)}B` : `${(marketCapInXNO / 1e6).toFixed(2)}M`}
+      </td>
+    </tr>
+  )
+})
 
 export function MarketCapTable() {
   const { data, isLoading } = useMarketData()
@@ -53,75 +125,22 @@ export function MarketCapTable() {
               </tr>
             </thead>
             <tbody>
-              {sortedData?.map((crypto, index) => {
+              {sortedData?.map((crypto) => {
                 const isXNO = crypto.id === "nano"
                 const valueInXNO = xno ? crypto.current_price / xno.current_price : 0
                 const marketCapInXNO = xno ? crypto.market_cap / xno.current_price : 0
-
                 const xno24hChange = xno?.price_change_percentage_24h || 0
                 const relativeChange = crypto.price_change_percentage_24h - xno24hChange
 
                 return (
-                  <tr
+                  <CryptoRow
                     key={crypto.id}
-                    className={cn(
-                      "border-b border-border hover:bg-muted/50 transition-colors",
-                      isXNO && "bg-primary/5",
-                    )}
-                  >
-                    <td className="p-4">
-                      <div className="flex items-center gap-2">
-                        {!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
-                      </div>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={crypto.image || "/placeholder.svg"}
-                          alt={crypto.name}
-                          className="w-8 h-8 rounded-full"
-                        />
-                        <div>
-                          <p className="font-semibold">{crypto.name}</p>
-                          <p className="text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4 text-right font-mono text-primary">
-                      {isXNO ? (
-                        <span>1.00</span>
-                      ) : (
-                        valueInXNO.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })
-                      )}
-                    </td>
-                    <td className="p-4 text-right">
-                      {isXNO ? (
-                        <span className="text-muted-foreground">—</span>
-                      ) : (
-                        <div
-                          className={cn(
-                            "flex items-center justify-end gap-1 font-medium",
-                            relativeChange >= 0 ? "text-accent" : "text-destructive",
-                          )}
-                        >
-                          {relativeChange >= 0 ? (
-                            <TrendingUp className="w-4 h-4" />
-                          ) : (
-                            <TrendingDown className="w-4 h-4" />
-                          )}
-                          {Math.abs(relativeChange).toFixed(2)}%
-                        </div>
-                      )}
-                    </td>
-                    <td className="p-4 text-right font-mono text-primary">
-                      {marketCapInXNO >= 1e9
-                        ? `${(marketCapInXNO / 1e9).toFixed(2)}B`
-                        : `${(marketCapInXNO / 1e6).toFixed(2)}M`}
-                    </td>
-                  </tr>
+                    crypto={crypto}
+                    isXNO={isXNO}
+                    valueInXNO={valueInXNO}
+                    marketCapInXNO={marketCapInXNO}
+                    relativeChange={relativeChange}
+                  />
                 )
               })}
             </tbody>

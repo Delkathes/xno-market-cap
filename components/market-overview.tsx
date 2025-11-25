@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useMarketData } from "@/hooks/use-market-data"
 import { TrendingUp, TrendingDown } from "lucide-react"
 import { useState } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { XNO_CIRCULATING_SUPPLY } from "@/lib/constants"
 
 export function MarketOverview() {
   const { data, eurRate, isLoading } = useMarketData()
@@ -14,8 +16,14 @@ export function MarketOverview() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[1, 2, 3].map((i) => (
           <Card key={i}>
-            <CardContent className="p-6">
-              <div className="h-20 animate-pulse bg-muted rounded" />
+            <CardContent className="p-6 space-y-3">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-8 w-32" />
+              <div className="flex gap-3">
+                <Skeleton className="h-4 w-16" />
+                <Skeleton className="h-4 w-16" />
+                <Skeleton className="h-4 w-16" />
+              </div>
             </CardContent>
           </Card>
         ))}
@@ -28,8 +36,7 @@ export function MarketOverview() {
   const btc = data?.find((c) => c.id === "bitcoin")
   const eth = data?.find((c) => c.id === "ethereum")
 
-  const xnoCirculatingSupply = 133248297.920938
-  const xnoMarketCapUSD = xno ? xnoCirculatingSupply * xno.current_price : 0
+  const xnoMarketCapUSD = xno ? XNO_CIRCULATING_SUPPLY * xno.current_price : 0
   const xnoMarketCapEUR = xnoMarketCapUSD * eurRate
   const xnoMarketCapBTC = btc ? xnoMarketCapUSD / btc.current_price : 0
 
@@ -41,7 +48,7 @@ export function MarketOverview() {
 
   const xnoPrice = xno?.current_price || 1
   const totalMarketCapInXNO = data?.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0) || 0
-  const xnoDominance = (xnoCirculatingSupply / totalMarketCapInXNO) * 100
+  const xnoDominance = (XNO_CIRCULATING_SUPPLY / totalMarketCapInXNO) * 100
   const btcDominance = btc ? (btc.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
   const ethDominance = eth ? (eth.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
 
@@ -50,7 +57,7 @@ export function MarketOverview() {
       <Card>
         <CardContent className="p-6">
           <p className="text-sm text-muted-foreground mb-1">Total Market Cap</p>
-          <p className="text-2xl font-bold font-mono">{(xnoCirculatingSupply / 1e6).toFixed(2)}M XNO</p>
+          <p className="text-2xl font-bold font-mono">{(XNO_CIRCULATING_SUPPLY / 1e6).toFixed(2)}M XNO</p>
           <div className="flex items-center gap-3 mt-2">
             <p className="text-sm text-muted-foreground">
               $

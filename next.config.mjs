@@ -4,9 +4,19 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.coingecko.com",
+        pathname: "/coins/images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "coin-images.coingecko.com",
+        pathname: "/coins/images/**",
+      },
+    ],
   },
- 
 }
 
 export default nextConfig

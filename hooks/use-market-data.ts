@@ -1,7 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import type { MarketDataResponse } from "@/lib/market-data-service"
+import type { MarketDataResponse } from "@/lib/types"
 
 const fetcher = async () => {
   const response = await fetch("/api/market-data")

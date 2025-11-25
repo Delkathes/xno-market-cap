@@ -5,16 +5,20 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Heart } from "lucide-react"
 import { DonationModal } from "./donation-modal"
+import { validateNanoBalanceResponse } from "@/lib/validation"
+import { fetchWithTimeout } from "@/lib/fetch-with-timeout"
+import { DONATION_GOAL_XNO } from "@/lib/constants"
 
-const DONATION_GOAL = 2500
 const DONATION_WALLET = process.env.NEXT_PUBLIC_DONATION_WALLET || ""
+const BALANCE_POLL_INTERVAL_MS = 60000
+const REQUEST_TIMEOUT_MS = 10000
 
 export function DonationButton() {
   const [open, setOpen] = useState(false)
   const [currentDonations, setCurrentDonations] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
 
-  const progress = Math.min((currentDonations / DONATION_GOAL) * 100, 100)
+  const progress = Math.min((currentDonations / DONATION_GOAL_XNO) * 100, 100)
 
   const fetchBalance = useCallback(async () => {
     if (!DONATION_WALLET) {
@@ -23,39 +27,43 @@ export function DonationButton() {
     }
 
     try {
-      const response = await fetch("https://rpc.nano.to", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "account_balance",
-          account: DONATION_WALLET,
-        }),
-      })
+      const response = await fetchWithTimeout(
+        "https://rpc.nano.to",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "account_balance",
+            account: DONATION_WALLET,
+          }),
+        },
+        REQUEST_TIMEOUT_MS,
+      )
 
       if (response.ok) {
         const data = await response.json()
-        // Balance is in raw, convert to XNO (1 XNO = 10^30 raw)
-        const balanceXNO = Number.parseFloat(data.balance) / 1e30
-        setCurrentDonations(balanceXNO)
+        const validation = validateNanoBalanceResponse(data)
+        if (validation.success && validation.balance) {
+          const balanceXNO = Number.parseFloat(validation.balance) / 1e30
+          setCurrentDonations(balanceXNO)
+        }
       }
     } catch (error) {
-      // Fallback to 0 on error
-      setCurrentDonations(0)
+      if (error instanceof Error && error.name === "AbortError") {
+        console.error("Balance fetch timed out")
+      }
     } finally {
       setIsLoading(false)
     }
   }, [])
 
-  // Fetch current donation balance
   useEffect(() => {
     fetchBalance()
 
-    // Poll every 30 seconds for updates
-    const interval = setInterval(fetchBalance, 30000)
+    const interval = setInterval(fetchBalance, BALANCE_POLL_INTERVAL_MS)
     return () => clearInterval(interval)
   }, [fetchBalance])
 
-  // Don't render if no wallet is configured
   if (!DONATION_WALLET) {
     return null
   }
@@ -83,7 +91,7 @@ export function DonationButton() {
         open={open}
         onOpenChange={setOpen}
         currentDonations={currentDonations}
-        donationGoal={DONATION_GOAL}
+        donationGoal={DONATION_GOAL_XNO}
         onDonationReceived={fetchBalance}
       />
     </>

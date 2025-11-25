@@ -1,8 +1,56 @@
 "use client"
 
+import { memo } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useMarketData } from "@/hooks/use-market-data"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
+import type { CryptoData } from "@/lib/market-data-service"
+
+interface DominanceRowProps {
+  crypto: CryptoData
+  index: number
+  isXNO: boolean
+  marketCapXNO: number
+  dominance: number
+}
+
+const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCapXNO, dominance }: DominanceRowProps) {
+  return (
+    <tr className={cn("border-b border-border hover:bg-muted/50 transition-colors", isXNO && "bg-primary/5")}>
+      <td className="p-4">{!isXNO && <span className="font-medium">{index}</span>}</td>
+      <td className="p-4">
+        <div className="flex items-center gap-3">
+          <Image
+            src={crypto.image || "/placeholder.svg"}
+            alt={crypto.name}
+            width={24}
+            height={24}
+            className="rounded-full"
+          />
+          <div>
+            <p className="font-semibold">{crypto.name}</p>
+            <p className="text-xs text-muted-foreground uppercase">{crypto.symbol}</p>
+          </div>
+        </div>
+      </td>
+      <td className="p-4 text-right font-mono text-primary">
+        {marketCapXNO >= 1e9 ? `${(marketCapXNO / 1e9).toFixed(2)}B` : `${(marketCapXNO / 1e6).toFixed(2)}M`}
+      </td>
+      <td className="p-4 text-right font-mono font-semibold">{dominance.toFixed(isXNO ? 4 : 2)}%</td>
+      <td className="p-4">
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary rounded-full transition-all"
+              style={{ width: `${Math.min(dominance * 2, 100)}%` }}
+            />
+          </div>
+        </div>
+      </td>
+    </tr>
+  )
+})
 
 export function DominanceTable() {
   const { data, isLoading } = useMarketData()
@@ -53,44 +101,14 @@ export function DominanceTable() {
                 const isXNO = crypto.id === "nano"
 
                 return (
-                  <tr
+                  <DominanceRow
                     key={crypto.id}
-                    className={cn(
-                      "border-b border-border hover:bg-muted/50 transition-colors",
-                      isXNO && "bg-primary/5",
-                    )}
-                  >
-                    <td className="p-4">{!isXNO && <span className="font-medium">{index}</span>}</td>
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={crypto.image || "/placeholder.svg"}
-                          alt={crypto.name}
-                          className="w-6 h-6 rounded-full"
-                        />
-                        <div>
-                          <p className="font-semibold">{crypto.name}</p>
-                          <p className="text-xs text-muted-foreground uppercase">{crypto.symbol}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4 text-right font-mono text-primary">
-                      {marketCapXNO >= 1e9
-                        ? `${(marketCapXNO / 1e9).toFixed(2)}B`
-                        : `${(marketCapXNO / 1e6).toFixed(2)}M`}
-                    </td>
-                    <td className="p-4 text-right font-mono font-semibold">{dominance.toFixed(isXNO ? 4 : 2)}%</td>
-                    <td className="p-4">
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-primary rounded-full transition-all"
-                            style={{ width: `${Math.min(dominance * 2, 100)}%` }}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                    crypto={crypto}
+                    index={index}
+                    isXNO={isXNO}
+                    marketCapXNO={marketCapXNO}
+                    dominance={dominance}
+                  />
                 )
               })}
             </tbody>
