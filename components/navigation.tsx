@@ -1,19 +1,47 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useQueryClient } from "@tanstack/react-query"
 import { cn } from "@/lib/utils"
-import { TrendingUp, Moon, Sun, HelpCircle } from "lucide-react"
+import { TrendingUp, Moon, Sun, HelpCircle, RefreshCw } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { AboutModal } from "@/components/about-modal"
 import { DonationButton } from "@/components/donation-button"
 
+const REFRESH_COOLDOWN = 60 // seconds
+
 export function Navigation() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [aboutOpen, setAboutOpen] = useState(false)
+  const queryClient = useQueryClient()
+
+  const [lastRefresh, setLastRefresh] = useState<number>(0)
+  const [cooldownRemaining, setCooldownRemaining] = useState(0)
+
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return
+
+    const timer = setInterval(() => {
+      const remaining = Math.max(0, REFRESH_COOLDOWN - Math.floor((Date.now() - lastRefresh) / 1000))
+      setCooldownRemaining(remaining)
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [lastRefresh, cooldownRemaining])
+
+  const handleRefresh = useCallback(() => {
+    if (cooldownRemaining > 0) return
+
+    queryClient.invalidateQueries({ queryKey: ["market-data"] })
+    setLastRefresh(Date.now())
+    setCooldownRemaining(REFRESH_COOLDOWN)
+  }, [queryClient, cooldownRemaining])
+
+  const isRefreshDisabled = cooldownRemaining > 0
 
   return (
     <header className="border-b border-border bg-card">
@@ -37,6 +65,20 @@ export function Navigation() {
               <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleRefresh}
+              disabled={isRefreshDisabled}
+              title={isRefreshDisabled ? `Refresh available in ${cooldownRemaining}s` : "Refresh market data"}
+            >
+              <RefreshCw className={cn("h-[1.2rem] w-[1.2rem] transition-all", isRefreshDisabled && "opacity-50")} />
+              {isRefreshDisabled && (
+                <span className="absolute text-[10px] font-mono font-bold">{cooldownRemaining}</span>
+              )}
+              <span className="sr-only">Refresh market data</span>
             </Button>
 
             <Button variant="ghost" size="icon" onClick={() => setAboutOpen(true)} className="mr-2">

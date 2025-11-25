@@ -45,8 +45,8 @@ export function MarketOverview() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[1, 2, 3].map((i) => (
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        {[1, 2, 3, 4, 5].map((i) => (
           <Card key={i}>
             <CardContent className="p-6 space-y-3">
               <Skeleton className="h-4 w-24" />
@@ -125,8 +125,8 @@ export function MarketOverview() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <Card className="group relative">
+    <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
+      <Card className="group relative md:col-span-2">
         <CurrencySettingsPopover cryptoList={data} />
         <CardContent className="p-6">
           <p className="text-sm text-muted-foreground mb-1">Total Market Cap</p>
@@ -152,26 +152,27 @@ export function MarketOverview() {
         </CardContent>
       </Card>
 
-      <Card className="group relative">
+      <Card className="group relative md:col-span-4">
         <CurrencySettingsPopover cryptoList={data} />
         <CardContent className="p-6">
           <p className="text-sm text-muted-foreground mb-1">XNO Price</p>
-          <div className="text-2xl font-bold flex gap-4 font-mono flex-wrap">
-            <span>{formatPrice(xnoPricePrimary, primarySymbol, primaryFiat === "JPY")}</span>
-            <span>{formatPrice(xnoPriceSecondary, secondarySymbol, secondaryFiat === "JPY")}</span>
-            {selectedCrypto && (
+          {xno && selectedCrypto && (
+            <div className="grid grid-cols-3 gap-x-4 gap-y-1">
+              {/* Row 1: Prices */}
+              <span className="text-2xl font-bold font-mono">
+                {formatPrice(xnoPricePrimary, primarySymbol, primaryFiat === "JPY")}
+              </span>
+              <span className="text-2xl font-bold font-mono">
+                {formatPrice(xnoPriceSecondary, secondarySymbol, secondaryFiat === "JPY")}
+              </span>
               <span
-                className="cursor-pointer hover:text-primary transition-colors"
+                className="text-2xl font-bold font-mono cursor-pointer hover:text-primary transition-colors"
                 onClick={() => setShowSatoshi(!showSatoshi)}
               >
                 {formatCryptoPrice()}
               </span>
-            )}
-          </div>
 
-          {xno && selectedCrypto && (
-            <div className="flex items-center gap-6 mt-2 flex-wrap">
-              {/* Primary fiat variation */}
+              {/* Row 2: 24h variations */}
               <div className="flex items-center gap-1">
                 {xnoPriceChangePrimary >= 0 ? (
                   <TrendingUp className="w-4 h-4 text-accent" />
@@ -183,7 +184,6 @@ export function MarketOverview() {
                 </span>
               </div>
 
-              {/* Secondary fiat variation */}
               <div className="flex items-center gap-1">
                 {xnoPriceChangeSecondary >= 0 ? (
                   <TrendingUp className="w-4 h-4 text-accent" />
@@ -195,7 +195,6 @@ export function MarketOverview() {
                 </span>
               </div>
 
-              {/* Crypto variation */}
               <div className="flex items-center gap-1">
                 {xnoPriceChangeCrypto >= 0 ? (
                   <TrendingUp className="w-4 h-4 text-accent" />
@@ -211,7 +210,7 @@ export function MarketOverview() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="md:col-span-2">
         <CardContent className="p-6">
           <p className="text-sm text-muted-foreground mb-1">XNO Dominance</p>
           <p className="text-2xl font-bold font-mono">{xnoDominance.toFixed(4)}%</p>
