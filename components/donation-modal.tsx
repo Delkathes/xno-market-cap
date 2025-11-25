@@ -289,12 +289,27 @@ export function DonationModal({
               {/* Goal Explanation */}
               <Card>
                 <CardContent className="p-4 text-sm space-y-2">
-                  <p className="font-medium text-foreground">What happens when we reach 2,500 XNO?</p>
+                  <p className="font-medium text-foreground">
+                    What happens when we reach {donationGoal.toLocaleString()} XNO?
+                  </p>
                   <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
                     <li>Full source code released on GitHub</li>
                     <li>One-click free Deploy button for Vercel</li>
                     <li>Everyone can host their own XNO Market, for free</li>
                     <li>Community-driven development</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Fund Usage Explanation */}
+              <Card>
+                <CardContent className="p-4 text-sm space-y-2">
+                  <p className="font-medium text-foreground">How will the funds be used?</p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                    <li>Hosting and infrastructure costs for this website</li>
+                    <li>Refund the LLM code generation spendings</li>
+                    <li>Supporting the developer (rent and living expenses)</li>
+                    <li>Building more XNO-related websites and tools</li>
                   </ul>
                 </CardContent>
               </Card>

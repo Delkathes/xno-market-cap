@@ -155,7 +155,7 @@ export function MarketOverview() {
       <Card className="group relative md:col-span-4">
         <CurrencySettingsPopover cryptoList={data} />
         <CardContent className="p-6">
-          <p className="text-sm text-muted-foreground mb-1">XNO Price (24h %)</p>
+          <p className="text-sm text-muted-foreground mb-1">XNO Price</p>
           {xno && selectedCrypto && (
             <div className="grid grid-cols-3 gap-x-4 gap-y-1">
               {/* Row 1: Prices */}
