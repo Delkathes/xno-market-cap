@@ -12,17 +12,16 @@ export function AboutModal({ open, onOpenChange }: AboutModalProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>About XNO Market</DialogTitle>
+          <DialogTitle>About NanoMarketCap</DialogTitle>
           <DialogDescription className="sr-only">Information about the XNO Market website</DialogDescription>
         </DialogHeader>
         <div className="space-y-4 text-sm text-muted-foreground">
           <p>
-            <strong className="text-foreground">XNO Market</strong> is a cryptocurrency market cap tracker that puts{" "}
+            <strong className="text-foreground">NanoMarketCap</strong> is a cryptocurrency market cap tracker that puts{" "}
             <strong className="text-primary">Nano (XNO)</strong> at the center of everything.
           </p>
           <p>
-            Unlike traditional trackers that use USD as the base currency, we flip the perspective: all prices, market
-            caps, and dominance metrics are calculated relative to XNO.
+            Unlike traditional trackers that use fiat as a base currency, we flip the perspective: all prices, market caps, and dominance metrics are calculated relative to XNO.
           </p>
           <div className="space-y-2">
             <p className="font-medium text-foreground">Key Features:</p>
@@ -34,7 +33,7 @@ export function AboutModal({ open, onOpenChange }: AboutModalProps) {
             </ul>
           </div>
           <p className="text-xs border-t border-border pt-4 mt-4">
-            This project is a community initiative. Data is provided by CoinGecko API.
+            Data is provided by CoinGecko API.
           </p>
         </div>
       </DialogContent>
