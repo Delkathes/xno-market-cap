@@ -1,30 +1,34 @@
-# Test
+# XNO Market Cap
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A cryptocurrency market tracker that displays all market data relative to XNO (Nano) instead of USD. See the world through XNO-colored glasses.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/delkathes-projects/v0-market-cap)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/shUOmLmzve7)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDelkathes%2Fxno-market-cap&env=COINGECKO_API_KEY,NEXT_PUBLIC_DONATION_WALLET,NEXT_PUBLIC_APP_URL&envDescription=API%20keys%20and%20configuration%20for%20XNO%20Market%20Cap&envLink=https%3A%2F%2Fgithub.com%2FDelkathes%2Fxno-market-cap%23environment-variables)
 
-## Overview
+## Features
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+- **XNO-Centric View**: All prices and market caps displayed in XNO
+- **Market Overview**: Total market cap, XNO price, and dominance metrics
+- **Speculation Tool**: See XNO's potential price at different market cap levels
+- **Multi-Currency Support**: Toggle between USD, EUR, GBP, JPY, CHF, CAD, AUD
+- **Real-Time Updates**: Live data from CoinGecko with 60-second refresh
+- **Donation System**: Built-in XNO donation flow with WebSocket payment monitoring
 
-## Deployment
+## Environment Variables
 
-Your project is live at:
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `COINGECKO_API_KEY` | Yes | Your CoinGecko API key (free tier available) |
+| `NEXT_PUBLIC_DONATION_WALLET` | No | XNO wallet address for donations |
+| `NEXT_PUBLIC_APP_URL` | No | Your app URL (for API origin validation) |
 
-**[https://vercel.com/delkathes-projects/v0-market-cap](https://vercel.com/delkathes-projects/v0-market-cap)**
+## Tech Stack
 
-## Build your app
+- Next.js 15 + React 19
+- TailwindCSS + shadcn/ui
+- Tanstack Query for data fetching
+- Jotai for state management
+- Valibot for validation
 
-Continue building your app on:
+## License
 
-**[https://v0.app/chat/shUOmLmzve7](https://v0.app/chat/shUOmLmzve7)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+MIT
