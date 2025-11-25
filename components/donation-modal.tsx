@@ -1,0 +1,335 @@
+"use client"
+
+import { useState, useEffect, useCallback, useRef } from "react"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Progress } from "@/components/ui/progress"
+import { Card, CardContent } from "@/components/ui/card"
+import { Check, Copy, ExternalLink, Loader2 } from "lucide-react"
+import { QRCodeSVG } from "qrcode.react"
+
+interface DonationModalProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  currentDonations: number
+  donationGoal: number
+  onDonationReceived?: () => void
+}
+
+const DONATION_WALLET = process.env.NEXT_PUBLIC_DONATION_WALLET || ""
+const FIXED_AMOUNTS = [1, 5, 10, 25, 50]
+
+const WS_ENDPOINTS = ["wss://ws.nano.to"]
+
+function xnoToRaw(xno: number): string {
+  // Use BigInt for precision with large numbers
+  const rawPerXno = BigInt("1000000000000000000000000000000") // 10^30
+  const wholePart = BigInt(Math.floor(xno))
+  const decimalPart = xno - Math.floor(xno)
+
+  // Calculate raw for whole part
+  const wholeRaw = wholePart * rawPerXno
+
+  // Calculate raw for decimal part (up to 6 decimal places for precision)
+  const decimalMultiplier = BigInt(Math.round(decimalPart * 1e6))
+  const decimalRaw = (decimalMultiplier * rawPerXno) / BigInt(1e6)
+
+  return (wholeRaw + decimalRaw).toString()
+}
+
+export function DonationModal({
+  open,
+  onOpenChange,
+  currentDonations,
+  donationGoal,
+  onDonationReceived,
+}: DonationModalProps) {
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
+  const [customAmount, setCustomAmount] = useState("")
+  const [copied, setCopied] = useState(false)
+  const [showQR, setShowQR] = useState(false)
+  const [wsConnected, setWsConnected] = useState(false)
+  const [paymentReceived, setPaymentReceived] = useState(false)
+  const [receivedAmount, setReceivedAmount] = useState<number | null>(null)
+  const wsRef = useRef<WebSocket | null>(null)
+  const wsEndpointIndexRef = useRef(0)
+
+  const amount = selectedAmount ?? (customAmount ? Number.parseFloat(customAmount) : 0)
+  const progress = Math.min((currentDonations / donationGoal) * 100, 100)
+
+  const rawAmount = amount > 0 ? xnoToRaw(amount) : "0"
+  const nanoUri = amount > 0 ? `nano:${DONATION_WALLET}?amount=${rawAmount}` : ""
+
+  const connectWebSocket = useCallback(() => {
+    if (!DONATION_WALLET || wsRef.current?.readyState === WebSocket.OPEN) return
+
+    const endpoint = WS_ENDPOINTS[wsEndpointIndexRef.current]
+    const ws = new WebSocket(endpoint)
+
+    ws.onopen = () => {
+      setWsConnected(true)
+      ws.send(
+        JSON.stringify({
+          action: "subscribe",
+          topic: "confirmation",
+        }),
+      )
+    }
+
+    ws.onmessage = async (event) => {
+      try {
+        // Handle Blob data
+        let text: string
+        if (event.data instanceof Blob) {
+          text = await event.data.text()
+        } else {
+          text = event.data
+        }
+
+        const data = JSON.parse(text)
+
+        // Check if this is a confirmation for our wallet
+        if (data.topic === "confirmation" && data.message) {
+          const msg = data.message
+          const block = msg.block
+
+          // For "send" subtype, link_as_account is the recipient
+          const isIncomingToWallet = block?.subtype === "send" && block?.link_as_account === DONATION_WALLET
+          // For "receive" subtype, account is the recipient
+          const isReceiveByWallet = block?.subtype === "receive" && msg.account === DONATION_WALLET
+
+          if (isIncomingToWallet || isReceiveByWallet) {
+            const amountRaw = BigInt(msg.amount || "0")
+            const receivedXno = Number(amountRaw / BigInt("1000000000000000000000000")) / 1000000
+            setReceivedAmount(receivedXno)
+            setPaymentReceived(true)
+            onDonationReceived?.()
+          }
+        }
+      } catch {
+        // Ignore parse errors
+      }
+    }
+
+    ws.onerror = () => {
+      setWsConnected(false)
+      wsEndpointIndexRef.current = (wsEndpointIndexRef.current + 1) % WS_ENDPOINTS.length
+    }
+
+    ws.onclose = () => {
+      setWsConnected(false)
+      if (open && !paymentReceived) {
+        setTimeout(connectWebSocket, 3000)
+      }
+    }
+
+    wsRef.current = ws
+  }, [open, onDonationReceived, paymentReceived])
+
+  useEffect(() => {
+    if (showQR && amount > 0 && !paymentReceived) {
+      connectWebSocket()
+    }
+
+    return () => {
+      if (wsRef.current && !paymentReceived) {
+        wsRef.current.close()
+        wsRef.current = null
+      }
+    }
+  }, [showQR, amount, connectWebSocket, paymentReceived])
+
+  const handleAmountSelect = (amt: number) => {
+    if (paymentReceived) return
+    setSelectedAmount(amt)
+    setCustomAmount("")
+    setShowQR(true)
+  }
+
+  const handleCustomAmountChange = (value: string) => {
+    if (paymentReceived) return
+    const num = Number.parseFloat(value)
+    if (value === "" || (!isNaN(num) && num >= 0)) {
+      setCustomAmount(value)
+      setSelectedAmount(null)
+      setShowQR(value !== "" && num > 0)
+    }
+  }
+
+  const copyAddress = useCallback(async () => {
+    await navigator.clipboard.writeText(DONATION_WALLET)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }, [])
+
+  useEffect(() => {
+    if (!open) {
+      setSelectedAmount(null)
+      setCustomAmount("")
+      setShowQR(false)
+      setPaymentReceived(false)
+      setReceivedAmount(null)
+      if (wsRef.current) {
+        wsRef.current.close()
+        wsRef.current = null
+      }
+    }
+  }, [open])
+
+  const handleDonateAgain = () => {
+    setPaymentReceived(false)
+    setReceivedAmount(null)
+    setSelectedAmount(null)
+    setCustomAmount("")
+    setShowQR(false)
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle>Donation Goal</DialogTitle>
+          <DialogDescription>Help us reach our goal to open source this project</DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-6">
+          {/* Progress Section */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Progress</span>
+              <span className="font-mono font-medium">
+                {currentDonations.toLocaleString(undefined, { maximumFractionDigits: 2 })} /{" "}
+                {donationGoal.toLocaleString()} XNO
+              </span>
+            </div>
+            <Progress value={progress} className="h-3" />
+            <p className="text-xs text-muted-foreground text-right">{progress.toFixed(1)}% complete</p>
+          </div>
+
+          {paymentReceived ? (
+            <div className="space-y-4 py-4">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <Check className="w-10 h-10 text-green-500" />
+                </div>
+                <p className="text-xl font-medium text-green-500">Payment Received!</p>
+                {receivedAmount && <p className="text-lg font-mono text-foreground">{receivedAmount.toFixed(6)} XNO</p>}
+                <p className="text-sm text-muted-foreground text-center">
+                  Thank you for your generous donation. You're helping make XNO Market open source!
+                </p>
+              </div>
+
+              <div className="flex gap-2 pt-2">
+                <Button variant="outline" className="flex-1 bg-transparent" onClick={handleDonateAgain}>
+                  Donate Again
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex-1 bg-transparent"
+                  onClick={() => window.open(`https://blocklattice.io/account/${DONATION_WALLET}`, "_blank")}
+                >
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  View Wallet
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Goal Explanation */}
+              <Card>
+                <CardContent className="p-4 text-sm space-y-2">
+                  <p className="font-medium text-foreground">What happens when we reach 2,500 XNO?</p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                    <li>Full source code released on GitHub</li>
+                    <li>One-click free Deploy button for Vercel</li>
+                    <li>Everyone can host their own XNO Market, for free</li>
+                    <li>Community-driven development</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Amount Selection */}
+              <div className="space-y-3">
+                <p className="text-sm font-medium">Select donation amount (XNO)</p>
+                <div className="flex flex-wrap gap-2">
+                  {FIXED_AMOUNTS.map((amt) => (
+                    <Button
+                      key={amt}
+                      variant={selectedAmount === amt ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleAmountSelect(amt)}
+                      className="font-mono"
+                    >
+                      {amt} XNO
+                    </Button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    placeholder="Custom amount"
+                    value={customAmount}
+                    onChange={(e) => handleCustomAmountChange(e.target.value)}
+                    className="font-mono"
+                    min="0"
+                    step="0.01"
+                  />
+                  <span className="text-sm text-muted-foreground">XNO</span>
+                </div>
+              </div>
+
+              {/* QR Code Section */}
+              {showQR && amount > 0 && (
+                <div className="space-y-4 pt-2 border-t border-border">
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="bg-white p-4 rounded-lg">
+                      <QRCodeSVG value={nanoUri} size={180} level="M" includeMargin={false} />
+                    </div>
+                    <p className="text-sm text-muted-foreground text-center">
+                      Scan with your Nano wallet to send{" "}
+                      <span className="font-mono font-medium text-primary">{amount} XNO</span>
+                    </p>
+                    <div className="flex items-center gap-2 text-xs">
+                      {wsConnected ? (
+                        <>
+                          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                          <span className="text-muted-foreground">Listening for payment...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
+                          <span className="text-muted-foreground">Connecting...</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Wallet Address */}
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">Donation wallet address:</p>
+                    <div className="flex items-center gap-2">
+                      <code className="flex-1 text-xs bg-muted p-2 rounded font-mono break-all">{DONATION_WALLET}</code>
+                      <Button variant="outline" size="icon" onClick={copyAddress} className="shrink-0 bg-transparent">
+                        {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    className="w-full bg-transparent"
+                    onClick={() => window.open(`https://blocklattice.io/account/${DONATION_WALLET}`, "_blank")}
+                  >
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    View on Blocklattice
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}

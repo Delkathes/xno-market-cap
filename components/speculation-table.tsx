@@ -167,7 +167,8 @@ export function SpeculationTable() {
                               : "bg-muted text-muted-foreground",
                         )}
                       >
-                        {multiplier >= 1000 ? `${(multiplier / 1000).toFixed(1)}K×` : `${multiplier.toFixed(1)}×`}
+                        {/* multiplier >= 1000 ? `${(multiplier / 1000).toFixed(1)}K×` : `${multiplier.toFixed(1)}×`*/}
+                        {`${multiplier.toFixed(1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}×`}
                       </span>
                     </td>
                   </tr>

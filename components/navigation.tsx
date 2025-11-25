@@ -1,15 +1,19 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { TrendingUp, Moon, Sun } from "lucide-react"
+import { TrendingUp, Moon, Sun, HelpCircle } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import { AboutModal } from "@/components/about-modal"
+import { DonationButton } from "@/components/donation-button"
 
 export function Navigation() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
+  const [aboutOpen, setAboutOpen] = useState(false)
 
   return (
     <header className="border-b border-border bg-card">
@@ -24,17 +28,22 @@ export function Navigation() {
             </Link>
           </div>
 
+          <div className="hidden md:flex items-center">
+            <DonationButton />
+          </div>
+
           <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="mr-2"
-            >
+            <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
               <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
+
+            <Button variant="ghost" size="icon" onClick={() => setAboutOpen(true)} className="mr-2">
+              <HelpCircle className="h-[1.2rem] w-[1.2rem]" />
+              <span className="sr-only">About this website</span>
+            </Button>
+
             <Link
               href="/"
               className={cn(
@@ -71,6 +80,8 @@ export function Navigation() {
           </div>
         </nav>
       </div>
+
+      <AboutModal open={aboutOpen} onOpenChange={setAboutOpen} />
     </header>
   )
 }
