@@ -5,11 +5,19 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useQueryClient } from "@tanstack/react-query"
 import { cn } from "@/lib/utils"
-import { TrendingUp, Moon, Sun, HelpCircle, RefreshCw } from "lucide-react"
+import { TrendingUp, Moon, Sun, HelpCircle, RefreshCw, ArrowRightLeft, Wallet } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { AboutModal } from "@/components/about-modal"
 import { DonationButton } from "@/components/donation-button"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
 
 const REFRESH_COOLDOWN = 60 // seconds
 
@@ -97,6 +105,62 @@ export function Navigation() {
             >
               Market Cap
             </Link>
+
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={cn(
+                      "px-4 py-2 rounded-md text-sm font-medium transition-colors bg-transparent",
+                      pathname.startsWith("/swap-nano") || pathname.startsWith("/get-nano")
+                        ? "bg-secondary text-secondary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
+                    )}
+                  >
+                    Nano
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[300px] gap-2 p-4">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/swap-nano"
+                            className={cn(
+                              "flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              pathname === "/swap-nano" && "bg-accent",
+                            )}
+                          >
+                            <ArrowRightLeft className="h-5 w-5 text-primary" />
+                            <div>
+                              <div className="text-sm font-medium">Swap to Nano</div>
+                              <p className="text-xs text-muted-foreground">Convert BTC, ETH or other crypto to XNO</p>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/get-nano"
+                            className={cn(
+                              "flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                              pathname === "/get-nano" && "bg-accent",
+                            )}
+                          >
+                            <Wallet className="h-5 w-5 text-primary" />
+                            <div>
+                              <div className="text-sm font-medium">Get Nano</div>
+                              <p className="text-xs text-muted-foreground">Choose a wallet and acquire XNO</p>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
             <Link
               href="/dominance"
               className={cn(

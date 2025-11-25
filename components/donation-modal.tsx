@@ -22,6 +22,7 @@ interface DonationModalProps {
   currentDonations: number
   donationGoal: number
   onDonationReceived?: () => void
+  goalMode: boolean
 }
 
 const DONATION_WALLET = process.env.NEXT_PUBLIC_DONATION_WALLET || ""
@@ -39,6 +40,7 @@ export function DonationModal({
   currentDonations,
   donationGoal,
   onDonationReceived,
+  goalMode,
 }: DonationModalProps) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
   const [customAmount, setCustomAmount] = useState("")
@@ -91,7 +93,6 @@ export function DonationModal({
 
     ws.onmessage = async (event) => {
       try {
-        // Handle Blob data
         let text: string
         if (event.data instanceof Blob) {
           text = await event.data.text()
@@ -110,9 +111,7 @@ export function DonationModal({
         const msg = validData.message
         const block = msg.block
 
-        // For "send" subtype, link_as_account is the recipient
         const isIncomingToWallet = block.subtype === "send" && block.link_as_account === DONATION_WALLET
-        // For "receive" subtype, account is the recipient
         const isReceiveByWallet = block.subtype === "receive" && msg.account === DONATION_WALLET
 
         if (isIncomingToWallet || isReceiveByWallet) {
@@ -239,23 +238,28 @@ export function DonationModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Donation Goal</DialogTitle>
-          <DialogDescription>Help us reach our goal to open source this project</DialogDescription>
+          <DialogTitle>{goalMode ? "Donation Goal" : "Support XNO Market"}</DialogTitle>
+          <DialogDescription>
+            {goalMode
+              ? "Help us reach our goal to open source this project"
+              : "Your donation helps keep this project running"}
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Progress Section */}
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Progress</span>
-              <span className="font-mono font-medium">
-                {currentDonations.toLocaleString(undefined, { maximumFractionDigits: 2 })} /{" "}
-                {donationGoal.toLocaleString()} XNO
-              </span>
+          {goalMode && (
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Progress</span>
+                <span className="font-mono font-medium">
+                  {currentDonations.toLocaleString(undefined, { maximumFractionDigits: 2 })} /{" "}
+                  {donationGoal.toLocaleString()} XNO
+                </span>
+              </div>
+              <Progress value={progress} className="h-3" />
+              <p className="text-xs text-muted-foreground text-right">{progress.toFixed(1)}% complete</p>
             </div>
-            <Progress value={progress} className="h-3" />
-            <p className="text-xs text-muted-foreground text-right">{progress.toFixed(1)}% complete</p>
-          </div>
+          )}
 
           {paymentReceived ? (
             <div className="space-y-4 py-4">
@@ -266,7 +270,9 @@ export function DonationModal({
                 <p className="text-xl font-medium text-green-500">Payment Received!</p>
                 {receivedAmount && <p className="text-lg font-mono text-foreground">{receivedAmount.toFixed(6)} XNO</p>}
                 <p className="text-sm text-muted-foreground text-center">
-                  Thank you for your generous donation. You're helping make XNO Market open source!
+                  {goalMode
+                    ? "Thank you for your generous donation. You're helping make XNO Market open source!"
+                    : "Thank you for your generous donation. Your support keeps this project running!"}
                 </p>
               </div>
 
@@ -286,33 +292,49 @@ export function DonationModal({
             </div>
           ) : (
             <>
-              {/* Goal Explanation */}
-              <Card>
-                <CardContent className="p-4 text-sm space-y-2">
-                  <p className="font-medium text-foreground">
-                    What happens when we reach {donationGoal.toLocaleString()} XNO?
-                  </p>
-                  <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-                    <li>Full source code released on GitHub</li>
-                    <li>One-click free Deploy button for Vercel</li>
-                    <li>Everyone can host their own XNO Market, for free</li>
-                    <li>Community-driven development</li>
-                  </ul>
-                </CardContent>
-              </Card>
+              {goalMode ? (
+                <>
+                  {/* Goal Explanation - Only in goal mode */}
+                  <Card>
+                    <CardContent className="p-4 text-sm space-y-2">
+                      <p className="font-medium text-foreground">
+                        What happens when we reach {donationGoal.toLocaleString()} XNO?
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                        <li>Full source code released on GitHub</li>
+                        <li>One-click free Deploy button for Vercel</li>
+                        <li>Everyone can host their own XNO Market, for free</li>
+                        <li>Community-driven development</li>
+                      </ul>
+                    </CardContent>
+                  </Card>
 
-              {/* Fund Usage Explanation */}
-              <Card>
-                <CardContent className="p-4 text-sm space-y-2">
-                  <p className="font-medium text-foreground">How will the funds be used?</p>
-                  <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-                    <li>Hosting and infrastructure costs for this website</li>
-                    <li>Refund the LLM code generation spendings</li>
-                    <li>Supporting the developer (rent and living expenses)</li>
-                    <li>Building more XNO-related websites and tools</li>
-                  </ul>
-                </CardContent>
-              </Card>
+                  {/* Fund Usage Explanation */}
+                  <Card>
+                    <CardContent className="p-4 text-sm space-y-2">
+                      <p className="font-medium text-foreground">How will the funds be used?</p>
+                      <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                        <li>Hosting and infrastructure costs for this website</li>
+                        <li>Refund the LLM code generation spendings</li>
+                        <li>Supporting the developer (rent and living expenses)</li>
+                        <li>Building more XNO-related websites and tools</li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </>
+              ) : (
+                /* Regular donation mode - Just fund usage */
+                <Card>
+                  <CardContent className="p-4 text-sm space-y-2">
+                    <p className="font-medium text-foreground">How will your donation be used?</p>
+                    <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                      <li>Hosting and infrastructure costs for this website</li>
+                      <li>Supporting the developer (rent and living expenses)</li>
+                      <li>Building more XNO-related websites and tools</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Amount Selection */}
               <div className="space-y-3">

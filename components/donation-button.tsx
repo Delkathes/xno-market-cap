@@ -7,18 +7,38 @@ import { Heart } from "lucide-react"
 import { DonationModal } from "./donation-modal"
 import { validateNanoBalanceResponse } from "@/lib/validation"
 import { fetchWithTimeout } from "@/lib/fetch-with-timeout"
-import { DONATION_GOAL_XNO } from "@/lib/constants"
+import { DONATION_GOAL_XNO, DONATION_GOAL_REACHED, ALLOWED_GOAL_ORIGINS } from "@/lib/constants"
 
 const DONATION_WALLET = process.env.NEXT_PUBLIC_DONATION_WALLET || ""
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ""
 const BALANCE_POLL_INTERVAL_MS = 60000
 const REQUEST_TIMEOUT_MS = 10000
+
+function isAllowedOrigin(): boolean {
+  if (typeof window === "undefined") return false
+
+  const origin = window.location.origin
+
+  // Check if matches APP_URL
+  if (APP_URL && origin === APP_URL) return true
+
+  // Check against allowed patterns (Vercel, Netlify, localhost)
+  return ALLOWED_GOAL_ORIGINS.some((pattern) => pattern.test(origin))
+}
 
 export function DonationButton() {
   const [open, setOpen] = useState(false)
   const [currentDonations, setCurrentDonations] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+  const [showGoalMode, setShowGoalMode] = useState(false)
 
   const progress = Math.min((currentDonations / DONATION_GOAL_XNO) * 100, 100)
+
+  useEffect(() => {
+    const allowed = isAllowedOrigin()
+    const goalMode = allowed && !DONATION_GOAL_REACHED
+    setShowGoalMode(goalMode)
+  }, [])
 
   const fetchBalance = useCallback(async () => {
     if (!DONATION_WALLET) {
@@ -68,6 +88,31 @@ export function DonationButton() {
     return null
   }
 
+  if (!showGoalMode) {
+    return (
+      <>
+        <Button
+          variant="outline"
+          className="flex items-center gap-2 h-9 px-3 bg-transparent"
+          onClick={() => setOpen(true)}
+        >
+          <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+          <span className="text-xs font-medium">Support Us</span>
+        </Button>
+
+        <DonationModal
+          open={open}
+          onOpenChange={setOpen}
+          currentDonations={currentDonations}
+          donationGoal={DONATION_GOAL_XNO}
+          onDonationReceived={fetchBalance}
+          goalMode={false}
+        />
+      </>
+    )
+  }
+
+  // Goal mode button with progress
   return (
     <>
       <Button
@@ -93,6 +138,7 @@ export function DonationButton() {
         currentDonations={currentDonations}
         donationGoal={DONATION_GOAL_XNO}
         onDonationReceived={fetchBalance}
+        goalMode={true}
       />
     </>
   )
