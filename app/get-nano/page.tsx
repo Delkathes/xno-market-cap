@@ -1,8 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Smartphone, Monitor, Shield, Building2, ArrowRightLeft, Droplets, ExternalLink, Info } from "lucide-react"
 import Link from "next/link"
+import { Smartphone, Monitor, Shield, Building2, ArrowRightLeft, Droplets, ExternalLink, Info } from "lucide-react"
+
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 
 export const dynamic = "force-static"
 
@@ -13,13 +14,13 @@ export const metadata = {
 
 export default function GetNanoPage() {
   return (
-    <main className="container mx-auto px-4 py-12">
+    <main className="container mx-auto px-4 py-16">
       {/* Hero Section */}
-      <div className="text-center mb-16">
-        <Badge variant="outline" className="mb-4">
+      <div className="text-center mb-28">
+        <Badge variant="outline" className="mb-6">
           Get Started
         </Badge>
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance">Get Nano & choose a wallet</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Get Nano & choose a wallet</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
           You need a Nano wallet to receive or send payments.
         </p>
@@ -39,7 +40,7 @@ export default function GetNanoPage() {
       </div>
 
       {/* Steps Grid */}
-      <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto mb-16">
+      <div className="grid md:grid-cols-2 gap-36 max-w-5xl mx-auto mb-16">
         {/* Step 1: Choose a wallet */}
         <div>
           <Badge className="mb-4">Step 1</Badge>
@@ -182,7 +183,7 @@ export default function GetNanoPage() {
               <div>
                 <h3 className="font-semibold mb-1">Swap Services</h3>
                 <p className="text-sm text-muted-foreground">
-                  Convert other crypto to Nano using Nanswap, ChangeNOW, or SimpleSwap.
+                  Convert altcoins to Nano using Nanswap, ChangeNOW, or SimpleSwap.
                 </p>
               </div>
             </div>

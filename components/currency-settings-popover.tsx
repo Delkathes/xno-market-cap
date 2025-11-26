@@ -2,10 +2,7 @@
 
 import { useAtom } from "jotai"
 import { Settings } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
+
 import {
   primaryFiatAtom,
   secondaryFiatAtom,
@@ -14,6 +11,10 @@ import {
   type FiatCurrency,
 } from "@/lib/currency-atoms"
 import type { CryptoData } from "@/lib/types"
+import { Button } from "@/components/ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Label } from "@/components/ui/label"
 
 interface CurrencySettingsPopoverProps {
   cryptoList?: CryptoData[]

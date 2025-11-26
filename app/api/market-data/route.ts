@@ -3,7 +3,7 @@ import { getMarketData } from "@/lib/market-data-service"
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/rate-limiter"
 import { getSecurityHeaders } from "@/lib/security-headers"
 
-export const runtime = "edge"
+
 export const revalidate = 60
 
 function getClientIP(request: NextRequest): string {

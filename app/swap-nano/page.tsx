@@ -1,16 +1,17 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { ArrowDown, Info, ExternalLink } from "lucide-react"
+import { ArrowDown, Info } from "lucide-react"
 import Link from "next/link"
+
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 
 export const dynamic = "force-static"
 
 export const metadata = {
   title: "Swap to Nano | NanoMarketCap",
-  description: "Convert BTC, ETH, or other assets to Nano (XNO) instantly using swap services.",
+  description: "Convert altcoins to Nano (XNO) instantly using swap services.",
 }
 
 export default function SwapNanoPage() {
@@ -23,7 +24,7 @@ export default function SwapNanoPage() {
         </Badge>
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance">Swap to Nano instantly</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
-          Convert BTC, ETH, or other assets to Nano using a compatible swap provider.
+          Convert altcoins to Nano using a compatible swap provider.
         </p>
         <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
           Nano transactions confirm in under a second, so you can use your funds immediately after swapping.
@@ -46,12 +47,7 @@ export default function SwapNanoPage() {
         <Card className="max-w-md mx-auto">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <span className="font-medium">Swap</span>
-              <Button variant="outline" size="sm" asChild>
-                <a href="https://nanswap.com" target="_blank" rel="noopener noreferrer">
-                  Buy/Sell <ExternalLink className="w-3 h-3 ml-1" />
-                </a>
-              </Button>
+              <span className="font-medium">Swap coins</span>
             </div>
 
             {/* From Currency */}

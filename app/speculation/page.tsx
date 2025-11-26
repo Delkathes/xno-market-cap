@@ -1,7 +1,8 @@
-import { SpeculationTable } from "@/components/speculation-table"
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+
 import { getMarketData } from "@/lib/market-data-service"
 import getQueryClient from "@/lib/get-query-client"
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+import { SpeculationTable } from "@/components/speculation-table"
 
 export const dynamic = "force-static"
 export const revalidate = 60

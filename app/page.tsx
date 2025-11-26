@@ -1,8 +1,9 @@
-import { MarketCapTable } from "@/components/market-cap-table"
-import { MarketOverview } from "@/components/market-overview"
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+
 import { getMarketData } from "@/lib/market-data-service"
 import getQueryClient from "@/lib/get-query-client"
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+import { MarketCapTable } from "@/components/market-cap-table"
+import { MarketOverview } from "@/components/market-overview"
 
 export const dynamic = "force-static"
 export const revalidate = 60

@@ -13,7 +13,7 @@ export function AboutModal({ open, onOpenChange }: AboutModalProps) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>About NanoMarketCap</DialogTitle>
-          <DialogDescription className="sr-only">Information about the XNO Market website</DialogDescription>
+          <DialogDescription className="sr-only">Information about the NanoMarketCap website</DialogDescription>
         </DialogHeader>
         <div className="space-y-4 text-sm text-muted-foreground">
           <p>

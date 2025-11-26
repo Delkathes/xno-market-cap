@@ -1,4 +1,4 @@
-# XNO Market Cap
+# NanoMarketCap
 
 A cryptocurrency market tracker that displays all market data relative to XNO (Nano) instead of USD. See the world through XNO-colored glasses.
 

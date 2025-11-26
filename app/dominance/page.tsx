@@ -1,8 +1,9 @@
-import { DominanceChart } from "@/components/dominance-chart"
-import { DominanceTable } from "@/components/dominance-table"
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+
 import { getMarketData } from "@/lib/market-data-service"
 import getQueryClient from "@/lib/get-query-client"
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+import { DominanceChart } from "@/components/dominance-chart"
+import { DominanceTable } from "@/components/dominance-table"
 
 export const dynamic = "force-static"
 export const revalidate = 60

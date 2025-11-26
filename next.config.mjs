@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
+  reactStrictMode: true,
+  typedRoutes: true,
+
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -15,6 +19,44 @@ const nextConfig = {
         hostname: "coin-images.coingecko.com",
         pathname: "/coins/images/**",
       },
+    ],
+  },
+
+  reactCompiler: true,
+
+  experimental: {
+    cssChunking: true,
+    // useLightningcss: true,
+    // inlineCss: true,
+
+    viewTransition: true,
+
+    caseSensitiveRoutes: true,
+
+    serverMinification: true,
+
+    // serverComponentsHmrCache: true,
+
+    optimisticClientCache: true,
+    // optimizeCss: true,
+
+    typedEnv: true,
+
+    // turbopackTreeShaking: true,
+    // serverActions: true,
+    useCache: true,
+    // cacheComponents: true,
+
+    optimizePackageImports: [
+      'react-hook-form',
+      '@hookform/resolvers',
+      'valibot',
+
+      '@radix-ui/*',
+      'tailwind-merge',
+      'geist',
+
+      '@tanstack/react-query',
     ],
   },
 }

@@ -1,12 +1,10 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { useMarketData } from "@/hooks/use-market-data"
-import { TrendingUp, TrendingDown } from "lucide-react"
 import { useState } from "react"
-import { Skeleton } from "@/components/ui/skeleton"
-import { XNO_CIRCULATING_SUPPLY } from "@/lib/constants"
 import { useAtom } from "jotai"
+import { TrendingUp, TrendingDown } from "lucide-react"
+
+import { XNO_CIRCULATING_SUPPLY } from "@/lib/constants"
 import {
   primaryFiatAtom,
   secondaryFiatAtom,
@@ -14,6 +12,9 @@ import {
   FIAT_CURRENCY_CONFIG,
   type FiatCurrency,
 } from "@/lib/currency-atoms"
+import { useMarketData } from "@/hooks/use-market-data"
+import { Card, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { CurrencySettingsPopover } from "@/components/currency-settings-popover"
 
 export function MarketOverview() {
@@ -155,7 +156,7 @@ export function MarketOverview() {
       <Card className="group relative md:col-span-4">
         <CurrencySettingsPopover cryptoList={data} />
         <CardContent className="p-6">
-          <p className="text-sm text-muted-foreground mb-1">XNO Price</p>
+          <p className="text-sm text-muted-foreground mb-1">XNO Price • 24h %</p>
           {xno && selectedCrypto && (
             <div className="grid grid-cols-3 gap-x-4 gap-y-1">
               {/* Row 1: Prices */}

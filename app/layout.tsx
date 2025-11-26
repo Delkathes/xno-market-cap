@@ -1,17 +1,17 @@
-import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+
 import { Providers } from "@/components/providers"
 import { Navigation } from "@/components/navigation"
+
+import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 const _spaceGrotesk = Space_Grotesk({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "XNO Market Cap Tracker",
+  title: "NanoMarketCap",
   description: "Track cryptocurrency market caps with XNO comparisons",
   generator: "v0.app",
   icons: {
@@ -47,7 +47,6 @@ export default function RootLayout({
             {children}
           </div>
         </Providers>
-        <Analytics />
       </body>
     </html>
   )

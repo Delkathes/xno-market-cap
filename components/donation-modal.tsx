@@ -1,15 +1,16 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
+import dynamic from "next/dynamic"
+import { Check, Copy, ExternalLink, Loader2 } from "lucide-react"
+
+import { validateDonationAmount, validateWebSocketConfirmation } from "@/lib/validation"
+import { xnoToRaw, rawToXno } from "@/lib/nano-utils"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Progress } from "@/components/ui/progress"
 import { Card, CardContent } from "@/components/ui/card"
-import { Check, Copy, ExternalLink, Loader2 } from "lucide-react"
-import dynamic from "next/dynamic"
-import { validateDonationAmount, validateWebSocketConfirmation } from "@/lib/validation"
-import { xnoToRaw, rawToXno } from "@/lib/nano-utils"
 
 const QRCodeSVG = dynamic(() => import("qrcode.react").then((mod) => mod.QRCodeSVG), {
   loading: () => <div className="w-[180px] h-[180px] animate-pulse bg-muted rounded" />,
@@ -238,7 +239,7 @@ export function DonationModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{goalMode ? "Donation Goal" : "Support XNO Market"}</DialogTitle>
+          <DialogTitle>{goalMode ? "Donation Goal" : "Support NanoMarketCap"}</DialogTitle>
           <DialogDescription>
             {goalMode
               ? "Help us reach our goal to open source this project"
@@ -271,7 +272,7 @@ export function DonationModal({
                 {receivedAmount && <p className="text-lg font-mono text-foreground">{receivedAmount.toFixed(6)} XNO</p>}
                 <p className="text-sm text-muted-foreground text-center">
                   {goalMode
-                    ? "Thank you for your generous donation. You're helping make XNO Market open source!"
+                    ? "Thank you for your generous donation. You're helping make NanoMarketCap open source!"
                     : "Thank you for your generous donation. Your support keeps this project running!"}
                 </p>
               </div>
@@ -303,7 +304,7 @@ export function DonationModal({
                       <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
                         <li>Full source code released on GitHub</li>
                         <li>One-click free Deploy button for Vercel</li>
-                        <li>Everyone can host their own XNO Market, for free</li>
+                        <li>Everyone can host their own NanoMarketCap, for free</li>
                         <li>Community-driven development</li>
                       </ul>
                     </CardContent>
@@ -315,7 +316,7 @@ export function DonationModal({
                       <p className="font-medium text-foreground">How will the funds be used?</p>
                       <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
                         <li>Hosting and infrastructure costs for this website</li>
-                        <li>Refund the LLM code generation spendings</li>
+                        <li>Refund LLM code generation costs</li>
                         <li>Supporting the developer (rent and living expenses)</li>
                         <li>Building more XNO-related websites and tools</li>
                       </ul>

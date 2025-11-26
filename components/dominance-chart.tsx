@@ -1,16 +1,17 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { useMarketData } from "@/hooks/use-market-data"
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts"
+import type { PieLabelRenderProps } from "recharts"
 
-const COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-]
+import { useMarketData } from "@/hooks/use-market-data"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+
+const SLICE_COLORS: Record<string, string> = {
+  XNO: "#209CE9",
+  BTC: "#F7931A",
+  ETH: "#9357F4",
+  Others: "#333333",
+}
 
 export function DominanceChart() {
   const { data, isLoading } = useMarketData()
@@ -70,6 +71,8 @@ export function DominanceChart() {
 
   const xnoDominance = ((xnoMarketCapXNO / totalMarketCapXNO) * 100).toFixed(4)
 
+  
+
   return (
     <Card>
       <CardHeader>
@@ -84,13 +87,40 @@ export function DominanceChart() {
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ name, percentage }) => `${name} ${percentage}%`}
+              label={(props: PieLabelRenderProps) => {
+                  const { x, y, textAnchor, payload, percent } = props
+
+                  if (x === undefined || y === undefined || !payload) {
+                    return null
+                  }
+
+                  const name = String(payload.name ?? "")
+                  const percentage =
+                    typeof payload.percentage === "string"
+                      ? payload.percentage
+                      : percent !== undefined
+                        ? (percent * 100).toFixed(2)
+                        : "0.00"
+
+                  return (
+                    <text
+                      x={x}
+                      y={y}
+                      fill="var(--foreground)"
+                      textAnchor={textAnchor ?? "middle"}
+                      dominantBaseline="central"
+                      className="text-xs font-medium"
+                    >
+                      {`${name} ${percentage}%`}
+                    </text>
+                  )
+                }}
               outerRadius={120}
               fill="#8884d8"
               dataKey="value"
             >
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell key={`cell-${index}`} fill={SLICE_COLORS[entry.name] ?? "hsl(var(--chart-1))"} />
               ))}
             </Pie>
             <Tooltip

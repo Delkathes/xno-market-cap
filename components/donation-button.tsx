@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { Heart } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Heart } from "lucide-react"
-import { DonationModal } from "./donation-modal"
 import { validateNanoBalanceResponse } from "@/lib/validation"
 import { fetchWithTimeout } from "@/lib/fetch-with-timeout"
 import { DONATION_GOAL_XNO, DONATION_GOAL_REACHED, ALLOWED_GOAL_ORIGINS } from "@/lib/constants"
+
+import { DonationModal } from "./donation-modal"
 
 const DONATION_WALLET = process.env.NEXT_PUBLIC_DONATION_WALLET || ""
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ""
@@ -117,7 +119,7 @@ export function DonationButton() {
     <>
       <Button
         variant="outline"
-        className="flex items-center gap-2 h-9 px-3 bg-transparent"
+        className="flex items-center gap-2 h-9 px-3 bg-transparent cursor-pointer"
         onClick={() => setOpen(true)}
       >
         <Heart className="h-4 w-4 text-red-500 fill-red-500" />

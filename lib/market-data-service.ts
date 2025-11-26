@@ -1,9 +1,8 @@
 import * as v from "valibot"
+
 import { CryptoDataArraySchema, ExchangeRatesSchema } from "./validation"
 import { fetchWithTimeout } from "./fetch-with-timeout"
 import type { CryptoData, MarketDataResponse } from "./types"
-
-export type { MarketDataResponse }
 
 const MOCK_DATA: CryptoData[] = [
   {

@@ -1,12 +1,14 @@
 "use client"
 
 import { memo } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useMarketData } from "@/hooks/use-market-data"
-import { TrendingUp, TrendingDown } from "lucide-react"
-import { cn } from "@/lib/utils"
 import Image from "next/image"
-import type { CryptoData } from "@/lib/market-data-service"
+import { TrendingUp, TrendingDown } from "lucide-react"
+
+import { useMarketData } from "@/hooks/use-market-data"
+import { cn } from "@/lib/utils"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+import type { CryptoData } from "../lib/types"
 
 interface CryptoRowProps {
   crypto: CryptoData
@@ -130,7 +132,7 @@ export function MarketCapTable() {
                 const valueInXNO = xno ? crypto.current_price / xno.current_price : 0
                 const marketCapInXNO = xno ? crypto.market_cap / xno.current_price : 0
                 const xno24hChange = xno?.price_change_percentage_24h || 0
-                const relativeChange = crypto.price_change_percentage_24h - xno24hChange
+                const relativeChange = crypto.price_change_percentage_24h ?? 0 - xno24hChange
 
                 return (
                   <CryptoRow

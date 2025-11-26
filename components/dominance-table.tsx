@@ -1,11 +1,12 @@
 "use client"
 
 import { memo } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useMarketData } from "@/hooks/use-market-data"
-import { cn } from "@/lib/utils"
 import Image from "next/image"
-import type { CryptoData } from "@/lib/market-data-service"
+
+import { cn } from "@/lib/utils"
+import type { CryptoData } from "@/lib/types"
+import { useMarketData } from "@/hooks/use-market-data"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface DominanceRowProps {
   crypto: CryptoData
