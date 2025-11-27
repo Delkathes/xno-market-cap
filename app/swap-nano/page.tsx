@@ -1,17 +1,13 @@
-import { ArrowDown, Info } from "lucide-react"
+import { Info } from "lucide-react"
 import Link from "next/link"
 
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-
-export const dynamic = "force-static"
+import { NanswapWidget } from "@/components/nanswap-widget"
 
 export const metadata = {
-  title: "Swap to Nano | NanoMarketCap",
-  description: "Convert altcoins to Nano (XNO) instantly using swap services.",
+  title: "Swap to Nano | XNO Market Cap",
+  description: "Convert altcoins to Nano (XNO) instantly using Nanswap.",
 }
 
 export default function SwapNanoPage() {
@@ -44,92 +40,14 @@ export default function SwapNanoPage() {
           </p>
         </div>
 
-        <Card className="max-w-md mx-auto">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <span className="font-medium">Swap coins</span>
-            </div>
-
-            {/* From Currency */}
-            <div className="space-y-3 mb-2">
-              <div className="flex items-center gap-2 p-3 rounded-lg border bg-muted/50">
-                <div className="flex items-center gap-2 min-w-[100px]">
-                  <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs font-bold">
-                    ₿
-                  </div>
-                  <span className="font-medium">BTC</span>
-                </div>
-                <Input
-                  type="number"
-                  placeholder="0"
-                  className="text-right border-0 bg-transparent text-lg font-mono focus-visible:ring-0"
-                  defaultValue="0.01"
-                />
-              </div>
-
-              <div className="flex justify-center">
-                <div className="p-2 rounded-full border bg-background">
-                  <ArrowDown className="w-4 h-4 text-muted-foreground" />
-                </div>
-              </div>
-
-              {/* To Currency */}
-              <div className="flex items-center gap-2 p-3 rounded-lg border bg-muted/50">
-                <div className="flex items-center gap-2 min-w-[100px]">
-                  <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold">
-                    Ӿ
-                  </div>
-                  <span className="font-medium">XNO</span>
-                </div>
-                <Input
-                  type="text"
-                  placeholder="0"
-                  className="text-right border-0 bg-transparent text-lg font-mono focus-visible:ring-0"
-                  defaultValue="~6595.82"
-                  readOnly
-                />
-              </div>
-            </div>
-
-            <p className="text-xs text-muted-foreground text-right mb-4">1 XNO ≈ 0.00000152 BTC</p>
-
-            {/* Destination Address */}
-            <div className="space-y-2 mb-4">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium">Destination Address</label>
-                <Link href="/get-nano" className="text-xs text-primary hover:underline">
-                  {"Don't have an address yet?"}
-                </Link>
-              </div>
-              <Input placeholder="Your Nano address (nano_...)" />
-            </div>
-
-            <Button className="w-full" size="lg" asChild>
-              <a href="https://nanswap.com" target="_blank" rel="noopener noreferrer">
-                Swap on Nanswap
-              </a>
-            </Button>
-
-            <p className="text-center text-xs text-muted-foreground mt-4">
-              Powered by{" "}
-              <a
-                href="https://nanswap.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Nanswap.com
-              </a>
-            </p>
-          </CardContent>
-        </Card>
+        <NanswapWidget />
       </div>
 
       {/* Disclaimer */}
       <Alert className="max-w-2xl mx-auto">
         <Info className="h-4 w-4" />
         <AlertDescription>
-          Nanswap is a third-party service not affiliated with NanoMarketCap. Always verify addresses and do your own
+          Nanswap is a third-party service not affiliated with XNO Market Cap. Always verify addresses and do your own
           research before swapping.
         </AlertDescription>
       </Alert>
