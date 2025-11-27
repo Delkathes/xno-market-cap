@@ -19,6 +19,16 @@ const nextConfig = {
         hostname: "coin-images.coingecko.com",
         pathname: "/coins/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "nanswap.com",
+        pathname: "/logo/**",
+      },
+      {
+        protocol: "https",
+        hostname: "bucket.nanwallet.com",
+        pathname: "/logo/**",
+      },
     ],
   },
 
