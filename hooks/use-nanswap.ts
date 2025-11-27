@@ -38,7 +38,7 @@ export function useNanswapEstimate(from: string, to: string, amount: number, ena
     queryKey: ["nanswap-estimate", from, to, amount],
     queryFn: () => fetchEstimate(from, to, amount),
     enabled: enabled && !!from && !!to && amount > 0,
-    staleTime: 1000 * 30, // 30 seconds
+    // staleTime: 1000 * 30, // 30 seconds (default 0)
     gcTime: 1000 * 60, // Keep recent estimates cached for 1 minute
     placeholderData: (previousData) => previousData, // Keep previous data while loading new
   })
@@ -57,7 +57,7 @@ export function useNanswapEstimateReverse(from: string, to: string, amount: numb
     queryKey: ["nanswap-estimate-reverse", from, to, amount],
     queryFn: () => fetchEstimateReverse(from, to, amount),
     enabled: enabled && !!from && !!to && amount > 0,
-    staleTime: 1000 * 30, // 30 seconds
+    // staleTime: 1000 * 30, // 30 seconds (default 0)
   })
 }
 

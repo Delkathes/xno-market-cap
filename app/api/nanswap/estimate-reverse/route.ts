@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(estimate, {
       headers: {
         ...getSecurityHeaders(),
-        "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+        // "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
       },
     })
   } catch (error) {
