@@ -97,18 +97,6 @@ export function Navigation() {
             </Button>
 
             <Link
-              href="/"
-              className={cn(
-                "px-4 py-2 rounded-md text-sm font-medium transition-colors",
-                pathname === "/"
-                  ? "bg-secondary text-secondary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
-              )}
-            >
-              Market Cap
-            </Link>
-
-            <Link
               href="/dominance"
               className={cn(
                 "px-4 py-2 rounded-md text-sm font-medium transition-colors",
@@ -118,6 +106,17 @@ export function Navigation() {
               )}
             >
               Dominance
+            </Link>
+            <Link
+              href="/parity"
+              className={cn(
+                "px-4 py-2 rounded-md text-sm font-medium transition-colors",
+                pathname === "/parity"
+                  ? "bg-secondary text-secondary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
+              )}
+            >
+              Parity
             </Link>
             <Link
               href="/speculation"

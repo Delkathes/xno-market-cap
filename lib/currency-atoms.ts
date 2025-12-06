@@ -16,3 +16,9 @@ export const FIAT_CURRENCY_CONFIG: Record<FiatCurrency, { symbol: string; label:
 export const primaryFiatAtom = atomWithStorage<FiatCurrency>("xno-market-primary-fiat", "USD")
 export const secondaryFiatAtom = atomWithStorage<FiatCurrency>("xno-market-secondary-fiat", "EUR")
 export const cryptoCurrencyAtom = atomWithStorage<string>("xno-market-crypto", "bitcoin")
+
+// Parity page: which fiat currencies to display (default: USD and EUR)
+export const parityFiatCurrenciesAtom = atomWithStorage<FiatCurrency[]>(
+  "xno-parity-fiat-currencies",
+  ["USD", "EUR"]
+)

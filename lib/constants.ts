@@ -2,7 +2,7 @@
 export const XNO_CIRCULATING_SUPPLY = 133246167.96530801
 
 // Donation configuration
-export const DONATION_GOAL_XNO = 5000
+export const DONATION_GOAL_XNO = 50000
 
 export const DONATION_GOAL_REACHED = process.env.NEXT_PUBLIC_DONATION_GOAL_REACHED === "true"
 
