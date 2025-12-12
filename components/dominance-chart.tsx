@@ -1,10 +1,11 @@
 'use client'
 
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
 import type { PieLabelRenderProps } from 'recharts'
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
 import { useMarketData } from '@/hooks/use-market-data'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
 
 const SLICE_COLORS: Record<string, string> = {
@@ -130,8 +131,11 @@ export function DominanceChart() {
 							fill="#8884d8"
 							dataKey="value"
 						>
-							{chartData.map((entry, index) => (
-								<Cell key={`cell-${index}`} fill={SLICE_COLORS[entry.name] ?? 'hsl(var(--chart-1))'} />
+							{chartData.map((entry) => (
+								<Cell
+									key={`cell-${entry.name}`}
+									fill={SLICE_COLORS[entry.name] ?? 'hsl(var(--chart-1))'}
+								/>
 							))}
 						</Pie>
 						<Tooltip

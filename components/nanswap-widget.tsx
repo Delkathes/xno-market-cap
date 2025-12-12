@@ -1,27 +1,28 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback, memo } from 'react'
-import { ArrowUpDown, Loader2, Check, Copy } from 'lucide-react'
 import Image from 'next/image'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { ArrowUpDown, Check, Copy, Loader2 } from 'lucide-react'
 
+import type { NanswapCurrency } from '@/lib/nanswap-types'
+
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
+import {
+	useCreateNanswapOrder,
+	useNanswapCurrencies,
+	useNanswapEstimate,
+	useNanswapLimits,
+	useNanswapOrder,
+} from '@/hooks/use-nanswap'
+
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Skeleton } from '@/components/ui/skeleton'
-
-import {
-	useNanswapCurrencies,
-	useNanswapEstimate,
-	useNanswapLimits,
-	useCreateNanswapOrder,
-	useNanswapOrder,
-} from '@/hooks/use-nanswap'
-import { useDebouncedValue } from '@/hooks/use-debounced-value'
-import type { NanswapCurrency } from '@/lib/nanswap-types'
 
 type SwapStep = 'input' | 'confirm' | 'processing' | 'complete'
 
@@ -148,7 +149,7 @@ export function NanswapWidget() {
 		})
 	}, [currencies])
 
-	const fromCurrencyData = currencies?.[fromCurrency]
+	// const fromCurrencyData = currencies?.[fromCurrency]
 	const toCurrencyData = currencies?.[toCurrency]
 
 	const isAmountValid = limits
@@ -196,7 +197,7 @@ export function NanswapWidget() {
 	}, [createOrderMutation])
 
 	const renderCurrencySelect = useCallback(
-		(value: string, onChange: (value: string) => void, label: string) => (
+		(value: string, onChange: (value: string) => void, _label: string) => (
 			<Select value={value} onValueChange={onChange}>
 				<SelectTrigger className="w-[140px]">
 					<SelectValue>

@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, memo } from 'react'
 import Image from 'next/image'
+import { memo, useState } from 'react'
 
-import { useMarketData } from '@/hooks/use-market-data'
-import { cn } from '@/lib/utils'
 import { XNO_CIRCULATING_SUPPLY } from '@/lib/constants'
 import type { CryptoData } from '@/lib/types'
+import { cn } from '@/lib/utils'
+
+import { useMarketData } from '@/hooks/use-market-data'
+
 import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { MarketDataError } from '@/components/market-data-error'
@@ -25,7 +27,6 @@ const CURRENCY_CONFIG: Record<Currency, { symbol: string; label: string }> = {
 
 interface SpeculationRowProps {
 	crypto: CryptoData
-	symbol: string
 	formatMarketCap: (mcUSD: number) => string
 	formatPrice: (priceInFiat: number) => string
 	multiplier: number
@@ -34,7 +35,6 @@ interface SpeculationRowProps {
 
 const SpeculationRow = memo(function SpeculationRow({
 	crypto,
-	symbol,
 	formatMarketCap,
 	formatPrice,
 	multiplier,
@@ -113,8 +113,8 @@ export function SpeculationTable() {
 			<Card>
 				<CardContent className="p-6">
 					<div className="space-y-4">
-						{[...Array(10)].map((_, i) => (
-							<div key={i} className="h-16 animate-pulse bg-muted rounded" />
+						{[...Array(10)].map((_, _i) => (
+							<div key={`${_}-speculation-loading`} className="h-16 animate-pulse bg-muted rounded" />
 						))}
 					</div>
 				</CardContent>
@@ -198,7 +198,6 @@ export function SpeculationTable() {
 									<SpeculationRow
 										key={crypto.id}
 										crypto={crypto}
-										symbol={symbol}
 										formatMarketCap={formatMarketCap}
 										formatPrice={formatPrice}
 										multiplier={multiplier}

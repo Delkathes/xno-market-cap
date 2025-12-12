@@ -2,17 +2,19 @@
 
 import { useState } from 'react'
 import { useAtom } from 'jotai'
-import { TrendingUp, TrendingDown } from 'lucide-react'
+import { TrendingDown, TrendingUp } from 'lucide-react'
 
 import { XNO_CIRCULATING_SUPPLY } from '@/lib/constants'
 import {
-	primaryFiatAtom,
-	secondaryFiatAtom,
 	cryptoCurrencyAtom,
 	FIAT_CURRENCY_CONFIG,
 	type FiatCurrency,
+	primaryFiatAtom,
+	secondaryFiatAtom,
 } from '@/lib/currency-atoms'
+
 import { useMarketData } from '@/hooks/use-market-data'
+
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
@@ -148,13 +150,14 @@ export function MarketOverview() {
 						<p className="text-sm text-muted-foreground">
 							{formatMarketCap(xnoMarketCapSecondary, secondarySymbol, secondaryFiat === 'JPY')}
 						</p>
-						<p
-							className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
-							onClick={() => setShowSatoshi(!showSatoshi)}
-							title={`Click to toggle ${selectedCrypto?.id === 'bitcoin' ? 'between BTC and satoshi' : 'units'}`}
-						>
-							{formatCryptoMarketCap()}
-						</p>
+						<button onClick={() => setShowSatoshi(!showSatoshi)} type="button">
+							<p
+								className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
+								title={`Click to toggle ${selectedCrypto?.id === 'bitcoin' ? 'between BTC and satoshi' : 'units'}`}
+							>
+								{formatCryptoMarketCap()}
+							</p>
+						</button>
 					</div>
 				</CardContent>
 			</Card>
@@ -172,23 +175,24 @@ export function MarketOverview() {
 							<span className="text-2xl font-bold font-mono">
 								{formatPrice(xnoPriceSecondary, secondarySymbol, secondaryFiat === 'JPY')}
 							</span>
-							<span
-								className="text-2xl font-bold font-mono cursor-pointer hover:text-primary transition-colors"
-								onClick={() => setShowSatoshi(!showSatoshi)}
-							>
-								{formatCryptoPrice()}
-							</span>
+							<button className="text-left" type="button" onClick={() => setShowSatoshi(!showSatoshi)}>
+								<span className="text-2xl font-bold font-mono cursor-pointer hover:text-primary transition-colors">
+									{formatCryptoPrice()}
+								</span>
+							</button>
 
 							{/* Row 2: 24h variations */}
 							<div className="flex items-center gap-1">
 								{xnoPriceChangePrimary >= 0 ? (
-									<TrendingUp className="w-4 h-4 text-accent" />
+									<TrendingUp className="w-4 h-4 text-constructive" />
 								) : (
 									<TrendingDown className="w-4 h-4 text-destructive" />
 								)}
 								<span
 									className={
-										xnoPriceChangePrimary >= 0 ? 'text-accent text-sm' : 'text-destructive text-sm'
+										xnoPriceChangePrimary >= 0
+											? 'text-constructive text-sm'
+											: 'text-destructive text-sm'
 									}
 								>
 									{xnoPriceChangePrimary.toFixed(2)}%
@@ -197,7 +201,7 @@ export function MarketOverview() {
 
 							<div className="flex items-center gap-1">
 								{xnoPriceChangeSecondary >= 0 ? (
-									<TrendingUp className="w-4 h-4 text-accent" />
+									<TrendingUp className="w-4 h-4 text-constructive" />
 								) : (
 									<TrendingDown className="w-4 h-4 text-destructive" />
 								)}

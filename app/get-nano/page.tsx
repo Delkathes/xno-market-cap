@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Smartphone, Monitor, Shield, Building2, ArrowRightLeft, Droplets, ExternalLink, Info } from 'lucide-react'
+import { ArrowRightLeft, Building2, Droplets, ExternalLink, Info, Monitor, Shield, Smartphone } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -74,7 +74,7 @@ export default function GetNanoPage() {
 					<div className="space-y-6">
 						{/* Mobile */}
 						<div className="flex gap-4">
-							<div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+							<div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
 								<Smartphone className="w-5 h-5 text-primary" />
 							</div>
 							<div>
@@ -113,7 +113,7 @@ export default function GetNanoPage() {
 
 						{/* Desktop/Web */}
 						<div className="flex gap-4">
-							<div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+							<div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
 								<Monitor className="w-5 h-5 text-primary" />
 							</div>
 							<div>
@@ -145,7 +145,7 @@ export default function GetNanoPage() {
 
 						{/* Hardware */}
 						<div className="flex gap-4">
-							<div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+							<div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
 								<Shield className="w-5 h-5 text-primary" />
 							</div>
 							<div>
@@ -188,7 +188,7 @@ export default function GetNanoPage() {
 					<div className="space-y-6">
 						{/* Exchanges */}
 						<div className="flex gap-4">
-							<div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+							<div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
 								<Building2 className="w-5 h-5 text-primary" />
 							</div>
 							<div>
@@ -201,7 +201,7 @@ export default function GetNanoPage() {
 
 						{/* Swap Services */}
 						<div className="flex gap-4">
-							<div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+							<div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
 								<ArrowRightLeft className="w-5 h-5 text-primary" />
 							</div>
 							<div>
@@ -214,7 +214,7 @@ export default function GetNanoPage() {
 
 						{/* Faucets */}
 						<div className="flex gap-4">
-							<div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+							<div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
 								<Droplets className="w-5 h-5 text-primary" />
 							</div>
 							<div>
@@ -241,7 +241,7 @@ export default function GetNanoPage() {
 			<Card className="max-w-2xl mx-auto border-primary/20 bg-primary/5">
 				<CardContent className="p-6">
 					<div className="flex items-start gap-3">
-						<Info className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+						<Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
 						<div>
 							<h3 className="font-semibold text-primary mb-1">New to Nano?</h3>
 							<p className="text-sm text-muted-foreground mb-3">

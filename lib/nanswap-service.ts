@@ -1,10 +1,10 @@
 import { fetchWithTimeout } from './fetch-with-timeout'
 import type {
+	NanswapCreateOrderRequest,
 	NanswapCurrencies,
 	NanswapEstimate,
 	NanswapLimits,
 	NanswapOrder,
-	NanswapCreateOrderRequest,
 } from './nanswap-types'
 
 const NANSWAP_API_BASE = 'https://api.nanswap.com/v1'

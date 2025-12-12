@@ -1,11 +1,13 @@
 'use client'
 
-import { memo } from 'react'
 import Image from 'next/image'
+import { memo } from 'react'
 
-import { cn } from '@/lib/utils'
 import type { CryptoData } from '@/lib/types'
+import { cn } from '@/lib/utils'
+
 import { useMarketData } from '@/hooks/use-market-data'
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
 

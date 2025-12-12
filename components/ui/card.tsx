@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -12,8 +12,8 @@ function Card({ className, ...props }: React.ComponentProps<'div'>) {
 	)
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
-	return null
+function CardHeader({ children }: { children: React.ReactNode }) {
+	return <>{children}</>
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {

@@ -1,8 +1,8 @@
 import * as v from 'valibot'
 
-import { CryptoDataArraySchema, ExchangeRatesSchema } from './validation'
 import { fetchWithTimeout } from './fetch-with-timeout'
 import type { CryptoData, MarketDataResponse } from './types'
+import { CryptoDataArraySchema, ExchangeRatesSchema } from './validation'
 
 // Custom error classes for specific failure scenarios
 export class RateLimitError extends Error {

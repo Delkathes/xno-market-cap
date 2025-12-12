@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { Info } from 'lucide-react'
 import Link from 'next/link'
+import { Info } from 'lucide-react'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { getMarketData } from '@/lib/market-data-service'
 import getQueryClient from '@/lib/get-query-client'
+import { getMarketData } from '@/lib/market-data-service'
+
 import { SpeculationTable } from '@/components/speculation-table'
 
 export const metadata: Metadata = {

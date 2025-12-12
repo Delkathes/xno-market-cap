@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!**/*.css"]
   },
   "formatter": {
     "enabled": true,
@@ -29,31 +29,40 @@
     }
   },
     "javascript": {
-
-    "formatter": {
-      "semicolons": "asNeeded",
-
-      "quoteStyle": "single",
-
-      "lineWidth": 120
-
-    }
-
+      "formatter": {
+        "semicolons": "asNeeded",
+        "quoteStyle": "single",
+        "lineWidth": 120
+      }
   },
 
   "json": {
-
     "formatter": {
-
       "enabled": false
-
     }
-
   },
+
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["next", "next/**", "react", "react-dom"],
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ["@/lib/**"],
+              ":BLANK_LINE:",
+              ["@/hooks/**"],
+              ":BLANK_LINE:",
+              ["@/components/ui/**"],
+              ["@/components/**"],
+              ":BLANK_LINE:",
+              ["./**"]
+            ]
+          }
+        }
       }
     }
   }

@@ -1,16 +1,17 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
 import dynamic from 'next/dynamic'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, Copy, ExternalLink, Loader2 } from 'lucide-react'
 
+import { rawToXno, xnoToRaw } from '@/lib/nano-utils'
 import { validateDonationAmount, validateWebSocketConfirmation } from '@/lib/validation'
-import { xnoToRaw, rawToXno } from '@/lib/nano-utils'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
-import { Card, CardContent } from '@/components/ui/card'
 
 const QRCodeSVG = dynamic(() => import('qrcode.react').then((mod) => mod.QRCodeSVG), {
 	loading: () => <div className="w-[180px] h-[180px] animate-pulse bg-muted rounded" />,
@@ -63,10 +64,7 @@ export function DonationModal({
 	const nanoUri = amount > 0 ? `nano:${DONATION_WALLET}?amount=${rawAmount}` : ''
 
 	const getReconnectDelay = useCallback(() => {
-		const delay = Math.min(
-			WS_INITIAL_RECONNECT_DELAY * Math.pow(2, reconnectAttemptRef.current),
-			WS_MAX_RECONNECT_DELAY,
-		)
+		const delay = Math.min(WS_INITIAL_RECONNECT_DELAY * 2 ** reconnectAttemptRef.current, WS_MAX_RECONNECT_DELAY)
 		return delay
 	}, [])
 
@@ -185,7 +183,7 @@ export function DonationModal({
 			return
 		}
 
-		if (!isNaN(num)) {
+		if (!Number.isNaN(num)) {
 			const validation = validateDonationAmount(num)
 			if (!validation.success) {
 				setAmountError(validation.error || 'Invalid amount')

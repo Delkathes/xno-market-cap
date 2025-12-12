@@ -1,14 +1,17 @@
 'use client'
 
-import { memo, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
-import { Settings, Infinity as InfinityIcon, TrendingUp } from 'lucide-react'
+import { Infinity as InfinityIcon, Pencil, Settings, TrendingUp } from 'lucide-react'
 
+import { type FiatCurrency, parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
 import { cn } from '@/lib/utils'
-import { parityFiatCurrenciesAtom, type FiatCurrency } from '@/lib/currency-atoms'
+
 import { useMarketData } from '@/hooks/use-market-data'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Progress } from '@/components/ui/progress'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -640,6 +643,71 @@ export function ParityTable() {
 export function XNOParityHighlight() {
 	const [enabledFiats] = useAtom(parityFiatCurrenciesAtom)
 	const { assetMap, isLoading, error } = useAssetData()
+	const [xnoAmount, setXnoAmount] = useState(1)
+	const [inputValue, setInputValue] = useState('1')
+	const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+	const containerRef = useRef<HTMLButtonElement>(null)
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	// Sync input value when popover opens
+	useEffect(() => {
+		if (isPopoverOpen) {
+			setInputValue(xnoAmount.toString())
+			// Focus and select the input when popover opens
+			setTimeout(() => inputRef.current?.select(), 0)
+		}
+	}, [isPopoverOpen, xnoAmount])
+
+	const handleInputChange = useCallback((value: string) => {
+		setInputValue(value)
+		const parsed = parseFloat(value)
+		if (!Number.isNaN(parsed) && parsed >= 0) {
+			setXnoAmount(parsed)
+		}
+	}, [])
+
+	const handleInputBlur = useCallback(() => {
+		const parsed = parseFloat(inputValue)
+		if (Number.isNaN(parsed) || parsed < 0) {
+			setXnoAmount(1)
+			setInputValue('1')
+		} else {
+			setInputValue(parsed.toString())
+		}
+	}, [inputValue])
+
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent) => {
+			if (e.key === 'Enter') {
+				handleInputBlur()
+				setIsPopoverOpen(false)
+			}
+			if (e.key === 'Escape') {
+				setIsPopoverOpen(false)
+			}
+		},
+		[handleInputBlur],
+	)
+
+	const adjustAmount = useCallback((delta: number) => {
+		setXnoAmount((prev) => {
+			const step = prev >= 100 ? 10 : prev >= 10 ? 1 : 0.1
+			const newValue = prev + delta * step
+			const clamped = Math.max(0.1, Math.round(newValue * 10) / 10)
+			setInputValue(clamped.toString())
+			return clamped
+		})
+	}, [])
+
+	// Handle mousewheel on the XNO card area
+	const handleWheel = useCallback(
+		(e: React.WheelEvent) => {
+			e.preventDefault()
+			const delta = e.deltaY < 0 ? 1 : -1
+			adjustAmount(delta)
+		},
+		[adjustAmount],
+	)
 
 	const displayAssets = useMemo(() => getFilteredAssets(enabledFiats), [enabledFiats])
 
@@ -669,26 +737,75 @@ export function XNOParityHighlight() {
 			? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
 			: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6'
 
+	const formatXnoDisplay = (amount: number) =>
+		amount >= 1000 ? `${amount.toLocaleString(undefined, { maximumFractionDigits: 1 })} XNO` : `${amount} XNO`
+
 	return (
 		<section>
 			<div className={cn('grid gap-3', gridClass)}>
 				{displayAssets.map((assetId) => {
 					const asset = assetMap[assetId]
 					const isXNO = assetId === 'XNO'
-					const value = parities[assetId]
+					const value = parities[assetId] * xnoAmount
 					const futureValue = futureParities[assetId]
 
+					// XNO card with popover for amount input
+					if (isXNO) {
+						return (
+							<Popover key={assetId} open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+								<PopoverTrigger asChild>
+									<button
+										ref={containerRef}
+										type="button"
+										onWheel={handleWheel}
+										className="p-4 rounded-lg border bg-[#209CE9]/10 border-[#209CE9]/30 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
+										tabIndex={0}
+										aria-label="Click to edit XNO amount"
+									>
+										<p className="text-sm text-muted-foreground mb-1 flex items-center justify-between">
+											{asset.label}
+											<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity" />
+										</p>
+										<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
+											{formatXnoDisplay(xnoAmount)}
+										</p>
+										<p className="mt-1 text-xs text-muted-foreground/50">Click or scroll to edit</p>
+									</button>
+								</PopoverTrigger>
+								<PopoverContent className="w-48 p-3" align="start">
+									<div className="space-y-2">
+										<label htmlFor="xno-amount" className="text-sm font-medium">
+											XNO Amount
+										</label>
+										<div className="relative">
+											<Input
+												ref={inputRef}
+												id="xno-amount"
+												type="number"
+												min={0.1}
+												step={0.1}
+												value={inputValue}
+												onChange={(e) => handleInputChange(e.target.value)}
+												onBlur={handleInputBlur}
+												onKeyDown={handleKeyDown}
+												className="font-mono pr-8"
+											/>
+											<span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">
+												Ӿ
+											</span>
+										</div>
+										<p className="text-xs text-muted-foreground">Press Enter to confirm</p>
+									</div>
+								</PopoverContent>
+							</Popover>
+						)
+					}
+
 					return (
-						<div
-							key={assetId}
-							className={cn(
-								'p-4 rounded-lg border',
-								isXNO ? 'bg-[#209CE9]/10 border-[#209CE9]/30' : 'bg-background/50 border-border',
-							)}
-						>
+						<div key={assetId} className="p-4 rounded-lg border bg-background/50 border-border">
 							<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
 							<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
-								{isXNO ? '1 XNO' : formatHighlightValue(value, asset)}
+								{formatHighlightValue(value, asset)}
 							</p>
 							{futureValue !== null && (
 								<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/70">
@@ -696,7 +813,7 @@ export function XNOParityHighlight() {
 									<span className="font-mono">
 										{futureValue === Number.POSITIVE_INFINITY
 											? 'no limit'
-											: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatHighlightValue(futureValue, asset)}`}
+											: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatHighlightValue(futureValue * xnoAmount, asset)}`}
 									</span>
 								</p>
 							)}

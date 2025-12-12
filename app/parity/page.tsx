@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { getMarketData } from '@/lib/market-data-service'
 import getQueryClient from '@/lib/get-query-client'
-import { ParityTable, XNOParityHighlight, ParitySettingsPopover } from '@/components/parity-table'
+import { getMarketData } from '@/lib/market-data-service'
+
 import { Card, CardContent } from '@/components/ui/card'
+import { ParitySettingsPopover, ParityTable, XNOParityHighlight } from '@/components/parity-table'
 
 export const metadata: Metadata = {
 	title: 'Absolute Scarcity Parity',

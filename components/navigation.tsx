@@ -1,17 +1,15 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { ArrowRightLeft, HelpCircle, Moon, RefreshCw, Sun, TrendingUp, Wallet } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { TrendingUp, Moon, Sun, HelpCircle, RefreshCw, ArrowRightLeft, Wallet } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
 import { Button } from '@/components/ui/button'
-import { AboutModal } from '@/components/about-modal'
-import { DonationButton } from '@/components/donation-button'
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -20,6 +18,8 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import { AboutModal } from '@/components/about-modal'
+import { DonationButton } from '@/components/donation-button'
 
 const REFRESH_COOLDOWN = 60 // seconds
 

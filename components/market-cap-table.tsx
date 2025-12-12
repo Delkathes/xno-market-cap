@@ -1,11 +1,13 @@
 'use client'
 
-import { memo } from 'react'
 import Image from 'next/image'
-import { TrendingUp, TrendingDown } from 'lucide-react'
+import { memo } from 'react'
+import { TrendingDown, TrendingUp } from 'lucide-react'
+
+import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
-import { cn } from '@/lib/utils'
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
 

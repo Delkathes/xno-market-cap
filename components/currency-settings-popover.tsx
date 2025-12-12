@@ -4,17 +4,18 @@ import { useAtom } from 'jotai'
 import { Settings } from 'lucide-react'
 
 import {
-	primaryFiatAtom,
-	secondaryFiatAtom,
 	cryptoCurrencyAtom,
 	FIAT_CURRENCY_CONFIG,
 	type FiatCurrency,
+	primaryFiatAtom,
+	secondaryFiatAtom,
 } from '@/lib/currency-atoms'
 import type { CryptoData } from '@/lib/types'
+
 import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Label } from '@/components/ui/label'
 
 interface CurrencySettingsPopoverProps {
 	cryptoList?: CryptoData[]

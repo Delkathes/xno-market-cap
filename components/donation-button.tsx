@@ -1,13 +1,14 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Heart } from 'lucide-react'
+
+import { ALLOWED_GOAL_ORIGINS, DONATION_GOAL_REACHED, DONATION_GOAL_XNO } from '@/lib/constants'
+import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
+import { validateNanoBalanceResponse } from '@/lib/validation'
 
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { validateNanoBalanceResponse } from '@/lib/validation'
-import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
-import { DONATION_GOAL_XNO, DONATION_GOAL_REACHED, ALLOWED_GOAL_ORIGINS } from '@/lib/constants'
 
 import { DonationModal } from './donation-modal'
 

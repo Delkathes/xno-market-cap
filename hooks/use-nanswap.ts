@@ -1,12 +1,13 @@
 'use client'
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+
 import type {
+	NanswapCreateOrderRequest,
 	NanswapCurrencies,
 	NanswapEstimate,
 	NanswapLimits,
 	NanswapOrder,
-	NanswapCreateOrderRequest,
 } from '@/lib/nanswap-types'
 
 // Fetch currencies
@@ -116,7 +117,10 @@ async function fetchOrder(id: string): Promise<NanswapOrder> {
 export function useNanswapOrder(id: string | null, refetchInterval?: number) {
 	return useQuery({
 		queryKey: ['nanswap-order', id],
-		queryFn: () => fetchOrder(id!),
+		queryFn: () => {
+			if (!id) throw new Error('Invalid order ID')
+			fetchOrder(id)
+		},
 		enabled: !!id,
 		refetchInterval: refetchInterval,
 	})

@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+
 import { getEstimate } from '@/lib/nanswap-service'
 import { getSecurityHeaders } from '@/lib/security-headers'
 
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
 	}
 
 	const amountNum = Number.parseFloat(amount)
-	if (isNaN(amountNum) || amountNum <= 0) {
+	if (Number.isNaN(amountNum) || amountNum <= 0) {
 		return NextResponse.json({ error: 'Invalid amount' }, { status: 400, headers: getSecurityHeaders() })
 	}
 

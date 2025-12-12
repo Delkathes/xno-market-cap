@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
 
-import { Providers } from '@/components/providers'
 import { Navigation } from '@/components/navigation'
+import { Providers } from '@/components/providers'
 
 import './globals.css'
 

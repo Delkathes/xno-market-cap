@@ -1,5 +1,6 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { getMarketData, RateLimitError, ValidationError, UpstreamError } from '@/lib/market-data-service'
+import { type NextRequest, NextResponse } from 'next/server'
+
+import { getMarketData, RateLimitError, UpstreamError, ValidationError } from '@/lib/market-data-service'
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
 import { getSecurityHeaders } from '@/lib/security-headers'
 

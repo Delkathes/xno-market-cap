@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { getMarketData } from '@/lib/market-data-service'
 import getQueryClient from '@/lib/get-query-client'
+import { getMarketData } from '@/lib/market-data-service'
+
 import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
 
