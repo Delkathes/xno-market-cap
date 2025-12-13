@@ -43,31 +43,33 @@ const SpeculationRow = memo(function SpeculationRow({
 	return (
 		<tr className="border-b border-border hover:bg-muted/50 transition-colors">
 			<td className="p-4">
-				<span className="font-medium">{crypto.market_cap_rank}</span>
+				<span className="font-medium text-sm sm:text-base">{crypto.market_cap_rank}</span>
 			</td>
-			<td className="p-4">
+			<td className="p-4 pl-0 sm:pl-4">
 				<div className="flex items-center gap-3">
 					<Image
 						src={crypto.image || '/placeholder.svg'}
 						alt={crypto.name}
 						width={32}
 						height={32}
-						className="rounded-full"
+						className="w-6 h-6 sm:w-8 sm:h-8"
 					/>
 					<div>
-						<p className="font-semibold">{crypto.name}</p>
-						<p className="text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+						<p className="font-semibold text-sm sm:text-base line-clamp-3">{crypto.name}</p>
+						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
 					</div>
 				</div>
 			</td>
-			<td className="p-4 text-right font-mono text-muted-foreground">{formatMarketCap(crypto.market_cap)}</td>
+			<td className="p-4 text-right font-mono text-sm sm:text-base text-muted-foreground">
+				{formatMarketCap(crypto.market_cap)}
+			</td>
 			<td className="p-4 text-right">
-				<span className="font-mono font-bold text-primary">{formatPrice(xnoPriceIf)}</span>
+				<span className="font-mono font-bold text-sm sm:text-base text-primary">{formatPrice(xnoPriceIf)}</span>
 			</td>
 			<td className="p-4 text-right">
 				<span
 					className={cn(
-						'font-mono font-medium px-2 py-1 rounded',
+						'font-mono font-medium text-sm sm:text-base px-2 py-1 rounded',
 						multiplier >= 100
 							? 'bg-accent/20 text-accent'
 							: multiplier >= 10
@@ -180,9 +182,9 @@ export function SpeculationTable() {
 				<div className="overflow-x-auto">
 					<table className="w-full">
 						<thead className="border-b border-border">
-							<tr className="text-muted-foreground text-sm">
+							<tr className="text-muted-foreground text-sm whitespace-nowrap">
 								<th className="text-left p-4 font-medium">#</th>
-								<th className="text-left p-4 font-medium">Name</th>
+								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Name</th>
 								<th className="text-right p-4 font-medium">Market Cap ({currency})</th>
 								<th className="text-right p-4 font-medium">XNO Price</th>
 								<th className="text-right p-4 font-medium">Multiplier</th>

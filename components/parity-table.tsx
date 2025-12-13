@@ -572,7 +572,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 			<td className="p-4 min-w-35">
 				<SupplyCell asset={asset} />
 			</td>
-			<td className="p-4 text-muted-foreground text-sm hidden md:table-cell">{getDynamicNote(asset)}</td>
+			<td className="p-4 text-muted-foreground text-sm">{getDynamicNote(asset)}</td>
 		</tr>
 	)
 })
@@ -607,7 +607,7 @@ export function ParityTable() {
 					Value based on total supply ratio: 1 unit of Asset A = (Total Supply of B) / (Total Supply of A)
 				</CardDescription>
 			</CardHeader>
-			<CardContent className="p-0">
+			<CardContent className="p-0 whitespace-nowrap">
 				<div className="overflow-x-auto">
 					<table className="w-full">
 						<thead className="border-b border-border">
@@ -619,7 +619,7 @@ export function ParityTable() {
 									</th>
 								))}
 								<th className="text-right p-4 font-medium">Total Supply</th>
-								<th className="text-left p-4 font-medium hidden md:table-cell">Note</th>
+								<th className="text-left p-4 font-medium">Note</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -650,13 +650,14 @@ export function XNOParityHighlight() {
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	// Sync input value when popover opens
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <refocuses the whole input value and overwrites every time we try to type>
 	useEffect(() => {
 		if (isPopoverOpen) {
 			setInputValue(xnoAmount.toString())
 			// Focus and select the input when popover opens
 			setTimeout(() => inputRef.current?.select(), 0)
 		}
-	}, [isPopoverOpen, xnoAmount])
+	}, [isPopoverOpen])
 
 	const handleInputChange = useCallback((value: string) => {
 		setInputValue(value)
@@ -769,7 +770,10 @@ export function XNOParityHighlight() {
 										<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
 											{formatXnoDisplay(xnoAmount)}
 										</p>
-										<p className="mt-1 text-xs text-muted-foreground/50">Click or scroll to edit</p>
+										<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">Click to edit</p>
+										<p className="mt-1 text-xs text-muted-foreground/50 hidden sm:block">
+											Click or scroll to edit
+										</p>
 									</button>
 								</PopoverTrigger>
 								<PopoverContent className="w-48 p-3" align="start">
