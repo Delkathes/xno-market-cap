@@ -33,7 +33,7 @@ const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCa
 						className="w-6 h-6 sm:w-8 sm:h-8"
 					/>
 					<div>
-						<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
+						<p className="font-semibold text-sm sm:text-base line-clamp-3">{crypto.name}</p>
 						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
 					</div>
 				</div>

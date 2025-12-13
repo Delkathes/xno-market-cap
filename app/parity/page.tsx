@@ -34,8 +34,8 @@ export default async function ParityPage() {
 	})
 
 	return (
-		<HydrationBoundary state={dehydrate(queryClient)}>
-			<main className="container mx-auto px-4 py-8">
+		<main className="container mx-auto px-4 py-8">
+			<HydrationBoundary state={dehydrate(queryClient)}>
 				<div className="mb-8">
 					<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">Absolute Scarcity Parity</h1>
 					<p className="text-muted-foreground text-lg">
@@ -54,7 +54,7 @@ export default async function ParityPage() {
 					</section>
 
 					{/* Main Parity Table */}
-					<section>
+					<section className="w-full overflow-x-auto">
 						<div className="flex items-center justify-between mb-4">
 							<h2 className="text-2xl font-semibold">Scarcity Parity Matrix</h2>
 							<ParitySettingsPopover />
@@ -80,7 +80,7 @@ export default async function ParityPage() {
 						</CardContent>
 					</Card>
 				</div>
-			</main>
-		</HydrationBoundary>
+			</HydrationBoundary>
+		</main>
 	)
 }

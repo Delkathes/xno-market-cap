@@ -539,7 +539,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 				<div className="flex items-center gap-3">
 					<div
 						className={cn(
-							'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold',
+							'w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm font-bold',
 							asset.color.bg,
 							asset.color.text,
 						)}
@@ -547,7 +547,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 						{asset.symbol}
 					</div>
 					<div>
-						<p className="font-semibold">{asset.label}</p>
+						<p className="font-semibold text-sm sm:text-base">{asset.label}</p>
 						<p className="text-xs text-muted-foreground">1 {asset.unit}</p>
 					</div>
 				</div>
@@ -569,7 +569,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 					</td>
 				)
 			})}
-			<td className="p-4 min-w-[140px]">
+			<td className="p-4 min-w-35">
 				<SupplyCell asset={asset} />
 			</td>
 			<td className="p-4 text-muted-foreground text-sm hidden md:table-cell">{getDynamicNote(asset)}</td>
@@ -601,7 +601,7 @@ export function ParityTable() {
 
 	return (
 		<Card>
-			<CardHeader>
+			<CardHeader className="pb-0">
 				<CardTitle>Absolute Scarcity Parity</CardTitle>
 				<CardDescription>
 					Value based on total supply ratio: 1 unit of Asset A = (Total Supply of B) / (Total Supply of A)
@@ -734,8 +734,8 @@ export function XNOParityHighlight() {
 	const totalItems = displayAssets.length
 	const gridClass =
 		totalItems <= 5
-			? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
-			: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6'
+			? 'grid-cols-1 sm:grid-cols-3 lg:grid-cols-5'
+			: 'grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6'
 
 	const formatXnoDisplay = (amount: number) =>
 		amount >= 1000 ? `${amount.toLocaleString(undefined, { maximumFractionDigits: 1 })} XNO` : `${amount} XNO`
