@@ -184,15 +184,15 @@ export function Navigation() {
 													<Link
 														href="/get-nano"
 														className={cn(
-															'flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
 															pathname === '/get-nano' && 'bg-accent',
 														)}
 													>
 														<div className="flex">
-															<Wallet className="h-5 w-5 relative top-1 text-primary mr-4 flex-none" />
+															<Wallet className="h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground" />
 															<div className="w-36">
 																<div className="text-sm font-medium">Get Nano</div>
-																<p className="text-xs text-muted-foreground">
+																<p className="text-xs text-muted-foreground group-hover:text-accent-foreground">
 																	Choose a wallet and acquire XNO
 																</p>
 															</div>
@@ -205,15 +205,15 @@ export function Navigation() {
 													<Link
 														href="/swap-nano"
 														className={cn(
-															'flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
 															pathname === '/swap-nano' && 'bg-accent',
 														)}
 													>
 														<div className="flex">
-															<ArrowRightLeft className="h-5 w-5 relative top-1 text-primary mr-4 flex-none" />
+															<ArrowRightLeft className="h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground" />
 															<div className="w-36">
 																<div className="text-sm font-medium">Swap to Nano</div>
-																<p className="text-xs text-muted-foreground">
+																<p className="text-xs text-muted-foreground group-hover:text-accent-foreground">
 																	Convert altcoins (BTC, ETH or other crypto) to XNO
 																</p>
 															</div>

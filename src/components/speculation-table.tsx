@@ -185,7 +185,7 @@ export function SpeculationTable() {
 							<tr className="text-muted-foreground text-sm whitespace-nowrap">
 								<th className="text-left p-4 font-medium">#</th>
 								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Name</th>
-								<th className="text-right p-4 font-medium">Market Cap ({currency})</th>
+								<th className="text-right p-4 font-medium">Market Cap</th>
 								<th className="text-right p-4 font-medium">XNO Price</th>
 								<th className="text-right p-4 font-medium">Multiplier</th>
 							</tr>
