@@ -3,6 +3,8 @@
 import type { PieLabelRenderProps } from 'recharts'
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
+import { useIsClientSide } from '@/hooks/use-is-client-side'
+import { useIsMobile } from '@/hooks/use-is-mobile'
 import { useMarketData } from '@/hooks/use-market-data'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -20,6 +22,8 @@ const SLICE_COLORS: Record<string, string> = {
 
 export function DominanceChart() {
 	const { data, isLoading, error } = useMarketData()
+	const isClientSide = useIsClientSide()
+	const isMobile = useIsMobile()
 
 	if (isLoading) {
 		return (
@@ -28,7 +32,7 @@ export function DominanceChart() {
 					<CardTitle>Market Dominance</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<div className="h-[400px] animate-pulse bg-muted rounded" />
+					<div className="h-100 animate-pulse bg-muted rounded" />
 				</CardContent>
 			</Card>
 		)
@@ -96,64 +100,68 @@ export function DominanceChart() {
 			</CardHeader>
 			<CardContent>
 				<ResponsiveContainer width="100%" height={400}>
-					<PieChart>
-						<Pie
-							data={chartData}
-							cx="50%"
-							cy="50%"
-							labelLine={false}
-							label={(props: PieLabelRenderProps) => {
-								const { x, y, textAnchor, payload, percent, index } = props
+					{isClientSide && (
+						<PieChart>
+							<Pie
+								data={chartData}
+								cx="50%"
+								cy="50%"
+								labelLine={false}
+								label={(props: PieLabelRenderProps) => {
+									const { x, y, textAnchor, payload, percent, index } = props
 
-								if (x === undefined || y === undefined || !payload) {
-									return null
-								}
+									if (x === undefined || y === undefined || !payload) {
+										return null
+									}
 
-								const name = String(payload.name ?? '')
+									const name = String(payload.name ?? '')
 
-								// Hide percentage for slices at index 3, 4, 5 (top 3-5 cryptos) to avoid overlap
-								// Index: 0=XNO, 1=BTC, 2=ETH, 3=XRP, 4=BNB, 5=SOL, 6=Others
-								const hidePercentage = index !== undefined && index >= 3 && index <= 5
+									// Hide percentage for slices at index 3, 4, 5 (top 3-5 cryptos) to avoid overlap
+									// Index: 0=XNO, 1=BTC, 2=ETH, 3=XRP, 4=BNB, 5=SOL, 6=Others
+									const hidePercentage = index !== undefined && index >= 3 && index <= 5
 
-								const percentage =
-									typeof payload.percentage === 'string'
-										? payload.percentage
-										: percent !== undefined
-											? (percent * 100).toFixed(2)
-											: '0.00'
+									const percentage =
+										typeof payload.percentage === 'string'
+											? payload.percentage
+											: percent !== undefined
+												? (percent * 100).toFixed(2)
+												: '0.00'
 
-								return (
-									<text
-										x={x}
-										y={y}
-										fill="var(--foreground)"
-										textAnchor={textAnchor ?? 'middle'}
-										dominantBaseline="central"
-										className="text-xs font-medium"
-									>
-										{hidePercentage ? name : `${name} ${percentage}%`}
-									</text>
-								)
-							}}
-							outerRadius={120}
-							fill="#8884d8"
-							dataKey="value"
-						>
-							{chartData.map((entry) => (
-								<Cell
-									key={`cell-${entry.name}`}
-									fill={SLICE_COLORS[entry.name] ?? 'hsl(var(--chart-1))'}
-								/>
-							))}
-						</Pie>
-						<Tooltip
-							formatter={(value: number) => [
-								value >= 1e9 ? `${(value / 1e9).toFixed(2)}B XNO` : `${(value / 1e6).toFixed(2)}M XNO`,
-								'Market Cap',
-							]}
-						/>
-						<Legend />
-					</PieChart>
+									return (
+										<text
+											x={x}
+											y={y}
+											fill="var(--foreground)"
+											textAnchor={textAnchor ?? 'middle'}
+											dominantBaseline="central"
+											className="text-xs font-medium"
+										>
+											{hidePercentage ? name : `${name} ${percentage}%`}
+										</text>
+									)
+								}}
+								outerRadius={isMobile ? 100 : 120}
+								fill="#8884d8"
+								dataKey="value"
+							>
+								{chartData.map((entry) => (
+									<Cell
+										key={`cell-${entry.name}`}
+										fill={SLICE_COLORS[entry.name] ?? 'hsl(var(--chart-1))'}
+									/>
+								))}
+							</Pie>
+							<Tooltip
+								formatter={(value: number) => [
+									value >= 1e9
+										? `${(value / 1e9).toFixed(2)}B XNO`
+										: `${(value / 1e6).toFixed(2)}M XNO`,
+									'Market Cap',
+								]}
+							/>
+							<Legend />
+						</PieChart>
+					)}
 				</ResponsiveContainer>
 			</CardContent>
 		</Card>

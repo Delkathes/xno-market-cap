@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useMemo, useState } from 'react'
 import { ArrowUpDown, Check, Copy, Loader2 } from 'lucide-react'
 
 import type { NanswapCurrency } from '@/lib/nanswap-types'
@@ -65,7 +65,7 @@ function WidgetSkeleton() {
 				{/* From currency skeleton */}
 				<div className="p-3 rounded-lg border bg-muted/50">
 					<div className="flex items-center gap-2">
-						<Skeleton className="h-10 w-[140px]" />
+						<Skeleton className="h-10 w-35" />
 						<Skeleton className="h-10 flex-1" />
 					</div>
 				</div>
@@ -79,7 +79,7 @@ function WidgetSkeleton() {
 				{/* To currency skeleton */}
 				<div className="p-3 rounded-lg border bg-muted/50">
 					<div className="flex items-center gap-2">
-						<Skeleton className="h-10 w-[140px]" />
+						<Skeleton className="h-10 w-35" />
 						<Skeleton className="h-10 flex-1" />
 					</div>
 				</div>
@@ -199,7 +199,7 @@ export function NanswapWidget() {
 	const renderCurrencySelect = useCallback(
 		(value: string, onChange: (value: string) => void, _label: string) => (
 			<Select value={value} onValueChange={onChange}>
-				<SelectTrigger className="w-[140px]">
+				<SelectTrigger className="w-35">
 					<SelectValue>
 						{currencies?.[value] && (
 							<div className="flex items-center gap-2">
@@ -215,7 +215,7 @@ export function NanswapWidget() {
 						)}
 					</SelectValue>
 				</SelectTrigger>
-				<SelectContent className="max-h-[300px]">
+				<SelectContent className="max-h-75">
 					{sortedCurrencies.map(([key, currency]) => (
 						<CurrencySelectItem key={key} currencyKey={key} currency={currency} />
 					))}

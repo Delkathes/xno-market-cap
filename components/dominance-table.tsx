@@ -22,27 +22,29 @@ interface DominanceRowProps {
 const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCapXNO, dominance }: DominanceRowProps) {
 	return (
 		<tr className={cn('border-b border-border hover:bg-muted/50 transition-colors', isXNO && 'bg-primary/5')}>
-			<td className="p-4">{!isXNO && <span className="font-medium">{index}</span>}</td>
-			<td className="p-4">
+			<td className="p-4">{!isXNO && <span className="font-medium text-sm sm:text-base">{index}</span>}</td>
+			<td className="p-4 pl-0 sm:pl-4">
 				<div className="flex items-center gap-3">
 					<Image
 						src={crypto.image || '/placeholder.svg'}
 						alt={crypto.name}
-						width={24}
-						height={24}
-						className="rounded-full"
+						width={32}
+						height={32}
+						className="w-6 h-6 sm:w-8 sm:h-8"
 					/>
 					<div>
-						<p className="font-semibold">{crypto.name}</p>
-						<p className="text-xs text-muted-foreground uppercase">{crypto.symbol}</p>
+						<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
+						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
 					</div>
 				</div>
 			</td>
-			<td className="p-4 text-right font-mono text-primary">
+			<td className="p-4 text-right text-sm sm:text-base font-mono text-primary">
 				{marketCapXNO >= 1e9 ? `${(marketCapXNO / 1e9).toFixed(2)}B` : `${(marketCapXNO / 1e6).toFixed(2)}M`}
 			</td>
-			<td className="p-4 text-right font-mono font-semibold">{dominance.toFixed(isXNO ? 4 : 2)}%</td>
-			<td className="p-4">
+			<td className="p-4 text-right text-sm sm:text-base font-mono font-semibold">
+				{dominance.toFixed(isXNO ? 4 : 2)}%
+			</td>
+			<td className="p-4 text-sm sm:text-base">
 				<div className="flex items-center gap-2">
 					<div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
 						<div
@@ -100,10 +102,10 @@ export function DominanceTable() {
 						<thead className="border-b border-border">
 							<tr className="text-muted-foreground text-sm">
 								<th className="text-left p-4 font-medium">#</th>
-								<th className="text-left p-4 font-medium">Cryptocurrency</th>
+								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Cryptocurrency</th>
 								<th className="text-right p-4 font-medium">Market Cap (XNO)</th>
 								<th className="text-right p-4 font-medium">Dominance</th>
-								<th className="text-right p-4 font-medium w-[200px]">Share</th>
+								<th className="text-right p-4 font-medium w-50">Share</th>
 							</tr>
 						</thead>
 						<tbody>
