@@ -31,7 +31,7 @@ const CryptoRow = memo(function CryptoRow({
 	return (
 		<tr className={cn('border-b border-border hover:bg-muted/50 transition-colors', isXNO && 'bg-primary/5')}>
 			<td className="p-4">
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2 text-sm sm:text-base">
 					{!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
 				</div>
 			</td>
@@ -42,15 +42,15 @@ const CryptoRow = memo(function CryptoRow({
 						alt={crypto.name}
 						width={32}
 						height={32}
-						className="rounded-full"
+						className="w-6 h-6 sm:w-8 sm:h-8"
 					/>
 					<div>
-						<p className="font-semibold">{crypto.name}</p>
-						<p className="text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+						<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
+						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
 					</div>
 				</div>
 			</td>
-			<td className="p-4 text-right font-mono text-primary">
+			<td className="p-4 text-right font-mono text-sm sm:text-base text-primary">
 				{isXNO ? (
 					<span>1.00</span>
 				) : (
@@ -60,7 +60,7 @@ const CryptoRow = memo(function CryptoRow({
 					})
 				)}
 			</td>
-			<td className="p-4 text-right">
+			<td className="p-4 text-right text-sm sm:text-base">
 				{isXNO ? (
 					<span className="text-muted-foreground">-</span>
 				) : (
@@ -79,7 +79,7 @@ const CryptoRow = memo(function CryptoRow({
 					</div>
 				)}
 			</td>
-			<td className="p-4 text-right font-mono text-primary">
+			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
 				{marketCapInXNO >= 1e9
 					? `${(marketCapInXNO / 1e9).toFixed(2)}B`
 					: `${(marketCapInXNO / 1e6).toFixed(2)}M`}
