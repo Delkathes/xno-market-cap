@@ -21,7 +21,8 @@ import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
 
 export function MarketOverview() {
-	const { data, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading, error } = useMarketData()
+	const { data, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, xnoPriceChange24h, isLoading, error } =
+		useMarketData()
 	const [showSatoshi, setShowSatoshi] = useState(true)
 
 	const [primaryFiat] = useAtom(primaryFiatAtom)
@@ -44,6 +45,26 @@ export function MarketOverview() {
 				return audRate ?? 1
 			default:
 				return 1
+		}
+	}
+
+	const getPriceChange = (currency: FiatCurrency): number => {
+		if (!xnoPriceChange24h) return 0
+		switch (currency) {
+			case 'EUR':
+				return xnoPriceChange24h.eur
+			case 'GBP':
+				return xnoPriceChange24h.gbp
+			case 'JPY':
+				return xnoPriceChange24h.jpy
+			case 'CHF':
+				return xnoPriceChange24h.chf
+			case 'CAD':
+				return xnoPriceChange24h.cad
+			case 'AUD':
+				return xnoPriceChange24h.aud
+			default:
+				return xnoPriceChange24h.usd
 		}
 	}
 
@@ -92,9 +113,9 @@ export function MarketOverview() {
 		return value >= 1e9 ? `${symbol}${(value / 1e9).toFixed(2)}B` : `${symbol}${(value / 1e6).toFixed(2)}M`
 	}
 
-	const xnoPriceChangeUSD = xno?.price_change_percentage_24h || 0
-	const xnoPriceChangePrimary = xnoPriceChangeUSD
-	const xnoPriceChangeSecondary = xnoPriceChangeUSD
+	const xnoPriceChangeUSD = xnoPriceChange24h?.usd ?? xno?.price_change_percentage_24h ?? 0
+	const xnoPriceChangePrimary = getPriceChange(primaryFiat)
+	const xnoPriceChangeSecondary = getPriceChange(secondaryFiat)
 	const xnoPriceChangeCrypto =
 		xno && selectedCrypto ? xnoPriceChangeUSD - (selectedCrypto.price_change_percentage_24h || 0) : 0
 

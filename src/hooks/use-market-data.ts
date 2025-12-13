@@ -38,6 +38,7 @@ export function useMarketData() {
 		chfRate: data?.chfRate,
 		cadRate: data?.cadRate,
 		audRate: data?.audRate,
+		xnoPriceChange24h: data?.xnoPriceChange24h,
 		isLoading,
 		error,
 	}

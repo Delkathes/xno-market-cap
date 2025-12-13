@@ -146,7 +146,7 @@ export function MarketCapTable() {
 								const valueInXNO = xno ? crypto.current_price / xno.current_price : 0
 								const marketCapInXNO = xno ? crypto.market_cap / xno.current_price : 0
 								const xno24hChange = xno?.price_change_percentage_24h || 0
-								const relativeChange = crypto.price_change_percentage_24h ?? 0 - xno24hChange
+								const relativeChange = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
 
 								return (
 									<CryptoRow

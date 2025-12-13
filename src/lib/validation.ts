@@ -43,6 +43,20 @@ export const ExchangeRatesSchema = v.object({
 	),
 })
 
+export const XnoCoinDetailSchema = v.object({
+	market_data: v.object({
+		price_change_percentage_24h_in_currency: v.object({
+			usd: v.optional(v.nullable(v.number())),
+			eur: v.optional(v.nullable(v.number())),
+			gbp: v.optional(v.nullable(v.number())),
+			jpy: v.optional(v.nullable(v.number())),
+			chf: v.optional(v.nullable(v.number())),
+			cad: v.optional(v.nullable(v.number())),
+			aud: v.optional(v.nullable(v.number())),
+		}),
+	}),
+})
+
 export const NanoBalanceResponseSchema = v.object({
 	balance: v.string(),
 	pending: v.optional(v.string()),

@@ -12,6 +12,16 @@ export interface CryptoData {
 	max_supply?: number | null
 }
 
+export interface XnoPriceChange24hPerCurrency {
+	usd: number
+	eur: number
+	gbp: number
+	jpy: number
+	chf: number
+	cad: number
+	aud: number
+}
+
 export interface MarketDataResponse {
 	data: CryptoData[]
 	eurRate: number
@@ -20,6 +30,7 @@ export interface MarketDataResponse {
 	chfRate: number
 	cadRate: number
 	audRate: number
+	xnoPriceChange24h: XnoPriceChange24hPerCurrency
 }
 
 export interface NanoBalanceResponse {

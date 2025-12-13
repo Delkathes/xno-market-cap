@@ -1,8 +1,8 @@
 import * as v from 'valibot'
 
 import { fetchWithTimeout } from './fetch-with-timeout'
-import type { CryptoData, MarketDataResponse } from './types'
-import { CryptoDataArraySchema, ExchangeRatesSchema } from './validation'
+import type { CryptoData, MarketDataResponse, XnoPriceChange24hPerCurrency } from './types'
+import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from './validation'
 
 // Custom error classes for specific failure scenarios
 export class RateLimitError extends Error {
@@ -102,7 +102,21 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			),
 		)
 
-		const [xnoResponse, ratesResponse] = await Promise.all(fetchPromises)
+		// Fetch XNO coin detail for per-currency 24h price changes
+		fetchPromises.push(
+			fetchWithTimeout(
+				'https://api.coingecko.com/api/v3/coins/nano?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
+				{
+					headers,
+					next: {
+						revalidate: 60,
+					},
+				} as RequestInit,
+				REQUEST_TIMEOUT_MS,
+			),
+		)
+
+		const [xnoResponse, ratesResponse, xnoDetailResponse] = await Promise.all(fetchPromises)
 
 		let xnoData: CryptoData | null = null
 		if (xnoResponse) {
@@ -153,13 +167,45 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			throw new ValidationError('Missing required exchange rates')
 		}
 
+		// Parse XNO detail for per-currency 24h changes
+		let xnoPriceChange24h: XnoPriceChange24hPerCurrency = {
+			usd: 0,
+			eur: 0,
+			gbp: 0,
+			jpy: 0,
+			chf: 0,
+			cad: 0,
+			aud: 0,
+		}
+
+		if (xnoDetailResponse?.ok) {
+			const xnoDetailJson = await xnoDetailResponse.json()
+			const xnoDetailResult = v.safeParse(XnoCoinDetailSchema, xnoDetailJson)
+			if (xnoDetailResult.success) {
+				const changes = xnoDetailResult.output.market_data.price_change_percentage_24h_in_currency
+				xnoPriceChange24h = {
+					usd: changes.usd ?? 0,
+					eur: changes.eur ?? 0,
+					gbp: changes.gbp ?? 0,
+					jpy: changes.jpy ?? 0,
+					chf: changes.chf ?? 0,
+					cad: changes.cad ?? 0,
+					aud: changes.aud ?? 0,
+				}
+			} else {
+				console.warn('Failed to parse XNO detail response for per-currency changes')
+			}
+		} else if (xnoDetailResponse?.status === 429) {
+			console.warn('Rate limited when fetching XNO detail, using fallback')
+		}
+
 		// Combine data: top 25 + XNO if not already included
 		const combinedData = hasXNO ? top25Data : [...top25Data, ...(xnoData ? [xnoData] : [])]
 
 		// Sort by market cap rank
 		combinedData.sort((a, b) => a.market_cap_rank - b.market_cap_rank)
 
-		return { data: combinedData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
+		return { data: combinedData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, xnoPriceChange24h }
 	} catch (error) {
 		// Re-throw custom errors as-is
 		if (error instanceof RateLimitError || error instanceof ValidationError || error instanceof UpstreamError) {
