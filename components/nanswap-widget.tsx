@@ -132,11 +132,11 @@ export function NanswapWidget() {
 	)
 
 	// Update step based on order status
-	useEffect(() => {
-		if (orderStatus?.status === 'completed') {
-			setStep('complete')
-		}
-	}, [orderStatus?.status])
+	// useEffect(() => {
+	// 	if (orderStatus?.status === 'completed') {
+	// 		setStep('complete')
+	// 	}
+	// }, [orderStatus?.status])
 
 	const sortedCurrencies = useMemo(() => {
 		if (!currencies) return []
