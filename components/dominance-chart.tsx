@@ -12,7 +12,10 @@ const SLICE_COLORS: Record<string, string> = {
 	XNO: '#209CE9',
 	BTC: '#F7931A',
 	ETH: '#9357F4',
-	Others: '#333333',
+	XRP: '#23292F',
+	BNB: '#F3BA2F',
+	SOL: '#9945FF',
+	Others: '#666666',
 }
 
 export function DominanceChart() {
@@ -48,16 +51,18 @@ export function DominanceChart() {
 	const xnoPrice = xno?.current_price || 1
 	const totalMarketCapXNO = data.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
-	const btc = data.find((c) => c.id === 'bitcoin')
-	const eth = data.find((c) => c.id === 'ethereum')
+	// Get top 5 by market cap (excluding XNO)
+	const top5 = [...data]
+		.filter((c) => c.id !== 'nano')
+		.sort((a, b) => b.market_cap - a.market_cap)
+		.slice(0, 5)
 
 	const xnoMarketCapXNO = xno ? xno.market_cap / xnoPrice : 0
-	const btcMarketCapXNO = btc ? btc.market_cap / xnoPrice : 0
-	const ethMarketCapXNO = eth ? eth.market_cap / xnoPrice : 0
 
-	// Calculate "Others" - everything except XNO, BTC, ETH
+	// Calculate "Others" - everything except XNO and top 5
+	const top5Ids = new Set(top5.map((c) => c.id))
 	const othersValue = data
-		.filter((c) => c.id !== 'nano' && c.id !== 'bitcoin' && c.id !== 'ethereum')
+		.filter((c) => c.id !== 'nano' && !top5Ids.has(c.id))
 		.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
 	const chartData = [
@@ -66,16 +71,14 @@ export function DominanceChart() {
 			value: xnoMarketCapXNO,
 			percentage: ((xnoMarketCapXNO / totalMarketCapXNO) * 100).toFixed(4),
 		},
-		{
-			name: 'BTC',
-			value: btcMarketCapXNO,
-			percentage: ((btcMarketCapXNO / totalMarketCapXNO) * 100).toFixed(2),
-		},
-		{
-			name: 'ETH',
-			value: ethMarketCapXNO,
-			percentage: ((ethMarketCapXNO / totalMarketCapXNO) * 100).toFixed(2),
-		},
+		...top5.map((crypto) => {
+			const marketCapXNO = crypto.market_cap / xnoPrice
+			return {
+				name: crypto.symbol.toUpperCase(),
+				value: marketCapXNO,
+				percentage: ((marketCapXNO / totalMarketCapXNO) * 100).toFixed(2),
+			}
+		}),
 		{
 			name: 'Others',
 			value: othersValue,
@@ -87,7 +90,7 @@ export function DominanceChart() {
 
 	return (
 		<Card>
-			<CardHeader>
+			<CardHeader className="pb-0">
 				<CardTitle>Market Dominance Distribution</CardTitle>
 				<CardDescription>Market share valued in XNO • XNO Dominance: {xnoDominance}%</CardDescription>
 			</CardHeader>
@@ -100,13 +103,18 @@ export function DominanceChart() {
 							cy="50%"
 							labelLine={false}
 							label={(props: PieLabelRenderProps) => {
-								const { x, y, textAnchor, payload, percent } = props
+								const { x, y, textAnchor, payload, percent, index } = props
 
 								if (x === undefined || y === undefined || !payload) {
 									return null
 								}
 
 								const name = String(payload.name ?? '')
+
+								// Hide percentage for slices at index 3, 4, 5 (top 3-5 cryptos) to avoid overlap
+								// Index: 0=XNO, 1=BTC, 2=ETH, 3=XRP, 4=BNB, 5=SOL, 6=Others
+								const hidePercentage = index !== undefined && index >= 3 && index <= 5
+
 								const percentage =
 									typeof payload.percentage === 'string'
 										? payload.percentage
@@ -123,7 +131,7 @@ export function DominanceChart() {
 										dominantBaseline="central"
 										className="text-xs font-medium"
 									>
-										{`${name} ${percentage}%`}
+										{hidePercentage ? name : `${name} ${percentage}%`}
 									</text>
 								)
 							}}

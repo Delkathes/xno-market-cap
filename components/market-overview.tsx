@@ -22,7 +22,7 @@ import { MarketDataError } from '@/components/market-data-error'
 
 export function MarketOverview() {
 	const { data, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading, error } = useMarketData()
-	const [showSatoshi, setShowSatoshi] = useState(false)
+	const [showSatoshi, setShowSatoshi] = useState(true)
 
 	const [primaryFiat] = useAtom(primaryFiatAtom)
 	const [secondaryFiat] = useAtom(secondaryFiatAtom)
@@ -73,7 +73,6 @@ export function MarketOverview() {
 
 	const xno = data.find((c) => c.id === 'nano')
 	const btc = data.find((c) => c.id === 'bitcoin')
-	const eth = data.find((c) => c.id === 'ethereum')
 	const selectedCrypto = data.find((c) => c.id === cryptoCurrency) || btc
 
 	const primaryRate = getRate(primaryFiat)
@@ -103,7 +102,15 @@ export function MarketOverview() {
 	const totalMarketCapInXNO = data?.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0) || 0
 	const xnoDominance = (XNO_CIRCULATING_SUPPLY / totalMarketCapInXNO) * 100
 	const btcDominance = btc ? (btc.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
+
+	const eth = data.find((c) => c.id === 'ethereum')
 	const ethDominance = eth ? (eth.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
+
+	// Others = everything except XNO, BTC, ETH
+	const othersMarketCapXNO = data
+		.filter((c) => c.id !== 'nano' && c.id !== 'bitcoin' && c.id !== 'ethereum')
+		.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
+	const othersDominance = (othersMarketCapXNO / totalMarketCapInXNO) * 100
 
 	const xnoPricePrimary = xno ? xno.current_price * primaryRate : 0
 	const xnoPriceSecondary = xno ? xno.current_price * secondaryRate : 0
@@ -117,7 +124,9 @@ export function MarketOverview() {
 	const formatCryptoPrice = () => {
 		if (!selectedCrypto) return '—'
 		if (selectedCrypto.id === 'bitcoin') {
-			return showSatoshi ? `${(xnoPriceCrypto * 1e8).toFixed(0)} sats` : `${xnoPriceCrypto.toFixed(8)} BTC`
+			return showSatoshi
+				? `${Math.round(xnoPriceCrypto * 1e8).toLocaleString()} sats`
+				: `${xnoPriceCrypto.toFixed(8)} BTC`
 		}
 		// For other cryptos, show appropriate decimals
 		return `${xnoPriceCrypto.toFixed(6)} ${selectedCrypto.symbol.toUpperCase()}`
@@ -127,19 +136,19 @@ export function MarketOverview() {
 		if (!selectedCrypto) return '—'
 		if (selectedCrypto.id === 'bitcoin') {
 			return showSatoshi
-				? `${(xnoMarketCapCrypto * 1e8).toFixed(0)} sats`
+				? `${Math.round(xnoMarketCapCrypto * 1e8).toLocaleString()} sats`
 				: `${xnoMarketCapCrypto.toFixed(2)} BTC`
 		}
-		return `${xnoMarketCapCrypto.toFixed(2)} ${selectedCrypto.symbol.toUpperCase()}`
+		return `${xnoMarketCapCrypto.toFixed(2).toLocaleString()} ${selectedCrypto.symbol.toUpperCase()}`
 	}
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
 			<Card className="group relative md:col-span-2">
 				<CurrencySettingsPopover cryptoList={data} />
-				<CardContent className="p-6">
+				<CardContent className="p-4 sm:p-6">
 					<p className="text-sm text-muted-foreground mb-1">XNO Market Cap</p>
-					<p className="text-2xl font-bold font-mono">
+					<p className="text-xl sm:text-2xl font-bold font-mono">
 						<span className="text-md font-normal text-lg">Ӿ</span>
 						{(XNO_CIRCULATING_SUPPLY / 1e6).toFixed(2)}M
 					</p>
@@ -164,19 +173,19 @@ export function MarketOverview() {
 
 			<Card className="group relative md:col-span-4">
 				<CurrencySettingsPopover cryptoList={data} />
-				<CardContent className="p-6">
+				<CardContent className="p-4 sm:p-6">
 					<p className="text-sm text-muted-foreground mb-1">XNO Price • 24h %</p>
 					{xno && selectedCrypto && (
-						<div className="grid grid-cols-3 gap-x-4 gap-y-1">
+						<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
 							{/* Row 1: Prices */}
-							<span className="text-2xl font-bold font-mono">
+							<span className="text-xl sm:text-2xl font-bold font-mono">
 								{formatPrice(xnoPricePrimary, primarySymbol, primaryFiat === 'JPY')}
 							</span>
-							<span className="text-2xl font-bold font-mono">
+							<span className="text-xl sm:text-2xl font-bold font-mono">
 								{formatPrice(xnoPriceSecondary, secondarySymbol, secondaryFiat === 'JPY')}
 							</span>
 							<button className="text-left" type="button" onClick={() => setShowSatoshi(!showSatoshi)}>
-								<span className="text-2xl font-bold font-mono cursor-pointer hover:text-primary transition-colors">
+								<span className="text-xl sm:text-2xl font-bold font-mono cursor-pointer line-clamp-1 hover:text-primary transition-colors">
 									{formatCryptoPrice()}
 								</span>
 							</button>
@@ -208,7 +217,7 @@ export function MarketOverview() {
 								<span
 									className={
 										xnoPriceChangeSecondary >= 0
-											? 'text-accent text-sm'
+											? 'text-constructive text-sm'
 											: 'text-destructive text-sm'
 									}
 								>
@@ -218,13 +227,15 @@ export function MarketOverview() {
 
 							<div className="flex items-center gap-1">
 								{xnoPriceChangeCrypto >= 0 ? (
-									<TrendingUp className="w-4 h-4 text-accent" />
+									<TrendingUp className="w-4 h-4 text-constructive" />
 								) : (
 									<TrendingDown className="w-4 h-4 text-destructive" />
 								)}
 								<span
 									className={
-										xnoPriceChangeCrypto >= 0 ? 'text-accent text-sm' : 'text-destructive text-sm'
+										xnoPriceChangeCrypto >= 0
+											? 'text-constructive text-sm'
+											: 'text-destructive text-sm'
 									}
 								>
 									{xnoPriceChangeCrypto.toFixed(2)}%
@@ -236,12 +247,13 @@ export function MarketOverview() {
 			</Card>
 
 			<Card className="md:col-span-2">
-				<CardContent className="p-6">
+				<CardContent className="p-4 sm:p-6">
 					<p className="text-sm text-muted-foreground mb-1">XNO Dominance</p>
-					<p className="text-2xl font-bold font-mono">{xnoDominance.toFixed(4)}%</p>
+					<p className="text-xl sm:text-2xl font-bold font-mono">{xnoDominance.toFixed(4)}%</p>
 					<div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
 						<span>BTC: {btcDominance.toFixed(2)}%</span>
 						<span>ETH: {ethDominance.toFixed(2)}%</span>
+						<span>Others: {othersDominance.toFixed(2)}%</span>
 					</div>
 				</CardContent>
 			</Card>

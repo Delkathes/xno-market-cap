@@ -47,7 +47,7 @@ const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCa
 					<div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
 						<div
 							className="h-full bg-primary rounded-full transition-all"
-							style={{ width: `${Math.min(dominance * 2, 100)}%` }}
+							style={{ width: `${dominance}%` }}
 						/>
 					</div>
 				</div>
@@ -62,7 +62,7 @@ export function DominanceTable() {
 	if (isLoading) {
 		return (
 			<Card>
-				<CardHeader>
+				<CardHeader className="pb-0">
 					<CardTitle>Loading...</CardTitle>
 				</CardHeader>
 			</Card>
@@ -72,7 +72,7 @@ export function DominanceTable() {
 	if (error || !data) {
 		return (
 			<Card>
-				<CardHeader>
+				<CardHeader className="pb-0">
 					<CardTitle>Dominance Rankings</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -94,9 +94,6 @@ export function DominanceTable() {
 
 	return (
 		<Card>
-			<CardHeader>
-				<CardTitle>Dominance Rankings (Valued in XNO)</CardTitle>
-			</CardHeader>
 			<CardContent className="p-0">
 				<div className="overflow-x-auto">
 					<table className="w-full">

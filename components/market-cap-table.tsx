@@ -35,7 +35,7 @@ const CryptoRow = memo(function CryptoRow({
 					{!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
 				</div>
 			</td>
-			<td className="p-4">
+			<td className="p-4 pl-0 sm:pl-4">
 				<div className="flex items-center gap-3">
 					<Image
 						src={crypto.image || '/placeholder.svg'}
@@ -128,16 +128,13 @@ export function MarketCapTable() {
 
 	return (
 		<Card>
-			<CardHeader>
-				<CardTitle>Top 25 Cryptocurrencies + XNO</CardTitle>
-			</CardHeader>
 			<CardContent className="p-0">
 				<div className="overflow-x-auto">
 					<table className="w-full">
 						<thead className="border-b border-border">
 							<tr className="text-muted-foreground text-sm">
 								<th className="text-left p-4 font-medium">#</th>
-								<th className="text-left p-4 font-medium">Name</th>
+								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Name</th>
 								<th className="text-right p-4 font-medium">Price (XNO)</th>
 								<th className="text-right p-4 font-medium">24h %</th>
 								<th className="text-right p-4 font-medium">Market Cap (XNO)</th>
