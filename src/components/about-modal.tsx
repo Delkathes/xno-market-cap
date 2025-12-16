@@ -33,7 +33,8 @@ export function AboutModal({ open, onOpenChange }: AboutModalProps) {
 							<li>Market caps valued in XNO</li>
 							<li>24h price changes relative to XNO performance</li>
 							<li>XNO dominance tracking</li>
-							<li>Speculation tool to see XNO price at different market caps</li>
+							<li>Scarcity parity comparator</li>
+							<li>Speculation table to see XNO price at different market caps</li>
 						</ul>
 					</div>
 					<p className="text-xs border-t border-border pt-4 mt-4">Data is provided by CoinGecko API.</p>

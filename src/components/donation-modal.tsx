@@ -1,262 +1,337 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, Copy, ExternalLink, Loader2 } from 'lucide-react'
+import { useCallback, useMemo, useState } from 'react'
+import { Check, CheckCircle2, Code, Copy, ExternalLink, Loader2, Rocket, Shield } from 'lucide-react'
 
-import { rawToXno, xnoToRaw } from '@/lib/nano-utils'
-import { validateDonationAmount, validateWebSocketConfirmation } from '@/lib/validation'
+import {
+	BLOCKLATTICE_ACCOUNT_URL,
+	DONATION_FIXED_AMOUNTS,
+	DONATION_GOAL_XNO,
+	DONATION_MILESTONES,
+	type DonationMilestone,
+} from '@/lib/constants'
+import { cn } from '@/lib/utils'
+
+import { useDonation } from '@/hooks/use-donation'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
+import type { MilestoneBalances } from '@/components/donation-button'
 
 const QRCodeSVG = dynamic(() => import('qrcode.react').then((mod) => mod.QRCodeSVG), {
-	loading: () => <div className="w-[180px] h-[180px] animate-pulse bg-muted rounded" />,
+	loading: () => <div className="w-45 h-45 animate-pulse bg-muted rounded" />,
 	ssr: false,
 })
 
 interface DonationModalProps {
 	open: boolean
 	onOpenChange: (open: boolean) => void
-	currentDonations: number
-	donationGoal: number
+	milestoneBalances: MilestoneBalances
+	totalDonations: number
 	onDonationReceived?: () => void
 	goalMode: boolean
+	allMilestonesComplete: boolean
+	activeWalletAddress: string
 }
-
-const DONATION_WALLET = process.env.NEXT_PUBLIC_DONATION_WALLET || ''
-const FIXED_AMOUNTS = [1, 5, 10, 25, 50]
-
-const WS_ENDPOINTS = ['wss://ws.nano.to']
-
-const WS_INITIAL_RECONNECT_DELAY = 3000
-const WS_MAX_RECONNECT_DELAY = 30000
-const WS_MAX_RECONNECT_ATTEMPTS = 10
 
 export function DonationModal({
 	open,
 	onOpenChange,
-	currentDonations,
-	donationGoal,
+	milestoneBalances,
+	totalDonations,
 	onDonationReceived,
 	goalMode,
+	allMilestonesComplete,
+	activeWalletAddress,
 }: DonationModalProps) {
-	const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
-	const [customAmount, setCustomAmount] = useState('')
 	const [copied, setCopied] = useState(false)
-	const [showQR, setShowQR] = useState(false)
-	const [wsConnected, setWsConnected] = useState(false)
-	const [paymentReceived, setPaymentReceived] = useState(false)
-	const [receivedAmount, setReceivedAmount] = useState<number | null>(null)
-	const [amountError, setAmountError] = useState<string | null>(null)
-	const wsRef = useRef<WebSocket | null>(null)
-	const wsEndpointIndexRef = useRef(0)
-	const reconnectAttemptRef = useRef(0)
-	const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-	const amount = selectedAmount ?? (customAmount ? Number.parseFloat(customAmount) : 0)
-	const progress = Math.min((currentDonations / donationGoal) * 100, 100)
+	const {
+		amount,
+		nanoUri,
+		selectedAmount,
+		customAmount,
+		amountError,
+		shouldShowQr,
+		wsConnected,
+		paymentReceived,
+		receivedAmount,
+		handleAmountSelect,
+		handleCustomAmountChange,
+		reset,
+	} = useDonation({ isOpen: open, onDonationReceived, walletAddress: activeWalletAddress })
 
-	const rawAmount = amount > 0 ? xnoToRaw(amount) : '0'
-	const nanoUri = amount > 0 ? `nano:${DONATION_WALLET}?amount=${rawAmount}` : ''
-
-	const getReconnectDelay = useCallback(() => {
-		const delay = Math.min(WS_INITIAL_RECONNECT_DELAY * 2 ** reconnectAttemptRef.current, WS_MAX_RECONNECT_DELAY)
-		return delay
-	}, [])
-
-	const connectWebSocket = useCallback(() => {
-		if (!DONATION_WALLET || wsRef.current?.readyState === WebSocket.OPEN) return
-
-		if (reconnectAttemptRef.current >= WS_MAX_RECONNECT_ATTEMPTS) {
-			console.error('Max WebSocket reconnection attempts reached')
-			return
-		}
-
-		const endpoint = WS_ENDPOINTS[wsEndpointIndexRef.current]
-		const ws = new WebSocket(endpoint)
-
-		ws.onopen = () => {
-			setWsConnected(true)
-			reconnectAttemptRef.current = 0
-			ws.send(
-				JSON.stringify({
-					action: 'subscribe',
-					topic: 'confirmation',
-				}),
-			)
-		}
-
-		ws.onmessage = async (event) => {
-			try {
-				let text: string
-				if (event.data instanceof Blob) {
-					text = await event.data.text()
-				} else {
-					text = event.data
-				}
-
-				const data = JSON.parse(text)
-
-				const validation = validateWebSocketConfirmation(data)
-				if (!validation.success) {
-					return
-				}
-
-				const validData = validation.output
-				const msg = validData.message
-				const block = msg.block
-
-				const isIncomingToWallet = block.subtype === 'send' && block.link_as_account === DONATION_WALLET
-				const isReceiveByWallet = block.subtype === 'receive' && msg.account === DONATION_WALLET
-
-				if (isIncomingToWallet || isReceiveByWallet) {
-					const receivedXno = rawToXno(msg.amount)
-					setReceivedAmount(receivedXno)
-					setPaymentReceived(true)
-					onDonationReceived?.()
-				}
-			} catch {
-				// Ignore parse errors
-			}
-		}
-
-		ws.onerror = () => {
-			setWsConnected(false)
-			wsEndpointIndexRef.current = (wsEndpointIndexRef.current + 1) % WS_ENDPOINTS.length
-		}
-
-		ws.onclose = () => {
-			setWsConnected(false)
-			if (open && !paymentReceived) {
-				reconnectAttemptRef.current++
-				const delay = getReconnectDelay()
-				reconnectTimeoutRef.current = setTimeout(connectWebSocket, delay)
-			}
-		}
-
-		wsRef.current = ws
-	}, [open, onDonationReceived, paymentReceived, getReconnectDelay])
-
-	useEffect(() => {
-		if (open && showQR && amount > 0 && !paymentReceived) {
-			connectWebSocket()
-		}
-
-		return () => {
-			if (reconnectTimeoutRef.current) {
-				clearTimeout(reconnectTimeoutRef.current)
-				reconnectTimeoutRef.current = null
-			}
-			if (wsRef.current && !paymentReceived) {
-				wsRef.current.close()
-				wsRef.current = null
-			}
-		}
-	}, [open, showQR, amount, connectWebSocket, paymentReceived])
-
-	const handleAmountSelect = (amt: number) => {
-		if (paymentReceived) return
-		const validation = validateDonationAmount(amt)
-		if (!validation.success) {
-			setAmountError(validation.error || 'Invalid amount')
-			return
-		}
-		setAmountError(null)
-		setSelectedAmount(amt)
-		setCustomAmount('')
-		setShowQR(true)
-	}
-
-	const handleCustomAmountChange = (value: string) => {
-		if (paymentReceived) return
-		const num = Number.parseFloat(value)
-
-		if (value === '') {
-			setCustomAmount('')
-			setSelectedAmount(null)
-			setShowQR(false)
-			setAmountError(null)
-			return
-		}
-
-		if (!Number.isNaN(num)) {
-			const validation = validateDonationAmount(num)
-			if (!validation.success) {
-				setAmountError(validation.error || 'Invalid amount')
-				setCustomAmount(value)
-				setSelectedAmount(null)
-				setShowQR(false)
-				return
-			}
-			setAmountError(null)
-			setCustomAmount(value)
-			setSelectedAmount(null)
-			setShowQR(num > 0)
-		}
-	}
+	const walletUrl = `${BLOCKLATTICE_ACCOUNT_URL}/${activeWalletAddress}`
 
 	const copyAddress = useCallback(async () => {
-		await navigator.clipboard.writeText(DONATION_WALLET)
+		await navigator.clipboard.writeText(activeWalletAddress)
 		setCopied(true)
 		setTimeout(() => setCopied(false), 2000)
+	}, [activeWalletAddress])
+
+	const handleDonateAgain = useCallback(() => {
+		reset()
+		setCopied(false)
+	}, [reset])
+
+	// Calculate milestone progress based on per-wallet balances
+	const milestoneProgress = useMemo(() => {
+		let previousComplete = true // First milestone is always "unlocked"
+
+		return DONATION_MILESTONES.map((milestone) => {
+			const balance = milestoneBalances[milestone.id] || 0
+			const progress = Math.min((balance / milestone.targetXno) * 100, 100)
+			const isComplete = balance >= milestone.targetXno
+			const isActive = previousComplete && !isComplete
+
+			// Update for next iteration - milestone must be unlocked sequentially
+			const wasComplete = previousComplete
+			previousComplete = previousComplete && isComplete
+
+			return {
+				...milestone,
+				balance,
+				progress,
+				isComplete,
+				isActive,
+				isLocked: !wasComplete, // Locked if previous milestone wasn't complete
+			}
+		})
+	}, [milestoneBalances])
+
+	const overallProgress = Math.min((totalDonations / DONATION_GOAL_XNO) * 100, 100)
+
+	// Get stats for a specific milestone (now uses wallet balance directly)
+	const getMilestoneStats = useCallback(
+		(milestoneId: string): { amount: number; progress: number; received: number } => {
+			const milestone = DONATION_MILESTONES.find((m) => m.id === milestoneId)
+			if (!milestone) return { amount: 0, progress: 0, received: 0 }
+
+			const balance = milestoneBalances[milestoneId] || 0
+			const progress = Math.min((balance / milestone.targetXno) * 100, 100)
+
+			return {
+				amount: milestone.targetXno,
+				progress,
+				received: Math.min(balance, milestone.targetXno),
+			}
+		},
+		[milestoneBalances],
+	)
+
+	// Calculate cumulative targets for progress bar markers
+	const cumulativeTargets = useMemo(() => {
+		let cumulative = 0
+		return DONATION_MILESTONES.map((milestone) => {
+			cumulative += milestone.targetXno
+			return { id: milestone.id, cumulative }
+		})
 	}, [])
 
-	useEffect(() => {
-		if (!open) {
-			setSelectedAmount(null)
-			setCustomAmount('')
-			setShowQR(false)
-			setPaymentReceived(false)
-			setReceivedAmount(null)
-			setAmountError(null)
-			reconnectAttemptRef.current = 0
-			if (reconnectTimeoutRef.current) {
-				clearTimeout(reconnectTimeoutRef.current)
-				reconnectTimeoutRef.current = null
-			}
-			if (wsRef.current) {
-				wsRef.current.close()
-				wsRef.current = null
-			}
+	const getMilestoneIcon = (icon: DonationMilestone['icon'], isComplete: boolean, isActive: boolean) => {
+		const className = cn(
+			'h-5 w-5 transition-colors',
+			isComplete ? 'text-primary' : isActive ? 'text-primary' : 'text-muted-foreground/50',
+		)
+		switch (icon) {
+			case 'rocket':
+				return <Rocket className={className} />
+			case 'shield':
+				return <Shield className={className} />
+			case 'code':
+				return <Code className={className} />
+			default:
+				return <Rocket className={className} />
 		}
-	}, [open])
-
-	const handleDonateAgain = () => {
-		setPaymentReceived(false)
-		setReceivedAmount(null)
-		setSelectedAmount(null)
-		setCustomAmount('')
-		setShowQR(false)
 	}
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:max-w-lg">
-				<DialogHeader>
+				<DialogHeader className="pb-2">
 					<DialogTitle>{goalMode ? 'Donation Goal' : 'Support NanoMarketCap'}</DialogTitle>
 					<DialogDescription>
 						{goalMode
-							? 'Help us reach our goal to open source this project'
+							? 'Help us unlock each milestone and open source this project'
 							: 'Your donation helps keep this project running'}
 					</DialogDescription>
 				</DialogHeader>
 
 				<div className="space-y-6">
-					{goalMode && (
-						<div className="space-y-2">
-							<div className="flex justify-between text-sm">
-								<span className="text-muted-foreground">Progress</span>
-								<span className="font-mono font-medium">
-									{currentDonations.toLocaleString(undefined, { maximumFractionDigits: 2 })} /{' '}
-									{donationGoal.toLocaleString()} XNO
-								</span>
+					{goalMode && !allMilestonesComplete && (
+						<div className="space-y-4">
+							{/* Overall Progress */}
+							<div className="space-y-2">
+								<div className="flex justify-between text-sm">
+									<div className="flex flex-col-reverse">Overall Progress</div>
+									<div className="flex flex-col items-end">
+										<span className="text-xs text-primary">{overallProgress.toFixed(1)}%</span>
+										<span className="font-mono font-medium">
+											{totalDonations.toLocaleString(undefined, {
+												minimumFractionDigits: 2,
+												maximumFractionDigits: 2,
+											})}{' '}
+											/ {DONATION_GOAL_XNO.toLocaleString()} XNO
+										</span>
+									</div>
+								</div>
+
+								{/* Multi-step Progress Bar */}
+								<div className="relative pb-3">
+									<Progress value={overallProgress} className="h-3" />
+									{/* Milestone markers */}
+									<div className="absolute inset-0 flex">
+										<span
+											className={cn(
+												'absolute top-4 -translate-x-1/2 transition-colors text-[10px] text-primary font-medium',
+											)}
+										>
+											0
+										</span>
+										{cumulativeTargets.slice(0, -1).map((target) => (
+											<div
+												key={target.id}
+												className="absolute top-0 bottom-0 w-0.5 bg-background"
+												style={{ left: `${(target.cumulative / DONATION_GOAL_XNO) * 100}%` }}
+											>
+												<span
+													className={cn(
+														'absolute top-4 -translate-x-1/2 transition-colors text-[10px] text-primary font-medium',
+													)}
+												>
+													{target.cumulative.toLocaleString()}
+												</span>
+											</div>
+										))}
+										<span
+											className={cn(
+												'absolute right-0 top-4 transition-colors text-[10px] text-primary font-medium',
+											)}
+										>
+											{DONATION_GOAL_XNO.toLocaleString()}
+										</span>
+									</div>
+								</div>
 							</div>
-							<Progress value={progress} className="h-3" />
-							<p className="text-xs text-muted-foreground text-right">{progress.toFixed(1)}% complete</p>
+
+							{/* Milestone Cards */}
+							<div className="space-y-2">
+								{milestoneProgress.map((milestone) => (
+									<div
+										key={milestone.id}
+										className={cn(
+											'relative rounded-lg border p-3 transition-all duration-300',
+											milestone.isComplete
+												? 'border-primary/50 bg-primary/5'
+												: milestone.isActive
+													? 'border-primary bg-primary/10 ring-1 ring-primary/20'
+													: 'border-border bg-muted/30 opacity-60',
+										)}
+									>
+										<div className="flex items-start gap-3 relative">
+											{/* Step indicator */}
+											<div
+												className={cn(
+													'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
+													milestone.isComplete
+														? 'border-primary bg-primary text-primary-foreground'
+														: milestone.isActive
+															? 'border-primary bg-background'
+															: 'border-muted-foreground/30 bg-muted',
+												)}
+											>
+												{milestone.isComplete ? (
+													<CheckCircle2 className="h-4 w-4" />
+												) : (
+													getMilestoneIcon(
+														milestone.icon,
+														milestone.isComplete,
+														milestone.isActive,
+													)
+												)}
+											</div>
+
+											{/* Content */}
+											<div className="flex-1 min-w-0">
+												<div className="flex justify-between gap-2">
+													<h4
+														className={cn(
+															'font-medium text-sm',
+															milestone.isComplete || milestone.isActive
+																? 'text-foreground'
+																: 'text-muted-foreground',
+														)}
+													>
+														{milestone.title}
+													</h4>
+													<div className="absolute right-0 top-0 flex flex-col items-end">
+														{(milestone.isActive || milestone.isComplete) && (
+															<span className="text-xs text-primary">
+																{getMilestoneStats(milestone.id).progress.toFixed(1)}%
+															</span>
+														)}
+														<span
+															className={cn(
+																'text-xs font-mono shrink-0',
+																milestone.isComplete
+																	? 'text-primary'
+																	: milestone.isActive
+																		? 'text-foreground'
+																		: 'text-muted-foreground',
+															)}
+														>
+															{milestone.isActive
+																? `${getMilestoneStats(milestone.id).received.toLocaleString()} / ${getMilestoneStats(milestone.id).amount.toLocaleString()}`
+																: getMilestoneStats(
+																		milestone.id,
+																	).amount.toLocaleString()}{' '}
+															XNO
+														</span>
+													</div>
+												</div>
+
+												{/* Always show rewards for all milestones */}
+												<div className="mt-2 space-y-1">
+													<ul
+														className={cn(
+															'text-xs space-y-0.5',
+															milestone.isComplete || milestone.isActive
+																? 'text-muted-foreground'
+																: 'text-muted-foreground/70',
+														)}
+													>
+														{milestone.rewards.map((reward) => (
+															<li key={reward} className="flex items-center gap-1.5">
+																<span
+																	className={cn(
+																		'h-1 w-1 rounded-full',
+																		milestone.isComplete
+																			? 'bg-primary'
+																			: milestone.isActive
+																				? 'bg-primary'
+																				: 'bg-muted-foreground/50',
+																	)}
+																/>
+																{reward}
+															</li>
+														))}
+													</ul>
+												</div>
+
+												{/* Progress within milestone */}
+												{milestone.isActive && (
+													<div className="mt-2">
+														<Progress value={milestone.progress} className="h-1.5" />
+													</div>
+												)}
+											</div>
+										</div>
+									</div>
+								))}
+							</div>
 						</div>
 					)}
 
@@ -284,9 +359,7 @@ export function DonationModal({
 								<Button
 									variant="outline"
 									className="flex-1 bg-transparent"
-									onClick={() =>
-										window.open(`https://blocklattice.io/account/${DONATION_WALLET}`, '_blank')
-									}
+									onClick={() => window.open(walletUrl, '_blank')}
 								>
 									<ExternalLink className="h-4 w-4 mr-2" />
 									View Wallet
@@ -295,55 +368,32 @@ export function DonationModal({
 						</div>
 					) : (
 						<>
-							{goalMode ? (
-								<>
-									{/* Goal Explanation - Only in goal mode */}
-									<Card>
-										<CardContent className="p-4 text-sm space-y-2">
-											<p className="font-medium text-foreground">
-												What happens when we reach {donationGoal.toLocaleString()} XNO?
-											</p>
-											<ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-												<li>Full source code released on GitHub</li>
-												<li>One-click free Deploy button for Vercel</li>
-												<li>Everyone can host their own NanoMarketCap, for free</li>
-												<li>Community-driven development</li>
-											</ul>
-										</CardContent>
-									</Card>
-
-									{/* Fund Usage Explanation */}
-									<Card>
-										<CardContent className="p-4 text-sm space-y-2">
-											<p className="font-medium text-foreground">How will the funds be used?</p>
-											<ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-												<li>Hosting and infrastructure costs for this website</li>
-												<li>Refund LLM code generation costs</li>
-												<li>Supporting the developer (rent and living expenses)</li>
-												<li>Building more XNO-related websites and tools</li>
-											</ul>
-										</CardContent>
-									</Card>
-								</>
-							) : (
+							{!goalMode && (
 								/* Regular donation mode - Just fund usage */
-								<Card>
-									<CardContent className="p-4 text-sm space-y-2">
-										<p className="font-medium text-foreground">How will your donation be used?</p>
-										<ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
-											<li>Hosting and infrastructure costs for this website</li>
-											<li>Supporting the developer (rent and living expenses)</li>
-											<li>Building more XNO-related websites and tools</li>
-										</ul>
-									</CardContent>
-								</Card>
+								<div className="rounded-lg border border-border bg-muted/30 p-4 text-sm space-y-2">
+									<p className="font-medium text-foreground">How will your donation be used?</p>
+									<ul className="text-muted-foreground space-y-1">
+										<li className="flex items-center gap-2">
+											<span className="h-1.5 w-1.5 rounded-full bg-primary" />
+											Hosting and infrastructure costs
+										</li>
+										<li className="flex items-center gap-2">
+											<span className="h-1.5 w-1.5 rounded-full bg-primary" />
+											Supporting the developer
+										</li>
+										<li className="flex items-center gap-2">
+											<span className="h-1.5 w-1.5 rounded-full bg-primary" />
+											Building more XNO tools
+										</li>
+									</ul>
+								</div>
 							)}
 
 							{/* Amount Selection */}
 							<div className="space-y-3">
 								<p className="text-sm font-medium">Select donation amount (XNO)</p>
 								<div className="flex flex-wrap gap-2">
-									{FIXED_AMOUNTS.map((amt) => (
+									{DONATION_FIXED_AMOUNTS.map((amt) => (
 										<Button
 											key={amt}
 											variant={selectedAmount === amt ? 'default' : 'outline'}
@@ -372,8 +422,8 @@ export function DonationModal({
 							</div>
 
 							{/* QR Code Section */}
-							{showQR && amount > 0 && (
-								<div className="space-y-4 pt-2 border-t border-border">
+							{shouldShowQr && amount > 0 && (
+								<div className="space-y-4 pt-4 border-t border-border">
 									<div className="flex flex-col items-center gap-4">
 										<div className="bg-white p-4 rounded-lg">
 											<QRCodeSVG value={nanoUri} size={180} level="M" includeMargin={false} />
@@ -404,7 +454,7 @@ export function DonationModal({
 										<p className="text-xs text-muted-foreground">Donation wallet address:</p>
 										<div className="flex items-center gap-2">
 											<code className="flex-1 text-xs bg-muted p-2 rounded font-mono break-all">
-												{DONATION_WALLET}
+												{activeWalletAddress}
 											</code>
 											<Button
 												variant="outline"
@@ -424,9 +474,7 @@ export function DonationModal({
 									<Button
 										variant="outline"
 										className="w-full bg-transparent"
-										onClick={() =>
-											window.open(`https://blocklattice.io/account/${DONATION_WALLET}`, '_blank')
-										}
+										onClick={() => window.open(walletUrl, '_blank')}
 									>
 										<ExternalLink className="h-4 w-4 mr-2" />
 										View on Blocklattice

@@ -1,5 +1,7 @@
 import * as v from 'valibot'
 
+import { isValidBlockHash, isValidNanoAddress, isValidRawAmount, isValidSignature, isValidWork } from './nano-utils'
+
 export const DonationAmountSchema = v.pipe(
 	v.number(),
 	v.minValue(0.000001, 'Amount must be greater than 0'),
@@ -58,9 +60,9 @@ export const XnoCoinDetailSchema = v.object({
 })
 
 export const NanoBalanceResponseSchema = v.object({
-	balance: v.string(),
-	pending: v.optional(v.string()),
-	receivable: v.optional(v.string()),
+	balance: v.pipe(v.string(), v.check(isValidRawAmount, 'Invalid raw balance amount')),
+	pending: v.optional(v.pipe(v.string(), v.check(isValidRawAmount, 'Invalid raw pending amount'))),
+	receivable: v.optional(v.pipe(v.string(), v.check(isValidRawAmount, 'Invalid raw receivable amount'))),
 })
 
 export function validateNanoBalanceResponse(data: unknown): { success: boolean; balance?: string; error?: string } {
@@ -75,20 +77,20 @@ export const WebSocketConfirmationSchema = v.object({
 	topic: v.literal('confirmation'),
 	time: v.string(),
 	message: v.object({
-		account: v.string(),
-		amount: v.string(),
-		hash: v.string(),
+		account: v.pipe(v.string(), v.check(isValidNanoAddress, 'Invalid account address')),
+		amount: v.pipe(v.string(), v.check(isValidRawAmount, 'Invalid raw amount')),
+		hash: v.pipe(v.string(), v.check(isValidBlockHash, 'Invalid block hash')),
 		confirmation_type: v.string(),
 		block: v.object({
 			type: v.string(),
-			account: v.string(),
-			previous: v.string(),
-			representative: v.string(),
-			balance: v.string(),
-			link: v.string(),
-			link_as_account: v.string(),
-			signature: v.string(),
-			work: v.string(),
+			account: v.pipe(v.string(), v.check(isValidNanoAddress, 'Invalid block account address')),
+			previous: v.string(), // Can be all zeros for open blocks
+			representative: v.pipe(v.string(), v.check(isValidNanoAddress, 'Invalid representative address')),
+			balance: v.pipe(v.string(), v.check(isValidRawAmount, 'Invalid block balance')),
+			link: v.string(), // Can be hash or public key
+			link_as_account: v.pipe(v.string(), v.check(isValidNanoAddress, 'Invalid link_as_account address')),
+			signature: v.pipe(v.string(), v.check(isValidSignature, 'Invalid block signature')),
+			work: v.pipe(v.string(), v.check(isValidWork, 'Invalid proof of work')),
 			subtype: v.picklist(['send', 'receive', 'change', 'epoch']),
 		}),
 	}),

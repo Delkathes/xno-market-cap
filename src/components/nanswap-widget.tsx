@@ -99,6 +99,23 @@ function WidgetSkeleton() {
 	)
 }
 
+export function NanswapIframe() {
+	return (
+		<iframe
+			title="nanswap-iframe"
+			src="https://nanswap.com/iframe-swap/swap?defaultFrom=BTC&defaultFromAmount=100&defaultTo=XNO&mode=swap&theme=auto&invitationId=88225687661"
+			width="500"
+			style={{
+				border: 'none',
+				borderRadius: '32px',
+				width: '100%',
+				height: '500px',
+				background: 'transparent',
+			}}
+		/>
+	)
+}
+
 export function NanswapWidget() {
 	const [fromCurrency, setFromCurrency] = useState('BTC')
 	const [toCurrency, setToCurrency] = useState('XNO')

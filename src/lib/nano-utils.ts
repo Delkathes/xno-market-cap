@@ -1,29 +1,98 @@
+import { checkAddress, checkAmount, checkHash, checkSignature, checkWork, convert, Unit } from 'nanocurrency'
+
 /**
- * Converts XNO amount to raw units
+ * Converts XNO amount to raw units using nanocurrency library
  * 1 XNO = 10^30 raw
+ * Returns '0' if conversion fails
  */
-export function xnoToRaw(xno: number): string {
-	const rawPerXno = BigInt('1000000000000000000000000000000') // 10^30
-	const wholePart = BigInt(Math.floor(xno))
-	const decimalPart = xno - Math.floor(xno)
-
-	// Calculate raw for whole part
-	const wholeRaw = wholePart * rawPerXno
-
-	// Calculate raw for decimal part (up to 6 decimal places for precision)
-	const decimalMultiplier = BigInt(Math.round(decimalPart * 1e6))
-	const decimalRaw = (decimalMultiplier * rawPerXno) / BigInt(1e6)
-
-	return (wholeRaw + decimalRaw).toString()
+export function xnoToRaw(xno: number | string): string {
+	try {
+		const value = typeof xno === 'number' ? xno.toString() : xno
+		return convert(value, { from: Unit.Nano, to: Unit.raw })
+	} catch {
+		return '0'
+	}
 }
 
 /**
- * Converts raw units to XNO amount
+ * Converts raw units to XNO amount using nanocurrency library
  * 1 XNO = 10^30 raw
+ * Returns the XNO amount as a number (may lose precision for extreme values)
+ * Returns 0 if conversion fails
  */
-export function rawToXno(raw: string | bigint): number {
-	const rawBigInt = typeof raw === 'string' ? BigInt(raw) : raw
-	// Divide by 10^24 first, then divide result by 10^6 for decimal precision
-	const intermediate = Number(rawBigInt / BigInt('1000000000000000000000000'))
-	return intermediate / 1000000
+export function rawToXno(raw: string): number {
+	try {
+		const nano = convert(raw, { from: Unit.raw, to: Unit.Nano })
+		return Number.parseFloat(nano)
+	} catch {
+		return 0
+	}
+}
+
+/**
+ * Converts raw units to XNO amount as a string (preserves full precision)
+ * 1 XNO = 10^30 raw
+ * Returns '0' if conversion fails
+ */
+export function rawToXnoString(raw: string): string {
+	try {
+		return convert(raw, { from: Unit.raw, to: Unit.Nano })
+	} catch {
+		return '0'
+	}
+}
+
+/**
+ * Validates a Nano address (nano_ or xno_ prefix) with checksum verification
+ * Uses nanocurrency library for proper validation
+ */
+export function isValidNanoAddress(address: string): boolean {
+	return checkAddress(address)
+}
+
+/**
+ * Validates a raw amount string (must be a valid integer that can be embedded in a block balance)
+ * Uses nanocurrency library for proper validation
+ */
+export function isValidRawAmount(amount: string): boolean {
+	return checkAmount(amount)
+}
+
+/**
+ * Validates a block hash (64 character hex string)
+ * Uses nanocurrency library for proper validation
+ */
+export function isValidBlockHash(hash: string): boolean {
+	return checkHash(hash)
+}
+
+/**
+ * Validates a block signature (128 character hex string)
+ * Uses nanocurrency library for proper validation
+ */
+export function isValidSignature(signature: string): boolean {
+	return checkSignature(signature)
+}
+
+/**
+ * Validates a proof of work (16 character hex string)
+ * Note: This only validates the format, not the difficulty
+ * Uses nanocurrency library for proper validation
+ */
+export function isValidWork(work: string): boolean {
+	return checkWork(work)
+}
+
+/**
+ * Creates a nano: URI for QR code generation with validation
+ * Returns null if address or amount is invalid
+ */
+export function createNanoUri(address: string, rawAmount: string): string | null {
+	if (!isValidNanoAddress(address)) {
+		return null
+	}
+	if (rawAmount !== '0' && !isValidRawAmount(rawAmount)) {
+		return null
+	}
+	return `nano:${address}?amount=${rawAmount}`
 }

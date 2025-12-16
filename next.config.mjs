@@ -67,6 +67,8 @@ const nextConfig = {
 			'jotai',
 
 			'qrcode.react',
+
+			'nanocurrency'
 		],
 	},
 

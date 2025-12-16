@@ -8,7 +8,7 @@ A cryptocurrency market tracker that displays all market data relative to XNO (N
 
 - **XNO-Centric View**: All prices and market caps displayed in XNO
 - **Market Overview**: Total market cap, XNO price, and dominance metrics
-- **Speculation Tool**: See XNO's potential price at different market cap levels
+- **Speculation Table**: See XNO's potential price at different market cap levels
 - **Multi-Currency Support**: Toggle between USD, EUR, GBP, JPY, CHF, CAD, AUD
 - **Real-Time Updates**: Live data from CoinGecko with 60-second refresh
 - **Donation System**: Built-in XNO donation flow with WebSocket payment monitoring

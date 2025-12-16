@@ -4,7 +4,7 @@ import { Info } from 'lucide-react'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
-import { NanswapWidget } from '@/components/nanswap-widget'
+import { NanswapIframe } from '@/components/nanswap-widget'
 
 export const metadata: Metadata = {
 	title: 'Swap to Nano',
@@ -60,7 +60,8 @@ export default function SwapNanoPage() {
 					</p>
 				</div>
 
-				<NanswapWidget />
+				<NanswapIframe />
+				{/* <NanswapWidget /> */}
 			</div>
 
 			{/* Disclaimer */}

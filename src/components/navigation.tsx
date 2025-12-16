@@ -73,7 +73,7 @@ export function Navigation() {
 	const isRefreshDisabled = cooldownRemaining > 0
 
 	return (
-		<header className="border-b border-border bg-card">
+		<header className="border-b border-border bg-card sticky top-0 z-40">
 			<div className="container mx-auto px-4">
 				<nav className="flex items-center justify-between h-16">
 					{/* Logo */}
@@ -87,13 +87,11 @@ export function Navigation() {
 						</Link>
 					</div>
 
-					{/* Donation Button - Desktop only */}
-					<div className="hidden lg:flex items-center">
-						<DonationButton />
-					</div>
-
 					{/* Desktop Navigation */}
 					<div className="hidden md:flex items-center gap-1">
+						{/* Donation Button - Desktop only */}
+						<DonationButton className="mr-4" />
+
 						<Button
 							variant="ghost"
 							size="icon"
@@ -409,9 +407,7 @@ export function Navigation() {
 					</div>
 
 					{/* Mobile Menu Footer - Donation */}
-					<div className="p-4 border-t border-border">
-						<DonationButton />
-					</div>
+					<DonationButton className="mx-auto mb-4 translate-y-0" />
 				</div>
 			</div>
 
