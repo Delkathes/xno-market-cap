@@ -1,5 +1,6 @@
 import * as v from 'valibot'
 
+import { CRYPTO_IDS } from './constants'
 import { fetchWithTimeout } from './fetch-with-timeout'
 import type { CryptoData, MarketDataResponse, XnoPriceChange24hPerCurrency } from './types'
 import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from './validation'
@@ -68,7 +69,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		}))
 
 		// Check if XNO (Nano) is already in top 25
-		const hasXNO = top25Data.some((crypto) => crypto.id === 'nano')
+		const hasXNO = top25Data.some((crypto) => crypto.id === CRYPTO_IDS.NANO)
 
 		const fetchPromises: Promise<Response | null>[] = []
 

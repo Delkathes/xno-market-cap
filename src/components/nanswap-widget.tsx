@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { ArrowUpDown, Check, Copy, Loader2 } from 'lucide-react'
 
+import { CryptoTicker } from '@/lib/constants'
 import type { NanswapCurrency } from '@/lib/nanswap-types'
 
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
@@ -117,8 +118,8 @@ export function NanswapIframe() {
 }
 
 export function NanswapWidget() {
-	const [fromCurrency, setFromCurrency] = useState('BTC')
-	const [toCurrency, setToCurrency] = useState('XNO')
+	const [fromCurrency, setFromCurrency] = useState(CryptoTicker.BTC)
+	const [toCurrency, setToCurrency] = useState(CryptoTicker.XNO)
 	const [fromAmount, setFromAmount] = useState('')
 	const [toAddress, setToAddress] = useState('')
 	const [extraId, setExtraId] = useState('')
@@ -214,7 +215,7 @@ export function NanswapWidget() {
 	}, [createOrderMutation])
 
 	const renderCurrencySelect = useCallback(
-		(value: string, onChange: (value: string) => void, _label: string) => (
+		(value: string, onChange: (value: CryptoTicker) => void, _label: string) => (
 			<Select value={value} onValueChange={onChange}>
 				<SelectTrigger className="w-35">
 					<SelectValue>

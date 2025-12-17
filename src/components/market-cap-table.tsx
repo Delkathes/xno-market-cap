@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { memo } from 'react'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 
+import { CRYPTO_IDS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -118,11 +119,11 @@ export function MarketCapTable() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === 'nano')
+	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
 
 	const sortedData = [...data].sort((a, b) => {
-		if (a.id === 'nano') return -1
-		if (b.id === 'nano') return 1
+		if (a.id === CRYPTO_IDS.NANO) return -1
+		if (b.id === CRYPTO_IDS.NANO) return 1
 		return 0
 	})
 
@@ -142,7 +143,7 @@ export function MarketCapTable() {
 						</thead>
 						<tbody>
 							{sortedData?.map((crypto) => {
-								const isXNO = crypto.id === 'nano'
+								const isXNO = crypto.id === CRYPTO_IDS.NANO
 								const valueInXNO = xno ? crypto.current_price / xno.current_price : 0
 								const marketCapInXNO = xno ? crypto.market_cap / xno.current_price : 0
 								const xno24hChange = xno?.price_change_percentage_24h || 0

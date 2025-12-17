@@ -3,6 +3,8 @@
 import type { PieLabelRenderProps } from 'recharts'
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
+import { CRYPTO_COLORS, CRYPTO_IDS, CryptoTicker } from '@/lib/constants'
+
 import { useIsClientSide } from '@/hooks/use-is-client-side'
 import { useIsMobile } from '@/hooks/use-is-mobile'
 import { useMarketData } from '@/hooks/use-market-data'
@@ -11,13 +13,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { MarketDataError } from '@/components/market-data-error'
 
 const SLICE_COLORS: Record<string, string> = {
-	XNO: '#209CE9',
-	BTC: '#F7931A',
-	ETH: '#9357F4',
-	XRP: '#23292F',
-	BNB: '#F3BA2F',
-	SOL: '#9945FF',
-	Others: '#666666',
+	XNO: CRYPTO_COLORS.XNO,
+	BTC: CRYPTO_COLORS.BTC,
+	ETH: CRYPTO_COLORS.ETH,
+	XRP: CRYPTO_COLORS.XRP,
+	BNB: CRYPTO_COLORS.BNB,
+	SOL: CRYPTO_COLORS.SOL,
+	Others: CRYPTO_COLORS.OTHERS,
 }
 
 export function DominanceChart() {
@@ -51,13 +53,13 @@ export function DominanceChart() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === 'nano')
+	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
 	const xnoPrice = xno?.current_price || 1
 	const totalMarketCapXNO = data.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
 	// Get top 5 by market cap (excluding XNO)
 	const top5 = [...data]
-		.filter((c) => c.id !== 'nano')
+		.filter((c) => c.id !== CRYPTO_IDS.NANO)
 		.sort((a, b) => b.market_cap - a.market_cap)
 		.slice(0, 5)
 
@@ -66,12 +68,12 @@ export function DominanceChart() {
 	// Calculate "Others" - everything except XNO and top 5
 	const top5Ids = new Set(top5.map((c) => c.id))
 	const othersValue = data
-		.filter((c) => c.id !== 'nano' && !top5Ids.has(c.id))
+		.filter((c) => c.id !== CRYPTO_IDS.NANO && !top5Ids.has(c.id))
 		.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
 	const chartData = [
 		{
-			name: 'XNO',
+			name: CryptoTicker.XNO,
 			value: xnoMarketCapXNO,
 			percentage: ((xnoMarketCapXNO / totalMarketCapXNO) * 100).toFixed(4),
 		},
@@ -156,8 +158,8 @@ export function DominanceChart() {
 									value && value >= 1e9
 										? `${(value / 1e9).toFixed(2)}B XNO`
 										: value
-										? `${(value / 1e6).toFixed(2)}M XNO`
-										: '0.00',
+											? `${(value / 1e6).toFixed(2)}M XNO`
+											: '0.00',
 									'Market Cap',
 								]}
 							/>

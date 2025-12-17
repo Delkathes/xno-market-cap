@@ -4,7 +4,8 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
 import { Infinity as InfinityIcon, Pencil, Settings, TrendingUp } from 'lucide-react'
 
-import { type FiatCurrency, parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
+import { type AssetType, CRYPTO_IDS, CryptoTicker, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
+import { parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -20,8 +21,6 @@ import { MarketDataError } from '@/components/market-data-error'
 // =============================================================================
 // SINGLE SOURCE OF TRUTH - Asset Configuration (Static metadata)
 // =============================================================================
-
-type AssetType = 'crypto' | 'commodity' | 'fiat'
 
 interface AssetConfig {
 	id: string
@@ -45,10 +44,10 @@ interface AssetConfig {
 // Asset configuration - metadata and fallback values
 const ASSET_CONFIG: Record<string, AssetConfig> = {
 	XNO: {
-		id: 'XNO',
-		coingeckoId: 'nano',
+		id: CryptoTicker.XNO,
+		coingeckoId: CRYPTO_IDS.NANO,
 		label: 'Nano',
-		unit: 'XNO',
+		unit: CryptoTicker.XNO,
 		symbol: 'Ӿ',
 		type: 'crypto',
 		color: { bg: 'bg-[#209CE9]/20', text: 'text-[#209CE9]' },
@@ -56,10 +55,10 @@ const ASSET_CONFIG: Record<string, AssetConfig> = {
 		note: 'Fixed, fully distributed',
 	},
 	BTC: {
-		id: 'BTC',
-		coingeckoId: 'bitcoin',
+		id: CryptoTicker.BTC,
+		coingeckoId: CRYPTO_IDS.BITCOIN,
 		label: 'Bitcoin',
-		unit: 'BTC',
+		unit: CryptoTicker.BTC,
 		symbol: '₿',
 		type: 'crypto',
 		color: { bg: 'bg-[#F7931A]/20', text: 'text-[#F7931A]' },
@@ -76,71 +75,72 @@ const ASSET_CONFIG: Record<string, AssetConfig> = {
 		staticSupply: { current: 209_000_000, max: 244_000_000 },
 		note: '~86% of estimated total mined',
 	},
+	// Fiat currencies - derive label and symbol from FIAT_CURRENCY_CONFIG
 	USD: {
-		id: 'USD',
-		label: 'US Dollar',
-		unit: 'USD',
-		symbol: '$',
+		id: FiatCurrency.USD,
+		label: FIAT_CURRENCY_CONFIG.USD.label,
+		unit: FiatCurrency.USD,
+		symbol: FIAT_CURRENCY_CONFIG.USD.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-green-500/20', text: 'text-green-600' },
 		staticSupply: { current: 20_800_000_000_000, max: null },
 		note: 'M2 Supply, no cap',
 	},
 	EUR: {
-		id: 'EUR',
-		label: 'Euro',
-		unit: 'EUR',
-		symbol: '€',
+		id: FiatCurrency.EUR,
+		label: FIAT_CURRENCY_CONFIG.EUR.label,
+		unit: FiatCurrency.EUR,
+		symbol: FIAT_CURRENCY_CONFIG.EUR.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-blue-500/20', text: 'text-blue-600' },
 		staticSupply: { current: 16_000_000_000_000, max: null },
 		note: 'M2 Supply, no cap',
 	},
 	GBP: {
-		id: 'GBP',
-		label: 'British Pound',
-		unit: 'GBP',
-		symbol: '£',
+		id: FiatCurrency.GBP,
+		label: FIAT_CURRENCY_CONFIG.GBP.label,
+		unit: FiatCurrency.GBP,
+		symbol: FIAT_CURRENCY_CONFIG.GBP.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-purple-500/20', text: 'text-purple-600' },
 		staticSupply: { current: 3_200_000_000_000, max: null },
 		note: 'M2 Supply, no cap',
 	},
 	JPY: {
-		id: 'JPY',
-		label: 'Japanese Yen',
-		unit: 'JPY',
-		symbol: '¥',
+		id: FiatCurrency.JPY,
+		label: FIAT_CURRENCY_CONFIG.JPY.label,
+		unit: FiatCurrency.JPY,
+		symbol: FIAT_CURRENCY_CONFIG.JPY.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-red-500/20', text: 'text-red-600' },
 		staticSupply: { current: 2_100_000_000_000_000, max: null },
 		note: 'M2 Supply, no cap',
 	},
 	CHF: {
-		id: 'CHF',
-		label: 'Swiss Franc',
-		unit: 'CHF',
-		symbol: 'Fr',
+		id: FiatCurrency.CHF,
+		label: FIAT_CURRENCY_CONFIG.CHF.label,
+		unit: FiatCurrency.CHF,
+		symbol: FIAT_CURRENCY_CONFIG.CHF.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-red-600/20', text: 'text-red-700' },
 		staticSupply: { current: 1_100_000_000_000, max: null },
 		note: 'M2 Supply, no cap',
 	},
 	CAD: {
-		id: 'CAD',
-		label: 'Canadian Dollar',
-		unit: 'CAD',
-		symbol: 'C$',
+		id: FiatCurrency.CAD,
+		label: FIAT_CURRENCY_CONFIG.CAD.label,
+		unit: FiatCurrency.CAD,
+		symbol: FIAT_CURRENCY_CONFIG.CAD.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-red-500/20', text: 'text-red-500' },
 		staticSupply: { current: 2_400_000_000_000, max: null },
 		note: 'M2 Supply, no cap',
 	},
 	AUD: {
-		id: 'AUD',
-		label: 'Australian Dollar',
-		unit: 'AUD',
-		symbol: 'A$',
+		id: FiatCurrency.AUD,
+		label: FIAT_CURRENCY_CONFIG.AUD.label,
+		unit: FiatCurrency.AUD,
+		symbol: FIAT_CURRENCY_CONFIG.AUD.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-yellow-500/20', text: 'text-yellow-600' },
 		staticSupply: { current: 2_800_000_000_000, max: null },
@@ -289,7 +289,7 @@ const formatParityValue = (value: number, asset: AssetData): string => {
 
 	if (isFiat) {
 		// JPY has much larger numbers
-		if (id === 'JPY') {
+		if (id === FiatCurrency.JPY) {
 			if (value >= 1_000_000_000) return `${symbol}${(value / 1_000_000_000).toFixed(0)}B`
 			if (value >= 1_000_000) return `${symbol}${(value / 1_000_000).toFixed(0)}M`
 			if (value >= 1_000) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`

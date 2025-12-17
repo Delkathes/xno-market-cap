@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
+import { CRYPTO_IDS } from '@/lib/constants'
 import type { MarketDataResponse } from '@/lib/types'
 
 interface ApiErrorResponse {
@@ -31,7 +32,7 @@ export function useMarketData() {
 	})
 
 	// Get XNO circulating supply from API data
-	const xnoData = data?.data?.find((c) => c.id === 'nano')
+	const xnoData = data?.data?.find((c) => c.id === CRYPTO_IDS.NANO)
 	const xnoCirculatingSupply = xnoData?.circulating_supply ?? 0
 
 	return {

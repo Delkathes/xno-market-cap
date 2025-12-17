@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { memo, useState } from 'react'
 
+import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
+import { type ExchangeRates, formatSmartPrice as formatPrice, getFiatRate } from '@/lib/currency-helpers'
 import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -11,18 +13,6 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { MarketDataError } from '@/components/market-data-error'
-
-type Currency = 'USD' | 'EUR' | 'GBP' | 'JPY' | 'CHF' | 'CAD' | 'AUD'
-
-const CURRENCY_CONFIG: Record<Currency, { symbol: string; label: string }> = {
-	USD: { symbol: '$', label: 'US Dollar' },
-	EUR: { symbol: '€', label: 'Euro' },
-	GBP: { symbol: '£', label: 'British Pound' },
-	JPY: { symbol: '¥', label: 'Japanese Yen' },
-	CHF: { symbol: 'Fr', label: 'Swiss Franc' },
-	CAD: { symbol: 'C$', label: 'Canadian Dollar' },
-	AUD: { symbol: 'A$', label: 'Australian Dollar' },
-}
 
 interface SpeculationRowProps {
 	crypto: CryptoData
@@ -84,31 +74,13 @@ const SpeculationRow = memo(function SpeculationRow({
 })
 
 export function SpeculationTable() {
-	const [currency, setCurrency] = useState<Currency>('USD')
+	const [currency, setCurrency] = useState<FiatCurrency>(FiatCurrency.USD)
 	const { data, xnoCirculatingSupply, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading, error } =
 		useMarketData()
 
-	const getRate = (cur: Currency): number => {
-		switch (cur) {
-			case 'EUR':
-				return eurRate ?? 1
-			case 'GBP':
-				return gbpRate ?? 1
-			case 'JPY':
-				return jpyRate ?? 1
-			case 'CHF':
-				return chfRate ?? 1
-			case 'CAD':
-				return cadRate ?? 1
-			case 'AUD':
-				return audRate ?? 1
-			default:
-				return 1
-		}
-	}
-
-	const rate = getRate(currency)
-	const { symbol } = CURRENCY_CONFIG[currency]
+	const rates: ExchangeRates = { eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
+	const rate = getFiatRate(currency, rates)
+	const { symbol } = FIAT_CURRENCY_CONFIG[currency]
 
 	if (isLoading) {
 		return (
@@ -134,26 +106,13 @@ export function SpeculationTable() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === 'nano')
+	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
 	const currentXnoPriceUSD = xno?.current_price || 0
 	const currentXnoPrice = currentXnoPriceUSD * rate
 
-	const otherCryptos = data.filter((c) => c.id !== 'nano').sort((a, b) => b.market_cap - a.market_cap)
+	const otherCryptos = data.filter((c) => c.id !== CRYPTO_IDS.NANO).sort((a, b) => b.market_cap - a.market_cap)
 
-	const formatPrice = (priceInFiat: number) => {
-		if (currency === 'JPY') {
-			return priceInFiat >= 1000000
-				? `${symbol}${(priceInFiat / 1000000).toFixed(2)}M`
-				: priceInFiat >= 1000
-					? `${symbol}${priceInFiat.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-					: `${symbol}${priceInFiat.toFixed(0)}`
-		}
-		return priceInFiat >= 1000
-			? `${symbol}${priceInFiat.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-			: priceInFiat >= 1
-				? `${symbol}${priceInFiat.toFixed(2)}`
-				: `${symbol}${priceInFiat.toFixed(4)}`
-	}
+	const formatPriceValue = (priceInFiat: number) => formatPrice(priceInFiat, currency)
 
 	const formatMarketCap = (mcUSD: number) => {
 		const mc = mcUSD * rate
@@ -165,12 +124,12 @@ export function SpeculationTable() {
 	return (
 		<Card className="relative">
 			<div className="absolute -top-12 right-0">
-				<Select value={currency} onValueChange={(v) => setCurrency(v as Currency)}>
+				<Select value={currency} onValueChange={(v) => setCurrency(v as FiatCurrency)}>
 					<SelectTrigger className="w-40">
 						<SelectValue placeholder="Select currency" />
 					</SelectTrigger>
 					<SelectContent>
-						{Object.entries(CURRENCY_CONFIG).map(([key, { symbol: sym, label }]) => (
+						{Object.entries(FIAT_CURRENCY_CONFIG).map(([key, { symbol: sym, label }]) => (
 							<SelectItem key={key} value={key}>
 								{sym} {label}
 							</SelectItem>
@@ -201,7 +160,7 @@ export function SpeculationTable() {
 										key={crypto.id}
 										crypto={crypto}
 										formatMarketCap={formatMarketCap}
-										formatPrice={formatPrice}
+										formatPrice={formatPriceValue}
 										multiplier={multiplier}
 										xnoPriceIf={xnoPriceIf}
 									/>

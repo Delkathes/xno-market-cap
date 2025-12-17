@@ -4,13 +4,9 @@ import { useState } from 'react'
 import { useAtom } from 'jotai'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 
-import {
-	cryptoCurrencyAtom,
-	FIAT_CURRENCY_CONFIG,
-	type FiatCurrency,
-	primaryFiatAtom,
-	secondaryFiatAtom,
-} from '@/lib/currency-atoms'
+import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
+import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
+import { type ExchangeRates, getFiatRate, getPriceChange, type PriceChange24h } from '@/lib/currency-helpers'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
@@ -39,44 +35,7 @@ export function MarketOverview() {
 	const [secondaryFiat] = useAtom(secondaryFiatAtom)
 	const [cryptoCurrency] = useAtom(cryptoCurrencyAtom)
 
-	const getRate = (currency: FiatCurrency): number => {
-		switch (currency) {
-			case 'EUR':
-				return eurRate ?? 1
-			case 'GBP':
-				return gbpRate ?? 1
-			case 'JPY':
-				return jpyRate ?? 1
-			case 'CHF':
-				return chfRate ?? 1
-			case 'CAD':
-				return cadRate ?? 1
-			case 'AUD':
-				return audRate ?? 1
-			default:
-				return 1
-		}
-	}
-
-	const getPriceChange = (currency: FiatCurrency): number => {
-		if (!xnoPriceChange24h) return 0
-		switch (currency) {
-			case 'EUR':
-				return xnoPriceChange24h.eur
-			case 'GBP':
-				return xnoPriceChange24h.gbp
-			case 'JPY':
-				return xnoPriceChange24h.jpy
-			case 'CHF':
-				return xnoPriceChange24h.chf
-			case 'CAD':
-				return xnoPriceChange24h.cad
-			case 'AUD':
-				return xnoPriceChange24h.aud
-			default:
-				return xnoPriceChange24h.usd
-		}
-	}
+	const rates: ExchangeRates = { eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
 
 	if (isLoading) {
 		return (
@@ -102,12 +61,12 @@ export function MarketOverview() {
 		return <MarketDataError error={error} />
 	}
 
-	const xno = data.find((c) => c.id === 'nano')
-	const btc = data.find((c) => c.id === 'bitcoin')
+	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
+	const btc = data.find((c) => c.id === CRYPTO_IDS.BITCOIN)
 	const selectedCrypto = data.find((c) => c.id === cryptoCurrency) || btc
 
-	const primaryRate = getRate(primaryFiat)
-	const secondaryRate = getRate(secondaryFiat)
+	const primaryRate = getFiatRate(primaryFiat, rates)
+	const secondaryRate = getFiatRate(secondaryFiat, rates)
 	const primarySymbol = FIAT_CURRENCY_CONFIG[primaryFiat].symbol
 	const secondarySymbol = FIAT_CURRENCY_CONFIG[secondaryFiat].symbol
 
@@ -124,8 +83,8 @@ export function MarketOverview() {
 	}
 
 	const xnoPriceChangeUSD = xnoPriceChange24h?.usd ?? xno?.price_change_percentage_24h ?? 0
-	const xnoPriceChangePrimary = getPriceChange(primaryFiat)
-	const xnoPriceChangeSecondary = getPriceChange(secondaryFiat)
+	const xnoPriceChangePrimary = getPriceChange(primaryFiat, xnoPriceChange24h as PriceChange24h | undefined)
+	const xnoPriceChangeSecondary = getPriceChange(secondaryFiat, xnoPriceChange24h as PriceChange24h | undefined)
 	const xnoPriceChangeCrypto =
 		xno && selectedCrypto ? xnoPriceChangeUSD - (selectedCrypto.price_change_percentage_24h || 0) : 0
 
@@ -134,12 +93,12 @@ export function MarketOverview() {
 	const xnoDominance = (xnoCirculatingSupply / totalMarketCapInXNO) * 100
 	const btcDominance = btc ? (btc.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
 
-	const eth = data.find((c) => c.id === 'ethereum')
+	const eth = data.find((c) => c.id === CRYPTO_IDS.ETHEREUM)
 	const ethDominance = eth ? (eth.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
 
 	// Others = everything except XNO, BTC, ETH
 	const othersMarketCapXNO = data
-		.filter((c) => c.id !== 'nano' && c.id !== 'bitcoin' && c.id !== 'ethereum')
+		.filter((c) => c.id !== CRYPTO_IDS.NANO && c.id !== CRYPTO_IDS.BITCOIN && c.id !== CRYPTO_IDS.ETHEREUM)
 		.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 	const othersDominance = (othersMarketCapXNO / totalMarketCapInXNO) * 100
 
@@ -154,7 +113,7 @@ export function MarketOverview() {
 
 	const formatCryptoPrice = () => {
 		if (!selectedCrypto) return '—'
-		if (selectedCrypto.id === 'bitcoin') {
+		if (selectedCrypto.id === CRYPTO_IDS.BITCOIN) {
 			return showSatoshi
 				? `${Math.round(xnoPriceCrypto * 1e8).toLocaleString()} sats`
 				: `${xnoPriceCrypto.toFixed(8)} BTC`
@@ -165,7 +124,7 @@ export function MarketOverview() {
 
 	const formatCryptoMarketCap = () => {
 		if (!selectedCrypto) return '—'
-		if (selectedCrypto.id === 'bitcoin') {
+		if (selectedCrypto.id === CRYPTO_IDS.BITCOIN) {
 			return showSatoshi
 				? `${Math.round(xnoMarketCapCrypto * 1e8).toLocaleString()} sats`
 				: `${xnoMarketCapCrypto.toFixed(2)} BTC`
@@ -185,15 +144,19 @@ export function MarketOverview() {
 					</p>
 					<div className="flex items-center gap-3 mt-2 flex-wrap">
 						<p className="text-sm text-muted-foreground">
-							{formatMarketCap(xnoMarketCapPrimary, primarySymbol, primaryFiat === 'JPY')}
+							{formatMarketCap(xnoMarketCapPrimary, primarySymbol, primaryFiat === FiatCurrency.JPY)}
 						</p>
 						<p className="text-sm text-muted-foreground">
-							{formatMarketCap(xnoMarketCapSecondary, secondarySymbol, secondaryFiat === 'JPY')}
+							{formatMarketCap(
+								xnoMarketCapSecondary,
+								secondarySymbol,
+								secondaryFiat === FiatCurrency.JPY,
+							)}
 						</p>
 						<button onClick={() => setShowSatoshi(!showSatoshi)} type="button">
 							<p
 								className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
-								title={`Click to toggle ${selectedCrypto?.id === 'bitcoin' ? 'between BTC and satoshi' : 'units'}`}
+								title={`Click to toggle ${selectedCrypto?.id === CRYPTO_IDS.BITCOIN ? 'between BTC and satoshi' : 'units'}`}
 							>
 								{formatCryptoMarketCap()}
 							</p>
@@ -210,10 +173,10 @@ export function MarketOverview() {
 						<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
 							{/* Row 1: Prices */}
 							<span className="text-xl sm:text-2xl font-bold font-mono">
-								{formatPrice(xnoPricePrimary, primarySymbol, primaryFiat === 'JPY')}
+								{formatPrice(xnoPricePrimary, primarySymbol, primaryFiat === FiatCurrency.JPY)}
 							</span>
 							<span className="text-xl sm:text-2xl font-bold font-mono">
-								{formatPrice(xnoPriceSecondary, secondarySymbol, secondaryFiat === 'JPY')}
+								{formatPrice(xnoPriceSecondary, secondarySymbol, secondaryFiat === FiatCurrency.JPY)}
 							</span>
 							<button className="text-left" type="button" onClick={() => setShowSatoshi(!showSatoshi)}>
 								<span className="text-xl sm:text-2xl font-bold font-mono cursor-pointer line-clamp-1 hover:text-primary transition-colors">

@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { memo } from 'react'
 
+import { CRYPTO_IDS } from '@/lib/constants'
 import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -84,13 +85,13 @@ export function DominanceTable() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === 'nano')
+	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
 	const xnoPrice = xno?.current_price || 1
 	const totalMarketCapXNO = data.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
 	const sortedData = [...data].sort((a, b) => {
-		if (a.id === 'nano') return -1
-		if (b.id === 'nano') return 1
+		if (a.id === CRYPTO_IDS.NANO) return -1
+		if (b.id === CRYPTO_IDS.NANO) return 1
 		return 0
 	})
 
@@ -112,7 +113,7 @@ export function DominanceTable() {
 							{sortedData?.map((crypto, index) => {
 								const marketCapXNO = crypto.market_cap / xnoPrice
 								const dominance = (marketCapXNO / totalMarketCapXNO) * 100
-								const isXNO = crypto.id === 'nano'
+								const isXNO = crypto.id === CRYPTO_IDS.NANO
 
 								return (
 									<DominanceRow

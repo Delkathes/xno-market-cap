@@ -3,13 +3,8 @@
 import { useAtom } from 'jotai'
 import { Settings } from 'lucide-react'
 
-import {
-	cryptoCurrencyAtom,
-	FIAT_CURRENCY_CONFIG,
-	type FiatCurrency,
-	primaryFiatAtom,
-	secondaryFiatAtom,
-} from '@/lib/currency-atoms'
+import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, type FiatCurrency } from '@/lib/constants'
+import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
 import type { CryptoData } from '@/lib/types'
 
 import { Button } from '@/components/ui/button'
@@ -27,7 +22,7 @@ export function CurrencySettingsPopover({ cryptoList }: CurrencySettingsPopoverP
 	const [cryptoCurrency, setCryptoCurrency] = useAtom(cryptoCurrencyAtom)
 
 	// Filter out XNO from crypto list since it's always the base
-	const availableCryptos = cryptoList?.filter((c) => c.id !== 'nano') || []
+	const availableCryptos = cryptoList?.filter((c) => c.id !== CRYPTO_IDS.NANO) || []
 
 	return (
 		<Popover>
