@@ -3,7 +3,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Heart } from 'lucide-react'
 
-import { ALLOWED_GOAL_ORIGINS, DONATION_GOAL_XNO, DONATION_MILESTONES, DONATION_WALLET_FINAL } from '@/lib/constants'
+import {
+	ALLOWED_GOAL_ORIGINS,
+	DONATION_GOAL_XNO,
+	DONATION_MILESTONES,
+	DONATION_WALLET_FINAL,
+	RPC_ENDPOINTS,
+} from '@/lib/constants'
 import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
 import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
 import { cn } from '@/lib/utils'
@@ -178,7 +184,7 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 
 	try {
 		const response = await fetchWithTimeout(
-			'https://rpc.nano.to',
+			RPC_ENDPOINTS[0],
 			{
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

@@ -30,8 +30,13 @@ export function useMarketData() {
 		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff: 1s, 2s, 4s, capped at 30s
 	})
 
+	// Get XNO circulating supply from API data
+	const xnoData = data?.data?.find((c) => c.id === 'nano')
+	const xnoCirculatingSupply = xnoData?.circulating_supply ?? 0
+
 	return {
 		data: data?.data,
+		xnoCirculatingSupply,
 		eurRate: data?.eurRate,
 		gbpRate: data?.gbpRate,
 		jpyRate: data?.jpyRate,

@@ -152,10 +152,12 @@ export function DominanceChart() {
 								))}
 							</Pie>
 							<Tooltip
-								formatter={(value: number) => [
-									value >= 1e9
+								formatter={(value: number | undefined) => [
+									value && value >= 1e9
 										? `${(value / 1e9).toFixed(2)}B XNO`
-										: `${(value / 1e6).toFixed(2)}M XNO`,
+										: value
+										? `${(value / 1e6).toFixed(2)}M XNO`
+										: '0.00',
 									'Market Cap',
 								]}
 							/>

@@ -68,7 +68,7 @@ const nextConfig = {
 
 			'qrcode.react',
 
-			'nanocurrency'
+			'nanocurrency',
 		],
 	},
 

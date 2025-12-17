@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useAtom } from 'jotai'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 
-import { XNO_CIRCULATING_SUPPLY } from '@/lib/constants'
 import {
 	cryptoCurrencyAtom,
 	FIAT_CURRENCY_CONFIG,
@@ -21,8 +20,19 @@ import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
 
 export function MarketOverview() {
-	const { data, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, xnoPriceChange24h, isLoading, error } =
-		useMarketData()
+	const {
+		data,
+		xnoCirculatingSupply,
+		eurRate,
+		gbpRate,
+		jpyRate,
+		chfRate,
+		cadRate,
+		audRate,
+		xnoPriceChange24h,
+		isLoading,
+		error,
+	} = useMarketData()
 	const [showSatoshi, setShowSatoshi] = useState(true)
 
 	const [primaryFiat] = useAtom(primaryFiatAtom)
@@ -101,7 +111,7 @@ export function MarketOverview() {
 	const primarySymbol = FIAT_CURRENCY_CONFIG[primaryFiat].symbol
 	const secondarySymbol = FIAT_CURRENCY_CONFIG[secondaryFiat].symbol
 
-	const xnoMarketCapUSD = xno ? XNO_CIRCULATING_SUPPLY * xno.current_price : 0
+	const xnoMarketCapUSD = xno ? xnoCirculatingSupply * xno.current_price : 0
 	const xnoMarketCapPrimary = xnoMarketCapUSD * primaryRate
 	const xnoMarketCapSecondary = xnoMarketCapUSD * secondaryRate
 	const xnoMarketCapCrypto = selectedCrypto ? xnoMarketCapUSD / selectedCrypto.current_price : 0
@@ -121,7 +131,7 @@ export function MarketOverview() {
 
 	const xnoPrice = xno?.current_price || 1
 	const totalMarketCapInXNO = data?.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0) || 0
-	const xnoDominance = (XNO_CIRCULATING_SUPPLY / totalMarketCapInXNO) * 100
+	const xnoDominance = (xnoCirculatingSupply / totalMarketCapInXNO) * 100
 	const btcDominance = btc ? (btc.market_cap / xnoPrice / totalMarketCapInXNO) * 100 : 0
 
 	const eth = data.find((c) => c.id === 'ethereum')
@@ -171,7 +181,7 @@ export function MarketOverview() {
 					<p className="text-sm text-muted-foreground mb-1">XNO Market Cap</p>
 					<p className="text-xl sm:text-2xl font-bold font-mono">
 						<span className="text-md font-normal text-lg">Ӿ</span>
-						{(XNO_CIRCULATING_SUPPLY / 1e6).toFixed(2)}M
+						{(xnoCirculatingSupply / 1e6).toFixed(2)}M
 					</p>
 					<div className="flex items-center gap-3 mt-2 flex-wrap">
 						<p className="text-sm text-muted-foreground">

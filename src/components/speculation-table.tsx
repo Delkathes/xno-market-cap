@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { memo, useState } from 'react'
 
-import { XNO_CIRCULATING_SUPPLY } from '@/lib/constants'
 import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -86,7 +85,8 @@ const SpeculationRow = memo(function SpeculationRow({
 
 export function SpeculationTable() {
 	const [currency, setCurrency] = useState<Currency>('USD')
-	const { data, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading, error } = useMarketData()
+	const { data, xnoCirculatingSupply, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading, error } =
+		useMarketData()
 
 	const getRate = (cur: Currency): number => {
 		switch (cur) {
@@ -193,7 +193,7 @@ export function SpeculationTable() {
 						<tbody>
 							{otherCryptos?.map((crypto) => {
 								const marketCapInFiat = crypto.market_cap * rate
-								const xnoPriceIf = marketCapInFiat / XNO_CIRCULATING_SUPPLY
+								const xnoPriceIf = marketCapInFiat / xnoCirculatingSupply
 								const multiplier = currentXnoPrice > 0 ? xnoPriceIf / currentXnoPrice : 0
 
 								return (

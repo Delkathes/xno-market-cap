@@ -2,14 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import {
-	WS_ENDPOINTS,
-	WS_INITIAL_RECONNECT_DELAY,
-	WS_MAX_RECONNECT_ATTEMPTS,
-	WS_MAX_RECONNECT_DELAY,
-} from '@/lib/constants'
+import { WS_ENDPOINTS } from '@/lib/constants'
 import { rawToXno } from '@/lib/nano-utils'
 import { validateWebSocketConfirmation } from '@/lib/validation'
+
+const WS_INITIAL_RECONNECT_DELAY = 3000
+const WS_MAX_RECONNECT_DELAY = 30000
+const WS_MAX_RECONNECT_ATTEMPTS = 10
 
 interface UseDonationWebSocketOptions {
 	shouldListen: boolean

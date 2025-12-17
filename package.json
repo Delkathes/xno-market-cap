@@ -8,7 +8,8 @@
     "start": "next start",
     "clean": "rm -rf .next node_modules pnpm-lock.yaml",
     "lint": "biome check ./src --max-diagnostics 200",
-    "format": "biome check ./src --write ."
+    "format": "biome check ./src --write .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "5.2.2",

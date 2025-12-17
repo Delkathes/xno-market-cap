@@ -1,6 +1,3 @@
-// XNO Circulating Supply (fixed supply, no inflation)
-export const XNO_CIRCULATING_SUPPLY = 133246167.96530801
-
 // Donation configuration - Final wallet for post-goal "rewardless" donations
 export const DONATION_WALLET_FINAL = process.env.NEXT_PUBLIC_DONATION_WALLET_FINAL || ''
 
@@ -19,9 +16,8 @@ export const BLOCKLATTICE_ACCOUNT_URL = 'https://blocklattice.io/account'
 
 // WebSocket configuration for payment detection
 export const WS_ENDPOINTS = ['wss://ws.nano.to'] as const
-export const WS_INITIAL_RECONNECT_DELAY = 3000
-export const WS_MAX_RECONNECT_DELAY = 30000
-export const WS_MAX_RECONNECT_ATTEMPTS = 10
+// RPC endpoints for balance checks
+export const RPC_ENDPOINTS = ['https://rpc.nano.to'] as const
 
 // Donation milestones - each milestone has its own wallet address
 export interface DonationMilestone {
@@ -70,30 +66,3 @@ export const DONATION_MILESTONES: DonationMilestone[] = [
 
 // Helper to get total donation goal across all milestones
 export const DONATION_GOAL_XNO = DONATION_MILESTONES.reduce((sum, m) => sum + m.targetXno, 0)
-
-/**
- * Validates all donation wallet addresses from environment variables
- * Throws an error if any configured wallet address is invalid
- * Empty wallet addresses are skipped (feature disabled)
- */
-export function validateDonationWallets(): { valid: boolean; errors: string[] } {
-	// Dynamic import to avoid circular dependency at module load
-	// eslint-disable-next-line @typescript-eslint/no-require-imports
-	const { isValidNanoAddress } = require('./nano-utils') as { isValidNanoAddress: (address: string) => boolean }
-
-	const errors: string[] = []
-
-	// Validate final wallet
-	if (DONATION_WALLET_FINAL && !isValidNanoAddress(DONATION_WALLET_FINAL)) {
-		errors.push(`Invalid DONATION_WALLET_FINAL: ${DONATION_WALLET_FINAL}`)
-	}
-
-	// Validate milestone wallets
-	for (const milestone of DONATION_MILESTONES) {
-		if (milestone.walletAddress && !isValidNanoAddress(milestone.walletAddress)) {
-			errors.push(`Invalid wallet for milestone "${milestone.id}": ${milestone.walletAddress}`)
-		}
-	}
-
-	return { valid: errors.length === 0, errors }
-}
