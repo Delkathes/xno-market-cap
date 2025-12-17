@@ -32,6 +32,7 @@ const REQUEST_TIMEOUT_MS = 10000
 export async function getMarketData(): Promise<MarketDataResponse> {
 	try {
 		const apiKey = process.env.COINGECKO_API_KEY
+
 		const headers: HeadersInit = {
 			Accept: 'application/json',
 			...(apiKey && { 'x-cg-demo-api-key': apiKey }),
@@ -135,6 +136,10 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			}
 		}
 
+		if (xnoData === null) {
+			throw new UpstreamError('Failed to fetch XNO data')
+		}
+
 		// Parse exchange rates - throw if we can't get valid rates
 		if (!ratesResponse || !ratesResponse.ok) {
 			if (ratesResponse?.status === 429) {
@@ -206,7 +211,17 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		// Sort by market cap rank
 		combinedData.sort((a, b) => a.market_cap_rank - b.market_cap_rank)
 
-		return { data: combinedData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, xnoPriceChange24h }
+		return {
+			data: combinedData,
+			eurRate,
+			gbpRate,
+			jpyRate,
+			chfRate,
+			cadRate,
+			audRate,
+			xnoData,
+			xnoPriceChange24h,
+		}
 	} catch (error) {
 		// Re-throw custom errors as-is
 		if (error instanceof RateLimitError || error instanceof ValidationError || error instanceof UpstreamError) {

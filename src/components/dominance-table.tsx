@@ -60,7 +60,7 @@ const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCa
 })
 
 export function DominanceTable() {
-	const { data, isLoading, error } = useMarketData()
+	const { data, isLoading, error, xnoData } = useMarketData()
 
 	if (isLoading) {
 		return (
@@ -85,8 +85,7 @@ export function DominanceTable() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
-	const xnoPrice = xno?.current_price || 1
+	const xnoPrice = xnoData?.current_price || 1
 	const totalMarketCapXNO = data.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
 	const sortedData = [...data].sort((a, b) => {
@@ -111,9 +110,12 @@ export function DominanceTable() {
 						</thead>
 						<tbody>
 							{sortedData?.map((crypto, index) => {
-								const marketCapXNO = crypto.market_cap / xnoPrice
-								const dominance = (marketCapXNO / totalMarketCapXNO) * 100
 								const isXNO = crypto.id === CRYPTO_IDS.NANO
+
+								const marketCapXNO = isXNO
+									? (crypto.circulating_supply ?? 0)
+									: crypto.market_cap / xnoPrice
+								const dominance = (marketCapXNO / totalMarketCapXNO) * 100
 
 								return (
 									<DominanceRow

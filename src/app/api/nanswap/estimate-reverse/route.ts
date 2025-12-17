@@ -26,10 +26,11 @@ export async function GET(request: NextRequest) {
 		const estimate = await getEstimateReverse(from, to, amountNum)
 
 		return NextResponse.json(estimate, {
-			headers: {
-				...getSecurityHeaders(),
-				// "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
-			},
+			headers: getSecurityHeaders(),
+			// headers: {
+			// 	...getSecurityHeaders(),
+			// 	"Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+			// },
 		})
 	} catch (error) {
 		console.error('Error fetching reverse estimate:', error)

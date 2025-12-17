@@ -23,7 +23,8 @@ const SLICE_COLORS: Record<string, string> = {
 }
 
 export function DominanceChart() {
-	const { data, isLoading, error } = useMarketData()
+	const { data, isLoading, error, xnoData } = useMarketData()
+
 	const isClientSide = useIsClientSide()
 	const isMobile = useIsMobile()
 
@@ -53,8 +54,7 @@ export function DominanceChart() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
-	const xnoPrice = xno?.current_price || 1
+	const xnoPrice = xnoData?.current_price || 1
 	const totalMarketCapXNO = data.reduce((sum, crypto) => sum + crypto.market_cap / xnoPrice, 0)
 
 	// Get top 5 by market cap (excluding XNO)
@@ -63,7 +63,7 @@ export function DominanceChart() {
 		.sort((a, b) => b.market_cap - a.market_cap)
 		.slice(0, 5)
 
-	const xnoMarketCapXNO = xno ? xno.market_cap / xnoPrice : 0
+	const xnoMarketCapXNO = xnoData ? xnoData.market_cap / xnoPrice : 0
 
 	// Calculate "Others" - everything except XNO and top 5
 	const top5Ids = new Set(top5.map((c) => c.id))

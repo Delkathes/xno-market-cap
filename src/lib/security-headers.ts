@@ -2,7 +2,7 @@
  * Security headers for API responses
  */
 
-export const securityHeaders: Record<string, string> = {
+const securityHeaders: Record<string, string> = {
 	// Prevent MIME type sniffing
 	'X-Content-Type-Options': 'nosniff',
 	// Prevent clickjacking

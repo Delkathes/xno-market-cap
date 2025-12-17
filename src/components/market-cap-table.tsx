@@ -90,7 +90,7 @@ const CryptoRow = memo(function CryptoRow({
 })
 
 export function MarketCapTable() {
-	const { data, isLoading, error } = useMarketData()
+	const { data, isLoading, error, xnoData } = useMarketData()
 
 	if (isLoading) {
 		return (
@@ -119,8 +119,6 @@ export function MarketCapTable() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
-
 	const sortedData = [...data].sort((a, b) => {
 		if (a.id === CRYPTO_IDS.NANO) return -1
 		if (b.id === CRYPTO_IDS.NANO) return 1
@@ -144,9 +142,9 @@ export function MarketCapTable() {
 						<tbody>
 							{sortedData?.map((crypto) => {
 								const isXNO = crypto.id === CRYPTO_IDS.NANO
-								const valueInXNO = xno ? crypto.current_price / xno.current_price : 0
-								const marketCapInXNO = xno ? crypto.market_cap / xno.current_price : 0
-								const xno24hChange = xno?.price_change_percentage_24h || 0
+								const valueInXNO = xnoData ? crypto.current_price / xnoData.current_price : 0
+								const marketCapInXNO = xnoData ? crypto.market_cap / xnoData.current_price : 0
+								const xno24hChange = xnoData?.price_change_percentage_24h || 0
 								const relativeChange = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
 
 								return (

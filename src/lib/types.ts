@@ -31,6 +31,7 @@ export interface MarketDataResponse {
 	cadRate: number
 	audRate: number
 	xnoPriceChange24h: XnoPriceChange24hPerCurrency
+	xnoData: CryptoData
 }
 
 export interface NanoBalanceResponse {

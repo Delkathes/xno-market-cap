@@ -75,8 +75,19 @@ const SpeculationRow = memo(function SpeculationRow({
 
 export function SpeculationTable() {
 	const [currency, setCurrency] = useState<FiatCurrency>(FiatCurrency.USD)
-	const { data, xnoCirculatingSupply, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading, error } =
-		useMarketData()
+	const {
+		data,
+		xnoData,
+		xnoCirculatingSupply,
+		eurRate,
+		gbpRate,
+		jpyRate,
+		chfRate,
+		cadRate,
+		audRate,
+		isLoading,
+		error,
+	} = useMarketData()
 
 	const rates: ExchangeRates = { eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
 	const rate = getFiatRate(currency, rates)
@@ -106,8 +117,7 @@ export function SpeculationTable() {
 		)
 	}
 
-	const xno = data.find((c) => c.id === CRYPTO_IDS.NANO)
-	const currentXnoPriceUSD = xno?.current_price || 0
+	const currentXnoPriceUSD = xnoData?.current_price || 0
 	const currentXnoPrice = currentXnoPriceUSD * rate
 
 	const otherCryptos = data.filter((c) => c.id !== CRYPTO_IDS.NANO).sort((a, b) => b.market_cap - a.market_cap)
