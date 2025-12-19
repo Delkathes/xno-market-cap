@@ -3,6 +3,7 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
 import { Infinity as InfinityIcon, Pencil, Settings, TrendingUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { type AssetType, CRYPTO_IDS, CryptoTicker, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
 import { parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
@@ -434,11 +435,14 @@ function SupplyCell({ asset }: SupplyCellProps) {
 
 // Loading skeleton for table
 function ParityTableSkeleton() {
+	const t = useTranslations('parity')
+	const tCommon = useTranslations('common')
+
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Absolute Scarcity Parity</CardTitle>
-				<CardDescription>Loading market data...</CardDescription>
+				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
+				<CardDescription>{tCommon('loading')}</CardDescription>
 			</CardHeader>
 			<CardContent className="p-6">
 				<div className="space-y-4">
@@ -466,6 +470,8 @@ function HighlightSkeleton() {
 
 // Settings popover for fiat currency selection
 function ParitySettingsPopover() {
+	const t = useTranslations('parity')
+
 	const [enabledFiats, setEnabledFiats] = useAtom(parityFiatCurrenciesAtom)
 	const { assetMap } = useAssetData()
 
@@ -484,14 +490,14 @@ function ParitySettingsPopover() {
 			<PopoverTrigger asChild>
 				<Button variant="ghost" size="icon" className="h-8 w-8">
 					<Settings className="h-4 w-4" />
-					<span className="sr-only">Fiat currency settings</span>
+					<span className="sr-only">{t('fiatCurrencySettings')}</span>
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-64" align="end">
 				<div className="grid gap-4">
 					<div className="space-y-2">
-						<h4 className="font-medium leading-none">Fiat Currencies</h4>
-						<p className="text-sm text-muted-foreground">Select which currencies to display</p>
+						<h4 className="font-medium leading-none">{t('fiatCurrencies')}</h4>
+						<p className="text-sm text-muted-foreground">{t('selectCurrenciesToDisplay')}</p>
 					</div>
 					<div className="grid gap-2">
 						{FIAT_ASSETS.map((fiat) => {
@@ -579,6 +585,8 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 
 // Main parity table
 export function ParityTable() {
+	const t = useTranslations('parity')
+
 	const filteredAssets = useFilteredAssets()
 	const { assetMap, isLoading, error } = useAssetData()
 
@@ -590,7 +598,7 @@ export function ParityTable() {
 		return (
 			<Card>
 				<CardHeader>
-					<CardTitle>Absolute Scarcity Parity</CardTitle>
+					<CardTitle>{t('nanoScarcityParity')}</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<MarketDataError error={error} />
@@ -602,24 +610,22 @@ export function ParityTable() {
 	return (
 		<Card>
 			<CardHeader className="pb-0">
-				<CardTitle>Absolute Scarcity Parity</CardTitle>
-				<CardDescription>
-					Value based on total supply ratio: 1 unit of Asset A = (Total Supply of B) / (Total Supply of A)
-				</CardDescription>
+				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
+				<CardDescription>{t('tableDescription')}</CardDescription>
 			</CardHeader>
 			<CardContent className="p-0 whitespace-nowrap">
 				<div className="overflow-x-auto">
 					<table className="w-full">
 						<thead className="border-b border-border">
 							<tr className="text-muted-foreground text-sm">
-								<th className="text-left p-4 font-medium">Asset</th>
+								<th className="text-left p-4 font-medium">{t('asset')}</th>
 								{filteredAssets.map((assetId) => (
 									<th key={assetId} className="text-right p-4 font-medium">
 										{assetMap[assetId].label}
 									</th>
 								))}
-								<th className="text-right p-4 font-medium">Total Supply</th>
-								<th className="text-left p-4 font-medium">Note</th>
+								<th className="text-right p-4 font-medium">{t('totalSupply')}</th>
+								<th className="text-left p-4 font-medium">{t('note')}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -641,11 +647,16 @@ export function ParityTable() {
 
 // XNO parity highlight cards
 export function XNOParityHighlight() {
-	const [enabledFiats] = useAtom(parityFiatCurrenciesAtom)
+	const t = useTranslations('parity')
+
 	const { assetMap, isLoading, error } = useAssetData()
+
+	const [enabledFiats] = useAtom(parityFiatCurrenciesAtom)
+
 	const [xnoAmount, setXnoAmount] = useState(1)
 	const [inputValue, setInputValue] = useState('1')
 	const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
 	const containerRef = useRef<HTMLButtonElement>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -761,7 +772,7 @@ export function XNOParityHighlight() {
 										onWheel={handleWheel}
 										className="p-4 rounded-lg border bg-[#209CE9]/10 border-[#209CE9]/30 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
 										tabIndex={0}
-										aria-label="Click to edit XNO amount"
+										aria-label={t('clickToEditXnoAmount')}
 									>
 										<p className="text-sm text-muted-foreground mb-1 flex items-center justify-between">
 											{asset.label}
@@ -770,16 +781,18 @@ export function XNOParityHighlight() {
 										<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
 											{formatXnoDisplay(xnoAmount)}
 										</p>
-										<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">Click to edit</p>
+										<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">
+											{t('clickToEdit')}
+										</p>
 										<p className="mt-1 text-xs text-muted-foreground/50 hidden sm:block">
-											Click or scroll to edit
+											{t('clickOrScrollToEdit')}
 										</p>
 									</button>
 								</PopoverTrigger>
 								<PopoverContent className="w-48 p-3" align="start">
 									<div className="space-y-2">
 										<label htmlFor="xno-amount" className="text-sm font-medium">
-											XNO Amount
+											{t('xnoAmount')}
 										</label>
 										<div className="relative">
 											<Input
@@ -798,7 +811,7 @@ export function XNOParityHighlight() {
 												Ӿ
 											</span>
 										</div>
-										<p className="text-xs text-muted-foreground">Press Enter to confirm</p>
+										<p className="text-xs text-muted-foreground">{t('pressEnterToConfirm')}</p>
 									</div>
 								</PopoverContent>
 							</Popover>
@@ -816,7 +829,7 @@ export function XNOParityHighlight() {
 									<TrendingUp className="h-3 w-3 text-emerald-500/70 mr-1" />
 									<span className="font-mono">
 										{futureValue === Number.POSITIVE_INFINITY
-											? 'no limit'
+											? t('noLimit')
 											: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatHighlightValue(futureValue * xnoAmount, asset)}`}
 									</span>
 								</p>

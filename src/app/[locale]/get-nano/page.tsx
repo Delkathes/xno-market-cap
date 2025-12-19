@@ -1,61 +1,71 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { ArrowRightLeft, Building2, Droplets, ExternalLink, Info, Monitor, Shield, Smartphone } from 'lucide-react'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
+import { Link } from '@/i18n/navigation'
+
 export const dynamic = 'force-static'
 
-export const metadata: Metadata = {
-	title: 'Get Nano & Choose a Wallet',
-	description:
-		'Choose a Nano wallet for iOS, Android, or desktop. Learn how to acquire XNO through exchanges, instant swaps, or faucets.',
-	keywords: [
-		'Nano wallet',
-		'XNO wallet',
-		'Natrium',
-		'Nautilus',
-		'Nault',
-		'buy Nano',
-		'get XNO',
-		'Nano exchange',
-		'Nano faucet',
-	],
-	openGraph: {
-		title: 'Get Nano & Choose a Wallet | NanoMarketCap',
-		description:
-			'Choose a Nano wallet for iOS, Android, or desktop. Learn how to acquire XNO through exchanges, swaps, or faucets.',
-		url: '/get-nano',
-	},
-	alternates: {
-		canonical: '/get-nano',
-	},
+type Props = {
+	params: Promise<{ locale: string }>
 }
 
-export default function GetNanoPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'metadata.getNano' })
+
+	return {
+		title: t('title'),
+		description: t('description'),
+		keywords: [
+			'Nano wallet',
+			'XNO wallet',
+			'Natrium',
+			'Nautilus',
+			'Nault',
+			'buy Nano',
+			'get XNO',
+			'Nano exchange',
+			'Nano faucet',
+		],
+		openGraph: {
+			title: t('ogTitle'),
+			description: t('ogDescription'),
+			url: '/get-nano',
+		},
+		alternates: {
+			canonical: '/get-nano',
+		},
+	}
+}
+
+export default async function GetNanoPage({ params }: Props) {
+	const { locale } = await params
+	setRequestLocale(locale)
+
+	const t = await getTranslations('getNano')
+
 	return (
 		<main className="container mx-auto px-4 py-16">
 			{/* Hero Section */}
 			<div className="text-center mb-28">
 				<Badge variant="outline" className="mb-6">
-					Get Started
+					{t('badge')}
 				</Badge>
-				<h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Get Nano & choose a wallet</h1>
-				<p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
-					You need a Nano wallet to receive or send payments.
-				</p>
-				<p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-					Choose a wallet you trust, fund it with Nano, and you are ready to go.
-				</p>
+				<h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">{t('title')}</h1>
+				<p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">{t('description1')}</p>
+				<p className="text-muted-foreground max-w-2xl mx-auto mb-6">{t('description2')}</p>
 				<div className="flex items-center justify-center gap-4">
 					<Button variant="ghost" asChild>
-						<Link href="/swap-nano">Swap to Nano</Link>
+						<Link href="/swap-nano">{t('swapToNano')}</Link>
 					</Button>
 					<Button variant="outline" asChild>
 						<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
-							Learn about Nano <ExternalLink className="w-4 h-4 ml-2" />
+							{t('learnAboutNano')} <ExternalLink className="w-4 h-4 ml-2" />
 						</a>
 					</Button>
 				</div>
@@ -65,11 +75,9 @@ export default function GetNanoPage() {
 			<div className="grid md:grid-cols-2 gap-36 max-w-5xl mx-auto mb-16">
 				{/* Step 1: Choose a wallet */}
 				<div>
-					<Badge className="mb-4">Step 1</Badge>
-					<h2 className="text-2xl md:text-3xl font-bold mb-3">Choose a wallet</h2>
-					<p className="text-muted-foreground mb-8">
-						Nano wallets exist on every platform. Pick one that matches how you want to manage your funds.
-					</p>
+					<Badge className="mb-4">{t('step1Badge')}</Badge>
+					<h2 className="text-2xl md:text-3xl font-bold mb-3">{t('step1Title')}</h2>
+					<p className="text-muted-foreground mb-8">{t('step1Description')}</p>
 
 					<div className="space-y-6">
 						{/* Mobile */}
@@ -78,10 +86,8 @@ export default function GetNanoPage() {
 								<Smartphone className="w-5 h-5 text-primary" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">Mobile</h3>
-								<p className="text-sm text-muted-foreground mb-2">
-									Natrium, Nautilus, and Cake Wallet are fast mobile wallets for iOS and Android.
-								</p>
+								<h3 className="font-semibold mb-1">{t('mobile')}</h3>
+								<p className="text-sm text-muted-foreground mb-2">{t('mobileDescription')}</p>
 								<div className="flex flex-wrap gap-2">
 									<a
 										href="https://natrium.io"
@@ -117,11 +123,8 @@ export default function GetNanoPage() {
 								<Monitor className="w-5 h-5 text-primary" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">Desktop/Web</h3>
-								<p className="text-sm text-muted-foreground mb-2">
-									Manage funds in-browser with Nault for quick access from any device. Cake Wallet is
-									also a great option for desktop.
-								</p>
+								<h3 className="font-semibold mb-1">{t('desktopWeb')}</h3>
+								<p className="text-sm text-muted-foreground mb-2">{t('desktopWebDescription')}</p>
 								<div className="flex flex-wrap gap-2">
 									<a
 										href="https://nault.cc"
@@ -149,10 +152,8 @@ export default function GetNanoPage() {
 								<Shield className="w-5 h-5 text-primary" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">Hardware</h3>
-								<p className="text-sm text-muted-foreground mb-2">
-									Use a Ledger Nano S/X with Nault for cold storage support.
-								</p>
+								<h3 className="font-semibold mb-1">{t('hardware')}</h3>
+								<p className="text-sm text-muted-foreground mb-2">{t('hardwareDescription')}</p>
 								<div className="flex flex-wrap gap-2">
 									<a
 										href="https://nault.cc"
@@ -160,7 +161,7 @@ export default function GetNanoPage() {
 										rel="noopener noreferrer"
 										className="text-sm text-primary hover:underline"
 									>
-										Ledger via Nault
+										{t('ledgerViaNault')}
 									</a>
 								</div>
 							</div>
@@ -173,17 +174,15 @@ export default function GetNanoPage() {
 						rel="noopener noreferrer"
 						className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-6"
 					>
-						View wallet directory <ExternalLink className="w-3 h-3" />
+						{t('viewWalletDirectory')} <ExternalLink className="w-3 h-3" />
 					</a>
 				</div>
 
 				{/* Step 2: Get Nano */}
 				<div>
-					<Badge className="mb-4">Step 2</Badge>
-					<h2 className="text-2xl md:text-3xl font-bold mb-3">Get Nano</h2>
-					<p className="text-muted-foreground mb-8">
-						Once you have a wallet, acquire Nano to fund your account.
-					</p>
+					<Badge className="mb-4">{t('step2Badge')}</Badge>
+					<h2 className="text-2xl md:text-3xl font-bold mb-3">{t('step2Title')}</h2>
+					<p className="text-muted-foreground mb-8">{t('step2Description')}</p>
 
 					<div className="space-y-6">
 						{/* Exchanges */}
@@ -192,10 +191,8 @@ export default function GetNanoPage() {
 								<Building2 className="w-5 h-5 text-primary" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">Exchanges</h3>
-								<p className="text-sm text-muted-foreground">
-									Binance, Kraken, KuCoin, and other major exchanges list Nano (XNO).
-								</p>
+								<h3 className="font-semibold mb-1">{t('exchanges')}</h3>
+								<p className="text-sm text-muted-foreground">{t('exchangesDescription')}</p>
 							</div>
 						</div>
 
@@ -205,10 +202,8 @@ export default function GetNanoPage() {
 								<ArrowRightLeft className="w-5 h-5 text-primary" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">Swap Services</h3>
-								<p className="text-sm text-muted-foreground">
-									Convert altcoins to Nano using Nanswap, ChangeNOW, or SimpleSwap.
-								</p>
+								<h3 className="font-semibold mb-1">{t('swapServices')}</h3>
+								<p className="text-sm text-muted-foreground">{t('swapServicesDescription')}</p>
 							</div>
 						</div>
 
@@ -218,10 +213,8 @@ export default function GetNanoPage() {
 								<Droplets className="w-5 h-5 text-primary" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">Faucets</h3>
-								<p className="text-sm text-muted-foreground">
-									Try Nano for free with community faucets that distribute small amounts.
-								</p>
+								<h3 className="font-semibold mb-1">{t('faucets')}</h3>
+								<p className="text-sm text-muted-foreground">{t('faucetsDescription')}</p>
 							</div>
 						</div>
 					</div>
@@ -232,7 +225,7 @@ export default function GetNanoPage() {
 						rel="noopener noreferrer"
 						className="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-6"
 					>
-						Learn more about getting Nano <ExternalLink className="w-3 h-3" />
+						{t('learnMoreGettingNano')} <ExternalLink className="w-3 h-3" />
 					</a>
 				</div>
 			</div>
@@ -243,14 +236,11 @@ export default function GetNanoPage() {
 					<div className="flex items-start gap-3">
 						<Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
 						<div>
-							<h3 className="font-semibold text-primary mb-1">New to Nano?</h3>
-							<p className="text-sm text-muted-foreground mb-3">
-								Nano is a fast, feeless cryptocurrency perfect for micropayments. It is eco-friendly and
-								transactions confirm in under a second.
-							</p>
+							<h3 className="font-semibold text-primary mb-1">{t('newToNano')}</h3>
+							<p className="text-sm text-muted-foreground mb-3">{t('newToNanoDescription')}</p>
 							<Button variant="outline" size="sm" asChild>
 								<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
-									Learn about Nano <ExternalLink className="w-3 h-3 ml-1" />
+									{t('learnAboutNano')} <ExternalLink className="w-3 h-3 ml-1" />
 								</a>
 							</Button>
 						</div>

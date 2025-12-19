@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useAtom } from 'jotai'
 import { TrendingDown, TrendingUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS } from '@/lib/constants'
 import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
@@ -23,6 +24,8 @@ import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
 
 export function MarketOverview() {
+	const t = useTranslations('home')
+
 	const {
 		data,
 		xnoCirculatingSupply,
@@ -131,7 +134,7 @@ export function MarketOverview() {
 			<Card className="group relative md:col-span-2">
 				<CurrencySettingsPopover cryptoList={data} />
 				<CardContent className="p-4 sm:p-6">
-					<p className="text-sm text-muted-foreground mb-1">XNO Market Cap</p>
+					<p className="text-sm text-muted-foreground mb-1">{t('xnoMarketCap')}</p>
 					<p className="text-xl sm:text-2xl font-bold font-mono">
 						<span className="text-md font-normal text-lg">Ӿ</span>
 						{(xnoCirculatingSupply / 1e6).toFixed(2)}M
@@ -146,7 +149,12 @@ export function MarketOverview() {
 						<button onClick={() => setShowSatoshi(!showSatoshi)} type="button">
 							<p
 								className="text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
-								title={`Click to toggle ${selectedCrypto?.id === CRYPTO_IDS.BITCOIN ? 'between BTC and satoshi' : 'units'}`}
+								title={t('clickToToggle', {
+									options:
+										selectedCrypto?.id === CRYPTO_IDS.BITCOIN
+											? t('betweenBtcAndSatoshi')
+											: t('units'),
+								})}
 							>
 								{formatMarketCapInCrypto()}
 							</p>
@@ -158,7 +166,7 @@ export function MarketOverview() {
 			<Card className="group relative md:col-span-4">
 				<CurrencySettingsPopover cryptoList={data} />
 				<CardContent className="p-4 sm:p-6">
-					<p className="text-sm text-muted-foreground mb-1">XNO Price • 24h %</p>
+					<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')} • 24h %</p>
 					{xnoData && selectedCrypto && (
 						<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
 							{/* Row 1: Prices */}
@@ -232,12 +240,18 @@ export function MarketOverview() {
 
 			<Card className="md:col-span-2">
 				<CardContent className="p-4 sm:p-6">
-					<p className="text-sm text-muted-foreground mb-1">XNO Dominance</p>
+					<p className="text-sm text-muted-foreground mb-1">{t('xnoDominance')}</p>
 					<p className="text-xl sm:text-2xl font-bold font-mono">{xnoDominance.toFixed(4)}%</p>
 					<div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-						<span>BTC: {btcDominance.toFixed(2)}%</span>
-						<span>ETH: {ethDominance.toFixed(2)}%</span>
-						<span>Others: {othersDominance.toFixed(2)}%</span>
+						<span>
+							{t('btcDominance')}: {btcDominance.toFixed(2)}%
+						</span>
+						<span>
+							{t('ethDominance')}: {ethDominance.toFixed(2)}%
+						</span>
+						<span>
+							{t('othersDominance')}: {othersDominance.toFixed(2)}%
+						</span>
 					</div>
 				</CardContent>
 			</Card>

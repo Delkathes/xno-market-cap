@@ -2,11 +2,14 @@
 
 import { useEffect } from 'react'
 import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 export default function SpeculationError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+	const t = useTranslations('error')
+
 	useEffect(() => {
 		console.error('Speculation page error:', error)
 	}, [error])
@@ -19,17 +22,17 @@ export default function SpeculationError({ error, reset }: { error: Error & { di
 						<AlertTriangle className="w-8 h-8 text-destructive" />
 					</div>
 					<div className="space-y-2">
-						<h1 className="text-2xl font-bold">Failed to load speculation data</h1>
-						<p className="text-muted-foreground">
-							We couldn't calculate the XNO price projections. Please try again.
-						</p>
+						<h1 className="text-2xl font-bold">{t('failedToLoadSpeculation')}</h1>
+						<p className="text-muted-foreground">{t('speculationLoadError')}</p>
 					</div>
 					{error.digest && (
-						<p className="text-xs text-muted-foreground font-mono">Error ID: {error.digest}</p>
+						<p className="text-xs text-muted-foreground font-mono">
+							{t('errorId', { digest: error.digest })}
+						</p>
 					)}
 					<Button onClick={reset} className="gap-2">
 						<RefreshCw className="w-4 h-4" />
-						Try Again
+						{t('tryAgain')}
 					</Button>
 				</CardContent>
 			</Card>

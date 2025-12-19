@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { ArrowUpDown, Check, Copy, Loader2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { CryptoTicker } from '@/lib/constants'
 import type { NanswapCurrency } from '@/lib/nanswap-types'
@@ -30,9 +31,11 @@ type SwapStep = 'input' | 'confirm' | 'processing' | 'complete'
 const CurrencySelectItem = memo(function CurrencySelectItem({
 	currencyKey,
 	currency,
+	feelessLabel,
 }: {
 	currencyKey: string
 	currency: NanswapCurrency
+	feelessLabel: string
 }) {
 	return (
 		<SelectItem value={currencyKey}>
@@ -47,7 +50,7 @@ const CurrencySelectItem = memo(function CurrencySelectItem({
 				<span>{currencyKey}</span>
 				{currency.feeless && (
 					<Badge variant="secondary" className="text-xs ml-1">
-						Feeless
+						{feelessLabel}
 					</Badge>
 				)}
 			</div>
@@ -118,6 +121,8 @@ export function NanswapIframe() {
 }
 
 export function NanswapWidget() {
+	const t = useTranslations('swapNano')
+
 	const [fromCurrency, setFromCurrency] = useState(CryptoTicker.BTC)
 	const [toCurrency, setToCurrency] = useState(CryptoTicker.XNO)
 	const [fromAmount, setFromAmount] = useState('')
@@ -235,12 +240,17 @@ export function NanswapWidget() {
 				</SelectTrigger>
 				<SelectContent className="max-h-75">
 					{sortedCurrencies.map(([key, currency]) => (
-						<CurrencySelectItem key={key} currencyKey={key} currency={currency} />
+						<CurrencySelectItem
+							key={key}
+							currencyKey={key}
+							currency={currency}
+							feelessLabel={t('feeless')}
+						/>
 					))}
 				</SelectContent>
 			</Select>
 		),
-		[currencies, sortedCurrencies],
+		[currencies, sortedCurrencies, t],
 	)
 
 	if (currenciesLoading) {
@@ -260,17 +270,17 @@ export function NanswapWidget() {
 								<div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
 									<Check className="w-8 h-8 text-green-500" />
 								</div>
-								<h3 className="text-xl font-bold mb-2">Swap Complete!</h3>
+								<h3 className="text-xl font-bold mb-2">{t('swapComplete')}</h3>
 								<p className="text-muted-foreground text-sm">
-									Your {toCurrency} has been sent to your wallet.
+									{t('yourCurrencySent', { currency: toCurrency })}
 								</p>
 							</>
 						) : (
 							<>
 								<Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-								<h3 className="text-xl font-bold mb-2">Processing Swap</h3>
+								<h3 className="text-xl font-bold mb-2">{t('processingSwap')}</h3>
 								<p className="text-muted-foreground text-sm">
-									Send your {fromCurrency} to the address below
+									{t('sendCurrencyToAddress', { currency: fromCurrency })}
 								</p>
 							</>
 						)}
@@ -280,32 +290,32 @@ export function NanswapWidget() {
 						<div className="space-y-4">
 							<div className="p-4 rounded-lg bg-muted/50 space-y-3">
 								<div className="flex justify-between text-sm">
-									<span className="text-muted-foreground">Status</span>
+									<span className="text-muted-foreground">{t('status')}</span>
 									<Badge variant={order.status === 'completed' ? 'default' : 'secondary'}>
-										{order.status || 'waiting'}
+										{order.status || t('waiting')}
 									</Badge>
 								</div>
 								<div className="flex justify-between text-sm">
-									<span className="text-muted-foreground">You send</span>
+									<span className="text-muted-foreground">{t('youSend')}</span>
 									<span className="font-mono">
 										{order.expectedAmountFrom} {fromCurrency}
 									</span>
 								</div>
 								<div className="flex justify-between text-sm">
-									<span className="text-muted-foreground">You receive</span>
+									<span className="text-muted-foreground">{t('youReceive')}</span>
 									<span className="font-mono">
 										~{order.expectedAmountTo} {toCurrency}
 									</span>
 								</div>
 								<div className="flex justify-between text-sm">
-									<span className="text-muted-foreground">Order ID</span>
+									<span className="text-muted-foreground">{t('orderId')}</span>
 									<span className="font-mono text-xs">{order.id}</span>
 								</div>
 							</div>
 
 							{step === 'processing' && order.payinAddress && (
 								<div className="space-y-2">
-									<Label>Send {fromCurrency} to this address:</Label>
+									<Label>{t('sendToAddress', { currency: fromCurrency })}</Label>
 									<div className="flex items-center gap-2">
 										<Input value={order.payinAddress} readOnly className="font-mono text-xs" />
 										<Button
@@ -325,14 +335,14 @@ export function NanswapWidget() {
 
 							{order.payinHash && (
 								<div className="text-xs text-muted-foreground">
-									<span>Payment TX: </span>
+									<span>{t('paymentTx')} </span>
 									<code className="break-all">{order.payinHash}</code>
 								</div>
 							)}
 
 							{order.payoutHash && (
 								<div className="text-xs text-muted-foreground">
-									<span>Payout TX: </span>
+									<span>{t('payoutTx')} </span>
 									<code className="break-all">{order.payoutHash}</code>
 								</div>
 							)}
@@ -340,7 +350,7 @@ export function NanswapWidget() {
 					)}
 
 					<Button className="w-full" onClick={handleNewSwap}>
-						New Swap
+						{t('newSwap')}
 					</Button>
 				</CardContent>
 			</Card>
@@ -352,7 +362,7 @@ export function NanswapWidget() {
 		<Card className="max-w-md mx-auto">
 			<CardContent className="p-6">
 				<div className="flex items-center justify-between mb-6">
-					<span className="font-medium">Swap coins</span>
+					<span className="font-medium">{t('swapCoins')}</span>
 					<div
 						className={`transition-opacity duration-200 ${estimateFetching || isPlaceholderData ? 'opacity-100' : 'opacity-0'}`}
 					>
@@ -379,8 +389,8 @@ export function NanswapWidget() {
 					) : (
 						limits && (
 							<p className="text-xs text-muted-foreground px-1">
-								Min: {limits.min} {fromCurrency} · Max:{' '}
-								{limits.max !== null ? `${limits.max} ${fromCurrency}` : 'No limit'}
+								{t('min')} {limits.min} {fromCurrency} · {t('max')}{' '}
+								{limits.max !== null ? `${limits.max} ${fromCurrency}` : t('noLimit')}
 							</p>
 						)
 					)}
@@ -433,10 +443,10 @@ export function NanswapWidget() {
 					<Alert variant="destructive" className="mb-4">
 						<AlertDescription>
 							{fromAmountNum < limits.min
-								? `Minimum amount is ${limits.min} ${fromCurrency}`
+								? t('minAmountError', { min: limits.min, currency: fromCurrency })
 								: limits.max !== null
-									? `Maximum amount is ${limits.max} ${fromCurrency}`
-									: `Amount must be at least ${limits.min} ${fromCurrency}`}
+									? t('maxAmountError', { max: limits.max, currency: fromCurrency })
+									: t('minAmountError', { min: limits.min, currency: fromCurrency })}
 						</AlertDescription>
 					</Alert>
 				)}
@@ -444,10 +454,10 @@ export function NanswapWidget() {
 				{/* Destination Address */}
 				<div className="space-y-2 mb-4">
 					<div className="flex items-center justify-between">
-						<Label>Destination Address</Label>
+						<Label>{t('destinationAddress')}</Label>
 					</div>
 					<Input
-						placeholder={`Your ${toCurrency} address`}
+						placeholder={t('yourAddressPlaceholder', { currency: toCurrency })}
 						value={toAddress}
 						onChange={(e) => setToAddress(e.target.value)}
 					/>
@@ -456,8 +466,12 @@ export function NanswapWidget() {
 				{/* Extra ID (Memo) - only show for certain currencies */}
 				{toCurrencyData && !toCurrencyData.feeless && (
 					<div className="space-y-2 mb-4">
-						<Label>Memo / Extra ID (if required)</Label>
-						<Input placeholder="Optional" value={extraId} onChange={(e) => setExtraId(e.target.value)} />
+						<Label>{t('memoExtraId')}</Label>
+						<Input
+							placeholder={t('optional')}
+							value={extraId}
+							onChange={(e) => setExtraId(e.target.value)}
+						/>
 					</div>
 				)}
 
@@ -476,15 +490,15 @@ export function NanswapWidget() {
 					{createOrderMutation.isPending ? (
 						<>
 							<Loader2 className="w-4 h-4 mr-2 animate-spin" />
-							Creating Order...
+							{t('creatingOrder')}
 						</>
 					) : (
-						'Swap'
+						t('swap')
 					)}
 				</Button>
 
 				<p className="text-center text-xs text-muted-foreground mt-4">
-					Powered by{' '}
+					{t('poweredBy')}{' '}
 					<a
 						href="https://nanswap.com"
 						target="_blank"

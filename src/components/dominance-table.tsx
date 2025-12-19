@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { memo } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS } from '@/lib/constants'
 import type { CryptoData } from '@/lib/types'
@@ -60,13 +61,16 @@ const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCa
 })
 
 export function DominanceTable() {
+	const t = useTranslations('dominance')
+	const tCommon = useTranslations('common')
+
 	const { data, isLoading, error, xnoData } = useMarketData()
 
 	if (isLoading) {
 		return (
 			<Card>
 				<CardHeader className="pb-0">
-					<CardTitle>Loading...</CardTitle>
+					<CardTitle>{tCommon('loading')}</CardTitle>
 				</CardHeader>
 			</Card>
 		)
@@ -76,7 +80,7 @@ export function DominanceTable() {
 		return (
 			<Card>
 				<CardHeader className="pb-0">
-					<CardTitle>Dominance Rankings</CardTitle>
+					<CardTitle>{t('tableTitle')}</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<MarketDataError error={error} />
@@ -102,10 +106,10 @@ export function DominanceTable() {
 						<thead className="border-b border-border">
 							<tr className="text-muted-foreground text-sm">
 								<th className="text-left p-4 font-medium">#</th>
-								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Cryptocurrency</th>
-								<th className="text-right p-4 font-medium">Market Cap (XNO)</th>
-								<th className="text-right p-4 font-medium">Dominance</th>
-								<th className="text-right p-4 font-medium w-50">Share</th>
+								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">{t('cryptocurrency')}</th>
+								<th className="text-right p-4 font-medium">{t('marketCapXno')}</th>
+								<th className="text-right p-4 font-medium">{t('dominanceLabel')}</th>
+								<th className="text-right p-4 font-medium w-50">{t('share')}</th>
 							</tr>
 						</thead>
 						<tbody>

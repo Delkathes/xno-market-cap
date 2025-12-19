@@ -1,10 +1,9 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { ArrowRightLeft, HelpCircle, Menu, Moon, RefreshCw, Sun, TrendingUp, Wallet, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 import { cn } from '@/lib/utils'
@@ -21,13 +20,20 @@ import {
 import { AboutModal } from '@/components/about-modal'
 import { DonationButton } from '@/components/donation-button'
 
+import { Link, usePathname } from '@/i18n/navigation'
+
 const REFRESH_COOLDOWN = 60 // seconds
 
 export function Navigation() {
-	const pathname = usePathname()
+	const t = useTranslations('navigation')
+
 	const { theme, setTheme } = useTheme()
+
+	const pathname = usePathname()
+
 	const [aboutOpen, setAboutOpen] = useState(false)
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
 	const queryClient = useQueryClient()
 
 	const [lastRefresh, setLastRefresh] = useState<number>(0)
@@ -82,8 +88,8 @@ export function Navigation() {
 							<div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
 								<TrendingUp className="w-5 h-5 text-primary-foreground" />
 							</div>
-							<span className="hidden sm:inline">{'NanoMarketCap'}</span>
-							<span className="sm:hidden">{'NanoMarketCap'}</span>
+							<span className="hidden sm:inline">{t('brand')}</span>
+							<span className="sm:hidden">{t('brand')}</span>
 						</Link>
 					</div>
 
@@ -99,7 +105,7 @@ export function Navigation() {
 						>
 							<Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
 							<Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-							<span className="sr-only">Toggle theme</span>
+							<span className="sr-only">{t('toggleTheme')}</span>
 						</Button>
 
 						<Button
@@ -108,7 +114,9 @@ export function Navigation() {
 							onClick={handleRefresh}
 							disabled={isRefreshDisabled}
 							title={
-								isRefreshDisabled ? `Refresh available in ${cooldownRemaining}s` : 'Refresh market data'
+								isRefreshDisabled
+									? t('refreshAvailableIn', { seconds: cooldownRemaining })
+									: t('refreshMarketData')
 							}
 						>
 							<RefreshCw
@@ -120,12 +128,12 @@ export function Navigation() {
 							{isRefreshDisabled && (
 								<span className="absolute text-[10px] font-mono font-bold">{cooldownRemaining}</span>
 							)}
-							<span className="sr-only">Refresh market data</span>
+							<span className="sr-only">{t('refreshMarketData')}</span>
 						</Button>
 
 						<Button variant="ghost" size="icon" onClick={() => setAboutOpen(true)} className="mr-2">
 							<HelpCircle className="h-[1.2rem] w-[1.2rem]" />
-							<span className="sr-only">About this website</span>
+							<span className="sr-only">{t('aboutWebsite')}</span>
 						</Button>
 
 						<Link
@@ -137,7 +145,7 @@ export function Navigation() {
 									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 							)}
 						>
-							Dominance
+							{t('dominance')}
 						</Link>
 						<Link
 							href="/parity"
@@ -148,7 +156,7 @@ export function Navigation() {
 									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 							)}
 						>
-							Parity
+							{t('parity')}
 						</Link>
 						<Link
 							href="/speculation"
@@ -159,7 +167,7 @@ export function Navigation() {
 									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 							)}
 						>
-							Speculation
+							{t('speculation')}
 						</Link>
 
 						<NavigationMenu>
@@ -173,7 +181,7 @@ export function Navigation() {
 												: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 										)}
 									>
-										Nano
+										{t('nano')}
 									</NavigationMenuTrigger>
 									<NavigationMenuContent>
 										<ul className="w-fit gap-2 p-4">
@@ -189,9 +197,11 @@ export function Navigation() {
 														<div className="flex">
 															<Wallet className="h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground" />
 															<div className="w-36">
-																<div className="text-sm font-medium">Get Nano</div>
+																<div className="text-sm font-medium">
+																	{t('getNano')}
+																</div>
 																<p className="text-xs text-muted-foreground group-hover:text-accent-foreground">
-																	Choose a wallet and acquire XNO
+																	{t('getNanoDescription')}
 																</p>
 															</div>
 														</div>
@@ -210,9 +220,11 @@ export function Navigation() {
 														<div className="flex">
 															<ArrowRightLeft className="h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground" />
 															<div className="w-36">
-																<div className="text-sm font-medium">Swap to Nano</div>
+																<div className="text-sm font-medium">
+																	{t('swapToNano')}
+																</div>
 																<p className="text-xs text-muted-foreground group-hover:text-accent-foreground">
-																	Convert altcoins (BTC, ETH or other crypto) to XNO
+																	{t('swapToNanoDescription')}
 																</p>
 															</div>
 														</div>
@@ -235,7 +247,7 @@ export function Navigation() {
 						>
 							<Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
 							<Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-							<span className="sr-only">Toggle theme</span>
+							<span className="sr-only">{t('toggleTheme')}</span>
 						</Button>
 
 						<Button
@@ -244,7 +256,9 @@ export function Navigation() {
 							onClick={handleRefresh}
 							disabled={isRefreshDisabled}
 							title={
-								isRefreshDisabled ? `Refresh available in ${cooldownRemaining}s` : 'Refresh market data'
+								isRefreshDisabled
+									? t('refreshAvailableIn', { seconds: cooldownRemaining })
+									: t('refreshMarketData')
 							}
 						>
 							<RefreshCw
@@ -256,14 +270,14 @@ export function Navigation() {
 							{isRefreshDisabled && (
 								<span className="absolute text-[10px] font-mono font-bold">{cooldownRemaining}</span>
 							)}
-							<span className="sr-only">Refresh market data</span>
+							<span className="sr-only">{t('refreshMarketData')}</span>
 						</Button>
 
 						<Button
 							variant="ghost"
 							size="icon"
 							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-							aria-label="Toggle menu"
+							aria-label={t('toggleMenu')}
 						>
 							{mobileMenuOpen ? (
 								<X className="h-[1.2rem] w-[1.2rem]" />
@@ -281,7 +295,7 @@ export function Navigation() {
 					type="button"
 					className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm md:hidden transition-opacity duration-200 cursor-default"
 					onClick={() => setMobileMenuOpen(false)}
-					aria-label="Close menu"
+					aria-label={t('closeMenu')}
 				/>
 			)}
 
@@ -295,10 +309,10 @@ export function Navigation() {
 				<div className="flex flex-col h-full">
 					{/* Mobile Menu Header */}
 					<div className="flex items-center justify-between h-16 px-4 border-b border-border">
-						<span className="font-semibold">Menu</span>
+						<span className="font-semibold">{t('menu')}</span>
 						<Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
 							<X className="h-[1.2rem] w-[1.2rem]" />
-							<span className="sr-only">Close menu</span>
+							<span className="sr-only">{t('closeMenu')}</span>
 						</Button>
 					</div>
 
@@ -314,7 +328,7 @@ export function Navigation() {
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								Home
+								{t('home')}
 							</Link>
 							<Link
 								href="/dominance"
@@ -325,7 +339,7 @@ export function Navigation() {
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								Dominance
+								{t('dominance')}
 							</Link>
 							<Link
 								href="/parity"
@@ -336,7 +350,7 @@ export function Navigation() {
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								Parity
+								{t('parity')}
 							</Link>
 							<Link
 								href="/speculation"
@@ -347,13 +361,13 @@ export function Navigation() {
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								Speculation
+								{t('speculation')}
 							</Link>
 
 							<div className="my-2 border-t border-border" />
 
 							<div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-								Nano
+								{t('nano')}
 							</div>
 
 							<Link
@@ -367,9 +381,9 @@ export function Navigation() {
 							>
 								<Wallet className="h-4 w-4 text-primary" />
 								<div>
-									<div>Get Nano</div>
+									<div>{t('getNano')}</div>
 									<p className="text-xs text-muted-foreground font-normal">
-										Choose a wallet and acquire XNO
+										{t('getNanoDescriptionShort')}
 									</p>
 								</div>
 							</Link>
@@ -385,8 +399,10 @@ export function Navigation() {
 							>
 								<ArrowRightLeft className="h-4 w-4 text-primary" />
 								<div>
-									<div>Swap to Nano</div>
-									<p className="text-xs text-muted-foreground font-normal">Convert altcoins to XNO</p>
+									<div>{t('swapToNano')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('swapToNanoDescriptionShort')}
+									</p>
 								</div>
 							</Link>
 
@@ -401,7 +417,7 @@ export function Navigation() {
 								}}
 							>
 								<HelpCircle className="h-4 w-4 mr-3" />
-								About
+								{t('aboutWebsite')}
 							</Button>
 						</div>
 					</div>

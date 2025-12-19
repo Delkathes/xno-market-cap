@@ -2,13 +2,16 @@
 
 import { useEffect } from 'react'
 import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
-export default function ErrorLanding({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function DominanceError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+	const t = useTranslations('error')
+
 	useEffect(() => {
-		console.error('Application error:', error)
+		console.error('Dominance page error:', error)
 	}, [error])
 
 	return (
@@ -19,17 +22,17 @@ export default function ErrorLanding({ error, reset }: { error: Error & { digest
 						<AlertTriangle className="w-8 h-8 text-destructive" />
 					</div>
 					<div className="space-y-2">
-						<h1 className="text-2xl font-bold">Something went wrong</h1>
-						<p className="text-muted-foreground">
-							An error occurred while loading this page. Please try again.
-						</p>
+						<h1 className="text-2xl font-bold">{t('failedToLoadDominance')}</h1>
+						<p className="text-muted-foreground">{t('dominanceLoadError')}</p>
 					</div>
 					{error.digest && (
-						<p className="text-xs text-muted-foreground font-mono">Error ID: {error.digest}</p>
+						<p className="text-xs text-muted-foreground font-mono">
+							{t('errorId', { digest: error.digest })}
+						</p>
 					)}
 					<Button onClick={reset} className="gap-2">
 						<RefreshCw className="w-4 h-4" />
-						Try Again
+						{t('tryAgain')}
 					</Button>
 				</CardContent>
 			</Card>

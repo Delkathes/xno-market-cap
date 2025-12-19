@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { memo } from 'react'
 import { TrendingDown, TrendingUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -90,13 +91,15 @@ const CryptoRow = memo(function CryptoRow({
 })
 
 export function MarketCapTable() {
+	const t = useTranslations('marketTable')
+
 	const { data, isLoading, error, xnoData } = useMarketData()
 
 	if (isLoading) {
 		return (
 			<Card>
 				<CardHeader>
-					<CardTitle>Loading market data...</CardTitle>
+					<CardTitle>{t('loadingMarketData')}</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div className="space-y-4">
@@ -109,7 +112,7 @@ export function MarketCapTable() {
 		)
 	}
 
-	if (error || !data) {
+	if (error || !data || !xnoData) {
 		return (
 			<Card>
 				<CardContent className="p-6">
@@ -132,19 +135,21 @@ export function MarketCapTable() {
 					<table className="w-full">
 						<thead className="border-b border-border">
 							<tr className="text-muted-foreground text-sm">
-								<th className="text-left p-4 font-medium">#</th>
-								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Name</th>
-								<th className="text-right p-4 font-medium">Price (XNO)</th>
-								<th className="text-right p-4 font-medium">24h %</th>
-								<th className="text-right p-4 font-medium">Market Cap (XNO)</th>
+								<th className="text-left p-4 font-medium">{t('rank')}</th>
+								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">{t('name')}</th>
+								<th className="text-right p-4 font-medium">{t('priceXno')}</th>
+								<th className="text-right p-4 font-medium">{t('change24h')}</th>
+								<th className="text-right p-4 font-medium">{t('marketCapXno')}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{sortedData?.map((crypto) => {
 								const isXNO = crypto.id === CRYPTO_IDS.NANO
-								const valueInXNO = xnoData ? crypto.current_price / xnoData.current_price : 0
-								const marketCapInXNO = xnoData ? crypto.market_cap / xnoData.current_price : 0
-								const xno24hChange = xnoData?.price_change_percentage_24h || 0
+								const valueInXNO = crypto.current_price / xnoData.current_price
+								const marketCapInXNO = isXNO
+									? (xnoData.circulating_supply ?? 0)
+									: crypto.market_cap / xnoData.current_price
+								const xno24hChange = xnoData.price_change_percentage_24h ?? 0
 								const relativeChange = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
 
 								return (

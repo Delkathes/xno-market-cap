@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { memo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
 import { type ExchangeRates, formatSmartPrice as formatPrice, getFiatRate } from '@/lib/currency-helpers'
@@ -74,7 +75,8 @@ const SpeculationRow = memo(function SpeculationRow({
 })
 
 export function SpeculationTable() {
-	const [currency, setCurrency] = useState<FiatCurrency>(FiatCurrency.USD)
+	const t = useTranslations('speculation')
+
 	const {
 		data,
 		xnoData,
@@ -88,6 +90,8 @@ export function SpeculationTable() {
 		isLoading,
 		error,
 	} = useMarketData()
+
+	const [currency, setCurrency] = useState<FiatCurrency>(FiatCurrency.USD)
 
 	const rates: ExchangeRates = { eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
 	const rate = getFiatRate(currency, rates)
@@ -136,7 +140,7 @@ export function SpeculationTable() {
 			<div className="absolute -top-12 right-0">
 				<Select value={currency} onValueChange={(v) => setCurrency(v as FiatCurrency)}>
 					<SelectTrigger className="w-40">
-						<SelectValue placeholder="Select currency" />
+						<SelectValue placeholder={t('selectCurrency')} />
 					</SelectTrigger>
 					<SelectContent>
 						{Object.entries(FIAT_CURRENCY_CONFIG).map(([key, { symbol: sym, label }]) => (
@@ -152,11 +156,11 @@ export function SpeculationTable() {
 					<table className="w-full">
 						<thead className="border-b border-border">
 							<tr className="text-muted-foreground text-sm whitespace-nowrap">
-								<th className="text-left p-4 font-medium">#</th>
-								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">Name</th>
-								<th className="text-right p-4 font-medium">Market Cap</th>
-								<th className="text-right p-4 font-medium">XNO Price</th>
-								<th className="text-right p-4 font-medium">Multiplier</th>
+								<th className="text-left p-4 font-medium">{t('rank')}</th>
+								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">{t('name')}</th>
+								<th className="text-right p-4 font-medium">{t('marketCap')}</th>
+								<th className="text-right p-4 font-medium">{t('xnoPrice')}</th>
+								<th className="text-right p-4 font-medium">{t('multiplier')}</th>
 							</tr>
 						</thead>
 						<tbody>

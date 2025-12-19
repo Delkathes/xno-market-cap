@@ -2,6 +2,7 @@
 
 import { useAtom } from 'jotai'
 import { Settings } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, type FiatCurrency } from '@/lib/constants'
 import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
@@ -17,6 +18,8 @@ interface CurrencySettingsPopoverProps {
 }
 
 export function CurrencySettingsPopover({ cryptoList }: CurrencySettingsPopoverProps) {
+	const t = useTranslations('currencySettings')
+
 	const [primaryFiat, setPrimaryFiat] = useAtom(primaryFiatAtom)
 	const [secondaryFiat, setSecondaryFiat] = useAtom(secondaryFiatAtom)
 	const [cryptoCurrency, setCryptoCurrency] = useAtom(cryptoCurrencyAtom)
@@ -33,19 +36,19 @@ export function CurrencySettingsPopover({ cryptoList }: CurrencySettingsPopoverP
 					className="h-6 w-6 md:opacity-0 md:group-hover:opacity-100 transition-opacity absolute top-2 right-2"
 				>
 					<Settings className="h-4 w-4" />
-					<span className="sr-only">Currency settings</span>
+					<span className="sr-only">{t('currencySettings')}</span>
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-72" align="end">
 				<div className="grid gap-4">
 					<div className="space-y-2">
-						<h4 className="font-medium leading-none">Display Settings</h4>
-						<p className="text-sm text-muted-foreground">Choose currencies to display</p>
+						<h4 className="font-medium leading-none">{t('title')}</h4>
+						<p className="text-sm text-muted-foreground">{t('description')}</p>
 					</div>
 
 					<div className="grid gap-3">
 						<div className="grid gap-1.5">
-							<Label htmlFor="primary-fiat">Primary Fiat</Label>
+							<Label htmlFor="primary-fiat">{t('primaryFiat')}</Label>
 							<Select value={primaryFiat} onValueChange={(v) => setPrimaryFiat(v as FiatCurrency)}>
 								<SelectTrigger id="primary-fiat">
 									<SelectValue />
@@ -61,7 +64,7 @@ export function CurrencySettingsPopover({ cryptoList }: CurrencySettingsPopoverP
 						</div>
 
 						<div className="grid gap-1.5">
-							<Label htmlFor="secondary-fiat">Secondary Fiat</Label>
+							<Label htmlFor="secondary-fiat">{t('secondaryFiat')}</Label>
 							<Select value={secondaryFiat} onValueChange={(v) => setSecondaryFiat(v as FiatCurrency)}>
 								<SelectTrigger id="secondary-fiat">
 									<SelectValue />
@@ -77,7 +80,7 @@ export function CurrencySettingsPopover({ cryptoList }: CurrencySettingsPopoverP
 						</div>
 
 						<div className="grid gap-1.5">
-							<Label htmlFor="crypto-currency">Crypto Reference</Label>
+							<Label htmlFor="crypto-currency">{t('cryptoReference')}</Label>
 							<Select value={cryptoCurrency} onValueChange={setCryptoCurrency}>
 								<SelectTrigger id="crypto-currency">
 									<SelectValue />

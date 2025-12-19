@@ -2,14 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Heart } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-import {
-	ALLOWED_GOAL_ORIGINS,
-	DONATION_GOAL_XNO,
-	DONATION_MILESTONES,
-	DONATION_WALLET_FINAL,
-	RPC_ENDPOINTS,
-} from '@/lib/constants'
+import { ALLOWED_GOAL_ORIGINS, RPC_ENDPOINTS } from '@/lib/constants'
 import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
 import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
 import { cn } from '@/lib/utils'
@@ -17,29 +12,23 @@ import { validateNanoBalanceResponse } from '@/lib/validation'
 
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
+import {
+	DONATION_GOAL_XNO,
+	DONATION_MILESTONES,
+	DonationModal,
+	type MilestoneBalances,
+} from '@/components/donation-modal'
 
-import { DonationModal } from './donation-modal'
+const DONATION_WALLET_FINAL = process.env.NEXT_PUBLIC_DONATION_WALLET_FINAL || ''
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+
 const BALANCE_POLL_INTERVAL_MS = 60000
 const REQUEST_TIMEOUT_MS = 10000
 
-function isAllowedOrigin(): boolean {
-	if (typeof window === 'undefined') return false
-
-	const origin = window.location.origin
-
-	// Check if matches APP_URL
-	if (APP_URL && origin === APP_URL) return true
-
-	// Check against allowed patterns (Vercel, Netlify, localhost)
-	return ALLOWED_GOAL_ORIGINS.some((pattern) => pattern.test(origin))
-}
-
-// Type for milestone balances
-export type MilestoneBalances = Record<string, number>
-
 export function DonationButton({ className }: { className?: string }) {
+	const t = useTranslations('donation')
+
 	const [open, setOpen] = useState(false)
 
 	const { milestoneBalances, totalDonations, isLoading, refreshBalance, allMilestonesComplete, activeWalletAddress } =
@@ -78,7 +67,7 @@ export function DonationButton({ className }: { className?: string }) {
 					onClick={() => setOpen(true)}
 				>
 					<Heart className="h-4 w-4 text-red-500 fill-red-500" />
-					<span className="text-xs font-medium">Support Us</span>
+					<span className="text-xs font-medium">{t('supportUs')}</span>
 				</Button>
 
 				<DonationModal
@@ -95,7 +84,6 @@ export function DonationButton({ className }: { className?: string }) {
 		)
 	}
 
-	// Goal mode button with progress
 	return (
 		<>
 			<Button
@@ -109,7 +97,7 @@ export function DonationButton({ className }: { className?: string }) {
 			>
 				<Heart className="h-4 w-4 text-red-500 fill-red-500" />
 				<div className="flex flex-col items-start gap-0.5">
-					<span className="text-xs font-medium leading-none">Donation Goal</span>
+					<span className="text-xs font-medium leading-none">{t('donationGoal')}</span>
 					<div className="flex items-center gap-2">
 						<Progress value={progress} className="h-1.5 w-16" />
 						<span className="text-[10px] text-muted-foreground font-mono leading-none">
@@ -280,4 +268,16 @@ function useDonationBalance() {
 		allMilestonesComplete,
 		activeWalletAddress,
 	}
+}
+
+function isAllowedOrigin(): boolean {
+	if (typeof window === 'undefined') return false
+
+	const origin = window.location.origin
+
+	// Check if matches APP_URL
+	if (APP_URL && origin === APP_URL) return true
+
+	// Check against allowed patterns (Vercel, Netlify, localhost)
+	return ALLOWED_GOAL_ORIGINS.some((pattern) => pattern.test(origin))
 }

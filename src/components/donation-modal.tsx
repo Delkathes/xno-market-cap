@@ -3,14 +3,9 @@
 import dynamic from 'next/dynamic'
 import { useCallback, useMemo, useState } from 'react'
 import { Check, CheckCircle2, Code, Copy, ExternalLink, Loader2, Rocket, Shield } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-import {
-	BLOCKLATTICE_ACCOUNT_URL,
-	DONATION_FIXED_AMOUNTS,
-	DONATION_GOAL_XNO,
-	DONATION_MILESTONES,
-	type DonationMilestone,
-} from '@/lib/constants'
+import { BLOCKLATTICE_ACCOUNT_URL, DONATION_FIXED_AMOUNTS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 import { useDonation } from '@/hooks/use-donation'
@@ -19,12 +14,52 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
-import type { MilestoneBalances } from '@/components/donation-button'
 
 const QRCodeSVG = dynamic(() => import('qrcode.react').then((mod) => mod.QRCodeSVG), {
 	loading: () => <div className="w-45 h-45 animate-pulse bg-muted rounded" />,
 	ssr: false,
 })
+
+export type MilestoneId = 'development' | 'maintenance' | 'opensource'
+export type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
+export type MilestoneBalances = Record<string, number>
+
+export interface DonationMilestoneConfig {
+	id: MilestoneId
+	targetXno: number
+	walletAddress: string
+	icon: MilestoneIcon
+	rewardCount: number
+}
+
+export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
+	{
+		id: 'development',
+		targetXno: 5000,
+		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT || '',
+		icon: 'rocket',
+		rewardCount: 3,
+	},
+	{
+		id: 'maintenance',
+		targetXno: 25000,
+		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE || '',
+		icon: 'shield',
+		rewardCount: 3,
+	},
+	{
+		id: 'opensource',
+		targetXno: 10000,
+		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE || '',
+		icon: 'code',
+		rewardCount: 3,
+	},
+]
+
+const cumulativeTargets = getCumulativeTargets(DONATION_MILESTONES)
+
+// Helper to get total donation goal across all milestones
+export const DONATION_GOAL_XNO = DONATION_MILESTONES.reduce((sum, m) => sum + m.targetXno, 0)
 
 interface DonationModalProps {
 	open: boolean
@@ -47,6 +82,8 @@ export function DonationModal({
 	allMilestonesComplete,
 	activeWalletAddress,
 }: DonationModalProps) {
+	const t = useTranslations('donation')
+
 	const [copied, setCopied] = useState(false)
 
 	const {
@@ -122,41 +159,13 @@ export function DonationModal({
 		[milestoneBalances],
 	)
 
-	// Calculate cumulative targets for progress bar markers
-	const cumulativeTargets = useMemo(() => {
-		let cumulative = 0
-		return DONATION_MILESTONES.map((milestone) => {
-			cumulative += milestone.targetXno
-			return { id: milestone.id, cumulative }
-		})
-	}, [])
-
-	const getMilestoneIcon = (icon: DonationMilestone['icon'], isComplete: boolean, isActive: boolean) => {
-		const className = cn(
-			'h-5 w-5 transition-colors',
-			isComplete ? 'text-primary' : isActive ? 'text-primary' : 'text-muted-foreground/50',
-		)
-		switch (icon) {
-			case 'rocket':
-				return <Rocket className={className} />
-			case 'shield':
-				return <Shield className={className} />
-			case 'code':
-				return <Code className={className} />
-			default:
-				return <Rocket className={className} />
-		}
-	}
-
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:max-w-lg">
 				<DialogHeader className="pb-2">
-					<DialogTitle>{goalMode ? 'Donation Goal' : 'Support NanoMarketCap'}</DialogTitle>
+					<DialogTitle>{goalMode ? t('donationGoal') : t('supportNanoMarketCap')}</DialogTitle>
 					<DialogDescription>
-						{goalMode
-							? 'Help us unlock each milestone and open source this project'
-							: 'Your donation helps keep this project running'}
+						{goalMode ? t('goalModeDescription') : t('regularModeDescription')}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -166,7 +175,7 @@ export function DonationModal({
 							{/* Overall Progress */}
 							<div className="space-y-2">
 								<div className="flex justify-between text-sm">
-									<div className="flex flex-col-reverse">Overall Progress</div>
+									<div className="flex flex-col-reverse">{t('overallProgress')}</div>
 									<div className="flex flex-col items-end">
 										<span className="text-xs text-primary">{overallProgress.toFixed(1)}%</span>
 										<span className="font-mono font-medium">
@@ -265,7 +274,7 @@ export function DonationModal({
 																: 'text-muted-foreground',
 														)}
 													>
-														{milestone.title}
+														{t(`milestones.${milestone.id}.title`)}
 													</h4>
 													<div className="absolute right-0 top-0 flex flex-col items-end">
 														{(milestone.isActive || milestone.isComplete) && (
@@ -303,8 +312,11 @@ export function DonationModal({
 																: 'text-muted-foreground/70',
 														)}
 													>
-														{milestone.rewards.map((reward) => (
-															<li key={reward} className="flex items-center gap-1.5">
+														{Array.from({ length: milestone.rewardCount }, (_, i) => (
+															<li
+																key={`${milestone.id}-reward-${i + 1}`}
+																className="flex items-center gap-1.5"
+															>
 																<span
 																	className={cn(
 																		'h-1 w-1 rounded-full',
@@ -315,7 +327,7 @@ export function DonationModal({
 																				: 'bg-muted-foreground/50',
 																	)}
 																/>
-																{reward}
+																{t(`milestones.${milestone.id}.reward${i + 1}`)}
 															</li>
 														))}
 													</ul>
@@ -341,20 +353,18 @@ export function DonationModal({
 								<div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center">
 									<Check className="w-10 h-10 text-green-500" />
 								</div>
-								<p className="text-xl font-medium text-green-500">Payment Received!</p>
+								<p className="text-xl font-medium text-green-500">{t('paymentReceived')}</p>
 								{receivedAmount && (
 									<p className="text-lg font-mono text-foreground">{receivedAmount.toFixed(6)} XNO</p>
 								)}
 								<p className="text-sm text-muted-foreground text-center">
-									{goalMode
-										? "Thank you for your generous donation. You're helping make NanoMarketCap open source!"
-										: 'Thank you for your generous donation. Your support keeps this project running!'}
+									{goalMode ? t('thankYouGoalMode') : t('thankYouRegularMode')}
 								</p>
 							</div>
 
 							<div className="flex gap-2 pt-2">
 								<Button variant="outline" className="flex-1 bg-transparent" onClick={handleDonateAgain}>
-									Donate Again
+									{t('donateAgain')}
 								</Button>
 								<Button
 									variant="outline"
@@ -362,7 +372,7 @@ export function DonationModal({
 									onClick={() => window.open(walletUrl, '_blank')}
 								>
 									<ExternalLink className="h-4 w-4 mr-2" />
-									View Wallet
+									{t('viewWallet')}
 								</Button>
 							</div>
 						</div>
@@ -371,19 +381,19 @@ export function DonationModal({
 							{!goalMode && (
 								/* Regular donation mode - Just fund usage */
 								<div className="rounded-lg border border-border bg-muted/30 p-4 text-sm space-y-2">
-									<p className="font-medium text-foreground">How will your donation be used?</p>
+									<p className="font-medium text-foreground">{t('howWillBeUsed')}</p>
 									<ul className="text-muted-foreground space-y-1">
 										<li className="flex items-center gap-2">
 											<span className="h-1.5 w-1.5 rounded-full bg-primary" />
-											Hosting and infrastructure costs
+											{t('usageHosting')}
 										</li>
 										<li className="flex items-center gap-2">
 											<span className="h-1.5 w-1.5 rounded-full bg-primary" />
-											Supporting the developer
+											{t('usageDeveloper')}
 										</li>
 										<li className="flex items-center gap-2">
 											<span className="h-1.5 w-1.5 rounded-full bg-primary" />
-											Building more XNO tools
+											{t('usageTools')}
 										</li>
 									</ul>
 								</div>
@@ -391,7 +401,7 @@ export function DonationModal({
 
 							{/* Amount Selection */}
 							<div className="space-y-3">
-								<p className="text-sm font-medium">Select donation amount (XNO)</p>
+								<p className="text-sm font-medium">{t('selectAmount')}</p>
 								<div className="flex flex-wrap gap-2">
 									{DONATION_FIXED_AMOUNTS.map((amt) => (
 										<Button
@@ -408,7 +418,7 @@ export function DonationModal({
 								<div className="flex items-center gap-2">
 									<Input
 										type="number"
-										placeholder="Custom amount"
+										placeholder={t('customAmount')}
 										value={customAmount}
 										onChange={(e) => handleCustomAmountChange(e.target.value)}
 										className="font-mono"
@@ -429,7 +439,7 @@ export function DonationModal({
 											<QRCodeSVG value={nanoUri} size={180} level="M" includeMargin={false} />
 										</div>
 										<p className="text-sm text-muted-foreground text-center">
-											Scan with your Nano wallet to send{' '}
+											{t('scanToSend')}{' '}
 											<span className="font-mono font-medium text-primary">{amount} XNO</span>
 										</p>
 										<div className="flex items-center gap-2 text-xs">
@@ -437,13 +447,13 @@ export function DonationModal({
 												<>
 													<span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
 													<span className="text-muted-foreground">
-														Listening for payment...
+														{t('listeningForPayment')}
 													</span>
 												</>
 											) : (
 												<>
 													<Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
-													<span className="text-muted-foreground">Connecting...</span>
+													<span className="text-muted-foreground">{t('connecting')}</span>
 												</>
 											)}
 										</div>
@@ -451,7 +461,7 @@ export function DonationModal({
 
 									{/* Wallet Address */}
 									<div className="space-y-2">
-										<p className="text-xs text-muted-foreground">Donation wallet address:</p>
+										<p className="text-xs text-muted-foreground">{t('walletAddress')}</p>
 										<div className="flex items-center gap-2">
 											<code className="flex-1 text-xs bg-muted p-2 rounded font-mono break-all">
 												{activeWalletAddress}
@@ -477,7 +487,7 @@ export function DonationModal({
 										onClick={() => window.open(walletUrl, '_blank')}
 									>
 										<ExternalLink className="h-4 w-4 mr-2" />
-										View on Blocklattice
+										{t('viewOnBlocklattice')}
 									</Button>
 								</div>
 							)}
@@ -487,4 +497,30 @@ export function DonationModal({
 			</DialogContent>
 		</Dialog>
 	)
+}
+
+function getMilestoneIcon(icon: MilestoneIcon, isComplete: boolean, isActive: boolean) {
+	const className = cn(
+		'h-5 w-5 transition-colors',
+		isComplete ? 'text-primary' : isActive ? 'text-primary' : 'text-muted-foreground/50',
+	)
+	switch (icon) {
+		case 'rocket':
+			return <Rocket className={className} />
+		case 'shield':
+			return <Shield className={className} />
+		case 'code':
+			return <Code className={className} />
+		default:
+			return <Rocket className={className} />
+	}
+}
+
+// Calculate cumulative targets for progress bar markers
+function getCumulativeTargets(donationMilestones: DonationMilestoneConfig[]) {
+	let cumulative = 0
+	return donationMilestones.map((milestone) => {
+		cumulative += milestone.targetXno
+		return { id: milestone.id, cumulative }
+	})
 }

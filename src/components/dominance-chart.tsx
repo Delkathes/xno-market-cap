@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import type { PieLabelRenderProps } from 'recharts'
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
@@ -23,6 +24,8 @@ const SLICE_COLORS: Record<string, string> = {
 }
 
 export function DominanceChart() {
+	const t = useTranslations('dominance')
+
 	const { data, isLoading, error, xnoData } = useMarketData()
 
 	const isClientSide = useIsClientSide()
@@ -32,7 +35,7 @@ export function DominanceChart() {
 		return (
 			<Card>
 				<CardHeader>
-					<CardTitle>Market Dominance</CardTitle>
+					<CardTitle>{t('chartTitle')}</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div className="h-100 animate-pulse bg-muted rounded" />
@@ -45,7 +48,7 @@ export function DominanceChart() {
 		return (
 			<Card>
 				<CardHeader>
-					<CardTitle>Market Dominance</CardTitle>
+					<CardTitle>{t('chartTitle')}</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<MarketDataError error={error} />
@@ -97,8 +100,8 @@ export function DominanceChart() {
 	return (
 		<Card>
 			<CardHeader className="pb-0">
-				<CardTitle>Market Dominance Distribution</CardTitle>
-				<CardDescription>Market share valued in XNO • XNO Dominance: {xnoDominance}%</CardDescription>
+				<CardTitle>{t('distributionTitle')}</CardTitle>
+				<CardDescription>{t('chartDescription', { xnoDominance })}</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<ResponsiveContainer width="100%" height={400}>
@@ -160,7 +163,7 @@ export function DominanceChart() {
 										: value
 											? `${(value / 1e6).toFixed(2)}M XNO`
 											: '0.00',
-									'Market Cap',
+									t('marketCap'),
 								]}
 							/>
 							<Legend />

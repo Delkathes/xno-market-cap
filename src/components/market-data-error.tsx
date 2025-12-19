@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query'
 import { AlertCircle, RefreshCw } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -12,6 +13,8 @@ interface MarketDataErrorProps {
 }
 
 export function MarketDataError({ error, compact = false }: MarketDataErrorProps) {
+	const t = useTranslations('error')
+
 	const queryClient = useQueryClient()
 
 	const handleRetry = () => {
@@ -22,10 +25,10 @@ export function MarketDataError({ error, compact = false }: MarketDataErrorProps
 		return (
 			<div className="flex items-center justify-center gap-3 p-4 text-muted-foreground">
 				<AlertCircle className="h-4 w-4 text-destructive" />
-				<span className="text-sm">Unable to load market data</span>
+				<span className="text-sm">{t('unableToLoadMarketData')}</span>
 				<Button variant="ghost" size="sm" onClick={handleRetry} className="h-7 px-2">
 					<RefreshCw className="h-3 w-3 mr-1" />
-					Retry
+					{t('retry')}
 				</Button>
 			</div>
 		)
@@ -34,12 +37,12 @@ export function MarketDataError({ error, compact = false }: MarketDataErrorProps
 	return (
 		<Alert variant="destructive">
 			<AlertCircle className="h-4 w-4" />
-			<AlertTitle>Failed to load market data</AlertTitle>
+			<AlertTitle>{t('failedToLoadMarketData')}</AlertTitle>
 			<AlertDescription className="flex items-center justify-between">
-				<span>{error?.message || 'An unexpected error occurred while fetching market data.'}</span>
+				<span>{error?.message || t('unexpectedError')}</span>
 				<Button variant="outline" size="sm" onClick={handleRetry} className="ml-4 shrink-0">
 					<RefreshCw className="h-3 w-3 mr-1" />
-					Try again
+					{t('tryAgain')}
 				</Button>
 			</AlertDescription>
 		</Alert>
