@@ -2,7 +2,20 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { ArrowRightLeft, HelpCircle, Menu, Moon, RefreshCw, Sun, TrendingUp, Wallet, X } from 'lucide-react'
+import {
+	ArrowRightLeft,
+	ChartPie,
+	HelpCircle,
+	Menu,
+	Moon,
+	RefreshCw,
+	Scale,
+	Sun,
+	TrendingUp,
+	Wallet,
+	X,
+	Zap,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
@@ -85,11 +98,21 @@ export function Navigation() {
 					{/* Logo */}
 					<div className="flex items-center gap-4">
 						<Link href="/" className="flex items-center gap-2 font-bold text-xl">
-							<div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+							<div className="w-8 h-8 rounded-lg bg-linear-to-b from-cyan-400 to-blue-600 flex items-center justify-center">
 								<TrendingUp className="w-5 h-5 text-primary-foreground" />
 							</div>
-							<span className="hidden sm:inline">{t('brand')}</span>
-							<span className="sm:hidden">{t('brand')}</span>
+							<span className="hidden sm:inline">
+								<span className="bg-linear-to-b from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+									Nano
+								</span>
+								<span>MarketCap</span>
+							</span>
+							<span className="sm:hidden">
+								<span className="bg-linear-to-b from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+									Nano
+								</span>
+								<span>MarketCap</span>
+							</span>
 						</Link>
 					</div>
 
@@ -137,41 +160,143 @@ export function Navigation() {
 						</Button>
 
 						<Link
-							href="/dominance"
+							href="/calculators"
 							className={cn(
 								'px-4 py-2 rounded-md text-sm font-medium transition-colors',
-								pathname === '/dominance'
+								pathname === '/calculators'
 									? 'bg-secondary text-secondary-foreground'
 									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 							)}
 						>
-							{t('dominance')}
-						</Link>
-						<Link
-							href="/parity"
-							className={cn(
-								'px-4 py-2 rounded-md text-sm font-medium transition-colors',
-								pathname === '/parity'
-									? 'bg-secondary text-secondary-foreground'
-									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
-							)}
-						>
-							{t('parity')}
-						</Link>
-						<Link
-							href="/speculation"
-							className={cn(
-								'px-4 py-2 rounded-md text-sm font-medium transition-colors',
-								pathname === '/speculation'
-									? 'bg-secondary text-secondary-foreground'
-									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
-							)}
-						>
-							{t('speculation')}
+							{t('calculators')}
 						</Link>
 
 						<NavigationMenu>
 							<NavigationMenuList>
+								<NavigationMenuItem>
+									<NavigationMenuTrigger
+										className={cn(
+											'px-4 py-2 rounded-md text-sm font-medium transition-colors bg-transparent',
+											pathname === '/dominance' ||
+												pathname === '/parity' ||
+												pathname === '/speculation'
+												? 'bg-secondary text-secondary-foreground'
+												: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+										)}
+									>
+										{t('metrics')}
+									</NavigationMenuTrigger>
+									<NavigationMenuContent>
+										<ul className="w-fit gap-2 p-4">
+											<li className="flex-none">
+												<NavigationMenuLink asChild>
+													<Link
+														href="/dominance"
+														className={cn(
+															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+															pathname === '/dominance' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														<div className="flex">
+															<ChartPie
+																className={cn(
+																	'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+																	pathname === '/dominance' &&
+																		'bg-accent text-accent-foreground',
+																)}
+															/>
+															<div className="w-36">
+																<div className="text-sm font-medium">
+																	{t('dominance')}
+																</div>
+																<p
+																	className={cn(
+																		'text-xs text-muted-foreground group-hover:text-accent-foreground',
+																		pathname === '/dominance' &&
+																			'bg-accent text-accent-foreground',
+																	)}
+																>
+																	{t('dominanceDescription')}
+																</p>
+															</div>
+														</div>
+													</Link>
+												</NavigationMenuLink>
+											</li>
+											<li className="flex-none">
+												<NavigationMenuLink asChild>
+													<Link
+														href="/parity"
+														className={cn(
+															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+															pathname === '/parity' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														<div className="flex">
+															<Scale
+																className={cn(
+																	'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+																	pathname === '/parity' &&
+																		'bg-accent text-accent-foreground',
+																)}
+															/>
+															<div className="w-36">
+																<div className="text-sm font-medium">{t('parity')}</div>
+																<p
+																	className={cn(
+																		'text-xs text-muted-foreground group-hover:text-accent-foreground',
+																		pathname === '/parity' &&
+																			'bg-accent text-accent-foreground',
+																	)}
+																>
+																	{t('parityDescription')}
+																</p>
+															</div>
+														</div>
+													</Link>
+												</NavigationMenuLink>
+											</li>
+											<li className="flex-none">
+												<NavigationMenuLink asChild>
+													<Link
+														href="/speculation"
+														className={cn(
+															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+															pathname === '/speculation' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														<div className="flex">
+															<Zap
+																className={cn(
+																	'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+																	pathname === '/speculation' &&
+																		'bg-accent text-accent-foreground',
+																)}
+															/>
+															<div className="w-36">
+																<div className="text-sm font-medium">
+																	{t('speculation')}
+																</div>
+																<p
+																	className={cn(
+																		'text-xs text-muted-foreground group-hover:text-accent-foreground',
+																		pathname === '/speculation' &&
+																			'bg-accent text-accent-foreground',
+																	)}
+																>
+																	{t('speculationDescription')}
+																</p>
+															</div>
+														</div>
+													</Link>
+												</NavigationMenuLink>
+											</li>
+										</ul>
+									</NavigationMenuContent>
+								</NavigationMenuItem>
 								<NavigationMenuItem>
 									<NavigationMenuTrigger
 										className={cn(
@@ -191,16 +316,29 @@ export function Navigation() {
 														href="/get-nano"
 														className={cn(
 															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-															pathname === '/get-nano' && 'bg-accent',
+															pathname === '/get-nano' &&
+																'bg-accent text-accent-foreground',
 														)}
 													>
 														<div className="flex">
-															<Wallet className="h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground" />
+															<Wallet
+																className={cn(
+																	'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+																	pathname === '/get-nano' &&
+																		'bg-accent text-accent-foreground',
+																)}
+															/>
 															<div className="w-36">
 																<div className="text-sm font-medium">
 																	{t('getNano')}
 																</div>
-																<p className="text-xs text-muted-foreground group-hover:text-accent-foreground">
+																<p
+																	className={cn(
+																		'text-xs text-muted-foreground group-hover:text-accent-foreground',
+																		pathname === '/get-nano' &&
+																			'bg-accent text-accent-foreground',
+																	)}
+																>
 																	{t('getNanoDescription')}
 																</p>
 															</div>
@@ -214,16 +352,29 @@ export function Navigation() {
 														href="/swap-nano"
 														className={cn(
 															'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-															pathname === '/swap-nano' && 'bg-accent',
+															pathname === '/swap-nano' &&
+																'bg-accent text-accent-foreground',
 														)}
 													>
 														<div className="flex">
-															<ArrowRightLeft className="h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground" />
+															<ArrowRightLeft
+																className={cn(
+																	'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+																	pathname === '/swap-nano' &&
+																		'bg-accent text-accent-foreground',
+																)}
+															/>
 															<div className="w-36">
 																<div className="text-sm font-medium">
 																	{t('swapToNano')}
 																</div>
-																<p className="text-xs text-muted-foreground group-hover:text-accent-foreground">
+																<p
+																	className={cn(
+																		'text-xs text-muted-foreground group-hover:text-accent-foreground',
+																		pathname === '/swap-nano' &&
+																			'bg-accent text-accent-foreground',
+																	)}
+																>
 																	{t('swapToNanoDescription')}
 																</p>
 															</div>
@@ -331,37 +482,73 @@ export function Navigation() {
 								{t('home')}
 							</Link>
 							<Link
-								href="/dominance"
+								href="/calculators"
 								className={cn(
 									'px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/calculators'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								{t('calculators')}
+							</Link>
+
+							<div className="my-2 border-t border-border" />
+
+							<div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+								{t('metrics')}
+							</div>
+
+							<Link
+								href="/dominance"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
 									pathname === '/dominance'
 										? 'bg-secondary text-secondary-foreground'
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								{t('dominance')}
+								<ChartPie className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('dominance')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('dominanceDescription')}
+									</p>
+								</div>
 							</Link>
 							<Link
 								href="/parity"
 								className={cn(
-									'px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
 									pathname === '/parity'
 										? 'bg-secondary text-secondary-foreground'
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								{t('parity')}
+								<Scale className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('parity')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('parityDescription')}
+									</p>
+								</div>
 							</Link>
 							<Link
 								href="/speculation"
 								className={cn(
-									'px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
 									pathname === '/speculation'
 										? 'bg-secondary text-secondary-foreground'
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
-								{t('speculation')}
+								<Zap className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('speculation')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('speculationDescription')}
+									</p>
+								</div>
 							</Link>
 
 							<div className="my-2 border-t border-border" />

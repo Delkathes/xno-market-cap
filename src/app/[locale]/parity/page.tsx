@@ -6,7 +6,8 @@ import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { ParitySettingsPopover, ParityTable, XNOParityHighlight } from '@/components/parity-table'
+import { ParityHighlight } from '@/components/parity-highlight'
+import { ParitySettingsPopover, ParityTable } from '@/components/parity-table'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -60,7 +61,7 @@ export default async function ParityPage({ params }: Props) {
 							<h2 className="text-2xl font-semibold">{t('nanoScarcityParity')}</h2>
 							<ParitySettingsPopover />
 						</div>
-						<XNOParityHighlight />
+						<ParityHighlight />
 					</section>
 
 					{/* Main Parity Table */}

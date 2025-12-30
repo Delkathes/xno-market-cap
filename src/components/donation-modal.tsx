@@ -35,21 +35,21 @@ export interface DonationMilestoneConfig {
 export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
 	{
 		id: 'development',
-		targetXno: 5000,
+		targetXno: 3000,
 		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT || '',
 		icon: 'rocket',
 		rewardCount: 3,
 	},
 	{
 		id: 'maintenance',
-		targetXno: 25000,
+		targetXno: 18000,
 		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE || '',
 		icon: 'shield',
 		rewardCount: 3,
 	},
 	{
 		id: 'opensource',
-		targetXno: 10000,
+		targetXno: 4000,
 		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE || '',
 		icon: 'code',
 		rewardCount: 3,

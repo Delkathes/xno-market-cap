@@ -34,6 +34,7 @@ const nextConfig = {
 	},
 
 	reactCompiler: true,
+	// cacheComponents: true,
 
 	experimental: {
 		cssChunking: true,
@@ -57,23 +58,23 @@ const nextConfig = {
 		useCache: true,
 		// cacheComponents: true,
 
-		optimizePackageImports: [
-			'react-hook-form',
-			'@hookform/resolvers',
-			'valibot',
+		// optimizePackageImports: [
+		// 	'react-hook-form',
+		// 	'@hookform/resolvers',
+		// 	'valibot',
 
-			'@radix-ui/*',
-			'tailwind-merge',
-			'geist',
+		// 	'@radix-ui/*',
+		// 	'tailwind-merge',
+		// 	'geist',
 
-			'@tanstack/react-query',
+		// 	'@tanstack/react-query',
 
-			'jotai',
+		// 	'jotai',
 
-			'qrcode.react',
+		// 	'qrcode.react',
 
-			'nanocurrency',
-		],
+		// 	'nanocurrency',
+		// ],
 	},
 
 	headers: async () => [
