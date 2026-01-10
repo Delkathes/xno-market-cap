@@ -14,8 +14,9 @@ async function fetchCoinChart(
 	coinId: string,
 	days: ChartTimeRange,
 	headers: HeadersInit,
+	vsCurrency: string = 'usd',
 ): Promise<{ prices: [number, number][]; market_caps: [number, number][]; total_volumes: [number, number][] }> {
-	const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`
+	const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${vsCurrency}&days=${days}`
 
 	let response: Response
 	try {
@@ -25,6 +26,7 @@ async function fetchCoinChart(
 				headers,
 				next: {
 					revalidate: days === '1' ? 300 : 900, // 5min for 1d, 15min for others
+					tags: [`price-chart-${coinId}-${days}-${vsCurrency}`], // Add this line
 				},
 			} as RequestInit,
 			{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
@@ -89,7 +91,11 @@ function findClosestXnoPrice(timestamp: number, xnoPrices: [number, number][]): 
 	return xnoPrices[left][1]
 }
 
-export async function getPriceChart(coinId: string, days: ChartTimeRange): Promise<PriceChartResponse> {
+export async function getPriceChart(
+	coinId: string,
+	days: ChartTimeRange,
+	vsCurrency?: string,
+): Promise<PriceChartResponse> {
 	// Validate inputs
 	const daysResult = v.safeParse(ChartTimeRangeSchema, days)
 	if (!daysResult.success) {
@@ -108,14 +114,17 @@ export async function getPriceChart(coinId: string, days: ChartTimeRange): Promi
 		...(apiKey && { 'x-cg-demo-api-key': apiKey }),
 	}
 
-	// If requesting XNO itself, we only need one API call
+	// If requesting XNO itself
 	if (coinId === CRYPTO_IDS.NANO) {
-		const coinData = await fetchCoinChart(coinId, days, headers)
+		// If vsCurrency is specified, fetch XNO price in that fiat currency
+		const currency = vsCurrency ?? 'usd'
+		const coinData = await fetchCoinChart(coinId, days, headers, currency)
 
 		const chartPoints: PriceChartPoint[] = coinData.prices.map(([timestamp, price], index) => ({
 			timestamp,
-			price,
-			priceInXNO: 1, // XNO is always 1 XNO
+			price, // This is now in the requested fiat currency
+			// For XNO vs fiat, priceInXNO represents the fiat price (reusing the field)
+			priceInXNO: vsCurrency ? price : 1,
 			marketCap: coinData.market_caps[index]?.[1] ?? 0,
 			volume: coinData.total_volumes[index]?.[1] ?? 0,
 		}))
@@ -124,6 +133,7 @@ export async function getPriceChart(coinId: string, days: ChartTimeRange): Promi
 			coinId,
 			prices: chartPoints,
 			timeRange: days,
+			...(vsCurrency && { vsCurrency: vsCurrency as import('./types').FiatCurrencyCode }),
 		}
 	}
 

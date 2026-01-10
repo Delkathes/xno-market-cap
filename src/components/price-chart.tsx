@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useAtomValue } from 'jotai'
 import { AreaChartIcon, ArrowRightLeft, LineChartIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
@@ -17,7 +18,9 @@ import {
 	YAxis,
 } from 'recharts'
 
-import type { ChartTimeRange } from '@/lib/types'
+import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
+import { primaryFiatAtom } from '@/lib/currency-atoms'
+import type { ChartTimeRange, FiatCurrencyCode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -25,6 +28,7 @@ import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
@@ -132,9 +136,14 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 	const { resolvedTheme } = useTheme()
 
+	// For XNO, use fiat currency; for other coins, compare against XNO
+	const isXnoChart = coinId === CRYPTO_IDS.NANO
+	const preferredFiat = useAtomValue(primaryFiatAtom)
+
 	const [timeRange, setTimeRange] = useState<ChartTimeRange>('30')
 	const [chartType, setChartType] = useState<ChartType>('area')
 	const [inverted, setInverted] = useState(false)
+	const [selectedFiat, setSelectedFiat] = useState<FiatCurrencyCode>(preferredFiat.toLowerCase() as FiatCurrencyCode)
 	const [referenceLines, setReferenceLines] = useState<{
 		start: boolean
 		end: boolean
@@ -152,7 +161,12 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	const coin = data?.find((c) => c.id === coinId)
 	const _coinName = coin?.name ?? coinId.charAt(0).toUpperCase() + coinId.slice(1)
 
-	const { prices, isLoading, isFetching, error } = usePriceChart(coinId, timeRange)
+	// For XNO, pass the selected fiat currency; for others, no vsCurrency (uses XNO comparison)
+	const { prices, isLoading, isFetching, error } = usePriceChart(
+		coinId,
+		timeRange,
+		isXnoChart ? selectedFiat : undefined,
+	)
 
 	// Ensure we're mounted before rendering theme-dependent content
 	// useEffect(() => {
@@ -160,7 +174,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	// }, [])
 
 	// Use the pre-calculated priceInXNO from the API (uses historical XNO prices)
-	// When inverted, show XNO/COIN instead of COIN/XNO
+	// When inverted, show XNO/COIN instead of COIN/XNO (or FIAT/XNO instead of XNO/FIAT)
 	const chartData: ChartDataPoint[] = useMemo(() => {
 		if (!prices.length) return []
 
@@ -170,8 +184,15 @@ export function PriceChart({ coinId }: PriceChartProps) {
 		}))
 	}, [prices, inverted])
 
-	// Quote currency label changes based on inverted state
-	const quoteCurrency = inverted ? (coin?.symbol?.toUpperCase() ?? coinId.toUpperCase()) : 'XNO'
+	// Quote currency label changes based on inverted state and whether it's XNO fiat chart
+	const fiatSymbol = selectedFiat.toUpperCase()
+	const quoteCurrency = isXnoChart
+		? inverted
+			? 'XNO'
+			: fiatSymbol
+		: inverted
+			? (coin?.symbol?.toUpperCase() ?? coinId.toUpperCase())
+			: 'XNO'
 
 	// Calculate price change for the period
 	const priceChange = useMemo(() => {
@@ -235,21 +256,43 @@ export function PriceChart({ coinId }: PriceChartProps) {
 		<Card>
 			<CardHeader className="pb-2">
 				<div className="flex flex-row sm:items-center justify-between gap-4">
-					<div className="flex gap-3 items-center">
-						<CardTitle className="text-lg whitespace-nowrap uppercase">
-							{inverted ? `XNO/${coin?.symbol}` : `${coin?.symbol}/XNO`}
-						</CardTitle>
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => setInverted(!inverted)}
-							className="h-8 w-8 p-0"
-							title={t('invertChart')}
-						>
-							<ArrowRightLeft className="h-4 w-4" />
-						</Button>
+					<div className="flex gap-3 items-center flex-wrap">
+						<div className="flex gap-3 items-center">
+							<CardTitle className="text-lg whitespace-nowrap uppercase">
+								{isXnoChart
+									? inverted
+										? `${fiatSymbol}/XNO`
+										: `XNO/${fiatSymbol}`
+									: inverted
+										? `XNO/${coin?.symbol}`
+										: `${coin?.symbol}/XNO`}
+							</CardTitle>
+							<Button
+								variant="ghost"
+								size="sm"
+								onClick={() => setInverted(!inverted)}
+								className="h-8 w-8 p-0"
+								title={t('invertChart')}
+							>
+								<ArrowRightLeft className="h-4 w-4" />
+							</Button>
+						</div>
+						{isXnoChart && (
+							<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
+								<SelectTrigger className="w-24 h-8">
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									{Object.entries(FiatCurrency).map(([key, value]) => (
+										<SelectItem key={value} value={value.toLowerCase()}>
+											{FIAT_CURRENCY_CONFIG[value as FiatCurrency].symbol} {key}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						)}
 					</div>
-					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse sm:flex-row sm:justify-end sm:flex-nowrap">
+					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse justify-end sm:flex-row sm:justify-end sm:flex-nowrap">
 						<div className="flex items-center gap-1">
 							<Button
 								variant={referenceLines.start ? 'secondary' : 'ghost'}

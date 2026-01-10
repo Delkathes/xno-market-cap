@@ -73,6 +73,9 @@ export interface WebSocketConfirmation {
 
 export type ChartTimeRange = '1' | '7' | '30' | '90' | '365'
 
+// Lowercase fiat currency codes for CoinGecko API
+export type FiatCurrencyCode = 'usd' | 'eur' | 'gbp' | 'jpy' | 'chf' | 'cad' | 'aud'
+
 export interface PriceChartPoint {
 	timestamp: number
 	price: number
@@ -85,4 +88,5 @@ export interface PriceChartResponse {
 	coinId: string
 	prices: PriceChartPoint[]
 	timeRange: ChartTimeRange
+	vsCurrency?: FiatCurrencyCode // Only set when fetching XNO vs fiat
 }

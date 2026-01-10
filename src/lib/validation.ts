@@ -131,3 +131,5 @@ export const PriceChartRawSchema = v.object({
 })
 
 export const ChartTimeRangeSchema = v.picklist(['1', '7', '30', '90', '365'])
+
+export const FiatCurrencyCodeSchema = v.picklist(['usd', 'eur', 'gbp', 'jpy', 'chf', 'cad', 'aud'])

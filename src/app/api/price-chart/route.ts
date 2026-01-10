@@ -90,6 +90,7 @@ export async function GET(request: NextRequest) {
 	const { searchParams } = new URL(request.url)
 	const coinId = searchParams.get('coinId')
 	const days = searchParams.get('days')
+	const vsCurrency = searchParams.get('vsCurrency') // Optional, only for XNO fiat charts
 
 	if (!coinId || !days) {
 		return NextResponse.json(
@@ -104,6 +105,7 @@ export async function GET(request: NextRequest) {
 	// Route-level validation - fail fast before calling service
 	const VALID_TIME_RANGES = ['1', '7', '30', '90', '365']
 	const COIN_ID_PATTERN = /^[a-z0-9-]+$/
+	const VALID_FIAT_CURRENCIES = ['usd', 'eur', 'gbp', 'jpy', 'chf', 'cad', 'aud']
 
 	if (!COIN_ID_PATTERN.test(coinId)) {
 		return NextResponse.json(
@@ -125,8 +127,33 @@ export async function GET(request: NextRequest) {
 		)
 	}
 
+	// Validate vsCurrency if provided (only valid for XNO)
+	if (vsCurrency) {
+		if (!VALID_FIAT_CURRENCIES.includes(vsCurrency)) {
+			return NextResponse.json(
+				{
+					error: 'Invalid currency. Must be one of: usd, eur, gbp, jpy, chf, cad, aud',
+					code: 'VALIDATION_ERROR',
+				},
+				{
+					status: 400,
+					headers: baseHeaders,
+				},
+			)
+		}
+		if (coinId !== 'nano') {
+			return NextResponse.json(
+				{ error: 'vsCurrency parameter is only valid for XNO (nano) charts', code: 'VALIDATION_ERROR' },
+				{
+					status: 400,
+					headers: baseHeaders,
+				},
+			)
+		}
+	}
+
 	try {
-		const data = await getPriceChart(coinId, days as ChartTimeRange)
+		const data = await getPriceChart(coinId, days as ChartTimeRange, vsCurrency ?? undefined)
 		return NextResponse.json(data, {
 			headers: {
 				...baseHeaders,

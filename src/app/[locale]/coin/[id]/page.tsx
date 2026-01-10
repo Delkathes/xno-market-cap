@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { CRYPTO_IDS } from '@/lib/constants'
 import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
@@ -66,6 +67,10 @@ export default async function CoinDetailPage({ params }: Props) {
 
 	const queryClient = getQueryClient()
 
+	// For XNO, prefetch with default fiat currency (USD); for other coins, no vsCurrency
+	const isXno = coinIdParam === CRYPTO_IDS.NANO
+	const defaultFiat = 'usd'
+
 	// Prefetch market data and initial chart data
 	await Promise.all([
 		queryClient.prefetchQuery({
@@ -73,8 +78,8 @@ export default async function CoinDetailPage({ params }: Props) {
 			queryFn: getMarketData,
 		}),
 		queryClient.prefetchQuery({
-			queryKey: ['price-chart', coinIdParam, '30'],
-			queryFn: () => getPriceChart(coinIdParam, '30'),
+			queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
+			queryFn: () => getPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
 		}),
 	])
 
