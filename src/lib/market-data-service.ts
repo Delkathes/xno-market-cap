@@ -3,8 +3,8 @@ import * as v from 'valibot'
 import { env } from '@/env'
 
 import { CRYPTO_IDS } from './constants'
-import { fetchWithTimeout } from './fetch-with-timeout'
-import type { CryptoData, MarketDataResponse, XnoPriceChange24hPerCurrency } from './types'
+import { fetchWithRetry } from './fetch-with-timeout'
+import type { CryptoData, MarketDataResponse, XnoPriceChangePerCurrency } from './types'
 import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from './validation'
 
 // Custom error classes for specific failure scenarios
@@ -40,15 +40,15 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			...(apiKey && { 'x-cg-demo-api-key': apiKey }),
 		}
 
-		const top25Response = await fetchWithTimeout(
-			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=25&page=1&sparkline=false&price_change_percentage=24h',
+		const top25Response = await fetchWithRetry(
+			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=25&page=1&sparkline=false&price_change_percentage=1h,24h,7d',
 			{
 				headers,
 				next: {
 					revalidate: 60,
 				},
 			} as RequestInit,
-			REQUEST_TIMEOUT_MS,
+			{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
 		)
 
 		if (!top25Response.ok) {
@@ -78,15 +78,15 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
 		if (!hasXNO) {
 			fetchPromises.push(
-				fetchWithTimeout(
-					'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=nano&sparkline=false&price_change_percentage=24h',
+				fetchWithRetry(
+					'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=nano&sparkline=false&price_change_percentage=1h,24h,7d',
 					{
 						headers,
 						next: {
 							revalidate: 60,
 						},
 					} as RequestInit,
-					REQUEST_TIMEOUT_MS,
+					{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
 				),
 			)
 		} else {
@@ -94,7 +94,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		}
 
 		fetchPromises.push(
-			fetchWithTimeout(
+			fetchWithRetry(
 				'https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=eur,gbp,jpy,chf,cad,aud',
 				{
 					headers,
@@ -102,13 +102,13 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 						revalidate: 3600,
 					},
 				} as RequestInit,
-				REQUEST_TIMEOUT_MS,
+				{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
 			),
 		)
 
-		// Fetch XNO coin detail for per-currency 24h price changes
+		// Fetch XNO coin detail for per-currency 1h, 24h, 7d price changes
 		fetchPromises.push(
-			fetchWithTimeout(
+			fetchWithRetry(
 				'https://api.coingecko.com/api/v3/coins/nano?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
 				{
 					headers,
@@ -116,7 +116,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 						revalidate: 60,
 					},
 				} as RequestInit,
-				REQUEST_TIMEOUT_MS,
+				{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
 			),
 		)
 
@@ -175,8 +175,8 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			throw new ValidationError('Missing required exchange rates')
 		}
 
-		// Parse XNO detail for per-currency 24h changes
-		let xnoPriceChange24h: XnoPriceChange24hPerCurrency = {
+		// Parse XNO detail for per-currency 1h, 24h, 7d changes
+		const defaultPriceChange: XnoPriceChangePerCurrency = {
 			usd: 0,
 			eur: 0,
 			gbp: 0,
@@ -186,19 +186,47 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			aud: 0,
 		}
 
+		let xnoPriceChange1h: XnoPriceChangePerCurrency = { ...defaultPriceChange }
+		let xnoPriceChange24h: XnoPriceChangePerCurrency = { ...defaultPriceChange }
+		let xnoPriceChange7d: XnoPriceChangePerCurrency = { ...defaultPriceChange }
+
 		if (xnoDetailResponse?.ok) {
 			const xnoDetailJson = await xnoDetailResponse.json()
 			const xnoDetailResult = v.safeParse(XnoCoinDetailSchema, xnoDetailJson)
 			if (xnoDetailResult.success) {
-				const changes = xnoDetailResult.output.market_data.price_change_percentage_24h_in_currency
+				const marketData = xnoDetailResult.output.market_data
+
+				const changes1h = marketData.price_change_percentage_1h_in_currency
+				xnoPriceChange1h = {
+					usd: changes1h.usd ?? 0,
+					eur: changes1h.eur ?? 0,
+					gbp: changes1h.gbp ?? 0,
+					jpy: changes1h.jpy ?? 0,
+					chf: changes1h.chf ?? 0,
+					cad: changes1h.cad ?? 0,
+					aud: changes1h.aud ?? 0,
+				}
+
+				const changes24h = marketData.price_change_percentage_24h_in_currency
 				xnoPriceChange24h = {
-					usd: changes.usd ?? 0,
-					eur: changes.eur ?? 0,
-					gbp: changes.gbp ?? 0,
-					jpy: changes.jpy ?? 0,
-					chf: changes.chf ?? 0,
-					cad: changes.cad ?? 0,
-					aud: changes.aud ?? 0,
+					usd: changes24h.usd ?? 0,
+					eur: changes24h.eur ?? 0,
+					gbp: changes24h.gbp ?? 0,
+					jpy: changes24h.jpy ?? 0,
+					chf: changes24h.chf ?? 0,
+					cad: changes24h.cad ?? 0,
+					aud: changes24h.aud ?? 0,
+				}
+
+				const changes7d = marketData.price_change_percentage_7d_in_currency
+				xnoPriceChange7d = {
+					usd: changes7d.usd ?? 0,
+					eur: changes7d.eur ?? 0,
+					gbp: changes7d.gbp ?? 0,
+					jpy: changes7d.jpy ?? 0,
+					chf: changes7d.chf ?? 0,
+					cad: changes7d.cad ?? 0,
+					aud: changes7d.aud ?? 0,
 				}
 			} else {
 				console.warn('Failed to parse XNO detail response for per-currency changes')
@@ -222,7 +250,9 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			cadRate,
 			audRate,
 			xnoData,
+			xnoPriceChange1h,
 			xnoPriceChange24h,
+			xnoPriceChange7d,
 		}
 	} catch (error) {
 		// Re-throw custom errors as-is

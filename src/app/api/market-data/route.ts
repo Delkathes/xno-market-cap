@@ -26,17 +26,22 @@ function isValidOrigin(request: NextRequest): boolean {
 	const origin = request.headers.get('origin')
 	const referer = request.headers.get('referer')
 
-	// Allow same-origin requests (no origin header)
+	// If no origin/referer, only allow server-side requests (SSR, prefetch)
+	// Browser requests always include sec-fetch-site header
 	if (!origin && !referer) {
-		return true
+		const secFetchSite = request.headers.get('sec-fetch-site')
+		// No sec-fetch-site means it's likely a server-side request (Next.js SSR)
+		// 'same-origin' means it's a same-site browser request (also allowed)
+		return !secFetchSite || secFetchSite === 'same-origin'
 	}
 
 	// Get allowed hosts from environment or use defaults
 	const allowedHosts = [
 		env.NEXT_PUBLIC_SITE_URL,
-		env.VERCEL_URL ? env.VERCEL_URL : null,
+		env.VERCEL_URL ? `https://${env.VERCEL_URL}` : null,
 		env.NETLIFY ? env.URL : null,
 		'http://localhost:3000',
+		'http://localhost:3001',
 	].filter(Boolean) as string[]
 
 	// Check origin

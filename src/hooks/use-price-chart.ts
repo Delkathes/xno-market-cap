@@ -1,0 +1,42 @@
+'use client'
+
+import { useQuery } from '@tanstack/react-query'
+
+import type { ChartTimeRange, PriceChartResponse } from '@/lib/types'
+
+interface ApiErrorResponse {
+	error: string
+	code?: string
+}
+
+const fetcher = async (coinId: string, days: ChartTimeRange): Promise<PriceChartResponse> => {
+	const response = await fetch(`/api/price-chart?coinId=${coinId}&days=${days}`)
+	if (!response.ok) {
+		const errorData: ApiErrorResponse = await response
+			.json()
+			.catch(() => ({ error: 'Failed to fetch price chart' }))
+		throw new Error(errorData.error || 'Failed to fetch price chart')
+	}
+	return response.json()
+}
+
+export function usePriceChart(coinId: string, days: ChartTimeRange) {
+	const { data, error, isLoading, isFetching } = useQuery<PriceChartResponse>({
+		queryKey: ['price-chart', coinId, days],
+		queryFn: () => fetcher(coinId, days),
+		refetchInterval: days === '1' ? 300000 : 900000, // 5min for 1d, 15min for others
+		refetchOnWindowFocus: false,
+		retry: 3,
+		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+		staleTime: days === '1' ? 60000 : 300000, // 1min for 1d, 5min for others
+		enabled: Boolean(coinId),
+	})
+
+	return {
+		data,
+		prices: data?.prices ?? [],
+		isLoading,
+		isFetching,
+		error,
+	}
+}

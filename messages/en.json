@@ -48,6 +48,12 @@
 			"description": "Interactive calculators for Nano (XNO). Calculate supply ownership, investment scenarios, and explore what your XNO holdings mean in the grand scheme.",
 			"ogTitle": "XNO Calculators & Tools | NanoMarketCap",
 			"ogDescription": "Interactive calculators for Nano (XNO). Calculate supply ownership and investment scenarios."
+		},
+		"coin": {
+			"title": "{coin} Price Chart | NanoMarketCap",
+			"description": "Live {coin} price chart, market cap, volume, and statistics. View historical price data and compare with XNO.",
+			"ogTitle": "{coin} Price Chart | NanoMarketCap",
+			"ogDescription": "Live {coin} price chart and market statistics. Compare with XNO."
 		}
 	},
 	"common": {
@@ -103,8 +109,25 @@
 		"rank": "#",
 		"name": "Name",
 		"priceXno": "Price (XNO)",
+		"change1h": "1h %",
 		"change24h": "24h %",
+		"change7d": "7d %",
 		"marketCapXno": "Market Cap (XNO)"
+	},
+	"coinDetail": {
+		"errorLoading": "Unable to load coin data. Please try again later.",
+		"rank": "Rank #{rank}",
+		"vs24h": "• 24h",
+		"marketCap": "Market Cap",
+		"volume24h": "24h Volume",
+		"circulatingSupply": "Circulating Supply",
+		"maxSupply": "Max Supply"
+	},
+	"priceChart": {
+		"title": "{coin} Price in XNO",
+		"errorLoading": "Unable to load price chart. Please try again later.",
+		"areaChart": "Area Chart",
+		"lineChart": "Line Chart"
 	},
 	"dominance": {
 		"title": "Market Dominance",

@@ -45,7 +45,9 @@ export function useMarketData() {
 
 		xnoData: data?.xnoData,
 		xnoCirculatingSupply,
+		xnoPriceChange1h: data?.xnoPriceChange1h,
 		xnoPriceChange24h: data?.xnoPriceChange24h,
+		xnoPriceChange7d: data?.xnoPriceChange7d,
 
 		isLoading,
 		error,

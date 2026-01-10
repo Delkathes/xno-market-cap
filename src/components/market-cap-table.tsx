@@ -5,7 +5,10 @@ import { memo } from 'react'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { Link, useRouter } from '@/i18n/navigation'
+
 import { CRYPTO_IDS } from '@/lib/constants'
+import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -13,14 +16,14 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
 
-import type { CryptoData } from '../lib/types'
-
 interface CryptoRowProps {
 	crypto: CryptoData
 	isXNO: boolean
 	valueInXNO: number
 	marketCapInXNO: number
-	relativeChange: number
+	relativeChange1h: number
+	relativeChange24h: number
+	relativeChange7d: number
 }
 
 const CryptoRow = memo(function CryptoRow({
@@ -28,29 +31,41 @@ const CryptoRow = memo(function CryptoRow({
 	isXNO,
 	valueInXNO,
 	marketCapInXNO,
-	relativeChange,
+	relativeChange1h,
+	relativeChange24h,
+	relativeChange7d,
 }: CryptoRowProps) {
+	const router = useRouter()
+
 	return (
-		<tr className={cn('border-b border-border hover:bg-muted/50 transition-colors', isXNO && 'bg-primary/5')}>
+		<tr
+			onClick={() => router.push(`/coin/${crypto.id}`)}
+			className={cn(
+				'border-b border-border hover:bg-muted/50 transition-colors cursor-pointer',
+				isXNO && 'bg-primary/5',
+			)}
+		>
 			<td className="p-4">
 				<div className="flex items-center gap-2 text-sm sm:text-base">
 					{!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
 				</div>
 			</td>
 			<td className="p-4 pl-0 sm:pl-4">
-				<div className="flex items-center gap-3">
-					<Image
-						src={crypto.image || '/placeholder.svg'}
-						alt={crypto.name}
-						width={32}
-						height={32}
-						className="w-6 h-6 sm:w-8 sm:h-8"
-					/>
-					<div>
-						<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
-						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+				<Link href={`/coin/${crypto.id}`} className="contents">
+					<div className="flex items-center gap-3">
+						<Image
+							src={crypto.image || '/placeholder.svg'}
+							alt={crypto.name}
+							width={32}
+							height={32}
+							className="w-6 h-6 sm:w-8 sm:h-8"
+						/>
+						<div>
+							<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
+							<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+						</div>
 					</div>
-				</div>
+				</Link>
 			</td>
 			<td className="p-4 text-right font-mono text-sm sm:text-base text-primary">
 				{isXNO ? (
@@ -62,24 +77,14 @@ const CryptoRow = memo(function CryptoRow({
 					})
 				)}
 			</td>
-			<td className="p-4 text-right text-sm sm:text-base">
-				{isXNO ? (
-					<span className="text-muted-foreground">-</span>
-				) : (
-					<div
-						className={cn(
-							'flex items-center justify-end gap-1 font-medium',
-							relativeChange >= 0 ? 'text-constructive' : 'text-destructive',
-						)}
-					>
-						{relativeChange >= 0 ? (
-							<TrendingUp className="w-4 h-4" />
-						) : (
-							<TrendingDown className="w-4 h-4" />
-						)}
-						{Math.abs(relativeChange).toFixed(2)}%
-					</div>
-				)}
+			<td className="p-4 text-right text-xs sm:text-sm">
+				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange1h} />}
+			</td>
+			<td className="p-4 text-right text-xs sm:text-sm">
+				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange24h} />}
+			</td>
+			<td className="p-4 text-right text-xs sm:text-sm">
+				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange7d} />}
 			</td>
 			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
 				{marketCapInXNO >= 1e9
@@ -89,6 +94,24 @@ const CryptoRow = memo(function CryptoRow({
 		</tr>
 	)
 })
+
+function Change({ change }: { change: number }) {
+	return (
+		<div
+			className={cn(
+				'flex items-center justify-end gap-1 font-medium',
+				change >= 0 ? 'text-constructive' : 'text-destructive',
+			)}
+		>
+			{change >= 0 ? (
+				<TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+			) : (
+				<TrendingDown className="w-3 h-3 sm:w-4 sm:h-4" />
+			)}
+			{Math.abs(change).toFixed(2)}%
+		</div>
+	)
+}
 
 export function MarketCapTable() {
 	const t = useTranslations('marketTable')
@@ -103,9 +126,10 @@ export function MarketCapTable() {
 				</CardHeader>
 				<CardContent>
 					<div className="space-y-4">
-						{[...Array(10)].map((_, _i) => (
-							<div key={`${_}-card-item`} className="h-16 animate-pulse bg-muted rounded" />
-						))}
+						{[...Array(10)].map((_, i) => {
+							const key = `${i}-card-item`
+							return <div key={`${key}-card-item`} className="h-16 animate-pulse bg-muted rounded" />
+						})}
 					</div>
 				</CardContent>
 			</Card>
@@ -138,19 +162,31 @@ export function MarketCapTable() {
 								<th className="text-left p-4 font-medium">{t('rank')}</th>
 								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">{t('name')}</th>
 								<th className="text-right p-4 font-medium">{t('priceXno')}</th>
+								<th className="text-right p-4 font-medium">{t('change1h')}</th>
 								<th className="text-right p-4 font-medium">{t('change24h')}</th>
+								<th className="text-right p-4 font-medium">{t('change7d')}</th>
 								<th className="text-right p-4 font-medium">{t('marketCapXno')}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{sortedData?.map((crypto) => {
 								const isXNO = crypto.id === CRYPTO_IDS.NANO
+
 								const valueInXNO = crypto.current_price / xnoData.current_price
 								const marketCapInXNO = isXNO
 									? (xnoData.circulating_supply ?? 0)
 									: crypto.market_cap / xnoData.current_price
+
+								// Calculate relative changes vs XNO
+								const xno1hChange = xnoData.price_change_percentage_1h_in_currency ?? 0
 								const xno24hChange = xnoData.price_change_percentage_24h ?? 0
-								const relativeChange = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
+								const xno7dChange = xnoData.price_change_percentage_7d_in_currency ?? 0
+
+								const relativeChange1h =
+									(crypto.price_change_percentage_1h_in_currency ?? 0) - xno1hChange
+								const relativeChange24h = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
+								const relativeChange7d =
+									(crypto.price_change_percentage_7d_in_currency ?? 0) - xno7dChange
 
 								return (
 									<CryptoRow
@@ -159,7 +195,9 @@ export function MarketCapTable() {
 										isXNO={isXNO}
 										valueInXNO={valueInXNO}
 										marketCapInXNO={marketCapInXNO}
-										relativeChange={relativeChange}
+										relativeChange1h={relativeChange1h}
+										relativeChange24h={relativeChange24h}
+										relativeChange7d={relativeChange7d}
 									/>
 								)
 							})}

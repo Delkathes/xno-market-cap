@@ -183,56 +183,9 @@ export function MarketOverview() {
 							</button>
 
 							{/* Row 2: 24h variations */}
-							<div className="flex items-center gap-1">
-								{xnoPriceChangePrimary >= 0 ? (
-									<TrendingUp className="w-4 h-4 text-constructive" />
-								) : (
-									<TrendingDown className="w-4 h-4 text-destructive" />
-								)}
-								<span
-									className={
-										xnoPriceChangePrimary >= 0
-											? 'text-constructive text-sm'
-											: 'text-destructive text-sm'
-									}
-								>
-									{xnoPriceChangePrimary.toFixed(2)}%
-								</span>
-							</div>
-
-							<div className="flex items-center gap-1">
-								{xnoPriceChangeSecondary >= 0 ? (
-									<TrendingUp className="w-4 h-4 text-constructive" />
-								) : (
-									<TrendingDown className="w-4 h-4 text-destructive" />
-								)}
-								<span
-									className={
-										xnoPriceChangeSecondary >= 0
-											? 'text-constructive text-sm'
-											: 'text-destructive text-sm'
-									}
-								>
-									{xnoPriceChangeSecondary.toFixed(2)}%
-								</span>
-							</div>
-
-							<div className="flex items-center gap-1">
-								{xnoPriceChangeCrypto >= 0 ? (
-									<TrendingUp className="w-4 h-4 text-constructive" />
-								) : (
-									<TrendingDown className="w-4 h-4 text-destructive" />
-								)}
-								<span
-									className={
-										xnoPriceChangeCrypto >= 0
-											? 'text-constructive text-sm'
-											: 'text-destructive text-sm'
-									}
-								>
-									{xnoPriceChangeCrypto.toFixed(2)}%
-								</span>
-							</div>
+							<Change value={xnoPriceChangePrimary} />
+							<Change value={xnoPriceChangeSecondary} />
+							<Change value={xnoPriceChangeCrypto} />
 						</div>
 					)}
 				</CardContent>
@@ -255,6 +208,21 @@ export function MarketOverview() {
 					</div>
 				</CardContent>
 			</Card>
+		</div>
+	)
+}
+
+function Change({ value }: { value: number }) {
+	return (
+		<div className="flex items-center gap-1">
+			{value >= 0 ? (
+				<TrendingUp className="w-4 h-4 text-constructive" />
+			) : (
+				<TrendingDown className="w-4 h-4 text-destructive" />
+			)}
+			<span className={value >= 0 ? 'text-constructive text-sm font-medium' : 'text-destructive text-sm'}>
+				{value.toFixed(2)}%
+			</span>
 		</div>
 	)
 }

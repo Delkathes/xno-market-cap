@@ -46,7 +46,14 @@
 			"title": "Calculadoras & Herramientas XNO",
 			"description": "Calculadoras interactivas para Nano (XNO). Calcula tu porción del suministro, escenarios de inversión y explora qué significan tus posesiones de XNO en el panorama general.",
 			"ogTitle": "Calculadoras & Herramientas XNO | NanoMarketCap",
-			"ogDescription": "Calculadoras interactivas para Nano (XNO). Calcula tu porción del suministro y escenarios de inversión."		}
+			"ogDescription": "Calculadoras interactivas para Nano (XNO). Calcula tu porción del suministro y escenarios de inversión."
+		},
+		"coin": {
+			"title": "Gráfico de Precio de {coin} | NanoMarketCap",
+			"description": "Gráfico de precio en vivo de {coin}, capitalización de mercado, volumen y estadísticas. Ver datos históricos de precios y comparar con XNO.",
+			"ogTitle": "Gráfico de Precio de {coin} | NanoMarketCap",
+			"ogDescription": "Gráfico de precio en vivo de {coin} y estadísticas de mercado. Comparar con XNO."
+		}
 	},
 	"common": {
 		"loading": "Cargando...",
@@ -107,8 +114,25 @@
 		"rank": "#",
 		"name": "Nombre",
 		"priceXno": "Precio (XNO)",
+		"change1h": "1h %",
 		"change24h": "24h %",
+		"change7d": "7d %",
 		"marketCapXno": "Capitalización (XNO)"
+	},
+	"coinDetail": {
+		"errorLoading": "No se pueden cargar los datos de la moneda. Inténtalo más tarde.",
+		"rank": "Rango #{rank}",
+		"vs24h": "• 24h",
+		"marketCap": "Capitalización de Mercado",
+		"volume24h": "Volumen 24h",
+		"circulatingSupply": "Suministro Circulante",
+		"maxSupply": "Suministro Máximo"
+	},
+	"priceChart": {
+		"title": "Precio de {coin} en XNO",
+		"errorLoading": "No se puede cargar el gráfico de precios. Inténtalo más tarde.",
+		"areaChart": "Gráfico de Área",
+		"lineChart": "Gráfico de Línea"
 	},
 	"dominance": {
 		"title": "Dominancia del Mercado",

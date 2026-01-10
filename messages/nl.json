@@ -46,7 +46,14 @@
 			"title": "XNO Calculators & Tools",
 			"description": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel, investeringsscenario's en ontdek wat je XNO-bezit betekent in het grote geheel.",
 			"ogTitle": "XNO Calculators & Tools | NanoMarketCap",
-			"ogDescription": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel en investeringsscenario's."		}
+			"ogDescription": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel en investeringsscenario's."
+		},
+		"coin": {
+			"title": "{coin} Prijsgrafiek | NanoMarketCap",
+			"description": "Live {coin} prijsgrafiek, marktkapitalisatie, volume en statistieken. Bekijk historische prijsgegevens en vergelijk met XNO.",
+			"ogTitle": "{coin} Prijsgrafiek | NanoMarketCap",
+			"ogDescription": "Live {coin} prijsgrafiek en marktstatistieken. Vergelijk met XNO."
+		}
 	},
 	"common": {
 		"loading": "Laden...",
@@ -107,8 +114,25 @@
 		"rank": "#",
 		"name": "Naam",
 		"priceXno": "Prijs (XNO)",
+		"change1h": "1u %",
 		"change24h": "24u %",
+		"change7d": "7d %",
 		"marketCapXno": "Marktkapitalisatie (XNO)"
+	},
+	"coinDetail": {
+		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",
+		"rank": "Rang #{rank}",
+		"vs24h": "vs XNO (24u)",
+		"marketCap": "Marktkapitalisatie",
+		"volume24h": "24u Volume",
+		"circulatingSupply": "Circulerende Voorraad",
+		"maxSupply": "Maximale Voorraad"
+	},
+	"priceChart": {
+		"title": "{coin} Prijs in XNO",
+		"errorLoading": "Kan prijsgrafiek niet laden. Probeer het later opnieuw.",
+		"areaChart": "Vlakgrafiek",
+		"lineChart": "Lijngrafiek"
 	},
 	"dominance": {
 		"title": "Marktdominantie",

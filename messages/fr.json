@@ -48,6 +48,12 @@
 			"description": "Calculateurs interactifs pour Nano (XNO). Calculez votre part de l'offre, les scénarios d'investissement et explorez ce que vos avoirs en XNO représentent dans l'ensemble.",
 			"ogTitle": "Calculateurs & Outils XNO | NanoMarketCap",
 			"ogDescription": "Calculateurs interactifs pour Nano (XNO). Calculez votre part de l'offre et les scénarios d'investissement."
+		},
+		"coin": {
+			"title": "Graphique de Prix {coin} | NanoMarketCap",
+			"description": "Graphique de prix {coin} en direct, capitalisation, volume et statistiques. Consultez l'historique des prix et comparez avec XNO.",
+			"ogTitle": "Graphique de Prix {coin} | NanoMarketCap",
+			"ogDescription": "Graphique de prix {coin} en direct et statistiques de marché. Comparez avec XNO."
 		}
 	},
 	"common": {
@@ -109,8 +115,25 @@
 		"rank": "#",
 		"name": "Nom",
 		"priceXno": "Prix (XNO)",
+		"change1h": "1h %",
 		"change24h": "24h %",
+		"change7d": "7d %",
 		"marketCapXno": "Capitalisation (XNO)"
+	},
+	"coinDetail": {
+		"errorLoading": "Impossible de charger les données de la crypto. Veuillez réessayer plus tard.",
+		"rank": "Rang #{rank}",
+		"vs24h": "• 24h",
+		"marketCap": "Capitalisation",
+		"volume24h": "Volume 24h",
+		"circulatingSupply": "Offre en Circulation",
+		"maxSupply": "Offre Maximale"
+	},
+	"priceChart": {
+		"title": "Prix de {coin} en XNO",
+		"errorLoading": "Impossible de charger le graphique de prix. Veuillez réessayer plus tard.",
+		"areaChart": "Graphique en Aires",
+		"lineChart": "Graphique en Lignes"
 	},
 	"dominance": {
 		"title": "Dominance du Marché",

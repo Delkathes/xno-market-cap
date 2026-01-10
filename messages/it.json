@@ -48,6 +48,12 @@
 			"description": "Calcolatori interattivi per Nano (XNO). Calcola la tua quota di offerta, scenari di investimento ed esplora cosa significano i tuoi possedimenti XNO nel quadro generale.",
 			"ogTitle": "Calcolatori & Strumenti XNO | NanoMarketCap",
 			"ogDescription": "Calcolatori interattivi per Nano (XNO). Calcola la tua quota di offerta e scenari di investimento."
+		},
+		"coin": {
+			"title": "Grafico Prezzo {coin} | NanoMarketCap",
+			"description": "Grafico prezzo {coin} in tempo reale, capitalizzazione di mercato, volume e statistiche. Visualizza dati storici dei prezzi e confronta con XNO.",
+			"ogTitle": "Grafico Prezzo {coin} | NanoMarketCap",
+			"ogDescription": "Grafico prezzo {coin} in tempo reale e statistiche di mercato. Confronta con XNO."
 		}
 	},
 	"common": {
@@ -109,8 +115,25 @@
 		"rank": "#",
 		"name": "Nome",
 		"priceXno": "Prezzo (XNO)",
+		"change1h": "1h %",
 		"change24h": "24h %",
+		"change7d": "7d %",
 		"marketCapXno": "Capitalizzazione (XNO)"
+	},
+	"coinDetail": {
+		"errorLoading": "Impossibile caricare i dati della moneta. Riprova più tardi.",
+		"rank": "Posizione #{rank}",
+		"vs24h": "• 24h",
+		"marketCap": "Capitalizzazione di Mercato",
+		"volume24h": "Volume 24h",
+		"circulatingSupply": "Offerta Circolante",
+		"maxSupply": "Offerta Massima"
+	},
+	"priceChart": {
+		"title": "Prezzo di {coin} in XNO",
+		"errorLoading": "Impossibile caricare il grafico dei prezzi. Riprova più tardi.",
+		"areaChart": "Grafico ad Area",
+		"lineChart": "Grafico a Linee"
 	},
 	"dominance": {
 		"title": "Dominanza di Mercato",

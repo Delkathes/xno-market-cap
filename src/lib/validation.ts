@@ -25,6 +25,8 @@ export const CryptoDataSchema = v.object({
 	market_cap: v.number(),
 	market_cap_rank: v.number(),
 	price_change_percentage_24h: v.nullable(v.number()),
+	price_change_percentage_1h_in_currency: v.optional(v.nullable(v.number())),
+	price_change_percentage_7d_in_currency: v.optional(v.nullable(v.number())),
 	total_volume: v.number(),
 	circulating_supply: v.optional(v.number()),
 	max_supply: v.optional(v.nullable(v.number())),
@@ -47,7 +49,25 @@ export const ExchangeRatesSchema = v.object({
 
 export const XnoCoinDetailSchema = v.object({
 	market_data: v.object({
+		price_change_percentage_1h_in_currency: v.object({
+			usd: v.optional(v.nullable(v.number())),
+			eur: v.optional(v.nullable(v.number())),
+			gbp: v.optional(v.nullable(v.number())),
+			jpy: v.optional(v.nullable(v.number())),
+			chf: v.optional(v.nullable(v.number())),
+			cad: v.optional(v.nullable(v.number())),
+			aud: v.optional(v.nullable(v.number())),
+		}),
 		price_change_percentage_24h_in_currency: v.object({
+			usd: v.optional(v.nullable(v.number())),
+			eur: v.optional(v.nullable(v.number())),
+			gbp: v.optional(v.nullable(v.number())),
+			jpy: v.optional(v.nullable(v.number())),
+			chf: v.optional(v.nullable(v.number())),
+			cad: v.optional(v.nullable(v.number())),
+			aud: v.optional(v.nullable(v.number())),
+		}),
+		price_change_percentage_7d_in_currency: v.object({
 			usd: v.optional(v.nullable(v.number())),
 			eur: v.optional(v.nullable(v.number())),
 			gbp: v.optional(v.nullable(v.number())),
@@ -99,3 +119,15 @@ export const WebSocketConfirmationSchema = v.object({
 export function validateWebSocketConfirmation(data: unknown) {
 	return v.safeParse(WebSocketConfirmationSchema, data)
 }
+
+// =============================================================================
+// PRICE CHART VALIDATION
+// =============================================================================
+
+export const PriceChartRawSchema = v.object({
+	prices: v.array(v.tuple([v.number(), v.number()])),
+	market_caps: v.array(v.tuple([v.number(), v.number()])),
+	total_volumes: v.array(v.tuple([v.number(), v.number()])),
+})
+
+export const ChartTimeRangeSchema = v.picklist(['1', '7', '30', '90', '365'])

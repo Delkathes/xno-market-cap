@@ -52,6 +52,8 @@
               ["next", "next/**", "react", "react-dom"],
               ":PACKAGE:",
               ":BLANK_LINE:",
+              ["@/i18n/**"],
+              ":BLANK_LINE:",
               ["@/lib/**"],
               ":BLANK_LINE:",
               ["@/hooks/**"],

@@ -7,12 +7,14 @@ export interface CryptoData {
 	market_cap: number
 	market_cap_rank: number
 	price_change_percentage_24h: number | null
+	price_change_percentage_1h_in_currency?: number | null
+	price_change_percentage_7d_in_currency?: number | null
 	total_volume: number
 	circulating_supply?: number
 	max_supply?: number | null
 }
 
-export interface XnoPriceChange24hPerCurrency {
+export interface XnoPriceChangePerCurrency {
 	usd: number
 	eur: number
 	gbp: number
@@ -30,7 +32,9 @@ export interface MarketDataResponse {
 	chfRate: number
 	cadRate: number
 	audRate: number
-	xnoPriceChange24h: XnoPriceChange24hPerCurrency
+	xnoPriceChange1h: XnoPriceChangePerCurrency
+	xnoPriceChange24h: XnoPriceChangePerCurrency
+	xnoPriceChange7d: XnoPriceChangePerCurrency
 	xnoData: CryptoData
 }
 
@@ -61,4 +65,24 @@ export interface WebSocketConfirmation {
 			subtype: 'send' | 'receive' | 'change' | 'epoch'
 		}
 	}
+}
+
+// =============================================================================
+// PRICE CHART TYPES
+// =============================================================================
+
+export type ChartTimeRange = '1' | '7' | '30' | '90' | '365'
+
+export interface PriceChartPoint {
+	timestamp: number
+	price: number
+	priceInXNO: number
+	marketCap: number
+	volume: number
+}
+
+export interface PriceChartResponse {
+	coinId: string
+	prices: PriceChartPoint[]
+	timeRange: ChartTimeRange
 }
