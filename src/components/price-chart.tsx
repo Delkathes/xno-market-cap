@@ -28,6 +28,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
+import { LoadingArea } from './loading-area'
+
 interface PriceChartProps {
 	coinId: string
 }
@@ -100,7 +102,7 @@ interface CustomTooltipProps {
 	t: ReturnType<typeof useTranslations<'priceChart'>>
 }
 
-function CustomTooltip({ active, payload, label, t: _t }: CustomTooltipProps) {
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
 	if (!active || !payload || !payload.length || !label) return null
 
 	const data = payload[0]
@@ -381,7 +383,9 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 			<CardContent className="pb-4 px-4">
 				{isLoading ? (
-					<Skeleton className="h-75 w-full" />
+					<div className="h-75 w-full relative rounded-lg overflow-hidden">
+						<LoadingArea />
+					</div>
 				) : (
 					<ResponsiveContainer width="100%" height={300}>
 						{chartType === 'area' ? (
