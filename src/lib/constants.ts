@@ -73,6 +73,17 @@ export const DONATION_FIXED_AMOUNTS = [1, 5, 10, 25, 50] as const
 export const BLOCKLATTICE_URL = 'https://blocklattice.io' as const
 
 // WebSocket configuration for payment detection
-export const WS_ENDPOINTS = ['wss://ws.nano.to'] as const
+export const WS_ENDPOINTS = [
+	'wss://ws.nano.to',
+	'wss://nanoslo.0x.no/websocket',
+	'wss://node.somenano.com/websocket',
+	'wss://rainstorm.city/websocket',
+] as const
 // RPC endpoints for balance checks
-export const RPC_ENDPOINTS = ['https://rpc.nano.to'] as const
+export const RPC_ENDPOINTS = [
+	'https://rpc.nano.to',
+	'https://app.natrium.io/api',
+	'https://nanoslo.0x.no/proxy',
+	'https://node.somenano.com/proxy',
+	'https://rainstorm.city/api',
+] as const

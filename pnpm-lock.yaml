@@ -62,6 +62,9 @@ importers:
       lucide-react:
         specifier: 0.562.0
         version: 0.562.0(react@19.2.3)
+      nano-sdk:
+        specifier: ^1.0.1
+        version: 1.0.1
       nanocurrency:
         specifier: ^2.5.0
         version: 2.5.0
@@ -1496,6 +1499,11 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
+  nano-sdk@1.0.1:
+    resolution: {integrity: sha512-9CLhiyc014WpqNtXpRb/5i2crNJXplR6Sw70ruOcNppTsFvMXuyMSkeYBYLoj58j0XiO1XcvqtijMRCuH0ogUQ==}
+    peerDependencies:
+      zod: ^4.1.0
+
   nanocurrency-web@1.4.3:
     resolution: {integrity: sha512-okmnHweUjZq3j/f2W5qYl4Ir4GAhGyL2BJJQEeZvo+qIHkdI4d7RbJDQKNK1VXAmdFZ4mElOPLGUBv6i+x+XRg==}
 
@@ -2897,6 +2905,10 @@ snapshots:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
+
+  nano-sdk@1.0.1:
+    dependencies:
+      blakejs: 1.2.1
 
   nanocurrency-web@1.4.3:
     dependencies:

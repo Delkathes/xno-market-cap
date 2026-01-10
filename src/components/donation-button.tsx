@@ -1,40 +1,36 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Heart } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { ALLOWED_GOAL_ORIGINS, RPC_ENDPOINTS } from '@/lib/constants'
-import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
-import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
+import { ALLOWED_GOAL_ORIGINS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { validateNanoBalanceResponse } from '@/lib/validation'
+
+import { useDonationBalance } from '@/hooks/use-donation-balance'
 
 import { env } from '@/env'
 
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import {
-	DONATION_GOAL_XNO,
-	DONATION_MILESTONES,
-	DonationModal,
-	type MilestoneBalances,
-} from '@/components/donation-modal'
-
-const DONATION_WALLET_FINAL = env.NEXT_PUBLIC_DONATION_WALLET_FINAL
+import { DONATION_GOAL_XNO, DonationModal } from '@/components/donation-modal'
 
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL
-
-const BALANCE_POLL_INTERVAL_MS = 60000
-const REQUEST_TIMEOUT_MS = 10000
 
 export function DonationButton({ className }: { className?: string }) {
 	const t = useTranslations('donation')
 
 	const [open, setOpen] = useState(false)
 
-	const { milestoneBalances, totalDonations, isLoading, refreshBalance, allMilestonesComplete, activeWalletAddress } =
-		useDonationBalance()
+	const {
+		milestoneBalances,
+		totalDonations,
+		isLoading,
+		refreshBalance,
+		allMilestonesComplete,
+		activeWalletAddress,
+		hasWalletConfigured,
+	} = useDonationBalance()
 	const showGoalMode = useDonationGoalMode(allMilestonesComplete)
 	const hasAnimatedIn = useDonationEntranceAnimation(isLoading)
 
@@ -44,9 +40,6 @@ export function DonationButton({ className }: { className?: string }) {
 		'motion-safe:transition-all motion-safe:duration-500 motion-safe:ease-out',
 		hasAnimatedIn ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4',
 	)
-
-	// Check if any milestone wallet is configured
-	const hasWalletConfigured = DONATION_MILESTONES.some((m) => m.walletAddress) || DONATION_WALLET_FINAL
 
 	if (!hasWalletConfigured) {
 		return null
@@ -161,115 +154,6 @@ function useDonationEntranceAnimation(isLoading: boolean) {
 	}, [isLoading])
 
 	return hasAnimatedIn
-}
-
-async function fetchWalletBalance(walletAddress: string): Promise<number> {
-	if (!walletAddress) return 0
-
-	// Validate wallet address before making RPC call
-	if (!isValidNanoAddress(walletAddress)) {
-		console.error(`Invalid wallet address: ${walletAddress}`)
-		return 0
-	}
-
-	try {
-		const response = await fetchWithTimeout(
-			RPC_ENDPOINTS[0],
-			{
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					action: 'account_balance',
-					account: walletAddress,
-				}),
-			},
-			REQUEST_TIMEOUT_MS,
-		)
-
-		if (response.ok) {
-			const data = await response.json()
-			const validation = validateNanoBalanceResponse(data)
-			if (validation.success && validation.balance) {
-				return rawToXno(validation.balance)
-			}
-		}
-	} catch (error) {
-		if (error instanceof Error && error.name === 'AbortError') {
-			console.error(`Balance fetch timed out for ${walletAddress}`)
-		}
-	}
-
-	return 0
-}
-
-function useDonationBalance() {
-	const [milestoneBalances, setMilestoneBalances] = useState<MilestoneBalances>({})
-	const [isLoading, setIsLoading] = useState(true)
-
-	const fetchAllBalances = useCallback(async () => {
-		const balances: MilestoneBalances = {}
-
-		// Fetch balances for all milestones in parallel
-		const results = await Promise.all(
-			DONATION_MILESTONES.map(async (milestone) => {
-				const balance = await fetchWalletBalance(milestone.walletAddress)
-				return { id: milestone.id, balance }
-			}),
-		)
-
-		for (const { id, balance } of results) {
-			balances[id] = balance
-		}
-
-		setMilestoneBalances(balances)
-		setIsLoading(false)
-	}, [])
-
-	useEffect(() => {
-		fetchAllBalances()
-
-		const interval = setInterval(fetchAllBalances, BALANCE_POLL_INTERVAL_MS)
-		return () => clearInterval(interval)
-	}, [fetchAllBalances])
-
-	// Calculate total donations across all milestones
-	const totalDonations = useMemo(() => {
-		return Object.values(milestoneBalances).reduce((sum, balance) => sum + balance, 0)
-	}, [milestoneBalances])
-
-	// Determine if all milestones are complete
-	const allMilestonesComplete = useMemo(() => {
-		return DONATION_MILESTONES.every((milestone) => {
-			const balance = milestoneBalances[milestone.id] || 0
-			return balance >= milestone.targetXno
-		})
-	}, [milestoneBalances])
-
-	// Determine the active wallet address (first incomplete milestone, or final wallet if all complete)
-	const activeWalletAddress = useMemo(() => {
-		if (allMilestonesComplete) {
-			return DONATION_WALLET_FINAL
-		}
-
-		// Find first incomplete milestone
-		for (const milestone of DONATION_MILESTONES) {
-			const balance = milestoneBalances[milestone.id] || 0
-			if (balance < milestone.targetXno) {
-				return milestone.walletAddress
-			}
-		}
-
-		return DONATION_WALLET_FINAL
-	}, [milestoneBalances, allMilestonesComplete])
-
-	return {
-		milestoneBalances,
-		totalDonations,
-		isLoading,
-		refreshBalance: fetchAllBalances,
-		allMilestonesComplete,
-		activeWalletAddress,
-	}
 }
 
 function isAllowedOrigin(): boolean {
