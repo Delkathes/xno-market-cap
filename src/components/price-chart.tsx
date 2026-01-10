@@ -136,7 +136,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 	const { data } = useMarketData()
 	const coin = data?.find((c) => c.id === coinId)
-	const coinName = coin?.name ?? coinId.charAt(0).toUpperCase() + coinId.slice(1)
+	const _coinName = coin?.name ?? coinId.charAt(0).toUpperCase() + coinId.slice(1)
 
 	const { prices, isLoading, isFetching, error } = usePriceChart(coinId, timeRange)
 
@@ -218,92 +218,10 @@ export function PriceChart({ coinId }: PriceChartProps) {
 			<CardHeader className="pb-2">
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 					<div className="flex items-center gap-3">
-						<CardTitle className="text-lg">{t('title', { coin: coinName })}</CardTitle>
+						<CardTitle className="text-lg whitespace-nowrap uppercase">{coin?.symbol}/XNO</CardTitle>
 						{isFetching && !isLoading && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
 					</div>
-					<div className="flex items-center gap-2">
-						<Button
-							variant={chartType === 'area' ? 'secondary' : 'ghost'}
-							size="sm"
-							onClick={() => setChartType('area')}
-							className="h-8 w-8 p-0"
-							title={t('areaChart')}
-						>
-							<AreaChartIcon className="h-4 w-4" />
-						</Button>
-						<Button
-							variant={chartType === 'line' ? 'secondary' : 'ghost'}
-							size="sm"
-							onClick={() => setChartType('line')}
-							className="h-8 w-8 p-0"
-							title={t('lineChart')}
-						>
-							<LineChartIcon className="h-4 w-4" />
-						</Button>
-					</div>
-				</div>
-
-				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
-					{isLoading ? (
-						<Skeleton className="h-8 w-64" />
-					) : (
-						<div className="flex items-center gap-4 grow flex-wrap">
-							<div className="flex items-center gap-4 mr-14 sm:gap-6 flex-wrap">
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Start</span>
-									<span className="text-sm font-medium text-primary">
-										{priceStats.start.toLocaleString()} XNO
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">End</span>
-									<span className="text-sm font-medium text-primary">
-										{priceStats.end.toLocaleString()} XNO
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Change</span>
-									<span
-										className={cn(
-											'text-sm font-medium',
-											isPositive ? 'text-constructive' : 'text-destructive',
-										)}
-									>
-										{isPositive ? '+' : ''}
-										{priceChange.percentage.toFixed(2)}%
-									</span>
-								</div>
-							</div>
-							<div className="flex items-center gap-4 sm:gap-6 flex-wrap">
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Low</span>
-									<span className="text-sm font-medium text-destructive">
-										{priceStats.min.toLocaleString()} XNO
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">High</span>
-									<span className="text-sm font-medium text-constructive">
-										{priceStats.max.toLocaleString()} XNO
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Diff.</span>
-									<span className="text-sm font-medium text-primary">
-										{(priceStats.max - priceStats.min).toLocaleString()}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Spread</span>
-									<span className="text-sm font-medium text-primary">
-										{(((priceStats.max - priceStats.min) / priceStats.min) * 100).toFixed(2)}%
-									</span>
-								</div>
-							</div>
-						</div>
-					)}
-
-					<div className="flex items-center gap-4">
+					<div className="flex gap-4 flex-wrap items-end flex-col-reverse sm:flex-row">
 						<div className="flex items-center gap-1">
 							<Button
 								variant={referenceLines.start ? 'secondary' : 'ghost'}
@@ -339,16 +257,104 @@ export function PriceChart({ coinId }: PriceChartProps) {
 							</Button>
 						</div>
 
-						<Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as ChartTimeRange)}>
-							<TabsList className="h-8">
-								{TIME_RANGES.map((range) => (
-									<TabsTrigger key={range.value} value={range.value} className="text-xs px-2 py-1">
-										{range.label}
-									</TabsTrigger>
-								))}
-							</TabsList>
-						</Tabs>
+						<div className="flex flex-nowrap items-center gap-2">
+							<div className="flex items-center gap-2">
+								<Button
+									variant={chartType === 'line' ? 'secondary' : 'ghost'}
+									size="sm"
+									onClick={() => setChartType('line')}
+									className="h-8 w-8 p-0"
+									title={t('lineChart')}
+								>
+									<LineChartIcon className="h-4 w-4" />
+								</Button>
+								<Button
+									variant={chartType === 'area' ? 'secondary' : 'ghost'}
+									size="sm"
+									onClick={() => setChartType('area')}
+									className="h-8 w-8 p-0"
+									title={t('areaChart')}
+								>
+									<AreaChartIcon className="h-4 w-4" />
+								</Button>
+							</div>
+
+							<Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as ChartTimeRange)}>
+								<TabsList className="h-8">
+									{TIME_RANGES.map((range) => (
+										<TabsTrigger
+											key={range.value}
+											value={range.value}
+											className="text-xs px-2 py-1"
+										>
+											{range.label}
+										</TabsTrigger>
+									))}
+								</TabsList>
+							</Tabs>
+						</div>
 					</div>
+				</div>
+
+				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
+					{isLoading ? (
+						<Skeleton className="h-8 w-64" />
+					) : (
+						<div className="gap-4 grow grid grid-cols-2 sm:grid-cols-2 max-w-4xl">
+							<div className="flex gap-4 sm:gap-6 flex-wrap">
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Start</span>
+									<span className="text-sm font-medium text-primary whitespace-nowrap">
+										{priceStats.start.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">End</span>
+									<span className="text-sm font-medium text-primary whitespace-nowrap">
+										{priceStats.end.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Change</span>
+									<span
+										className={cn(
+											'text-sm font-medium',
+											isPositive ? 'text-constructive' : 'text-destructive',
+										)}
+									>
+										{isPositive ? '+' : ''}
+										{priceChange.percentage.toFixed(2)}%
+									</span>
+								</div>
+							</div>
+							<div className="flex gap-4 sm:gap-6 flex-wrap">
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Low</span>
+									<span className="text-sm font-medium text-destructive">
+										{priceStats.min.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">High</span>
+									<span className="text-sm font-medium text-constructive">
+										{priceStats.max.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Diff.</span>
+									<span className="text-sm font-medium text-primary whitespace-nowrap">
+										{(priceStats.max - priceStats.min).toLocaleString()}
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Spread</span>
+									<span className="text-sm font-medium text-primary whitespace-nowrap">
+										{(((priceStats.max - priceStats.min) / priceStats.min) * 100).toFixed(2)}%
+									</span>
+								</div>
+							</div>
+						</div>
+					)}
 				</div>
 			</CardHeader>
 

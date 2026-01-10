@@ -112,7 +112,7 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 	return (
 		<Card>
 			<CardHeader className="">
-				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 					<div className="flex items-center gap-4">
 						<Image
 							src={coin.image || '/placeholder.svg'}
