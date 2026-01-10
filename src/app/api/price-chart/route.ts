@@ -8,6 +8,8 @@ import type { ChartTimeRange } from '@/lib/types'
 
 import { env } from '@/env'
 
+// Disable Next.js ISR caching (doesn't respect query params on some platforms)
+// CDN caching via Cache-Control headers will handle per-URL caching
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 
