@@ -24,10 +24,7 @@ async function fetchCoinChart(
 			url,
 			{
 				headers,
-				next: {
-					revalidate: days === '1' ? 300 : 900, // 5min for 1d, 15min for others
-					tags: [`price-chart-${coinId}-${days}-${vsCurrency}`], // Add this line
-				},
+				cache: 'no-store',
 			} as RequestInit,
 			{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
 		)

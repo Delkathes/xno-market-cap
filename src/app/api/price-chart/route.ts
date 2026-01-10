@@ -8,7 +8,8 @@ import type { ChartTimeRange } from '@/lib/types'
 
 import { env } from '@/env'
 
-export const revalidate = 300 // 5 minutes
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
 
 function getClientIP(request: NextRequest): string {
 	const forwarded = request.headers.get('x-forwarded-for')
@@ -57,7 +58,7 @@ function isValidOrigin(request: NextRequest): boolean {
 export async function GET(request: NextRequest) {
 	const baseHeaders = {
 		...getSecurityHeaders(),
-		'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+		'Cache-Control': 'no-store, no-cache, must-revalidate',
 	}
 
 	if (!isValidOrigin(request)) {
