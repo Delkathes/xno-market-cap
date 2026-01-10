@@ -216,12 +216,12 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	return (
 		<Card>
 			<CardHeader className="pb-2">
-				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-					<div className="flex items-center gap-3">
+				<div className="flex flex-row sm:items-center justify-between gap-4">
+					<div className="flex gap-3">
 						<CardTitle className="text-lg whitespace-nowrap uppercase">{coin?.symbol}/XNO</CardTitle>
 						{isFetching && !isLoading && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
 					</div>
-					<div className="flex gap-4 flex-wrap items-end flex-col-reverse sm:flex-row">
+					<div className="flex gap-4 flex-wrap items-end flex-col-reverse sm:flex-row sm:justify-end sm:flex-nowrap">
 						<div className="flex items-center gap-1">
 							<Button
 								variant={referenceLines.start ? 'secondary' : 'ghost'}
@@ -301,17 +301,23 @@ export function PriceChart({ coinId }: PriceChartProps) {
 						<Skeleton className="h-8 w-64" />
 					) : (
 						<div className="gap-4 grow grid grid-cols-2 sm:grid-cols-2 max-w-4xl">
-							<div className="flex gap-4 sm:gap-6 flex-wrap">
+							<div className="flex gap-4 sm:gap-x-6 flex-wrap">
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Start</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{priceStats.start.toLocaleString()} XNO
+										{priceStats.start.toLocaleString(undefined, {
+											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+										})}{' '}
+										XNO
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">End</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{priceStats.end.toLocaleString()} XNO
+										{priceStats.end.toLocaleString(undefined, {
+											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+										})}{' '}
+										XNO
 									</span>
 								</div>
 								<div className="flex flex-col">
@@ -331,19 +337,27 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Low</span>
 									<span className="text-sm font-medium text-destructive">
-										{priceStats.min.toLocaleString()} XNO
+										{priceStats.min.toLocaleString(undefined, {
+											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+										})}{' '}
+										XNO
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">High</span>
 									<span className="text-sm font-medium text-constructive">
-										{priceStats.max.toLocaleString()} XNO
+										{priceStats.max.toLocaleString(undefined, {
+											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+										})}{' '}
+										XNO
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Diff.</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{(priceStats.max - priceStats.min).toLocaleString()}
+										{(priceStats.max - priceStats.min).toLocaleString(undefined, {
+											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+										})}
 									</span>
 								</div>
 								<div className="flex flex-col">
