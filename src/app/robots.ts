@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://nanomarketcap.com'
+import { env } from '@/env'
 
 export default function robots(): MetadataRoute.Robots {
 	return {
@@ -11,6 +11,6 @@ export default function robots(): MetadataRoute.Robots {
 				disallow: ['/api/'],
 			},
 		],
-		sitemap: `${APP_URL}/sitemap.xml`,
+		sitemap: `${env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,
 	}
 }

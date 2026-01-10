@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { env } from '@/env'
+
 import { Navigation } from '@/components/navigation'
 import { Providers } from '@/components/providers'
 
@@ -15,7 +17,7 @@ const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
 const _spaceGrotesk = Space_Grotesk({ subsets: ['latin'] })
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://nanomarketcap.com'
+const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
 type Props = {
 	children: React.ReactNode
@@ -31,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const t = await getTranslations({ locale, namespace: 'metadata' })
 
 	return {
-		metadataBase: new URL(APP_URL),
+		metadataBase: new URL(SITE_URL),
 		title: {
 			default: t('title'),
 			template: '%s | NanoMarketCap',
@@ -85,7 +87,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			type: 'website',
 			locale: locale === 'fr' ? 'fr_FR' : 'en_US',
-			url: APP_URL,
+			url: SITE_URL,
 			siteName: 'NanoMarketCap',
 			title: t('ogTitle'),
 			description: t('ogDescription'),
@@ -105,10 +107,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			images: ['/og-image.png'],
 		},
 		alternates: {
-			canonical: APP_URL,
+			canonical: SITE_URL,
 			languages: {
-				en: `${APP_URL}/en`,
-				fr: `${APP_URL}/fr`,
+				en: `${SITE_URL}/en`,
+				fr: `${SITE_URL}/fr`,
 			},
 		},
 		category: 'finance',

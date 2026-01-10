@@ -4,6 +4,8 @@ import { getMarketData, RateLimitError, UpstreamError, ValidationError } from '@
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
 import { getSecurityHeaders } from '@/lib/security-headers'
 
+import { env } from '@/env'
+
 export const revalidate = 60
 
 function getClientIP(request: NextRequest): string {
@@ -31,10 +33,10 @@ function isValidOrigin(request: NextRequest): boolean {
 
 	// Get allowed hosts from environment or use defaults
 	const allowedHosts = [
-		process.env.NEXT_PUBLIC_APP_URL,
-		process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+		env.NEXT_PUBLIC_SITE_URL,
+		env.VERCEL_URL ? env.VERCEL_URL : null,
+		env.NETLIFY ? env.URL : null,
 		'http://localhost:3000',
-		'https://localhost:3000',
 	].filter(Boolean) as string[]
 
 	// Check origin

@@ -10,6 +10,8 @@ import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
 import { cn } from '@/lib/utils'
 import { validateNanoBalanceResponse } from '@/lib/validation'
 
+import { env } from '@/env'
+
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import {
@@ -19,9 +21,9 @@ import {
 	type MilestoneBalances,
 } from '@/components/donation-modal'
 
-const DONATION_WALLET_FINAL = process.env.NEXT_PUBLIC_DONATION_WALLET_FINAL || ''
+const DONATION_WALLET_FINAL = env.NEXT_PUBLIC_DONATION_WALLET_FINAL
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
 const BALANCE_POLL_INTERVAL_MS = 60000
 const REQUEST_TIMEOUT_MS = 10000
@@ -276,7 +278,7 @@ function isAllowedOrigin(): boolean {
 	const origin = window.location.origin
 
 	// Check if matches APP_URL
-	if (APP_URL && origin === APP_URL) return true
+	if (SITE_URL && origin === SITE_URL) return true
 
 	// Check against allowed patterns (Vercel, Netlify, localhost)
 	return ALLOWED_GOAL_ORIGINS.some((pattern) => pattern.test(origin))

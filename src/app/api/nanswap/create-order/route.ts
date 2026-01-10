@@ -5,8 +5,10 @@ import { createOrder } from '@/lib/nanswap-service'
 import type { NanswapCreateOrderRequest } from '@/lib/nanswap-types'
 import { getSecurityHeaders } from '@/lib/security-headers'
 
+import { env } from '@/env'
+
 export async function POST(request: NextRequest) {
-	const apiKey = process.env.NANSWAP_API_KEY
+	const apiKey = env.NANSWAP_API_KEY
 
 	if (!apiKey) {
 		return NextResponse.json(

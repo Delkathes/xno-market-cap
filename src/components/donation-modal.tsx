@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils'
 
 import { useDonation } from '@/hooks/use-donation'
 
+import { env } from '@/env'
+
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -36,21 +38,21 @@ export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
 	{
 		id: 'development',
 		targetXno: 3000,
-		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT || '',
+		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT,
 		icon: 'rocket',
 		rewardCount: 3,
 	},
 	{
 		id: 'maintenance',
 		targetXno: 18000,
-		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE || '',
+		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE,
 		icon: 'shield',
 		rewardCount: 3,
 	},
 	{
 		id: 'opensource',
 		targetXno: 4000,
-		walletAddress: process.env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE || '',
+		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE,
 		icon: 'code',
 		rewardCount: 3,
 	},

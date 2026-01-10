@@ -1,43 +1,45 @@
 import type { MetadataRoute } from 'next'
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://nanomarketcap.com'
+import { env } from '@/env'
+
+const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
 export default function sitemap(): MetadataRoute.Sitemap {
 	const lastModified = new Date()
 
 	return [
 		{
-			url: APP_URL,
+			url: SITE_URL,
 			lastModified,
 			changeFrequency: 'hourly',
 			priority: 1,
 		},
 		{
-			url: `${APP_URL}/dominance`,
+			url: `${SITE_URL}/dominance`,
 			lastModified,
 			changeFrequency: 'hourly',
 			priority: 0.9,
 		},
 		{
-			url: `${APP_URL}/parity`,
+			url: `${SITE_URL}/parity`,
 			lastModified,
 			changeFrequency: 'hourly',
 			priority: 0.9,
 		},
 		{
-			url: `${APP_URL}/speculation`,
+			url: `${SITE_URL}/speculation`,
 			lastModified,
 			changeFrequency: 'hourly',
 			priority: 0.8,
 		},
 		{
-			url: `${APP_URL}/get-nano`,
+			url: `${SITE_URL}/get-nano`,
 			lastModified,
 			changeFrequency: 'monthly',
 			priority: 0.7,
 		},
 		{
-			url: `${APP_URL}/swap-nano`,
+			url: `${SITE_URL}/swap-nano`,
 			lastModified,
 			changeFrequency: 'weekly',
 			priority: 0.8,

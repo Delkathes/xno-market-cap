@@ -1,5 +1,7 @@
 import * as v from 'valibot'
 
+import { env } from '@/env'
+
 import { CRYPTO_IDS } from './constants'
 import { fetchWithTimeout } from './fetch-with-timeout'
 import type { CryptoData, MarketDataResponse, XnoPriceChange24hPerCurrency } from './types'
@@ -31,7 +33,7 @@ const REQUEST_TIMEOUT_MS = 10000
 
 export async function getMarketData(): Promise<MarketDataResponse> {
 	try {
-		const apiKey = process.env.COINGECKO_API_KEY
+		const apiKey = env.COINGECKO_API_KEY
 
 		const headers: HeadersInit = {
 			Accept: 'application/json',
