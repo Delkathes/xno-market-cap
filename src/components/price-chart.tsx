@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { AreaChartIcon, LineChartIcon, Loader2 } from 'lucide-react'
+import { AreaChartIcon, LineChartIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import {
@@ -69,15 +69,23 @@ function formatXAxis(timestamp: number, timeRange: ChartTimeRange): string {
 
 function formatPrice(value: number): string {
 	if (value >= 1000000) {
-		return `${(value / 1000000).toFixed(2)}M`
+		return `${(value / 1000000).toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})}M`
 	}
 	if (value >= 1000) {
-		return `${(value / 1000).toFixed(2)}K`
+		return `${(value / 1000).toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})}K`
 	}
 	if (value >= 1) {
-		return value.toFixed(2)
+		return value.toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})
 	}
-	return value.toFixed(6)
+	return value.toLocaleString(undefined, {
+		maximumFractionDigits: 5,
+	})
 }
 
 interface ChartDataPoint {
@@ -219,9 +227,8 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				<div className="flex flex-row sm:items-center justify-between gap-4">
 					<div className="flex gap-3">
 						<CardTitle className="text-lg whitespace-nowrap uppercase">{coin?.symbol}/XNO</CardTitle>
-						{isFetching && !isLoading && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
 					</div>
-					<div className="flex gap-4 flex-wrap items-end flex-col-reverse sm:flex-row sm:justify-end sm:flex-nowrap">
+					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse sm:flex-row sm:justify-end sm:flex-nowrap">
 						<div className="flex items-center gap-1">
 							<Button
 								variant={referenceLines.start ? 'secondary' : 'ghost'}
@@ -300,8 +307,8 @@ export function PriceChart({ coinId }: PriceChartProps) {
 					{isLoading ? (
 						<Skeleton className="h-8 w-64" />
 					) : (
-						<div className="gap-4 grow grid grid-cols-2 sm:grid-cols-2 max-w-4xl">
-							<div className="flex gap-4 sm:gap-x-6 flex-wrap">
+						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
+							<div className="flex gap-4 sm:gap-x-6">
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Start</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
@@ -333,7 +340,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									</span>
 								</div>
 							</div>
-							<div className="flex gap-4 sm:gap-6 flex-wrap">
+							<div className="flex gap-4 sm:gap-6">
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Low</span>
 									<span className="text-sm font-medium text-destructive">

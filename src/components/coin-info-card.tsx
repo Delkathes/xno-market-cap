@@ -135,7 +135,7 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 							)}
 						</div>
 					</div>
-					<div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+					<div className="grid grid-cols-2 sm:grid-cols-4 gap-4 gap-x-14 sm:gap-8 w-fit">
 						<StatItem label={t('marketCap')} value={formatLargeNumber(marketCapInXNO)} suffix="XNO" />
 						<StatItem label={t('volume24h')} value={formatLargeNumber(volumeInXNO)} suffix="XNO" />
 						<StatItem
