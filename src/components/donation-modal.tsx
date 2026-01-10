@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Check, CheckCircle2, Code, Copy, ExternalLink, Loader2, Rocket, Shield } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { BLOCKLATTICE_ACCOUNT_URL, DONATION_FIXED_AMOUNTS } from '@/lib/constants'
+import { BLOCKLATTICE_URL, DONATION_FIXED_AMOUNTS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 import { useDonation } from '@/hooks/use-donation'
@@ -103,7 +103,7 @@ export function DonationModal({
 		reset,
 	} = useDonation({ isOpen: open, onDonationReceived, walletAddress: activeWalletAddress })
 
-	const walletUrl = `${BLOCKLATTICE_ACCOUNT_URL}/${activeWalletAddress}`
+	const walletUrl = `${BLOCKLATTICE_URL}/account/${activeWalletAddress}`
 
 	const copyAddress = useCallback(async () => {
 		await navigator.clipboard.writeText(activeWalletAddress)

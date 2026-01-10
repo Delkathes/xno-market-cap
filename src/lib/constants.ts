@@ -70,7 +70,7 @@ export const ALLOWED_GOAL_ORIGINS = [
 export const DONATION_FIXED_AMOUNTS = [1, 5, 10, 25, 50] as const
 
 // Block explorer URL
-export const BLOCKLATTICE_ACCOUNT_URL = 'https://blocklattice.io/account' as const
+export const BLOCKLATTICE_URL = 'https://blocklattice.io' as const
 
 // WebSocket configuration for payment detection
 export const WS_ENDPOINTS = ['wss://ws.nano.to'] as const
