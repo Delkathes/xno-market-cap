@@ -133,7 +133,8 @@
 		"title": "Prix de {coin} en XNO",
 		"errorLoading": "Impossible de charger le graphique de prix. Veuillez réessayer plus tard.",
 		"areaChart": "Graphique en Aires",
-		"lineChart": "Graphique en Lignes"
+		"lineChart": "Graphique en courbes",
+		"invertChart": "Inverser la paire"
 	},
 	"dominance": {
 		"title": "Dominance du Marché",

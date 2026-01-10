@@ -132,7 +132,8 @@
 		"title": "{coin} Preis in XNO",
 		"errorLoading": "Preischart kann nicht geladen werden. Bitte später erneut versuchen.",
 		"areaChart": "Flächendiagramm",
-		"lineChart": "Liniendiagramm"
+		"lineChart": "Liniendiagramm",
+		"invertChart": "Paar umkehren"
 	},
 	"dominance": {
 		"title": "Marktdominanz",

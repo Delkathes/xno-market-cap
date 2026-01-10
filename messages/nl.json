@@ -132,7 +132,8 @@
 		"title": "{coin} Prijs in XNO",
 		"errorLoading": "Kan prijsgrafiek niet laden. Probeer het later opnieuw.",
 		"areaChart": "Vlakgrafiek",
-		"lineChart": "Lijngrafiek"
+		"lineChart": "Lijngrafiek",
+		"invertChart": "Keer paar om"
 	},
 	"dominance": {
 		"title": "Marktdominantie",

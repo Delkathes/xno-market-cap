@@ -127,7 +127,8 @@
 		"title": "{coin} Price in XNO",
 		"errorLoading": "Unable to load price chart. Please try again later.",
 		"areaChart": "Area Chart",
-		"lineChart": "Line Chart"
+		"lineChart": "Line Chart",
+		"invertChart": "Invert pair"
 	},
 	"dominance": {
 		"title": "Market Dominance",

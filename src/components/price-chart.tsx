@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { AreaChartIcon, LineChartIcon } from 'lucide-react'
+import { AreaChartIcon, ArrowRightLeft, LineChartIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import {
@@ -86,7 +86,7 @@ function formatPrice(value: number): string {
 		})
 	}
 	return value.toLocaleString(undefined, {
-		maximumFractionDigits: 5,
+		maximumFractionDigits: 6,
 	})
 }
 
@@ -100,9 +100,10 @@ interface CustomTooltipProps {
 	payload?: { value: number; payload: ChartDataPoint }[]
 	label?: number
 	t: ReturnType<typeof useTranslations<'priceChart'>>
+	quoteCurrency: string
 }
 
-function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
+function CustomTooltip({ active, payload, label, quoteCurrency }: CustomTooltipProps) {
 	if (!active || !payload || !payload.length || !label) return null
 
 	const data = payload[0]
@@ -119,7 +120,9 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
 					minute: '2-digit',
 				})}
 			</p>
-			<p className="text-sm font-medium text-primary">{data.value.toLocaleString()} XNO</p>
+			<p className="text-sm font-medium text-primary">
+				{data.value.toLocaleString()} {quoteCurrency}
+			</p>
 		</div>
 	)
 }
@@ -131,6 +134,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 	const [timeRange, setTimeRange] = useState<ChartTimeRange>('30')
 	const [chartType, setChartType] = useState<ChartType>('area')
+	const [inverted, setInverted] = useState(false)
 	const [referenceLines, setReferenceLines] = useState<{
 		start: boolean
 		end: boolean
@@ -156,14 +160,18 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	// }, [])
 
 	// Use the pre-calculated priceInXNO from the API (uses historical XNO prices)
+	// When inverted, show XNO/COIN instead of COIN/XNO
 	const chartData: ChartDataPoint[] = useMemo(() => {
 		if (!prices.length) return []
 
 		return prices.map((point) => ({
 			timestamp: point.timestamp,
-			priceInXNO: point.priceInXNO,
+			priceInXNO: inverted ? 1 / point.priceInXNO : point.priceInXNO,
 		}))
-	}, [prices])
+	}, [prices, inverted])
+
+	// Quote currency label changes based on inverted state
+	const quoteCurrency = inverted ? (coin?.symbol?.toUpperCase() ?? coinId.toUpperCase()) : 'XNO'
 
 	// Calculate price change for the period
 	const priceChange = useMemo(() => {
@@ -227,8 +235,19 @@ export function PriceChart({ coinId }: PriceChartProps) {
 		<Card>
 			<CardHeader className="pb-2">
 				<div className="flex flex-row sm:items-center justify-between gap-4">
-					<div className="flex gap-3">
-						<CardTitle className="text-lg whitespace-nowrap uppercase">{coin?.symbol}/XNO</CardTitle>
+					<div className="flex gap-3 items-center">
+						<CardTitle className="text-lg whitespace-nowrap uppercase">
+							{inverted ? `XNO/${coin?.symbol}` : `${coin?.symbol}/XNO`}
+						</CardTitle>
+						<Button
+							variant="ghost"
+							size="sm"
+							onClick={() => setInverted(!inverted)}
+							className="h-8 w-8 p-0"
+							title={t('invertChart')}
+						>
+							<ArrowRightLeft className="h-4 w-4" />
+						</Button>
 					</div>
 					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse sm:flex-row sm:justify-end sm:flex-nowrap">
 						<div className="flex items-center gap-1">
@@ -315,18 +334,18 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									<span className="text-xs text-muted-foreground">Start</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{priceStats.start.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
 										})}{' '}
-										XNO
+										{quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">End</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{priceStats.end.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
 										})}{' '}
-										XNO
+										{quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
@@ -347,25 +366,25 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									<span className="text-xs text-muted-foreground">Low</span>
 									<span className="text-sm font-medium text-destructive">
 										{priceStats.min.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
 										})}{' '}
-										XNO
+										{quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">High</span>
 									<span className="text-sm font-medium text-constructive">
 										{priceStats.max.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
 										})}{' '}
-										XNO
+										{quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Diff.</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{(priceStats.max - priceStats.min).toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 5 : 2,
+											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
 										})}
 									</span>
 								</div>
@@ -414,7 +433,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									axisLine={false}
 									width={60}
 								/>
-								<Tooltip content={<CustomTooltip t={t} />} />
+								<Tooltip content={<CustomTooltip t={t} quoteCurrency={quoteCurrency} />} />
 								{referenceLines.start && (
 									<ReferenceLine
 										y={priceStats.start}
@@ -481,7 +500,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									axisLine={false}
 									width={60}
 								/>
-								<Tooltip content={<CustomTooltip t={t} />} />
+								<Tooltip content={<CustomTooltip t={t} quoteCurrency={quoteCurrency} />} />
 								{referenceLines.start && (
 									<ReferenceLine
 										y={priceStats.start}
