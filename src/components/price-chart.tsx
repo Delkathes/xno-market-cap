@@ -4,7 +4,18 @@ import { useMemo, useState } from 'react'
 import { AreaChartIcon, LineChartIcon, Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
-import { Area, AreaChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import {
+	Area,
+	AreaChart,
+	Line,
+	LineChart,
+	ReferenceArea,
+	ReferenceLine,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from 'recharts'
 
 import type { ChartTimeRange } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -110,6 +121,17 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 	const [timeRange, setTimeRange] = useState<ChartTimeRange>('30')
 	const [chartType, setChartType] = useState<ChartType>('area')
+	const [referenceLines, setReferenceLines] = useState<{
+		start: boolean
+		end: boolean
+		min: boolean
+		max: boolean
+	}>({
+		start: false,
+		end: false,
+		min: false,
+		max: false,
+	})
 	// const [mounted, setMounted] = useState(false)
 
 	const { data } = useMarketData()
@@ -141,6 +163,18 @@ export function PriceChart({ coinId }: PriceChartProps) {
 		const change = last - first
 		const percentage = (change / first) * 100
 		return { value: change, percentage }
+	}, [chartData])
+
+	// Calculate min/max for the period
+	const priceStats = useMemo(() => {
+		if (chartData.length === 0) return { start: 0, end: 0, min: 0, max: 0 }
+		const prices = chartData.map((d) => d.priceInXNO)
+		return {
+			start: chartData[0].priceInXNO,
+			end: chartData[chartData.length - 1].priceInXNO,
+			min: Math.min(...prices),
+			max: Math.max(...prices),
+		}
 	}, [chartData])
 
 	const isPositive = priceChange.percentage >= 0
@@ -209,35 +243,112 @@ export function PriceChart({ coinId }: PriceChartProps) {
 					</div>
 				</div>
 
-				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-4">
+				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
 					{isLoading ? (
-						<Skeleton className="h-8 w-48" />
+						<Skeleton className="h-8 w-64" />
 					) : (
-						<div className="flex items-baseline gap-2">
-							<span className="text-2xl font-bold text-primary">
-								{(chartData[chartData.length - 1]?.priceInXNO ?? 0).toLocaleString()} XNO
-							</span>
-							<span
-								className={cn(
-									'text-sm font-medium',
-									isPositive ? 'text-constructive' : 'text-destructive',
-								)}
-							>
-								{isPositive ? '+' : ''}
-								{priceChange.percentage.toFixed(2)}%
-							</span>
+						<div className="flex items-center gap-4 grow flex-wrap">
+							<div className="flex items-center gap-4 mr-14 sm:gap-6 flex-wrap">
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Start</span>
+									<span className="text-sm font-medium text-primary">
+										{priceStats.start.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">End</span>
+									<span className="text-sm font-medium text-primary">
+										{priceStats.end.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Change</span>
+									<span
+										className={cn(
+											'text-sm font-medium',
+											isPositive ? 'text-constructive' : 'text-destructive',
+										)}
+									>
+										{isPositive ? '+' : ''}
+										{priceChange.percentage.toFixed(2)}%
+									</span>
+								</div>
+							</div>
+							<div className="flex items-center gap-4 sm:gap-6 flex-wrap">
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Low</span>
+									<span className="text-sm font-medium text-destructive">
+										{priceStats.min.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">High</span>
+									<span className="text-sm font-medium text-constructive">
+										{priceStats.max.toLocaleString()} XNO
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Diff.</span>
+									<span className="text-sm font-medium text-primary">
+										{(priceStats.max - priceStats.min).toLocaleString()}
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">Spread</span>
+									<span className="text-sm font-medium text-primary">
+										{(((priceStats.max - priceStats.min) / priceStats.min) * 100).toFixed(2)}%
+									</span>
+								</div>
+							</div>
 						</div>
 					)}
 
-					<Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as ChartTimeRange)}>
-						<TabsList className="h-8">
-							{TIME_RANGES.map((range) => (
-								<TabsTrigger key={range.value} value={range.value} className="text-xs px-2 py-1">
-									{range.label}
-								</TabsTrigger>
-							))}
-						</TabsList>
-					</Tabs>
+					<div className="flex items-center gap-4">
+						<div className="flex items-center gap-1">
+							<Button
+								variant={referenceLines.start ? 'secondary' : 'ghost'}
+								size="sm"
+								onClick={() => setReferenceLines((prev) => ({ ...prev, start: !prev.start }))}
+								className="h-8 px-3 text-xs"
+							>
+								Start
+							</Button>
+							<Button
+								variant={referenceLines.end ? 'secondary' : 'ghost'}
+								size="sm"
+								onClick={() => setReferenceLines((prev) => ({ ...prev, end: !prev.end }))}
+								className="h-8 px-3 text-xs"
+							>
+								End
+							</Button>
+							<Button
+								variant={referenceLines.min ? 'secondary' : 'ghost'}
+								size="sm"
+								onClick={() => setReferenceLines((prev) => ({ ...prev, min: !prev.min }))}
+								className="h-8 px-3 text-xs text-destructive"
+							>
+								Low
+							</Button>
+							<Button
+								variant={referenceLines.max ? 'secondary' : 'ghost'}
+								size="sm"
+								onClick={() => setReferenceLines((prev) => ({ ...prev, max: !prev.max }))}
+								className="h-8 px-3 text-xs text-constructive"
+							>
+								High
+							</Button>
+						</div>
+
+						<Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as ChartTimeRange)}>
+							<TabsList className="h-8">
+								{TIME_RANGES.map((range) => (
+									<TabsTrigger key={range.value} value={range.value} className="text-xs px-2 py-1">
+										{range.label}
+									</TabsTrigger>
+								))}
+							</TabsList>
+						</Tabs>
+					</div>
 				</div>
 			</CardHeader>
 
@@ -273,6 +384,44 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									width={60}
 								/>
 								<Tooltip content={<CustomTooltip t={t} />} />
+								{referenceLines.start && (
+									<ReferenceLine
+										y={priceStats.start}
+										stroke={isPositive ? colors.constructive : colors.destructive}
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.end && (
+									<ReferenceLine
+										y={priceStats.end}
+										stroke={isPositive ? colors.constructive : colors.destructive}
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.min && (
+									<ReferenceLine
+										y={priceStats.min}
+										stroke={colors.destructive}
+										strokeDasharray="4 4"
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.max && (
+									<ReferenceLine
+										y={priceStats.max}
+										stroke={colors.constructive}
+										strokeDasharray="4 4"
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.start && referenceLines.end && (
+									<ReferenceArea
+										y1={priceStats.start}
+										y2={priceStats.end}
+										fill={isPositive ? colors.constructive : colors.destructive}
+										fillOpacity={0.1}
+									/>
+								)}
 								<Area
 									type="monotone"
 									dataKey="priceInXNO"
@@ -302,6 +451,46 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									width={60}
 								/>
 								<Tooltip content={<CustomTooltip t={t} />} />
+								{referenceLines.start && (
+									<ReferenceLine
+										y={priceStats.start}
+										stroke={isPositive ? colors.constructive : colors.destructive}
+										strokeDasharray="4 4"
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.end && (
+									<ReferenceLine
+										y={priceStats.end}
+										stroke={isPositive ? colors.constructive : colors.destructive}
+										strokeDasharray="4 4"
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.min && (
+									<ReferenceLine
+										y={priceStats.min}
+										stroke={colors.destructive}
+										strokeDasharray="4 4"
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.max && (
+									<ReferenceLine
+										y={priceStats.max}
+										stroke={colors.constructive}
+										strokeDasharray="4 4"
+										strokeWidth={1}
+									/>
+								)}
+								{referenceLines.start && referenceLines.end && (
+									<ReferenceArea
+										y1={priceStats.start}
+										y2={priceStats.end}
+										fill={isPositive ? colors.constructive : colors.destructive}
+										fillOpacity={0.1}
+									/>
+								)}
 								<Line
 									type="monotone"
 									dataKey="priceInXNO"

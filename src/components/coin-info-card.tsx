@@ -1,11 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { TrendingDown, TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS } from '@/lib/constants'
-import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
@@ -59,13 +57,6 @@ function formatLargeNumber(value: number): string {
 	return value.toFixed(2)
 }
 
-function formatPrice(value: number): string {
-	if (value >= 1) {
-		return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-	}
-	return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
-}
-
 export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 	const t = useTranslations('coinDetail')
 	const { data, xnoData, isLoading, error } = useMarketData()
@@ -115,16 +106,12 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 	}
 
 	const isXNO = coinId === CRYPTO_IDS.NANO
-	const priceInXNO = isXNO ? 1 : coin.current_price / xnoData.current_price
 	const marketCapInXNO = isXNO ? (xnoData.circulating_supply ?? 0) : coin.market_cap / xnoData.current_price
 	const volumeInXNO = coin.total_volume / xnoData.current_price
-	const xno24hChange = xnoData.price_change_percentage_24h ?? 0
-	const relativeChange = isXNO ? 0 : (coin.price_change_percentage_24h ?? 0) - xno24hChange
-	const isPositive = relativeChange >= 0
 
 	return (
 		<Card>
-			<CardHeader className="pb-0">
+			<CardHeader className="">
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
 					<div className="flex items-center gap-4">
 						<Image
@@ -148,43 +135,24 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 							)}
 						</div>
 					</div>
-
-					<div className="flex flex-col items-start sm:items-end">
-						<div className="flex items-baseline gap-2">
-							<span className="text-2xl font-bold text-primary">{formatPrice(priceInXNO)} XNO</span>
-						</div>
-						{!isXNO && (
-							<div
-								className={cn(
-									'flex items-center gap-1 text-sm font-medium',
-									isPositive ? 'text-constructive' : 'text-destructive',
-								)}
-							>
-								{isPositive ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-								{isPositive ? '+' : ''}
-								{relativeChange.toFixed(2)}% {t('vs24h')}
-							</div>
-						)}
+					<div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+						<StatItem label={t('marketCap')} value={formatLargeNumber(marketCapInXNO)} suffix="XNO" />
+						<StatItem label={t('volume24h')} value={formatLargeNumber(volumeInXNO)} suffix="XNO" />
+						<StatItem
+							label={t('circulatingSupply')}
+							value={formatLargeNumber(coin.circulating_supply ?? 0)}
+							suffix={coin.symbol.toUpperCase()}
+						/>
+						<StatItem
+							label={t('maxSupply')}
+							value={coin.max_supply ? formatLargeNumber(coin.max_supply) : '∞'}
+							suffix={coin.max_supply ? coin.symbol.toUpperCase() : undefined}
+						/>
 					</div>
 				</div>
 			</CardHeader>
 
-			<CardContent className="pb-4">
-				<div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-					<StatItem label={t('marketCap')} value={formatLargeNumber(marketCapInXNO)} suffix="XNO" />
-					<StatItem label={t('volume24h')} value={formatLargeNumber(volumeInXNO)} suffix="XNO" />
-					<StatItem
-						label={t('circulatingSupply')}
-						value={formatLargeNumber(coin.circulating_supply ?? 0)}
-						suffix={coin.symbol.toUpperCase()}
-					/>
-					<StatItem
-						label={t('maxSupply')}
-						value={coin.max_supply ? formatLargeNumber(coin.max_supply) : '∞'}
-						suffix={coin.max_supply ? coin.symbol.toUpperCase() : undefined}
-					/>
-				</div>
-			</CardContent>
+			{/* <CardContent className="pb-4"></CardContent> */}
 		</Card>
 	)
 }

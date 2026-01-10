@@ -136,7 +136,7 @@ export default async function RootLayout({ children, params }: Props) {
 			<body className={`font-sans antialiased`} suppressHydrationWarning>
 				<NextIntlClientProvider messages={messages}>
 					<Providers>
-						<div className="min-h-screen bg-background">
+						<div className="min-h-screen bg-linear-to-br from-cyan-50 to-blue-100/60 dark:from-blue-950 dark:to-cyan-950">
 							<Navigation />
 							{children}
 						</div>
