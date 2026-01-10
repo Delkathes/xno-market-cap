@@ -14,11 +14,9 @@ const fetcher = async (
 	days: ChartTimeRange,
 	vsCurrency?: FiatCurrencyCode,
 ): Promise<PriceChartResponse> => {
-	const params = new URLSearchParams({ coinId, days })
-	if (vsCurrency) {
-		params.set('vsCurrency', vsCurrency)
-	}
-	const response = await fetch(`/api/price-chart?${params.toString()}`)
+	// Use path-based routing for reliable CDN caching
+	const url = vsCurrency ? `/api/price-chart/${coinId}/${days}/${vsCurrency}` : `/api/price-chart/${coinId}/${days}`
+	const response = await fetch(url)
 	if (!response.ok) {
 		const errorData: ApiErrorResponse = await response
 			.json()

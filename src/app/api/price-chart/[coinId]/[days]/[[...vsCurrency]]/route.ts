@@ -8,10 +8,16 @@ import type { ChartTimeRange } from '@/lib/types'
 
 import { env } from '@/env'
 
-// Disable Next.js ISR caching (doesn't respect query params on some platforms)
-// CDN caching via Cache-Control headers will handle per-URL caching
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
+// Path-based caching works reliably on all CDNs
+export const revalidate = 300 // 5 minutes
+
+type RouteParams = {
+	params: Promise<{
+		coinId: string
+		days: string
+		vsCurrency?: string[]
+	}>
+}
 
 function getClientIP(request: NextRequest): string {
 	const forwarded = request.headers.get('x-forwarded-for')
@@ -57,10 +63,13 @@ function isValidOrigin(request: NextRequest): boolean {
 	return false
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: RouteParams) {
+	const { coinId, days, vsCurrency: vsCurrencyArr } = await params
+	const vsCurrency = vsCurrencyArr?.[0] // Optional catch-all gives array
+
 	const baseHeaders = {
 		...getSecurityHeaders(),
-		'Cache-Control': 'no-store, no-cache, must-revalidate',
+		'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
 	}
 
 	if (!isValidOrigin(request)) {
@@ -86,21 +95,6 @@ export async function GET(request: NextRequest) {
 					...getRateLimitHeaders(rateLimitResult),
 					'Retry-After': Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000).toString(),
 				},
-			},
-		)
-	}
-
-	const { searchParams } = new URL(request.url)
-	const coinId = searchParams.get('coinId')
-	const days = searchParams.get('days')
-	const vsCurrency = searchParams.get('vsCurrency') // Optional, only for XNO fiat charts
-
-	if (!coinId || !days) {
-		return NextResponse.json(
-			{ error: 'Missing required parameters: coinId and days' },
-			{
-				status: 400,
-				headers: baseHeaders,
 			},
 		)
 	}
