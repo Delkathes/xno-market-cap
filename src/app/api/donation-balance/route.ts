@@ -89,7 +89,7 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 			}
 		}
 	} catch (error) {
-		console.error(`Failed to fetch balance for ${walletAddress}:`, error)
+		console.error(`ENDPOINT: ${endpoint} - Failed to fetch balance for ${walletAddress}:`, error)
 	}
 
 	return 0

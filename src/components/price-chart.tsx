@@ -256,8 +256,8 @@ export function PriceChart({ coinId }: PriceChartProps) {
 		<Card>
 			<CardHeader className="pb-2">
 				<div className="flex flex-row sm:items-center justify-between gap-4">
-					<div className="flex gap-3 items-center flex-wrap">
-						<div className="flex gap-3 items-center">
+					<div className="flex gap-3 sm:items-center flex-wrap">
+						<div className="flex gap-3 sm:items-center">
 							<CardTitle className="text-lg whitespace-nowrap uppercase">
 								{isXnoChart
 									? inverted

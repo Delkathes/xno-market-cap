@@ -10,6 +10,15 @@ const WS_INITIAL_RECONNECT_DELAY = 3000
 const WS_MAX_RECONNECT_DELAY = 30000
 const WS_MAX_RECONNECT_ATTEMPTS = 10
 
+// Module-level index for fair round-robin distribution across WebSocket endpoints
+let globalWsEndpointIndex = 0
+
+function getNextWsEndpointIndex(): number {
+	const index = globalWsEndpointIndex
+	globalWsEndpointIndex = (globalWsEndpointIndex + 1) % WS_ENDPOINTS.length
+	return index
+}
+
 interface UseDonationWebSocketOptions {
 	shouldListen: boolean
 	walletAddress: string
@@ -89,6 +98,8 @@ export function useDonationWebSocket({
 				console.error('Max WebSocket reconnection attempts reached')
 				return
 			}
+
+			wsEndpointIndexRef.current = getNextWsEndpointIndex()
 
 			const endpoint = WS_ENDPOINTS[wsEndpointIndexRef.current]
 			const ws = new WebSocket(endpoint)
