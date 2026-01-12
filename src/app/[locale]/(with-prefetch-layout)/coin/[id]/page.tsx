@@ -72,7 +72,7 @@ export default async function CoinDetailPage({ params }: Props) {
 	const defaultFiat = 'usd'
 
 	// Prefetch initial chart data
-	void queryClient.prefetchQuery({
+	await queryClient.prefetchQuery({
 		queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
 		queryFn: () => getPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
 	})

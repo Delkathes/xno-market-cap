@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: Props) {
 	const queryClient = getQueryClient()
 
 	// Prefetch data on the server
-	void queryClient.prefetchQuery({
+	await queryClient.prefetchQuery({
 		queryKey: ['market-data'],
 		queryFn: getMarketData,
 	})
