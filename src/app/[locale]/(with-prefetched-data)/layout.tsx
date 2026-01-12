@@ -17,6 +17,7 @@ async function getCachedMarketData() {
 }
 
 export default async function PrefetchLayout({ children }: Props) {
+	'use cache'
 	const queryClient = getQueryClient()
 
 	void queryClient.prefetchQuery({
