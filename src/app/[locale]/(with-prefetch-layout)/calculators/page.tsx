@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { Calculator } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-
-import getQueryClient from '@/lib/get-query-client'
-import { getMarketData } from '@/lib/market-data-service'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ParityCalculator } from '@/components/parity-calculator'
@@ -43,38 +39,29 @@ export default async function CalculatorsPage({ params }: Props) {
 
 	const t = await getTranslations('parity')
 
-	const queryClient = getQueryClient()
-
-	await queryClient.prefetchQuery({
-		queryKey: ['market-data'],
-		queryFn: getMarketData,
-	})
-
 	return (
 		<main className="container mx-auto px-4 py-8">
-			<HydrationBoundary state={dehydrate(queryClient)}>
-				<div className="grid gap-10">
-					<Card className="gap-2">
-						<CardHeader className="flex justify-between">
-							<div>
-								<CardTitle className="flex items-center gap-2">
-									<Calculator className="h-5 w-5 text-[#209CE9]" />
-									{t('title')}
-								</CardTitle>
-								<CardDescription>{t('description')}</CardDescription>
-							</div>
-							<ParitySettingsPopover />
-						</CardHeader>
-						<CardContent className="pb-4 px-4">
-							<ParityHighlight />
-						</CardContent>
-					</Card>
+			<div className="grid gap-10">
+				<Card className="gap-2">
+					<CardHeader className="flex justify-between">
+						<div>
+							<CardTitle className="flex items-center gap-2">
+								<Calculator className="h-5 w-5 text-[#209CE9]" />
+								{t('title')}
+							</CardTitle>
+							<CardDescription>{t('description')}</CardDescription>
+						</div>
+						<ParitySettingsPopover />
+					</CardHeader>
+					<CardContent className="pb-4 px-4">
+						<ParityHighlight />
+					</CardContent>
+				</Card>
 
-					<ParityCalculator />
+				<ParityCalculator />
 
-					<SpeculationCalculator />
-				</div>
-			</HydrationBoundary>
+				<SpeculationCalculator />
+			</div>
 		</main>
 	)
 }

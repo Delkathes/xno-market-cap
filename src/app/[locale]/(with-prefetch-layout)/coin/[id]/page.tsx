@@ -71,17 +71,11 @@ export default async function CoinDetailPage({ params }: Props) {
 	const isXno = coinIdParam === CRYPTO_IDS.NANO
 	const defaultFiat = 'usd'
 
-	// Prefetch market data and initial chart data
-	await Promise.all([
-		queryClient.prefetchQuery({
-			queryKey: ['market-data'],
-			queryFn: getMarketData,
-		}),
-		queryClient.prefetchQuery({
-			queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
-			queryFn: () => getPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
-		}),
-	])
+	// Prefetch initial chart data
+	void queryClient.prefetchQuery({
+		queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
+		queryFn: () => getPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
+	})
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>

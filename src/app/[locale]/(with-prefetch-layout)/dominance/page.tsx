@@ -1,9 +1,5 @@
 import type { Metadata } from 'next'
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-
-import getQueryClient from '@/lib/get-query-client'
-import { getMarketData } from '@/lib/market-data-service'
 
 import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
@@ -38,27 +34,19 @@ export default async function DominancePage({ params }: Props) {
 	setRequestLocale(locale)
 
 	const t = await getTranslations('dominance')
-	const queryClient = getQueryClient()
-
-	await queryClient.prefetchQuery({
-		queryKey: ['market-data'],
-		queryFn: getMarketData,
-	})
 
 	return (
-		<HydrationBoundary state={dehydrate(queryClient)}>
-			<main className="container mx-auto px-4 py-8">
-				<div className="mb-8">
-					<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">{t('title')}</h1>
-					<p className="text-muted-foreground text-lg">{t('description')}</p>
-				</div>
+		<main className="container mx-auto px-4 py-8">
+			<div className="mb-8">
+				<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">{t('title')}</h1>
+				<p className="text-muted-foreground text-lg">{t('description')}</p>
+			</div>
 
-				<div className="grid gap-6 mb-8">
-					<DominanceChart />
-				</div>
+			<div className="grid gap-6 mb-8">
+				<DominanceChart />
+			</div>
 
-				<DominanceTable />
-			</main>
-		</HydrationBoundary>
+			<DominanceTable />
+		</main>
 	)
 }
