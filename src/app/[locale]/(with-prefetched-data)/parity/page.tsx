@@ -5,10 +5,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { ParityHighlight } from '@/components/parity-highlight'
 import { ParitySettingsPopover, ParityTable, ParityTableSkeleton } from '@/components/parity-table'
-
-import { HighlightSkeleton } from './loading'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -35,7 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ParityPage({ params }: Props) {
 	const { locale } = await params
 
-	// Enable static rendering
 	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'parity' })
@@ -59,7 +57,16 @@ export default async function ParityPage({ params }: Props) {
 									<span className="sr-only">{t('fiatCurrencySettings')}</span>
 								</Button>
 							</div>
-							<HighlightSkeleton />
+							<section>
+								<div className="grid gap-3 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+									{[1, 2, 3, 4, 5].map((index) => (
+										<Skeleton
+											key={`${index}-highlight-skeleton-item`}
+											className="h-26.5 rounded-lg"
+										/>
+									))}
+								</div>
+							</section>
 						</section>
 					}
 				>

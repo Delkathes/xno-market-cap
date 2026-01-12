@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
-
-import { DominanceChartSkeleton, DominanceTableSkeleton } from './loading'
+import { LoadingArea } from '@/components/loading-area'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -32,10 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DominancePage({ params }: Props) {
 	const { locale } = await params
 
-	// Enable static rendering
 	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'dominance' })
+
 	return (
 		<main className="container mx-auto px-4 py-8">
 			<div className="mb-8">
@@ -43,21 +44,42 @@ export default async function DominancePage({ params }: Props) {
 				<p className="text-muted-foreground text-lg">{t('description')}</p>
 			</div>
 
-			<Suspense
-				fallback={
-					<>
-						<div className="grid gap-6 mb-8">
-							<DominanceChartSkeleton />
-						</div>
-						<DominanceTableSkeleton />
-					</>
-				}
-			>
-				<div className="grid gap-6 mb-8">
+			<div className="grid gap-6 mb-8">
+				<Suspense fallback=<DominanceChartSkeleton />>
 					<DominanceChart />
-				</div>
+				</Suspense>
+			</div>
+			<Suspense fallback=<DominanceTableSkeleton />>
 				<DominanceTable />
 			</Suspense>
 		</main>
+	)
+}
+
+async function DominanceChartSkeleton() {
+	return (
+		<Card>
+			<CardHeader className="pb-0">
+				<CardTitle>
+					<Skeleton className="h-6 w-48" />
+				</CardTitle>
+				<CardDescription>
+					<Skeleton className="h-4 w-72" />
+				</CardDescription>
+			</CardHeader>
+			<CardContent className="overflow-hidden relative px-4 pb-4">
+				<div className="relative h-100 w-full">
+					<LoadingArea />
+				</div>
+			</CardContent>
+		</Card>
+	)
+}
+
+async function DominanceTableSkeleton() {
+	return (
+		<Card className="overflow-hidden h-513.75 relative">
+			<LoadingArea />
+		</Card>
 	)
 }

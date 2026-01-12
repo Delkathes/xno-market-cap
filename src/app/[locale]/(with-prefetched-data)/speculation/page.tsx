@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { Card } from '@/components/ui/card'
+import { LoadingArea } from '@/components/loading-area'
 import { SpeculationTable } from '@/components/speculation-table'
 
 type Props = {
@@ -28,7 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function SpeculationPage({ params }: Props) {
 	const { locale } = await params
 
-	// Enable static rendering
 	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'speculation' })
@@ -40,7 +42,15 @@ export default async function SpeculationPage({ params }: Props) {
 				<p className="text-muted-foreground text-lg">{t('description')}</p>
 			</div>
 
-			<SpeculationTable />
+			<Suspense
+				fallback={
+					<Card className="overflow-hidden h-513.75 relative">
+						<LoadingArea />
+					</Card>
+				}
+			>
+				<SpeculationTable />
+			</Suspense>
 		</main>
 	)
 }

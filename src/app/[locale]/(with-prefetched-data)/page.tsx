@@ -2,10 +2,8 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import { MarketCapTable } from '@/components/market-cap-table'
-import { MarketOverview } from '@/components/market-overview'
-
-import Loading from './loading'
+import { MarketCapTable, MarketCapTableSkeleton } from '@/components/market-cap-table'
+import { MarketOverview, MarketOverviewSkeleton } from '@/components/market-overview'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -32,17 +30,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
 	const { locale } = await params
 
-	// Enable static rendering
 	setRequestLocale(locale)
 
 	return (
-		<Suspense fallback={<Loading />}>
-			<main className="container mx-auto px-4 py-8">
+		<main className="container mx-auto px-4 py-8">
+			<Suspense fallback={<MarketOverviewSkeleton />}>
 				<MarketOverview />
-				<div className="mt-8">
+			</Suspense>
+			<div className="mt-8">
+				<Suspense fallback={<MarketCapTableSkeleton />}>
 					<MarketCapTable />
-				</div>
-			</main>
-		</Suspense>
+				</Suspense>
+			</div>
+		</main>
 	)
 }
