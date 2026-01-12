@@ -1,5 +1,5 @@
 import { createEnv } from '@t3-oss/env-nextjs'
-import { netlify, vercel } from '@t3-oss/env-nextjs/presets-valibot'
+import { netlify } from '@t3-oss/env-nextjs/presets-valibot'
 import * as v from 'valibot'
 
 enum NodeEnv {
@@ -9,7 +9,7 @@ enum NodeEnv {
 }
 
 export const env = createEnv({
-	extends: [/* authEnv(), */ vercel(), netlify()],
+	extends: [/* authEnv(), */ netlify()],
 	shared: {
 		NODE_ENV: v.enum(NodeEnv, NodeEnv.development),
 	},

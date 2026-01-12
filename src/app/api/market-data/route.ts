@@ -24,7 +24,12 @@ function getClientIP(request: NextRequest): string {
 
 function isValidOrigin(request: NextRequest): boolean {
 	const origin = request.headers.get('origin')
+
+	console.log('🚀 ~ route.ts:28 ~ isValidOrigin ~ origin:', origin)
+
 	const referer = request.headers.get('referer')
+
+	console.log('🚀 ~ route.ts:32 ~ isValidOrigin ~ referer:', referer)
 
 	// If no origin/referer, only allow server-side requests (SSR, prefetch)
 	// Browser requests always include sec-fetch-site header
@@ -36,15 +41,17 @@ function isValidOrigin(request: NextRequest): boolean {
 	}
 
 	// Get allowed hosts from environment or use defaults
+	console.log('🚀 ~ route.ts:47 ~ isValidOrigin ~ env:', env)
 	const allowedHosts = [
 		env.NEXT_PUBLIC_SITE_URL,
-		env.VERCEL_URL ? `https://${env.VERCEL_URL}` : null,
-		env.NETLIFY ? env.DEPLOY_PRIME_URL : null,
-		env.NETLIFY ? env.DEPLOY_URL : null,
-		env.NETLIFY ? env.URL : null,
-		'http://localhost:3000',
-		'http://localhost:3001',
+		env.URL,
+		'https://dev--xnomarketcap.netlify.app',
+		'https://feat-prefetch-layout--xnomarketcap.netlify.app',
+		env.NODE_ENV === 'development' && 'http://localhost:3000',
+		env.NODE_ENV === 'development' && 'http://localhost:3001',
 	].filter(Boolean) as string[]
+
+	console.log('🚀 ~ route.ts:53 ~ isValidOrigin ~ allowedHosts:', allowedHosts)
 
 	// Check origin
 	if (origin && allowedHosts.some((host) => origin.startsWith(host))) {

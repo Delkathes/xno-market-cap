@@ -46,12 +46,11 @@ function isValidOrigin(request: NextRequest): boolean {
 
 	const allowedHosts = [
 		env.NEXT_PUBLIC_SITE_URL,
-		env.VERCEL_URL ? `https://${env.VERCEL_URL}` : null,
-		env.NETLIFY ? env.DEPLOY_PRIME_URL : null,
-		env.NETLIFY ? env.DEPLOY_URL : null,
-		env.NETLIFY ? env.URL : null,
-		'http://localhost:3000',
-		'http://localhost:3001',
+		env.URL,
+		'https://dev--xnomarketcap.netlify.app',
+		'https://feat-prefetch-layout--xnomarketcap.netlify.app',
+		env.NODE_ENV === 'development' && 'http://localhost:3000',
+		env.NODE_ENV === 'development' && 'http://localhost:3001',
 	].filter(Boolean) as string[]
 
 	if (origin && allowedHosts.some((host) => origin.startsWith(host))) {
