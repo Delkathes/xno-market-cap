@@ -24,8 +24,6 @@ import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
 
 export function MarketOverview() {
-	const t = useTranslations('home')
-
 	const {
 		data,
 		xnoCirculatingSupply,
@@ -37,9 +35,10 @@ export function MarketOverview() {
 		cadRate,
 		audRate,
 		xnoPriceChange24h,
-		isLoading,
 		error,
 	} = useMarketData()
+
+	const t = useTranslations('home')
 
 	const [showSatoshi, setShowSatoshi] = useState(true)
 
@@ -48,26 +47,6 @@ export function MarketOverview() {
 	const [cryptoCurrency] = useAtom(cryptoCurrencyAtom)
 
 	const rates: ExchangeRates = { eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
-
-	if (isLoading) {
-		return (
-			<div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-				{[1, 2, 3, 4, 5].map((i) => (
-					<Card key={i}>
-						<CardContent className="p-6 space-y-3">
-							<Skeleton className="h-4 w-24" />
-							<Skeleton className="h-8 w-32" />
-							<div className="flex gap-3">
-								<Skeleton className="h-4 w-16" />
-								<Skeleton className="h-4 w-16" />
-								<Skeleton className="h-4 w-16" />
-							</div>
-						</CardContent>
-					</Card>
-				))}
-			</div>
-		)
-	}
 
 	if (error || !data) {
 		return <MarketDataError error={error} />
@@ -223,6 +202,52 @@ function Change({ value }: { value: number }) {
 			<span className={value >= 0 ? 'text-constructive text-sm font-medium' : 'text-destructive text-sm'}>
 				{value.toFixed(2)}%
 			</span>
+		</div>
+	)
+}
+
+export function MarketOverviewSkeleton() {
+	const t = useTranslations('home')
+
+	return (
+		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
+			<Card className="md:col-span-2">
+				<CardContent className="p-4 sm:p-6 space-y-3">
+					<p className="text-sm text-muted-foreground mb-1">{t('xnoMarketCap')}</p>
+					<Skeleton className="h-6 sm:h-7 w-24" />
+					<div className="flex gap-3">
+						<Skeleton className="h-4 w-16" />
+						<Skeleton className="h-4 w-16" />
+						<Skeleton className="h-4 w-32" />
+					</div>
+				</CardContent>
+			</Card>
+			<Card className="md:col-span-4">
+				<CardContent className="p-4 sm:p-6 space-y-3">
+					<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')} • 24h %</p>
+					<div className="grid grid-cols-3">
+						<Skeleton className="h-6 sm:h-7 w-24 sm:w-32" />
+						<Skeleton className="h-6 sm:h-7 w-24 sm:w-32" />
+						<Skeleton className="h-6 sm:h-7 w-24 sm:w-32" />
+					</div>
+					<div className="grid grid-cols-3 gap-3">
+						<Skeleton className="h-4 w-16" />
+						<Skeleton className="h-4 w-16" />
+						<Skeleton className="h-4 w-16" />
+					</div>
+				</CardContent>
+			</Card>
+			<Card className="md:col-span-2">
+				<CardContent className="p-4 sm:p-6 space-y-3">
+					<p className="text-sm text-muted-foreground mb-1">{t('xnoDominance')}</p>
+					<Skeleton className="h-6 sm:h-7 w-24" />
+					<div className="flex gap-3">
+						<Skeleton className="h-4 w-16" />
+						<Skeleton className="h-4 w-16" />
+						<Skeleton className="h-4 w-16" />
+					</div>
+				</CardContent>
+			</Card>
 		</div>
 	)
 }

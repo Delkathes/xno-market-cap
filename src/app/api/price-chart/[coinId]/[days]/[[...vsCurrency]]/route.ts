@@ -8,9 +8,6 @@ import type { ChartTimeRange } from '@/lib/types'
 
 import { env } from '@/env'
 
-// Path-based caching works reliably on all CDNs
-export const revalidate = 300 // 5 minutes
-
 type RouteParams = {
 	params: Promise<{
 		coinId: string

@@ -1,8 +1,10 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
 import type { MarketDataResponse } from '@/lib/types'
+
+import { env } from '@/env'
 
 interface ApiErrorResponse {
 	error: string
@@ -10,7 +12,7 @@ interface ApiErrorResponse {
 }
 
 const fetcher = async (): Promise<MarketDataResponse> => {
-	const response = await fetch('/api/market-data')
+	const response = await fetch(`${env.NEXT_PUBLIC_SITE_URL}/api/market-data`)
 	if (!response.ok) {
 		const errorData: ApiErrorResponse = await response
 			.json()
@@ -21,13 +23,14 @@ const fetcher = async (): Promise<MarketDataResponse> => {
 }
 
 export function useMarketData() {
-	const { data, error, isLoading } = useQuery<MarketDataResponse>({
+	const { data, error, isLoading } = useSuspenseQuery<MarketDataResponse>({
 		queryKey: ['market-data'],
 		queryFn: fetcher,
 		refetchInterval: 120000, // Refresh every 2:00min
 		refetchOnWindowFocus: false,
 		retry: 3,
 		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff: 1s, 2s, 4s, capped at 30s
+		staleTime: 60000, // Data is fresh for 1:00min
 	})
 
 	// Get XNO circulating supply from API data

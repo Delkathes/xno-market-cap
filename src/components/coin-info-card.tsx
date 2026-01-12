@@ -59,46 +59,17 @@ function formatLargeNumber(value: number): string {
 
 export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 	const t = useTranslations('coinDetail')
-	const { data, xnoData, isLoading, error } = useMarketData()
+	const { data, xnoData, error } = useMarketData()
 
 	// Find the coin in market data
 	const coin = data?.find((c) => c.id === coinId)
 
-	if (error) {
+	if (error || !coin) {
 		return (
 			<Card>
 				<CardContent className="p-6">
 					<div className="text-center text-muted-foreground">
 						<p>{t('errorLoading')}</p>
-					</div>
-				</CardContent>
-			</Card>
-		)
-	}
-
-	if (isLoading || !coin || !xnoData) {
-		return (
-			<Card>
-				<CardHeader>
-					<div className="flex items-center gap-4">
-						<Skeleton className="h-12 w-12 rounded-full" />
-						<div className="space-y-2">
-							<Skeleton className="h-6 w-32" />
-							<Skeleton className="h-4 w-16" />
-						</div>
-					</div>
-				</CardHeader>
-				<CardContent>
-					<div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-						{[...Array(8)].map((_, i) => {
-							const key = `skeleton-${i}`
-							return (
-								<div key={key} className="space-y-1">
-									<Skeleton className="h-3 w-16" />
-									<Skeleton className="h-5 w-24" />
-								</div>
-							)
-						})}
 					</div>
 				</CardContent>
 			</Card>
@@ -111,7 +82,7 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 
 	return (
 		<Card>
-			<CardHeader className="">
+			<CardHeader>
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 					<div className="flex items-center gap-4">
 						<Image
@@ -151,8 +122,6 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 					</div>
 				</div>
 			</CardHeader>
-
-			{/* <CardContent className="pb-4"></CardContent> */}
 		</Card>
 	)
 }

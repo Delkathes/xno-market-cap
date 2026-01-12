@@ -1,15 +1,14 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+
+import { type Locale, routing } from '@/i18n/routing'
 
 import { env } from '@/env'
 
 import { Navigation } from '@/components/navigation'
 import { Providers } from '@/components/providers'
-
-import { type Locale, routing } from '@/i18n/routing'
 
 import './globals.css'
 
@@ -128,20 +127,15 @@ export default async function RootLayout({ children, params }: Props) {
 	// Enable static rendering
 	setRequestLocale(locale)
 
-	// Get messages for client components
-	const messages = await getMessages()
-
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<body className={`font-sans antialiased`} suppressHydrationWarning>
-				<NextIntlClientProvider messages={messages}>
-					<Providers>
-						<div className="min-h-screen bg-linear-to-br from-cyan-50 to-blue-100/60 dark:from-blue-950 dark:to-cyan-950">
-							<Navigation />
-							{children}
-						</div>
-					</Providers>
-				</NextIntlClientProvider>
+				<Providers>
+					<div className="min-h-screen bg-linear-to-br from-cyan-50 to-blue-100/60 dark:from-blue-950 dark:to-cyan-950">
+						<Navigation />
+						{children}
+					</div>
+				</Providers>
 			</body>
 		</html>
 	)

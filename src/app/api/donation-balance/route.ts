@@ -32,9 +32,6 @@ export const DONATION_MILESTONES = [
 	},
 ]
 
-// Path-based caching works reliably
-export const revalidate = 60 // 60 seconds
-
 const REQUEST_TIMEOUT_MS = 10000
 const DONATION_WALLET_FINAL = env.NEXT_PUBLIC_DONATION_WALLET_FINAL
 

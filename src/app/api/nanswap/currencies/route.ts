@@ -3,8 +3,6 @@ import { NextResponse } from 'next/server'
 import { getAllCurrencies } from '@/lib/nanswap-service'
 import { getSecurityHeaders } from '@/lib/security-headers'
 
-export const revalidate = 3600 // Cache for 1 hour
-
 export async function GET() {
 	try {
 		const currencies = await getAllCurrencies()

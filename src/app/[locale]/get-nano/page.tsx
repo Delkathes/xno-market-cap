@@ -2,13 +2,11 @@ import type { Metadata } from 'next'
 import { ArrowRightLeft, Building2, Droplets, ExternalLink, Info, Monitor, Shield, Smartphone } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { Link } from '@/i18n/navigation'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-
-import { Link } from '@/i18n/navigation'
-
-export const dynamic = 'force-static'
 
 type Props = {
 	params: Promise<{ locale: string }>

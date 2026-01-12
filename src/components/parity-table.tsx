@@ -189,20 +189,19 @@ function SupplyCell({ asset }: SupplyCellProps) {
 }
 
 // Loading skeleton for table
-function ParityTableSkeleton() {
+export function ParityTableSkeleton() {
 	const t = useTranslations('parity')
-	const tCommon = useTranslations('common')
 
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
-				<CardDescription>{tCommon('loading')}</CardDescription>
+				<CardDescription>{t('tableDescription')}</CardDescription>
 			</CardHeader>
 			<CardContent className="p-6">
 				<div className="space-y-4">
-					{Array.from({ length: 5 }).map((_) => (
-						<Skeleton key={`${_}-parity-table-skeleton-item`} className="h-16 w-full" />
+					{[1, 2, 3, 4, 5].map((index) => (
+						<Skeleton key={`${index}-parity-table-skeleton-item`} className="h-16 w-full" />
 					))}
 				</div>
 			</CardContent>
@@ -330,11 +329,7 @@ export function ParityTable() {
 	const t = useTranslations('parity')
 
 	const filteredAssets = useFilteredAssets()
-	const { assetMap, isLoading, error } = useAssetData()
-
-	if (isLoading) {
-		return <ParityTableSkeleton />
-	}
+	const { assetMap, error } = useAssetData()
 
 	if (error) {
 		return (

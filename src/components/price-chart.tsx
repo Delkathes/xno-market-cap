@@ -162,11 +162,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	const _coinName = coin?.name ?? coinId.charAt(0).toUpperCase() + coinId.slice(1)
 
 	// For XNO, pass the selected fiat currency; for others, no vsCurrency (uses XNO comparison)
-	const { prices, isLoading, isFetching, error } = usePriceChart(
-		coinId,
-		timeRange,
-		isXnoChart ? selectedFiat : undefined,
-	)
+	const { prices, isLoading, error } = usePriceChart(coinId, timeRange, isXnoChart ? selectedFiat : undefined)
 
 	// Ensure we're mounted before rendering theme-dependent content
 	// useEffect(() => {
@@ -369,7 +365,10 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
 					{isLoading ? (
-						<Skeleton className="h-8 w-64" />
+						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
+							<Skeleton className="h-9 w-full sm:w-96" />
+							<Skeleton className="h-9 w-full sm:w-96" />
+						</div>
 					) : (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
 							<div className="flex gap-4 sm:gap-x-6">

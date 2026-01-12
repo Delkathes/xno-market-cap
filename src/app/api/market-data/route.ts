@@ -6,8 +6,6 @@ import { getSecurityHeaders } from '@/lib/security-headers'
 
 import { env } from '@/env'
 
-export const revalidate = 60
-
 function getClientIP(request: NextRequest): string {
 	// Check common headers for proxied requests
 	const forwarded = request.headers.get('x-forwarded-for')

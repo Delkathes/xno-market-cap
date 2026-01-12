@@ -17,7 +17,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Switch } from '@/components/ui/switch'
 
 // =============================================================================
@@ -38,42 +37,11 @@ const formatMarketCap = (mc: number, symbol: string): string => {
 	return `${symbol}${(mc / 1e6).toFixed(2)}M`
 }
 
-// =============================================================================
-// COMPONENTS
-// =============================================================================
-
-function CalculatorSkeleton() {
-	return (
-		<Card>
-			<CardHeader>
-				<Skeleton className="h-6 w-48" />
-				<Skeleton className="h-4 w-72" />
-			</CardHeader>
-			<CardContent className="space-y-6">
-				<Skeleton className="h-20" />
-				<Skeleton className="h-12" />
-				<Skeleton className="h-40" />
-			</CardContent>
-		</Card>
-	)
-}
-
 export function SpeculationCalculator() {
 	const t = useTranslations('speculationCalculator')
 
-	const {
-		data,
-		xnoData,
-		xnoCirculatingSupply,
-		eurRate,
-		gbpRate,
-		jpyRate,
-		chfRate,
-		cadRate,
-		audRate,
-		isLoading,
-		error,
-	} = useMarketData()
+	const { data, xnoData, xnoCirculatingSupply, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, error } =
+		useMarketData()
 
 	const [primaryFiat] = useAtom(primaryFiatAtom)
 	const [selectedFiat, setSelectedFiat] = useState<FiatCurrency>(primaryFiat)
@@ -124,10 +92,6 @@ export function SpeculationCalculator() {
 
 	const futureValue = useMemo(() => xnoAmount * xnoPriceIf, [xnoAmount, xnoPriceIf])
 	const gain = useMemo(() => futureValue - currentValue, [futureValue, currentValue])
-
-	if (isLoading) {
-		return <CalculatorSkeleton />
-	}
 
 	if (error || !data) {
 		return (

@@ -19,7 +19,6 @@ import { Label } from '@/components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Progress } from '@/components/ui/progress'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Slider } from '@/components/ui/slider'
 
 // =============================================================================
@@ -81,29 +80,6 @@ const getSupplyTierLabel = (percentage: number): { label: string; color: string;
 	if (percentage >= SUPPLY_THRESHOLDS.small) return { label: 'Growing Stack', color: 'text-green-500', emoji: '🐟' }
 	if (percentage >= SUPPLY_THRESHOLDS.tiny) return { label: 'Starting Out', color: 'text-yellow-500', emoji: '🦐' }
 	return { label: 'Plankton', color: 'text-muted-foreground', emoji: '🦠' }
-}
-
-// =============================================================================
-// COMPONENTS
-// =============================================================================
-
-function CalculatorSkeleton() {
-	return (
-		<Card>
-			<CardHeader>
-				<Skeleton className="h-6 w-48" />
-				<Skeleton className="h-4 w-72" />
-			</CardHeader>
-			<CardContent className="space-y-6">
-				<div className="grid gap-4 sm:grid-cols-2">
-					<Skeleton className="h-20" />
-					<Skeleton className="h-20" />
-				</div>
-				<Skeleton className="h-32" />
-				<Skeleton className="h-24" />
-			</CardContent>
-		</Card>
-	)
 }
 
 // Lock toggle button component
@@ -344,7 +320,7 @@ function PeoplePopoverInput({ value, onChange, t }: PeoplePopoverInputProps) {
 export function ParityCalculator() {
 	const t = useTranslations('parityCalculator')
 
-	const { xnoData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, isLoading } = useMarketData()
+	const { xnoData, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate } = useMarketData()
 
 	const [primaryFiat] = useAtom(primaryFiatAtom)
 
@@ -643,18 +619,16 @@ export function ParityCalculator() {
 		[solveSystem],
 	)
 
-	if (isLoading) {
-		return <CalculatorSkeleton />
-	}
-
 	return (
 		<Card>
-			<CardHeader>
-				<CardTitle className="flex items-center gap-2">
-					<Calculator className="h-5 w-5 text-[#209CE9]" />
-					{t('title')}
-				</CardTitle>
-				<CardDescription>{t('description')}</CardDescription>
+			<CardHeader className="pb-0">
+				<div>
+					<CardTitle className="flex items-center gap-2">
+						<Calculator className="h-5 w-5 text-[#209CE9]" />
+						{t('title')}
+					</CardTitle>
+					<CardDescription>{t('description')}</CardDescription>
+				</div>
 			</CardHeader>
 			<CardContent className="space-y-6 px-4">
 				{/* Lock guide */}

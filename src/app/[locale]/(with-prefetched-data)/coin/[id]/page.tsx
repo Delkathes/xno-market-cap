@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
+import { Suspense } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
@@ -6,9 +8,15 @@ import { CRYPTO_IDS } from '@/lib/constants'
 import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
+import type { ChartTimeRange } from '@/lib/types'
 
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
+import { LoadingArea } from '@/components/loading-area'
 import { PriceChart } from '@/components/price-chart'
+
+import { CoinInfoCardSkeleton } from './loading'
 
 type Props = {
 	params: Promise<{ locale: string; id: string }>
@@ -45,9 +53,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
-export const dynamic = 'force-static'
-export const revalidate = 60
-
 // Generate static params for known coins
 export async function generateStaticParams() {
 	try {
@@ -61,8 +66,17 @@ export async function generateStaticParams() {
 	}
 }
 
+// Cache the data fetch, not the component
+async function getCachedPriceChart(coinId: string, days: ChartTimeRange, vsCurrency?: string) {
+	'use cache'
+	cacheLife('minutes')
+	return getPriceChart(coinId, days, vsCurrency)
+}
+
 export default async function CoinDetailPage({ params }: Props) {
 	const { locale, id: coinIdParam } = await params
+
+	// Enable static rendering
 	setRequestLocale(locale)
 
 	const queryClient = getQueryClient()
@@ -72,25 +86,46 @@ export default async function CoinDetailPage({ params }: Props) {
 	const defaultFiat = 'usd'
 
 	// Prefetch market data and initial chart data
-	await Promise.all([
-		queryClient.prefetchQuery({
-			queryKey: ['market-data'],
-			queryFn: getMarketData,
-		}),
-		queryClient.prefetchQuery({
-			queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
-			queryFn: () => getPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
-		}),
-	])
+	void queryClient.prefetchQuery({
+		queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
+		queryFn: () => getCachedPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
+	})
 
 	return (
-		<HydrationBoundary state={dehydrate(queryClient)}>
-			<main className="container mx-auto px-4 py-8">
-				<div className="space-y-6">
+		<main className="container mx-auto px-4 py-8">
+			<div className="space-y-6">
+				<Suspense fallback=<CoinInfoCardSkeleton />>
 					<CoinInfoCard coinId={coinIdParam} />
-					<PriceChart coinId={coinIdParam} />
-				</div>
-			</main>
-		</HydrationBoundary>
+				</Suspense>
+				<HydrationBoundary state={dehydrate(queryClient)}>
+					<Suspense
+						fallback={
+							<Card>
+								<CardHeader className="pb-2 gap-6 sm:gap-2">
+									<div className="flex justify-between">
+										<Skeleton className="h-8 w-36" />
+										<div className="flex flex-col gap-y-2">
+											<Skeleton className="h-8 w-36 sm:w-96" />
+											<Skeleton className="h-8 w-36 sm:hidden" />
+										</div>
+									</div>
+									<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
+										<Skeleton className="h-9 w-full sm:w-96" />
+										<Skeleton className="h-9 w-full sm:w-96" />
+									</div>
+								</CardHeader>
+								<CardContent className="pb-4 px-4">
+									<div className="h-75 w-full relative rounded-lg overflow-hidden">
+										<LoadingArea />
+									</div>
+								</CardContent>
+							</Card>
+						}
+					>
+						<PriceChart coinId={coinIdParam} />
+					</Suspense>
+				</HydrationBoundary>
+			</div>
+		</main>
 	)
 }

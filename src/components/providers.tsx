@@ -1,27 +1,24 @@
-'use client'
-
-import { type ReactNode, useState } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import type { ReactNode } from 'react'
 import { Provider as JotaiProvider } from 'jotai'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 
-export function Providers({ children }: { children: ReactNode }) {
-	const [queryClient] = useState(
-		() =>
-			new QueryClient({
-				defaultOptions: {
-					queries: {
-						staleTime: 60 * 1000,
-					},
-				},
-			}),
-	)
+import { QueryClientProvider } from './query-client-provider'
 
+export async function Providers({ children }: { children: ReactNode }) {
 	return (
-		<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-			<QueryClientProvider client={queryClient}>
-				<JotaiProvider>{children}</JotaiProvider>
-			</QueryClientProvider>
-		</ThemeProvider>
+		<NextIntlClientWithMessagesProvider>
+			<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+				<QueryClientProvider>
+					<JotaiProvider>{children}</JotaiProvider>
+				</QueryClientProvider>
+			</ThemeProvider>
+		</NextIntlClientWithMessagesProvider>
 	)
+}
+
+async function NextIntlClientWithMessagesProvider({ children }: { children: ReactNode }) {
+	const messages = await getMessages()
+	return <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
 }

@@ -26,23 +26,10 @@ const SLICE_COLORS: Record<string, string> = {
 export function DominanceChart() {
 	const t = useTranslations('dominance')
 
-	const { data, isLoading, error, xnoData } = useMarketData()
+	const { data, error, xnoData } = useMarketData()
 
 	const isClientSide = useIsClientSide()
 	const isMobile = useIsMobile()
-
-	if (isLoading) {
-		return (
-			<Card>
-				<CardHeader>
-					<CardTitle>{t('chartTitle')}</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div className="h-100 animate-pulse bg-muted rounded" />
-				</CardContent>
-			</Card>
-		)
-	}
 
 	if (error || !data) {
 		return (
@@ -103,7 +90,7 @@ export function DominanceChart() {
 				<CardTitle>{t('distributionTitle')}</CardTitle>
 				<CardDescription>{t('chartDescription', { xnoDominance })}</CardDescription>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="pb-4 px-4">
 				<ResponsiveContainer width="100%" height={400}>
 					{isClientSide && (
 						<PieChart>

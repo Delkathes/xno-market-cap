@@ -62,19 +62,8 @@ const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCa
 
 export function DominanceTable() {
 	const t = useTranslations('dominance')
-	const tCommon = useTranslations('common')
 
-	const { data, isLoading, error, xnoData } = useMarketData()
-
-	if (isLoading) {
-		return (
-			<Card>
-				<CardHeader className="pb-0">
-					<CardTitle>{tCommon('loading')}</CardTitle>
-				</CardHeader>
-			</Card>
-		)
-	}
+	const { data, error, xnoData } = useMarketData()
 
 	if (error || !data) {
 		return (

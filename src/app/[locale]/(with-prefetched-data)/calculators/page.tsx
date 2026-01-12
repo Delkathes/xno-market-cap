@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { Suspense } from 'react'
 import { Calculator } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-
-import getQueryClient from '@/lib/get-query-client'
-import { getMarketData } from '@/lib/market-data-service'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ParityCalculator } from '@/components/parity-calculator'
 import { ParityHighlight } from '@/components/parity-highlight'
 import { ParitySettingsPopover } from '@/components/parity-table'
 import { SpeculationCalculator } from '@/components/speculation-calculator'
+
+import { ParityCalculatorSkeleton, ParityHighlightCalculatorSkeleton, SpeculationCalculatorSkeleton } from './loading'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -34,47 +33,51 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
-export const dynamic = 'force-static'
-export const revalidate = 60
-
 export default async function CalculatorsPage({ params }: Props) {
 	const { locale } = await params
+
+	// Enable static rendering
 	setRequestLocale(locale)
-
-	const t = await getTranslations('parity')
-
-	const queryClient = getQueryClient()
-
-	await queryClient.prefetchQuery({
-		queryKey: ['market-data'],
-		queryFn: getMarketData,
-	})
 
 	return (
 		<main className="container mx-auto px-4 py-8">
-			<HydrationBoundary state={dehydrate(queryClient)}>
-				<div className="grid gap-10">
-					<Card className="gap-2">
-						<CardHeader className="flex justify-between">
-							<div>
-								<CardTitle className="flex items-center gap-2">
-									<Calculator className="h-5 w-5 text-[#209CE9]" />
-									{t('title')}
-								</CardTitle>
-								<CardDescription>{t('description')}</CardDescription>
-							</div>
-							<ParitySettingsPopover />
-						</CardHeader>
-						<CardContent className="pb-4 px-4">
-							<ParityHighlight />
-						</CardContent>
-					</Card>
-
+			<div className="grid gap-10">
+				<Suspense
+					fallback={
+						<>
+							<ParityHighlightCalculatorSkeleton />
+							<ParityCalculatorSkeleton />
+							<SpeculationCalculatorSkeleton />
+						</>
+					}
+				>
+					<AbsoluteParityCalculator locale={(await params).locale} />
 					<ParityCalculator />
-
 					<SpeculationCalculator />
-				</div>
-			</HydrationBoundary>
+				</Suspense>
+			</div>
 		</main>
+	)
+}
+
+async function AbsoluteParityCalculator({ locale }: { locale: string }) {
+	const t = await getTranslations({ locale, namespace: 'parity' })
+
+	return (
+		<Card className="gap-2">
+			<CardHeader className="flex justify-between">
+				<div>
+					<CardTitle className="flex items-center gap-2">
+						<Calculator className="h-5 w-5 text-[#209CE9]" />
+						{t('title')}
+					</CardTitle>
+					<CardDescription>{t('description')}</CardDescription>
+				</div>
+				<ParitySettingsPopover />
+			</CardHeader>
+			<CardContent className="pb-4 px-4">
+				<ParityHighlight />
+			</CardContent>
+		</Card>
 	)
 }

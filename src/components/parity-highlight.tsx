@@ -16,8 +16,6 @@ import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { MarketDataError } from '@/components/market-data-error'
 
-import { Skeleton } from './ui/skeleton'
-
 // Format parity value for highlight cards (shorter format)
 const formatHighlightValue = (value: number, asset: AssetData): string => {
 	const { symbol, unit, type } = asset
@@ -49,7 +47,7 @@ const calculateFutureParity = (fromId: AssetId, toId: AssetId, assetMap: Record<
 export function ParityHighlight() {
 	const t = useTranslations('parity')
 
-	const { assetMap, isLoading, error } = useAssetData()
+	const { assetMap, error } = useAssetData()
 
 	const enabledFiats = useAtomValue(parityFiatCurrenciesAtom)
 
@@ -134,10 +132,6 @@ export function ParityHighlight() {
 		[displayAssets, assetMap],
 	)
 
-	if (isLoading) {
-		return <HighlightSkeleton />
-	}
-
 	if (error) {
 		return <MarketDataError error={error} compact />
 	}
@@ -153,104 +147,89 @@ export function ParityHighlight() {
 		amount >= 1000 ? `${amount.toLocaleString(undefined, { maximumFractionDigits: 1 })} XNO` : `${amount} XNO`
 
 	return (
-		<section>
-			<div className={cn('grid gap-3', gridClass)}>
-				{displayAssets.map((assetId) => {
-					const asset = assetMap[assetId]
-					const isXNO = assetId === 'XNO'
-					const value = parities[assetId] * xnoAmount
-					const futureValue = futureParities[assetId]
+		<div className={cn('grid gap-3', gridClass)}>
+			{displayAssets.map((assetId) => {
+				const asset = assetMap[assetId]
+				const isXNO = assetId === 'XNO'
+				const value = parities[assetId] * xnoAmount
+				const futureValue = futureParities[assetId]
 
-					// XNO card with popover for amount input
-					if (isXNO) {
-						return (
-							<Popover key={assetId} open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-								<PopoverTrigger asChild>
-									<button
-										ref={containerRef}
-										type="button"
-										onWheel={handleWheel}
-										className="p-4 rounded-lg border bg-[#209CE9]/10 border-[#209CE9]/30 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
-										tabIndex={0}
-										aria-label={t('clickToEditXnoAmount')}
-									>
-										<p className="text-sm text-muted-foreground mb-1 flex items-center justify-between">
-											{asset.label}
-											<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity" />
-										</p>
-										<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
-											{formatXnoDisplay(xnoAmount)}
-										</p>
-										<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">
-											{t('clickToEdit')}
-										</p>
-										<p className="mt-1 text-xs text-muted-foreground/50 hidden sm:block">
-											{t('clickOrScrollToEdit')}
-										</p>
-									</button>
-								</PopoverTrigger>
-								<PopoverContent className="w-48 p-3" align="start">
-									<div className="space-y-2">
-										<label htmlFor="xno-amount" className="text-sm font-medium">
-											{t('xnoAmount')}
-										</label>
-										<div className="relative">
-											<Input
-												ref={inputRef}
-												id="xno-amount"
-												type="number"
-												min={0.1}
-												step={0.1}
-												value={inputValue}
-												onChange={(e) => handleInputChange(e.target.value)}
-												onBlur={handleInputBlur}
-												onKeyDown={handleKeyDown}
-												className="font-mono pr-8"
-											/>
-											<span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">
-												Ӿ
-											</span>
-										</div>
-										<p className="text-xs text-muted-foreground">{t('pressEnterToConfirm')}</p>
-									</div>
-								</PopoverContent>
-							</Popover>
-						)
-					}
-
+				// XNO card with popover for amount input
+				if (isXNO) {
 					return (
-						<div key={assetId} className="p-4 rounded-lg border bg-background/50 border-border">
-							<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
-							<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
-								{formatHighlightValue(value, asset)}
-							</p>
-							{futureValue !== null && (
-								<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/70">
-									<TrendingUp className="h-3 w-3 text-emerald-500/70 mr-1" />
-									<span className="font-mono">
-										{futureValue === Number.POSITIVE_INFINITY
-											? t('noLimit')
-											: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatHighlightValue(futureValue * xnoAmount, asset)}`}
-									</span>
-								</p>
-							)}
-						</div>
+						<Popover key={assetId} open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+							<PopoverTrigger asChild>
+								<button
+									ref={containerRef}
+									type="button"
+									onWheel={handleWheel}
+									className="p-4 rounded-lg border bg-[#209CE9]/10 border-[#209CE9]/30 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
+									tabIndex={0}
+									aria-label={t('clickToEditXnoAmount')}
+								>
+									<p className="text-sm text-muted-foreground mb-1 flex items-center justify-between">
+										{asset.label}
+										<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity" />
+									</p>
+									<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
+										{formatXnoDisplay(xnoAmount)}
+									</p>
+									<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">
+										{t('clickToEdit')}
+									</p>
+									<p className="mt-1 text-xs text-muted-foreground/50 hidden sm:block">
+										{t('clickOrScrollToEdit')}
+									</p>
+								</button>
+							</PopoverTrigger>
+							<PopoverContent className="w-48 p-3" align="start">
+								<div className="space-y-2">
+									<label htmlFor="xno-amount" className="text-sm font-medium">
+										{t('xnoAmount')}
+									</label>
+									<div className="relative">
+										<Input
+											ref={inputRef}
+											id="xno-amount"
+											type="number"
+											min={0.1}
+											step={0.1}
+											value={inputValue}
+											onChange={(e) => handleInputChange(e.target.value)}
+											onBlur={handleInputBlur}
+											onKeyDown={handleKeyDown}
+											className="font-mono pr-8"
+										/>
+										<span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">
+											Ӿ
+										</span>
+									</div>
+									<p className="text-xs text-muted-foreground">{t('pressEnterToConfirm')}</p>
+								</div>
+							</PopoverContent>
+						</Popover>
 					)
-				})}
-			</div>
-		</section>
-	)
-}
+				}
 
-// Loading skeleton for highlight
-function HighlightSkeleton() {
-	return (
-		<section>
-			<div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-				{Array.from({ length: 5 }).map((_) => (
-					<Skeleton key={`${_}-highlight-skeleton-item`} className="h-24 rounded-lg" />
-				))}
-			</div>
-		</section>
+				return (
+					<div key={assetId} className="p-4 rounded-lg border bg-background/50 border-border">
+						<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
+						<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
+							{formatHighlightValue(value, asset)}
+						</p>
+						{futureValue !== null && (
+							<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/70">
+								<TrendingUp className="h-3 w-3 text-emerald-500/70 mr-1" />
+								<span className="font-mono">
+									{futureValue === Number.POSITIVE_INFINITY
+										? t('noLimit')
+										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatHighlightValue(futureValue * xnoAmount, asset)}`}
+								</span>
+							</p>
+						)}
+					</div>
+				)
+			})}
+		</div>
 	)
 }

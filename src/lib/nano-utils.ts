@@ -30,19 +30,6 @@ export function rawToXno(raw: string): number {
 }
 
 /**
- * Converts raw units to XNO amount as a string (preserves full precision)
- * 1 XNO = 10^30 raw
- * Returns '0' if conversion fails
- */
-export function rawToXnoString(raw: string): string {
-	try {
-		return convert(raw, { from: Unit.raw, to: Unit.Nano })
-	} catch {
-		return '0'
-	}
-}
-
-/**
  * Validates a Nano address (nano_ or xno_ prefix) with checksum verification
  * Uses nanocurrency library for proper validation
  */

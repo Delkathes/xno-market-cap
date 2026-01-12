@@ -13,8 +13,10 @@ import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
+
+import { LoadingArea } from './loading-area'
 
 interface CryptoRowProps {
 	crypto: CryptoData
@@ -114,27 +116,9 @@ function Change({ change }: { change: number }) {
 }
 
 export function MarketCapTable() {
+	const { data, error, xnoData } = useMarketData()
+
 	const t = useTranslations('marketTable')
-
-	const { data, isLoading, error, xnoData } = useMarketData()
-
-	if (isLoading) {
-		return (
-			<Card>
-				<CardHeader>
-					<CardTitle>{t('loadingMarketData')}</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div className="space-y-4">
-						{[...Array(10)].map((_, i) => {
-							const key = `${i}-card-item`
-							return <div key={`${key}-card-item`} className="h-16 animate-pulse bg-muted rounded" />
-						})}
-					</div>
-				</CardContent>
-			</Card>
-		)
-	}
 
 	if (error || !data || !xnoData) {
 		return (
@@ -205,6 +189,14 @@ export function MarketCapTable() {
 					</table>
 				</div>
 			</CardContent>
+		</Card>
+	)
+}
+
+export function MarketCapTableSkeleton() {
+	return (
+		<Card className="overflow-hidden h-513.75 relative">
+			<LoadingArea />
 		</Card>
 	)
 }
