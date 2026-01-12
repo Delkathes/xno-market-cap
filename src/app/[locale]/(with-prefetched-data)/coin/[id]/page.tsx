@@ -74,6 +74,7 @@ async function getCachedPriceChart(coinId: string, days: ChartTimeRange, vsCurre
 }
 
 export default async function CoinDetailPage({ params }: Props) {
+	'use cache'
 	const { locale, id: coinIdParam } = await params
 
 	// Enable static rendering
