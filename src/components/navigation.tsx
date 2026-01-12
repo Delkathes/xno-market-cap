@@ -19,6 +19,8 @@ import {
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
+import { Link, usePathname } from '@/i18n/navigation'
+
 import { cn } from '@/lib/utils'
 
 import { Button } from '@/components/ui/button'
@@ -32,8 +34,6 @@ import {
 } from '@/components/ui/navigation-menu'
 import { AboutModal } from '@/components/about-modal'
 import { DonationButton } from '@/components/donation-button'
-
-import { Link, usePathname } from '@/i18n/navigation'
 
 const REFRESH_COOLDOWN = 60 // seconds
 
@@ -92,7 +92,7 @@ export function Navigation() {
 	const isRefreshDisabled = cooldownRemaining > 0
 
 	return (
-		<header className="border-b border-border bg-card sticky top-0 z-40">
+		<header className="border-b border-border bg-card/60 backdrop-blur-lg sticky top-0 z-40">
 			<div className="container mx-auto px-4">
 				<nav className="flex items-center justify-between h-16">
 					{/* Logo */}

@@ -36,7 +36,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CalculatorsPage({ params }: Props) {
 	const { locale } = await params
 
-	// Enable static rendering
 	setRequestLocale(locale)
 
 	return (

@@ -128,6 +128,78 @@
 }
 
 @layer utilities {
+  /* Register custom properties to enable gradient animation */
+  @property --gradient-from {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: transparent;
+  }
+
+  @property --gradient-via {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: transparent;
+  }
+
+  @property --gradient-to {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: transparent;
+  }
+
+  @keyframes gradient-shift-light {
+    /* 0-12.5% (2s): transition to state B */
+    0% {
+      --gradient-from: transparent;
+      --gradient-via: oklch(0.93 0.04 250);
+      --gradient-to: transparent;
+    }
+    /* 12.5-50% (6s): hold state B */
+    12.5%, 50% {
+      --gradient-from: oklch(0.93 0.04 250);
+      --gradient-via: transparent;
+      --gradient-to: oklch(0.93 0.04 250);
+    }
+    /* 50-62.5% (2s): transition back to state A */
+    /* 62.5-100% (6s): hold state A */
+    62.5%, 100% {
+      --gradient-from: transparent;
+      --gradient-via: oklch(0.93 0.04 250);
+      --gradient-to: transparent;
+    }
+  }
+
+  @keyframes gradient-shift-dark {
+    /* 0-12.5% (2s): transition to state B */
+    0% {
+      --gradient-from: transparent;
+      --gradient-via: oklch(0.27 0.05 260);
+      --gradient-to: transparent;
+    }
+    /* 12.5-50% (6s): hold state B */
+    12.5%, 50% {
+      --gradient-from: oklch(0.27 0.05 260);
+      --gradient-via: transparent;
+      --gradient-to: oklch(0.27 0.05 260);
+    }
+    /* 50-62.5% (2s): transition back to state A */
+    /* 62.5-100% (6s): hold state A */
+    62.5%, 100% {
+      --gradient-from: transparent;
+      --gradient-via: oklch(0.27 0.05 260);
+      --gradient-to: transparent;
+    }
+  }
+
+  .animate-gradient-shift {
+    background: linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+    animation: gradient-shift-light 40s ease-in-out infinite;
+  }
+
+  .dark .animate-gradient-shift {
+    animation: gradient-shift-dark 40s ease-in-out infinite;
+  }
+
   @keyframes blob {
     0%,
     100% {

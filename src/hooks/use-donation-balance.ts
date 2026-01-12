@@ -2,9 +2,11 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { DONATION_MILESTONES } from '@/lib/constants'
+
 import { env } from '@/env'
 
-import { DONATION_MILESTONES, type MilestoneBalances } from '@/components/donation-modal'
+import type { MilestoneBalances } from '@/components/donation-modal'
 
 const DONATION_WALLET_FINAL = env.NEXT_PUBLIC_DONATION_WALLET_FINAL
 
@@ -32,7 +34,7 @@ export function useDonationBalance() {
 		queryKey: ['donation-balance'],
 		queryFn: fetchDonationBalance,
 		staleTime: 30 * 1000, // 30 seconds
-		refetchInterval: 60 * 1000, // Refetch every 60 seconds
+		refetchInterval: 60 * 1000 * 2, // Refetch every 2 minutes
 		refetchOnWindowFocus: true,
 	})
 

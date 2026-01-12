@@ -12,9 +12,15 @@ import { Providers } from '@/components/providers'
 
 import './globals.css'
 
-const _geist = Geist({ subsets: ['latin'] })
-const _geistMono = Geist_Mono({ subsets: ['latin'] })
-const _spaceGrotesk = Space_Grotesk({ subsets: ['latin'] })
+const geistSans = Geist({
+	variable: '--font-geist-sans',
+	subsets: ['latin'],
+})
+const geistMono = Geist_Mono({
+	variable: '--font-geist-mono',
+	subsets: ['latin'],
+})
+const spaceGrotesk = Space_Grotesk({ variable: '--space-grotesk', subsets: ['latin'] })
 
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
@@ -129,9 +135,12 @@ export default async function RootLayout({ children, params }: Props) {
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<body className={`font-sans antialiased`} suppressHydrationWarning>
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
+				suppressHydrationWarning
+			>
 				<Providers>
-					<div className="min-h-screen bg-linear-to-br from-cyan-50 to-blue-100/60 dark:from-blue-950 dark:to-cyan-950">
+					<div className="min-h-screen animate-gradient-shift">
 						<Navigation />
 						{children}
 					</div>

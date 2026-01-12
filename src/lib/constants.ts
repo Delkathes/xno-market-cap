@@ -1,3 +1,5 @@
+import { env } from '@/env'
+
 export const LOCALES = ['en', 'nl', 'es', 'it', 'de', 'fr'] as const
 export const DEFAULT_LOCALE = 'en' as const
 
@@ -68,6 +70,42 @@ export const ALLOWED_GOAL_ORIGINS = [
 
 // Fixed donation amount options (XNO)
 export const DONATION_FIXED_AMOUNTS = [1, 5, 10, 25, 50] as const
+
+// Donation milestones
+export type MilestoneId = 'development' | 'maintenance' | 'opensource'
+export type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
+
+export interface DonationMilestoneConfig {
+	id: MilestoneId
+	targetXno: number
+	walletAddress: string
+	icon: MilestoneIcon
+	rewardCount: number
+}
+
+export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
+	{
+		id: 'development',
+		targetXno: 1500,
+		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT,
+		icon: 'rocket',
+		rewardCount: 3,
+	},
+	{
+		id: 'opensource',
+		targetXno: 2500,
+		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE,
+		icon: 'code',
+		rewardCount: 3,
+	},
+	{
+		id: 'maintenance',
+		targetXno: 5000,
+		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE,
+		icon: 'shield',
+		rewardCount: 3,
+	},
+] as const
 
 // Block explorer URL
 export const BLOCKLATTICE_URL = 'https://blocklattice.io' as const

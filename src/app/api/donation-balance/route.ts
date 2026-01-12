@@ -1,38 +1,13 @@
-import { NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
-import { RPC_ENDPOINTS } from '@/lib/constants'
-import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
+import { isAllowedOrigin } from '@/lib/allowed-hosts'
+import { DONATION_MILESTONES, RPC_ENDPOINTS } from '@/lib/constants'
 import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
 import { getSecurityHeaders } from '@/lib/security-headers'
 import { validateNanoBalanceResponse } from '@/lib/validation'
 
 import { env } from '@/env'
 
-export const DONATION_MILESTONES = [
-	{
-		id: 'development',
-		targetXno: 3000,
-		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT,
-		icon: 'rocket',
-		rewardCount: 3,
-	},
-	{
-		id: 'maintenance',
-		targetXno: 18000,
-		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE,
-		icon: 'shield',
-		rewardCount: 3,
-	},
-	{
-		id: 'opensource',
-		targetXno: 4000,
-		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE,
-		icon: 'code',
-		rewardCount: 3,
-	},
-]
-
-const REQUEST_TIMEOUT_MS = 10000
 const DONATION_WALLET_FINAL = env.NEXT_PUBLIC_DONATION_WALLET_FINAL
 
 // Round-robin index for fair RPC endpoint rotation
@@ -64,19 +39,15 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 	const endpoint = getNextRpcEndpoint()
 
 	try {
-		const response = await fetchWithTimeout(
-			endpoint,
-			{
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					action: 'account_balance',
-					account: walletAddress,
-				}),
-				cache: 'no-store',
-			},
-			REQUEST_TIMEOUT_MS,
-		)
+		const response = await fetch(endpoint, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				action: 'account_balance',
+				account: walletAddress,
+			}),
+			cache: 'no-store',
+		})
 
 		if (response.ok) {
 			const data = await response.json()
@@ -91,8 +62,34 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 
 	return 0
 }
+function isValidOrigin(request: NextRequest): boolean {
+	const origin = request.headers.get('origin')
+	const referer = request.headers.get('referer')
 
-export async function GET(): Promise<NextResponse<DonationBalanceResponse>> {
+	if (!origin && !referer) {
+		const secFetchSite = request.headers.get('sec-fetch-site')
+		return !secFetchSite || secFetchSite === 'same-origin'
+	}
+
+	return isAllowedOrigin(origin, referer)
+}
+
+export async function GET(request: NextRequest): Promise<NextResponse<DonationBalanceResponse | { error: string }>> {
+	const baseHeaders = {
+		...getSecurityHeaders(),
+		'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+	}
+
+	if (!isValidOrigin(request)) {
+		return NextResponse.json(
+			{ error: 'Forbidden' },
+			{
+				status: 403,
+				headers: baseHeaders,
+			},
+		)
+	}
+
 	// Fetch all milestone balances in parallel
 	const results = await Promise.all(
 		DONATION_MILESTONES.map(async (milestone): Promise<MilestoneBalance> => {

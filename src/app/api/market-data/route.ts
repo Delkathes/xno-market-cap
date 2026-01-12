@@ -1,10 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
+import { isAllowedOrigin } from '@/lib/allowed-hosts'
 import { getMarketData, RateLimitError, UpstreamError, ValidationError } from '@/lib/market-data-service'
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
 import { getSecurityHeaders } from '@/lib/security-headers'
-
-import { env } from '@/env'
 
 function getClientIP(request: NextRequest): string {
 	// Check common headers for proxied requests
@@ -33,27 +32,7 @@ function isValidOrigin(request: NextRequest): boolean {
 		return !secFetchSite || secFetchSite === 'same-origin'
 	}
 
-	// Get allowed hosts from environment or use defaults
-	const allowedHosts = [
-		env.NEXT_PUBLIC_SITE_URL,
-		env.URL,
-		'https://dev--xnomarketcap.netlify.app',
-		'https://feat-prefetch-layout--xnomarketcap.netlify.app',
-		env.NODE_ENV === 'development' && 'http://localhost:3000',
-		env.NODE_ENV === 'development' && 'http://localhost:3001',
-	].filter(Boolean) as string[]
-
-	// Check origin
-	if (origin && allowedHosts.some((host) => origin.startsWith(host))) {
-		return true
-	}
-
-	// Check referer as fallback
-	if (referer && allowedHosts.some((host) => referer.startsWith(host))) {
-		return true
-	}
-
-	return false
+	return isAllowedOrigin(origin, referer)
 }
 
 export async function GET(request: NextRequest) {

@@ -5,12 +5,16 @@ import { useCallback, useMemo, useState } from 'react'
 import { Check, CheckCircle2, Code, Copy, ExternalLink, Loader2, Rocket, Shield } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { BLOCKLATTICE_URL, DONATION_FIXED_AMOUNTS } from '@/lib/constants'
+import {
+	BLOCKLATTICE_URL,
+	DONATION_FIXED_AMOUNTS,
+	DONATION_MILESTONES,
+	type DonationMilestoneConfig,
+	type MilestoneIcon,
+} from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 import { useDonation } from '@/hooks/use-donation'
-
-import { env } from '@/env'
 
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -22,41 +26,7 @@ const QRCodeSVG = dynamic(() => import('qrcode.react').then((mod) => mod.QRCodeS
 	ssr: false,
 })
 
-export type MilestoneId = 'development' | 'maintenance' | 'opensource'
-export type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
 export type MilestoneBalances = Record<string, number>
-
-export interface DonationMilestoneConfig {
-	id: MilestoneId
-	targetXno: number
-	walletAddress: string
-	icon: MilestoneIcon
-	rewardCount: number
-}
-
-export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
-	{
-		id: 'development',
-		targetXno: 3000,
-		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT,
-		icon: 'rocket',
-		rewardCount: 3,
-	},
-	{
-		id: 'maintenance',
-		targetXno: 18000,
-		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE,
-		icon: 'shield',
-		rewardCount: 3,
-	},
-	{
-		id: 'opensource',
-		targetXno: 4000,
-		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_OPENSOURCE,
-		icon: 'code',
-		rewardCount: 3,
-	},
-]
 
 const cumulativeTargets = getCumulativeTargets(DONATION_MILESTONES)
 
