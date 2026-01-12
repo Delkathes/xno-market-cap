@@ -12,7 +12,7 @@ interface ApiErrorResponse {
 }
 
 const fetcher = async (): Promise<MarketDataResponse> => {
-	const response = await fetch(`${env.NEXT_PUBLIC_SITE_URL}/api/market-data`)
+	const response = await fetch(`${env.NEXT_PUBLIC_DEPLOY_PRIME_URL}/api/market-data`)
 	if (!response.ok) {
 		const errorData: ApiErrorResponse = await response
 			.json()

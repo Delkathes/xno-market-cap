@@ -25,6 +25,9 @@ export const env = createEnv({
 		// Site
 		NEXT_PUBLIC_SITE_URL: v.pipe(v.string(), v.url()),
 
+		// Netlify
+		NEXT_PUBLIC_DEPLOY_PRIME_URL: v.pipe(v.string(), v.url()),
+
 		// Donation
 		NEXT_PUBLIC_DONATION_WALLET_FINAL: v.string(),
 		NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT: v.string(),
@@ -36,6 +39,10 @@ export const env = createEnv({
 	 */
 	experimental__runtimeEnv: {
 		NODE_ENV: process.env.NODE_ENV,
+
+		// Netlify
+		NEXT_PUBLIC_DEPLOY_PRIME_URL:
+			process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_SITE_URL : process.env.DEPLOY_PRIME_URL,
 
 		// Site
 		NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
