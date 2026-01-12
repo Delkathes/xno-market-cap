@@ -3,7 +3,6 @@ import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
 import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
 import { LoadingArea } from '@/components/loading-area'
@@ -45,7 +44,7 @@ export default async function DominancePage({ params }: Props) {
 			</div>
 
 			<div className="grid gap-6 mb-8">
-				<Suspense fallback=<DominanceChartSkeleton />>
+				<Suspense fallback=<DominanceChartSkeleton locale={locale} />>
 					<DominanceChart />
 				</Suspense>
 			</div>
@@ -56,16 +55,14 @@ export default async function DominancePage({ params }: Props) {
 	)
 }
 
-async function DominanceChartSkeleton() {
+async function DominanceChartSkeleton({ locale }: { locale: string }) {
+	const t = await getTranslations({ locale, namespace: 'dominance' })
+
 	return (
 		<Card>
 			<CardHeader className="pb-0">
-				<CardTitle>
-					<Skeleton className="h-6 w-48" />
-				</CardTitle>
-				<CardDescription>
-					<Skeleton className="h-4 w-72" />
-				</CardDescription>
+				<CardTitle>{t('distributionTitle')}</CardTitle>
+				<CardDescription>{t('chartDescription', { xnoDominance: '' })}</CardDescription>
 			</CardHeader>
 			<CardContent className="overflow-hidden relative px-4 pb-4">
 				<div className="relative h-100 w-full">

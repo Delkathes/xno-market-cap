@@ -77,39 +77,14 @@ const SpeculationRow = memo(function SpeculationRow({
 export function SpeculationTable() {
 	const t = useTranslations('speculation')
 
-	const {
-		data,
-		xnoData,
-		xnoCirculatingSupply,
-		eurRate,
-		gbpRate,
-		jpyRate,
-		chfRate,
-		cadRate,
-		audRate,
-		isLoading,
-		error,
-	} = useMarketData()
+	const { data, xnoData, xnoCirculatingSupply, eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate, error } =
+		useMarketData()
 
 	const [currency, setCurrency] = useState<FiatCurrency>(FiatCurrency.USD)
 
 	const rates: ExchangeRates = { eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate }
 	const rate = getFiatRate(currency, rates)
 	const { symbol } = FIAT_CURRENCY_CONFIG[currency]
-
-	if (isLoading) {
-		return (
-			<Card>
-				<CardContent className="p-6">
-					<div className="space-y-4">
-						{[...Array(10)].map((_, _i) => (
-							<div key={`${_}-speculation-loading`} className="h-16 animate-pulse bg-muted rounded" />
-						))}
-					</div>
-				</CardContent>
-			</Card>
-		)
-	}
 
 	if (error || !data) {
 		return (
@@ -139,7 +114,7 @@ export function SpeculationTable() {
 		<Card className="relative">
 			<div className="absolute -top-12 right-0">
 				<Select value={currency} onValueChange={(v) => setCurrency(v as FiatCurrency)}>
-					<SelectTrigger className="w-40">
+					<SelectTrigger className="w-40 bg-card dark:bg-card border-border">
 						<SelectValue placeholder={t('selectCurrency')} />
 					</SelectTrigger>
 					<SelectContent>

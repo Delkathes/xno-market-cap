@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { Loader } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Button } from '@/components/ui/button'
@@ -53,7 +53,7 @@ export default async function ParityPage({ params }: Props) {
 							<div className="flex items-center justify-between mb-4">
 								<h2 className="text-2xl font-semibold">{t('nanoScarcityParity')}</h2>
 								<Button variant="ghost" size="icon" className="h-8 w-8">
-									<Loader className="h-4 w-4" />
+									<Loader2 className="h-4 w-4 animate-spin" />
 									<span className="sr-only">{t('fiatCurrencySettings')}</span>
 								</Button>
 							</div>
@@ -86,7 +86,7 @@ export default async function ParityPage({ params }: Props) {
 							<div className="flex items-center justify-between mb-4">
 								<h2 className="text-2xl font-semibold">{t('scarcityParityMatrix')}</h2>
 								<Button variant="ghost" size="icon" className="h-8 w-8">
-									<Loader className="h-4 w-4" />
+									<Loader2 className="h-4 w-4 animate-spin" />
 									<span className="sr-only">{t('fiatCurrencySettings')}</span>
 								</Button>
 							</div>

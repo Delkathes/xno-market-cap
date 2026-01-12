@@ -16,8 +16,6 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { Card, CardContent } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
 
-import { LoadingArea } from './loading-area'
-
 interface CryptoRowProps {
 	crypto: CryptoData
 	isXNO: boolean
@@ -189,14 +187,6 @@ export function MarketCapTable() {
 					</table>
 				</div>
 			</CardContent>
-		</Card>
-	)
-}
-
-export function MarketCapTableSkeleton() {
-	return (
-		<Card className="overflow-hidden h-513.75 relative">
-			<LoadingArea />
 		</Card>
 	)
 }

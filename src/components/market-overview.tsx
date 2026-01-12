@@ -19,7 +19,6 @@ import {
 import { useMarketData } from '@/hooks/use-market-data'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
 import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
 
@@ -202,52 +201,6 @@ function Change({ value }: { value: number }) {
 			<span className={value >= 0 ? 'text-constructive text-sm font-medium' : 'text-destructive text-sm'}>
 				{value.toFixed(2)}%
 			</span>
-		</div>
-	)
-}
-
-export function MarketOverviewSkeleton() {
-	const t = useTranslations('home')
-
-	return (
-		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
-			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-6 space-y-3">
-					<p className="text-sm text-muted-foreground mb-1">{t('xnoMarketCap')}</p>
-					<Skeleton className="h-6 sm:h-7 w-24" />
-					<div className="flex gap-3">
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-4 w-32" />
-					</div>
-				</CardContent>
-			</Card>
-			<Card className="md:col-span-4">
-				<CardContent className="p-4 sm:p-6 space-y-3">
-					<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')} • 24h %</p>
-					<div className="grid grid-cols-3">
-						<Skeleton className="h-6 sm:h-7 w-24 sm:w-32" />
-						<Skeleton className="h-6 sm:h-7 w-24 sm:w-32" />
-						<Skeleton className="h-6 sm:h-7 w-24 sm:w-32" />
-					</div>
-					<div className="grid grid-cols-3 gap-3">
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-4 w-16" />
-					</div>
-				</CardContent>
-			</Card>
-			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-6 space-y-3">
-					<p className="text-sm text-muted-foreground mb-1">{t('xnoDominance')}</p>
-					<Skeleton className="h-6 sm:h-7 w-24" />
-					<div className="flex gap-3">
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-4 w-16" />
-					</div>
-				</CardContent>
-			</Card>
 		</div>
 	)
 }
