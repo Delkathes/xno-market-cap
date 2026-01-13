@@ -21,6 +21,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Progress } from '@/components/ui/progress'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
+import { HolderTierDialog, type TierKey } from '@/components/holder-tier-dialog'
 
 // =============================================================================
 // CONSTANTS & TYPES
@@ -44,15 +45,6 @@ const SUPPLY_THRESHOLDS = {
 // =============================================================================
 // HELPER FUNCTIONS
 // =============================================================================
-
-type TierKey =
-	| 'tierLegendaryWhale'
-	| 'tierMajorHolder'
-	| 'tierSignificantStack'
-	| 'tierNotableHolder'
-	| 'tierGrowingStack'
-	| 'tierStartingOut'
-	| 'tierPlankton'
 
 const getSupplyTierInfo = (percentage: number): { tierKey: TierKey; color: string; emoji: string } => {
 	if (percentage >= SUPPLY_THRESHOLDS.whale)
@@ -309,6 +301,8 @@ function PeoplePopoverInput({ value, onChange, t }: PeoplePopoverInputProps) {
 	)
 }
 
+const INITIAL_AMOUNT = 1000 as const
+
 export function ParityCalculator() {
 	const t = useTranslations('parityCalculator')
 
@@ -318,9 +312,9 @@ export function ParityCalculator() {
 
 	// Core values (the "source of truth")
 	const [price, setPrice] = useState<number>(0)
-	const [amount, setAmount] = useState<number>(100)
+	const [amount, setAmount] = useState<number>(INITIAL_AMOUNT)
 	const [people, setPeople] = useState<number>(1)
-	const [totalInvestment, setTotalInvestment] = useState<number>(100)
+	const [totalInvestment, setTotalInvestment] = useState<number>(INITIAL_AMOUNT)
 	const [totalXNO, setTotalXNO] = useState<number>(0)
 
 	const [selectedFiat, setSelectedFiat] = useState<FiatCurrency>(primaryFiat)
@@ -367,7 +361,7 @@ export function ParityCalculator() {
 			initializedRef.current = true
 			setPrice(xnoPriceInFiat)
 			// Calculate initial totalXNO based on defaults
-			const initialTotalXNO = 100 / xnoPriceInFiat
+			const initialTotalXNO = INITIAL_AMOUNT / xnoPriceInFiat
 			setTotalXNO(initialTotalXNO)
 		}
 	}, [xnoPriceInFiat])
@@ -824,8 +818,12 @@ export function ParityCalculator() {
 						step={0.0001}
 					/>
 					{/* Holder tier - display only */}
-					<div className={cn('p-4 rounded-lg border bg-card space-y-1', tier.color)}>
-						<div className="flex items-center gap-2 text-sm text-muted-foreground">
+					<div className={cn('p-4 rounded-lg border bg-card space-y-1 relative', tier.color)}>
+						<HolderTierDialog
+							currentTierKey={tierInfo.tierKey}
+							currentPercentage={perPersonSupplyPercentage}
+						/>
+						<div className="flex items-center gap-2 text-sm text-muted-foreground pr-6">
 							<span className="text-base">{tier.emoji}</span>
 							{t('holderTier')}
 						</div>
