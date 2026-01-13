@@ -65,7 +65,7 @@ async function DominanceChartSkeleton({ locale }: { locale: string }) {
 				<CardDescription>{t('chartDescription', { xnoDominance: '' })}</CardDescription>
 			</CardHeader>
 			<CardContent className="overflow-hidden relative px-4 pb-4">
-				<div className="relative h-100 w-full">
+				<div className="relative h-100 w-full z-0">
 					<LoadingArea />
 				</div>
 			</CardContent>

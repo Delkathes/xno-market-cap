@@ -113,8 +113,8 @@ export function MarketOverview() {
 				<CurrencySettingsPopover cryptoList={data} />
 				<CardContent className="p-4 sm:p-6">
 					<p className="text-sm text-muted-foreground mb-1">{t('xnoMarketCap')}</p>
-					<p className="text-xl sm:text-2xl font-bold font-mono">
-						<span className="text-md font-normal text-lg">Ӿ</span>
+					<p className="text-xl sm:text-2xl font-bold font-mono flex items-baseline">
+						<span className="text-sm sm:text-lg">Ӿ</span>
 						{(xnoCirculatingSupply / 1e6).toFixed(2)}M
 					</p>
 					<div className="flex items-center gap-3 mt-2 flex-wrap">

@@ -92,9 +92,9 @@ export function Navigation() {
 	const isRefreshDisabled = cooldownRemaining > 0
 
 	return (
-		<header className="border-b border-border bg-card/60 backdrop-blur-lg sticky top-0 z-40">
-			<div className="container mx-auto px-4">
-				<nav className="flex items-center justify-between h-16">
+		<header className="border-b border-border sticky top-0 z-40">
+			<div className="bg-card/60 backdrop-blur-lg">
+				<nav className="container mx-auto px-4 flex items-center justify-between h-16">
 					{/* Logo */}
 					<div className="flex items-center gap-4">
 						<Link href="/" className="flex items-center gap-2 font-bold text-xl">

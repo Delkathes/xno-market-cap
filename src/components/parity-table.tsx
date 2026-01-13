@@ -17,8 +17,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Progress } from '@/components/ui/progress'
-import { Skeleton } from '@/components/ui/skeleton'
 import { MarketDataError } from '@/components/market-data-error'
+
+import { LoadingArea } from './loading-area'
 
 // =============================================================================
 // PURE FUNCTIONS - Data Transformation
@@ -193,17 +194,13 @@ export function ParityTableSkeleton() {
 	const t = useTranslations('parity')
 
 	return (
-		<Card>
-			<CardHeader>
+		<Card className="overflow-hidden">
+			<CardHeader className="pb-0">
 				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
 				<CardDescription>{t('tableDescription')}</CardDescription>
 			</CardHeader>
-			<CardContent className="p-6">
-				<div className="space-y-4">
-					{[1, 2, 3, 4, 5].map((index) => (
-						<Skeleton key={`${index}-parity-table-skeleton-item`} className="h-16 w-full" />
-					))}
-				</div>
+			<CardContent className="p-6 relative h-116">
+				<LoadingArea />
 			</CardContent>
 		</Card>
 	)

@@ -56,37 +56,37 @@ export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
 		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
 			<Card className="md:col-span-2">
 				<CardContent className="p-4 sm:p-6">
-					<p className="text-sm text-muted-foreground mb-1">{t('xnoMarketCap')}</p>
-					<Skeleton className="w-30 h-6 my-1" />
+					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoMarketCap')}</p>
+					<Skeleton className="w-30 h-6 my-2 sm:my-1" />
 					<div className="flex items-center gap-3 mt-2 flex-wrap">
-						<Skeleton className="w-16 h-4" />
-						<Skeleton className="w-16 h-4" />
-						<Skeleton className="w-32 h-4" />
+						<Skeleton className="w-16 h-5 sm:h-4" />
+						<Skeleton className="w-16 h-5 sm:h-4" />
+						<Skeleton className="w-32 h-5 sm:h-4" />
 					</div>
 				</CardContent>
 			</Card>
 
 			<Card className="md:col-span-4">
 				<CardContent className="p-4 sm:p-6">
-					<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')} • 24h %</p>
+					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoPrice')} • 24h %</p>
 					<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
 						{/* Row 1: Prices */}
-						<Skeleton className="w-20 h-6 my-1" />
-						<Skeleton className="w-20 h-6 my-1" />
-						<Skeleton className="w-24 h-6 my-1" />
+						<Skeleton className="w-20 h-6 my-0.5 sm:my-1" />
+						<Skeleton className="w-20 h-6 my-0.5 sm:my-1" />
+						<Skeleton className="w-24 h-6 my-0.5 sm:my-1" />
 
 						{/* Row 2: 24h variations */}
-						<Skeleton className="inline-block w-16 h-6" />
-						<Skeleton className="inline-block w-16 h-6" />
-						<Skeleton className="inline-block w-16 h-6" />
+						<Skeleton className="inline-block w-16 h-5" />
+						<Skeleton className="inline-block w-16 h-5" />
+						<Skeleton className="inline-block w-16 h-5" />
 					</div>
 				</CardContent>
 			</Card>
 
 			<Card className="md:col-span-2">
 				<CardContent className="p-4 sm:p-6">
-					<p className="text-sm text-muted-foreground mb-1">{t('xnoDominance')}</p>
-					<Skeleton className="w-24 h-6 my-1" />
+					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoDominance')}</p>
+					<Skeleton className="w-24 h-6 my-2 sm:my-1" />
 					<div className="flex items-center gap-4 mt-2">
 						<Skeleton className="w-20 h-5" />
 						<Skeleton className="w-20 h-5" />
