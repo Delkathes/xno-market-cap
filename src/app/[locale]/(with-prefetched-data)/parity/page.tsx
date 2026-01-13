@@ -4,10 +4,11 @@ import { Loader2 } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { LoadingArea } from '@/components/loading-area'
 import { ParityHighlight } from '@/components/parity-highlight'
-import { ParitySettingsPopover, ParityTable, ParityTableSkeleton } from '@/components/parity-table'
+import { ParitySettingsPopover, ParityTable } from '@/components/parity-table'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -90,7 +91,7 @@ export default async function ParityPage({ params }: Props) {
 									<span className="sr-only">{t('fiatCurrencySettings')}</span>
 								</Button>
 							</div>
-							<ParityTableSkeleton />
+							<ParityTableSkeleton locale={locale} />
 						</section>
 					}
 				>
@@ -119,5 +120,21 @@ export default async function ParityPage({ params }: Props) {
 				</Card>
 			</div>
 		</main>
+	)
+}
+
+async function ParityTableSkeleton({ locale }: { locale: string }) {
+	const t = await getTranslations({ locale, namespace: 'parity' })
+
+	return (
+		<Card className="overflow-hidden">
+			<CardHeader className="pb-0">
+				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
+				<CardDescription>{t('tableDescription')}</CardDescription>
+			</CardHeader>
+			<CardContent className="p-6 relative h-116">
+				<LoadingArea />
+			</CardContent>
+		</Card>
 	)
 }

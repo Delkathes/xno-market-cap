@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS } from '@/lib/constants'
+import { formatLargeNumber } from '@/lib/currency-helpers'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
@@ -39,22 +40,6 @@ function StatItem({
 			)}
 		</div>
 	)
-}
-
-function formatLargeNumber(value: number): string {
-	if (value >= 1e12) {
-		return `${(value / 1e12).toFixed(2)}T`
-	}
-	if (value >= 1e9) {
-		return `${(value / 1e9).toFixed(2)}B`
-	}
-	if (value >= 1e6) {
-		return `${(value / 1e6).toFixed(2)}M`
-	}
-	if (value >= 1e3) {
-		return `${(value / 1e3).toFixed(2)}K`
-	}
-	return value.toFixed(2)
 }
 
 export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
@@ -107,16 +92,24 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 						</div>
 					</div>
 					<div className="grid grid-cols-2 sm:grid-cols-4 gap-4 gap-x-14 sm:gap-8 w-fit">
-						<StatItem label={t('marketCap')} value={formatLargeNumber(marketCapInXNO)} suffix="XNO" />
-						<StatItem label={t('volume24h')} value={formatLargeNumber(volumeInXNO)} suffix="XNO" />
+						<StatItem
+							label={t('marketCap')}
+							value={formatLargeNumber(marketCapInXNO, { includeK: true })}
+							suffix="XNO"
+						/>
+						<StatItem
+							label={t('volume24h')}
+							value={formatLargeNumber(volumeInXNO, { includeK: true })}
+							suffix="XNO"
+						/>
 						<StatItem
 							label={t('circulatingSupply')}
-							value={formatLargeNumber(coin.circulating_supply ?? 0)}
+							value={formatLargeNumber(coin.circulating_supply ?? 0, { includeK: true })}
 							suffix={coin.symbol.toUpperCase()}
 						/>
 						<StatItem
 							label={t('maxSupply')}
-							value={coin.max_supply ? formatLargeNumber(coin.max_supply) : '∞'}
+							value={coin.max_supply ? formatLargeNumber(coin.max_supply, { includeK: true }) : '∞'}
 							suffix={coin.max_supply ? coin.symbol.toUpperCase() : undefined}
 						/>
 					</div>

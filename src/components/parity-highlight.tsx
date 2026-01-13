@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 
 import type { AssetData, AssetId } from '@/lib/asset-config'
 import { parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
+import { formatParityHighlight, formatXNOAmount } from '@/lib/currency-helpers'
 import { cn } from '@/lib/utils'
 
 import { useAssetData } from '@/hooks/use-asset-data'
@@ -15,18 +16,6 @@ import { calculateAllParities, getFilteredAssets } from '@/hooks/use-filtered-as
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { MarketDataError } from '@/components/market-data-error'
-
-// Format parity value for highlight cards (shorter format)
-const formatHighlightValue = (value: number, asset: AssetData): string => {
-	const { symbol, unit, type } = asset
-
-	if (type === 'fiat') {
-		return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-	}
-
-	const decimals = type === 'commodity' ? 3 : 4
-	return `${value.toFixed(decimals)} ${unit}`
-}
 
 // Calculate future parity using max supply
 const calculateFutureParity = (fromId: AssetId, toId: AssetId, assetMap: Record<AssetId, AssetData>): number | null => {
@@ -143,9 +132,6 @@ export function ParityHighlight() {
 			? 'grid-cols-1 sm:grid-cols-3 lg:grid-cols-5'
 			: 'grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6'
 
-	const formatXnoDisplay = (amount: number) =>
-		amount >= 1000 ? `${amount.toLocaleString(undefined, { maximumFractionDigits: 1 })} XNO` : `${amount} XNO`
-
 	return (
 		<div className={cn('grid gap-3', gridClass)}>
 			{displayAssets.map((assetId) => {
@@ -172,7 +158,7 @@ export function ParityHighlight() {
 										<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity" />
 									</p>
 									<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
-										{formatXnoDisplay(xnoAmount)}
+										{formatXNOAmount(xnoAmount, { compact: false, showSymbol: false })}
 									</p>
 									<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">
 										{t('clickToEdit')}
@@ -212,10 +198,10 @@ export function ParityHighlight() {
 				}
 
 				return (
-					<div key={assetId} className="p-4 rounded-lg border bg-background/50 border-border">
+					<div key={assetId} className="p-4 rounded-lg border bg-card border-border">
 						<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
 						<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
-							{formatHighlightValue(value, asset)}
+							{formatParityHighlight(value, asset)}
 						</p>
 						{futureValue !== null && (
 							<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/70">
@@ -223,7 +209,7 @@ export function ParityHighlight() {
 								<span className="font-mono">
 									{futureValue === Number.POSITIVE_INFINITY
 										? t('noLimit')
-										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatHighlightValue(futureValue * xnoAmount, asset)}`}
+										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatParityHighlight(futureValue * xnoAmount, asset)}`}
 								</span>
 							</p>
 						)}

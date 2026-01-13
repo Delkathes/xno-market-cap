@@ -5,6 +5,7 @@ import type { PieLabelRenderProps } from 'recharts'
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
 import { CRYPTO_COLORS, CRYPTO_IDS, CryptoTicker } from '@/lib/constants'
+import { formatLargeNumber } from '@/lib/currency-helpers'
 
 import { useIsClientSide } from '@/hooks/use-is-client-side'
 import { useIsMobile } from '@/hooks/use-is-mobile'
@@ -145,11 +146,7 @@ export function DominanceChart() {
 							</Pie>
 							<Tooltip
 								formatter={(value: number | undefined) => [
-									value && value >= 1e9
-										? `${(value / 1e9).toFixed(2)}B XNO`
-										: value
-											? `${(value / 1e6).toFixed(2)}M XNO`
-											: '0.00',
+									value ? formatLargeNumber(value, { unit: 'XNO' }) : '0.00',
 									t('marketCap'),
 								]}
 							/>

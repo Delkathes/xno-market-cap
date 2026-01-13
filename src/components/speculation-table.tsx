@@ -5,7 +5,12 @@ import { memo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
-import { type ExchangeRates, formatSmartPrice as formatPrice, getFiatRate } from '@/lib/currency-helpers'
+import {
+	type ExchangeRates,
+	formatLargeNumber,
+	formatSmartFiatPrice as formatPrice,
+	getFiatRate,
+} from '@/lib/currency-helpers'
 import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -101,15 +106,6 @@ export function SpeculationTable() {
 
 	const otherCryptos = data.filter((c) => c.id !== CRYPTO_IDS.NANO).sort((a, b) => b.market_cap - a.market_cap)
 
-	const formatPriceValue = (priceInFiat: number) => formatPrice(priceInFiat, currency)
-
-	const formatMarketCap = (mcUSD: number) => {
-		const mc = mcUSD * rate
-		if (mc >= 1e12) return `${symbol}${(mc / 1e12).toFixed(2)}T`
-		if (mc >= 1e9) return `${symbol}${(mc / 1e9).toFixed(2)}B`
-		return `${symbol}${(mc / 1e6).toFixed(2)}M`
-	}
-
 	return (
 		<Card className="relative">
 			<div className="absolute -top-12 right-0">
@@ -148,8 +144,11 @@ export function SpeculationTable() {
 									<SpeculationRow
 										key={crypto.id}
 										crypto={crypto}
-										formatMarketCap={formatMarketCap}
-										formatPrice={formatPriceValue}
+										formatMarketCap={(marketCapUSD: number) => {
+											const marketCap = marketCapUSD * rate
+											return `${symbol}${formatLargeNumber(marketCap)}`
+										}}
+										formatPrice={(priceInFiat: number) => formatPrice(priceInFiat, currency)}
 										multiplier={multiplier}
 										xnoPriceIf={xnoPriceIf}
 									/>

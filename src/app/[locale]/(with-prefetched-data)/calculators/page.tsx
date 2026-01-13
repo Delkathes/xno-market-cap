@@ -90,11 +90,12 @@ async function ParityHighlightCalculatorSkeleton() {
 						<Calculator className="h-5 w-5 text-[#209CE9]" />
 						<Skeleton className="h-5 w-44" />
 					</CardTitle>
-					<CardDescription className="relative pt-1">
-						<Skeleton className="h-4 w-96" />
+					<CardDescription className="relative pt-1 max-w-full">
+						<Skeleton className="h-4 w-80 max-w-full sm:w-120" />
+						<Skeleton className="h-4 w-60 mt-1 sm:hidden" />
 					</CardDescription>
 				</div>
-				<Button variant="ghost" size="icon" className="h-8 w-8">
+				<Button variant="ghost" size="icon" className="h-8 w-8 flex-none">
 					<Loader2 className="h-4 w-4 animate-spin" />
 				</Button>
 			</CardHeader>

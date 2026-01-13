@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl'
 import { ASSET_CONFIG } from '@/lib/asset-config'
 import { FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
 import { primaryFiatAtom } from '@/lib/currency-atoms'
+import { formatFiatPrice, formatPercentage, formatXNOAmount } from '@/lib/currency-helpers'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -44,31 +45,6 @@ const SUPPLY_THRESHOLDS = {
 // HELPER FUNCTIONS
 // =============================================================================
 
-const formatXNO = (value: number): string => {
-	if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(2)}M`
-	if (value >= 1_000) return `${(value / 1_000).toFixed(2)}K`
-	if (value >= 1) return value.toFixed(2)
-	if (value >= 0.01) return value.toFixed(4)
-	return value.toFixed(6)
-}
-
-const formatFiat = (value: number, symbol: string): string => {
-	if (value >= 1_000_000_000) return `${symbol}${(value / 1_000_000_000).toFixed(2)}B`
-	if (value >= 1_000_000) return `${symbol}${(value / 1_000_000).toFixed(2)}M`
-	if (value >= 1_000) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-	return `${symbol}${value.toFixed(2)}`
-}
-
-const formatPercentage = (value: number): string => {
-	if (value >= 1) return `${value.toFixed(2)}%`
-	if (value >= 0.01) return `${value.toFixed(4)}%`
-	if (value >= 0.0001) return `${value.toFixed(6)}%`
-	if (value >= 0.000001) return `${value.toFixed(8)}%`
-	if (value >= 0.00000001) return `${value.toFixed(10)}%`
-	if (value >= 0.0000000001) return `${value.toFixed(12)}%`
-	return `${value.toExponential(2)}%`
-}
-
 const getSupplyTierLabel = (percentage: number): { label: string; color: string; emoji: string } => {
 	if (percentage >= SUPPLY_THRESHOLDS.whale)
 		return { label: 'Legendary Whale', color: 'text-purple-500', emoji: '🐋' }
@@ -99,7 +75,11 @@ function LockButton({ isLocked, onToggle, disabled, className }: LockButtonProps
 			size="icon"
 			onClick={onToggle}
 			disabled={disabled}
-			className={cn('h-6 w-6 shrink-0', isLocked ? 'text-amber-500' : 'text-muted-foreground/50', className)}
+			className={cn(
+				'h-6 w-6 shrink-0 cursor-pointer',
+				isLocked ? 'text-amber-500' : 'text-muted-foreground/50',
+				className,
+			)}
 			title={isLocked ? t('clickToUnlock') : t('clickToLock')}
 		>
 			{isLocked ? <Lock className="h-3.5 w-3.5" /> : <Unlock className="h-3.5 w-3.5" />}
@@ -194,7 +174,7 @@ function EditableStatCard({
 					<button
 						type="button"
 						className={cn(
-							'text-2xl font-bold font-mono text-left w-full flex items-center gap-1 hover:opacity-80 transition-opacity',
+							'text-2xl font-bold font-mono text-left flex items-center gap-1 hover:opacity-80 transition-opacity cursor-pointer w-fit',
 							highlight && 'text-[#209CE9]',
 						)}
 					>
@@ -288,7 +268,7 @@ function PeoplePopoverInput({ value, onChange, t }: PeoplePopoverInputProps) {
 			<PopoverTrigger asChild>
 				<button
 					type="button"
-					className="text-sm font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group"
+					className="text-sm font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group cursor-pointer"
 				>
 					{formatPeopleDisplay(value)} {value === 1 ? t('person') : t('people')}
 					<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity" />
@@ -778,19 +758,19 @@ export function ParityCalculator() {
 					<EditableStatCard
 						icon={<PiggyBank className="h-4 w-4" />}
 						label={t('totalInvestment')}
-						value={formatFiat(totalInvestment, fiatConfig.symbol)}
+						value={formatFiatPrice(totalInvestment, selectedFiat)}
 						numericValue={totalInvestment}
 						onValueChange={(v) => solveSystem('totalInvestment', v)}
 						isLocked={lockedFields.has('totalInvestment')}
 						onLockToggle={() => toggleLock('totalInvestment')}
 						canLock={canLock('totalInvestment')}
 						inputPrefix={fiatConfig.symbol}
-						subValue={people > 1 ? `${people} × ${formatFiat(amount, fiatConfig.symbol)}` : undefined}
+						subValue={people > 1 ? `${people} × ${formatFiatPrice(amount, selectedFiat)}` : undefined}
 					/>
 					<EditableStatCard
 						icon={<Coins className="h-4 w-4" />}
 						label={t('totalXNO')}
-						value={`Ӿ ${formatXNO(totalXNO)}`}
+						value={`Ӿ ${formatXNOAmount(totalXNO, { compact: false, showSymbol: false })}`}
 						numericValue={totalXNO}
 						onValueChange={(v) => solveSystem('totalXNO', v)}
 						isLocked={lockedFields.has('totalXNO')}
@@ -799,12 +779,16 @@ export function ParityCalculator() {
 						inputSuffix="Ӿ"
 						highlight
 						max={XNO_TOTAL_SUPPLY}
-						subValue={people > 1 ? `Ӿ ${formatXNO(totalXNO / people)} ${t('perPerson')}` : undefined}
+						subValue={
+							people > 1
+								? `Ӿ ${formatXNOAmount(totalXNO / people, { compact: false, showSymbol: false })} ${t('perPerson')}`
+								: undefined
+						}
 					/>
 					<EditableStatCard
 						icon={<Percent className="h-4 w-4" />}
 						label={t('supplyPercentage')}
-						value={formatPercentage(supplyPercentage)}
+						value={formatPercentage(supplyPercentage, { highPrecision: true })}
 						numericValue={supplyPercentage}
 						onValueChange={handleSupplyPercentageChange}
 						isLocked={lockedFields.has('totalXNO')}
@@ -813,7 +797,7 @@ export function ParityCalculator() {
 						inputSuffix="%"
 						subValue={
 							people > 1
-								? `${formatPercentage(perPersonSupplyPercentage)} ${t('perPerson')} · ${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
+								? `${formatPercentage(perPersonSupplyPercentage, { highPrecision: true })} ${t('perPerson')} · ${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
 								: `${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
 						}
 						max={100}
@@ -842,8 +826,8 @@ export function ParityCalculator() {
 						</span>
 						<span className={cn('font-mono font-medium', isImpossibleScenario && 'text-amber-500')}>
 							{isImpossibleScenario
-								? formatPercentage(theoreticalSupplyPercentage)
-								: formatPercentage(supplyPercentage)}
+								? formatPercentage(theoreticalSupplyPercentage, { highPrecision: true })
+								: formatPercentage(supplyPercentage, { highPrecision: true })}
 						</span>
 					</div>
 					<Progress
@@ -881,7 +865,10 @@ export function ParityCalculator() {
 											oneIn: Math.round(100 / perPersonSupplyPercentage).toLocaleString(),
 										})
 									: t('funFactStarting', {
-											xno: formatXNO(totalXNO / people),
+											xno: formatXNOAmount(totalXNO / people, {
+												compact: false,
+												showSymbol: false,
+											}),
 										})}
 						</p>
 					</div>
@@ -902,8 +889,10 @@ export function ParityCalculator() {
 										{t('realFact')}:
 									</span>{' '}
 									{t('realFactComparison', {
-										xnoPercentage: formatPercentage(perPersonSupplyPercentage),
-										fiatPercentage: formatPercentage(fiatSupplyPercentage),
+										xnoPercentage: formatPercentage(perPersonSupplyPercentage, {
+											highPrecision: true,
+										}),
+										fiatPercentage: formatPercentage(fiatSupplyPercentage, { highPrecision: true }),
 										ratio: Math.round(ratio).toLocaleString(),
 										fiat: fiatConfig.label,
 									})}

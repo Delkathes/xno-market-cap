@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl'
 import { Link, useRouter } from '@/i18n/navigation'
 
 import { CRYPTO_IDS } from '@/lib/constants'
+import { formatLargeNumber, formatPercentage } from '@/lib/currency-helpers'
 import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -87,9 +88,7 @@ const CryptoRow = memo(function CryptoRow({
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange7d} />}
 			</td>
 			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
-				{marketCapInXNO >= 1e9
-					? `${(marketCapInXNO / 1e9).toFixed(2)}B`
-					: `${(marketCapInXNO / 1e6).toFixed(2)}M`}
+				{formatLargeNumber(marketCapInXNO)}
 			</td>
 		</tr>
 	)
@@ -108,7 +107,7 @@ function Change({ change }: { change: number }) {
 			) : (
 				<TrendingDown className="w-3 h-3 sm:w-4 sm:h-4" />
 			)}
-			{Math.abs(change).toFixed(2)}%
+			{formatPercentage(Math.abs(change))}
 		</div>
 	)
 }

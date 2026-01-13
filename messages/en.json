@@ -195,7 +195,7 @@
 		"funFact": "Fun fact",
 		"funFactWhale": "With {percentage}% of supply, you'd be among the top Nano holders in the world!",
 		"funFactNotable": "You'd own more XNO than roughly 1 in every {oneIn} people on Earth could ever hold!",
-		"funFactStarting": "Every Ӿ {xno} counts! Nano's fixed supply means your share can never be diluted.",
+		"funFactStarting": "Every {xno} counts! Nano's fixed supply means your share can never be diluted.",
 		"realFact": "Real fact",
 		"realFactComparison": "Your XNO share ({xnoPercentage}) is {ratio}× larger than your {fiat} share ({fiatPercentage}) of M2 money supply.",
 		"lockGuide": "Lock values to keep them fixed while adjusting others. Up to 2 locks allowed.",

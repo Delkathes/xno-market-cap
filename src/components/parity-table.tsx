@@ -6,8 +6,9 @@ import { Infinity as InfinityIcon, Settings } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { type AssetData, type AssetId, FIAT_ASSETS } from '@/lib/asset-config'
-import { FiatCurrency } from '@/lib/constants'
+import type { FiatCurrency } from '@/lib/constants'
 import { parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
+import { formatMaxSupply, formatParityValue, formatSupply } from '@/lib/currency-helpers'
 import { cn } from '@/lib/utils'
 
 import { useAssetData } from '@/hooks/use-asset-data'
@@ -19,87 +20,14 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Progress } from '@/components/ui/progress'
 import { MarketDataError } from '@/components/market-data-error'
 
-import { LoadingArea } from './loading-area'
-
 // =============================================================================
 // PURE FUNCTIONS - Data Transformation
 // =============================================================================
-
-// Format supply for display
-const formatSupply = (asset: AssetData): string => {
-	const { currentSupply, symbol, type } = asset
-
-	if (type === 'fiat') {
-		const trillions = currentSupply / 1_000_000_000_000
-		return `${symbol}${trillions.toFixed(1)}T`
-	}
-
-	if (type === 'commodity') {
-		return `${(currentSupply / 1_000_000).toFixed(0)}M kg`
-	}
-
-	if (currentSupply >= 1_000_000) {
-		return `${(currentSupply / 1_000_000).toFixed(1)}M`
-	}
-
-	return currentSupply.toLocaleString()
-}
 
 // Calculate supply percentage (current / max)
 const getSupplyPercentage = (asset: AssetData): number | null => {
 	if (asset.maxSupply === null) return null
 	return (asset.currentSupply / asset.maxSupply) * 100
-}
-
-// Format max supply for display
-const formatMaxSupply = (asset: AssetData): string => {
-	const { maxSupply, symbol, type } = asset
-
-	if (maxSupply === null) return '∞'
-
-	if (type === 'fiat') {
-		const trillions = maxSupply / 1_000_000_000_000
-		return `${symbol}${trillions.toFixed(1)}T`
-	}
-
-	if (type === 'commodity') {
-		return `${(maxSupply / 1_000_000).toFixed(0)}M kg`
-	}
-
-	if (maxSupply >= 1_000_000) {
-		return `${(maxSupply / 1_000_000).toFixed(1)}M`
-	}
-
-	return maxSupply.toLocaleString()
-}
-
-// Format parity value for display
-const formatParityValue = (value: number, asset: AssetData): string => {
-	const { symbol, unit, id } = asset
-	const isFiat = asset.type === 'fiat'
-
-	if (isFiat) {
-		// JPY has much larger numbers
-		if (id === FiatCurrency.JPY) {
-			if (value >= 1_000_000_000) return `${symbol}${(value / 1_000_000_000).toFixed(0)}B`
-			if (value >= 1_000_000) return `${symbol}${(value / 1_000_000).toFixed(0)}M`
-			if (value >= 1_000) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-			return `${symbol}${value.toFixed(0)}`
-		}
-
-		if (value >= 1_000_000) return `${symbol}${(value / 1_000_000).toFixed(0)}M`
-		if (value >= 1_000) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-		if (value >= 1) return `${symbol}${value.toFixed(2)}`
-		return `${symbol}${value.toFixed(8)}`
-	}
-
-	// Crypto and commodity
-	if (value >= 1) {
-		const decimals = value >= 100 ? 0 : value >= 10 ? 2 : 3
-		return `${value.toFixed(decimals)} ${unit}`
-	}
-
-	return `${value.toFixed(4)} ${unit}`
 }
 
 // Generate dynamic note for crypto assets with live data
@@ -139,7 +67,11 @@ function SupplyCell({ asset }: SupplyCellProps) {
 		<div className="space-y-1.5">
 			<div className="flex items-center justify-between gap-2 text-xs">
 				<span className="font-mono text-primary">
-					{formatSupply(asset)}
+					{formatSupply(asset.currentSupply, {
+						type: asset.type,
+						symbol: asset.symbol,
+						unit: asset.type === 'commodity' ? 'kg' : undefined,
+					})}
 					{asset.isLive && (
 						<span className="ml-1 text-[10px] text-emerald-500" title="Live data">
 							●
@@ -151,7 +83,14 @@ function SupplyCell({ asset }: SupplyCellProps) {
 						<InfinityIcon className="h-3 w-3" />
 					</span>
 				) : (
-					<span className="text-muted-foreground">/ {formatMaxSupply(asset)}</span>
+					<span className="text-muted-foreground">
+						/{' '}
+						{formatMaxSupply(asset.maxSupply, {
+							type: asset.type,
+							symbol: asset.symbol,
+							unit: asset.type === 'commodity' ? 'kg' : undefined,
+						})}
+					</span>
 				)}
 			</div>
 			<div className="relative">
@@ -186,23 +125,6 @@ function SupplyCell({ asset }: SupplyCellProps) {
 				)}
 			</div>
 		</div>
-	)
-}
-
-// Loading skeleton for table
-export function ParityTableSkeleton() {
-	const t = useTranslations('parity')
-
-	return (
-		<Card className="overflow-hidden">
-			<CardHeader className="pb-0">
-				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
-				<CardDescription>{t('tableDescription')}</CardDescription>
-			</CardHeader>
-			<CardContent className="p-6 relative h-116">
-				<LoadingArea />
-			</CardContent>
-		</Card>
 	)
 }
 
@@ -309,7 +231,14 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 							isSelf ? 'text-muted-foreground' : targetAsset.color.text,
 						)}
 					>
-						{isSelf ? '1' : formatParityValue(value, targetAsset)}
+						{isSelf
+							? '1'
+							: formatParityValue(value, {
+									symbol: targetAsset.symbol,
+									unit: targetAsset.unit,
+									type: targetAsset.type,
+									currency: targetAsset.id as FiatCurrency,
+								})}
 					</td>
 				)
 			})}

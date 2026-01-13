@@ -201,7 +201,7 @@
 		"funFact": "Curiosità",
 		"funFactWhale": "Con il {percentage}% dell'offerta, saresti tra i maggiori holder di Nano al mondo!",
 		"funFactNotable": "Possederesti più XNO di quanto 1 persona su {oneIn} sulla Terra potrebbe mai detenere!",
-		"funFactStarting": "Ogni Ӿ {xno} conta! L'offerta fissa di Nano significa che la tua quota non può mai essere diluita.",
+		"funFactStarting": "Ogni {xno} conta! L'offerta fissa di Nano significa che la tua quota non può mai essere diluita.",
 		"realFact": "Fatto reale",
 		"realFactComparison": "La tua quota XNO ({xnoPercentage}) è {ratio}× più grande della tua quota {fiat} ({fiatPercentage}) della massa monetaria M2.",
 		"lockGuide": "Blocca i valori per mantenerli fissi mentre modifichi gli altri. Massimo 2 blocchi consentiti.",

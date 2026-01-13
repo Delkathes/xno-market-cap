@@ -20,6 +20,7 @@ import {
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
 import { primaryFiatAtom } from '@/lib/currency-atoms'
+import { formatLargeNumber } from '@/lib/currency-helpers'
 import type { ChartTimeRange, FiatCurrencyCode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -73,16 +74,12 @@ function formatXAxis(timestamp: number, timeRange: ChartTimeRange): string {
 	return date.toLocaleDateString(undefined, { month: 'short', year: '2-digit' })
 }
 
-function formatPrice(value: number): string {
-	if (value >= 1000000) {
-		return `${(value / 1000000).toLocaleString(undefined, {
-			maximumFractionDigits: 2,
-		})}M`
+function formatChartPrice(value: number): string {
+	if (value >= 1e6) {
+		return formatLargeNumber(value, { includeK: true, useLocale: true })
 	}
-	if (value >= 1000) {
-		return `${(value / 1000).toLocaleString(undefined, {
-			maximumFractionDigits: 2,
-		})}K`
+	if (value >= 1e3) {
+		return formatLargeNumber(value, { includeK: true, useLocale: true })
 	}
 	if (value >= 1) {
 		return value.toLocaleString(undefined, {
@@ -468,7 +465,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								/>
 								<YAxis
 									domain={['auto', 'auto']}
-									tickFormatter={formatPrice}
+									tickFormatter={formatChartPrice}
 									stroke={axisColor}
 									fontSize={11}
 									tickLine={false}
@@ -535,7 +532,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								/>
 								<YAxis
 									domain={['auto', 'auto']}
-									tickFormatter={formatPrice}
+									tickFormatter={formatChartPrice}
 									stroke={axisColor}
 									fontSize={11}
 									tickLine={false}

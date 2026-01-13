@@ -200,7 +200,7 @@
 		"funFact": "Dato curioso",
 		"funFactWhale": "¡Con el {percentage}% del suministro, estarías entre los mayores poseedores de Nano del mundo!",
 		"funFactNotable": "¡Poseerías más XNO de lo que aproximadamente 1 de cada {oneIn} personas en la Tierra podría tener!",
-		"funFactStarting": "¡Cada Ӿ {xno} cuenta! El suministro fijo de Nano significa que tu porción nunca puede ser diluida.",
+		"funFactStarting": "¡Cada {xno} cuenta! El suministro fijo de Nano significa que tu porción nunca puede ser diluida.",
 		"realFact": "Dato real",
 		"realFactComparison": "Tu porción de XNO ({xnoPercentage}) es {ratio}× mayor que tu porción de {fiat} ({fiatPercentage}) de la masa monetaria M2.",
 		"lockGuide": "Bloquea valores para mantenerlos fijos mientras ajustas otros. Máximo 2 bloqueos permitidos.",

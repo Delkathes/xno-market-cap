@@ -9,8 +9,11 @@ import { CRYPTO_IDS } from '@/lib/constants'
 import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
 import {
 	type ExchangeRates,
+	formatCryptoMarketCap,
+	formatCryptoPrice,
+	formatFiatMarketCap,
 	formatFiatPrice,
-	formatMarketCap,
+	formatPercentage,
 	getFiatRate,
 	getPriceChange,
 	type PriceChange24h,
@@ -86,27 +89,6 @@ export function MarketOverview() {
 	const xnoPriceSecondary = xnoData ? xnoData.current_price * secondaryRate : 0
 	const xnoPriceCrypto = xnoData && selectedCrypto ? xnoData.current_price / selectedCrypto.current_price : 0
 
-	const formatCryptoPrice = () => {
-		if (!selectedCrypto) return '—'
-		if (selectedCrypto.id === CRYPTO_IDS.BITCOIN) {
-			return showSatoshi
-				? `${Math.round(xnoPriceCrypto * 1e8).toLocaleString()} sats`
-				: `${xnoPriceCrypto.toFixed(8)} BTC`
-		}
-		// For other cryptos, show appropriate decimals
-		return `${xnoPriceCrypto.toFixed(6)} ${selectedCrypto.symbol.toUpperCase()}`
-	}
-
-	const formatMarketCapInCrypto = () => {
-		if (!selectedCrypto) return '—'
-		if (selectedCrypto.id === CRYPTO_IDS.BITCOIN) {
-			return showSatoshi
-				? `${Math.round(xnoMarketCapCrypto * 1e8).toLocaleString()} sats`
-				: `${xnoMarketCapCrypto.toFixed(2)} BTC`
-		}
-		return `${xnoMarketCapCrypto.toFixed(2).toLocaleString()} ${selectedCrypto.symbol.toUpperCase()}`
-	}
-
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
 			<Card className="group relative md:col-span-2">
@@ -119,10 +101,10 @@ export function MarketOverview() {
 					</p>
 					<div className="flex items-center gap-3 mt-2 flex-wrap">
 						<p className="text-sm text-muted-foreground">
-							{formatMarketCap(xnoMarketCapPrimary, primaryFiat)}
+							{formatFiatMarketCap(xnoMarketCapPrimary, primaryFiat)}
 						</p>
 						<p className="text-sm text-muted-foreground">
-							{formatMarketCap(xnoMarketCapSecondary, secondaryFiat)}
+							{formatFiatMarketCap(xnoMarketCapSecondary, secondaryFiat)}
 						</p>
 						<button onClick={() => setShowSatoshi(!showSatoshi)} type="button">
 							<p
@@ -134,7 +116,12 @@ export function MarketOverview() {
 											: t('units'),
 								})}
 							>
-								{formatMarketCapInCrypto()}
+								{!selectedCrypto
+									? '—'
+									: formatCryptoMarketCap(xnoMarketCapCrypto, {
+											symbol: selectedCrypto.symbol,
+											asSatoshi: selectedCrypto.id === CRYPTO_IDS.BITCOIN && showSatoshi,
+										})}
 							</p>
 						</button>
 					</div>
@@ -156,7 +143,12 @@ export function MarketOverview() {
 							</span>
 							<button className="text-left" type="button" onClick={() => setShowSatoshi(!showSatoshi)}>
 								<span className="text-xl sm:text-2xl font-bold font-mono cursor-pointer line-clamp-1 hover:text-primary transition-colors">
-									{formatCryptoPrice()}
+									{!selectedCrypto
+										? '—'
+										: formatCryptoPrice(xnoPriceCrypto, {
+												symbol: selectedCrypto.symbol,
+												asSatoshi: selectedCrypto.id === CRYPTO_IDS.BITCOIN && showSatoshi,
+											})}
 								</span>
 							</button>
 
@@ -199,7 +191,7 @@ function Change({ value }: { value: number }) {
 				<TrendingDown className="w-4 h-4 text-destructive" />
 			)}
 			<span className={value >= 0 ? 'text-constructive text-sm font-medium' : 'text-destructive text-sm'}>
-				{value.toFixed(2)}%
+				{formatPercentage(value)}
 			</span>
 		</div>
 	)

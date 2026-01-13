@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, type FiatCurrency } from '@/lib/constants'
 import { primaryFiatAtom } from '@/lib/currency-atoms'
-import { type ExchangeRates, formatSmartPrice, getFiatRate } from '@/lib/currency-helpers'
+import { type ExchangeRates, formatLargeNumber, formatSmartFiatPrice, getFiatRate } from '@/lib/currency-helpers'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -18,24 +18,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-
-// =============================================================================
-// HELPER FUNCTIONS
-// =============================================================================
-
-const formatFiat = (value: number, symbol: string): string => {
-	if (value >= 1_000_000_000_000) return `${symbol}${(value / 1_000_000_000_000).toFixed(2)}T`
-	if (value >= 1_000_000_000) return `${symbol}${(value / 1_000_000_000).toFixed(2)}B`
-	if (value >= 1_000_000) return `${symbol}${(value / 1_000_000).toFixed(2)}M`
-	if (value >= 1_000) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-	return `${symbol}${value.toFixed(2)}`
-}
-
-const formatMarketCap = (mc: number, symbol: string): string => {
-	if (mc >= 1e12) return `${symbol}${(mc / 1e12).toFixed(2)}T`
-	if (mc >= 1e9) return `${symbol}${(mc / 1e9).toFixed(2)}B`
-	return `${symbol}${(mc / 1e6).toFixed(2)}M`
-}
 
 export function SpeculationCalculator() {
 	const t = useTranslations('speculationCalculator')
@@ -188,7 +170,7 @@ export function SpeculationCalculator() {
 											/>
 											<span>{crypto.name}</span>
 											<span className="text-muted-foreground text-xs ml-auto">
-												{formatMarketCap(crypto.market_cap * rate, fiatConfig.symbol)}
+											{fiatConfig.symbol}{formatLargeNumber(crypto.market_cap * rate)}
 											</span>
 										</div>
 									</SelectItem>
@@ -268,8 +250,8 @@ export function SpeculationCalculator() {
 								<p className="text-sm text-muted-foreground">{t('ifXnoHadMarketCapOf')}</p>
 								<p className="font-semibold text-lg">
 									{useCustomMarketCap
-										? formatMarketCap(customMarketCap, fiatConfig.symbol)
-										: `${selectedCrypto?.name} (${formatMarketCap(targetMarketCap, fiatConfig.symbol)})`}
+										? `${fiatConfig.symbol}${formatLargeNumber(customMarketCap)}`
+										: `${selectedCrypto?.name} (${fiatConfig.symbol}${formatLargeNumber(targetMarketCap)})`}
 								</p>
 							</div>
 						</div>
@@ -278,13 +260,13 @@ export function SpeculationCalculator() {
 							<div className="space-y-1">
 								<p className="text-sm text-muted-foreground">{t('xnoPrice')}</p>
 								<p className="font-mono font-bold text-2xl">
-									{formatSmartPrice(xnoPriceIf, selectedFiat)}
+									{formatSmartFiatPrice(xnoPriceIf, selectedFiat)}
 								</p>
 							</div>
 							<div className="space-y-1">
 								<p className="text-sm text-muted-foreground">{t('yourStackValue')}</p>
 								<p className="font-mono font-bold text-2xl text-primary">
-									{formatFiat(futureValue, fiatConfig.symbol)}
+									{futureValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 								</p>
 							</div>
 							<div className="space-y-1">
@@ -300,7 +282,7 @@ export function SpeculationCalculator() {
 													: '',
 										)}
 									>
-										{`${multiplier.toLocaleString()}×`}
+										{`${multiplier.toLocaleString(undefined, { maximumFractionDigits: 2 })}×`}
 									</span>
 								</div>
 							</div>
@@ -310,7 +292,7 @@ export function SpeculationCalculator() {
 							<div className="mt-4 pt-4 border-t border-primary/10">
 								<p className="text-sm text-muted-foreground">{t('potentialGain')}</p>
 								<p className="font-mono font-bold text-xl text-emerald-500">
-									+{formatFiat(gain, fiatConfig.symbol)}
+									+{gain.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 								</p>
 							</div>
 						)}
