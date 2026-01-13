@@ -117,7 +117,8 @@
 		"change1h": "1h %",
 		"change24h": "24h %",
 		"change7d": "7d %",
-		"marketCapXno": "Capitalización (XNO)"
+		"marketCapXno": "Capitalización (XNO)",
+		"volume24h": "Vol 24h (XNO)"
 	},
 	"coinDetail": {
 		"errorLoading": "No se pueden cargar los datos de la moneda. Inténtalo más tarde.",
@@ -194,6 +195,13 @@
 		"supplyPercentage": "% Suministro",
 		"of": "de",
 		"holderTier": "Categoría de Holder",
+		"tierLegendaryWhale": "Ballena Legendaria",
+		"tierMajorHolder": "Gran Poseedor",
+		"tierSignificantStack": "Stack Significativo",
+		"tierNotableHolder": "Poseedor Notable",
+		"tierGrowingStack": "Stack en Crecimiento",
+		"tierStartingOut": "Comenzando",
+		"tierPlankton": "Plancton",
 		"supplyAcquired": "Suministro Adquirido",
 		"exceedsSupply": "¡Excede el suministro total!",
 		"fixedSupply": "Suministro fijo",

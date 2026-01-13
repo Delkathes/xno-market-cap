@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl'
 import { Link, useRouter } from '@/i18n/navigation'
 
 import { CRYPTO_IDS } from '@/lib/constants'
-import { formatLargeNumber, formatPercentage } from '@/lib/currency-helpers'
+import { formatLargeNumber, formatPercentage, formatPrice } from '@/lib/currency-helpers'
 import type { CryptoData } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -22,6 +22,7 @@ interface CryptoRowProps {
 	isXNO: boolean
 	valueInXNO: number
 	marketCapInXNO: number
+	volumeInXNO: number
 	relativeChange1h: number
 	relativeChange24h: number
 	relativeChange7d: number
@@ -32,6 +33,7 @@ const CryptoRow = memo(function CryptoRow({
 	isXNO,
 	valueInXNO,
 	marketCapInXNO,
+	volumeInXNO,
 	relativeChange1h,
 	relativeChange24h,
 	relativeChange7d,
@@ -69,14 +71,7 @@ const CryptoRow = memo(function CryptoRow({
 				</Link>
 			</td>
 			<td className="p-4 text-right font-mono text-sm sm:text-base text-primary">
-				{isXNO ? (
-					<span>1.00</span>
-				) : (
-					valueInXNO.toLocaleString(undefined, {
-						minimumFractionDigits: 2,
-						maximumFractionDigits: 2,
-					})
-				)}
+				{isXNO ? <span>1.00</span> : formatPrice(valueInXNO)}
 			</td>
 			<td className="p-4 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange1h} />}
@@ -86,6 +81,9 @@ const CryptoRow = memo(function CryptoRow({
 			</td>
 			<td className="p-4 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange7d} />}
+			</td>
+			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
+				{formatLargeNumber(volumeInXNO)}
 			</td>
 			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
 				{formatLargeNumber(marketCapInXNO)}
@@ -146,6 +144,7 @@ export function MarketCapTable() {
 								<th className="text-right p-4 font-medium">{t('change1h')}</th>
 								<th className="text-right p-4 font-medium">{t('change24h')}</th>
 								<th className="text-right p-4 font-medium">{t('change7d')}</th>
+								<th className="text-right p-4 font-medium">{t('volume24h')}</th>
 								<th className="text-right p-4 font-medium">{t('marketCapXno')}</th>
 							</tr>
 						</thead>
@@ -157,6 +156,7 @@ export function MarketCapTable() {
 								const marketCapInXNO = isXNO
 									? (xnoData.circulating_supply ?? 0)
 									: crypto.market_cap / xnoData.current_price
+								const volumeInXNO = crypto.total_volume / xnoData.current_price
 
 								// Calculate relative changes vs XNO
 								const xno1hChange = xnoData.price_change_percentage_1h_in_currency ?? 0
@@ -176,6 +176,7 @@ export function MarketCapTable() {
 										isXNO={isXNO}
 										valueInXNO={valueInXNO}
 										marketCapInXNO={marketCapInXNO}
+										volumeInXNO={volumeInXNO}
 										relativeChange1h={relativeChange1h}
 										relativeChange24h={relativeChange24h}
 										relativeChange7d={relativeChange7d}

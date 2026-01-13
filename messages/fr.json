@@ -118,7 +118,8 @@
 		"change1h": "1h %",
 		"change24h": "24h %",
 		"change7d": "7d %",
-		"marketCapXno": "Capitalisation (XNO)"
+		"marketCapXno": "Capitalisation (XNO)",
+		"volume24h": "Vol 24h (XNO)"
 	},
 	"coinDetail": {
 		"errorLoading": "Impossible de charger les données de la crypto. Veuillez réessayer plus tard.",
@@ -195,6 +196,13 @@
 		"supplyPercentage": "% de l'Offre",
 		"of": "de",
 		"holderTier": "Catégorie de Détenteur",
+		"tierLegendaryWhale": "Baleine Légendaire",
+		"tierMajorHolder": "Grand Détenteur",
+		"tierSignificantStack": "Stack Significatif",
+		"tierNotableHolder": "Détenteur Notable",
+		"tierGrowingStack": "Stack en Croissance",
+		"tierStartingOut": "Débutant",
+		"tierPlankton": "Plancton",
 		"supplyAcquired": "Offre Acquise",
 		"exceedsSupply": "Dépasse l'offre totale !",
 		"fixedSupply": "Offre fixe",

@@ -45,17 +45,29 @@ const SUPPLY_THRESHOLDS = {
 // HELPER FUNCTIONS
 // =============================================================================
 
-const getSupplyTierLabel = (percentage: number): { label: string; color: string; emoji: string } => {
+type TierKey =
+	| 'tierLegendaryWhale'
+	| 'tierMajorHolder'
+	| 'tierSignificantStack'
+	| 'tierNotableHolder'
+	| 'tierGrowingStack'
+	| 'tierStartingOut'
+	| 'tierPlankton'
+
+const getSupplyTierInfo = (percentage: number): { tierKey: TierKey; color: string; emoji: string } => {
 	if (percentage >= SUPPLY_THRESHOLDS.whale)
-		return { label: 'Legendary Whale', color: 'text-purple-500', emoji: '🐋' }
-	if (percentage >= SUPPLY_THRESHOLDS.major) return { label: 'Major Holder', color: 'text-blue-500', emoji: '🦈' }
+		return { tierKey: 'tierLegendaryWhale', color: 'text-purple-500', emoji: '🐋' }
+	if (percentage >= SUPPLY_THRESHOLDS.major)
+		return { tierKey: 'tierMajorHolder', color: 'text-blue-500', emoji: '🦈' }
 	if (percentage >= SUPPLY_THRESHOLDS.significant)
-		return { label: 'Significant Stack', color: 'text-cyan-500', emoji: '🐬' }
+		return { tierKey: 'tierSignificantStack', color: 'text-cyan-500', emoji: '🐬' }
 	if (percentage >= SUPPLY_THRESHOLDS.notable)
-		return { label: 'Notable Holder', color: 'text-emerald-500', emoji: '🐠' }
-	if (percentage >= SUPPLY_THRESHOLDS.small) return { label: 'Growing Stack', color: 'text-green-500', emoji: '🐟' }
-	if (percentage >= SUPPLY_THRESHOLDS.tiny) return { label: 'Starting Out', color: 'text-yellow-500', emoji: '🦐' }
-	return { label: 'Plankton', color: 'text-muted-foreground', emoji: '🦠' }
+		return { tierKey: 'tierNotableHolder', color: 'text-emerald-500', emoji: '🐠' }
+	if (percentage >= SUPPLY_THRESHOLDS.small)
+		return { tierKey: 'tierGrowingStack', color: 'text-green-500', emoji: '🐟' }
+	if (percentage >= SUPPLY_THRESHOLDS.tiny)
+		return { tierKey: 'tierStartingOut', color: 'text-yellow-500', emoji: '🦐' }
+	return { tierKey: 'tierPlankton', color: 'text-muted-foreground', emoji: '🦠' }
 }
 
 // Lock toggle button component
@@ -154,7 +166,7 @@ function EditableStatCard({
 	return (
 		<div
 			className={cn(
-				'p-4 rounded-lg border bg-background/50 space-y-1 relative group',
+				'p-4 rounded-lg border bg-card space-y-1 relative group',
 				highlight && 'bg-[#209CE9]/10 border-[#209CE9]/30',
 				isLocked && 'ring-1 ring-amber-500/30',
 			)}
@@ -378,7 +390,15 @@ export function ParityCalculator() {
 	const perPersonSupplyPercentage = useMemo(() => supplyPercentage / people, [supplyPercentage, people])
 
 	// Holder tier (based on per-person share, not total)
-	const tier = useMemo(() => getSupplyTierLabel(perPersonSupplyPercentage), [perPersonSupplyPercentage])
+	const tierInfo = useMemo(() => getSupplyTierInfo(perPersonSupplyPercentage), [perPersonSupplyPercentage])
+	const tier = useMemo(
+		() => ({
+			label: t(tierInfo.tierKey),
+			color: tierInfo.color,
+			emoji: tierInfo.emoji,
+		}),
+		[t, tierInfo],
+	)
 
 	// Currency config
 	const fiatConfig = FIAT_CURRENCY_CONFIG[selectedFiat]
@@ -804,7 +824,7 @@ export function ParityCalculator() {
 						step={0.0001}
 					/>
 					{/* Holder tier - display only */}
-					<div className={cn('p-4 rounded-lg border bg-background/50 space-y-1', tier.color)}>
+					<div className={cn('p-4 rounded-lg border bg-card space-y-1', tier.color)}>
 						<div className="flex items-center gap-2 text-sm text-muted-foreground">
 							<span className="text-base">{tier.emoji}</span>
 							{t('holderTier')}
@@ -817,7 +837,9 @@ export function ParityCalculator() {
 				<div
 					className={cn(
 						'space-y-3 p-4 rounded-lg border',
-						isImpossibleScenario ? 'bg-amber-500/10 border-amber-500/50' : 'bg-muted/30',
+						isImpossibleScenario
+							? 'bg-amber-500/10 border-amber-500/50'
+							: 'bg-[#209CE9]/10 border-[#209CE9]/30',
 					)}
 				>
 					<div className="flex items-center justify-between text-sm">

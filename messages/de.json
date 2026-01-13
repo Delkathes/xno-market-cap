@@ -117,7 +117,8 @@
 		"change1h": "1h %",
 		"change24h": "24h %",
 		"change7d": "7d %",
-		"marketCapXno": "Marktkapitalisierung (XNO)"
+		"marketCapXno": "Marktkapitalisierung (XNO)",
+		"volume24h": "24h Vol (XNO)"
 	},
 	"coinDetail": {
 		"errorLoading": "Coin-Daten können nicht geladen werden. Bitte später erneut versuchen.",
@@ -194,6 +195,13 @@
 		"supplyPercentage": "Angebot %",
 		"of": "von",
 		"holderTier": "Holder-Kategorie",
+		"tierLegendaryWhale": "Legendärer Wal",
+		"tierMajorHolder": "Großer Holder",
+		"tierSignificantStack": "Bedeutender Stack",
+		"tierNotableHolder": "Bemerkenswerter Holder",
+		"tierGrowingStack": "Wachsender Stack",
+		"tierStartingOut": "Anfänger",
+		"tierPlankton": "Plankton",
 		"supplyAcquired": "Erworbenes Angebot",
 		"exceedsSupply": "Überschreitet Gesamtangebot!",
 		"fixedSupply": "Festes Angebot",

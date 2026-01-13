@@ -98,6 +98,72 @@ export function formatFiatMarketCap(value: number, currency: FiatCurrency): stri
 }
 
 /**
+ * Format a price value
+ */
+
+export function formatPrice(value: number): string {
+	if (value >= 1e4) {
+		return value.toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})
+	} else if (value >= 1e3) {
+		return value.toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})
+	} else if (value >= 10) {
+		return value.toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})
+	} else if (value >= 1) {
+		return value.toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		})
+	} else if (value >= 0.1) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 4,
+			maximumFractionDigits: 4,
+		})
+	} else if (value >= 0.01) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 5,
+			maximumFractionDigits: 5,
+		})
+	} else if (value >= 0.001) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 6,
+			maximumFractionDigits: 6,
+		})
+	} else if (value >= 0.0001) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 7,
+			maximumFractionDigits: 7,
+		})
+	} else if (value >= 0.00001) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 8,
+			maximumFractionDigits: 8,
+		})
+	} else if (value >= 0.000001) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 9,
+			maximumFractionDigits: 9,
+		})
+	} else if (value >= 0.0000001) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 10,
+			maximumFractionDigits: 10,
+		})
+	} else if (value >= 0.00000001) {
+		return value.toLocaleString(undefined, {
+			minimumFractionDigits: 11,
+			maximumFractionDigits: 11,
+		})
+	}
+
+	return value.toLocaleString()
+}
+
+/**
  * Format a price value based on currency
  */
 export function formatFiatPrice(value: number, currency: FiatCurrency): string {

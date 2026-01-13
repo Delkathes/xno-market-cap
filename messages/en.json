@@ -112,7 +112,8 @@
 		"change1h": "1h %",
 		"change24h": "24h %",
 		"change7d": "7d %",
-		"marketCapXno": "Market Cap (XNO)"
+		"marketCapXno": "Market Cap (XNO)",
+		"volume24h": "24h Vol (XNO)"
 	},
 	"coinDetail": {
 		"errorLoading": "Unable to load coin data. Please try again later.",
@@ -189,6 +190,13 @@
 		"supplyPercentage": "Supply %",
 		"of": "of",
 		"holderTier": "Holder Tier",
+		"tierLegendaryWhale": "Legendary Whale",
+		"tierMajorHolder": "Major Holder",
+		"tierSignificantStack": "Significant Stack",
+		"tierNotableHolder": "Notable Holder",
+		"tierGrowingStack": "Growing Stack",
+		"tierStartingOut": "Starting Out",
+		"tierPlankton": "Plankton",
 		"supplyAcquired": "Supply Acquired",
 		"exceedsSupply": "Exceeds total supply!",
 		"fixedSupply": "Fixed supply",

@@ -20,7 +20,7 @@ import {
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
 import { primaryFiatAtom } from '@/lib/currency-atoms'
-import { formatLargeNumber } from '@/lib/currency-helpers'
+import { formatPrice } from '@/lib/currency-helpers'
 import type { ChartTimeRange, FiatCurrencyCode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -74,23 +74,6 @@ function formatXAxis(timestamp: number, timeRange: ChartTimeRange): string {
 	return date.toLocaleDateString(undefined, { month: 'short', year: '2-digit' })
 }
 
-function formatChartPrice(value: number): string {
-	if (value >= 1e6) {
-		return formatLargeNumber(value, { includeK: true, useLocale: true })
-	}
-	if (value >= 1e3) {
-		return formatLargeNumber(value, { includeK: true, useLocale: true })
-	}
-	if (value >= 1) {
-		return value.toLocaleString(undefined, {
-			maximumFractionDigits: 2,
-		})
-	}
-	return value.toLocaleString(undefined, {
-		maximumFractionDigits: 6,
-	})
-}
-
 interface ChartDataPoint {
 	timestamp: number
 	priceInXNO: number
@@ -122,7 +105,7 @@ function CustomTooltip({ active, payload, label, quoteCurrency }: CustomTooltipP
 				})}
 			</p>
 			<p className="text-sm font-medium text-primary">
-				{data.value.toLocaleString()} {quoteCurrency}
+				{formatPrice(data.value)} {quoteCurrency}
 			</p>
 		</div>
 	)
@@ -372,19 +355,13 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Start</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{priceStats.start.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
-										})}{' '}
-										{quoteCurrency}
+										{formatPrice(priceStats.start)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">End</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{priceStats.end.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
-										})}{' '}
-										{quoteCurrency}
+										{formatPrice(priceStats.end)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
@@ -404,27 +381,19 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Low</span>
 									<span className="text-sm font-medium text-destructive">
-										{priceStats.min.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
-										})}{' '}
-										{quoteCurrency}
+										{formatPrice(priceStats.min)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">High</span>
 									<span className="text-sm font-medium text-constructive">
-										{priceStats.max.toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
-										})}{' '}
-										{quoteCurrency}
+										{formatPrice(priceStats.max)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xs text-muted-foreground">Diff.</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{(priceStats.max - priceStats.min).toLocaleString(undefined, {
-											maximumFractionDigits: priceStats.start < 1 ? 7 : 2,
-										})}
+										{formatPrice(priceStats.max - priceStats.min)}
 									</span>
 								</div>
 								<div className="flex flex-col">
@@ -465,7 +434,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								/>
 								<YAxis
 									domain={['auto', 'auto']}
-									tickFormatter={formatChartPrice}
+									tickFormatter={formatPrice}
 									stroke={axisColor}
 									fontSize={11}
 									tickLine={false}
@@ -532,7 +501,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								/>
 								<YAxis
 									domain={['auto', 'auto']}
-									tickFormatter={formatChartPrice}
+									tickFormatter={formatPrice}
 									stroke={axisColor}
 									fontSize={11}
 									tickLine={false}

@@ -117,7 +117,8 @@
 		"change1h": "1u %",
 		"change24h": "24u %",
 		"change7d": "7d %",
-		"marketCapXno": "Marktkapitalisatie (XNO)"
+		"marketCapXno": "Marktkapitalisatie (XNO)",
+		"volume24h": "24u Vol (XNO)"
 	},
 	"coinDetail": {
 		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",
@@ -194,6 +195,13 @@
 		"supplyPercentage": "Voorraad %",
 		"of": "van",
 		"holderTier": "Holder Categorie",
+		"tierLegendaryWhale": "Legendarische Walvis",
+		"tierMajorHolder": "Grote Houder",
+		"tierSignificantStack": "Significante Stack",
+		"tierNotableHolder": "Opmerkelijke Houder",
+		"tierGrowingStack": "Groeiende Stack",
+		"tierStartingOut": "Beginner",
+		"tierPlankton": "Plankton",
 		"supplyAcquired": "Verworven Voorraad",
 		"exceedsSupply": "Overschrijdt totale voorraad!",
 		"fixedSupply": "Vaste voorraad",
