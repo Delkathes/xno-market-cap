@@ -33,9 +33,6 @@ export function useMarketData() {
 		staleTime: 60000, // Data is fresh for 1:00min
 	})
 
-	// Get XNO circulating supply from API data
-	const xnoCirculatingSupply = data?.xnoData?.circulating_supply ?? 0
-
 	return {
 		data: data?.data,
 
@@ -47,7 +44,7 @@ export function useMarketData() {
 		audRate: data?.audRate,
 
 		xnoData: data?.xnoData,
-		xnoCirculatingSupply,
+		xnoCirculatingSupply: data?.xnoData?.circulating_supply ?? 0,
 		xnoPriceChange1h: data?.xnoPriceChange1h,
 		xnoPriceChange24h: data?.xnoPriceChange24h,
 		xnoPriceChange7d: data?.xnoPriceChange7d,

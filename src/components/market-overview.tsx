@@ -135,14 +135,14 @@ export function MarketOverview() {
 					{xnoData && selectedCrypto && (
 						<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
 							{/* Row 1: Prices */}
-							<span className="text-xl sm:text-2xl font-bold font-mono">
+							<span className="text-xl sm:text-2xl font-bold font-mono w-fit">
 								{formatFiatPrice(xnoPricePrimary, primaryFiat)}
 							</span>
-							<span className="text-xl sm:text-2xl font-bold font-mono">
+							<span className="text-xl sm:text-2xl font-bold font-mono w-fit">
 								{formatFiatPrice(xnoPriceSecondary, secondaryFiat)}
 							</span>
 							<button className="text-left" type="button" onClick={() => setShowSatoshi(!showSatoshi)}>
-								<span className="text-xl sm:text-2xl font-bold font-mono cursor-pointer line-clamp-1 hover:text-primary transition-colors">
+								<span className="text-xl sm:text-2xl font-bold font-mono w-fit cursor-pointer line-clamp-1 hover:text-primary transition-colors">
 									{!selectedCrypto
 										? '—'
 										: formatCryptoPrice(xnoPriceCrypto, {

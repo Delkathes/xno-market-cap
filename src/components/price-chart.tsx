@@ -286,7 +286,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									variant={chartType === 'line' ? 'secondary' : 'ghost'}
 									size="sm"
 									onClick={() => setChartType('line')}
-									className="h-8 w-8 p-0"
+									className="h-8 w-8 p-0 cursor-pointer"
 									title={t('lineChart')}
 								>
 									<LineChartIcon className="h-4 w-4" />
@@ -295,7 +295,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									variant={chartType === 'area' ? 'secondary' : 'ghost'}
 									size="sm"
 									onClick={() => setChartType('area')}
-									className="h-8 w-8 p-0"
+									className="h-8 w-8 p-0 cursor-pointer"
 									title={t('areaChart')}
 								>
 									<AreaChartIcon className="h-4 w-4" />
@@ -308,7 +308,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 										<TabsTrigger
 											key={range.value}
 											value={range.value}
-											className="text-xs px-2 py-1"
+											className="text-xs px-2 py-1 cursor-pointer"
 										>
 											{range.label}
 										</TabsTrigger>
@@ -322,26 +322,26 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
 					{isLoading ? (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
-							<Skeleton className="h-9 w-full sm:w-96" />
-							<Skeleton className="h-9 w-full sm:w-96" />
+							<Skeleton className="h-9 w-full sm:w-80" />
+							<Skeleton className="h-9 w-full sm:w-80" />
 						</div>
 					) : (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
 							<div className="flex gap-4 sm:gap-x-6">
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Start</span>
+									<span className="text-xs text-muted-foreground">{t('start')}</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{formatPrice(priceStats.start)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">End</span>
+									<span className="text-xs text-muted-foreground">{t('end')}</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{formatPrice(priceStats.end)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Change</span>
+									<span className="text-xs text-muted-foreground">{t('change')}</span>
 									<span
 										className={cn(
 											'text-sm font-medium',
@@ -355,25 +355,25 @@ export function PriceChart({ coinId }: PriceChartProps) {
 							</div>
 							<div className="flex gap-4 sm:gap-6">
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Low</span>
+									<span className="text-xs text-muted-foreground">{t('low')}</span>
 									<span className="text-sm font-medium text-destructive">
 										{formatPrice(priceStats.min)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">High</span>
+									<span className="text-xs text-muted-foreground">{t('high')}</span>
 									<span className="text-sm font-medium text-constructive">
 										{formatPrice(priceStats.max)} {quoteCurrency}
 									</span>
 								</div>
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Diff.</span>
+									<span className="text-xs text-muted-foreground">{t('diff')}</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{formatPrice(priceStats.max - priceStats.min)}
 									</span>
 								</div>
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">Spread</span>
+									<span className="text-xs text-muted-foreground">{t('spread')}</span>
 									<span className="text-sm font-medium text-primary whitespace-nowrap">
 										{(((priceStats.max - priceStats.min) / priceStats.min) * 100).toFixed(2)}%
 									</span>
@@ -392,7 +392,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				) : (
 					<ResponsiveContainer width="100%" height={300}>
 						{chartType === 'area' ? (
-							<AreaChart data={chartData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+							<AreaChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
 								<defs>
 									<linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
 										<stop offset="5%" stopColor={chartColor} stopOpacity={0.3} />
@@ -466,7 +466,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								/>
 							</AreaChart>
 						) : (
-							<LineChart data={chartData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+							<LineChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
 								<XAxis
 									dataKey="timestamp"
 									tickFormatter={(ts) => formatXAxis(ts, timeRange)}

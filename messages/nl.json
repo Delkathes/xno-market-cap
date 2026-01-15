@@ -134,7 +134,14 @@
 		"errorLoading": "Kan prijsgrafiek niet laden. Probeer het later opnieuw.",
 		"areaChart": "Vlakgrafiek",
 		"lineChart": "Lijngrafiek",
-		"invertChart": "Keer paar om"
+		"invertChart": "Keer paar om",
+		"start": "Start",
+		"end": "Einde",
+		"change": "Verandering",
+		"low": "Laag",
+		"high": "Hoog",
+		"diff": "Versch.",
+		"spread": "Spreiding"
 	},
 	"marketCapVolumeChart": {
 		"title": "{coin} Marktkapitalisatie & Volume in XNO",
@@ -143,10 +150,12 @@
 		"errorLoading": "Kan grafiek niet laden. Probeer het later opnieuw.",
 		"marketCap": "Marktkapitalisatie",
 		"volume": "Volume",
-		"avgMarketCap": "Gem. Marktkapitalisatie",
-		"avgVolume": "Gem. Volume",
+		"startMC": "Start MK",
+		"endMC": "Einde MK",
 		"marketCapChange": "MK Verandering",
-		"volumeChange": "Vol Verandering",
+		"avgVolume": "Gem. Volume",
+		"minVolume": "Min Volume",
+		"maxVolume": "Max Volume",
 		"low": "Laag",
 		"high": "Hoog",
 		"diff": "Versch.",
@@ -413,6 +422,27 @@
 				"reward2": "Eén-klik gratis host deployment",
 				"reward3": "Community-gedreven ontwikkeling"
 			}
+		}
+	},
+	"footer": {
+		"description": "Realtime Nano (XNO) marktgegevens, prijsvergelijkingen en tools voor de Nano-community.",
+		"explore": "Verkennen",
+		"resources": "Bronnen",
+		"community": "Community",
+		"rights": "Alle rechten voorbehouden.",
+		"madeWith": "Gemaakt met",
+		"forNano": "voor Nano",
+		"links": {
+			"market": "Marktoverzicht",
+			"dominance": "Dominantie",
+			"parity": "Pariteit",
+			"speculation": "Speculatie",
+			"getNano": "Nano Krijgen",
+			"swapNano": "Wisselen naar Nano",
+			"calculators": "Rekenmachines",
+			"nanoOrg": "Nano.org",
+			"docs": "Documentatie",
+			"hub": "Nano Hub"
 		}
 	}
 }

@@ -8,9 +8,6 @@ const nextConfig = {
 	reactStrictMode: true,
 	typedRoutes: true,
 
-	env: {
-		DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL
-	},
 	images: {
 		remotePatterns: [
 			{

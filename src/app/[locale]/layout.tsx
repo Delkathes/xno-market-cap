@@ -7,6 +7,7 @@ import { type Locale, routing } from '@/i18n/routing'
 
 import { env } from '@/env'
 
+import { Footer } from '@/components/footer'
 import { Navigation } from '@/components/navigation'
 import { Providers } from '@/components/providers'
 
@@ -140,9 +141,10 @@ export default async function RootLayout({ children, params }: Props) {
 				suppressHydrationWarning
 			>
 				<Providers>
-					<div className="min-h-screen animate-gradient-shift">
+					<div className="min-h-screen flex flex-col animate-gradient-shift">
 						<Navigation />
-						{children}
+						<main className="flex-1 z-0">{children}</main>
+						<Footer locale={locale} />
 					</div>
 				</Providers>
 			</body>

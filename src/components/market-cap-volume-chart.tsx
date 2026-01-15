@@ -155,40 +155,33 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 	const stats = useMemo(() => {
 		if (chartData.length < 2) {
 			return {
-				avgMarketCap: 0,
-				avgVolume: 0,
 				marketCapChange: 0,
-				volumeChange: 0,
 				startMC: 0,
 				endMC: 0,
 				minMC: 0,
 				maxMC: 0,
+				avgVol: 0,
+				minVol: 0,
+				maxVol: 0,
 			}
 		}
 
 		const marketCaps = chartData.map((d) => d.marketCapInXNO)
 		const volumes = chartData.map((d) => d.volumeInXNO)
 
-		const avgMarketCap = marketCaps.reduce((a, b) => a + b, 0) / marketCaps.length
-		const avgVolume = volumes.reduce((a, b) => a + b, 0) / volumes.length
-
 		const firstMC = chartData[0].marketCapInXNO
 		const lastMC = chartData[chartData.length - 1].marketCapInXNO
 		const marketCapChange = firstMC > 0 ? ((lastMC - firstMC) / firstMC) * 100 : 0
 
-		const firstVol = chartData[0].volumeInXNO
-		const lastVol = chartData[chartData.length - 1].volumeInXNO
-		const volumeChange = firstVol > 0 ? ((lastVol - firstVol) / firstVol) * 100 : 0
-
 		return {
-			avgMarketCap,
-			avgVolume,
 			marketCapChange,
-			volumeChange,
 			startMC: firstMC,
 			endMC: lastMC,
 			minMC: Math.min(...marketCaps),
 			maxMC: Math.max(...marketCaps),
+			avgVol: volumes.reduce((a, b) => a + b, 0) / volumes.length,
+			minVol: Math.min(...volumes),
+			maxVol: Math.max(...volumes),
 		}
 	}, [chartData])
 
@@ -278,7 +271,7 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 									variant={chartType === 'line' ? 'secondary' : 'ghost'}
 									size="sm"
 									onClick={() => setChartType('line')}
-									className="h-8 w-8 p-0"
+									className="h-8 w-8 p-0 cursor-pointer"
 									title={t('lineChart')}
 								>
 									<LineChartIcon className="h-4 w-4" />
@@ -287,7 +280,7 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 									variant={chartType === 'area' ? 'secondary' : 'ghost'}
 									size="sm"
 									onClick={() => setChartType('area')}
-									className="h-8 w-8 p-0"
+									className="h-8 w-8 p-0 cursor-pointer"
 									title={t('areaChart')}
 								>
 									<AreaChartIcon className="h-4 w-4" />
@@ -300,7 +293,7 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 										<TabsTrigger
 											key={range.value}
 											value={range.value}
-											className="text-xs px-2 py-1"
+											className="text-xs px-2 py-1 cursor-pointer"
 										>
 											{range.label}
 										</TabsTrigger>
@@ -314,16 +307,23 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
 					{isLoading ? (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
-							<Skeleton className="h-9 w-full sm:w-96" />
-							<Skeleton className="h-9 w-full sm:w-96" />
+							<Skeleton className="h-9 w-full sm:w-80" />
+							<Skeleton className="h-9 w-full sm:w-80" />
+							<Skeleton className="h-9 w-full sm:w-80" />
 						</div>
 					) : (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
 							<div className="flex gap-4 sm:gap-x-6">
 								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('avgMarketCap')}</span>
+									<span className="text-xs text-muted-foreground">{t('startMC')}</span>
 									<span className="text-sm font-medium" style={{ color: colors.marketCap }}>
-										{formatValue(stats.avgMarketCap)}
+										{formatValue(stats.startMC)}
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">{t('endMC')}</span>
+									<span className="text-sm font-medium" style={{ color: colors.marketCap }}>
+										{formatValue(stats.endMC)}
 									</span>
 								</div>
 								<div className="flex flex-col">
@@ -336,24 +336,6 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 									>
 										{stats.marketCapChange >= 0 ? '+' : ''}
 										{stats.marketCapChange.toFixed(2)}%
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('avgVolume')}</span>
-									<span className="text-sm font-medium" style={{ color: colors.volume }}>
-										{formatValue(stats.avgVolume)}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('volumeChange')}</span>
-									<span
-										className={cn(
-											'text-sm font-medium',
-											stats.volumeChange >= 0 ? 'text-constructive' : 'text-destructive',
-										)}
-									>
-										{stats.volumeChange >= 0 ? '+' : ''}
-										{stats.volumeChange.toFixed(2)}%
 									</span>
 								</div>
 							</div>
@@ -383,6 +365,26 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 											? (((stats.maxMC - stats.minMC) / stats.minMC) * 100).toFixed(2)
 											: '0.00'}
 										%
+									</span>
+								</div>
+							</div>
+							<div className="flex gap-4 sm:gap-x-6 sm:col-span-2">
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">{t('avgVolume')}</span>
+									<span className="text-sm font-medium" style={{ color: colors.volume }}>
+										{formatValue(stats.avgVol)}
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">{t('minVolume')}</span>
+									<span className="text-sm font-medium" style={{ color: colors.volume }}>
+										{formatValue(stats.minVol)}
+									</span>
+								</div>
+								<div className="flex flex-col">
+									<span className="text-xs text-muted-foreground">{t('maxVolume')}</span>
+									<span className="text-sm font-medium" style={{ color: colors.volume }}>
+										{formatValue(stats.maxVol)}
 									</span>
 								</div>
 							</div>
@@ -422,7 +424,7 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 								fontSize={11}
 								tickLine={false}
 								axisLine={false}
-								width={70}
+								width={60}
 							/>
 							<YAxis
 								yAxisId="volume"
@@ -432,7 +434,7 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 								fontSize={11}
 								tickLine={false}
 								axisLine={false}
-								width={70}
+								width={60}
 							/>
 							<Tooltip content={<CustomTooltip t={t} formatValue={formatValue} />} />
 							{referenceLines.start && (

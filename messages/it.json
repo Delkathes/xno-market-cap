@@ -135,7 +135,14 @@
 		"errorLoading": "Impossibile caricare il grafico dei prezzi. Riprova più tardi.",
 		"areaChart": "Grafico ad Area",
 		"lineChart": "Grafico a linee",
-		"invertChart": "Inverti coppia"
+		"invertChart": "Inverti coppia",
+		"start": "Inizio",
+		"end": "Fine",
+		"change": "Var.",
+		"low": "Min",
+		"high": "Max",
+		"diff": "Diff.",
+		"spread": "Range"
 	},
 	"marketCapVolumeChart": {
 		"title": "Cap. e Volume di {coin} in XNO",
@@ -144,10 +151,12 @@
 		"errorLoading": "Impossibile caricare il grafico. Riprova più tardi.",
 		"marketCap": "Capitalizzazione",
 		"volume": "Volume",
-		"avgMarketCap": "Cap. Media",
-		"avgVolume": "Vol. Medio",
+		"startMC": "Inizio Cap.",
+		"endMC": "Fine Cap.",
 		"marketCapChange": "Var. Cap.",
-		"volumeChange": "Var. Vol.",
+		"avgVolume": "Vol. Medio",
+		"minVolume": "Vol. Min",
+		"maxVolume": "Vol. Max",
 		"low": "Min",
 		"high": "Max",
 		"diff": "Diff.",
@@ -414,6 +423,27 @@
 				"reward2": "Deployment hosting gratuito con un click",
 				"reward3": "Sviluppo guidato dalla community"
 			}
+		}
+	},
+	"footer": {
+		"description": "Dati di mercato Nano (XNO) in tempo reale, confronti di prezzo e strumenti per la comunità Nano.",
+		"explore": "Esplora",
+		"resources": "Risorse",
+		"community": "Community",
+		"rights": "Tutti i diritti riservati.",
+		"madeWith": "Fatto con",
+		"forNano": "per Nano",
+		"links": {
+			"market": "Panoramica Mercato",
+			"dominance": "Dominanza",
+			"parity": "Parità",
+			"speculation": "Speculazione",
+			"getNano": "Ottieni Nano",
+			"swapNano": "Scambia in Nano",
+			"calculators": "Calcolatori",
+			"nanoOrg": "Nano.org",
+			"docs": "Documentazione",
+			"hub": "Nano Hub"
 		}
 	}
 }
