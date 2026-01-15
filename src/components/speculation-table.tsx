@@ -72,7 +72,7 @@ const SpeculationRow = memo(function SpeculationRow({
 								: 'bg-muted text-muted-foreground',
 					)}
 				>
-					{`${multiplier.toFixed(1)}×`}
+					{`${multiplier.toLocaleString(undefined, { maximumFractionDigits: multiplier >= 1000 ? 0 : 1 })}×`}
 				</span>
 			</td>
 		</tr>

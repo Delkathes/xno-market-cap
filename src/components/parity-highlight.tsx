@@ -7,12 +7,14 @@ import { useTranslations } from 'next-intl'
 
 import type { AssetData, AssetId } from '@/lib/asset-config'
 import { parityFiatCurrenciesAtom } from '@/lib/currency-atoms'
-import { formatParityHighlight, formatXNOAmount } from '@/lib/currency-helpers'
+import { formatParityValue, formatXNOAmount } from '@/lib/currency-helpers'
 import { cn } from '@/lib/utils'
 
 import { useAssetData } from '@/hooks/use-asset-data'
 import { calculateAllParities, getFilteredAssets } from '@/hooks/use-filtered-assets'
+import { useMarketData } from '@/hooks/use-market-data'
 
+import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { MarketDataError } from '@/components/market-data-error'
@@ -36,6 +38,8 @@ const calculateFutureParity = (fromId: AssetId, toId: AssetId, assetMap: Record<
 export function ParityHighlight() {
 	const t = useTranslations('parity')
 
+	const { xnoData } = useMarketData()
+
 	const { assetMap, error } = useAssetData()
 
 	const enabledFiats = useAtomValue(parityFiatCurrenciesAtom)
@@ -57,13 +61,20 @@ export function ParityHighlight() {
 		}
 	}, [isPopoverOpen])
 
-	const handleInputChange = useCallback((value: string) => {
-		setInputValue(value)
-		const parsed = parseFloat(value)
-		if (!Number.isNaN(parsed) && parsed >= 0) {
-			setXnoAmount(parsed)
-		}
-	}, [])
+	const handleInputChange = useCallback(
+		(value: string) => {
+			let nextValue = value
+			if (parseFloat(value) >= (xnoData?.max_supply ?? xnoData?.circulating_supply ?? 0)) {
+				nextValue = (xnoData?.max_supply ?? xnoData?.circulating_supply ?? 0).toString()
+			}
+			setInputValue(nextValue)
+			const parsed = parseFloat(nextValue)
+			if (!Number.isNaN(parsed) && parsed >= 0) {
+				setXnoAmount(parsed)
+			}
+		},
+		[xnoData?.max_supply, xnoData?.circulating_supply],
+	)
 
 	const handleInputBlur = useCallback(() => {
 		const parsed = parseFloat(inputValue)
@@ -75,6 +86,32 @@ export function ParityHighlight() {
 		}
 	}, [inputValue])
 
+	const adjustAmount = useCallback(
+		(delta: number) => {
+			setXnoAmount((prev) => {
+				// Dynamic step based on order of magnitude
+				const magnitude = Math.floor(Math.log10(prev))
+				const baseStep = 10 ** magnitude
+
+				// Only use smaller step on decrement at power-of-10 boundaries (1, 0.1, 0.01, etc.)
+				// This allows smooth transition: 1.0 → 0.9, 0.1 → 0.09, etc.
+				const atBoundary = Math.abs(prev / baseStep - 1) < 0.001
+				const step = delta < 0 && atBoundary ? baseStep / 10 : baseStep
+
+				const newValue = prev + delta * step
+				const minValue = 0.00001
+				const maxValue = xnoData?.max_supply ?? xnoData?.circulating_supply ?? Number.POSITIVE_INFINITY
+				const clamped = Math.max(minValue, Math.min(maxValue, newValue))
+
+				// Round to avoid floating point issues (to 5 decimal places max)
+				const rounded = Math.round(clamped * 100000) / 100000
+				setInputValue(rounded.toString())
+				return rounded
+			})
+		},
+		[xnoData],
+	)
+
 	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent) => {
 			if (e.key === 'Enter') {
@@ -84,29 +121,30 @@ export function ParityHighlight() {
 			if (e.key === 'Escape') {
 				setIsPopoverOpen(false)
 			}
+			// Handle arrow keys with dynamic step
+			if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+				e.preventDefault()
+				const delta = e.key === 'ArrowUp' ? 1 : -1
+				adjustAmount(delta)
+			}
 		},
-		[handleInputBlur],
+		[handleInputBlur, adjustAmount],
 	)
 
-	const adjustAmount = useCallback((delta: number) => {
-		setXnoAmount((prev) => {
-			const step = prev >= 100 ? 10 : prev >= 10 ? 1 : 0.1
-			const newValue = prev + delta * step
-			const clamped = Math.max(0.1, Math.round(newValue * 10) / 10)
-			setInputValue(clamped.toString())
-			return clamped
-		})
-	}, [])
+	// Handle mousewheel on the XNO card area - use native event listener with passive: false
+	useEffect(() => {
+		const container = containerRef.current
+		if (!container) return
 
-	// Handle mousewheel on the XNO card area
-	const handleWheel = useCallback(
-		(e: React.WheelEvent) => {
+		const handleWheel = (e: WheelEvent) => {
 			e.preventDefault()
 			const delta = e.deltaY < 0 ? 1 : -1
 			adjustAmount(delta)
-		},
-		[adjustAmount],
-	)
+		}
+
+		container.addEventListener('wheel', handleWheel, { passive: false })
+		return () => container.removeEventListener('wheel', handleWheel)
+	}, [adjustAmount])
 
 	const displayAssets = useMemo(() => getFilteredAssets(enabledFiats), [enabledFiats])
 
@@ -148,7 +186,6 @@ export function ParityHighlight() {
 								<button
 									ref={containerRef}
 									type="button"
-									onWheel={handleWheel}
 									className="p-4 rounded-lg border bg-[#209CE9]/10 border-[#209CE9]/30 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
 									tabIndex={0}
 									aria-label={t('clickToEditXnoAmount')}
@@ -178,8 +215,9 @@ export function ParityHighlight() {
 											ref={inputRef}
 											id="xno-amount"
 											type="number"
-											min={0.1}
-											step={0.1}
+											min={0.00001}
+											step="any"
+											max={xnoData.max_supply ?? xnoData.circulating_supply}
 											value={inputValue}
 											onChange={(e) => handleInputChange(e.target.value)}
 											onBlur={handleInputBlur}
@@ -198,22 +236,22 @@ export function ParityHighlight() {
 				}
 
 				return (
-					<div key={assetId} className="p-4 rounded-lg border bg-card border-border">
+					<Card key={assetId} className="p-4 block">
 						<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
 						<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
-							{formatParityHighlight(value, asset)}
+							{formatParityValue(value, asset)}
 						</p>
 						{futureValue !== null && (
 							<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/70">
-								<TrendingUp className="h-3 w-3 text-emerald-500/70 mr-1" />
+								<TrendingUp className="h-3 w-3 mr-1" />
 								<span className="font-mono">
 									{futureValue === Number.POSITIVE_INFINITY
 										? t('noLimit')
-										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatParityHighlight(futureValue * xnoAmount, asset)}`}
+										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatParityValue(futureValue * xnoAmount, asset)}`}
 								</span>
 							</p>
 						)}
-					</div>
+					</Card>
 				)
 			})}
 		</div>

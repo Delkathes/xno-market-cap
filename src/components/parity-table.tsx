@@ -30,25 +30,6 @@ const getSupplyPercentage = (asset: AssetData): number | null => {
 	return (asset.currentSupply / asset.maxSupply) * 100
 }
 
-// Generate dynamic note for crypto assets with live data
-const getDynamicNote = (asset: AssetData): string => {
-	if (asset.type !== 'crypto' || !asset.isLive) return asset.note
-
-	const percentage = getSupplyPercentage(asset)
-	if (percentage === null) return asset.note
-
-	if (asset.id === 'XNO') {
-		return 'Fixed, fully distributed'
-	}
-
-	if (asset.id === 'BTC' && asset.maxSupply) {
-		const maxInM = asset.maxSupply / 1_000_000
-		return `~${percentage.toFixed(0)}% mined of ${maxInM}M cap`
-	}
-
-	return asset.note
-}
-
 // =============================================================================
 // COMPONENTS
 // =============================================================================
@@ -245,7 +226,6 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 			<td className="p-4 min-w-35">
 				<SupplyCell asset={asset} />
 			</td>
-			<td className="p-4 text-muted-foreground text-sm">{getDynamicNote(asset)}</td>
 		</tr>
 	)
 })
@@ -288,7 +268,6 @@ export function ParityTable() {
 									</th>
 								))}
 								<th className="text-right p-4 font-medium">{t('totalSupply')}</th>
-								<th className="text-left p-4 font-medium">{t('note')}</th>
 							</tr>
 						</thead>
 						<tbody>

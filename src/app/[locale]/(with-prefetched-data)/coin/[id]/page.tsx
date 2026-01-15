@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
 import { LoadingArea } from '@/components/loading-area'
+import { MarketCapVolumeChart } from '@/components/market-cap-volume-chart'
 import { PriceChart } from '@/components/price-chart'
 
 type Props = {
@@ -21,6 +22,7 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	'use cache'
 	const { locale, id } = await params
 	const t = await getTranslations({ locale, namespace: 'metadata.coin' })
 
@@ -73,6 +75,7 @@ async function getCachedPriceChart(coinId: string, days: ChartTimeRange, vsCurre
 
 export default async function CoinDetailPage({ params }: Props) {
 	'use cache'
+
 	const { locale, id: coinIdParam } = await params
 
 	setRequestLocale(locale)
@@ -98,6 +101,9 @@ export default async function CoinDetailPage({ params }: Props) {
 				<HydrationBoundary state={dehydrate(queryClient)}>
 					<Suspense fallback=<PriceChartSkeleton />>
 						<PriceChart coinId={coinIdParam} />
+					</Suspense>
+					<Suspense fallback=<MarketCapVolumeChartSkeleton />>
+						<MarketCapVolumeChart coinId={coinIdParam} />
 					</Suspense>
 				</HydrationBoundary>
 			</div>
@@ -135,6 +141,31 @@ function CoinInfoCardSkeleton() {
 }
 
 function PriceChartSkeleton() {
+	return (
+		<Card>
+			<CardHeader className="pb-2 gap-6 sm:gap-2">
+				<div className="flex justify-between">
+					<Skeleton className="h-8 w-36" />
+					<div className="flex flex-col gap-y-2">
+						<Skeleton className="h-8 w-36 sm:w-96" />
+						<Skeleton className="h-8 w-36 sm:hidden" />
+					</div>
+				</div>
+				<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
+					<Skeleton className="h-9 w-full sm:w-96" />
+					<Skeleton className="h-9 w-full sm:w-96" />
+				</div>
+			</CardHeader>
+			<CardContent className="pb-4 px-4">
+				<div className="h-75 w-full relative rounded-lg overflow-hidden">
+					<LoadingArea />
+				</div>
+			</CardContent>
+		</Card>
+	)
+}
+
+function MarketCapVolumeChartSkeleton() {
 	return (
 		<Card>
 			<CardHeader className="pb-2 gap-6 sm:gap-2">

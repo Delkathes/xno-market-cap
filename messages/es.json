@@ -136,6 +136,24 @@
 		"lineChart": "Gráfico de líneas",
 		"invertChart": "Invertir par"
 	},
+	"marketCapVolumeChart": {
+		"title": "Cap. de Mercado y Volumen de {coin} en XNO",
+		"titleInverted": "XNO en Cap. de Mercado y Volumen de {coin}",
+		"invertChart": "Invertir gráfico",
+		"errorLoading": "No se puede cargar el gráfico. Inténtalo más tarde.",
+		"marketCap": "Cap. de Mercado",
+		"volume": "Volumen",
+		"avgMarketCap": "Cap. Promedio",
+		"avgVolume": "Vol. Promedio",
+		"marketCapChange": "Cambio Cap.",
+		"volumeChange": "Cambio Vol.",
+		"low": "Mín",
+		"high": "Máx",
+		"diff": "Dif.",
+		"spread": "Rango",
+		"lineChart": "Gráfico de líneas",
+		"areaChart": "Gráfico de área"
+	},
 	"dominance": {
 		"title": "Dominancia del Mercado",
 		"description": "¿Cómo se compara XNO con los gigantes? Explora la distribución de cuota de mercado en el panorama crypto.",
@@ -162,7 +180,6 @@
 		"blockquote": "Basándose puramente en el suministro absoluto y no inflacionable, una sola unidad de Nano es fundamentalmente más escasa que una sola unidad de cualquier otro activo en esta lista—incluyendo Bitcoin y Oro. Este es el poder de un suministro completamente distribuido y absolutamente fijo.",
 		"asset": "Activo",
 		"totalSupply": "Suministro Total",
-		"note": "Nota",
 		"fiatCurrencies": "Monedas Fiat",
 		"fiatCurrencySettings": "Configuración de moneda fiat",
 		"selectCurrenciesToDisplay": "Selecciona qué monedas mostrar",

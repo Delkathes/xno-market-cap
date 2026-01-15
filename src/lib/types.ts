@@ -82,6 +82,11 @@ export interface PriceChartPoint {
 	priceInXNO: number
 	marketCap: number
 	volume: number
+	marketCapInXNO: number
+	volumeInXNO: number
+	// XNO's market cap and volume expressed in the coin (for inverted view)
+	xnoMarketCapInCoin: number
+	xnoVolumeInCoin: number
 }
 
 export interface PriceChartResponse {

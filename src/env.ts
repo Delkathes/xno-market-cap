@@ -42,7 +42,10 @@ export const env = createEnv({
 
 		// Netlify
 		NEXT_PUBLIC_DEPLOY_PRIME_URL:
-			process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_SITE_URL : process.env.DEPLOY_PRIME_URL,
+			process.env.NODE_ENV === 'development'
+				? process.env.NEXT_PUBLIC_SITE_URL
+				: process.env.NEXT_PUBLIC_DEPLOY_PRIME_URL,
+		// process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_SITE_URL : process.env.DEPLOY_PRIME_URL,
 
 		// Site
 		NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

@@ -108,13 +108,13 @@ function CustomTooltip({ active, payload, t }: CustomTooltipProps) {
 
 	return (
 		<div className="bg-card border rounded-lg px-3 py-2 shadow-lg">
-			<p className="text-xs font-mono font-medium">
+			<p className="text-[10px] font-mono font-medium mb-0.5">
 				≤{formatPeople(data.maxPeople)} {t('tierChartPeople')}
 			</p>
-			<p className="text-xs font-mono text-muted-foreground">
+			<p className="text-[10px] font-mono text-muted-foreground leading-2">
 				{formatXNOAmount(data.xno, { compact: false, showSymbol: false })}
 			</p>
-			<p className="text-[10px] text-muted-foreground mt-1">
+			<p className="text-[10px] text-muted-foreground">
 				{data.percentage.toLocaleString(undefined, { maximumFractionDigits: data.percentage >= 1 ? 2 : 4 })}%
 			</p>
 		</div>
@@ -138,17 +138,68 @@ function ThresholdChart({ currentPercentage, t }: ThresholdChartProps) {
 		[isDark],
 	)
 
-	// Generate chart data points (hyperbola: people = 100 / percentage)
+	// Generate chart data points with tier-segmented values
 	const chartData = useMemo(() => {
-		const data: Array<{ percentage: number; maxPeople: number; xno: number; logPercentage: number }> = []
+		const data: Array<{
+			logPercentage: number
+			percentage: number
+			maxPeople: number
+			xno: number
+			[key: string]: number | undefined
+		}> = []
+
 		// Generate points along the curve on a log scale
 		for (let logP = -4; logP <= 2; logP += 0.05) {
 			const percentage = 10 ** logP
 			const maxPeople = Math.min(100 / percentage, 1_000_000)
 			const xno = (percentage / 100) * XNO_TOTAL_SUPPLY
-			data.push({ percentage, maxPeople, xno, logPercentage: logP })
+
+			// Find which tier this point belongs to
+			const tier = TIER_INFO.find((t, idx) => {
+				const nextTier = TIER_INFO[idx + 1]
+				if (!nextTier) return true
+				return percentage >= t.threshold
+			})
+
+			const point: (typeof data)[number] = {
+				logPercentage: logP,
+				percentage,
+				maxPeople,
+				xno,
+			}
+
+			// Set the value only for the matching tier
+			if (tier) {
+				point[tier.tierKey] = maxPeople
+			}
+
+			data.push(point)
 		}
-		return data
+
+		// Add boundary points at tier thresholds for smooth transitions
+		for (const tier of TIER_INFO) {
+			if (tier.threshold > 0) {
+				const logP = Math.log10(tier.threshold)
+				const maxPeople = Math.min(100 / tier.threshold, 1_000_000)
+				const xno = (tier.threshold / 100) * XNO_TOTAL_SUPPLY
+
+				// Check if we already have a point very close to this threshold
+				const hasNearby = data.some((d) => Math.abs(d.logPercentage - logP) < 0.01)
+				if (!hasNearby) {
+					const point: (typeof data)[number] = {
+						logPercentage: logP,
+						percentage: tier.threshold,
+						maxPeople,
+						xno,
+					}
+					point[tier.tierKey] = maxPeople
+					data.push(point)
+				}
+			}
+		}
+
+		// Sort by logPercentage
+		return data.sort((a, b) => a.logPercentage - b.logPercentage)
 	}, [])
 
 	// Current position data point
@@ -159,15 +210,6 @@ function ThresholdChart({ currentPercentage, t }: ThresholdChartProps) {
 		const logPercentage = Math.log10(Math.max(currentPercentage, 0.0001))
 		return { percentage: currentPercentage, maxPeople, xno, logPercentage }
 	}, [currentPercentage])
-
-	// Tier threshold points for reference dots
-	const tierPoints = useMemo(() => {
-		return TIER_INFO.filter((tier) => tier.threshold > 0).map((tier) => ({
-			...tier,
-			logPercentage: Math.log10(tier.threshold),
-			maxPeople: Math.min(100 / tier.threshold, 1_000_000),
-		}))
-	}, [])
 
 	// Find current tier for coloring
 	const currentTier = useMemo(() => {
@@ -223,20 +265,13 @@ function ThresholdChart({ currentPercentage, t }: ThresholdChartProps) {
 			<div className="h-50 w-full">
 				<ResponsiveContainer width="100%" height="100%">
 					<AreaChart data={chartData} margin={{ top: 25, right: 0, bottom: 10, left: 0 }}>
-						<defs>
-							<linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-								<stop offset="0%" stopColor={colors.primary} stopOpacity={0.3} />
-								<stop offset="100%" stopColor={colors.primary} stopOpacity={0.05} />
-							</linearGradient>
-						</defs>
-
 						<XAxis
 							dataKey="logPercentage"
 							type="number"
 							domain={[-4, 2]}
-							ticks={[-4, -2, 0, 2]}
+							ticks={[-4, -3, -2, -1, 0, 1, 2]}
 							tickFormatter={formatXAxis}
-							tick={{ fontSize: 9, fill: colors.muted }}
+							tick={{ fontSize: 8, fill: colors.muted }}
 							axisLine={{ stroke: colors.border }}
 							tickLine={{ stroke: colors.border }}
 							label={{
@@ -267,34 +302,49 @@ function ThresholdChart({ currentPercentage, t }: ThresholdChartProps) {
 							width={40}
 						/>
 
-						<Tooltip content={<CustomTooltip t={t} />} />
+						<Tooltip content={<CustomTooltip t={t} />} cursor={{ strokeDasharray: '4 4' }} />
 
-						<Area
-							type="monotone"
-							dataKey="maxPeople"
-							stroke={colors.primary}
-							strokeWidth={2}
-							activeDot={{ r: 5, strokeWidth: 2, stroke: colors.background }}
-							fill="url(#areaGradient)"
-							isAnimationActive={false}
-						/>
+						{/* Tier emoji labels at top-center of each line segment */}
+						{TIER_INFO.filter((tier) => tier.tierKey !== 'tierPlankton').map((tier, idx) => {
+							// The band for a tier goes from its threshold (lower bound) to the previous tier's threshold (upper bound)
+							const prevTier = idx > 0 ? TIER_INFO[idx - 1] : null
+							const logStart = Math.log10(tier.threshold)
+							const logEnd = prevTier ? Math.log10(prevTier.threshold) : 2 // 100% for first tier (whale)
+							// Midpoint between start and end
+							const midX = (logStart + logEnd) / 2
+							// Calculate Y on the curve at midX, then add offset above the line
+							const curveY = Math.min(100 / 10 ** midX, 1_000_000)
+							// Multiply by factor > 1 to push emoji above the curve (log scale)
+							const offsetY = curveY * 3.14
 
-						{/* Tier threshold markers */}
-						{tierPoints.map((tier) => (
-							<ReferenceDot
+							return (
+								<ReferenceDot
+									key={`emoji-${tier.tierKey}`}
+									x={midX + 0.0425}
+									y={offsetY}
+									r={0}
+									label={{
+										value: tier.emoji,
+										position: 'center',
+										style: { fontSize: 12 },
+									}}
+								/>
+							)
+						})}
+
+						{/* Tier-colored area segments */}
+						{TIER_INFO.filter((tier) => tier.tierKey !== 'tierPlankton').map((tier) => (
+							<Area
 								key={tier.tierKey}
-								x={tier.logPercentage}
-								y={tier.maxPeople}
-								r={4}
-								fill={colors.background}
+								type="monotone"
+								dataKey={tier.tierKey}
 								stroke={getTierHexColor(tier)}
-								strokeWidth={4}
-								label={{
-									value: tier.emoji,
-									position: 'top',
-									offset: 8,
-									style: { fontSize: 12 },
-								}}
+								strokeWidth={2}
+								fill={getTierHexColor(tier)}
+								fillOpacity={isDark ? 0.25 : 0.15}
+								activeDot={{ r: 5, strokeWidth: 2, stroke: colors.background }}
+								isAnimationActive={false}
+								connectNulls={false}
 							/>
 						))}
 
@@ -306,23 +356,23 @@ function ThresholdChart({ currentPercentage, t }: ThresholdChartProps) {
 										{ x: currentData.logPercentage, y: 1 },
 										{ x: currentData.logPercentage, y: currentData.maxPeople },
 									]}
-									stroke={colors.primary}
-									strokeDasharray="1.5 1.5"
-									strokeOpacity={0.5}
+									stroke={getTierHexColor(currentTier)}
+									// strokeDasharray="2 2"
+									strokeOpacity={1}
 								/>
 								<ReferenceLine
 									segment={[
 										{ x: -4, y: currentData.maxPeople },
 										{ x: currentData.logPercentage, y: currentData.maxPeople },
 									]}
-									stroke={colors.primary}
-									strokeDasharray="1.5 1.5"
-									strokeOpacity={0.5}
+									stroke={getTierHexColor(currentTier)}
+									// strokeDasharray="2 2"
+									strokeOpacity={1}
 								/>
 								<ReferenceDot
 									x={currentData.logPercentage}
 									y={currentData.maxPeople}
-									r={8}
+									r={6}
 									fill={getTierHexColor(currentTier)}
 									stroke={colors.background}
 									strokeWidth={2}
@@ -354,7 +404,7 @@ export function HolderTierDialog({ currentTierKey, currentPercentage }: HolderTi
 				<Button
 					variant="ghost"
 					size="icon"
-					className="absolute top-2 right-2 h-6 w-6 text-muted-foreground/50 hover:text-muted-foreground"
+					className="absolute top-2 right-2 h-6 w-6 text-muted-foreground/50 hover:text-muted-foreground cursor-pointer"
 				>
 					<Info className="h-3.5 w-3.5" />
 				</Button>
@@ -369,13 +419,13 @@ export function HolderTierDialog({ currentTierKey, currentPercentage }: HolderTi
 				<ThresholdChart currentPercentage={currentPercentage} t={t} />
 
 				{/* Tier list */}
-				<div className="space-y-2">
+				<div className="space-y-1">
 					{TIER_INFO.map((tierItem, index) => (
 						<div
 							key={tierItem.tierKey}
 							className={cn(
-								'flex items-center justify-between p-3 rounded-lg border transition-colors',
-								currentTierKey === tierItem.tierKey && 'bg-primary/5 border-primary/20',
+								'flex items-center justify-between p-1 rounded-lg transition-colors',
+								currentTierKey === tierItem.tierKey && 'bg-primary/5 border border-primary/20',
 							)}
 						>
 							<div className="flex items-center gap-3">

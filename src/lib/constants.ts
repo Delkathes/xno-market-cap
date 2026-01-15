@@ -86,7 +86,7 @@ export interface DonationMilestoneConfig {
 export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
 	{
 		id: 'development',
-		targetXno: 2500,
+		targetXno: 2000,
 		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_DEVELOPMENT,
 		icon: 'rocket',
 		rewardCount: 3,
@@ -100,7 +100,7 @@ export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
 	},
 	{
 		id: 'maintenance',
-		targetXno: 10000,
+		targetXno: 5000,
 		walletAddress: env.NEXT_PUBLIC_DONATION_WALLET_MAINTENANCE,
 		icon: 'shield',
 		rewardCount: 3,

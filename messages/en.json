@@ -131,6 +131,24 @@
 		"lineChart": "Line Chart",
 		"invertChart": "Invert pair"
 	},
+	"marketCapVolumeChart": {
+		"title": "{coin} Market Cap & Volume in XNO",
+		"titleInverted": "XNO in {coin} Market Cap & Volume",
+		"invertChart": "Invert chart",
+		"errorLoading": "Unable to load chart. Please try again later.",
+		"marketCap": "Market Cap",
+		"volume": "Volume",
+		"avgMarketCap": "Avg Market Cap",
+		"avgVolume": "Avg Volume",
+		"marketCapChange": "MC Change",
+		"volumeChange": "Vol Change",
+		"low": "Low",
+		"high": "High",
+		"diff": "Diff.",
+		"spread": "Spread",
+		"lineChart": "Line chart",
+		"areaChart": "Area chart"
+	},
 	"dominance": {
 		"title": "Market Dominance",
 		"description": "How does XNO stack up against the giants? Explore market share distribution across the crypto landscape.",
@@ -157,7 +175,6 @@
 		"blockquote": "Based purely on absolute, un-inflatable supply, a single unit of Nano is fundamentally scarcer than a single unit of any other asset on this list—including Bitcoin and Gold. This is the power of a fully distributed and absolutely fixed supply.",
 		"asset": "Asset",
 		"totalSupply": "Total Supply",
-		"note": "Note",
 		"fiatCurrencies": "Fiat Currencies",
 		"fiatCurrencySettings": "Fiat currency settings",
 		"selectCurrenciesToDisplay": "Select which currencies to display",

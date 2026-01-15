@@ -1,9 +1,7 @@
 import * as v from 'valibot'
 
-import { env } from '@/env'
-
+import { getCoingeckoClient } from './coingecko'
 import { CRYPTO_IDS } from './constants'
-import { fetchWithRetry } from './fetch-with-timeout'
 import type { CryptoData, MarketDataResponse, XnoPriceChangePerCurrency } from './types'
 import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from './validation'
 
@@ -29,36 +27,36 @@ export class UpstreamError extends Error {
 	}
 }
 
-const REQUEST_TIMEOUT_MS = 10000
+function mapSdkError(error: unknown, context: string): never {
+	if (error instanceof Error) {
+		if (error.name === 'RateLimitError' || error.message.includes('429')) {
+			throw new RateLimitError(`CoinGecko API rate limit exceeded: ${context}`)
+		}
+		if (error.name === 'APIConnectionTimeoutError') {
+			throw new UpstreamError(`Request timed out: ${context}`)
+		}
+	}
+	throw new UpstreamError(`Failed to fetch data: ${context}`)
+}
 
 export async function getMarketData(): Promise<MarketDataResponse> {
 	try {
-		const apiKey = env.COINGECKO_API_KEY
+		const client = getCoingeckoClient()
 
-		const headers: HeadersInit = {
-			Accept: 'application/json',
-			...(apiKey && { 'x-cg-demo-api-key': apiKey }),
+		// Fetch top 25 cryptocurrencies
+		let top25Json: unknown
+		try {
+			top25Json = await client.coins.markets.get({
+				vs_currency: 'usd',
+				order: 'market_cap_desc',
+				per_page: 25,
+				page: 1,
+				sparkline: false,
+				price_change_percentage: '1h,24h,7d',
+			})
+		} catch (error) {
+			mapSdkError(error, 'top 25 cryptocurrencies')
 		}
-
-		const top25Response = await fetchWithRetry(
-			'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=25&page=1&sparkline=false&price_change_percentage=1h,24h,7d',
-			{
-				headers,
-				next: {
-					revalidate: 60,
-				},
-			} as RequestInit,
-			{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
-		)
-
-		if (!top25Response.ok) {
-			if (top25Response.status === 429) {
-				throw new RateLimitError('CoinGecko API rate limit exceeded')
-			}
-			throw new UpstreamError(`Failed to fetch top 25 cryptocurrencies: ${top25Response.status}`)
-		}
-
-		const top25Json = await top25Response.json()
 
 		const top25Result = v.safeParse(CryptoDataArraySchema, top25Json)
 		if (!top25Result.success) {
@@ -74,83 +72,66 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		// Check if XNO (Nano) is already in top 25
 		const hasXNO = top25Data.some((crypto) => crypto.id === CRYPTO_IDS.NANO)
 
-		const fetchPromises: Promise<Response | null>[] = []
-
-		if (!hasXNO) {
-			fetchPromises.push(
-				fetchWithRetry(
-					'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=nano&sparkline=false&price_change_percentage=1h,24h,7d',
-					{
-						headers,
-						next: {
-							revalidate: 60,
-						},
-					} as RequestInit,
-					{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
-				),
-			)
-		} else {
-			fetchPromises.push(Promise.resolve(null))
-		}
-
-		fetchPromises.push(
-			fetchWithRetry(
-				'https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=eur,gbp,jpy,chf,cad,aud',
-				{
-					headers,
-					next: {
-						revalidate: 3600,
-					},
-				} as RequestInit,
-				{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
-			),
-		)
-
-		// Fetch XNO coin detail for per-currency 1h, 24h, 7d price changes
-		fetchPromises.push(
-			fetchWithRetry(
-				'https://api.coingecko.com/api/v3/coins/nano?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
-				{
-					headers,
-					next: {
-						revalidate: 60,
-					},
-				} as RequestInit,
-				{ timeoutMs: REQUEST_TIMEOUT_MS, retries: 3 },
-			),
-		)
-
-		const [xnoResponse, ratesResponse, xnoDetailResponse] = await Promise.all(fetchPromises)
-
-		let xnoData: CryptoData | null = null
-		if (xnoResponse) {
-			if (xnoResponse.ok) {
-				const xnoJson = await xnoResponse.json()
+		// Build parallel fetch promises
+		const fetchXno = async (): Promise<CryptoData | null> => {
+			if (hasXNO) return null
+			try {
+				const xnoJson = await client.coins.markets.get({
+					vs_currency: 'usd',
+					ids: 'nano',
+					sparkline: false,
+					price_change_percentage: '1h,24h,7d',
+				})
 				const xnoResult = v.safeParse(CryptoDataArraySchema, xnoJson)
 				if (xnoResult.success && xnoResult.output[0]) {
-					xnoData = {
+					return {
 						...xnoResult.output[0],
 						price_change_percentage_24h: xnoResult.output[0].price_change_percentage_24h ?? 0,
 					}
 				}
-			} else if (xnoResponse.status === 429) {
-				throw new RateLimitError('CoinGecko API rate limit exceeded for XNO')
+				return null
+			} catch (error) {
+				mapSdkError(error, 'XNO data')
 			}
 		}
 
-		if (xnoData === null) {
+		const fetchRates = async () => {
+			try {
+				const ratesJson = await client.simple.price.get({
+					ids: 'usd',
+					vs_currencies: 'eur,gbp,jpy,chf,cad,aud',
+				})
+				return ratesJson
+			} catch (error) {
+				mapSdkError(error, 'exchange rates')
+			}
+		}
+
+		const fetchXnoDetail = async () => {
+			try {
+				const xnoDetailJson = await client.coins.getID('nano', {
+					localization: false,
+					tickers: false,
+					market_data: true,
+					community_data: false,
+					developer_data: false,
+					sparkline: false,
+				})
+				return xnoDetailJson
+			} catch (error) {
+				// Non-critical: log warning and return null
+				console.warn('Failed to fetch XNO detail:', error)
+				return null
+			}
+		}
+
+		const [xnoData, ratesJson, xnoDetailJson] = await Promise.all([fetchXno(), fetchRates(), fetchXnoDetail()])
+
+		if (xnoData === null && !hasXNO) {
 			throw new UpstreamError('Failed to fetch XNO data')
 		}
 
-		// Parse exchange rates - throw if we can't get valid rates
-		if (!ratesResponse || !ratesResponse.ok) {
-			if (ratesResponse?.status === 429) {
-				throw new RateLimitError('CoinGecko API rate limit exceeded for exchange rates')
-			}
-			throw new UpstreamError('Failed to fetch exchange rates')
-		}
-
-		const ratesJson = await ratesResponse.json()
+		// Parse exchange rates
 		const ratesResult = v.safeParse(ExchangeRatesSchema, ratesJson)
 		if (!ratesResult.success || !ratesResult.output.usd) {
 			throw new ValidationError('Invalid exchange rates response')
@@ -190,8 +171,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		let xnoPriceChange24h: XnoPriceChangePerCurrency = { ...defaultPriceChange }
 		let xnoPriceChange7d: XnoPriceChangePerCurrency = { ...defaultPriceChange }
 
-		if (xnoDetailResponse?.ok) {
-			const xnoDetailJson = await xnoDetailResponse.json()
+		if (xnoDetailJson) {
 			const xnoDetailResult = v.safeParse(XnoCoinDetailSchema, xnoDetailJson)
 			if (xnoDetailResult.success) {
 				const marketData = xnoDetailResult.output.market_data
@@ -231,8 +211,13 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			} else {
 				console.warn('Failed to parse XNO detail response for per-currency changes')
 			}
-		} else if (xnoDetailResponse?.status === 429) {
-			console.warn('Rate limited when fetching XNO detail, using fallback')
+		}
+
+		// Get XNO data from either fetched result or from top25
+		const finalXnoData = xnoData ?? top25Data.find((crypto) => crypto.id === CRYPTO_IDS.NANO) ?? null
+
+		if (!finalXnoData) {
+			throw new UpstreamError('Failed to get XNO data')
 		}
 
 		// Combine data: top 25 + XNO if not already included
@@ -249,7 +234,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			chfRate,
 			cadRate,
 			audRate,
-			xnoData,
+			xnoData: finalXnoData,
 			xnoPriceChange1h,
 			xnoPriceChange24h,
 			xnoPriceChange7d,
@@ -258,10 +243,6 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		// Re-throw custom errors as-is
 		if (error instanceof RateLimitError || error instanceof ValidationError || error instanceof UpstreamError) {
 			throw error
-		}
-		// Handle timeout errors
-		if (error instanceof Error && error.name === 'AbortError') {
-			throw new UpstreamError('Request timed out while fetching market data')
 		}
 		// Wrap unknown errors
 		throw new UpstreamError(error instanceof Error ? error.message : 'Unknown error fetching market data')

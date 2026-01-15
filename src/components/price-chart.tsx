@@ -135,19 +135,12 @@ export function PriceChart({ coinId }: PriceChartProps) {
 		min: false,
 		max: false,
 	})
-	// const [mounted, setMounted] = useState(false)
 
 	const { data } = useMarketData()
 	const coin = data?.find((c) => c.id === coinId)
-	const _coinName = coin?.name ?? coinId.charAt(0).toUpperCase() + coinId.slice(1)
 
 	// For XNO, pass the selected fiat currency; for others, no vsCurrency (uses XNO comparison)
 	const { prices, isLoading, error } = usePriceChart(coinId, timeRange, isXnoChart ? selectedFiat : undefined)
-
-	// Ensure we're mounted before rendering theme-dependent content
-	// useEffect(() => {
-	// 	setMounted(true)
-	// }, [])
 
 	// Use the pre-calculated priceInXNO from the API (uses historical XNO prices)
 	// When inverted, show XNO/COIN instead of COIN/XNO (or FIAT/XNO instead of XNO/FIAT)
@@ -199,23 +192,6 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	const chartColor = isPositive ? colors.constructive : colors.destructive
 	const axisColor = colors.muted
 
-	// // Don't render chart until mounted to avoid hydration mismatch
-	// if (!mounted) {
-	// 	return (
-	// 		<Card>
-	// 			<CardHeader className="pb-2">
-	// 				<Skeleton className="h-6 w-48" />
-	// 				<div className="mt-4">
-	// 					<Skeleton className="h-8 w-32" />
-	// 				</div>
-	// 			</CardHeader>
-	// 			<CardContent className="pt-4">
-	// 				<Skeleton className="h-75 w-full" />
-	// 			</CardContent>
-	// 		</Card>
-	// 	)
-	// }
-
 	if (error) {
 		return (
 			<Card>
@@ -247,7 +223,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								variant="ghost"
 								size="sm"
 								onClick={() => setInverted(!inverted)}
-								className="h-8 w-8 p-0"
+								className="h-8 w-8 p-0 cursor-pointer"
 								title={t('invertChart')}
 							>
 								<ArrowRightLeft className="h-4 w-4" />
@@ -255,7 +231,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 						</div>
 						{isXnoChart && (
 							<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
-								<SelectTrigger className="w-24 h-8">
+								<SelectTrigger className="w-24 h-8 cursor-pointer">
 									<SelectValue />
 								</SelectTrigger>
 								<SelectContent>
@@ -274,7 +250,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								variant={referenceLines.start ? 'secondary' : 'ghost'}
 								size="sm"
 								onClick={() => setReferenceLines((prev) => ({ ...prev, start: !prev.start }))}
-								className="h-8 px-3 text-xs"
+								className="h-8 px-3 text-xs cursor-pointer"
 							>
 								Start
 							</Button>
@@ -282,7 +258,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								variant={referenceLines.end ? 'secondary' : 'ghost'}
 								size="sm"
 								onClick={() => setReferenceLines((prev) => ({ ...prev, end: !prev.end }))}
-								className="h-8 px-3 text-xs"
+								className="h-8 px-3 text-xs cursor-pointer"
 							>
 								End
 							</Button>
@@ -290,7 +266,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								variant={referenceLines.min ? 'secondary' : 'ghost'}
 								size="sm"
 								onClick={() => setReferenceLines((prev) => ({ ...prev, min: !prev.min }))}
-								className="h-8 px-3 text-xs text-destructive"
+								className="h-8 px-3 text-xs text-destructive cursor-pointer"
 							>
 								Low
 							</Button>
@@ -298,7 +274,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 								variant={referenceLines.max ? 'secondary' : 'ghost'}
 								size="sm"
 								onClick={() => setReferenceLines((prev) => ({ ...prev, max: !prev.max }))}
-								className="h-8 px-3 text-xs text-constructive"
+								className="h-8 px-3 text-xs text-constructive cursor-pointer"
 							>
 								High
 							</Button>
@@ -345,7 +321,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
 					{isLoading ? (
-						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
+						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
 							<Skeleton className="h-9 w-full sm:w-96" />
 							<Skeleton className="h-9 w-full sm:w-96" />
 						</div>
@@ -486,6 +462,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 									stroke={chartColor}
 									strokeWidth={2}
 									fill="url(#priceGradient)"
+									animationDuration={750}
 								/>
 							</AreaChart>
 						) : (

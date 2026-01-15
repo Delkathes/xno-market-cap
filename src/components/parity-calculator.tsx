@@ -784,7 +784,7 @@ export function ParityCalculator() {
 					<EditableStatCard
 						icon={<Coins className="h-4 w-4" />}
 						label={t('totalXNO')}
-						value={`Ӿ ${formatXNOAmount(totalXNO, { compact: false, showSymbol: false })}`}
+						value={`${formatXNOAmount(totalXNO, { compact: false, showSymbol: false })}`}
 						numericValue={totalXNO}
 						onValueChange={(v) => solveSystem('totalXNO', v)}
 						isLocked={lockedFields.has('totalXNO')}

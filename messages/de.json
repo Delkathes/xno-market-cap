@@ -136,6 +136,24 @@
 		"lineChart": "Liniendiagramm",
 		"invertChart": "Paar umkehren"
 	},
+	"marketCapVolumeChart": {
+		"title": "{coin} Marktkapitalisierung & Volumen in XNO",
+		"titleInverted": "XNO in {coin} Marktkapitalisierung & Volumen",
+		"invertChart": "Diagramm umkehren",
+		"errorLoading": "Chart kann nicht geladen werden. Bitte später erneut versuchen.",
+		"marketCap": "Marktkapitalisierung",
+		"volume": "Volumen",
+		"avgMarketCap": "Ø Marktkapitalisierung",
+		"avgVolume": "Ø Volumen",
+		"marketCapChange": "MK Änderung",
+		"volumeChange": "Vol Änderung",
+		"low": "Tief",
+		"high": "Hoch",
+		"diff": "Diff.",
+		"spread": "Spanne",
+		"lineChart": "Liniendiagramm",
+		"areaChart": "Flächendiagramm"
+	},
 	"dominance": {
 		"title": "Marktdominanz",
 		"description": "Wie schlägt sich XNO gegen die Giganten? Erkunde die Marktanteilsverteilung in der Krypto-Landschaft.",
@@ -162,7 +180,6 @@
 		"blockquote": "Basierend rein auf absolutem, nicht inflationierbarem Angebot ist eine einzelne Einheit Nano grundsätzlich knapper als eine einzelne Einheit jedes anderen Vermögenswertes auf dieser Liste – einschließlich Bitcoin und Gold. Das ist die Macht eines vollständig verteilten und absolut festen Angebots.",
 		"asset": "Vermögenswert",
 		"totalSupply": "Gesamtangebot",
-		"note": "Hinweis",
 		"fiatCurrencies": "Fiat-Währungen",
 		"fiatCurrencySettings": "Fiat-Währungseinstellungen",
 		"selectCurrenciesToDisplay": "Wähle welche Währungen angezeigt werden sollen",

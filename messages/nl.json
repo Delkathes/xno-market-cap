@@ -136,6 +136,24 @@
 		"lineChart": "Lijngrafiek",
 		"invertChart": "Keer paar om"
 	},
+	"marketCapVolumeChart": {
+		"title": "{coin} Marktkapitalisatie & Volume in XNO",
+		"titleInverted": "XNO in {coin} Marktkapitalisatie & Volume",
+		"invertChart": "Grafiek omkeren",
+		"errorLoading": "Kan grafiek niet laden. Probeer het later opnieuw.",
+		"marketCap": "Marktkapitalisatie",
+		"volume": "Volume",
+		"avgMarketCap": "Gem. Marktkapitalisatie",
+		"avgVolume": "Gem. Volume",
+		"marketCapChange": "MK Verandering",
+		"volumeChange": "Vol Verandering",
+		"low": "Laag",
+		"high": "Hoog",
+		"diff": "Versch.",
+		"spread": "Spreiding",
+		"lineChart": "Lijngrafiek",
+		"areaChart": "Vlakgrafiek"
+	},
 	"dominance": {
 		"title": "Marktdominantie",
 		"description": "Hoe verhoudt XNO zich tot de giganten? Ontdek de marktaandeelverdeling in het crypto-landschap.",
@@ -162,7 +180,6 @@
 		"blockquote": "Puur gebaseerd op absolute, niet-inflateerbare voorraad, is een enkele eenheid Nano fundamenteel schaarser dan een enkele eenheid van elk ander actief op deze lijst—inclusief Bitcoin en Goud. Dit is de kracht van een volledig gedistribueerde en absoluut vaste voorraad.",
 		"asset": "Actief",
 		"totalSupply": "Totale Voorraad",
-		"note": "Opmerking",
 		"fiatCurrencies": "Fiat-valuta's",
 		"fiatCurrencySettings": "Fiat-valuta instellingen",
 		"selectCurrenciesToDisplay": "Selecteer welke valuta's worden weergegeven",
