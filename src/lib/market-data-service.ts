@@ -1,9 +1,9 @@
 import * as v from 'valibot'
 
-import { getCoingeckoClient } from './coingecko'
-import { CRYPTO_IDS } from './constants'
-import type { CryptoData, MarketDataResponse, XnoPriceChangePerCurrency } from './types'
-import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from './validation'
+import { getCoingeckoClient } from '@/lib/coingecko'
+import { CRYPTO_IDS } from '@/lib/constants'
+import type { CryptoData, MarketDataResponse, XnoPriceChangePerCurrency } from '@/lib/types'
+import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from '@/lib/validation'
 
 // Custom error classes for specific failure scenarios
 export class RateLimitError extends Error {

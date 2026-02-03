@@ -1,10 +1,10 @@
 import * as v from 'valibot'
 
-import { getCoingeckoClient } from './coingecko'
-import { CRYPTO_IDS } from './constants'
-import { RateLimitError, UpstreamError, ValidationError } from './market-data-service'
-import type { ChartTimeRange, PriceChartPoint, PriceChartResponse } from './types'
-import { ChartTimeRangeSchema } from './validation'
+import { getCoingeckoClient } from '@/lib/coingecko'
+import { CRYPTO_IDS } from '@/lib/constants'
+import { RateLimitError, UpstreamError, ValidationError } from '@/lib/market-data-service'
+import type { ChartTimeRange, PriceChartPoint, PriceChartResponse } from '@/lib/types'
+import { ChartTimeRangeSchema } from '@/lib/validation'
 
 async function fetchCoinChart(
 	coinId: string,

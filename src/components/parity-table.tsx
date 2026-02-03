@@ -182,7 +182,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 
 	return (
 		<tr className={cn('border-b border-border hover:bg-muted/50 transition-colors', isXNO && 'bg-primary/5')}>
-			<td className="p-4">
+			<td className="px-3 py-2">
 				<div className="flex items-center gap-3">
 					<div
 						className={cn(
@@ -208,7 +208,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 					<td
 						key={targetId}
 						className={cn(
-							'p-4 text-right font-mono text-sm',
+							'px-3 py-2 text-right font-mono text-sm font-medium',
 							isSelf ? 'text-muted-foreground' : targetAsset.color.text,
 						)}
 					>
@@ -223,7 +223,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 					</td>
 				)
 			})}
-			<td className="p-4 min-w-35">
+			<td className="px-3 py-2 min-w-35">
 				<SupplyCell asset={asset} />
 			</td>
 		</tr>
@@ -251,23 +251,23 @@ export function ParityTable() {
 	}
 
 	return (
-		<Card>
-			<CardHeader className="pb-0">
+		<div>
+			<div className="pb-0">
 				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
 				<CardDescription>{t('tableDescription')}</CardDescription>
-			</CardHeader>
-			<CardContent className="p-0 whitespace-nowrap">
+			</div>
+			<div className="p-0 whitespace-nowrap">
 				<div className="overflow-x-auto">
 					<table className="w-full">
 						<thead className="border-b border-border">
-							<tr className="text-muted-foreground text-sm">
-								<th className="text-left p-4 font-medium">{t('asset')}</th>
+							<tr className="text-foreground text-sm">
+								<th className="text-left px-3 py-2 font-medium">{t('asset')}</th>
 								{filteredAssets.map((assetId) => (
-									<th key={assetId} className="text-right p-4 font-medium">
+									<th key={assetId} className="text-right px-3 py-2 font-medium">
 										{assetMap[assetId].label}
 									</th>
 								))}
-								<th className="text-right p-4 font-medium">{t('totalSupply')}</th>
+								<th className="text-right px-3 py-2 font-medium">{t('totalSupply')}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -282,7 +282,7 @@ export function ParityTable() {
 						</tbody>
 					</table>
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }

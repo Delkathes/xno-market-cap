@@ -4,7 +4,7 @@ import { Loader2 } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { LoadingArea } from '@/components/loading-area'
 import { ParityHighlight } from '@/components/parity-highlight'
@@ -63,7 +63,7 @@ export default async function ParityPage({ params }: Props) {
 									{[1, 2, 3, 4, 5].map((index) => (
 										<Skeleton
 											key={`${index}-highlight-skeleton-item`}
-											className="h-26.5 rounded-lg"
+											className="h-22 rounded-lg"
 										/>
 									))}
 								</div>
@@ -127,14 +127,14 @@ async function ParityTableSkeleton({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: 'parity' })
 
 	return (
-		<Card className="overflow-hidden">
-			<CardHeader className="pb-0">
+		<div className="overflow-hidden">
+			<div className="pb-0">
 				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
 				<CardDescription>{t('tableDescription')}</CardDescription>
-			</CardHeader>
-			<CardContent className="p-6 relative h-116">
+			</div>
+			<div className="p-6 relative h-91.75">
 				<LoadingArea />
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }

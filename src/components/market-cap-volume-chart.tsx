@@ -27,10 +27,9 @@ import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-
-import { LoadingArea } from './loading-area'
-import { Skeleton } from './ui/skeleton'
+import { LoadingArea } from '@/components/loading-area'
 
 interface MarketCapVolumeChartProps {
 	coinId: string

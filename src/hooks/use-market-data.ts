@@ -4,13 +4,15 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 
 import type { MarketDataResponse } from '@/lib/types'
 
+import { env } from '@/env'
+
 interface ApiErrorResponse {
 	error: string
 	code?: string
 }
 
 const fetcher = async (): Promise<MarketDataResponse> => {
-	const response = await fetch('/api/market-data')
+	const response = await fetch(`${env.NODE_ENV === 'development' ? env.NEXT_PUBLIC_SITE_URL : ''}/api/market-data`)
 	if (!response.ok) {
 		const errorData: ApiErrorResponse = await response
 			.json()

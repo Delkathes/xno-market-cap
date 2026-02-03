@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { CardDescription, CardTitle } from '@/components/ui/card'
 import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
 import { LoadingArea } from '@/components/loading-area'
@@ -59,24 +59,20 @@ async function DominanceChartSkeleton({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: 'dominance' })
 
 	return (
-		<Card>
-			<CardHeader className="pb-0">
+		<div>
+			<div className="pb-0">
 				<CardTitle>{t('distributionTitle')}</CardTitle>
 				<CardDescription>{t('chartDescription', { xnoDominance: '' })}</CardDescription>
-			</CardHeader>
-			<CardContent className="overflow-hidden relative px-4 pb-4">
+			</div>
+			<div className="overflow-hidden relative px-4 pb-4">
 				<div className="relative h-100 w-full z-0">
 					<LoadingArea />
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }
 
 async function DominanceTableSkeleton() {
-	return (
-		<Card className="overflow-hidden h-513.75 relative">
-			<LoadingArea />
-		</Card>
-	)
+	return <div className="overflow-hidden h-405.75 relative" />
 }

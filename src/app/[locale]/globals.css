@@ -38,6 +38,9 @@
   --sidebar-accent-foreground: oklch(0.15 0 0);
   --sidebar-border: oklch(0.92 0.005 260);
   --sidebar-ring: oklch(0.48 0.18 260);
+  --trendup: #04b16e;
+  --trenddown: #ea3943;
+  --xno-value: oklch(58.901% 0.15214 246.529);
 }
 
 .dark {
@@ -74,6 +77,9 @@
   --sidebar-accent-foreground: oklch(0.96 0.005 260);
   --sidebar-border: oklch(0.22 0.015 260);
   --sidebar-ring: oklch(0.65 0.2 260);
+  --trendup: oklch(80.421% 0.27304 142.519);
+  --trenddown: oklch(60.942% 0.23888 26.333);
+  --xno-value: #13bcff;
 }
 
 @theme inline {
@@ -116,6 +122,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-trendup: var(--trendup);
+  --color-trenddown: var(--trenddown);
+  --color-xno-value: var(--xno-value);
 }
 
 @layer base {
@@ -150,53 +159,55 @@
   @keyframes gradient-shift-light {
     /* 0-12.5% (2s): transition to state B */
     0% {
-      --gradient-from: transparent;
-      --gradient-via: oklch(0.93 0.04 250);
-      --gradient-to: transparent;
+      --gradient-from: white;
+      --gradient-via: oklch(97.932% 0.01035 248.181);
+      --gradient-to: white;
     }
     /* 12.5-50% (6s): hold state B */
     12.5%, 50% {
-      --gradient-from: oklch(0.93 0.04 250);
-      --gradient-via: transparent;
-      --gradient-to: oklch(0.93 0.04 250);
+      --gradient-from: oklch(97.932% 0.01035 248.181);
+      --gradient-via: white;
+      --gradient-to: oklch(97.932% 0.01035 248.181);
     }
     /* 50-62.5% (2s): transition back to state A */
     /* 62.5-100% (6s): hold state A */
     62.5%, 100% {
-      --gradient-from: transparent;
-      --gradient-via: oklch(0.93 0.04 250);
-      --gradient-to: transparent;
+      --gradient-from: white;
+      --gradient-via: oklch(97.932% 0.01035 248.181);
+      --gradient-to: white;
     }
   }
 
   @keyframes gradient-shift-dark {
     /* 0-12.5% (2s): transition to state B */
     0% {
-      --gradient-from: transparent;
+      --gradient-from: #020210;
       --gradient-via: oklch(0.27 0.05 260);
-      --gradient-to: transparent;
+      --gradient-to: #020210;
     }
     /* 12.5-50% (6s): hold state B */
     12.5%, 50% {
       --gradient-from: oklch(0.27 0.05 260);
-      --gradient-via: transparent;
+      --gradient-via: #020210;
       --gradient-to: oklch(0.27 0.05 260);
     }
     /* 50-62.5% (2s): transition back to state A */
     /* 62.5-100% (6s): hold state A */
     62.5%, 100% {
-      --gradient-from: transparent;
+      --gradient-from: #020210;
       --gradient-via: oklch(0.27 0.05 260);
-      --gradient-to: transparent;
+      --gradient-to: #020210;
     }
   }
 
   .animate-gradient-shift {
-    background: linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to));
-    animation: gradient-shift-light 40s ease-in-out infinite;
+    background: #fff;
+    /* background: linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+    animation: gradient-shift-light 40s ease-in-out infinite; */
   }
 
   .dark .animate-gradient-shift {
+    background: linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to));
     animation: gradient-shift-dark 40s ease-in-out infinite;
   }
 

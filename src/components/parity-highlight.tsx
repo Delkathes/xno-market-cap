@@ -14,7 +14,6 @@ import { useAssetData } from '@/hooks/use-asset-data'
 import { calculateAllParities, getFilteredAssets } from '@/hooks/use-filtered-assets'
 import { useMarketData } from '@/hooks/use-market-data'
 
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { MarketDataError } from '@/components/market-data-error'
@@ -186,7 +185,7 @@ export function ParityHighlight() {
 								<button
 									ref={containerRef}
 									type="button"
-									className="p-4 rounded-lg border bg-[#209CE9]/10 border-[#209CE9]/30 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
+									className="py-2 px-4 rounded-lg bg-[#209CE9]/10 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
 									tabIndex={0}
 									aria-label={t('clickToEditXnoAmount')}
 								>
@@ -236,7 +235,7 @@ export function ParityHighlight() {
 				}
 
 				return (
-					<Card key={assetId} className="p-4 block">
+					<div key={assetId} className="py-2 px-4 block">
 						<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
 						<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
 							{formatParityValue(value, asset)}
@@ -251,7 +250,7 @@ export function ParityHighlight() {
 								</span>
 							</p>
 						)}
-					</Card>
+					</div>
 				)
 			})}
 		</div>

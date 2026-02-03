@@ -55,7 +55,7 @@ export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
 			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-6">
+				<CardContent className="p-4 sm:p-5">
 					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoMarketCap')}</p>
 					<Skeleton className="w-30 h-6 my-2 sm:my-1" />
 					<div className="flex items-center gap-3 mt-2 flex-wrap">
@@ -67,7 +67,7 @@ export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
 			</Card>
 
 			<Card className="md:col-span-4">
-				<CardContent className="p-4 sm:p-6">
+				<CardContent className="p-4 sm:p-5">
 					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoPrice')} • 24h %</p>
 					<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
 						{/* Row 1: Prices */}
@@ -84,7 +84,7 @@ export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
 			</Card>
 
 			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-6">
+				<CardContent className="p-4 sm:p-5">
 					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoDominance')}</p>
 					<Skeleton className="w-24 h-6 my-2 sm:my-1" />
 					<div className="flex items-center gap-4 mt-2">
@@ -100,8 +100,10 @@ export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
 
 function MarketCapTableSkeleton() {
 	return (
-		<Card className="overflow-hidden h-513.75 relative">
-			<LoadingArea />
-		</Card>
+		<div className="h-405.75 relative">
+			<div className="h-200 relative">
+				<LoadingArea />
+			</div>
+		</div>
 	)
 }

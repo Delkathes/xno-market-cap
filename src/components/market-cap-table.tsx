@@ -48,12 +48,12 @@ const CryptoRow = memo(function CryptoRow({
 				isXNO && 'bg-primary/5',
 			)}
 		>
-			<td className="p-4">
+			<td className="px-3 py-2">
 				<div className="flex items-center gap-2 text-sm sm:text-base">
 					{!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
 				</div>
 			</td>
-			<td className="p-4 pl-0 sm:pl-4">
+			<td className="px-3 py-2 pl-0 sm:pl-4">
 				<Link href={`/coin/${crypto.id}`} className="contents">
 					<div className="flex items-center gap-3">
 						<Image
@@ -70,22 +70,22 @@ const CryptoRow = memo(function CryptoRow({
 					</div>
 				</Link>
 			</td>
-			<td className="p-4 text-right font-mono text-sm sm:text-base text-primary">
+			<td className="px-3 py-2 text-right font-mono text-sm font-medium text-xno-value">
 				{isXNO ? <span>1.00</span> : formatPrice(valueInXNO)}
 			</td>
-			<td className="p-4 text-right text-xs sm:text-sm">
+			<td className="px-3 py-2 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange1h} />}
 			</td>
-			<td className="p-4 text-right text-xs sm:text-sm">
+			<td className="px-3 py-2 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange24h} />}
 			</td>
-			<td className="p-4 text-right text-xs sm:text-sm">
+			<td className="px-3 py-2 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange7d} />}
 			</td>
-			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
+			<td className="px-3 py-2 text-right font-mono font-medium text-xno-value text-sm">
 				{formatLargeNumber(volumeInXNO)}
 			</td>
-			<td className="p-4 text-right font-mono text-primary text-sm sm:text-base">
+			<td className="px-3 py-2 text-right font-mono font-medium text-xno-value text-sm">
 				{formatLargeNumber(marketCapInXNO)}
 			</td>
 		</tr>
@@ -97,13 +97,13 @@ function Change({ change }: { change: number }) {
 		<div
 			className={cn(
 				'flex items-center justify-end gap-1 font-medium',
-				change >= 0 ? 'text-constructive' : 'text-destructive',
+				change >= 0 ? 'text-trendup' : 'text-trenddown',
 			)}
 		>
 			{change >= 0 ? (
-				<TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+				<TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
 			) : (
-				<TrendingDown className="w-3 h-3 sm:w-4 sm:h-4" />
+				<TrendingDown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
 			)}
 			{formatPercentage(Math.abs(change))}
 		</div>
@@ -132,61 +132,55 @@ export function MarketCapTable() {
 	})
 
 	return (
-		<Card>
-			<CardContent className="p-0">
-				<div className="overflow-x-auto">
-					<table className="w-full">
-						<thead className="border-b border-border">
-							<tr className="text-muted-foreground text-sm">
-								<th className="text-left p-4 font-medium">{t('rank')}</th>
-								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">{t('name')}</th>
-								<th className="text-right p-4 font-medium">{t('priceXno')}</th>
-								<th className="text-right p-4 font-medium">{t('change1h')}</th>
-								<th className="text-right p-4 font-medium">{t('change24h')}</th>
-								<th className="text-right p-4 font-medium">{t('change7d')}</th>
-								<th className="text-right p-4 font-medium">{t('volume24h')}</th>
-								<th className="text-right p-4 font-medium">{t('marketCapXno')}</th>
-							</tr>
-						</thead>
-						<tbody>
-							{sortedData?.map((crypto) => {
-								const isXNO = crypto.id === CRYPTO_IDS.NANO
+		<section className="overflow-x-auto">
+			<table className="w-full">
+				<thead className="border-b border-border">
+					<tr className="text-foreground text-sm">
+						<th className="text-left px-3 py-2 font-medium">{t('rank')}</th>
+						<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-medium">{t('name')}</th>
+						<th className="text-right px-3 py-2 font-medium">{t('priceXno')}</th>
+						<th className="text-right px-3 py-2 font-medium">{t('change1h')}</th>
+						<th className="text-right px-3 py-2 font-medium">{t('change24h')}</th>
+						<th className="text-right px-3 py-2 font-medium">{t('change7d')}</th>
+						<th className="text-right px-3 py-2 font-medium">{t('volume24h')}</th>
+						<th className="text-right px-3 py-2 font-medium">{t('marketCapXno')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{sortedData?.map((crypto) => {
+						const isXNO = crypto.id === CRYPTO_IDS.NANO
 
-								const valueInXNO = crypto.current_price / xnoData.current_price
-								const marketCapInXNO = isXNO
-									? (xnoData.circulating_supply ?? 0)
-									: crypto.market_cap / xnoData.current_price
-								const volumeInXNO = crypto.total_volume / xnoData.current_price
+						const valueInXNO = crypto.current_price / xnoData.current_price
+						const marketCapInXNO = isXNO
+							? (xnoData.circulating_supply ?? 0)
+							: crypto.market_cap / xnoData.current_price
+						const volumeInXNO = crypto.total_volume / xnoData.current_price
 
-								// Calculate relative changes vs XNO
-								const xno1hChange = xnoData.price_change_percentage_1h_in_currency ?? 0
-								const xno24hChange = xnoData.price_change_percentage_24h ?? 0
-								const xno7dChange = xnoData.price_change_percentage_7d_in_currency ?? 0
+						// Calculate relative changes vs XNO
+						const xno1hChange = xnoData.price_change_percentage_1h_in_currency ?? 0
+						const xno24hChange = xnoData.price_change_percentage_24h ?? 0
+						const xno7dChange = xnoData.price_change_percentage_7d_in_currency ?? 0
 
-								const relativeChange1h =
-									(crypto.price_change_percentage_1h_in_currency ?? 0) - xno1hChange
-								const relativeChange24h = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
-								const relativeChange7d =
-									(crypto.price_change_percentage_7d_in_currency ?? 0) - xno7dChange
+						const relativeChange1h = (crypto.price_change_percentage_1h_in_currency ?? 0) - xno1hChange
+						const relativeChange24h = (crypto.price_change_percentage_24h ?? 0) - xno24hChange
+						const relativeChange7d = (crypto.price_change_percentage_7d_in_currency ?? 0) - xno7dChange
 
-								return (
-									<CryptoRow
-										key={crypto.id}
-										crypto={crypto}
-										isXNO={isXNO}
-										valueInXNO={valueInXNO}
-										marketCapInXNO={marketCapInXNO}
-										volumeInXNO={volumeInXNO}
-										relativeChange1h={relativeChange1h}
-										relativeChange24h={relativeChange24h}
-										relativeChange7d={relativeChange7d}
-									/>
-								)
-							})}
-						</tbody>
-					</table>
-				</div>
-			</CardContent>
-		</Card>
+						return (
+							<CryptoRow
+								key={crypto.id}
+								crypto={crypto}
+								isXNO={isXNO}
+								valueInXNO={valueInXNO}
+								marketCapInXNO={marketCapInXNO}
+								volumeInXNO={volumeInXNO}
+								relativeChange1h={relativeChange1h}
+								relativeChange24h={relativeChange24h}
+								relativeChange7d={relativeChange7d}
+							/>
+						)
+					})}
+				</tbody>
+			</table>
+		</section>
 	)
 }

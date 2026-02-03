@@ -33,14 +33,16 @@ export async function Footer({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: 'footer' })
 
 	return (
-		<footer className="border-t border-border bg-card/30 mt-auto">
+		<footer className="border-t border-border bg-card mt-auto">
 			<div className="container mx-auto px-4 py-12">
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
 					{/* Brand */}
 					<div className="col-span-2 md:col-span-1">
-						<Link href="/" className="inline-flex items-center gap-2 font-bold text-xl mb-4">
-							<span className="text-primary">Nano</span>
-							<span className="text-muted-foreground">MarketCap</span>
+						<Link href="/" className="inline-flex items-center font-bold text-xl mb-4">
+							<span className="bg-linear-to-b from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+								Nano
+							</span>
+							<span>MarketCap</span>
 						</Link>
 						<p className="text-sm text-muted-foreground mb-4 max-w-xs">{t('description')}</p>
 						<div className="flex items-center gap-3">

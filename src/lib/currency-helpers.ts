@@ -1,4 +1,4 @@
-import { FIAT_CURRENCY_CONFIG, FiatCurrency } from './constants'
+import { FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
 
 /**
  * Exchange rates object structure returned by useMarketData

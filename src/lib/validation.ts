@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 
-import { isValidBlockHash, isValidNanoAddress, isValidRawAmount, isValidSignature, isValidWork } from './nano-utils'
+import { isValidBlockHash, isValidNanoAddress, isValidRawAmount, isValidSignature, isValidWork } from '@/lib/nano-utils'
 
 export const DonationAmountSchema = v.pipe(
 	v.number(),

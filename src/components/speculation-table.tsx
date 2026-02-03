@@ -37,10 +37,10 @@ const SpeculationRow = memo(function SpeculationRow({
 }: SpeculationRowProps) {
 	return (
 		<tr className="border-b border-border hover:bg-muted/50 transition-colors">
-			<td className="p-4">
+			<td className="px-3 py-2">
 				<span className="font-medium text-sm sm:text-base">{crypto.market_cap_rank}</span>
 			</td>
-			<td className="p-4 pl-0 sm:pl-4">
+			<td className="px-3 py-2 pl-0 sm:pl-4">
 				<div className="flex items-center gap-3">
 					<Image
 						src={crypto.image || '/placeholder.svg'}
@@ -50,21 +50,21 @@ const SpeculationRow = memo(function SpeculationRow({
 						className="w-6 h-6 sm:w-8 sm:h-8"
 					/>
 					<div>
-						<p className="font-semibold text-sm sm:text-base line-clamp-3">{crypto.name}</p>
+						<p className="font-semibold text-sm line-clamp-3">{crypto.name}</p>
 						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
 					</div>
 				</div>
 			</td>
-			<td className="p-4 text-right font-mono text-sm sm:text-base text-muted-foreground">
+			<td className="px-3 py-2 text-right font-mono text-sm text-muted-foreground font-medium">
 				{formatMarketCap(crypto.market_cap)}
 			</td>
-			<td className="p-4 text-right">
-				<span className="font-mono font-bold text-sm sm:text-base text-primary">{formatPrice(xnoPriceIf)}</span>
+			<td className="px-3 py-2 text-right">
+				<span className="font-mono font-bold text-sm text-xno-value">{formatPrice(xnoPriceIf)}</span>
 			</td>
-			<td className="p-4 text-right">
+			<td className="px-3 py-2 text-right">
 				<span
 					className={cn(
-						'font-mono font-medium text-sm sm:text-base px-2 py-1 rounded',
+						'font-mono font-medium text-sm px-2 py-1 rounded',
 						multiplier >= 100
 							? 'bg-accent/20 text-accent'
 							: multiplier >= 10
@@ -107,7 +107,7 @@ export function SpeculationTable() {
 	const otherCryptos = data.filter((c) => c.id !== CRYPTO_IDS.NANO).sort((a, b) => b.market_cap - a.market_cap)
 
 	return (
-		<Card className="relative">
+		<div className="relative">
 			<div className="absolute -top-12 right-0">
 				<Select value={currency} onValueChange={(v) => setCurrency(v as FiatCurrency)}>
 					<SelectTrigger className="w-40 bg-card dark:bg-card border-border">
@@ -122,16 +122,16 @@ export function SpeculationTable() {
 					</SelectContent>
 				</Select>
 			</div>
-			<CardContent className="p-0">
+			<div className="p-0">
 				<div className="overflow-x-auto">
 					<table className="w-full">
 						<thead className="border-b border-border">
-							<tr className="text-muted-foreground text-sm whitespace-nowrap">
-								<th className="text-left p-4 font-medium">{t('rank')}</th>
-								<th className="text-left p-4 pl-0 sm:pl-4 font-medium">{t('name')}</th>
-								<th className="text-right p-4 font-medium">{t('marketCap')}</th>
-								<th className="text-right p-4 font-medium">{t('xnoPrice')}</th>
-								<th className="text-right p-4 font-medium">{t('multiplier')}</th>
+							<tr className="text-foreground text-sm whitespace-nowrap">
+								<th className="text-left px-3 py-2 font-medium">{t('rank')}</th>
+								<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-medium">{t('name')}</th>
+								<th className="text-right px-3 py-2 font-medium">{t('marketCap')}</th>
+								<th className="text-right px-3 py-2 font-medium">{t('xnoPrice')}</th>
+								<th className="text-right px-3 py-2 font-medium">{t('multiplier')}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -157,7 +157,7 @@ export function SpeculationTable() {
 						</tbody>
 					</table>
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }

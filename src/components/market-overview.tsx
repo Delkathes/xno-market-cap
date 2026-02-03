@@ -93,7 +93,7 @@ export function MarketOverview() {
 		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
 			<Card className="group relative md:col-span-2">
 				<CurrencySettingsPopover cryptoList={data} />
-				<CardContent className="p-4 sm:p-6">
+				<CardContent className="p-4 sm:p-5">
 					<p className="text-sm text-muted-foreground mb-1">{t('xnoMarketCap')}</p>
 					<p className="text-xl sm:text-2xl font-bold font-mono flex items-baseline">
 						<span className="text-sm sm:text-lg">Ӿ</span>
@@ -130,7 +130,7 @@ export function MarketOverview() {
 
 			<Card className="group relative md:col-span-4">
 				<CurrencySettingsPopover cryptoList={data} />
-				<CardContent className="p-4 sm:p-6">
+				<CardContent className="p-4 sm:p-5">
 					<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')} • 24h %</p>
 					{xnoData && selectedCrypto && (
 						<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
@@ -162,7 +162,7 @@ export function MarketOverview() {
 			</Card>
 
 			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-6">
+				<CardContent className="p-4 sm:p-5">
 					<p className="text-sm text-muted-foreground mb-1">{t('xnoDominance')}</p>
 					<p className="text-xl sm:text-2xl font-bold font-mono">{xnoDominance.toFixed(4)}%</p>
 					<div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
@@ -186,11 +186,11 @@ function Change({ value }: { value: number }) {
 	return (
 		<div className="flex items-center gap-1">
 			{value >= 0 ? (
-				<TrendingUp className="w-4 h-4 text-constructive" />
+				<TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-trendup" />
 			) : (
-				<TrendingDown className="w-4 h-4 text-destructive" />
+				<TrendingDown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-trenddown" />
 			)}
-			<span className={value >= 0 ? 'text-constructive text-sm font-medium' : 'text-destructive text-sm'}>
+			<span className={value >= 0 ? 'text-trendup text-sm font-medium' : 'text-trenddown text-sm'}>
 				{formatPercentage(value)}
 			</span>
 		</div>

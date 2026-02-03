@@ -32,8 +32,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-
-import { LoadingArea } from './loading-area'
+import { LoadingArea } from '@/components/loading-area'
 
 interface PriceChartProps {
 	coinId: string

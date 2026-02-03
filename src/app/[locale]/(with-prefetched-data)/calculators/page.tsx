@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { LoadingArea } from '@/components/loading-area'
 import { ParityCalculator } from '@/components/parity-calculator'
 import { ParityHighlight } from '@/components/parity-highlight'
 import { ParitySettingsPopover } from '@/components/parity-table'
@@ -40,14 +41,14 @@ export default async function CalculatorsPage({ params }: Props) {
 
 	return (
 		<main className="container mx-auto px-4 py-8">
-			<div className="grid gap-10">
+			<div className="grid gap-14">
 				<Suspense
 					fallback={
-						<>
-							<ParityHighlightCalculatorSkeleton />
-							<ParityCalculatorSkeleton />
-							<SpeculationCalculatorSkeleton />
-						</>
+						<div className="h-420.25 relative">
+							<div className="h-2/3 relative">
+								<LoadingArea />
+							</div>
+						</div>
 					}
 				>
 					<AbsoluteParityCalculator locale={(await params).locale} />
@@ -81,7 +82,7 @@ async function AbsoluteParityCalculator({ locale }: { locale: string }) {
 	)
 }
 
-async function ParityHighlightCalculatorSkeleton() {
+async function _ParityHighlightCalculatorSkeleton() {
 	return (
 		<Card className="gap-2">
 			<CardHeader className="flex justify-between">
@@ -112,7 +113,7 @@ async function ParityHighlightCalculatorSkeleton() {
 	)
 }
 
-function ParityCalculatorSkeleton() {
+function _ParityCalculatorSkeleton() {
 	return (
 		<Card>
 			<CardHeader>
@@ -138,7 +139,7 @@ function ParityCalculatorSkeleton() {
 	)
 }
 
-function SpeculationCalculatorSkeleton() {
+function _SpeculationCalculatorSkeleton() {
 	return (
 		<Card>
 			<CardHeader>

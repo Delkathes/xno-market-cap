@@ -1,6 +1,6 @@
 import { atomWithStorage } from 'jotai/utils'
 
-import { CRYPTO_IDS, FiatCurrency } from './constants'
+import { CRYPTO_IDS, FiatCurrency } from '@/lib/constants'
 
 // Atoms with localStorage persistence
 export const primaryFiatAtom = atomWithStorage<FiatCurrency>('xno-market-primary-fiat', FiatCurrency.USD)

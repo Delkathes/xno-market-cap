@@ -86,12 +86,12 @@ export function DominanceChart() {
 	const xnoDominance = ((xnoMarketCapXNO / totalMarketCapXNO) * 100).toFixed(4)
 
 	return (
-		<Card>
-			<CardHeader className="pb-0">
+		<div>
+			<div className="pb-0">
 				<CardTitle>{t('distributionTitle')}</CardTitle>
 				<CardDescription>{t('chartDescription', { xnoDominance })}</CardDescription>
-			</CardHeader>
-			<CardContent className="pb-4 px-4">
+			</div>
+			<div className="pb-4 px-4">
 				<ResponsiveContainer width="100%" height={400}>
 					{isClientSide && (
 						<PieChart>
@@ -154,7 +154,7 @@ export function DominanceChart() {
 						</PieChart>
 					)}
 				</ResponsiveContainer>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }
