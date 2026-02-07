@@ -631,28 +631,27 @@ export function ParityCalculator() {
 					<span>{t('lockGuide')}</span>
 				</div>
 
-				{/* Currency selector */}
-				<div className="space-y-2">
-					<Label htmlFor="fiat-select">{t('currency')}</Label>
-					<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrency)}>
-						<SelectTrigger id="fiat-select" className="w-full sm:w-48">
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent>
-							{Object.entries(FIAT_CURRENCY_CONFIG).map(([key, config]) => (
-								<SelectItem key={key} value={key}>
-									<span className="font-mono mr-2">{config.symbol}</span>
-									{config.label}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
-				</div>
-
 				{/* Input fields with locks */}
-				<div className="grid gap-4 sm:grid-cols-2">
-					{/* Price input */}
+				<div className="grid gap-4 sm:grid-cols-3">
+					{/* Currency selector */}
 					<div className="space-y-2">
+						<Label htmlFor="fiat-select">{t('currency')}</Label>
+						<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrency)}>
+							<SelectTrigger id="fiat-select" className="w-full sm:w-48">
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{Object.entries(FIAT_CURRENCY_CONFIG).map(([key, config]) => (
+									<SelectItem key={key} value={key}>
+										<span className="font-mono mr-2">{config.symbol}</span>
+										{config.label}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
+					{/* Price input */}
+					<div className="sm:w-fit space-y-2">
 						<div className="flex items-center justify-between">
 							<Label htmlFor="price-input" className="flex items-center gap-2">
 								<Coins className="h-4 w-4 text-muted-foreground" />
@@ -676,7 +675,7 @@ export function ParityCalculator() {
 								value={price}
 								onChange={(e) => solveSystem('price', Number.parseFloat(e.target.value) || 0)}
 								className={cn(
-									'pl-8 font-mono',
+									'pl-8 font-mono sm:w-auto',
 									lockedFields.has('price') && 'ring-1 ring-amber-500/30',
 								)}
 							/>
@@ -697,7 +696,7 @@ export function ParityCalculator() {
 					</div>
 
 					{/* Amount input */}
-					<div className="space-y-2">
+					<div className="sm:w-fit space-y-2">
 						<div className="flex items-center justify-between">
 							<Label htmlFor="amount-input" className="flex items-center gap-2">
 								<Wallet className="h-4 w-4 text-muted-foreground" />
@@ -721,7 +720,7 @@ export function ParityCalculator() {
 								value={amount}
 								onChange={(e) => solveSystem('amount', Number.parseFloat(e.target.value) || 0)}
 								className={cn(
-									'pl-8 font-mono',
+									'pl-8 font-mono sm:w-auto',
 									lockedFields.has('amount') && 'ring-1 ring-amber-500/30',
 								)}
 							/>

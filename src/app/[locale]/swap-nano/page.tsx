@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { Info } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { Link } from '@/i18n/navigation'
+
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { NanswapIframe } from '@/components/nanswap-widget'
-
-import { Link } from '@/i18n/navigation'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -48,6 +48,12 @@ export default async function SwapNanoPage({ params }: Props) {
 
 	return (
 		<main className="container mx-auto px-4 py-12">
+			{/* Background Effects */}
+			<div className="fixed inset-0 z-0 pointer-events-none animate-in fade-in duration-500">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#9f9f9f2e_1px,transparent_1px),linear-gradient(to_bottom,#9f9f9f2e_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]  bg-size-[50px_50px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+				<div className="absolute top-0 left-1/2 -translate-x-1/2 w-250 h-125 bg-cyan-500/10 dark:bg-cyan-500/12.5 blur-[120px] rounded-full mix-blend-screen" />
+				<div className="absolute bottom-0 right-0 w-200 h-150 bg-blue-600/10 blur-[100px] rounded-full mix-blend-screen" />
+			</div>
 			{/* Hero Section */}
 			<div className="text-center mb-16">
 				<Badge variant="outline" className="mb-4">

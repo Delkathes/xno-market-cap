@@ -10,7 +10,7 @@ import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
 import type { ChartTimeRange } from '@/lib/types'
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
 import { LoadingArea } from '@/components/loading-area'
@@ -142,8 +142,8 @@ function CoinInfoCardSkeleton() {
 
 function PriceChartSkeleton() {
 	return (
-		<Card>
-			<CardHeader className="pb-2 gap-6 sm:gap-2">
+		<div>
+			<div className="pb-2 gap-6 sm:gap-2">
 				<div className="flex justify-between">
 					<Skeleton className="h-8 w-36" />
 					<div className="flex flex-col gap-y-2">
@@ -155,20 +155,20 @@ function PriceChartSkeleton() {
 					<Skeleton className="h-9 w-full sm:w-80" />
 					<Skeleton className="h-9 w-full sm:w-80" />
 				</div>
-			</CardHeader>
-			<CardContent className="pb-4 px-4">
+			</div>
+			<div className="pb-4 px-4">
 				<div className="h-75 w-full relative rounded-lg overflow-hidden">
 					<LoadingArea />
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }
 
 function MarketCapVolumeChartSkeleton() {
 	return (
-		<Card>
-			<CardHeader className="pb-2 gap-6 sm:gap-2">
+		<div>
+			<div className="pb-2 gap-6 sm:gap-2">
 				<div className="flex justify-between">
 					<Skeleton className="h-8 w-36" />
 					<div className="flex flex-col gap-y-2">
@@ -181,12 +181,12 @@ function MarketCapVolumeChartSkeleton() {
 					<Skeleton className="h-9 w-full sm:w-80" />
 					<Skeleton className="h-9 w-full sm:w-80" />
 				</div>
-			</CardHeader>
-			<CardContent className="pb-4 px-4">
+			</div>
+			<div className="pb-4 px-4">
 				<div className="h-75 w-full relative rounded-lg overflow-hidden">
 					<LoadingArea />
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }

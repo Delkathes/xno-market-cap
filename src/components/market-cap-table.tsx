@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -110,10 +110,90 @@ function Change({ change }: { change: number }) {
 	)
 }
 
+type SortColumn = 'price' | 'change1h' | 'change24h' | 'change7d' | 'volume' | 'marketCap'
+type SortDirection = 'asc' | 'desc'
+
+interface SortableHeaderProps {
+	column: SortColumn
+	currentSort: SortColumn
+	currentDirection: SortDirection
+	onSort: (column: SortColumn) => void
+	children: React.ReactNode
+	align?: 'left' | 'right'
+}
+
+function SortableHeader({
+	column,
+	currentSort,
+	currentDirection,
+	onSort,
+	children,
+	align = 'right',
+}: SortableHeaderProps) {
+	const isActive = currentSort === column
+
+	return (
+		<th
+			className={cn(
+				'px-3 py-2 font-semibold text-xs cursor-pointer select-none hover:bg-muted/50 transition-colors',
+				align === 'right' ? 'text-right' : 'text-left',
+			)}
+			onClick={() => onSort(column)}
+		>
+			<div className={cn('flex items-center gap-1', align === 'right' ? 'justify-end' : 'justify-start')}>
+				<span>{children}</span>
+				<div className="flex flex-col -space-y-1.5" aria-hidden="true">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="currentColor"
+						width="12"
+						height="12"
+						viewBox="0 0 24 24"
+						role="img"
+						aria-hidden="true"
+						className={cn(
+							'transition-colors',
+							isActive && currentDirection === 'asc' ? 'text-foreground' : 'text-muted-foreground/40',
+						)}
+					>
+						<path d="M18.0566 16H5.94336C5.10459 16 4.68455 14.9782 5.27763 14.3806L11.3343 8.27783C11.7019 7.90739 12.2981 7.90739 12.6657 8.27783L18.7223 14.3806C19.3155 14.9782 18.8954 16 18.0566 16Z" />
+					</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="currentColor"
+						width="12"
+						height="12"
+						viewBox="0 0 24 24"
+						role="img"
+						aria-hidden="true"
+						className={cn(
+							'transition-colors',
+							isActive && currentDirection === 'desc' ? 'text-foreground' : 'text-muted-foreground/40',
+						)}
+					>
+						<path d="M18.0566 8H5.94336C5.10459 8 4.68455 9.02183 5.27763 9.61943L11.3343 15.7222C11.7019 16.0926 12.2981 16.0926 12.6657 15.7222L18.7223 9.61943C19.3155 9.02183 18.8954 8 18.0566 8Z" />
+					</svg>
+				</div>
+			</div>
+		</th>
+	)
+}
+
 export function MarketCapTable() {
 	const { data, error, xnoData } = useMarketData()
+	const [sortColumn, setSortColumn] = useState<SortColumn>('marketCap')
+	const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
 
 	const t = useTranslations('marketTable')
+
+	const handleSort = (column: SortColumn) => {
+		if (sortColumn === column) {
+			setSortDirection((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+		} else {
+			setSortColumn(column)
+			setSortDirection('desc')
+		}
+	}
 
 	if (error || !data || !xnoData) {
 		return (
@@ -126,9 +206,36 @@ export function MarketCapTable() {
 	}
 
 	const sortedData = [...data].sort((a, b) => {
+		// Always keep XNO at the top
 		if (a.id === CRYPTO_IDS.NANO) return -1
 		if (b.id === CRYPTO_IDS.NANO) return 1
-		return 0
+
+		const xnoPrice = xnoData.current_price
+		const xno1hChange = xnoData.price_change_percentage_1h_in_currency ?? 0
+		const xno24hChange = xnoData.price_change_percentage_24h ?? 0
+		const xno7dChange = xnoData.price_change_percentage_7d_in_currency ?? 0
+
+		const getValue = (crypto: CryptoData): number => {
+			switch (sortColumn) {
+				case 'price':
+					return crypto.current_price / xnoPrice
+				case 'change1h':
+					return (crypto.price_change_percentage_1h_in_currency ?? 0) - xno1hChange
+				case 'change24h':
+					return (crypto.price_change_percentage_24h ?? 0) - xno24hChange
+				case 'change7d':
+					return (crypto.price_change_percentage_7d_in_currency ?? 0) - xno7dChange
+				case 'volume':
+					return crypto.total_volume / xnoPrice
+				case 'marketCap':
+					return crypto.market_cap / xnoPrice
+			}
+		}
+
+		const aValue = getValue(a)
+		const bValue = getValue(b)
+
+		return sortDirection === 'desc' ? bValue - aValue : aValue - bValue
 	})
 
 	return (
@@ -138,12 +245,54 @@ export function MarketCapTable() {
 					<tr className="text-foreground text-sm">
 						<th className="text-left px-3 py-2 font-medium">{t('rank')}</th>
 						<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-medium">{t('name')}</th>
-						<th className="text-right px-3 py-2 font-medium">{t('priceXno')}</th>
-						<th className="text-right px-3 py-2 font-medium">{t('change1h')}</th>
-						<th className="text-right px-3 py-2 font-medium">{t('change24h')}</th>
-						<th className="text-right px-3 py-2 font-medium">{t('change7d')}</th>
-						<th className="text-right px-3 py-2 font-medium">{t('volume24h')}</th>
-						<th className="text-right px-3 py-2 font-medium">{t('marketCapXno')}</th>
+						<SortableHeader
+							column="price"
+							currentSort={sortColumn}
+							currentDirection={sortDirection}
+							onSort={handleSort}
+						>
+							{t('priceXno')}
+						</SortableHeader>
+						<SortableHeader
+							column="change1h"
+							currentSort={sortColumn}
+							currentDirection={sortDirection}
+							onSort={handleSort}
+						>
+							{t('change1h')}
+						</SortableHeader>
+						<SortableHeader
+							column="change24h"
+							currentSort={sortColumn}
+							currentDirection={sortDirection}
+							onSort={handleSort}
+						>
+							{t('change24h')}
+						</SortableHeader>
+						<SortableHeader
+							column="change7d"
+							currentSort={sortColumn}
+							currentDirection={sortDirection}
+							onSort={handleSort}
+						>
+							{t('change7d')}
+						</SortableHeader>
+						<SortableHeader
+							column="volume"
+							currentSort={sortColumn}
+							currentDirection={sortDirection}
+							onSort={handleSort}
+						>
+							{t('volume24h')}
+						</SortableHeader>
+						<SortableHeader
+							column="marketCap"
+							currentSort={sortColumn}
+							currentDirection={sortDirection}
+							onSort={handleSort}
+						>
+							{t('marketCapXno')}
+						</SortableHeader>
 					</tr>
 				</thead>
 				<tbody>

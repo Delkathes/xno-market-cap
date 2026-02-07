@@ -53,6 +53,13 @@
 			"description": "Gráfico de precio en vivo de {coin}, capitalización de mercado, volumen y estadísticas. Ver datos históricos de precios y comparar con XNO.",
 			"ogTitle": "Gráfico de Precio de {coin} | NanoMarketCap",
 			"ogDescription": "Gráfico de precio en vivo de {coin} y estadísticas de mercado. Comparar con XNO."
+		},
+		"news": {
+			"title": "Noticias y Actualizaciones de Nano | NanoMarketCap",
+			"description": "Mantente al día con las últimas noticias de Nano (XNO), análisis de mercado, desarrollos del ecosistema y anuncios de la plataforma.",
+			"ogTitle": "Noticias y Actualizaciones de Nano | NanoMarketCap",
+			"ogDescription": "Mantente al día con las últimas noticias de Nano, análisis de mercado y desarrollos del ecosistema.",
+			"articleTitle": "{title} | Noticias NanoMarketCap"
 		}
 	},
 	"common": {
@@ -119,6 +126,15 @@
 		"change7d": "7d %",
 		"marketCapXno": "Capitalización (XNO)",
 		"volume24h": "Vol 24h (XNO)"
+	},
+	"news": {
+		"title": "Últimas Noticias",
+		"subtitle": "Mantente al día con las últimas noticias de Nano y actualizaciones de la plataforma",
+		"readMore": "Leer más",
+		"viewAll": "Ver todas las noticias",
+		"backToNews": "Volver a Noticias",
+		"noArticles": "No hay artículos disponibles todavía. ¡Vuelve pronto!",
+		"latestNews": "Últimas Noticias"
 	},
 	"coinDetail": {
 		"errorLoading": "No se pueden cargar los datos de la moneda. Inténtalo más tarde.",

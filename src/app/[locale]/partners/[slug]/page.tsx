@@ -1,0 +1,137 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import { ArrowLeft, ExternalLink, Sparkles } from 'lucide-react'
+import { setRequestLocale } from 'next-intl/server'
+
+import { Link } from '@/i18n/navigation'
+import { routing } from '@/i18n/routing'
+
+import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+
+type Props = {
+	params: Promise<{ locale: string; slug: string }>
+}
+
+export function generateStaticParams() {
+	const partners = getPartnersWithPages()
+
+	return routing.locales.flatMap((locale) => partners.map((partner) => ({ locale, slug: partner.id })))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params
+	const partner = getPartnerById(slug)
+
+	if (!partner) {
+		return { title: 'Not Found' }
+	}
+
+	return {
+		title: `${partner.title} | Partner`,
+		description: partner.description,
+		openGraph: {
+			title: partner.title,
+			description: partner.description,
+			url: `/partners/${slug}`,
+		},
+		alternates: {
+			canonical: `/partners/${slug}`,
+		},
+		robots: {
+			index: true,
+			follow: true,
+		},
+	}
+}
+
+export default async function PartnerPage({ params }: Props) {
+	const { locale, slug } = await params
+
+	setRequestLocale(locale)
+
+	const partner = getPartnerById(slug)
+
+	if (!partner || !partner.hasInternalPage) {
+		notFound()
+	}
+
+	// Try to load MDX content for this partner
+	let MdxContent: React.ComponentType | null = null
+	try {
+		const mdxModule = await import(`@content/partners/${locale}/${slug}.mdx`)
+		MdxContent = mdxModule.default
+	} catch {
+		// Try fallback to English
+		try {
+			const mdxModule = await import(`@content/partners/en/${slug}.mdx`)
+			MdxContent = mdxModule.default
+		} catch {
+			// No MDX content available
+		}
+	}
+
+	return (
+		<main className="container mx-auto px-4 py-8">
+			<div className="max-w-3xl mx-auto">
+				{/* Back link */}
+				<Link
+					href="/"
+					className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6"
+				>
+					<ArrowLeft className="h-4 w-4" />
+					Back to home
+				</Link>
+
+				{/* Partner badge */}
+				<Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary mb-4">
+					<Sparkles className="h-3 w-3" />
+					Partner
+				</Badge>
+
+				{/* Header */}
+				<div className="flex items-start gap-4 mb-8">
+					{partner.logoUrl && (
+						<div className="shrink-0">
+							<div className="relative h-16 w-16 overflow-hidden rounded-xl bg-muted shadow-sm">
+								<Image
+									src={partner.logoUrl}
+									alt={partner.partnerName}
+									fill
+									className="object-contain p-2"
+								/>
+							</div>
+						</div>
+					)}
+					<div className="flex-1 min-w-0">
+						<p className="text-sm text-muted-foreground mb-1">{partner.partnerName}</p>
+						<h1 className="text-2xl font-bold mb-2">{partner.title}</h1>
+						<p className="text-muted-foreground">{partner.description}</p>
+					</div>
+				</div>
+
+				{/* External link if available */}
+				{partner.externalUrl && (
+					<div className="mb-8">
+						<Button asChild>
+							<a href={partner.externalUrl} target="_blank" rel="noopener noreferrer partner">
+								Visit {partner.partnerName}
+								<ExternalLink className="h-4 w-4 ml-2" />
+							</a>
+						</Button>
+					</div>
+				)}
+
+				{/* MDX Content */}
+				{MdxContent && (
+					<article className="prose prose-neutral dark:prose-invert max-w-none">
+						<MdxContent />
+					</article>
+				)}
+			</div>
+		</main>
+	)
+}

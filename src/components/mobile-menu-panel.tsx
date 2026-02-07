@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { atom, useAtom, useSetAtom } from 'jotai'
-import { ArrowRightLeft, ChartPie, HelpCircle, Scale, Wallet, X, Zap } from 'lucide-react'
+import { ArrowRightLeft, ChartPie, HelpCircle, Lightbulb, Scale, Wallet, X, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/navigation'
@@ -10,7 +10,7 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 import { Button } from '@/components/ui/button'
-import { DonationButton } from '@/components/donation-button'
+// import { DonationButton } from '@/components/donation-button'
 import { isAboutOpenAtom } from '@/components/navigation'
 
 export const isMobileMenuOpenAtom = atom(false)
@@ -161,6 +161,24 @@ export function MobileMenuPanel() {
 							</div>
 
 							<Link
+								href="/why-nano"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/why-nano'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Lightbulb className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('whyNano')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('whyNanoDescriptionShort')}
+									</p>
+								</div>
+							</Link>
+
+							<Link
 								href="/get-nano"
 								className={cn(
 									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
@@ -213,7 +231,7 @@ export function MobileMenuPanel() {
 					</div>
 
 					{/* Mobile Menu Footer - Donation */}
-					<DonationButton className="mx-auto mb-4 translate-y-0" />
+					{/* <DonationButton className="mx-auto mb-4 translate-y-0" /> */}
 				</div>
 			</div>
 		</>

@@ -54,6 +54,13 @@
 			"description": "Live {coin} price chart, market cap, volume, and statistics. View historical price data and compare with XNO.",
 			"ogTitle": "{coin} Price Chart | NanoMarketCap",
 			"ogDescription": "Live {coin} price chart and market statistics. Compare with XNO."
+		},
+		"news": {
+			"title": "Nano News & Updates | NanoMarketCap",
+			"description": "Stay updated with the latest Nano (XNO) news, market insights, ecosystem developments, and platform announcements.",
+			"ogTitle": "Nano News & Updates | NanoMarketCap",
+			"ogDescription": "Stay updated with the latest Nano news, market insights, and ecosystem developments.",
+			"articleTitle": "{title} | NanoMarketCap News"
 		}
 	},
 	"common": {
@@ -90,6 +97,9 @@
 		"swapToNano": "Swap to Nano",
 		"swapToNanoDescription": "Convert altcoins (BTC, ETH or other crypto) to XNO",
 		"swapToNanoDescriptionShort": "Convert altcoins to XNO",
+		"whyNano": "Why Nano?",
+		"whyNanoDescription": "Why it is superior money",
+		"whyNanoDescriptionShort": "Why it is superior money",
 		"closeMenu": "Close menu",
 		"toggleMenu": "Toggle menu"
 	},
@@ -114,6 +124,15 @@
 		"change7d": "7d %",
 		"marketCapXno": "Market Cap (XNO)",
 		"volume24h": "24h Vol (XNO)"
+	},
+	"news": {
+		"title": "Latest News",
+		"subtitle": "Stay updated with the latest Nano news and platform updates",
+		"readMore": "Read more",
+		"viewAll": "View all news",
+		"backToNews": "Back to News",
+		"noArticles": "No articles available yet. Check back soon!",
+		"latestNews": "Latest News"
 	},
 	"coinDetail": {
 		"errorLoading": "Unable to load coin data. Please try again later.",

@@ -1,7 +1,7 @@
 'use client'
 
 import { useSetAtom } from 'jotai'
-import { ArrowRightLeft, ChartPie, HelpCircle, Moon, RefreshCw, Scale, Sun, Wallet, Zap } from 'lucide-react'
+import { ArrowRightLeft, ChartPie, HelpCircle, Lightbulb, Moon, RefreshCw, Scale, Sun, Wallet, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
@@ -20,7 +20,7 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
-import { DonationButton } from '@/components/donation-button'
+// import { DonationButton } from '@/components/donation-button'
 import { isAboutOpenAtom } from '@/components/navigation'
 
 export function DesktopControls() {
@@ -37,7 +37,7 @@ export function DesktopControls() {
 	return (
 		<div className="hidden md:flex items-center gap-1">
 			{/* Donation Button - Desktop only */}
-			<DonationButton className="mr-4" />
+			{/* <DonationButton className="mr-4" /> */}
 
 			<Button
 				variant="ghost"
@@ -222,6 +222,38 @@ export function DesktopControls() {
 						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="w-fit gap-2 p-4">
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/why-nano"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/why-nano' && 'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Lightbulb
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														pathname === '/why-nano' && 'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('whyNano')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															pathname === '/why-nano' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('whyNanoDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
 								<li className="flex-none">
 									<NavigationMenuLink asChild>
 										<Link

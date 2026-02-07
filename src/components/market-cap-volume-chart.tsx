@@ -26,7 +26,7 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
@@ -209,8 +209,8 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 	}
 
 	return (
-		<Card>
-			<CardHeader className="pb-2">
+		<div>
+			<div className="pb-2">
 				<div className="flex flex-row sm:items-center justify-between gap-4">
 					<div className="flex gap-3 sm:items-center">
 						<CardTitle className="text-lg whitespace-nowrap">
@@ -390,16 +390,16 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 						</div>
 					)}
 				</div>
-			</CardHeader>
+			</div>
 
-			<CardContent className="pb-4 px-4">
+			<div className="pb-4 px-4">
 				{isLoading ? (
 					<div className="h-75 w-full relative rounded-lg overflow-hidden">
 						<LoadingArea />
 					</div>
 				) : (
 					<ResponsiveContainer width="100%" height={300}>
-						<ComposedChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
+						<ComposedChart data={chartData} margin={{ top: 5, right: -10, left: -10, bottom: 5 }}>
 							<defs>
 								<linearGradient id="marketCapGradient" x1="0" y1="0" x2="0" y2="1">
 									<stop offset="5%" stopColor={colors.marketCap} stopOpacity={0.3} />
@@ -510,7 +510,7 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 						</ComposedChart>
 					</ResponsiveContainer>
 				)}
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }

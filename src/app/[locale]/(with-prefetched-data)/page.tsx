@@ -2,11 +2,15 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { getRecentNews } from '@/lib/news'
+
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { LoadingArea } from '@/components/loading-area'
 import { MarketCapTable } from '@/components/market-cap-table'
 import { MarketOverview } from '@/components/market-overview'
+import { NewsBanner } from '@/components/news-banner'
+import { PartnerSpotlight } from '@/components/partner-spotlight'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -35,12 +39,19 @@ export default async function Home({ params }: Props) {
 
 	setRequestLocale(locale)
 
+	const recentNews = await getRecentNews(locale, 6)
+
 	return (
 		<main className="container mx-auto px-4 py-8">
 			<Suspense fallback=<MarketOverviewSkeleton locale={locale} />>
 				<MarketOverview />
 			</Suspense>
-			<div className="mt-8">
+
+			<PartnerSpotlight />
+
+			{recentNews.length > 0 && <NewsBanner articles={recentNews} />}
+
+			<div className="mt-6">
 				<Suspense fallback=<MarketCapTableSkeleton />>
 					<MarketCapTable />
 				</Suspense>

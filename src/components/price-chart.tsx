@@ -28,7 +28,7 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -204,8 +204,8 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	}
 
 	return (
-		<Card>
-			<CardHeader className="pb-2">
+		<div>
+			<div className="pb-2">
 				<div className="flex flex-row sm:items-center justify-between gap-4">
 					<div className="flex gap-3 sm:items-center flex-wrap">
 						<div className="flex gap-3 sm:items-center">
@@ -381,9 +381,9 @@ export function PriceChart({ coinId }: PriceChartProps) {
 						</div>
 					)}
 				</div>
-			</CardHeader>
+			</div>
 
-			<CardContent className="pb-4 px-4">
+			<div className="pb-4 px-4">
 				{isLoading ? (
 					<div className="h-75 w-full relative rounded-lg overflow-hidden">
 						<LoadingArea />
@@ -536,7 +536,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 						)}
 					</ResponsiveContainer>
 				)}
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }

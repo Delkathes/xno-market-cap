@@ -1,3 +1,4 @@
+import createMDX from '@next/mdx'
 import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
@@ -7,6 +8,9 @@ const nextConfig = {
 	poweredByHeader: false,
 	reactStrictMode: true,
 	typedRoutes: true,
+
+	// Enable MDX file extensions
+	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
 	images: {
 		remotePatterns: [
@@ -81,4 +85,9 @@ const nextConfig = {
 	],
 }
 
-export default withNextIntl(nextConfig)
+const withMDX = createMDX({
+	// Add markdown plugins here if needed
+})
+
+// Combine MDX and Next-Intl config
+export default withMDX(withNextIntl(nextConfig))

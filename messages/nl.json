@@ -53,6 +53,13 @@
 			"description": "Live {coin} prijsgrafiek, marktkapitalisatie, volume en statistieken. Bekijk historische prijsgegevens en vergelijk met XNO.",
 			"ogTitle": "{coin} Prijsgrafiek | NanoMarketCap",
 			"ogDescription": "Live {coin} prijsgrafiek en marktstatistieken. Vergelijk met XNO."
+		},
+		"news": {
+			"title": "Nano Nieuws & Updates | NanoMarketCap",
+			"description": "Blijf op de hoogte van het laatste Nano (XNO) nieuws, marktinzichten, ecosysteemontwikkelingen en platformaankondigingen.",
+			"ogTitle": "Nano Nieuws & Updates | NanoMarketCap",
+			"ogDescription": "Blijf op de hoogte van het laatste Nano nieuws, marktinzichten en ecosysteemontwikkelingen.",
+			"articleTitle": "{title} | NanoMarketCap Nieuws"
 		}
 	},
 	"common": {
@@ -119,6 +126,15 @@
 		"change7d": "7d %",
 		"marketCapXno": "Marktkapitalisatie (XNO)",
 		"volume24h": "24u Vol (XNO)"
+	},
+	"news": {
+		"title": "Laatste Nieuws",
+		"subtitle": "Blijf op de hoogte van het laatste Nano nieuws en platformupdates",
+		"readMore": "Lees meer",
+		"viewAll": "Bekijk al het nieuws",
+		"backToNews": "Terug naar Nieuws",
+		"noArticles": "Nog geen artikelen beschikbaar. Kom snel terug!",
+		"latestNews": "Laatste Nieuws"
 	},
 	"coinDetail": {
 		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",

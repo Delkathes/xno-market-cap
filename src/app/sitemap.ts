@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
+import { getNewsSlugs } from '@/lib/news'
+import { getPartnersWithPages } from '@/lib/partner-config'
 
 import { env } from '@/env'
 
@@ -20,6 +22,7 @@ const routes: RouteConfig[] = [
 	{ path: '/calculators', changeFrequency: 'weekly', priority: 0.8 },
 	{ path: '/get-nano', changeFrequency: 'monthly', priority: 0.7 },
 	{ path: '/swap-nano', changeFrequency: 'weekly', priority: 0.8 },
+	{ path: '/news', changeFrequency: 'daily', priority: 0.8 },
 ]
 
 function buildAlternates(path: string): Record<string, string> {
@@ -34,7 +37,8 @@ function buildAlternates(path: string): Record<string, string> {
 export default function sitemap(): MetadataRoute.Sitemap {
 	const lastModified = new Date()
 
-	return routes.map(({ path, changeFrequency, priority }) => ({
+	// Static routes
+	const staticRoutes = routes.map(({ path, changeFrequency, priority }) => ({
 		url: `${SITE_URL}${path || '/'}`,
 		lastModified,
 		changeFrequency,
@@ -43,4 +47,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			languages: buildAlternates(path),
 		},
 	}))
+
+	// News article routes
+	const newsSlugs = getNewsSlugs()
+	const newsRoutes = newsSlugs.map((slug) => ({
+		url: `${SITE_URL}/news/${slug}`,
+		lastModified,
+		changeFrequency: 'weekly' as const,
+		priority: 0.6,
+		alternates: {
+			languages: buildAlternates(`/news/${slug}`),
+		},
+	}))
+
+	// Partners page routes
+	const partners = getPartnersWithPages()
+	const partnersRoutes = partners.map((partner) => ({
+		url: `${SITE_URL}/partners/${partner.id}`,
+		lastModified,
+		changeFrequency: 'monthly' as const,
+		priority: 0.5,
+		alternates: {
+			languages: buildAlternates(`/partners/${partner.id}`),
+		},
+	}))
+
+	return [...staticRoutes, ...newsRoutes, ...partnersRoutes]
 }

@@ -107,7 +107,7 @@ export function NanswapIframe() {
 	return (
 		<iframe
 			title="nanswap-iframe"
-			src="https://nanswap.com/iframe-swap/swap?defaultFrom=BTC&defaultFromAmount=100&defaultTo=XNO&mode=swap&theme=auto&invitationId=88225687661"
+			src="https://nanswap.com/iframe-swap/swap?defaultFrom=BTC&defaultFromAmount=0.1&defaultTo=XNO&mode=swap&theme=auto&invitationId=88225687661"
 			width="500"
 			style={{
 				border: 'none',
