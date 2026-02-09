@@ -196,10 +196,10 @@ export function ParityHighlight() {
 									<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
 										{formatXNOAmount(xnoAmount, { compact: false, showSymbol: false })}
 									</p>
-									<p className="mt-1 text-xs text-muted-foreground/50 sm:hidden">
+									<p className="mt-1 text-xs text-muted-foreground/70 sm:hidden">
 										{t('clickToEdit')}
 									</p>
-									<p className="mt-1 text-xs text-muted-foreground/50 hidden sm:block">
+									<p className="mt-1 text-xs text-muted-foreground/70 hidden sm:block">
 										{t('clickOrScrollToEdit')}
 									</p>
 								</button>
@@ -241,7 +241,7 @@ export function ParityHighlight() {
 							{formatParityValue(value, asset)}
 						</p>
 						{futureValue !== null && (
-							<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/70">
+							<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/90">
 								<TrendingUp className="h-3 w-3 mr-1" />
 								<span className="font-mono">
 									{futureValue === Number.POSITIVE_INFINITY

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ExternalLink, Sparkles } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
@@ -9,7 +9,6 @@ import { routing } from '@/i18n/routing'
 
 import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 type Props = {
@@ -86,12 +85,6 @@ export default async function PartnerPage({ params }: Props) {
 					Back to home
 				</Link>
 
-				{/* Partner badge */}
-				<Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary mb-4">
-					<Sparkles className="h-3 w-3" />
-					Partner
-				</Badge>
-
 				{/* Header */}
 				<div className="flex items-start gap-4 mb-8">
 					{partner.logoUrl && (
@@ -107,7 +100,14 @@ export default async function PartnerPage({ params }: Props) {
 						</div>
 					)}
 					<div className="flex-1 min-w-0">
-						<p className="text-sm text-muted-foreground mb-1">{partner.partnerName}</p>
+						{/* Partner badge */}
+						<div className="flex items-center mb-1">
+							{/* <Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary">
+								<Sparkles className="h-3 w-3" />
+								Partner
+							</Badge> */}
+							<p className="text-sm text-muted-foreground">{partner.partnerName}</p>
+						</div>
 						<h1 className="text-2xl font-bold mb-2">{partner.title}</h1>
 						<p className="text-muted-foreground">{partner.description}</p>
 					</div>
