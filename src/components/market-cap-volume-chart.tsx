@@ -26,7 +26,7 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
 
@@ -210,22 +210,27 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 	return (
 		<div>
 			<div className="mb-8">
-				<div className="flex flex-col sm:items-center sm:flex-row justify-between gap-4">
-					<div className="flex gap-3 sm:items-center">
-						<CardTitle className="text-lg whitespace-nowrap">
+				<div className="flex flex-row sm:items-center justify-between gap-4">
+					<div className="relative">
+						<CardDescription className="absolute -top-4.5 whitespace-nowrap">
 							{inverted
 								? t('titleInverted', { coin: coin?.symbol?.toUpperCase() ?? coinId.toUpperCase() })
 								: t('title', { coin: coin?.symbol?.toUpperCase() ?? coinId.toUpperCase() })}
-						</CardTitle>
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => setInverted(!inverted)}
-							className="h-8 w-8 p-0 cursor-pointer"
-							title={t('invertChart')}
-						>
-							<ArrowRightLeft className="h-4 w-4" />
-						</Button>
+						</CardDescription>
+						<div className="flex gap-3 sm:items-center">
+							<CardTitle className="text-lg whitespace-nowrap">
+								{inverted ? `XNO/${coin?.symbol?.toUpperCase()}` : `${coin?.symbol?.toUpperCase()}/XNO`}
+							</CardTitle>
+							<Button
+								variant="ghost"
+								size="sm"
+								onClick={() => setInverted(!inverted)}
+								className="h-8 w-8 p-0 cursor-pointer"
+								title={t('invertChart')}
+							>
+								<ArrowRightLeft className="h-4 w-4" />
+							</Button>
+						</div>
 					</div>
 					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse justify-end sm:flex-row sm:justify-end sm:flex-nowrap">
 						<div className="flex items-center gap-1">

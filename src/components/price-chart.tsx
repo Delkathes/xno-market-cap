@@ -28,7 +28,7 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
@@ -205,27 +205,35 @@ export function PriceChart({ coinId }: PriceChartProps) {
 	return (
 		<div>
 			<div className="mb-8">
-				<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+				<div className="flex flex-row sm:items-center justify-between gap-4">
 					<div className="flex gap-3 sm:items-center flex-wrap">
-						<div className="flex gap-3 sm:items-center">
-							<CardTitle className="text-lg whitespace-nowrap uppercase">
-								{isXnoChart
-									? inverted
-										? `${fiatSymbol}/XNO`
-										: `XNO/${fiatSymbol}`
-									: inverted
-										? `XNO/${coin?.symbol}`
-										: `${coin?.symbol}/XNO`}
-							</CardTitle>
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => setInverted(!inverted)}
-								className="h-8 w-8 p-0 cursor-pointer"
-								title={t('invertChart')}
-							>
-								<ArrowRightLeft className="h-4 w-4" />
-							</Button>
+						<div className="relative">
+							<CardDescription className="absolute -top-4.5 whitespace-nowrap">
+								{inverted
+									? t('titleInverted', { coin: coin?.symbol.toUpperCase() ?? '' })
+									: t('title', { coin: coin?.symbol.toUpperCase() ?? '' })}
+								{/* {t('title', { coin: coin?.symbol.toUpperCase() ?? '' })} */}
+							</CardDescription>
+							<div className="flex gap-3 sm:items-center">
+								<CardTitle className="text-lg whitespace-nowrap uppercase">
+									{isXnoChart
+										? inverted
+											? `${fiatSymbol}/XNO`
+											: `XNO/${fiatSymbol}`
+										: inverted
+											? `XNO/${coin?.symbol}`
+											: `${coin?.symbol}/XNO`}
+								</CardTitle>
+								<Button
+									variant="ghost"
+									size="sm"
+									onClick={() => setInverted(!inverted)}
+									className="h-8 w-8 p-0 cursor-pointer"
+									title={t('invertChart')}
+								>
+									<ArrowRightLeft className="h-4 w-4" />
+								</Button>
+							</div>
 						</div>
 						{isXnoChart && (
 							<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
@@ -382,7 +390,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				</div>
 			</div>
 
-			<div className="">
+			<div>
 				{isLoading ? (
 					<div className="h-75 w-full relative rounded-lg overflow-hidden">
 						<LoadingArea />

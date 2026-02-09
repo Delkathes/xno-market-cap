@@ -157,6 +157,7 @@
 	},
 	"priceChart": {
 		"title": "{coin} Prijs in XNO",
+		"titleInverted": "XNO Prijs in {coin}",
 		"errorLoading": "Kan prijsgrafiek niet laden. Probeer het later opnieuw.",
 		"areaChart": "Vlakgrafiek",
 		"lineChart": "Lijngrafiek",

@@ -157,6 +157,7 @@
 	},
 	"priceChart": {
 		"title": "Prix de {coin} en XNO",
+		"titleInverted": "Prix de XNO en {coin}",
 		"errorLoading": "Impossible de charger le graphique de prix. Veuillez réessayer plus tard.",
 		"areaChart": "Graphique en Aires",
 		"lineChart": "Graphique en courbes",
