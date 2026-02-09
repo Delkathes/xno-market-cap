@@ -30,7 +30,6 @@ import { usePriceChart } from '@/hooks/use-price-chart'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
 
@@ -205,8 +204,8 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 	return (
 		<div>
-			<div className="pb-2">
-				<div className="flex flex-row sm:items-center justify-between gap-4">
+			<div className="mb-8">
+				<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 					<div className="flex gap-3 sm:items-center flex-wrap">
 						<div className="flex gap-3 sm:items-center">
 							<CardTitle className="text-lg whitespace-nowrap uppercase">
@@ -321,8 +320,8 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
 					{isLoading ? (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
-							<Skeleton className="h-9 w-full sm:w-80" />
-							<Skeleton className="h-9 w-full sm:w-80" />
+							<div className="h-9 w-full sm:w-80" />
+							<div className="h-9 w-full sm:w-80" />
 						</div>
 					) : (
 						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
@@ -383,7 +382,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				</div>
 			</div>
 
-			<div className="pb-4 px-4">
+			<div className="">
 				{isLoading ? (
 					<div className="h-75 w-full relative rounded-lg overflow-hidden">
 						<LoadingArea />

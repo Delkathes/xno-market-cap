@@ -94,7 +94,7 @@ export default async function CoinDetailPage({ params }: Props) {
 
 	return (
 		<main className="container mx-auto px-4 py-8">
-			<div className="space-y-6">
+			<div className="space-y-16">
 				<Suspense fallback=<CoinInfoCardSkeleton />>
 					<CoinInfoCard coinId={coinIdParam} />
 				</Suspense>
@@ -143,23 +143,21 @@ function CoinInfoCardSkeleton() {
 function PriceChartSkeleton() {
 	return (
 		<div>
-			<div className="pb-2 gap-6 sm:gap-2">
+			<div className="gap-6 sm:gap-2 mb-8">
 				<div className="flex justify-between">
-					<Skeleton className="h-8 w-36" />
+					<div className="h-8 w-36" />
 					<div className="flex flex-col gap-y-2">
-						<Skeleton className="h-8 w-36 sm:w-96" />
-						<Skeleton className="h-8 w-36 sm:hidden" />
+						<div className="h-8 w-36 sm:w-96" />
+						<div className="h-8 w-36 sm:hidden" />
 					</div>
 				</div>
 				<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
-					<Skeleton className="h-9 w-full sm:w-80" />
-					<Skeleton className="h-9 w-full sm:w-80" />
+					<div className="h-9 w-full sm:w-80" />
+					<div className="h-9 w-full sm:w-80" />
 				</div>
 			</div>
-			<div className="pb-4 px-4">
-				<div className="h-75 w-full relative rounded-lg overflow-hidden">
-					<LoadingArea />
-				</div>
+			<div className="h-75 w-full relative rounded-lg overflow-hidden">
+				<LoadingArea />
 			</div>
 		</div>
 	)
@@ -168,24 +166,22 @@ function PriceChartSkeleton() {
 function MarketCapVolumeChartSkeleton() {
 	return (
 		<div>
-			<div className="pb-2 gap-6 sm:gap-2">
+			<div className="gap-6 sm:gap-2 mb-8">
 				<div className="flex justify-between">
-					<Skeleton className="h-8 w-36" />
+					<div className="h-8 w-36" />
 					<div className="flex flex-col gap-y-2">
-						<Skeleton className="h-8 w-36 sm:w-96" />
-						<Skeleton className="h-8 w-36 sm:hidden" />
+						<div className="h-8 w-36 sm:w-96" />
+						<div className="h-8 w-36 sm:hidden" />
 					</div>
 				</div>
 				<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
-					<Skeleton className="h-9 w-full sm:w-80" />
-					<Skeleton className="h-9 w-full sm:w-80" />
-					<Skeleton className="h-9 w-full sm:w-80" />
+					<div className="h-9 w-full sm:w-80" />
+					<div className="h-9 w-full sm:w-80" />
+					<div className="h-9 w-full sm:w-80" />
 				</div>
 			</div>
-			<div className="pb-4 px-4">
-				<div className="h-75 w-full relative rounded-lg overflow-hidden">
-					<LoadingArea />
-				</div>
+			<div className="h-75 w-full relative rounded-lg overflow-hidden">
+				<LoadingArea />
 			</div>
 		</div>
 	)
