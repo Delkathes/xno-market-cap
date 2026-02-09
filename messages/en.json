@@ -61,6 +61,12 @@
 			"ogTitle": "Nano News & Updates | NanoMarketCap",
 			"ogDescription": "Stay updated with the latest Nano news, market insights, and ecosystem developments.",
 			"articleTitle": "{title} | NanoMarketCap News"
+		},
+		"whyNano": {
+			"title": "Why Nano? The Currency for AI | NanoMarketCap",
+			"description": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol.",
+			"ogTitle": "Why Nano? The Currency for AI | NanoMarketCap",
+			"ogDescription": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol."
 		}
 	},
 	"common": {
@@ -359,6 +365,213 @@
 		"minAmountError": "Minimum amount is {min} {currency}",
 		"maxAmountError": "Maximum amount is {max} {currency}"
 	},
+	"whyNano": {
+		"hero": {
+			"titlePart1": "The Payment Layer for",
+			"titleHighlight": "Autonomous Machines",
+			"description1": "Nano is the only currency with zero fees, sub-second finality, and no smart-contract complexity — purpose-built for the machine economy where AI agents transact autonomously.",
+			"description2": "From per-token LLM billing to the x402 payment protocol, Nano gives agents a frictionless value layer that traditional finance and blockchain networks cannot match.",
+			"learnAboutNano": "Learn About Nano"
+		},
+		"features": {
+			"title": "Why Agents Choose Nano",
+			"subtitle": "Optimized for high-frequency, low-latency, autonomous transactions.",
+			"instantSettlement": {
+				"title": "Instant Feeless Settlement",
+				"instantLabel": "Instant:",
+				"instantText": "Nano settles in under 500ms — agents don't wait for block confirmations. Real-time value transfer for real-time inference, API calls, and autonomous decision-making.",
+				"feelessLabel": "Feeless:",
+				"feelessText": "Send $0.000001 economically. Every micro-payment is viable — perfect for per-token LLM billing, streaming compute costs, and pay-per-tool usage.",
+				"decentralizedLabel": "Decentralized:",
+				"decentralizedText": "No central authority can freeze funds or censor transactions. Agents operate with full financial autonomy, guaranteed by decentralized consensus."
+			},
+			"agentNative": {
+				"title": "Agent Native",
+				"description": "Simple light-weight RPCs. No complex smart contracts to audit, no gas to estimate, no nonces to manage."
+			},
+			"x402Protocol": {
+				"title": "x402 Protocol",
+				"description": "The HTTP standard for payment-required resources. Agents can autonomously pay/charge for any API, data feed, or tool access."
+			},
+			"sustainableCompute": {
+				"title": "Sustainable Compute",
+				"description": "AI training is energy intensive — payments shouldn't be. Nano consumes negligible energy per transaction and adds zero carbon footprint to your stack."
+			},
+			"mcpIntegration": {
+				"title": "MCP Integration",
+				"description": "Provides direct access to Nano RPCs. AI agents can query balances, send transactions, and monitor the network programmatically."
+			}
+		},
+		"x402": {
+			"title": "x402 in Action",
+			"subtitle": "How AI agents pay for resources in real time using the HTTP 402 protocol and Nano.",
+			"apiPaymentFlow": {
+				"title": "Per call API Payment Flow",
+				"description": "APIs respond with HTTP 402 and payment details. The agent pays with Nano, attaches the proof, and gets instant access — no API keys or subscriptions needed."
+			},
+			"llmBilling": {
+				"title": "Per-Prompt LLM Billing",
+				"description": "Pay per inference call instead of monthly subscriptions. Agents only spend on what they use — each prompt is a single instantly confirmed feeless transaction."
+			}
+		},
+		"workflow": {
+			"title": "Workflow Automation",
+			"subtitle": "Integrate Nano into n8n workflows, automate feeless payment workflows."
+		},
+		"howItWorks": {
+			"title": "How Nano Works",
+			"subtitle": "A unique architecture designed for instant, feeless value transfer.",
+			"step1": {
+				"badge": "Step 1",
+				"title": "Your Own Blockchain",
+				"description": "Every account has its own blockchain (account-chain). No shared state, no contention, no bottlenecks — unlimited throughput by design."
+			},
+			"step2": {
+				"badge": "Step 2",
+				"title": "Asynchronous Transfers",
+				"description": "Transactions split into independent send and receive blocks. Both parties act on their own chain — no waiting for the other side."
+			},
+			"step3": {
+				"badge": "Step 3",
+				"title": "Instant Consensus",
+				"description": "Open Representative Voting (ORV) confirms transactions in under 1 second. No mining, no staking — just lightweight voting with minimal energy."
+			}
+		},
+		"comparison": {
+			"title": "How Nano Compares",
+			"metric": "Metric",
+			"nano": "Nano (XNO)",
+			"bitcoin": "Bitcoin",
+			"tether": "Tether (USDT)",
+			"latency": "Latency",
+			"latencyNano": "< 1s",
+			"latencyBitcoin": "10 – 60 min",
+			"latencyTether": "1 – 30s",
+			"txFees": "Tx Fees",
+			"feesNano": "None",
+			"feesBitcoin": "$1 – $50",
+			"feesTether": "$0.02 – $3",
+			"architecture": "Architecture",
+			"archNano": "Async Block Lattice",
+			"archBitcoin": "PoW Blockchain",
+			"archTether": "Centralized Token",
+			"energy": "Energy / Tx",
+			"energyNano": "0.111 Wh",
+			"energyBitcoin": "707 kWh",
+			"energyTether": "Host chain",
+			"availability": "Availability",
+			"availabilityNano": "24/7",
+			"availabilityBitcoin": "24/7",
+			"availabilityTether": "24/7, censurable"
+		},
+		"supply": {
+			"title": "Supply & Distribution",
+			"subtitle": "Fair, fixed, and fully distributed from day one.",
+			"fixedSupply": {
+				"title": "Fixed Supply",
+				"value": "133,248,297",
+				"description": "The total number of XNO that will ever exist. Defined at genesis, immutable forever."
+			},
+			"fullyDistributed": {
+				"title": "Fully Distributed",
+				"value": "100%",
+				"description": "All XNO distributed via a free CAPTCHA faucet. No ICO, no pre-mine, no insider allocation."
+			},
+			"zeroInflation": {
+				"title": "Zero Inflation",
+				"value": "0%",
+				"description": "No new XNO can ever be created. No inflation, no dilution — your share of the supply is permanent."
+			}
+		},
+		"beyondAI": {
+			"title": "Beyond AI",
+			"subtitle": "Nano isn't just for machines — it's a universal currency for anyone who values speed, simplicity, and zero fees.",
+			"p2pPayments": {
+				"title": "P2P Payments",
+				"description": "Send value to anyone, anywhere, instantly and without fees."
+			},
+			"globalAccess": {
+				"title": "Global Access",
+				"description": "Skip correspondent banks. Settle internationally in under a second."
+			},
+			"pointOfSale": {
+				"title": "Point of Sale",
+				"description": "Accept payments with zero processing fees and instant confirmation."
+			},
+			"iotMicropayments": {
+				"title": "IoT Micropayments",
+				"description": "Machines paying machines — sensors, meters, and devices transacting autonomously."
+			}
+		},
+		"developerResources": {
+			"title": "Developer Resources",
+			"subtitle": "Everything you need to start building with Nano.",
+			"nanoDocs": {
+				"title": "Nano Docs",
+				"description": "Official protocol documentation, RPC reference, and integration guides."
+			},
+			"x402Nano": {
+				"title": "x402 Nano",
+				"description": "Reference implementation for x402 payment protocol integration with Nano."
+			},
+			"nanoSdk": {
+				"title": "Nano SDK",
+				"description": "TypeScript SDK for Nano RPC commands with full type safety and IntelliSense."
+			},
+			"tsNanocurrency": {
+				"title": "TS Nanocurrency",
+				"description": "Comprehensive JavaScript/TypeScript toolkit for Nano development."
+			},
+			"nanoCasa": {
+				"title": "Nano Casa",
+				"description": "Track development activity and discover projects across the Nano ecosystem."
+			},
+			"comingSoon": "Coming Soon",
+			"n8nNode": {
+				"title": "n8n Community Node",
+				"badge": "In Development",
+				"description": "Official n8n community node for Nano RPC commands. Build visual workflows with native Nano integration."
+			}
+		},
+		"faq": {
+			"title": "Frequently Asked Questions",
+			"q1": {
+				"question": "Is Nano really feeless?",
+				"answer": "Yes. There are no transaction fees of any kind. Nano uses a lightweight, client-side proof of work to rate-limit spam — but this costs the sender nothing. Every raw unit you send is exactly what the recipient receives."
+			},
+			"q2": {
+				"question": "How fast is Nano?",
+				"answer": "Typical transactions confirm in under 1 second. Nano's block-lattice architecture and Open Representative Voting (ORV) consensus eliminate the need for mining or block intervals, allowing near-instant finality."
+			},
+			"q3": {
+				"question": "What is x402?",
+				"answer": "x402 is a protocol built on the HTTP 402 \"Payment Required\" status code. When an AI agent requests a paid resource, the server responds with payment details. The agent sends Nano, retries the request with proof of payment, and receives the resource — all without human intervention."
+			},
+			"q4": {
+				"question": "Is Nano decentralized?",
+				"answer": "Yes. Nano uses Open Representative Voting (ORV) where account holders delegate voting weight to representatives of their choice. Anyone can run a representative node, and no single entity controls the network. Voting weight is distributed across hundreds of independent representatives."
+			},
+			"q5": {
+				"question": "How do I start building with Nano?",
+				"answer": "Visit <link>docs.nano.org</link> for the protocol specification and RPC reference. You can run your own Nano node, use public RPC endpoints, or integrate via Nano MCP servers for AI agent workflows. Client libraries are available for Python, JavaScript, Rust, and more."
+			}
+		},
+		"cta": {
+			"title": "Ready to integrate Nano?",
+			"description": "Get a wallet, swap your first XNO, and start building the machine-payment infrastructure of the future.",
+			"getNano": "Get Nano",
+			"swapToXno": "Swap to XNO"
+		}
+	},
+	"partners": {
+		"badge": "Partner",
+		"getPromoted": {
+			"badge": "Get Promoted",
+			"title": "Get Promoted!",
+			"subtitle": "Your Business Here",
+			"description": "Feature your business in this spotlight. Reach thousands of Nano users. Click to learn more."
+		}
+	},
 	"about": {
 		"title": "About NanoMarketCap",
 		"description": "Information about the NanoMarketCap website",
@@ -453,6 +666,7 @@
 			"speculation": "Speculation",
 			"getNano": "Get Nano",
 			"swapNano": "Swap to Nano",
+			"whyNano": "Why Nano?",
 			"calculators": "Calculators",
 			"nanoOrg": "Nano.org",
 			"docs": "Documentation",

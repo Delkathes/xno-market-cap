@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { ArrowRight, ExternalLink, Sparkles } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
 
@@ -34,6 +35,7 @@ function PartnerCardSkeleton() {
 }
 
 function GetPromotedCard() {
+	const t = useTranslations('partners.getPromoted')
 	return (
 		<Link href="/partners/info" className="group block" prefetch={false}>
 			<div className="relative overflow-hidden rounded-lg border border-green-500 bg-linear-to-r from-green-400/10 via-blue-400/10 to-green-400/10 p-4 shadow-lg transition-all">
@@ -41,7 +43,7 @@ function GetPromotedCard() {
 				<div className="absolute right-3 top-3">
 					<Badge variant="default" className="gap-1 text-xs bg-green-500 text-white">
 						<Sparkles className="h-3 w-3" />
-						Get Promoted
+						{t('badge')}
 					</Badge>
 				</div>
 
@@ -55,13 +57,11 @@ function GetPromotedCard() {
 
 					{/* Content */}
 					<div className="min-w-0 flex-1 pr-20">
-						<p className="mb-0.5 text-xs text-green-500">Your Business Here</p>
+						<p className="mb-0.5 text-xs text-green-500">{t('subtitle')}</p>
 						<h3 className="mb-1 font-semibold text-green-600 group-hover:text-green-400 transition-colors line-clamp-1">
-							Get Promoted!
+							{t('title')}
 						</h3>
-						<p className="text-sm text-green-600 line-clamp-2">
-							Feature your business in this spotlight. Reach thousands of Nano users. Click to learn more.
-						</p>
+						<p className="text-sm text-green-600 line-clamp-2">{t('description')}</p>
 					</div>
 
 					{/* Arrow indicator */}
@@ -74,10 +74,102 @@ function GetPromotedCard() {
 	)
 }
 
-function PartnerCard({ partner }: { partner: PartnerContent }) {
-	const { partnerName, title, description, logoUrl } = partner
+// Partner content translations - hardcoded for business content isolation
+const partnerTranslations: Record<
+	string,
+	Record<string, { partnerName: string; title: string; description: string }>
+> = {
+	nanobrowser: {
+		en: {
+			partnerName: 'NanoBrowser',
+			title: 'NanoBrowser: Earn Nano While You Browse',
+			description:
+				'The privacy-focused browser that rewards you with XNO for your attention. No tracking, no ads, just Nano.',
+		},
+		fr: {
+			partnerName: 'NanoBrowser',
+			title: 'NanoBrowser : Gagnez Nano en Naviguant',
+			description:
+				'Le navigateur axé sur la confidentialité qui vous récompense avec du XNO pour votre attention. Pas de suivi, pas de publicités, juste Nano.',
+		},
+		de: {
+			partnerName: 'NanoBrowser',
+			title: 'NanoBrowser: Verdienen Sie Nano beim Surfen',
+			description:
+				'Der datenschutzorientierte Browser, der Sie mit XNO für Ihre Aufmerksamkeit belohnt. Kein Tracking, keine Werbung, nur Nano.',
+		},
+		es: {
+			partnerName: 'NanoBrowser',
+			title: 'NanoBrowser: Gana Nano Mientras Navegas',
+			description:
+				'El navegador enfocado en la privacidad que te recompensa con XNO por tu atención. Sin rastreo, sin anuncios, solo Nano.',
+		},
+		nl: {
+			partnerName: 'NanoBrowser',
+			title: 'NanoBrowser: Verdien Nano Tijdens het Browsen',
+			description:
+				'De privacy-gerichte browser die je beloont met XNO voor je aandacht. Geen tracking, geen advertenties, alleen Nano.',
+		},
+		it: {
+			partnerName: 'NanoBrowser',
+			title: 'NanoBrowser: Guadagna Nano Mentre Navighi',
+			description:
+				'Il browser incentrato sulla privacy che ti ricompensa con XNO per la tua attenzione. Nessun tracciamento, nessuna pubblicità, solo Nano.',
+		},
+	},
+	nanostore: {
+		en: {
+			partnerName: 'NanoStore',
+			title: 'Shop With Nano - 10,000+ Products',
+			description:
+				'The largest marketplace accepting Nano payments. Electronics, clothing, gifts and more with instant checkout.',
+		},
+		fr: {
+			partnerName: 'NanoStore',
+			title: 'Achetez avec Nano - 10 000+ Produits',
+			description:
+				'Le plus grand marketplace acceptant les paiements Nano. Électronique, vêtements, cadeaux et plus avec paiement instantané.',
+		},
+		de: {
+			partnerName: 'NanoStore',
+			title: 'Mit Nano Einkaufen - 10.000+ Produkte',
+			description:
+				'Der größte Marketplace, der Nano-Zahlungen akzeptiert. Elektronik, Kleidung, Geschenke und mehr mit sofortiger Kasse.',
+		},
+		es: {
+			partnerName: 'NanoStore',
+			title: 'Compra con Nano - 10.000+ Productos',
+			description:
+				'El marketplace más grande que acepta pagos Nano. Electrónica, ropa, regalos y más con pago instantáneo.',
+		},
+		nl: {
+			partnerName: 'NanoStore',
+			title: 'Winkel met Nano - 10.000+ Producten',
+			description:
+				'De grootste marketplace die Nano-betalingen accepteert. Elektronica, kleding, cadeaus en meer met directe checkout.',
+		},
+		it: {
+			partnerName: 'NanoStore',
+			title: 'Acquista con Nano - 10.000+ Prodotti',
+			description:
+				'Il marketplace più grande che accetta pagamenti Nano. Elettronica, abbigliamento, regali e altro con pagamento istantaneo.',
+		},
+	},
+}
+
+function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: string }) {
+	const t = useTranslations('partners')
+	const { id, logoUrl } = partner
 	const href = getPartnerHref(partner)
 	const isExternal = isExternalPartner(partner)
+
+	// Get partner content from hardcoded translations
+	const partnerContent = partnerTranslations[id]?.[locale] || partnerTranslations[id]?.['en']
+	if (!partnerContent) {
+		return null
+	}
+
+	const { partnerName, title, description } = partnerContent
 
 	const cardContent = (
 		<div className="relative overflow-hidden rounded-lg border border-primary/20 bg-linear-to-r from-primary/5 via-primary/10 to-primary/5 p-4 transition-all hover:border-primary/40 hover:shadow-md hover:shadow-primary/5">
@@ -85,7 +177,7 @@ function PartnerCard({ partner }: { partner: PartnerContent }) {
 			<div className="absolute right-3 top-3">
 				<Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary">
 					<Sparkles className="h-3 w-3" />
-					Partner
+					{t('badge')}
 				</Badge>
 			</div>
 
@@ -132,6 +224,7 @@ function PartnerCard({ partner }: { partner: PartnerContent }) {
 }
 
 export function PartnerSpotlight() {
+	const locale = useLocale()
 	const [partners, setPartners] = useState<PartnerContent[] | null>(null)
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [isPaused, setIsPaused] = useState(false)
@@ -181,7 +274,11 @@ export function PartnerSpotlight() {
 		// biome-ignore lint/a11y/noStaticElementInteractions: hover pause is non-essential UX enhancement
 		<div className="mt-4" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
 			<div key={`${currentItem.type}-${currentIndex}`} className="animate-in fade-in duration-500">
-				{currentItem.type === 'cta' ? <GetPromotedCard /> : <PartnerCard partner={currentItem.data} />}
+				{currentItem.type === 'cta' ? (
+					<GetPromotedCard />
+				) : (
+					<PartnerCard partner={currentItem.data} locale={locale} />
+				)}
 			</div>
 
 			{/* Rotation indicators */}

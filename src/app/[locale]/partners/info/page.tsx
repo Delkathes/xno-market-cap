@@ -22,7 +22,10 @@ export default function PartnerInfoPage() {
 			</div>
 			{/* Hero Section */}
 			<div className="text-center mb-16 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-				<Badge variant="outline" className="mb-4 text-green-600 border-green-200 bg-green-50 backdrop-blur-sm">
+				<Badge
+					variant="outline"
+					className="mb-4 text-green-600 border-green-400/20 bg-green-400/10 backdrop-blur-sm"
+				>
 					<Sparkles className="w-3 h-3 mr-1" /> Partner Program
 				</Badge>
 				<h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-r from-green-600 to-emerald-400">

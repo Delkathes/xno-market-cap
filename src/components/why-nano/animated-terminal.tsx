@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 type TerminalLine = {
 	type: 'command' | 'status' | 'header' | 'detail' | 'success' | 'divider'
@@ -9,60 +10,49 @@ type TerminalLine = {
 	delay: number
 }
 
-type TerminalScenario = {
-	lines: TerminalLine[]
-	footerTitle: string
-	footerDescription: string
-}
-
-const scenarios: TerminalScenario[] = [
-	{
-		lines: [
-			{ type: 'command', text: '> Agent requesting api.weather-service.ai/forecast', delay: 0 },
-			{ type: 'detail', text: '  { city: "London" }', delay: 0 },
-			{ type: 'header', text: '← 402 Payment Required', color: 'text-yellow-400', delay: 500 },
-			{ type: 'detail', text: '  X-Payment-Address: nano_1weather...', delay: 750 },
-			{ type: 'detail', text: '  X-Payment-Amount: 0.0001 XNO', delay: 750 },
-			{ type: 'detail', text: '  X-Payment-Network: nano:mainnet', delay: 750 },
-			{ type: 'command', text: '> Signing transaction…', delay: 1200 },
-			{ type: 'status', text: '  ✓ Confirmed in 0.35s', delay: 1400 },
-			{ type: 'status', text: '  ✓ Block: A7F2C9...3E1B', delay: 1400 },
-			{ type: 'command', text: '> Retrying with signing proof…', delay: 2000 },
-			{ type: 'success', text: '  ← 200 OK — Forecast data received', delay: 2500 },
-		],
-		footerTitle: 'Per call API Payment Flow',
-		footerDescription:
-			'APIs respond with HTTP 402 and payment details. The agent pays with Nano, attaches the proof, and gets instant access — no API keys or subscriptions needed.',
-	},
-	{
-		lines: [
-			{ type: 'command', text: '> Agent requesting llm-gateway.io/v1/completions', delay: 0 },
-			{ type: 'detail', text: '  { model: "mistral-large-3" }', delay: 0 },
-			{ type: 'header', text: '← 402 Payment Required', color: 'text-yellow-400', delay: 500 },
-			{ type: 'detail', text: '  X-Payment-Address: nano_1llmgtw...', delay: 750 },
-			{ type: 'detail', text: '  X-Payment-Amount: 0.00042 XNO', delay: 750 },
-			{ type: 'detail', text: '  X-Payment-Network: nano:mainnet', delay: 750 },
-			{ type: 'command', text: '> Signing transaction…', delay: 1200 },
-			{ type: 'status', text: '  ✓ Confirmed in 0.28s', delay: 1400 },
-			{ type: 'status', text: '  ✓ Block: D4E1A8...7C09', delay: 1400 },
-			{ type: 'command', text: '> Retrying with signing proof…', delay: 2000 },
-			{ type: 'success', text: '  ← 200 OK — Streaming 1,247 tokens', delay: 2500 },
-		],
-		footerTitle: 'Per-Prompt LLM Billing',
-		footerDescription:
-			'Pay per inference call instead of monthly subscriptions. Agents only spend on what they use — each prompt is a single instantly confirmed feeless transaction.',
-	},
+const scenarioLines: TerminalLine[][] = [
+	[
+		{ type: 'command', text: '> Agent requesting api.weather-service.ai/forecast', delay: 0 },
+		{ type: 'detail', text: '  { city: "London" }', delay: 0 },
+		{ type: 'header', text: '← 402 Payment Required', color: 'text-yellow-400', delay: 500 },
+		{ type: 'detail', text: '  X-Payment-Address: nano_1weather...', delay: 750 },
+		{ type: 'detail', text: '  X-Payment-Amount: 0.0001 XNO', delay: 750 },
+		{ type: 'detail', text: '  X-Payment-Network: nano:mainnet', delay: 750 },
+		{ type: 'command', text: '> Creating signed block…', delay: 1200 },
+		{ type: 'status', text: '  ✓ Confirmed in 0.35s', delay: 1400 },
+		{ type: 'status', text: '  ✓ Block: A7F2C9...3E1B', delay: 1400 },
+		{ type: 'command', text: '> Retrying with signed block…', delay: 2000 },
+		{ type: 'success', text: '  ← 200 OK — Forecast data received', delay: 2500 },
+	],
+	[
+		{ type: 'command', text: '> Agent requesting llm-gateway.io/v1/completions', delay: 0 },
+		{ type: 'detail', text: '  { model: "mistral-large-3" }', delay: 0 },
+		{ type: 'header', text: '← 402 Payment Required', color: 'text-yellow-400', delay: 500 },
+		{ type: 'detail', text: '  X-Payment-Address: nano_1llmgtw...', delay: 750 },
+		{ type: 'detail', text: '  X-Payment-Amount: 0.00042 XNO', delay: 750 },
+		{ type: 'detail', text: '  X-Payment-Network: nano:mainnet', delay: 750 },
+		{ type: 'command', text: '> Creating signed block…', delay: 1200 },
+		{ type: 'status', text: '  ✓ Confirmed in 0.28s', delay: 1400 },
+		{ type: 'status', text: '  ✓ Block: D4E1A8...7C09', delay: 1400 },
+		{ type: 'command', text: '> Retrying with signed block…', delay: 2000 },
+		{ type: 'success', text: '  ← 200 OK — Streaming 1,247 tokens', delay: 2500 },
+	],
 ]
 
 const DISPLAY_DURATION = 10000
 const FADE_DURATION = 400
 
 export function AnimatedTerminal() {
+	const t = useTranslations('whyNano.x402')
 	const [scenarioIndex, setScenarioIndex] = useState(0)
 	const [visibleLines, setVisibleLines] = useState(0)
 	const [isFading, setIsFading] = useState(false)
 
-	const scenario = scenarios[scenarioIndex]
+	const lines = scenarioLines[scenarioIndex]
+
+	// Get footer content based on current scenario
+	const footerTitle = scenarioIndex === 0 ? t('apiPaymentFlow.title') : t('llmBilling.title')
+	const footerDescription = scenarioIndex === 0 ? t('apiPaymentFlow.description') : t('llmBilling.description')
 
 	// Animate lines appearing one by one
 	useEffect(() => {
@@ -70,17 +60,17 @@ export function AnimatedTerminal() {
 		setIsFading(false)
 
 		const timers: ReturnType<typeof setTimeout>[] = []
-		const currentScenario = scenarios[scenarioIndex]
+		const currentLines = scenarioLines[scenarioIndex]
 
-		for (let i = 0; i < currentScenario.lines.length; i++) {
+		for (let i = 0; i < currentLines.length; i++) {
 			timers.push(
 				setTimeout(() => {
 					setVisibleLines(i + 1)
-				}, currentScenario.lines[i].delay),
+				}, currentLines[i].delay),
 			)
 		}
 
-		const lastDelay = currentScenario.lines[currentScenario.lines.length - 1].delay
+		const lastDelay = currentLines[currentLines.length - 1].delay
 
 		// Start fade out, then switch scenario
 		timers.push(
@@ -91,7 +81,7 @@ export function AnimatedTerminal() {
 		timers.push(
 			setTimeout(
 				() => {
-					setScenarioIndex((prev) => (prev + 1) % scenarios.length)
+					setScenarioIndex((prev) => (prev + 1) % scenarioLines.length)
 				},
 				lastDelay + DISPLAY_DURATION + FADE_DURATION,
 			),
@@ -155,9 +145,9 @@ export function AnimatedTerminal() {
 				<div className="ml-4 text-xs font-mono text-zinc-500">AI Agent Terminal</div>
 				{/* Scenario indicator */}
 				<div className="ml-auto flex items-center gap-1.5">
-					{scenarios.map((_, i) => (
+					{scenarioLines.map((lineGroup, i) => (
 						<div
-							key={`indicator-${scenarios[i].footerTitle}`}
+							key={`indicator-${lineGroup[0]?.text.slice(0, 20) ?? i}`}
 							className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
 								i === scenarioIndex ? 'bg-cyan-400' : 'bg-zinc-700'
 							}`}
@@ -174,7 +164,7 @@ export function AnimatedTerminal() {
 					}`}
 				>
 					<div className="space-y-1.5 text-zinc-300 min-h-83.5 md:min-h-90">
-						{scenario.lines.slice(0, visibleLines).map((line, i) => {
+						{lines.slice(0, visibleLines).map((line, i) => {
 							const isLast = i === visibleLines - 1
 							return (
 								<div
@@ -193,7 +183,7 @@ export function AnimatedTerminal() {
 							)
 						})}
 						{/* Blinking cursor */}
-						{visibleLines < scenario.lines.length && (
+						{visibleLines < lines.length && (
 							<div className="pt-2">
 								<span className="inline-block w-2 h-4 bg-zinc-400 animate-pulse" />
 							</div>
@@ -208,8 +198,8 @@ export function AnimatedTerminal() {
 						isFading ? 'opacity-0' : 'opacity-100'
 					}`}
 				>
-					<h4 className="text-white font-bold text-sm">{scenario.footerTitle}</h4>
-					<p className="text-zinc-500 text-xs leading-relaxed">{scenario.footerDescription}</p>
+					<h4 className="text-white font-bold text-sm">{footerTitle}</h4>
+					<p className="text-zinc-500 text-xs leading-relaxed">{footerDescription}</p>
 				</div>
 			</div>
 		</div>

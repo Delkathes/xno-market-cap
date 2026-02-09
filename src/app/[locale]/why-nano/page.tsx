@@ -24,7 +24,7 @@ import {
 	Workflow,
 	Zap,
 } from 'lucide-react'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -32,19 +32,28 @@ import { Button } from '@/components/ui/button'
 import { AnimatedTerminal } from '@/components/why-nano/animated-terminal'
 import { AnimatedWorkflow } from '@/components/why-nano/animated-workflow'
 
-export const metadata: Metadata = {
-	title: 'Why Nano? The Currency for AI | NanoMarketCap',
-	description:
-		'Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol.',
-}
-
 type Props = {
 	params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'metadata.whyNano' })
+
+	return {
+		title: t('title'),
+		description: t('description'),
+		openGraph: {
+			title: t('ogTitle'),
+			description: t('ogDescription'),
+		},
+	}
 }
 
 export default async function WhyNanoPage({ params }: Props) {
 	const { locale } = await params
 	setRequestLocale(locale)
+	const t = await getTranslations({ locale, namespace: 'whyNano' })
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24 selection:bg-cyan-500/30">
@@ -58,23 +67,17 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* Hero Section */}
 			<div className="relative z-10 text-center mb-32">
 				<h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-					The Payment Layer for{' '}
+					{t('hero.titlePart1')}{' '}
 					<span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 to-blue-500">
-						Autonomous Machines
+						{t('hero.titleHighlight')}
 					</span>
 				</h1>
-				<p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
-					Nano is the only currency with zero fees, sub-second finality, and no smart-contract complexity —
-					purpose-built for the machine economy where AI agents transact autonomously.
-				</p>
-				<p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-					From per-token LLM billing to the x402 payment protocol, Nano gives agents a frictionless value
-					layer that traditional finance and blockchain networks cannot match.
-				</p>
+				<p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">{t('hero.description1')}</p>
+				<p className="text-muted-foreground max-w-2xl mx-auto mb-6">{t('hero.description2')}</p>
 				<div className="flex items-center justify-center gap-4">
 					<Button variant="outline" asChild>
 						<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
-							Learn About Nano <ExternalLink className="w-4 h-4 ml-2" />
+							{t('hero.learnAboutNano')} <ExternalLink className="w-4 h-4 ml-2" />
 						</a>
 					</Button>
 				</div>
@@ -83,10 +86,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* Bento Grid Features */}
 			<section className="relative z-10 max-w-6xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-12 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">Why Agents Choose Nano</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						Optimized for high-frequency, low-latency, autonomous transactions.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('features.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('features.subtitle')}</p>
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 auto-rows-[minmax(160px,auto)]">
@@ -98,23 +99,28 @@ export default async function WhyNanoPage({ params }: Props) {
 								<div className="w-12 h-12 mr-4 rounded-xl bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform duration-500">
 									<Zap className="w-6 h-6" />
 								</div>
-								<h3 className="text-lg sm:text-xl md:text-2xl font-bold">Instant Feeless Settlement</h3>
+								<h3 className="text-lg sm:text-xl md:text-2xl font-bold">
+									{t('features.instantSettlement.title')}
+								</h3>
 							</div>
 							<div className="flex flex-col justify-between h-full space-y-3 sm:space-y-2 md:space-y-0 text-sm sm:text-base">
 								<p className="text-muted-foreground leading-relaxed max-w-2xl">
-									<strong className="text-foreground">Instant:</strong> Nano settles in under 500ms —
-									agents don't wait for block confirmations. Real-time value transfer for real-time
-									inference, API calls, and autonomous decision-making.
+									<strong className="text-foreground">
+										{t('features.instantSettlement.instantLabel')}
+									</strong>{' '}
+									{t('features.instantSettlement.instantText')}
 								</p>
 								<p className="text-muted-foreground leading-relaxed max-w-2xl">
-									<strong className="text-foreground">Feeless:</strong> Send $0.000001 economically.
-									Every micro-payment is viable — perfect for per-token LLM billing, streaming compute
-									costs, and pay-per-tool usage.
+									<strong className="text-foreground">
+										{t('features.instantSettlement.feelessLabel')}
+									</strong>{' '}
+									{t('features.instantSettlement.feelessText')}
 								</p>
 								<p className="text-muted-foreground leading-relaxed max-w-2xl">
-									<strong className="text-foreground">Decentralized:</strong> No central authority can
-									freeze funds or censor transactions. Agents operate with full financial autonomy,
-									guaranteed by decentralized consensus.
+									<strong className="text-foreground">
+										{t('features.instantSettlement.decentralizedLabel')}
+									</strong>{' '}
+									{t('features.instantSettlement.decentralizedText')}
 								</p>
 							</div>
 						</div>
@@ -122,15 +128,15 @@ export default async function WhyNanoPage({ params }: Props) {
 
 					<BentoCard
 						icon={Bot}
-						title="Agent Native"
-						description="Simple light-weight RPCs. No complex smart contracts to audit, no gas to estimate, no nonces to manage."
+						title={t('features.agentNative.title')}
+						description={t('features.agentNative.description')}
 						accentColor="orange"
 					/>
 
 					<BentoCard
 						icon={Network}
-						title="x402 Protocol"
-						description="The HTTP standard for payment-required resources. Agents can autonomously pay/charge for any API, data feed, or tool access."
+						title={t('features.x402Protocol.title')}
+						description={t('features.x402Protocol.description')}
 						accentColor="blue"
 					/>
 
@@ -142,12 +148,11 @@ export default async function WhyNanoPage({ params }: Props) {
 								<div className="w-11 h-11 rounded-lg bg-green-100 dark:bg-green-950/50 border border-green-200 dark:border-green-500/20 flex items-center justify-center shrink-0 text-green-600 dark:text-green-400">
 									<Leaf className="w-5 h-5" />
 								</div>
-								<h3 className="text-lg font-bold">Sustainable Compute</h3>
+								<h3 className="text-lg font-bold">{t('features.sustainableCompute.title')}</h3>
 							</div>
 							<div>
 								<p className="text-muted-foreground text-sm">
-									AI training is energy intensive — payments shouldn't be. Nano consumes negligible
-									energy per transaction and adds zero carbon footprint to your stack.
+									{t('features.sustainableCompute.description')}
 								</p>
 							</div>
 						</div>
@@ -155,8 +160,8 @@ export default async function WhyNanoPage({ params }: Props) {
 
 					<BentoCard
 						icon={Coins}
-						title="MCP Integration"
-						description="Provides direct access to Nano RPCs. AI agents can query balances, send transactions, and monitor the network programmatically."
+						title={t('features.mcpIntegration.title')}
+						description={t('features.mcpIntegration.description')}
 						accentColor="purple"
 					/>
 				</div>
@@ -165,10 +170,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* Use Cases — Terminal Look */}
 			<section className="relative z-10 max-w-4xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-10 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">x402 in Action</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						How AI agents pay for resources in real time using the HTTP 402 protocol and Nano.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('x402.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('x402.subtitle')}</p>
 				</div>
 
 				<AnimatedTerminal />
@@ -177,10 +180,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* n8n-style Workflow */}
 			<section className="relative z-10 max-w-5xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-10 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">Workflow Automation</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						Integrate Nano into n8n workflows, automate feeless payment workflows.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('workflow.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('workflow.subtitle')}</p>
 				</div>
 
 				<AnimatedWorkflow />
@@ -189,10 +190,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* How It Works */}
 			<section className="relative z-10 max-w-5xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-14 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">How Nano Works</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						A unique architecture designed for instant, feeless value transfer.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('howItWorks.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('howItWorks.subtitle')}</p>
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 relative">
@@ -205,12 +204,11 @@ export default async function WhyNanoPage({ params }: Props) {
 							<Layers className="w-10 h-10" />
 						</div>
 						<span className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-2">
-							Step 1
+							{t('howItWorks.step1.badge')}
 						</span>
-						<h3 className="text-lg font-bold mb-2">Your Own Blockchain</h3>
+						<h3 className="text-lg font-bold mb-2">{t('howItWorks.step1.title')}</h3>
 						<p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-							Every account has its own blockchain (account-chain). No shared state, no contention, no
-							bottlenecks — unlimited throughput by design.
+							{t('howItWorks.step1.description')}
 						</p>
 					</div>
 
@@ -220,12 +218,11 @@ export default async function WhyNanoPage({ params }: Props) {
 							<ArrowLeftRight className="w-10 h-10" />
 						</div>
 						<span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
-							Step 2
+							{t('howItWorks.step2.badge')}
 						</span>
-						<h3 className="text-lg font-bold mb-2">Asynchronous Transfers</h3>
+						<h3 className="text-lg font-bold mb-2">{t('howItWorks.step2.title')}</h3>
 						<p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-							Transactions split into independent send and receive blocks. Both parties act on their own
-							chain — no waiting for the other side.
+							{t('howItWorks.step2.description')}
 						</p>
 					</div>
 
@@ -235,12 +232,11 @@ export default async function WhyNanoPage({ params }: Props) {
 							<ShieldCheck className="w-10 h-10" />
 						</div>
 						<span className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
-							Step 3
+							{t('howItWorks.step3.badge')}
 						</span>
-						<h3 className="text-lg font-bold mb-2">Instant Consensus</h3>
+						<h3 className="text-lg font-bold mb-2">{t('howItWorks.step3.title')}</h3>
 						<p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-							Open Representative Voting (ORV) confirms transactions in under 1 second. No mining, no
-							staking — just lightweight voting with minimal energy.
+							{t('howItWorks.step3.description')}
 						</p>
 					</div>
 				</div>
@@ -248,109 +244,109 @@ export default async function WhyNanoPage({ params }: Props) {
 
 			{/* Comparison Table */}
 			<section className="relative z-10 max-w-4xl mx-auto mb-32">
-				<h2 className="text-2xl md:text-3xl font-bold text-center mb-10">How Nano Compares</h2>
+				<h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('comparison.title')}</h2>
 
 				<div className="grid grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
 					{/* Header */}
 					<div className="bg-muted p-3 md:p-5 flex items-center">
 						<span className="text-muted-foreground text-xs uppercase tracking-wider font-semibold">
-							Metric
+							{t('comparison.metric')}
 						</span>
 					</div>
 					<div className="bg-muted p-3 md:p-5 flex items-center justify-center relative overflow-hidden">
 						<div className="absolute inset-0 bg-cyan-500/5 pointer-events-none" />
 						<span className="text-cyan-600 dark:text-cyan-400 font-bold text-xs md:text-base">
-							Nano (XNO)
+							{t('comparison.nano')}
 						</span>
 					</div>
 					<div className="bg-muted p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-semibold text-xs md:text-base">Bitcoin</span>
+						<span className="text-muted-foreground font-semibold text-xs md:text-base">
+							{t('comparison.bitcoin')}
+						</span>
 					</div>
 					<div className="bg-muted p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-semibold text-xs md:text-base">Tether (USDT)</span>
+						<span className="text-muted-foreground font-semibold text-xs md:text-base">
+							{t('comparison.tether')}
+						</span>
 					</div>
 
 					{/* Latency */}
 					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">Latency</span>
+						<span className="font-medium text-sm">{t('comparison.latency')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">&lt; 1s</span>
+						<span className="font-mono text-sm">{t('comparison.latencyNano')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">10 – 60 min</span>
+						<span className="text-muted-foreground font-mono text-sm">
+							{t('comparison.latencyBitcoin')}
+						</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">1 – 30s</span>
+						<span className="text-muted-foreground font-mono text-sm">{t('comparison.latencyTether')}</span>
 					</div>
 
 					{/* Cost */}
 					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">Tx Fees</span>
+						<span className="font-medium text-sm">{t('comparison.txFees')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">None</span>
+						<span className="font-mono text-sm">{t('comparison.feesNano')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">$1 – $50</span>
+						<span className="text-muted-foreground font-mono text-sm">{t('comparison.feesBitcoin')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">$0.02 – $3</span>
+						<span className="text-muted-foreground font-mono text-sm">{t('comparison.feesTether')}</span>
 					</div>
 
 					{/* Architecture */}
 					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">Architecture</span>
+						<span className="font-medium text-sm">{t('comparison.architecture')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-center text-xs md:text-sm">
-							Async
-							<br />
-							Block Lattice
+						<span className="font-mono text-center text-xs md:text-sm">{t('comparison.archNano')}</span>
+					</div>
+					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
+							{t('comparison.archBitcoin')}
 						</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
 						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
-							PoW
-							<br />
-							Blockchain
-						</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
-							Centralized
-							<br />
-							Token
+							{t('comparison.archTether')}
 						</span>
 					</div>
 
 					{/* Energy */}
 					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">Energy / Tx</span>
+						<span className="font-medium text-sm">{t('comparison.energy')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">0.111 Wh</span>
+						<span className="font-mono text-sm">{t('comparison.energyNano')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">707 kWh</span>
+						<span className="text-muted-foreground font-mono text-sm">{t('comparison.energyBitcoin')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">Host chain</span>
+						<span className="text-muted-foreground font-mono text-sm">{t('comparison.energyTether')}</span>
 					</div>
 
 					{/* Availability */}
 					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">Availability</span>
+						<span className="font-medium text-sm">{t('comparison.availability')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">24/7</span>
+						<span className="font-mono text-sm">{t('comparison.availabilityNano')}</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">24/7</span>
+						<span className="text-muted-foreground font-mono text-sm">
+							{t('comparison.availabilityBitcoin')}
+						</span>
 					</div>
 					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
 						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
-							24/7, censurable
+							{t('comparison.availabilityTether')}
 						</span>
 					</div>
 				</div>
@@ -359,10 +355,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* Supply & Distribution */}
 			<section className="relative z-10 max-w-4xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-12 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">Supply &amp; Distribution</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						Fair, fixed, and fully distributed from day one.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('supply.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('supply.subtitle')}</p>
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -372,13 +366,11 @@ export default async function WhyNanoPage({ params }: Props) {
 							<div className="w-12 h-12 mx-auto rounded-xl bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
 								<Coins className="w-6 h-6" />
 							</div>
-							<div className="text-3xl font-bold mb-1">{(133248297).toLocaleString()}</div>
+							<div className="text-3xl font-bold mb-1">{t('supply.fixedSupply.value')}</div>
 							<div className="text-sm font-semibold text-cyan-600 dark:text-cyan-400 mb-2">
-								Fixed Supply
+								{t('supply.fixedSupply.title')}
 							</div>
-							<p className="text-muted-foreground text-sm">
-								The total number of XNO that will ever exist. Defined at genesis, immutable forever.
-							</p>
+							<p className="text-muted-foreground text-sm">{t('supply.fixedSupply.description')}</p>
 						</div>
 					</div>
 
@@ -388,14 +380,11 @@ export default async function WhyNanoPage({ params }: Props) {
 							<div className="w-12 h-12 mx-auto rounded-xl bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
 								<Users className="w-6 h-6" />
 							</div>
-							<div className="text-3xl font-bold mb-1">100%</div>
+							<div className="text-3xl font-bold mb-1">{t('supply.fullyDistributed.value')}</div>
 							<div className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">
-								Fully Distributed
+								{t('supply.fullyDistributed.title')}
 							</div>
-							<p className="text-muted-foreground text-sm">
-								All XNO distributed via a free CAPTCHA faucet. No ICO, no pre-mine, no insider
-								allocation.
-							</p>
+							<p className="text-muted-foreground text-sm">{t('supply.fullyDistributed.description')}</p>
 						</div>
 					</div>
 
@@ -405,14 +394,11 @@ export default async function WhyNanoPage({ params }: Props) {
 							<div className="w-12 h-12 mx-auto rounded-xl bg-green-100 dark:bg-green-950/50 border border-green-200 dark:border-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400 mb-4">
 								<TrendingDown className="w-6 h-6" />
 							</div>
-							<div className="text-3xl font-bold mb-1">0%</div>
+							<div className="text-3xl font-bold mb-1">{t('supply.zeroInflation.value')}</div>
 							<div className="text-sm font-semibold text-green-600 dark:text-green-400 mb-2">
-								Zero Inflation
+								{t('supply.zeroInflation.title')}
 							</div>
-							<p className="text-muted-foreground text-sm">
-								No new XNO can ever be created. No inflation, no dilution — your share of the supply is
-								permanent.
-							</p>
+							<p className="text-muted-foreground text-sm">{t('supply.zeroInflation.description')}</p>
 						</div>
 					</div>
 				</div>
@@ -421,11 +407,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* Beyond AI */}
 			<section className="relative z-10 max-w-6xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-12 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">Beyond AI</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						Nano isn&apos;t just for machines — it&apos;s a universal currency for anyone who values speed,
-						simplicity, and zero fees.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('beyondAI.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('beyondAI.subtitle')}</p>
 				</div>
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -436,10 +419,10 @@ export default async function WhyNanoPage({ params }: Props) {
 								<div className="flex-none w-10 h-10 rounded-lg bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
 									<CreditCard className="w-5 h-5" />
 								</div>
-								<h3 className="ml-3 text-base font-bold">P2P Payments</h3>
+								<h3 className="ml-3 text-base font-bold">{t('beyondAI.p2pPayments.title')}</h3>
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Send value to anyone, anywhere, instantly and without fees.
+								{t('beyondAI.p2pPayments.description')}
 							</p>
 						</div>
 					</div>
@@ -451,10 +434,10 @@ export default async function WhyNanoPage({ params }: Props) {
 								<div className="flex-none w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
 									<Globe className="w-5 h-5" />
 								</div>
-								<h3 className="ml-3 text-base font-bold">Global Access</h3>
+								<h3 className="ml-3 text-base font-bold">{t('beyondAI.globalAccess.title')}</h3>
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Skip correspondent banks. Settle internationally in under a second.
+								{t('beyondAI.globalAccess.description')}
 							</p>
 						</div>
 					</div>
@@ -466,10 +449,10 @@ export default async function WhyNanoPage({ params }: Props) {
 								<div className="flex-none w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
 									<Smartphone className="w-5 h-5" />
 								</div>
-								<h3 className="ml-3 text-base font-bold">Point of Sale</h3>
+								<h3 className="ml-3 text-base font-bold">{t('beyondAI.pointOfSale.title')}</h3>
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Accept payments with zero processing fees and instant confirmation.
+								{t('beyondAI.pointOfSale.description')}
 							</p>
 						</div>
 					</div>
@@ -481,10 +464,12 @@ export default async function WhyNanoPage({ params }: Props) {
 								<div className="flex-none w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-500/20 flex items-center justify-center text-orange-600 dark:text-orange-400">
 									<Cpu className="w-5 h-5" />
 								</div>
-								<h3 className="text-base font-bold ml-3 whitespace-nowrap">IoT Micropayments</h3>
+								<h3 className="text-base font-bold ml-3 whitespace-nowrap">
+									{t('beyondAI.iotMicropayments.title')}
+								</h3>
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Machines paying machines — sensors, meters, and devices transacting autonomously.
+								{t('beyondAI.iotMicropayments.description')}
 							</p>
 						</div>
 					</div>
@@ -494,10 +479,8 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* Developer Resources */}
 			<section className="relative z-10 max-w-5xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-12 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">Developer Resources</h2>
-					<p className="text-muted-foreground max-w-xl text-center">
-						Everything you need to start building with Nano.
-					</p>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('developerResources.title')}</h2>
+					<p className="text-muted-foreground max-w-xl text-center">{t('developerResources.subtitle')}</p>
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
@@ -514,12 +497,14 @@ export default async function WhyNanoPage({ params }: Props) {
 									<div className="w-10 h-10 rounded-lg bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
 										<BookOpen className="w-5 h-5" />
 									</div>
-									<h3 className="ml-3 text-base font-bold">Nano Docs</h3>
+									<h3 className="ml-3 text-base font-bold">
+										{t('developerResources.nanoDocs.title')}
+									</h3>
 								</div>
 								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-cyan-500 transition-colors" />
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Official protocol documentation, RPC reference, and integration guides.
+								{t('developerResources.nanoDocs.description')}
 							</p>
 						</div>
 					</a>
@@ -537,12 +522,14 @@ export default async function WhyNanoPage({ params }: Props) {
 									<div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
 										<Code2 className="w-5 h-5" />
 									</div>
-									<h3 className="ml-3 text-base font-bold">x402 Nano</h3>
+									<h3 className="ml-3 text-base font-bold">
+										{t('developerResources.x402Nano.title')}
+									</h3>
 								</div>
 								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-blue-500 transition-colors" />
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Reference implementation for x402 payment protocol integration with Nano.
+								{t('developerResources.x402Nano.description')}
 							</p>
 						</div>
 					</a>
@@ -560,12 +547,14 @@ export default async function WhyNanoPage({ params }: Props) {
 									<div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
 										<FileCode className="w-5 h-5" />
 									</div>
-									<h3 className="ml-3 text-base font-bold">Nano SDK</h3>
+									<h3 className="ml-3 text-base font-bold">
+										{t('developerResources.nanoSdk.title')}
+									</h3>
 								</div>
 								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-purple-500 transition-colors" />
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								TypeScript SDK for Nano RPC commands with full type safety and IntelliSense.
+								{t('developerResources.nanoSdk.description')}
 							</p>
 						</div>
 					</a>
@@ -583,12 +572,14 @@ export default async function WhyNanoPage({ params }: Props) {
 									<div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-500/20 flex items-center justify-center text-orange-600 dark:text-orange-400">
 										<Package className="w-5 h-5" />
 									</div>
-									<h3 className="ml-3 text-base font-bold">TS Nanocurrency</h3>
+									<h3 className="ml-3 text-base font-bold">
+										{t('developerResources.tsNanocurrency.title')}
+									</h3>
 								</div>
 								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-orange-500 transition-colors" />
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Comprehensive JavaScript/TypeScript toolkit for Nano development.
+								{t('developerResources.tsNanocurrency.description')}
 							</p>
 						</div>
 					</a>
@@ -606,12 +597,14 @@ export default async function WhyNanoPage({ params }: Props) {
 									<div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-950/50 border border-green-200 dark:border-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400">
 										<Compass className="w-5 h-5" />
 									</div>
-									<h3 className="ml-3 text-base font-bold">Nano Casa</h3>
+									<h3 className="ml-3 text-base font-bold">
+										{t('developerResources.nanoCasa.title')}
+									</h3>
 								</div>
 								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-green-500 transition-colors" />
 							</div>
 							<p className="text-muted-foreground text-sm leading-relaxed">
-								Track development activity and discover projects across the Nano ecosystem.
+								{t('developerResources.nanoCasa.description')}
 							</p>
 						</div>
 					</a>
@@ -622,7 +615,7 @@ export default async function WhyNanoPage({ params }: Props) {
 					<div className="flex items-center gap-2 mb-4">
 						<div className="h-px flex-1 bg-border" />
 						<span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-							Coming Soon
+							{t('developerResources.comingSoon')}
 						</span>
 						<div className="h-px flex-1 bg-border" />
 					</div>
@@ -634,14 +627,13 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 							<div className="flex-1">
 								<div className="flex items-center gap-2 mb-1">
-									<h3 className="text-base font-bold">n8n Community Node</h3>
+									<h3 className="text-base font-bold">{t('developerResources.n8nNode.title')}</h3>
 									<span className="px-2 py-0.5 text-xs font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 rounded-full border border-cyan-500/20 whitespace-nowrap">
-										In Development
+										{t('developerResources.n8nNode.badge')}
 									</span>
 								</div>
 								<p className="text-muted-foreground text-sm leading-relaxed">
-									Official n8n community node for Nano RPC commands. Build visual workflows with
-									native Nano integration.
+									{t('developerResources.n8nNode.description')}
 								</p>
 							</div>
 						</div>
@@ -652,78 +644,68 @@ export default async function WhyNanoPage({ params }: Props) {
 			{/* FAQ */}
 			<section className="relative z-10 max-w-3xl mx-auto mb-32">
 				<div className="flex flex-col items-center mb-12 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
+					<h2 className="text-2xl md:text-3xl font-bold">{t('faq.title')}</h2>
 				</div>
 
 				<div className="space-y-3">
 					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
 						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							Is Nano really feeless?
+							{t('faq.q1.question')}
 							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
 						</summary>
 						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							Yes. There are no transaction fees of any kind. Nano uses a lightweight, client-side proof
-							of work to rate-limit spam — but this costs the sender nothing. Every raw unit you send is
-							exactly what the recipient receives.
+							{t('faq.q1.answer')}
 						</div>
 					</details>
 
 					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
 						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							How fast is Nano?
+							{t('faq.q2.question')}
 							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
 						</summary>
 						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							Typical transactions confirm in under 1 second. Nano&apos;s block-lattice architecture and
-							Open Representative Voting (ORV) consensus eliminate the need for mining or block intervals,
-							allowing near-instant finality.
+							{t('faq.q2.answer')}
 						</div>
 					</details>
 
 					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
 						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							What is x402?
+							{t('faq.q3.question')}
 							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
 						</summary>
 						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							x402 is a protocol built on the HTTP 402 &quot;Payment Required&quot; status code. When an
-							AI agent requests a paid resource, the server responds with payment details. The agent sends
-							Nano, retries the request with proof of payment, and receives the resource — all without
-							human intervention.
+							{t('faq.q3.answer')}
 						</div>
 					</details>
 
 					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
 						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							Is Nano decentralized?
+							{t('faq.q4.question')}
 							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
 						</summary>
 						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							Yes. Nano uses Open Representative Voting (ORV) where account holders delegate voting weight
-							to representatives of their choice. Anyone can run a representative node, and no single
-							entity controls the network. Voting weight is distributed across hundreds of independent
-							representatives.
+							{t('faq.q4.answer')}
 						</div>
 					</details>
 
 					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
 						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							How do I start building with Nano?
+							{t('faq.q5.question')}
 							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
 						</summary>
 						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							Visit{' '}
-							<a
-								href="https://docs.nano.org"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-cyan-600 dark:text-cyan-400 underline underline-offset-2 hover:text-cyan-500"
-							>
-								docs.nano.org
-							</a>{' '}
-							for the protocol specification and RPC reference. You can run your own Nano node, use public
-							RPC endpoints, or integrate via Nano MCP servers for AI agent workflows. Client libraries
-							are available for Python, JavaScript, Rust, and more.
+							{t.rich('faq.q5.answer', {
+								link: (chunks) => (
+									<a
+										href="https://docs.nano.org"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-cyan-600 dark:text-cyan-400 underline underline-offset-2 hover:text-cyan-500"
+									>
+										{chunks}
+									</a>
+								),
+							})}
 						</div>
 					</details>
 				</div>
@@ -731,17 +713,14 @@ export default async function WhyNanoPage({ params }: Props) {
 
 			{/* CTA */}
 			<section className="relative z-10 text-center mb-8">
-				<h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to integrate Nano?</h2>
-				<p className="text-muted-foreground mb-6 max-w-md mx-auto">
-					Get a wallet, swap your first XNO, and start building the machine-payment infrastructure of the
-					future.
-				</p>
+				<h2 className="text-2xl md:text-3xl font-bold mb-4">{t('cta.title')}</h2>
+				<p className="text-muted-foreground mb-6 max-w-md mx-auto">{t('cta.description')}</p>
 				<div className="flex items-center justify-center gap-4">
 					<Button asChild>
-						<Link href="/get-nano">Get Nano</Link>
+						<Link href="/get-nano">{t('cta.getNano')}</Link>
 					</Button>
 					<Button variant="outline" asChild>
-						<Link href="/swap-nano">Swap to XNO</Link>
+						<Link href="/swap-nano">{t('cta.swapToXno')}</Link>
 					</Button>
 				</div>
 			</section>

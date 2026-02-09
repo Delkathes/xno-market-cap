@@ -13,6 +13,7 @@ const footerLinks = {
 		{ href: '/speculation', labelKey: 'speculation' },
 	],
 	resources: [
+		{ href: '/why-nano', labelKey: 'whyNano' },
 		{ href: '/get-nano', labelKey: 'getNano' },
 		{ href: '/swap-nano', labelKey: 'swapNano' },
 		{ href: '/calculators', labelKey: 'calculators' },
@@ -26,7 +27,7 @@ const footerLinks = {
 
 const socialLinks = [
 	{ href: 'https://github.com/nano-community', icon: Github, label: 'GitHub' },
-	{ href: 'https://twitter.com/nano', icon: Twitter, label: 'Twitter' },
+	{ href: 'https://x.com/nano', icon: Twitter, label: 'Twitter' },
 ]
 
 export async function Footer({ locale }: { locale: string }) {

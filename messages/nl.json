@@ -41,7 +41,8 @@
 			"title": "Wisselen naar Nano",
 			"description": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel Bitcoin, Ethereum en 50+ cryptocurrencies naar XNO met snelle, kostenloze transacties.",
 			"ogTitle": "Wisselen naar Nano | NanoMarketCap",
-			"ogDescription": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel 50+ cryptocurrencies naar XNO."		},
+			"ogDescription": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel 50+ cryptocurrencies naar XNO."
+		},
 		"calculators": {
 			"title": "XNO Calculators & Tools",
 			"description": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel, investeringsscenario's en ontdek wat je XNO-bezit betekent in het grote geheel.",
@@ -60,6 +61,12 @@
 			"ogTitle": "Nano Nieuws & Updates | NanoMarketCap",
 			"ogDescription": "Blijf op de hoogte van het laatste Nano nieuws, marktinzichten en ecosysteemontwikkelingen.",
 			"articleTitle": "{title} | NanoMarketCap Nieuws"
+		},
+		"whyNano": {
+			"title": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
+			"description": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol.",
+			"ogTitle": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
+			"ogDescription": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol."
 		}
 	},
 	"common": {
@@ -102,6 +109,9 @@
 		"swapToNano": "Wisselen naar Nano",
 		"swapToNanoDescription": "Wissel altcoins (BTC, ETH of andere crypto) naar XNO",
 		"swapToNanoDescriptionShort": "Wissel altcoins naar XNO",
+		"whyNano": "Waarom Nano?",
+		"whyNanoDescription": "Waarom het superieur geld is",
+		"whyNanoDescriptionShort": "Waarom het superieur geld is",
 		"closeMenu": "Menu sluiten",
 		"toggleMenu": "Menu wisselen"
 	},
@@ -361,6 +371,213 @@
 		"minAmountError": "Minimumbedrag is {min} {currency}",
 		"maxAmountError": "Maximumbedrag is {max} {currency}"
 	},
+	"whyNano": {
+		"hero": {
+			"titlePart1": "De Betalingslaag voor",
+			"titleHighlight": "Autonome Machines",
+			"description1": "Nano is de enige valuta met nul kosten, sub-seconde finaliteit en geen smart-contract complexiteit — speciaal ontwikkeld voor de machine-economie waarin AI-agenten autonoom transacties uitvoeren.",
+			"description2": "Van LLM-tokenfacturering tot het x402-betalingsprotocol biedt Nano agenten een wrijvingsloze waardelaag die traditionele financiën en blockchain-netwerken niet kunnen evenaren.",
+			"learnAboutNano": "Meer over Nano"
+		},
+		"features": {
+			"title": "Waarom Agenten Nano Kiezen",
+			"subtitle": "Geoptimaliseerd voor hoogfrequente, laag-latente, autonome transacties.",
+			"instantSettlement": {
+				"title": "Directe Kosteloze Afhandeling",
+				"instantLabel": "Direct:",
+				"instantText": "Nano wordt in minder dan 500ms afgewikkeld — agenten wachten niet op blokbevestigingen. Realtime waardevoor overdracht voor realtime-inferentie, API-aanroepen en autonome besluitvorming.",
+				"feelessLabel": "Kosteloos:",
+				"feelessText": "Verzend 0,000001$ economisch. Elke microbetaling is levensvatbaar — perfect voor LLM-tokenfacturering, streaming-computerkosten en pay-per-tool gebruik.",
+				"decentralizedLabel": "Gedecentraliseerd:",
+				"decentralizedText": "Geen centrale autoriteit kan fondsen bevriezen of transacties censureren. Agenten opereren met volledige financiële autonomie, gegarandeerd door gedecentraliseerde consensus."
+			},
+			"agentNative": {
+				"title": "Agent-Natief",
+				"description": "Eenvoudige, lichtgewicht RPCs. Geen complexe smart contracts om te auditen, geen gas om te schatten, geen nonces om te beheren."
+			},
+			"x402Protocol": {
+				"title": "x402 Protocol",
+				"description": "De HTTP-standaard voor betaalplichtige bronnen. Agenten kunnen autonoom betalen/factureren voor elke API, databron of tooltoegang."
+			},
+			"sustainableCompute": {
+				"title": "Duurzame Computing",
+				"description": "AI-training is energie-intensief — betalingen zouden dat niet moeten zijn. Nano verbruikt verwaarloosbare energie per transactie en voegt geen CO2-voetafdruk toe aan je stack."
+			},
+			"mcpIntegration": {
+				"title": "MCP Integratie",
+				"description": "Biedt directe toegang tot Nano RPCs. AI-agenten kunnen saldi opvragen, transacties verzenden en het netwerk programmatisch monitoren."
+			}
+		},
+		"x402": {
+			"title": "x402 in Actie",
+			"subtitle": "Hoe AI-agenten in realtime betalen voor bronnen met het HTTP 402-protocol en Nano.",
+			"apiPaymentFlow": {
+				"title": "API-Betalingsstroom per Oproep",
+				"description": "API's reageren met HTTP 402 en betalingsdetails. De agent betaalt met Nano, voegt het bewijs toe, en krijgt direct toegang — geen API-sleutels of abonnementen nodig."
+			},
+			"llmBilling": {
+				"title": "LLM-Facturering per Prompt",
+				"description": "Betaal per inferentie-oproep in plaats van maandelijkse abonnementen. Agenten besteden alleen aan wat ze gebruiken — elke prompt is een enkele direct bevestigde kosteloze transactie."
+			}
+		},
+		"workflow": {
+			"title": "Workflow-Automatisering",
+			"subtitle": "Integreer Nano in n8n-workflows, automatiseer kosteloze betalingsworkflows."
+		},
+		"howItWorks": {
+			"title": "Hoe Nano Werkt",
+			"subtitle": "Een unieke architectuur ontworpen voor directe, kosteloze waardevoor overdracht.",
+			"step1": {
+				"badge": "Stap 1",
+				"title": "Je Eigen Blockchain",
+				"description": "Elk account heeft zijn eigen blockchain (account-chain). Geen gedeelde status, geen conflicten, geen knelpunten — onbeperkte doorvoer door ontwerp."
+			},
+			"step2": {
+				"badge": "Stap 2",
+				"title": "Asynchrone Transfers",
+				"description": "Transacties splitsen in onafhankelijke verzend- en ontvangstblokken. Beide partijen handelen op hun eigen keten — geen wachten op de andere kant."
+			},
+			"step3": {
+				"badge": "Stap 3",
+				"title": "Directe Consensus",
+				"description": "Open Representative Voting (ORV) bevestigt transacties in minder dan 1 seconde. Geen mining, geen staking — alleen lichtgewicht stemmen met minimale energie."
+			}
+		},
+		"comparison": {
+			"title": "Hoe Nano zich Vergelijkt",
+			"metric": "Metriek",
+			"nano": "Nano (XNO)",
+			"bitcoin": "Bitcoin",
+			"tether": "Tether (USDT)",
+			"latency": "Latentie",
+			"latencyNano": "< 1s",
+			"latencyBitcoin": "10 – 60 min",
+			"latencyTether": "1 – 30s",
+			"txFees": "Tx-kosten",
+			"feesNano": "Geen",
+			"feesBitcoin": "1$ – 50$",
+			"feesTether": "0,02$ – 3$",
+			"architecture": "Architectuur",
+			"archNano": "Asynchrone Block-Lattice",
+			"archBitcoin": "PoW Blockchain",
+			"archTether": "Gecentraliseerde Token",
+			"energy": "Energie / Tx",
+			"energyNano": "0,111 Wh",
+			"energyBitcoin": "707 kWh",
+			"energyTether": "Host-chain",
+			"availability": "Beschikbaarheid",
+			"availabilityNano": "24/7",
+			"availabilityBitcoin": "24/7",
+			"availabilityTether": "24/7, censureerbaar"
+		},
+		"supply": {
+			"title": "Voorraad & Distributie",
+			"subtitle": "Eerlijk, vast en volledig gedistribueerd vanaf dag één.",
+			"fixedSupply": {
+				"title": "Vaste Voorraad",
+				"value": "133.248.297",
+				"description": "Het totale aantal XNO dat ooit zal bestaan. Gedefinieerd bij de genesis, onveranderlijk voor altijd."
+			},
+			"fullyDistributed": {
+				"title": "Volledig Gedistribueerd",
+				"value": "100%",
+				"description": "Alle XNO gedistribueerd via een gratis CAPTCHA-faucet. Geen ICO, geen pre-mining, geen insider-toewijzing."
+			},
+			"zeroInflation": {
+				"title": "Nul Inflatie",
+				"value": "0%",
+				"description": "Er kunnen nooit nieuwe XNO worden gecreëerd. Geen inflatie, geen verdunning — jouw aandeel van de voorraad is permanent."
+			}
+		},
+		"beyondAI": {
+			"title": "Verder dan AI",
+			"subtitle": "Nano is niet alleen voor machines — het is een universele valuta voor iedereen die snelheid, eenvoud en nul kosten waardeert.",
+			"p2pPayments": {
+				"title": "P2P-Betalingen",
+				"description": "Verzend waarde naar iedereen, overal, direct en zonder kosten."
+			},
+			"globalAccess": {
+				"title": "Wereldwijde Toegang",
+				"description": "Sla correspondentiebanken over. Internationale afwikkeling in minder dan een seconde."
+			},
+			"pointOfSale": {
+				"title": "Point of Sale",
+				"description": "Accepteer betalingen met nul verwerkingskosten en directe bevestiging."
+			},
+			"iotMicropayments": {
+				"title": "IoT-Microbetalingen",
+				"description": "Machines die machines betalen — sensoren, meters en apparaten die autonoom transacties uitvoeren."
+			}
+		},
+		"developerResources": {
+			"title": "Ontwikkelaarsbronnen",
+			"subtitle": "Alles wat je nodig hebt om te beginnen met bouwen met Nano.",
+			"nanoDocs": {
+				"title": "Nano Documentatie",
+				"description": "Officiële protocol-documentatie, RPC-referentie en integratie-guides."
+			},
+			"x402Nano": {
+				"title": "x402 Nano",
+				"description": "Referentie-implementatie voor x402-betalingsprotocol-integratie met Nano."
+			},
+			"nanoSdk": {
+				"title": "Nano SDK",
+				"description": "TypeScript SDK voor Nano RPC-commando's met volledige typeveiligheid en IntelliSense."
+			},
+			"tsNanocurrency": {
+				"title": "TS Nanocurrency",
+				"description": "Uitgebreide JavaScript/TypeScript toolkit voor Nano-ontwikkeling."
+			},
+			"nanoCasa": {
+				"title": "Nano Casa",
+				"description": "Volg ontwikkelingsactiviteit en ontdek projecten in het Nano-ecosysteem."
+			},
+			"comingSoon": "Binnenkort Beschikbaar",
+			"n8nNode": {
+				"title": "n8n Community Node",
+				"badge": "In Ontwikkeling",
+				"description": "Officiële n8n Community Node voor Nano RPC-commando's. Bouw visuele workflows met native Nano-integratie."
+			}
+		},
+		"faq": {
+			"title": "Veelgestelde Vragen",
+			"q1": {
+				"question": "Is Nano echt kosteloos?",
+				"answer": "Ja. Er zijn geen transactiekosten van welke aard dan ook. Nano gebruikt een lichtgewicht proof-of-work aan de client-kant om spam te beperken — maar dit kost de afzender niets. Elke raw-eenheid die je verzendt is precies wat de ontvanger ontvangt."
+			},
+			"q2": {
+				"question": "Hoe snel is Nano?",
+				"answer": "Typische transacties worden bevestigd in minder dan 1 seconde. Nano's block-lattice-architectuur en Open Representative Voting (ORV) consensus elimineren de noodzaak van mining of blokintervallen en maken bijna directe finaliteit mogelijk."
+			},
+			"q3": {
+				"question": "Wat is x402?",
+				"answer": "x402 is een protocol gebaseerd op de HTTP 402 \"Betaling Vereist\" statuscode. Wanneer een AI-agent een betaalde bron aanvraagt, reageert de server met betalingsdetails. De agent verzendt Nano, probeert het verzoek opnieuw met betalingsbewijs en ontvangt de bron — alles zonder menselijke tussenkomst."
+			},
+			"q4": {
+				"question": "Is Nano gedecentraliseerd?",
+				"answer": "Ja. Nano gebruikt Open Representative Voting (ORV) waarbij accounthouders hun stemgewicht delegeren aan vertegenwoordigers naar keuze. Iedereen kan een representative-node draaien, en geen enkele entiteit controleert het netwerk. Het stemgewicht is verdeeld over honderden onafhankelijke vertegenwoordigers."
+			},
+			"q5": {
+				"question": "Hoe begin ik met bouwen met Nano?",
+				"answer": "Bezoek <link>docs.nano.org</link> voor de protocol-specificatie en RPC-referentie. Je kunt je eigen Nano-node draaien, openbare RPC-endpoints gebruiken, of integreren via Nano MCP-servers voor AI-agenten-workflows. Client-bibliotheken zijn beschikbaar voor Python, JavaScript, Rust en meer."
+			}
+		},
+		"cta": {
+			"title": "Klaar om Nano te integreren?",
+			"description": "Haal een wallet, wissel je eerste XNO en begin de machinebetalingsinfrastructuur van de toekomst te bouwen.",
+			"getNano": "Nano Krijgen",
+			"swapToXno": "Wisselen naar XNO"
+		}
+	},
+	"partners": {
+		"badge": "Partner",
+		"getPromoted": {
+			"badge": "Laat je Promoten",
+			"title": "Laat je Promoten!",
+			"subtitle": "Jouw Bedrijf Hier",
+			"description": "Laat je bedrijf zien in deze spotlight. Bereik duizenden Nano-gebruikers. Klik om meer te leren."
+		}
+	},
 	"about": {
 		"title": "Over NanoMarketCap",
 		"description": "Informatie over de NanoMarketCap website",
@@ -455,6 +672,7 @@
 			"speculation": "Speculatie",
 			"getNano": "Nano Krijgen",
 			"swapNano": "Wisselen naar Nano",
+			"whyNano": "Waarom Nano?",
 			"calculators": "Rekenmachines",
 			"nanoOrg": "Nano.org",
 			"docs": "Documentatie",
