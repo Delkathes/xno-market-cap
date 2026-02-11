@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Appear } from '@/components/ui/appear'
 import { Badge } from '@/components/ui/badge'
 import { NanswapIframe } from '@/components/nanswap-widget'
 
@@ -55,7 +56,7 @@ export default async function SwapNanoPage({ params }: Props) {
 				<div className="absolute bottom-0 right-0 w-200 h-150 bg-blue-600/10 blur-[100px] rounded-full mix-blend-screen" />
 			</div>
 			{/* Hero Section */}
-			<div className="text-center mb-16">
+			<Appear className="text-center mb-16">
 				<Badge variant="outline" className="mb-4">
 					{t('badge')}
 				</Badge>
@@ -65,23 +66,25 @@ export default async function SwapNanoPage({ params }: Props) {
 				<Link href="/get-nano" className="text-primary hover:underline text-sm font-medium">
 					{t('needWalletFirst')}
 				</Link>
-			</div>
+			</Appear>
 
 			{/* Swap Section */}
-			<div className="max-w-4xl mx-auto mb-16">
+			<Appear delay={100} className="max-w-4xl mx-auto mb-16">
 				<div className="text-center mb-8">
 					<h2 className="text-2xl md:text-3xl font-bold mb-3">{t('swapWithNanswap')}</h2>
 					<p className="text-muted-foreground max-w-xl mx-auto">{t('nanswapDescription')}</p>
 				</div>
 
 				<NanswapIframe />
-			</div>
+			</Appear>
 
 			{/* Disclaimer */}
-			<Alert className="max-w-2xl mx-auto">
-				<Info className="h-4 w-4" />
-				<AlertDescription>{t('disclaimer')}</AlertDescription>
-			</Alert>
+			<Appear delay={200}>
+				<Alert className="max-w-2xl mx-auto">
+					<Info className="h-4 w-4" />
+					<AlertDescription>{t('disclaimer')}</AlertDescription>
+				</Alert>
+			</Appear>
 		</main>
 	)
 }

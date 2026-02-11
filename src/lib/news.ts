@@ -5,6 +5,7 @@ import path from 'node:path'
 
 export interface NewsMetadata {
 	slug: string
+	emoji?: string
 	title: string
 	description: string
 	date: string

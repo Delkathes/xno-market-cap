@@ -1,17 +1,30 @@
 import type { Metadata } from 'next'
 import { Globe, ShieldCheck, Sparkles, Zap } from 'lucide-react'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Badge } from '@/components/ui/badge'
 import { PartnerForm } from '@/components/partner-form'
 
-export const metadata: Metadata = {
-	title: 'Partner With Us – Nano Market Cap',
-	description:
-		'Promote your business to thousands of Nano users. Learn about our partner spotlight program, pricing, and how to get started.',
-	robots: 'index,follow',
+type Props = {
+	params: Promise<{ locale: string }>
 }
 
-export default function PartnerInfoPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'metadata' })
+
+	return {
+		title: t('partners.title'),
+		description: t('partners.description'),
+		robots: 'index,follow',
+	}
+}
+
+export default async function PartnerInfoPage({ params }: Props) {
+	const { locale } = await params
+	setRequestLocale(locale)
+	const t = await getTranslations({ locale, namespace: 'partners' })
+
 	return (
 		<main className="container mx-auto py-12 px-4 max-w-5xl">
 			{/* Background Effects */}
@@ -26,15 +39,12 @@ export default function PartnerInfoPage() {
 					variant="outline"
 					className="mb-4 text-green-600 border-green-400/20 bg-green-400/10 backdrop-blur-sm"
 				>
-					<Sparkles className="w-3 h-3 mr-1" /> Partner Program
+					<Sparkles className="w-3 h-3 mr-1" /> {t('badge')}
 				</Badge>
 				<h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-r from-green-600 to-emerald-400">
-					Grow with Nano Market Cap
+					{t('heroTitle')}
 				</h1>
-				<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-					Put your project in front of the most engaged Nano community. Reach thousands of daily users who
-					live and breathe XNO.
-				</p>
+				<p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t('heroDescription')}</p>
 			</div>
 
 			<div className="grid md:grid-cols-2 gap-12 items-start">
@@ -44,34 +54,36 @@ export default function PartnerInfoPage() {
 					<div className="grid gap-6">
 						<BenefitItem
 							icon={Globe}
-							title="Global Reach"
-							description="Your brand displayed on our high-traffic homepage and dedicated partner page."
+							title={t('benefits.globalReach.title')}
+							description={t('benefits.globalReach.description')}
 						/>
 						<BenefitItem
 							icon={Zap}
-							title="Instant Setup"
-							description="Go live in less than 24 hours. Simple XNO payment, no contracts."
+							title={t('benefits.instantSetup.title')}
+							description={t('benefits.instantSetup.description')}
 						/>
 						<BenefitItem
 							icon={ShieldCheck}
-							title="Trust & Authority"
-							description="Align your brand with a trusted resource in the Nano ecosystem."
+							title={t('benefits.trust.title')}
+							description={t('benefits.trust.description')}
 						/>
 					</div>
 
 					{/* Stats/Social Proof (Mockup style) */}
 					<div className="p-6 bg-muted/50 rounded-xl border border-border/50">
-						<h3 className="font-semibold text-lg mb-4">Why Partner?</h3>
+						<h3 className="font-semibold text-lg mb-4">{t('stats.title')}</h3>
 						<div className="grid grid-cols-2 gap-4 text-center">
 							<div className="p-4 bg-background rounded-lg shadow-sm">
-								<div className="text-2xl font-bold text-primary">5k+</div>
+								<div className="text-2xl font-bold text-primary">{t('stats.visitors.value')}</div>
 								<div className="text-xs text-muted-foreground uppercase tracking-wider">
-									Mo. Visitors
+									{t('stats.visitors.label')}
 								</div>
 							</div>
 							<div className="p-4 bg-background rounded-lg shadow-sm">
-								<div className="text-2xl font-bold text-primary">100%</div>
-								<div className="text-xs text-muted-foreground uppercase tracking-wider">Nano Focus</div>
+								<div className="text-2xl font-bold text-primary">{t('stats.focus.value')}</div>
+								<div className="text-xs text-muted-foreground uppercase tracking-wider">
+									{t('stats.focus.label')}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -81,12 +93,12 @@ export default function PartnerInfoPage() {
 				<div className="animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
 					<PartnerForm />
 					<p className="mt-4 text-center text-sm text-muted-foreground">
-						Prefer email? Contact us at{' '}
+						{t('contact.text')}{' '}
 						<a
 							href="mailto:partners@xnomarketcap.com"
 							className="hover:text-foreground underline underline-offset-4"
 						>
-							partners@xnomarketcap.com
+							{t('contact.email')}
 						</a>
 					</p>
 				</div>

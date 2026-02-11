@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
+import { Appear } from '@/components/ui/appear'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -56,7 +57,7 @@ export default async function GetNanoPage({ params }: Props) {
 				<div className="absolute bottom-0 right-0 w-200 h-150 bg-blue-600/10 blur-[100px] rounded-full mix-blend-screen" />
 			</div>
 			{/* Hero Section */}
-			<div className="text-center mb-28">
+			<Appear className="text-center mb-28">
 				<Badge variant="outline" className="mb-6">
 					{t('badge')}
 				</Badge>
@@ -73,12 +74,12 @@ export default async function GetNanoPage({ params }: Props) {
 						</a>
 					</Button>
 				</div>
-			</div>
+			</Appear>
 
 			{/* Steps Grid */}
 			<div className="grid md:grid-cols-2 gap-36 max-w-5xl mx-auto mb-16">
 				{/* Step 1: Choose a wallet */}
-				<div>
+				<Appear delay={100}>
 					<Badge className="mb-4">{t('step1Badge')}</Badge>
 					<h2 className="text-2xl md:text-3xl font-bold mb-3">{t('step1Title')}</h2>
 					<p className="text-muted-foreground mb-8">{t('step1Description')}</p>
@@ -180,10 +181,10 @@ export default async function GetNanoPage({ params }: Props) {
 					>
 						{t('viewWalletDirectory')} <ExternalLink className="w-3 h-3" />
 					</a>
-				</div>
+				</Appear>
 
 				{/* Step 2: Get Nano */}
-				<div>
+				<Appear delay={200}>
 					<Badge className="mb-4">{t('step2Badge')}</Badge>
 					<h2 className="text-2xl md:text-3xl font-bold mb-3">{t('step2Title')}</h2>
 					<p className="text-muted-foreground mb-8">{t('step2Description')}</p>
@@ -231,26 +232,28 @@ export default async function GetNanoPage({ params }: Props) {
 					>
 						{t('learnMoreGettingNano')} <ExternalLink className="w-3 h-3" />
 					</a>
-				</div>
+				</Appear>
 			</div>
 
 			{/* New to Nano Card */}
-			<Card className="max-w-2xl mx-auto border-primary/20 bg-primary/5">
-				<CardContent className="p-6">
-					<div className="flex items-start gap-3">
-						<Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-						<div>
-							<h3 className="font-semibold text-primary mb-1">{t('newToNano')}</h3>
-							<p className="text-sm text-muted-foreground mb-3">{t('newToNanoDescription')}</p>
-							<Button variant="outline" size="sm" asChild>
-								<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
-									{t('learnAboutNano')} <ExternalLink className="w-3 h-3 ml-1" />
-								</a>
-							</Button>
+			<Appear delay={300}>
+				<Card className="max-w-2xl mx-auto border-primary/20 bg-primary/5">
+					<CardContent className="p-6">
+						<div className="flex items-start gap-3">
+							<Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+							<div>
+								<h3 className="font-semibold text-primary mb-1">{t('newToNano')}</h3>
+								<p className="text-sm text-muted-foreground mb-3">{t('newToNanoDescription')}</p>
+								<Button variant="outline" size="sm" asChild>
+									<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
+										{t('learnAboutNano')} <ExternalLink className="w-3 h-3 ml-1" />
+									</a>
+								</Button>
+							</div>
 						</div>
-					</div>
-				</CardContent>
-			</Card>
+					</CardContent>
+				</Card>
+			</Appear>
 		</main>
 	)
 }

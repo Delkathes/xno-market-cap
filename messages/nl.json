@@ -67,6 +67,10 @@
 			"description": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol.",
 			"ogTitle": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
 			"ogDescription": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol."
+		},
+		"partners": {
+			"title": "Word Partner – Nano Market Cap",
+			"description": "Promoot uw bedrijf bij duizenden Nano-gebruikers. Lees meer over ons partner spotlight-programma, prijzen en hoe u kunt beginnen."
 		}
 	},
 	"common": {
@@ -571,12 +575,78 @@
 		}
 	},
 	"partners": {
-		"badge": "Partner",
+		"badge": "Partnerprogramma",
 		"getPromoted": {
 			"badge": "Laat je Promoten",
 			"title": "Laat je Promoten!",
 			"subtitle": "Jouw Bedrijf Hier",
 			"description": "Laat je bedrijf zien in deze spotlight. Bereik duizenden Nano-gebruikers. Klik om meer te leren."
+		},
+		"heroTitle": "Groei met Nano Market Cap",
+		"heroDescription": "Zet je project voor de meest betrokken Nano-community. Bereik duizenden dagelijkse gebruikers die XNO leven en ademen.",
+		"benefits": {
+			"globalReach": {
+				"title": "Wereldwijd Bereik",
+				"description": "Jouw merk weergegeven op onze drukbezochte homepage en speciale partnerpagina."
+			},
+			"instantSetup": {
+				"title": "Directe Setup",
+				"description": "Live in minder dan 24 uur. Eenvoudige XNO-betaling, geen contracten."
+			},
+			"trust": {
+				"title": "Vertrouwen & Autoriteit",
+				"description": "Lijn je merk uit met een vertrouwde bron in het Nano-ecosysteem."
+			}
+		},
+		"stats": {
+			"title": "Waarom Partner?",
+			"visitors": {
+				"value": "5k+",
+				"label": "Bez. per Maand"
+			},
+			"focus": {
+				"value": "100%",
+				"label": "Nano Focus"
+			}
+		},
+		"contact": {
+			"text": "Liever e-mail? Contacteer ons op",
+			"email": "partners@xnomarketcap.com"
+		},
+		"form": {
+			"title": "Start Je Partnerschap",
+			"description": "Vul de gegevens hieronder in om een aanvraag te genereren. We nemen binnen 24 uur contact met je op.",
+			"fields": {
+				"name": {
+					"label": "Contactnaam",
+					"placeholder": "John Doe",
+					"error": "Naam is verplicht"
+				},
+				"email": {
+					"label": "E-mail",
+					"placeholder": "john@example.com",
+					"error": "Ongeldig e-mailadres"
+				},
+				"project": {
+					"label": "Projectnaam",
+					"placeholder": "My Awesome Nano App",
+					"error": "Projectnaam is verplicht"
+				},
+				"website": {
+					"label": "Website-URL",
+					"placeholder": "https://",
+					"error": "Ongeldige URL"
+				},
+				"description": {
+					"label": "Campagnedetails",
+					"placeholder": "Vertel ons wat je wilt promoten...",
+					"error": "Geef een korte beschrijving op"
+				}
+			},
+			"submit": {
+				"loading": "Voorbereiden...",
+				"button": "Verstuur Verzoek"
+			}
 		}
 	},
 	"about": {

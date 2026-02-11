@@ -28,6 +28,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
+import { Appear } from '@/components/ui/appear'
 import { Button } from '@/components/ui/button'
 import { AnimatedTerminal } from '@/components/why-nano/animated-terminal'
 import { AnimatedWorkflow } from '@/components/why-nano/animated-workflow'
@@ -65,7 +66,7 @@ export default async function WhyNanoPage({ params }: Props) {
 			</div>
 
 			{/* Hero Section */}
-			<div className="relative z-10 text-center mb-32">
+			<Appear className="relative z-10 text-center mb-32">
 				<h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
 					{t('hero.titlePart1')}{' '}
 					<span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 to-blue-500">
@@ -81,18 +82,21 @@ export default async function WhyNanoPage({ params }: Props) {
 						</a>
 					</Button>
 				</div>
-			</div>
+			</Appear>
 
 			{/* Bento Grid Features */}
 			<section className="relative z-10 max-w-6xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-12 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">{t('features.title')}</h2>
+				<Appear className="flex flex-col items-center mb-12 space-y-3">
+					<h2 className="text-2xl md:text-3xl font-bold text-center">{t('features.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('features.subtitle')}</p>
-				</div>
+				</Appear>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 auto-rows-[minmax(160px,auto)]">
 					{/* Key Feature - Large */}
-					<div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-500 order-1">
+					<Appear
+						delay={100}
+						className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-500 order-1"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 dark:from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10 h-full flex flex-col gap-5">
 							<div className="flex items-center">
@@ -124,24 +128,31 @@ export default async function WhyNanoPage({ params }: Props) {
 								</p>
 							</div>
 						</div>
-					</div>
+					</Appear>
 
-					<BentoCard
-						icon={Bot}
-						title={t('features.agentNative.title')}
-						description={t('features.agentNative.description')}
-						accentColor="orange"
-					/>
+					<Appear delay={200} className="order-2 sm:order-3">
+						<BentoCard
+							icon={Bot}
+							title={t('features.agentNative.title')}
+							description={t('features.agentNative.description')}
+							accentColor="orange"
+						/>
+					</Appear>
 
-					<BentoCard
-						icon={Network}
-						title={t('features.x402Protocol.title')}
-						description={t('features.x402Protocol.description')}
-						accentColor="blue"
-					/>
+					<Appear delay={300} className="order-2 sm:order-3">
+						<BentoCard
+							icon={Network}
+							title={t('features.x402Protocol.title')}
+							description={t('features.x402Protocol.description')}
+							accentColor="blue"
+						/>
+					</Appear>
 
 					{/* Feature 4 - Wide */}
-					<div className="md:col-span-2 relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-500 order-5 sm:order-3">
+					<Appear
+						delay={400}
+						className="md:col-span-2 relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-500 order-5 sm:order-3"
+					>
 						<div className="absolute inset-0 bg-linear-to-r from-green-500/5 dark:from-green-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="flex flex-col gap-5">
 							<div className="flex items-center gap-4">
@@ -156,50 +167,56 @@ export default async function WhyNanoPage({ params }: Props) {
 								</p>
 							</div>
 						</div>
-					</div>
+					</Appear>
 
-					<BentoCard
-						icon={Coins}
-						title={t('features.mcpIntegration.title')}
-						description={t('features.mcpIntegration.description')}
-						accentColor="purple"
-					/>
+					<Appear delay={500} className="order-2 sm:order-3">
+						<BentoCard
+							icon={Coins}
+							title={t('features.mcpIntegration.title')}
+							description={t('features.mcpIntegration.description')}
+							accentColor="purple"
+						/>
+					</Appear>
 				</div>
 			</section>
 
 			{/* Use Cases — Terminal Look */}
 			<section className="relative z-10 max-w-4xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-10 space-y-3">
+				<Appear className="flex flex-col items-center mb-10 space-y-3">
 					<h2 className="text-2xl md:text-3xl font-bold">{t('x402.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('x402.subtitle')}</p>
-				</div>
+				</Appear>
 
-				<AnimatedTerminal />
+				<Appear delay={150}>
+					<AnimatedTerminal />
+				</Appear>
 			</section>
 
 			{/* n8n-style Workflow */}
 			<section className="relative z-10 max-w-5xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-10 space-y-3">
-					<h2 className="text-2xl md:text-3xl font-bold">{t('workflow.title')}</h2>
+				<Appear className="flex flex-col items-center mb-10 space-y-3">
+					<h2 className="text-2xl md:text-3xl font-bold text-center">{t('workflow.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('workflow.subtitle')}</p>
-				</div>
+				</Appear>
 
-				<AnimatedWorkflow />
+				<Appear delay={150}>
+					<AnimatedWorkflow />
+				</Appear>
 			</section>
 
 			{/* How It Works */}
 			<section className="relative z-10 max-w-5xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-14 space-y-3">
+				<Appear className="flex flex-col items-center mb-14 space-y-3">
 					<h2 className="text-2xl md:text-3xl font-bold">{t('howItWorks.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('howItWorks.subtitle')}</p>
-				</div>
+				</Appear>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 relative">
 					{/* Connector line — desktop only */}
 					<div className="hidden md:block absolute top-12 left-[16.67%] right-[16.67%] h-px bg-linear-to-r from-cyan-500/40 via-blue-500/40 to-purple-500/40" />
 
 					{/* Step 1 */}
-					<div className="flex flex-col items-center text-center">
+					<Appear delay={100} className="flex flex-col items-center text-center">
 						<div className="z-10 w-24 h-24 rounded-2xl bg-cyan-100 dark:bg-cyan-950 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-5">
 							<Layers className="w-10 h-10" />
 						</div>
@@ -210,10 +227,10 @@ export default async function WhyNanoPage({ params }: Props) {
 						<p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
 							{t('howItWorks.step1.description')}
 						</p>
-					</div>
+					</Appear>
 
 					{/* Step 2 */}
-					<div className="flex flex-col items-center text-center">
+					<Appear delay={200} className="flex flex-col items-center text-center">
 						<div className="z-10 w-24 h-24 rounded-2xl bg-blue-100 dark:bg-blue-950 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-5">
 							<ArrowLeftRight className="w-10 h-10" />
 						</div>
@@ -224,10 +241,10 @@ export default async function WhyNanoPage({ params }: Props) {
 						<p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
 							{t('howItWorks.step2.description')}
 						</p>
-					</div>
+					</Appear>
 
 					{/* Step 3 */}
-					<div className="flex flex-col items-center text-center">
+					<Appear delay={300} className="flex flex-col items-center text-center">
 						<div className="z-10 w-24 h-24 rounded-2xl bg-purple-100 dark:bg-purple-950 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-5">
 							<ShieldCheck className="w-10 h-10" />
 						</div>
@@ -238,129 +255,146 @@ export default async function WhyNanoPage({ params }: Props) {
 						<p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
 							{t('howItWorks.step3.description')}
 						</p>
-					</div>
+					</Appear>
 				</div>
 			</section>
 
 			{/* Comparison Table */}
 			<section className="relative z-10 max-w-4xl mx-auto mb-32">
-				<h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('comparison.title')}</h2>
+				<Appear className="text-center mb-10">
+					<h2 className="text-2xl md:text-3xl font-bold">{t('comparison.title')}</h2>
+				</Appear>
 
-				<div className="grid grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
-					{/* Header */}
-					<div className="bg-muted p-3 md:p-5 flex items-center">
-						<span className="text-muted-foreground text-xs uppercase tracking-wider font-semibold">
-							{t('comparison.metric')}
-						</span>
-					</div>
-					<div className="bg-muted p-3 md:p-5 flex items-center justify-center relative overflow-hidden">
-						<div className="absolute inset-0 bg-cyan-500/5 pointer-events-none" />
-						<span className="text-cyan-600 dark:text-cyan-400 font-bold text-xs md:text-base">
-							{t('comparison.nano')}
-						</span>
-					</div>
-					<div className="bg-muted p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-semibold text-xs md:text-base">
-							{t('comparison.bitcoin')}
-						</span>
-					</div>
-					<div className="bg-muted p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-semibold text-xs md:text-base">
-							{t('comparison.tether')}
-						</span>
-					</div>
+				<Appear delay={100}>
+					<div className="grid grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
+						{/* Header */}
+						<div className="bg-muted p-3 md:p-5 flex items-center">
+							<span className="text-muted-foreground text-xs uppercase tracking-wider font-semibold">
+								{t('comparison.metric')}
+							</span>
+						</div>
+						<div className="bg-muted p-3 md:p-5 flex items-center justify-center relative overflow-hidden">
+							<div className="absolute inset-0 bg-cyan-500/5 pointer-events-none" />
+							<span className="text-cyan-600 dark:text-cyan-400 font-bold text-xs md:text-base">
+								{t('comparison.nano')}
+							</span>
+						</div>
+						<div className="bg-muted p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-semibold text-xs md:text-base">
+								{t('comparison.bitcoin')}
+							</span>
+						</div>
+						<div className="bg-muted p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-semibold text-xs md:text-base">
+								{t('comparison.tether')}
+							</span>
+						</div>
 
-					{/* Latency */}
-					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">{t('comparison.latency')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">{t('comparison.latencyNano')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">
-							{t('comparison.latencyBitcoin')}
-						</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">{t('comparison.latencyTether')}</span>
-					</div>
+						{/* Latency */}
+						<div className="bg-card p-3 md:p-5 flex items-center">
+							<span className="font-medium text-sm">{t('comparison.latency')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="font-mono text-sm">{t('comparison.latencyNano')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.latencyBitcoin')}
+							</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.latencyTether')}
+							</span>
+						</div>
 
-					{/* Cost */}
-					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">{t('comparison.txFees')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">{t('comparison.feesNano')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">{t('comparison.feesBitcoin')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">{t('comparison.feesTether')}</span>
-					</div>
+						{/* Cost */}
+						<div className="bg-card p-3 md:p-5 flex items-center">
+							<span className="font-medium text-sm">{t('comparison.txFees')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="font-mono text-sm">{t('comparison.feesNano')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.feesBitcoin')}
+							</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.feesTether')}
+							</span>
+						</div>
 
-					{/* Architecture */}
-					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">{t('comparison.architecture')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-center text-xs md:text-sm">{t('comparison.archNano')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
-							{t('comparison.archBitcoin')}
-						</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
-							{t('comparison.archTether')}
-						</span>
-					</div>
+						{/* Architecture */}
+						<div className="bg-card p-3 md:p-5 flex items-center">
+							<span className="font-medium text-sm">{t('comparison.architecture')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="font-mono text-center text-xs md:text-sm">{t('comparison.archNano')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
+								{t('comparison.archBitcoin')}
+							</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
+								{t('comparison.archTether')}
+							</span>
+						</div>
 
-					{/* Energy */}
-					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">{t('comparison.energy')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">{t('comparison.energyNano')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">{t('comparison.energyBitcoin')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">{t('comparison.energyTether')}</span>
-					</div>
+						{/* Energy */}
+						<div className="bg-card p-3 md:p-5 flex items-center">
+							<span className="font-medium text-sm">{t('comparison.energy')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="font-mono text-sm">{t('comparison.energyNano')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.energyBitcoin')}
+							</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.energyTether')}
+							</span>
+						</div>
 
-					{/* Availability */}
-					<div className="bg-card p-3 md:p-5 flex items-center">
-						<span className="font-medium text-sm">{t('comparison.availability')}</span>
+						{/* Availability */}
+						<div className="bg-card p-3 md:p-5 flex items-center">
+							<span className="font-medium text-sm">{t('comparison.availability')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="font-mono text-sm">{t('comparison.availabilityNano')}</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-sm">
+								{t('comparison.availabilityBitcoin')}
+							</span>
+						</div>
+						<div className="bg-card p-3 md:p-5 flex items-center justify-center">
+							<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
+								{t('comparison.availabilityTether')}
+							</span>
+						</div>
 					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="font-mono text-sm">{t('comparison.availabilityNano')}</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-sm">
-							{t('comparison.availabilityBitcoin')}
-						</span>
-					</div>
-					<div className="bg-card p-3 md:p-5 flex items-center justify-center">
-						<span className="text-muted-foreground font-mono text-center text-xs md:text-sm">
-							{t('comparison.availabilityTether')}
-						</span>
-					</div>
-				</div>
+				</Appear>
 			</section>
 
 			{/* Supply & Distribution */}
 			<section className="relative z-10 max-w-4xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-12 space-y-3">
+				<Appear className="flex flex-col items-center mb-12 space-y-3">
 					<h2 className="text-2xl md:text-3xl font-bold">{t('supply.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('supply.subtitle')}</p>
-				</div>
+				</Appear>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300 text-center">
+					<Appear
+						delay={100}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300 text-center"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 dark:from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="w-12 h-12 mx-auto rounded-xl bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4">
@@ -372,9 +406,12 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 							<p className="text-muted-foreground text-sm">{t('supply.fixedSupply.description')}</p>
 						</div>
-					</div>
+					</Appear>
 
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300 text-center">
+					<Appear
+						delay={200}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300 text-center"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-blue-500/5 dark:from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="w-12 h-12 mx-auto rounded-xl bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
@@ -386,9 +423,12 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 							<p className="text-muted-foreground text-sm">{t('supply.fullyDistributed.description')}</p>
 						</div>
-					</div>
+					</Appear>
 
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300 text-center">
+					<Appear
+						delay={300}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-7 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300 text-center"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-green-500/5 dark:from-green-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="w-12 h-12 mx-auto rounded-xl bg-green-100 dark:bg-green-950/50 border border-green-200 dark:border-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400 mb-4">
@@ -400,19 +440,22 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 							<p className="text-muted-foreground text-sm">{t('supply.zeroInflation.description')}</p>
 						</div>
-					</div>
+					</Appear>
 				</div>
 			</section>
 
 			{/* Beyond AI */}
 			<section className="relative z-10 max-w-6xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-12 space-y-3">
+				<Appear className="flex flex-col items-center mb-12 space-y-3">
 					<h2 className="text-2xl md:text-3xl font-bold">{t('beyondAI.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('beyondAI.subtitle')}</p>
-				</div>
+				</Appear>
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300">
+					<Appear
+						delay={100}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 dark:from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="flex items-center mb-3">
@@ -425,9 +468,12 @@ export default async function WhyNanoPage({ params }: Props) {
 								{t('beyondAI.p2pPayments.description')}
 							</p>
 						</div>
-					</div>
+					</Appear>
 
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300">
+					<Appear
+						delay={200}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-blue-500/5 dark:from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="flex items-center mb-3">
@@ -440,9 +486,12 @@ export default async function WhyNanoPage({ params }: Props) {
 								{t('beyondAI.globalAccess.description')}
 							</p>
 						</div>
-					</div>
+					</Appear>
 
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-purple-500/40 dark:hover:border-purple-500/30 transition-all duration-300">
+					<Appear
+						delay={300}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-purple-500/40 dark:hover:border-purple-500/30 transition-all duration-300"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-purple-500/5 dark:from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="flex items-center mb-3">
@@ -455,9 +504,12 @@ export default async function WhyNanoPage({ params }: Props) {
 								{t('beyondAI.pointOfSale.description')}
 							</p>
 						</div>
-					</div>
+					</Appear>
 
-					<div className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300">
+					<Appear
+						delay={400}
+						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300"
+					>
 						<div className="absolute inset-0 bg-linear-to-br from-orange-500/5 dark:from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 						<div className="relative z-10">
 							<div className="flex items-center mb-3">
@@ -472,142 +524,152 @@ export default async function WhyNanoPage({ params }: Props) {
 								{t('beyondAI.iotMicropayments.description')}
 							</p>
 						</div>
-					</div>
+					</Appear>
 				</div>
 			</section>
 
 			{/* Developer Resources */}
 			<section className="relative z-10 max-w-5xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-12 space-y-3">
+				<Appear className="flex flex-col items-center mb-12 space-y-3">
 					<h2 className="text-2xl md:text-3xl font-bold">{t('developerResources.title')}</h2>
 					<p className="text-muted-foreground max-w-xl text-center">{t('developerResources.subtitle')}</p>
-				</div>
+				</Appear>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-					<a
-						href="https://docs.nano.org"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300"
-					>
-						<div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 dark:from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-						<div className="relative z-10">
-							<div className="flex items-center justify-between mb-3">
-								<div className="flex items-center">
-									<div className="w-10 h-10 rounded-lg bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
-										<BookOpen className="w-5 h-5" />
+					<Appear delay={100}>
+						<a
+							href="https://docs.nano.org"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300"
+						>
+							<div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 dark:from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+							<div className="relative z-10">
+								<div className="flex items-center justify-between mb-3">
+									<div className="flex items-center">
+										<div className="w-10 h-10 rounded-lg bg-cyan-100 dark:bg-cyan-950/50 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+											<BookOpen className="w-5 h-5" />
+										</div>
+										<h3 className="ml-3 text-base font-bold">
+											{t('developerResources.nanoDocs.title')}
+										</h3>
 									</div>
-									<h3 className="ml-3 text-base font-bold">
-										{t('developerResources.nanoDocs.title')}
-									</h3>
+									<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-cyan-500 transition-colors" />
 								</div>
-								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-cyan-500 transition-colors" />
+								<p className="text-muted-foreground text-sm leading-relaxed">
+									{t('developerResources.nanoDocs.description')}
+								</p>
 							</div>
-							<p className="text-muted-foreground text-sm leading-relaxed">
-								{t('developerResources.nanoDocs.description')}
-							</p>
-						</div>
-					</a>
+						</a>
+					</Appear>
 
-					<a
-						href="https://github.com/x402nano"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300"
-					>
-						<div className="absolute inset-0 bg-linear-to-br from-blue-500/5 dark:from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-						<div className="relative z-10">
-							<div className="flex items-center justify-between mb-3">
-								<div className="flex items-center">
-									<div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
-										<Code2 className="w-5 h-5" />
+					<Appear delay={150}>
+						<a
+							href="https://github.com/x402nano"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300"
+						>
+							<div className="absolute inset-0 bg-linear-to-br from-blue-500/5 dark:from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+							<div className="relative z-10">
+								<div className="flex items-center justify-between mb-3">
+									<div className="flex items-center">
+										<div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
+											<Code2 className="w-5 h-5" />
+										</div>
+										<h3 className="ml-3 text-base font-bold">
+											{t('developerResources.x402Nano.title')}
+										</h3>
 									</div>
-									<h3 className="ml-3 text-base font-bold">
-										{t('developerResources.x402Nano.title')}
-									</h3>
+									<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-blue-500 transition-colors" />
 								</div>
-								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-blue-500 transition-colors" />
+								<p className="text-muted-foreground text-sm leading-relaxed">
+									{t('developerResources.x402Nano.description')}
+								</p>
 							</div>
-							<p className="text-muted-foreground text-sm leading-relaxed">
-								{t('developerResources.x402Nano.description')}
-							</p>
-						</div>
-					</a>
+						</a>
+					</Appear>
 
-					<a
-						href="https://github.com/infinitybay/nano-sdk"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-purple-500/40 dark:hover:border-purple-500/30 transition-all duration-300"
-					>
-						<div className="absolute inset-0 bg-linear-to-br from-purple-500/5 dark:from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-						<div className="relative z-10">
-							<div className="flex items-center justify-between mb-3">
-								<div className="flex items-center">
-									<div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
-										<FileCode className="w-5 h-5" />
+					<Appear delay={200}>
+						<a
+							href="https://github.com/infinitybay/nano-sdk"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-purple-500/40 dark:hover:border-purple-500/30 transition-all duration-300"
+						>
+							<div className="absolute inset-0 bg-linear-to-br from-purple-500/5 dark:from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+							<div className="relative z-10">
+								<div className="flex items-center justify-between mb-3">
+									<div className="flex items-center">
+										<div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+											<FileCode className="w-5 h-5" />
+										</div>
+										<h3 className="ml-3 text-base font-bold">
+											{t('developerResources.nanoSdk.title')}
+										</h3>
 									</div>
-									<h3 className="ml-3 text-base font-bold">
-										{t('developerResources.nanoSdk.title')}
-									</h3>
+									<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-purple-500 transition-colors" />
 								</div>
-								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-purple-500 transition-colors" />
+								<p className="text-muted-foreground text-sm leading-relaxed">
+									{t('developerResources.nanoSdk.description')}
+								</p>
 							</div>
-							<p className="text-muted-foreground text-sm leading-relaxed">
-								{t('developerResources.nanoSdk.description')}
-							</p>
-						</div>
-					</a>
+						</a>
+					</Appear>
 
-					<a
-						href="https://github.com/marvinroger/nanocurrency-js/tree/master/packages/nanocurrency"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300"
-					>
-						<div className="absolute inset-0 bg-linear-to-br from-orange-500/5 dark:from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-						<div className="relative z-10">
-							<div className="flex items-center justify-between mb-3">
-								<div className="flex items-center">
-									<div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-500/20 flex items-center justify-center text-orange-600 dark:text-orange-400">
-										<Package className="w-5 h-5" />
+					<Appear delay={250}>
+						<a
+							href="https://github.com/marvinroger/nanocurrency-js/tree/master/packages/nanocurrency"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300"
+						>
+							<div className="absolute inset-0 bg-linear-to-br from-orange-500/5 dark:from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+							<div className="relative z-10">
+								<div className="flex items-center justify-between mb-3">
+									<div className="flex items-center">
+										<div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-500/20 flex items-center justify-center text-orange-600 dark:text-orange-400">
+											<Package className="w-5 h-5" />
+										</div>
+										<h3 className="ml-3 text-base font-bold">
+											{t('developerResources.tsNanocurrency.title')}
+										</h3>
 									</div>
-									<h3 className="ml-3 text-base font-bold">
-										{t('developerResources.tsNanocurrency.title')}
-									</h3>
+									<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-orange-500 transition-colors" />
 								</div>
-								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-orange-500 transition-colors" />
+								<p className="text-muted-foreground text-sm leading-relaxed">
+									{t('developerResources.tsNanocurrency.description')}
+								</p>
 							</div>
-							<p className="text-muted-foreground text-sm leading-relaxed">
-								{t('developerResources.tsNanocurrency.description')}
-							</p>
-						</div>
-					</a>
+						</a>
+					</Appear>
 
-					<a
-						href="https://nano.casa/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300"
-					>
-						<div className="absolute inset-0 bg-linear-to-br from-green-500/5 dark:from-green-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-						<div className="relative z-10">
-							<div className="flex items-center justify-between mb-3">
-								<div className="flex items-center">
-									<div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-950/50 border border-green-200 dark:border-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400">
-										<Compass className="w-5 h-5" />
+					<Appear delay={300}>
+						<a
+							href="https://nano.casa/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300"
+						>
+							<div className="absolute inset-0 bg-linear-to-br from-green-500/5 dark:from-green-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+							<div className="relative z-10">
+								<div className="flex items-center justify-between mb-3">
+									<div className="flex items-center">
+										<div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-950/50 border border-green-200 dark:border-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400">
+											<Compass className="w-5 h-5" />
+										</div>
+										<h3 className="ml-3 text-base font-bold">
+											{t('developerResources.nanoCasa.title')}
+										</h3>
 									</div>
-									<h3 className="ml-3 text-base font-bold">
-										{t('developerResources.nanoCasa.title')}
-									</h3>
+									<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-green-500 transition-colors" />
 								</div>
-								<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-green-500 transition-colors" />
+								<p className="text-muted-foreground text-sm leading-relaxed">
+									{t('developerResources.nanoCasa.description')}
+								</p>
 							</div>
-							<p className="text-muted-foreground text-sm leading-relaxed">
-								{t('developerResources.nanoCasa.description')}
-							</p>
-						</div>
-					</a>
+						</a>
+					</Appear>
 				</div>
 
 				{/* Coming Soon */}
@@ -643,76 +705,78 @@ export default async function WhyNanoPage({ params }: Props) {
 
 			{/* FAQ */}
 			<section className="relative z-10 max-w-3xl mx-auto mb-32">
-				<div className="flex flex-col items-center mb-12 space-y-3">
+				<Appear className="flex flex-col items-center mb-12 space-y-3">
 					<h2 className="text-2xl md:text-3xl font-bold">{t('faq.title')}</h2>
-				</div>
+				</Appear>
 
-				<div className="space-y-3">
-					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
-						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							{t('faq.q1.question')}
-							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-						</summary>
-						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							{t('faq.q1.answer')}
-						</div>
-					</details>
+				<Appear delay={100}>
+					<div className="space-y-3">
+						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
+								{t('faq.q1.question')}
+								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+							</summary>
+							<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
+								{t('faq.q1.answer')}
+							</div>
+						</details>
 
-					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
-						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							{t('faq.q2.question')}
-							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-						</summary>
-						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							{t('faq.q2.answer')}
-						</div>
-					</details>
+						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
+								{t('faq.q2.question')}
+								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+							</summary>
+							<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
+								{t('faq.q2.answer')}
+							</div>
+						</details>
 
-					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
-						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							{t('faq.q3.question')}
-							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-						</summary>
-						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							{t('faq.q3.answer')}
-						</div>
-					</details>
+						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
+								{t('faq.q3.question')}
+								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+							</summary>
+							<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
+								{t('faq.q3.answer')}
+							</div>
+						</details>
 
-					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
-						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							{t('faq.q4.question')}
-							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-						</summary>
-						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							{t('faq.q4.answer')}
-						</div>
-					</details>
+						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
+								{t('faq.q4.question')}
+								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+							</summary>
+							<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
+								{t('faq.q4.answer')}
+							</div>
+						</details>
 
-					<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
-						<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
-							{t('faq.q5.question')}
-							<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-						</summary>
-						<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
-							{t.rich('faq.q5.answer', {
-								link: (chunks) => (
-									<a
-										href="https://docs.nano.org"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="text-cyan-600 dark:text-cyan-400 underline underline-offset-2 hover:text-cyan-500"
-									>
-										{chunks}
-									</a>
-								),
-							})}
-						</div>
-					</details>
-				</div>
+						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
+								{t('faq.q5.question')}
+								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+							</summary>
+							<div className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed">
+								{t.rich('faq.q5.answer', {
+									link: (chunks) => (
+										<a
+											href="https://docs.nano.org"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-cyan-600 dark:text-cyan-400 underline underline-offset-2 hover:text-cyan-500"
+										>
+											{chunks}
+										</a>
+									),
+								})}
+							</div>
+						</details>
+					</div>
+				</Appear>
 			</section>
 
 			{/* CTA */}
-			<section className="relative z-10 text-center mb-8">
+			<Appear className="relative z-10 text-center mb-8">
 				<h2 className="text-2xl md:text-3xl font-bold mb-4">{t('cta.title')}</h2>
 				<p className="text-muted-foreground mb-6 max-w-md mx-auto">{t('cta.description')}</p>
 				<div className="flex items-center justify-center gap-4">
@@ -723,7 +787,7 @@ export default async function WhyNanoPage({ params }: Props) {
 						<Link href="/swap-nano">{t('cta.swapToXno')}</Link>
 					</Button>
 				</div>
-			</section>
+			</Appear>
 		</main>
 	)
 }
@@ -767,7 +831,7 @@ function BentoCard({
 
 	return (
 		<div
-			className={`relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 ${c.hover} transition-all duration-300 order-2 sm:order-3`}
+			className={`relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 ${c.hover} transition-all duration-300`}
 		>
 			<div
 				className={`absolute inset-0 bg-linear-to-br ${c.glow} via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}

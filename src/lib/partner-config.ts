@@ -34,7 +34,7 @@ export interface PartnerContent {
 }
 
 /** Rotation interval in milliseconds */
-export const PARTNER_ROTATION_INTERVAL = 8000 // 8 seconds
+export const PARTNER_ROTATION_INTERVAL = 6000 // 6 seconds
 
 export const partnerConfig: PartnerContent[] = [
 	{
@@ -44,7 +44,7 @@ export const partnerConfig: PartnerContent[] = [
 		title: 'NanoBrowser: Earn Nano While You Browse',
 		description:
 			'The privacy-focused browser that rewards you with XNO for your attention. No tracking, no ads, just Nano.',
-		logoUrl: '/partners/nanobrowser.png',
+		logoUrl: '/nano/badge-blue.svg',
 		hasInternalPage: true, // Has dedicated page at /partners/nanobrowser
 	},
 	{
@@ -54,7 +54,7 @@ export const partnerConfig: PartnerContent[] = [
 		title: 'Shop With Nano - 10,000+ Products',
 		description:
 			'The largest marketplace accepting Nano payments. Electronics, clothing, gifts and more with instant checkout.',
-		logoUrl: '/partners/nanostore.png',
+		logoUrl: '/nano/badge-white.svg',
 		externalUrl: 'https://example.com/nanostore',
 	},
 ]

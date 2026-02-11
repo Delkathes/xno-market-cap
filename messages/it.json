@@ -67,6 +67,10 @@
 			"description": "Scopri perché Nano (XNO) è la migliore valuta per agenti IA: micropagamenti senza commissioni, liquidazione istantanea e il protocollo x402.",
 			"ogTitle": "Perché Nano? La Valuta per l'IA | NanoMarketCap",
 			"ogDescription": "Scopri perché Nano (XNO) è la migliore valuta per agenti IA: micropagamenti senza commissioni, liquidazione istantanea e il protocollo x402."
+		},
+		"partners": {
+			"title": "Diventa Partner – Nano Market Cap",
+			"description": "Promuovi la tua attività a migliaia di utenti Nano. Scopri il nostro programma spotlight per partner, i prezzi e come iniziare."
 		}
 	},
 	"common": {
@@ -571,12 +575,78 @@
 		}
 	},
 	"partners": {
-		"badge": "Partner",
+		"badge": "Programma Partner",
 		"getPromoted": {
 			"badge": "Fatti Promuovere",
 			"title": "Fatti Promuovere!",
 			"subtitle": "La Tua Azienda Qui",
 			"description": "Metti in mostra la tua azienda in questo spotlight. Raggiungi migliaia di utenti Nano. Clicca per saperne di più."
+		},
+		"heroTitle": "Cresci con Nano Market Cap",
+		"heroDescription": "Metti il tuo progetto di fronte alla community Nano più coinvolta. Raggiungi migliaia di utenti quotidiani che vivono e respirano XNO.",
+		"benefits": {
+			"globalReach": {
+				"title": "Portata Globale",
+				"description": "Il tuo marchio visualizzato sulla nostra homepage ad alto traffico e sulla pagina partner dedicata."
+			},
+			"instantSetup": {
+				"title": "Configurazione Istantanea",
+				"description": "Online in meno di 24 ore. Pagamento XNO semplice, nessun contratto."
+			},
+			"trust": {
+				"title": "Fiducia e Autorità",
+				"description": "Allinea il tuo marchio con una risorsa affidabile nell'ecosistema Nano."
+			}
+		},
+		"stats": {
+			"title": "Perché Partner?",
+			"visitors": {
+				"value": "5k+",
+				"label": "Visite/Mese"
+			},
+			"focus": {
+				"value": "100%",
+				"label": "Focus Nano"
+			}
+		},
+		"contact": {
+			"text": "Preferisci l'email? Contattaci a",
+			"email": "partners@xnomarketcap.com"
+		},
+		"form": {
+			"title": "Inizia la Tua Partnership",
+			"description": "Compila i dettagli qui sotto per generare una richiesta. Ti risponderemo entro 24 ore.",
+			"fields": {
+				"name": {
+					"label": "Nome del Contatto",
+					"placeholder": "John Doe",
+					"error": "Il nome è obbligatorio"
+				},
+				"email": {
+					"label": "Email",
+					"placeholder": "john@example.com",
+					"error": "Indirizzo email non valido"
+				},
+				"project": {
+					"label": "Nome del Progetto",
+					"placeholder": "My Awesome Nano App",
+					"error": "Il nome del progetto è obbligatorio"
+				},
+				"website": {
+					"label": "URL del Sito Web",
+					"placeholder": "https://",
+					"error": "URL non valido"
+				},
+				"description": {
+					"label": "Dettagli della Campagna",
+					"placeholder": "Raccontaci cosa vuoi promuovere...",
+					"error": "Fornisci una breve descrizione"
+				}
+			},
+			"submit": {
+				"loading": "Preparazione...",
+				"button": "Invia Richiesta"
+			}
 		}
 	},
 	"about": {

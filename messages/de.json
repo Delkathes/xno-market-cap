@@ -67,6 +67,10 @@
 			"description": "Entdecke warum Nano (XNO) die beste Währung für KI-Agenten ist: gebührenfreie Mikrozahlungen, sofortige Abwicklung und das x402 Protokoll.",
 			"ogTitle": "Warum Nano? Die Währung für KI | NanoMarketCap",
 			"ogDescription": "Entdecke warum Nano (XNO) die beste Währung für KI-Agenten ist: gebührenfreie Mikrozahlungen, sofortige Abwicklung und das x402 Protokoll."
+		},
+		"partners": {
+			"title": "Werden Sie Partner – Nano Market Cap",
+			"description": "Bewerben Sie Ihr Unternehmen bei Tausenden von Nano-Nutzern. Erfahren Sie mehr über unser Partner-Spotlight-Programm, die Preise und den Einstieg."
 		}
 	},
 	"common": {
@@ -571,12 +575,78 @@
 		}
 	},
 	"partners": {
-		"badge": "Partner",
+		"badge": "Partnerprogramm",
 		"getPromoted": {
 			"badge": "Werben Lassen",
 			"title": "Lassen Sie sich Bewerben!",
 			"subtitle": "Ihr Unternehmen Hier",
 			"description": "Präsentieren Sie Ihr Unternehmen in diesem Spotlight. Erreichen Sie Tausende von Nano-Nutzern. Klicken Sie um mehr zu erfahren."
+		},
+		"heroTitle": "Wachsen Sie mit Nano Market Cap",
+		"heroDescription": "Bringen Sie Ihr Projekt vor die engagierteste Nano-Community. Erreichen Sie Tausende täglicher Nutzer, die XNO leben und atmen.",
+		"benefits": {
+			"globalReach": {
+				"title": "Globale Reichweite",
+				"description": "Ihre Marke wird auf unserer stark frequentierten Startseite und der dedizierten Partnerseite angezeigt."
+			},
+			"instantSetup": {
+				"title": "Sofortige Einrichtung",
+				"description": "In weniger als 24 Stunden online. Einfache XNO-Zahlung, keine Verträge."
+			},
+			"trust": {
+				"title": "Vertrauen & Autorität",
+				"description": "Richten Sie Ihre Marke an einer vertrauenswürdigen Ressource im Nano-Ökosystem aus."
+			}
+		},
+		"stats": {
+			"title": "Warum Partnerschaft?",
+			"visitors": {
+				"value": "5k+",
+				"label": "Bes. pro Monat"
+			},
+			"focus": {
+				"value": "100%",
+				"label": "Nano Fokus"
+			}
+		},
+		"contact": {
+			"text": "Bevorzugen Sie E-Mail? Kontaktieren Sie uns unter",
+			"email": "partners@xnomarketcap.com"
+		},
+		"form": {
+			"title": "Starten Sie Ihre Partnerschaft",
+			"description": "Füllen Sie die Details unten aus, um eine Anfrage zu erstellen. Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
+			"fields": {
+				"name": {
+					"label": "Kontaktname",
+					"placeholder": "John Doe",
+					"error": "Name ist erforderlich"
+				},
+				"email": {
+					"label": "E-Mail",
+					"placeholder": "john@example.com",
+					"error": "Ungültige E-Mail-Adresse"
+				},
+				"project": {
+					"label": "Projektname",
+					"placeholder": "My Awesome Nano App",
+					"error": "Projektname ist erforderlich"
+				},
+				"website": {
+					"label": "Website-URL",
+					"placeholder": "https://",
+					"error": "Ungültige URL"
+				},
+				"description": {
+					"label": "Kampagnendetails",
+					"placeholder": "Erzählen Sie uns, was Sie bewerben möchten...",
+					"error": "Bitte geben Sie eine kurze Beschreibung an"
+				}
+			},
+			"submit": {
+				"loading": "Vorbereitung...",
+				"button": "Anfrage Senden"
+			}
 		}
 	},
 	"about": {

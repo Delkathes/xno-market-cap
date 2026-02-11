@@ -2,6 +2,7 @@
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { Send, Sparkles } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import * as v from 'valibot'
 
@@ -13,17 +14,20 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 
-const partnerSchema = v.object({
-	name: v.pipe(v.string(), v.minLength(2, 'Name is required')),
-	email: v.pipe(v.string(), v.email('Invalid email address')),
-	project: v.pipe(v.string(), v.minLength(2, 'Project name is required')),
-	website: v.pipe(v.string(), v.url('Invalid URL'), v.minLength(1, 'Website is required')),
-	description: v.pipe(v.string(), v.minLength(10, 'Please provide a brief description')),
-})
-
-type PartnerFormData = v.InferInput<typeof partnerSchema>
-
 export function PartnerForm({ className }: { className?: string }) {
+	const t = useTranslations('partners.form')
+	const tf = useTranslations('partners.form.fields')
+
+	const partnerSchema = v.object({
+		name: v.pipe(v.string(), v.minLength(2, tf('name.error'))),
+		email: v.pipe(v.string(), v.email(tf('email.error'))),
+		project: v.pipe(v.string(), v.minLength(2, tf('project.error'))),
+		website: v.pipe(v.string(), v.url(tf('website.error')), v.minLength(1, tf('website.error'))),
+		description: v.pipe(v.string(), v.minLength(10, tf('description.error'))),
+	})
+
+	type PartnerFormData = v.InferInput<typeof partnerSchema>
+
 	const {
 		register,
 		handleSubmit,
@@ -53,30 +57,28 @@ ${data.description}
 				<Sparkles className="w-24 h-24 text-primary" />
 			</div>
 			<CardHeader>
-				<CardTitle>Start Your Partnership</CardTitle>
-				<CardDescription>
-					Fill out the details below to generate a request. We'll get back to you within 24 hours.
-				</CardDescription>
+				<CardTitle>{t('title')}</CardTitle>
+				<CardDescription>{t('description')}</CardDescription>
 			</CardHeader>
 			<CardContent className="pb-4">
 				<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="space-y-2">
-							<Label htmlFor="name">Contact Name</Label>
+							<Label htmlFor="name">{tf('name.label')}</Label>
 							<Input
 								id="name"
-								placeholder="John Doe"
+								placeholder={tf('name.placeholder')}
 								{...register('name')}
 								className={errors.name ? 'border-destructive focus-visible:ring-destructive' : ''}
 							/>
 							{errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
 						</div>
 						<div className="space-y-2">
-							<Label htmlFor="email">Email</Label>
+							<Label htmlFor="email">{tf('email.label')}</Label>
 							<Input
 								id="email"
 								type="email"
-								placeholder="john@example.com"
+								placeholder={tf('email.placeholder')}
 								{...register('email')}
 								className={errors.email ? 'border-destructive focus-visible:ring-destructive' : ''}
 							/>
@@ -85,10 +87,10 @@ ${data.description}
 					</div>
 
 					<div className="space-y-2">
-						<Label htmlFor="project">Project Name</Label>
+						<Label htmlFor="project">{tf('project.label')}</Label>
 						<Input
 							id="project"
-							placeholder="My Awesome Nano App"
+							placeholder={tf('project.placeholder')}
 							{...register('project')}
 							className={errors.project ? 'border-destructive focus-visible:ring-destructive' : ''}
 						/>
@@ -96,10 +98,10 @@ ${data.description}
 					</div>
 
 					<div className="space-y-2">
-						<Label htmlFor="website">Website URL</Label>
+						<Label htmlFor="website">{tf('website.label')}</Label>
 						<Input
 							id="website"
-							placeholder="https://"
+							placeholder={tf('website.placeholder')}
 							{...register('website')}
 							className={errors.website ? 'border-destructive focus-visible:ring-destructive' : ''}
 						/>
@@ -107,10 +109,10 @@ ${data.description}
 					</div>
 
 					<div className="space-y-2">
-						<Label htmlFor="description">Campaign Details</Label>
+						<Label htmlFor="description">{tf('description.label')}</Label>
 						<Textarea
 							id="description"
-							placeholder="Tell us about what you want to promote..."
+							placeholder={tf('description.placeholder')}
 							className={cn(
 								'resize-none',
 								errors.description ? 'border-destructive focus-visible:ring-destructive' : '',
@@ -122,10 +124,10 @@ ${data.description}
 
 					<Button type="submit" className="w-full" disabled={isSubmitting}>
 						{isSubmitting ? (
-							'Preparing...'
+							t('submit.loading')
 						) : (
 							<>
-								<Send className="mr-2 h-4 w-4" /> Send Request
+								<Send className="mr-2 h-4 w-4" /> {t('submit.button')}
 							</>
 						)}
 					</Button>

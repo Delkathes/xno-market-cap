@@ -67,6 +67,10 @@
 			"description": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol.",
 			"ogTitle": "Why Nano? The Currency for AI | NanoMarketCap",
 			"ogDescription": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol."
+		},
+		"partners": {
+			"title": "Partner With Us – Nano Market Cap",
+			"description": "Promote your business to thousands of Nano users. Learn about our partner spotlight program, pricing, and how to get started."
 		}
 	},
 	"common": {
@@ -565,12 +569,78 @@
 		}
 	},
 	"partners": {
-		"badge": "Partner",
+		"badge": "Partner Program",
 		"getPromoted": {
 			"badge": "Get Promoted",
 			"title": "Get Promoted!",
 			"subtitle": "Your Business Here",
 			"description": "Feature your business in this spotlight. Reach thousands of Nano users. Click to learn more."
+		},
+		"heroTitle": "Grow with Nano Market Cap",
+		"heroDescription": "Put your project in front of the most engaged Nano community. Reach thousands of daily users who live and breathe XNO.",
+		"benefits": {
+			"globalReach": {
+				"title": "Global Reach",
+				"description": "Your brand displayed on our high-traffic homepage and dedicated partner page."
+			},
+			"instantSetup": {
+				"title": "Instant Setup",
+				"description": "Go live in less than 24 hours. Simple XNO payment, no contracts."
+			},
+			"trust": {
+				"title": "Trust & Authority",
+				"description": "Align your brand with a trusted resource in the Nano ecosystem."
+			}
+		},
+		"stats": {
+			"title": "Why Partner?",
+			"visitors": {
+				"value": "5k+",
+				"label": "Mo. Visitors"
+			},
+			"focus": {
+				"value": "100%",
+				"label": "Nano Focus"
+			}
+		},
+		"contact": {
+			"text": "Prefer email? Contact us at",
+			"email": "partners@xnomarketcap.com"
+		},
+		"form": {
+			"title": "Start Your Partnership",
+			"description": "Fill out the details below to generate a request. We'll get back to you within 24 hours.",
+			"fields": {
+				"name": {
+					"label": "Contact Name",
+					"placeholder": "John Doe",
+					"error": "Name is required"
+				},
+				"email": {
+					"label": "Email",
+					"placeholder": "john@example.com",
+					"error": "Invalid email address"
+				},
+				"project": {
+					"label": "Project Name",
+					"placeholder": "My Awesome Nano App",
+					"error": "Project name is required"
+				},
+				"website": {
+					"label": "Website URL",
+					"placeholder": "https://",
+					"error": "Invalid URL"
+				},
+				"description": {
+					"label": "Campaign Details",
+					"placeholder": "Tell us about what you want to promote...",
+					"error": "Please provide a brief description"
+				}
+			},
+			"submit": {
+				"loading": "Preparing...",
+				"button": "Send Request"
+			}
 		}
 	},
 	"about": {

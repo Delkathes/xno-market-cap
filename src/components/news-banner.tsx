@@ -73,9 +73,10 @@ export function NewsBanner({ articles }: NewsBannerProps) {
 				{articles.map((article) => (
 					<Link key={article.slug} href={`/news/${article.slug}`}>
 						<Badge
-							variant="secondary"
-							className="whitespace-nowrap hover:bg-accent hover:text-primary-foreground transition-colors cursor-pointer px-4 py-2 rounded-full"
+							variant="outline"
+							className="whitespace-nowrap hover:bg-accent hover:border-accent hover:text-primary-foreground dark:hover:text-foreground transition-colors cursor-pointer px-4 py-2 rounded-full"
 						>
+							<span className="mr-0.5">{article.emoji}</span>
 							{article.title}
 						</Badge>
 					</Link>

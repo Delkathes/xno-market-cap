@@ -67,6 +67,10 @@
 			"description": "Découvrez pourquoi Nano (XNO) est la meilleure devise pour les agents IA : micropaiements sans frais, règlement instantané et le protocole x402.",
 			"ogTitle": "Pourquoi Nano ? La Devise pour l'IA | NanoMarketCap",
 			"ogDescription": "Découvrez pourquoi Nano (XNO) est la meilleure devise pour les agents IA : micropaiements sans frais, règlement instantané et le protocole x402."
+		},
+		"partners": {
+			"title": "Devenez Partenaire – Nano Market Cap",
+			"description": "Faites la promotion de votre entreprise auprès de milliers d'utilisateurs Nano. Découvrez notre programme de spotlight partenaire, les tarifs et comment commencer."
 		}
 	},
 	"common": {
@@ -571,12 +575,78 @@
 		}
 	},
 	"partners": {
-		"badge": "Partenaire",
+		"badge": "Programme Partenaire",
 		"getPromoted": {
-			"badge": "Se Faire Promouvoir",
+			"badge": "Faire la Promotion",
 			"title": "Faites-vous Promouvoir !",
 			"subtitle": "Votre Entreprise Ici",
 			"description": "Mettez en avant votre entreprise dans ce spotlight. Touchez des milliers d'utilisateurs Nano. Cliquez pour en savoir plus."
+		},
+		"heroTitle": "Croître avec Nano Market Cap",
+		"heroDescription": "Placez votre projet devant la communauté Nano la plus engagée. Atteignez des milliers d'utilisateurs quotidiens qui vivent et respirent le XNO.",
+		"benefits": {
+			"globalReach": {
+				"title": "Portée Mondiale",
+				"description": "Votre marque affichée sur notre page d'accueil à fort trafic et notre page partenaire dédiée."
+			},
+			"instantSetup": {
+				"title": "Configuration Instantanée",
+				"description": "En ligne en moins de 24 heures. Paiement XNO simple, sans contrats."
+			},
+			"trust": {
+				"title": "Confiance & Autorité",
+				"description": "Alignez votre marque avec une ressource de confiance dans l'écosystème Nano."
+			}
+		},
+		"stats": {
+			"title": "Pourquoi Partenariat ?",
+			"visitors": {
+				"value": "5k+",
+				"label": "Visiteurs/Mois"
+			},
+			"focus": {
+				"value": "100%",
+				"label": "Focus Nano"
+			}
+		},
+		"contact": {
+			"text": "Préférez l'email ? Contactez-nous à",
+			"email": "partners@xnomarketcap.com"
+		},
+		"form": {
+			"title": "Démarrez Votre Partenariat",
+			"description": "Remplissez les détails ci-dessous pour générer une demande. Nous vous recontacterons dans les 24 heures.",
+			"fields": {
+				"name": {
+					"label": "Nom du Contact",
+					"placeholder": "John Doe",
+					"error": "Le nom est requis"
+				},
+				"email": {
+					"label": "Email",
+					"placeholder": "john@example.com",
+					"error": "Adresse email invalide"
+				},
+				"project": {
+					"label": "Nom du Projet",
+					"placeholder": "My Awesome Nano App",
+					"error": "Le nom du projet est requis"
+				},
+				"website": {
+					"label": "URL du Site Web",
+					"placeholder": "https://",
+					"error": "URL invalide"
+				},
+				"description": {
+					"label": "Détails de la Campagne",
+					"placeholder": "Dites-nous ce que vous voulez promouvoir...",
+					"error": "Veuillez fournir une brève description"
+				}
+			},
+			"submit": {
+				"loading": "Préparation...",
+				"button": "Envoyer la Demande"
+			}
 		}
 	},
 	"about": {

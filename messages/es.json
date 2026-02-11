@@ -67,6 +67,10 @@
 			"description": "Descubre por qué Nano (XNO) es la mejor moneda para agentes de IA: micropagos sin comisiones, liquidación instantánea y el protocolo x402.",
 			"ogTitle": "¿Por qué Nano? La Moneda para la IA | NanoMarketCap",
 			"ogDescription": "Descubre por qué Nano (XNO) es la mejor moneda para agentes de IA: micropagos sin comisiones, liquidación instantánea y el protocolo x402."
+		},
+		"partners": {
+			"title": "Asóciese con Nosotros – Nano Market Cap",
+			"description": "Promocione su negocio a miles de usuarios de Nano. Conozca nuestro programa de spotlight para socios, precios y cómo empezar."
 		}
 	},
 	"common": {
@@ -571,12 +575,78 @@
 		}
 	},
 	"partners": {
-		"badge": "Socio",
+		"badge": "Programa de Socios",
 		"getPromoted": {
 			"badge": "Promocionarse",
 			"title": "¡Promociónate!",
 			"subtitle": "Tu Negocio Aquí",
 			"description": "Destaca tu negocio en este spotlight. Llega a miles de usuarios de Nano. Haz clic para saber más."
+		},
+		"heroTitle": "Crece con Nano Market Cap",
+		"heroDescription": "Coloca tu proyecto frente a la comunidad Nano más comprometida. Llega a miles de usuarios diarios que viven y respiran XNO.",
+		"benefits": {
+			"globalReach": {
+				"title": "Alcance Global",
+				"description": "Tu marca mostrada en nuestra página de inicio de alto tráfico y página de socios dedicada."
+			},
+			"instantSetup": {
+				"title": "Configuración Instantánea",
+				"description": "En línea en menos de 24 horas. Pago XNO simple, sin contratos."
+			},
+			"trust": {
+				"title": "Confianza y Autoridad",
+				"description": "Alinea tu marca con un recurso de confianza en el ecosistema Nano."
+			}
+		},
+		"stats": {
+			"title": "¿Por qué Asociarse?",
+			"visitors": {
+				"value": "5k+",
+				"label": "Visitas/Mes"
+			},
+			"focus": {
+				"value": "100%",
+				"label": "Enfoque Nano"
+			}
+		},
+		"contact": {
+			"text": "¿Prefiere el correo electrónico? Contáctenos en",
+			"email": "partners@xnomarketcap.com"
+		},
+		"form": {
+			"title": "Inicia Tu Alianza",
+			"description": "Completa los detalles a continuación para generar una solicitud. Te responderemos dentro de 24 horas.",
+			"fields": {
+				"name": {
+					"label": "Nombre de Contacto",
+					"placeholder": "John Doe",
+					"error": "El nombre es obligatorio"
+				},
+				"email": {
+					"label": "Correo Electrónico",
+					"placeholder": "john@example.com",
+					"error": "Dirección de correo inválida"
+				},
+				"project": {
+					"label": "Nombre del Proyecto",
+					"placeholder": "My Awesome Nano App",
+					"error": "El nombre del proyecto es obligatorio"
+				},
+				"website": {
+					"label": "URL del Sitio Web",
+					"placeholder": "https://",
+					"error": "URL inválida"
+				},
+				"description": {
+					"label": "Detalles de la Campaña",
+					"placeholder": "Cuéntanos sobre lo que quieres promocionar...",
+					"error": "Por favor proporciona una breve descripción"
+				}
+			},
+			"submit": {
+				"loading": "Preparando...",
+				"button": "Enviar Solicitud"
+			}
 		}
 	},
 	"about": {
