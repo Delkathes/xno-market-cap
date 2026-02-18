@@ -104,6 +104,25 @@ function WidgetSkeleton() {
 }
 
 export function NanswapIframe() {
+	const t = useTranslations('swapNano')
+	const [consented, setConsented] = useState(false)
+
+	if (!consented) {
+		return (
+			<div
+				className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border bg-card/60 p-8 text-center"
+				style={{ width: '100%', minHeight: '500px' }}
+			>
+				<h3 className="text-lg font-semibold">{t('consentGate.title')}</h3>
+				<p className="text-sm text-muted-foreground max-w-md">{t('consentGate.description')}</p>
+				<p className="text-xs text-muted-foreground/70 max-w-md">{t('consentGate.privacyNote')}</p>
+				<Button onClick={() => setConsented(true)} className="mt-2">
+					{t('consentGate.loadButton')}
+				</Button>
+			</div>
+		)
+	}
+
 	return (
 		<iframe
 			title="nanswap-iframe"

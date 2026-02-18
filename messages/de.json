@@ -71,6 +71,28 @@
 		"partners": {
 			"title": "Werden Sie Partner – Nano Market Cap",
 			"description": "Bewerben Sie Ihr Unternehmen bei Tausenden von Nano-Nutzern. Erfahren Sie mehr über unser Partner-Spotlight-Programm, die Preise und den Einstieg."
+		},
+		"legal": {
+			"privacy": {
+				"title": "Datenschutzerklärung | NanoMarketCap",
+				"description": "Erfahren Sie, wie NanoMarketCap Ihre Daten verarbeitet, was wir erfassen und welche Rechte Sie gemäß den geltenden Datenschutzbestimmungen haben."
+			},
+			"terms": {
+				"title": "Nutzungsbedingungen | NanoMarketCap",
+				"description": "Bedingungen, die die Nutzung der Dienste, Werkzeuge und Inhalte von NanoMarketCap regeln."
+			},
+			"cookies": {
+				"title": "Cookie- und Speicherrichtlinie | NanoMarketCap",
+				"description": "Informationen über Cookies, lokalen Speicher und ähnliche Technologien, die von NanoMarketCap verwendet werden."
+			},
+			"disclaimer": {
+				"title": "Haftungsausschluss | NanoMarketCap",
+				"description": "Finanzielle Warnhinweise, Haftungsbeschränkungen und Hinweise zur Genauigkeit der Inhalte auf NanoMarketCap."
+			},
+			"imprint": {
+				"title": "Impressum | NanoMarketCap",
+				"description": "Angaben zur juristischen Person, Kontaktdaten und regulatorische Erklärungen von NanoMarketCap."
+			}
 		}
 	},
 	"common": {
@@ -347,7 +369,7 @@
 		"needWalletFirst": "Brauchst du zuerst ein Wallet?",
 		"swapWithNanswap": "Mit Nanswap tauschen",
 		"nanswapDescription": "Nanswap unterstützt schnelle Konvertierungen von Dutzenden Währungen zu Nano (XNO). Gib den Betrag ein den du tauschen möchtest, sende deine Krypto, und erhalte Nano direkt in dein Wallet.",
-		"disclaimer": "Nanswap ist ein Drittanbieter-Service und nicht mit XNO Market Cap verbunden. Überprüfe immer Adressen und recherchiere selbst vor dem Tauschen.",
+		"disclaimer": "Nanswap ist ein Drittanbieter-Service und nicht mit NanoMarketCap verbunden. Überprüfe immer Adressen und recherchiere selbst vor dem Tauschen.",
 		"feeless": "Gebührenfrei",
 		"swapCoins": "Coins tauschen",
 		"swapComplete": "Tausch abgeschlossen!",
@@ -374,7 +396,13 @@
 		"swap": "Tauschen",
 		"poweredBy": "Bereitgestellt von",
 		"minAmountError": "Mindestbetrag ist {min} {currency}",
-		"maxAmountError": "Höchstbetrag ist {max} {currency}"
+		"maxAmountError": "Höchstbetrag ist {max} {currency}",
+		"consentGate": {
+			"title": "Widget eines Drittanbieters",
+			"description": "Dieses Widget lädt Inhalte von nanswap.com, einem Drittanbieterservice, der Cookies setzen und Ihre Daten gemäß seiner eigenen Datenschutzrichtlinie verarbeiten kann.",
+			"privacyNote": "Durch das Laden dieses Widgets stimmen Sie zu, dass Nanswap Ihre Daten gemäß ihren Bedingungen verarbeitet.",
+			"loadButton": "Tausch-Widget Laden"
+		}
 	},
 	"whyNano": {
 		"hero": {
@@ -733,6 +761,7 @@
 		"explore": "Entdecken",
 		"resources": "Ressourcen",
 		"community": "Community",
+		"legal": "Rechtliches",
 		"rights": "Alle Rechte vorbehalten.",
 		"madeWith": "Mit",
 		"forNano": "für Nano gemacht",
@@ -747,7 +776,379 @@
 			"calculators": "Rechner",
 			"nanoOrg": "Nano.org",
 			"docs": "Dokumentation",
-			"hub": "Nano Hub"
+			"hub": "Nano Hub",
+			"privacy": "Datenschutzerklärung",
+			"terms": "Nutzungsbedingungen",
+			"cookies": "Cookie-Richtlinie",
+			"disclaimer": "Haftungsausschluss",
+			"imprint": "Impressum"
+		}
+	},
+	"legal": {
+		"lastUpdated": "Zuletzt aktualisiert: {date}",
+		"englishOnly": "Dieses Dokument wird in englischer Sprache bereitgestellt. Im Falle von Abweichungen zu übersetzten Versionen hat die englische Version Vorrang.",
+		"privacy": {
+			"title": "Datenschutzerklärung",
+			"intro": "NanoMarketCap (\"wir\", \"uns\", \"unser\") verpflichtet sich zum Schutz Ihrer Privatsphäre. Diese Datenschutzerklärung erläutert, wie wir Informationen erfassen, nutzen und schützen, wenn Sie unsere Website besuchen.",
+			"sections": {
+				"dataCollected": {
+					"title": "1. Informationen, die Wir Erfassen",
+					"description": "Wir erfassen die minimale Datenmenge, die für den Betrieb des Dienstes erforderlich ist:",
+					"ipAddresses": {
+						"title": "IP-Adressen (Serverseitig, Flüchtig)",
+						"description": "Wir verarbeiten Ihre IP-Adresse vorübergehend zur Ratenbegrenzung (max. 60 Anfragen/Minute pro IP). Diese Daten werden nur im Serverspeicher gehalten, nie auf Festplatte oder in eine Datenbank geschrieben, und alle 5 Minuten automatisch gelöscht. IP-Adressen werden aus den x-forwarded-for- oder x-real-ip-Anfrageheadern extrahiert."
+					},
+					"localStorage": {
+						"title": "Lokale Speichereinstellungen (Clientseitig)",
+						"description": "Wir speichern die folgenden Benutzereinstellungen im lokalen Speicher Ihres Browsers, um Ihre Anzeigeeinstellungen zwischen Sitzungen zu speichern:",
+						"items": {
+							"primaryFiat": "Primäre Fiat-Währung (Standard: USD)",
+							"secondaryFiat": "Sekundäre Fiat-Währung (Standard: EUR)",
+							"cryptoRef": "Referenz-Kryptowährung (Standard: bitcoin)",
+							"parityFiat": "Fiat-Auswahl der Paritätsseite (Standard: USD, EUR)",
+							"theme": "Design-Präferenz (hell/dunkel/System)"
+						}
+					},
+					"cookies": {
+						"title": "Cookies",
+						"description": "Wir setzen keine Tracking- oder Werbe-Cookies. Die folgenden funktionalen Cookies können automatisch von unserem Technologie-Stack gesetzt werden:",
+						"items": {
+							"locale": "NEXT_LOCALE — Speichert Ihre Sprachpräferenz für die Website",
+							"theme": "Design-Präferenz — Merkt sich Ihre Hell/Dunkel-Modus-Auswahl"
+						}
+					}
+				},
+				"noTracking": {
+					"title": "2. Was Wir NICHT Erfassen",
+					"description": "Wir verwenden keine Analyse-, Tracking- oder Werbedienste. Kein Google Analytics, kein Facebook Pixel, kein Fingerprinting und keine Verhaltensprofilierung. Wir erfassen keine persönlichen Informationen wie Namen, E-Mail-Adressen oder Zahlungsdaten über die Website."
+				},
+				"thirdParty": {
+					"title": "3. Dienste Dritter",
+					"description": "Wir integrieren die folgenden Dienste Dritter, jeweils mit eigener Datenschutzerklärung:",
+					"coingecko": {
+						"title": "CoinGecko API",
+						"description": "Marktdaten werden serverseitig mit unserem API-Schlüssel abgerufen. Es werden keine Benutzerdaten an CoinGecko übermittelt."
+					},
+					"nanswap": {
+						"title": "Nanswap",
+						"description": "Die Tausch-Seite integriert ein Nanswap-Iframe. Wenn Sie mit dem Nanswap-Widget interagieren, werden Ihre Daten (Tauschbeträge, Wallet-Adressen) direkt von Nanswap gemäß deren Datenschutzerklärung verarbeitet. Unsere Integration enthält eine Affiliate-Empfehlungskennung."
+					},
+					"nanoNodes": {
+						"title": "Nano-Netzwerkknoten",
+						"description": "Für die Spendenverfolgung verbinden wir uns mit ws.nano.to und öffentlichen Nano-RPC-Knoten, um Wallet-Salden zu überwachen und eingehende Zahlungen zu erkennen. Es werden nur öffentliche Wallet-Adressen übermittelt — keine persönlichen Daten werden gesendet."
+					},
+					"fonts": {
+						"title": "Schriftarten (Selbst-gehostet)",
+						"description": "Schriftarten werden zur Build-Zeit selbst gehostet über Next.js Schriftartenoptimierung. Es werden keine Laufzeit-Verbindungen zu Google-Servern hergestellt und keine Benutzerdaten an Google übermittelt."
+					},
+					"imageCdns": {
+						"title": "Bild-CDNs",
+						"description": "Kryptowährungs-Logos und -Bilder werden von CoinGecko- und Nanswap-CDNs geladen, die Standard-Webanfragedaten protokollieren können."
+					}
+				},
+				"legalBasis": {
+					"title": "4. Rechtsgrundlage der Verarbeitung (DSGVO)",
+					"description": "Gemäß der Datenschutz-Grundverordnung (DSGVO) sind unsere Rechtsgrundlagen für die Datenverarbeitung:",
+					"items": {
+						"legitimateInterest": "Berechtigtes Interesse — Ratenbegrenzung zum Schutz unseres Dienstes vor Missbrauch (Verarbeitung von IP-Adressen)",
+						"functionalCookies": "Unbedingt erforderlich — Funktionale Cookies (Sprache, Design) sind für den normalen Betrieb der Website erforderlich und gemäß der ePrivacy-Richtlinie von der Einwilligung befreit",
+						"consent": "Einwilligung — Ihre im lokalen Speicher gespeicherten Browser-Präferenzen werden niemals an unsere Server übertragen. Das Nanswap-Tausch-Widget wird nur nach Ihrer ausdrücklichen Einwilligung geladen"
+					}
+				},
+				"dataRights": {
+					"title": "5. Ihre Rechte",
+					"description": "Gemäß den anwendbaren Datenschutzgesetzen (einschließlich der DSGVO) haben Sie ein Recht auf:",
+					"items": {
+						"access": "Auskunft — Informationen über die von uns verarbeiteten Daten anfordern",
+						"rectification": "Berichtigung — Korrektur unrichtiger Daten, die wir über Sie speichern, verlangen",
+						"erasure": "Löschung — Löschung aller Daten, die wir über Sie speichern, verlangen",
+						"restriction": "Einschränkung — Verlangen, dass wir die Verarbeitung Ihrer Daten einschränken",
+						"portability": "Datenübertragbarkeit — Ihre Daten in einem portablen Format erhalten",
+						"objection": "Widerspruch — Der Datenverarbeitung auf Basis berechtigter Interessen widersprechen",
+						"withdrawConsent": "Widerruf der Einwilligung — Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die Cookies und den lokalen Speicher Ihres Browsers löschen"
+					},
+					"note": "Da wir minimale Daten erfassen (flüchtige IP-Verarbeitung und browserseitige Präferenzen), werden die meisten dieser Rechte standardmäßig erfüllt. Sie können alle lokal gespeicherten Präferenzen jederzeit über Ihre Browsereinstellungen löschen."
+				},
+				"supervisoryAuthority": {
+					"title": "6. Recht auf Beschwerde",
+					"description": "Sie haben das Recht, eine Beschwerde bei einer Datenschutz-Aufsichtsbehörde einzureichen, insbesondere im EU-Mitgliedstaat Ihres gewöhnlichen Aufenthaltsorts, Arbeitsplatzes oder des Ortes des mutmaßlichen Verstoßes.",
+					"cnil": "In Frankreich ist die Aufsichtsbehörde die CNIL (Commission Nationale de l'Informatique et des Libertés).",
+					"cnilLink": "https://www.cnil.fr",
+					"note": "Sie können auch Ihre lokale Datenschutzbehörde kontaktieren, wenn Sie sich in einem anderen EU/EWR-Land befinden."
+				},
+				"dataBreach": {
+					"title": "7. Meldung von Datenschutzverletzungen",
+					"description": "Im Falle einer Verletzung personenbezogener Daten, die ein Risiko für Ihre Rechte und Freiheiten darstellt, werden wir die zuständige Aufsichtsbehörde innerhalb von 72 Stunden nach Bekanntwerden benachrichtigen, wie es Artikel 33 der DSGVO verlangt. Wenn die Verletzung voraussichtlich ein hohes Risiko für Ihre Rechte und Freiheiten mit sich bringt, werden wir auch die betroffenen Personen unverzüglich informieren."
+				},
+				"internationalTransfers": {
+					"title": "8. Internationale Datenübermittlung",
+					"description": "Unsere Website wird von Vercel Inc. (USA) gehostet. Serverseitige API-Aufrufe erfolgen an CoinGecko (globales CDN). Diese Übermittlungen erfolgen gemäß den geltenden Datenschutzvorschriften, einschließlich des EU-US Data Privacy Framework, sofern anwendbar. Wir übermitteln nur Daten, die für den Betrieb des Dienstes unbedingt erforderlich sind (flüchtige IP-Adressen zur Ratenbegrenzung). Keine personenbezogenen Daten werden außerhalb der EU gespeichert, abgesehen von der vorübergehenden Serververarbeitung."
+				},
+				"dataRetention": {
+					"title": "9. Datenspeicherung",
+					"description": "IP-Ratenbegrenzungsdaten: Werden alle 5 Minuten automatisch aus dem Serverspeicher gelöscht. Lokale Speicherdaten: Bleiben in Ihrem Browser, bis Sie sie löschen. Wir unterhalten keine Benutzerdatenbank oder persistente Datenspeicherung."
+				},
+				"children": {
+					"title": "10. Datenschutz von Minderjährigen",
+					"description": "Unser Dienst richtet sich nicht an Personen unter 16 Jahren. Wir erfassen wissentlich keine Informationen von Minderjährigen. Wenn Sie der Meinung sind, dass wir versehentlich Daten über eine Person unter 16 Jahren erfasst haben, kontaktieren Sie uns und wir werden diese umgehend löschen."
+				},
+				"changes": {
+					"title": "11. Änderungen dieser Erklärung",
+					"description": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit einem aktualisierten Revisionsdatum veröffentlicht. Die weitere Nutzung der Seite nach Änderungen stellt eine Annahme dar."
+				},
+				"contact": {
+					"title": "12. Kontakt",
+					"description": "Für datenschutzrelevante Anfragen kontaktieren Sie uns unter:"
+				}
+			}
+		},
+		"terms": {
+			"title": "Nutzungsbedingungen",
+			"intro": "Durch den Zugriff auf und die Nutzung von NanoMarketCap (der \"Dienst\") erklären Sie sich mit diesen Nutzungsbedingungen einverstanden. Wenn Sie nicht einverstanden sind, nutzen Sie den Dienst bitte nicht.",
+			"sections": {
+				"eligibility": {
+					"title": "1. Berechtigung",
+					"description": "Durch die Nutzung des Dienstes erklären Sie, dass Sie mindestens 16 Jahre alt sind und die rechtliche Fähigkeit haben, diese Bedingungen zu akzeptieren. Wenn Sie unter 16 Jahre alt sind, dürfen Sie den Dienst nicht nutzen."
+				},
+				"serviceDescription": {
+					"title": "2. Beschreibung des Dienstes",
+					"description": "NanoMarketCap ist eine Plattform zur Aggregation von Kryptowährungs-Marktdaten, die Folgendes bietet:",
+					"items": {
+						"marketData": "Echtzeit- und historische Marktdaten für Nano (XNO) und andere Kryptowährungen, bezogen von CoinGecko",
+						"tools": "Analytische Werkzeuge einschließlich Dominanzdiagramme, Knappheitsparitätsvergleiche und Spekulationsrechner",
+						"swapAccess": "Zugang zu Kryptowährungstauschdiensten Dritter über ein integriertes Nanswap-Widget",
+						"educational": "Bildungsinhalte über Nano, das x402-Protokoll und Kryptowährungen im Allgemeinen",
+						"donations": "Ein freiwilliges Spendensystem zur Unterstützung der laufenden Entwicklung"
+					}
+				},
+				"noFinancialAdvice": {
+					"title": "3. Keine Finanzberatung",
+					"description": "Nichts auf dieser Website stellt eine Finanz-, Anlage-, Steuer- oder Rechtsberatung dar. Alle Marktdaten, Preisberechnungen, Spekulationsszenarien und Paritätsvergleiche werden ausschließlich zu Informations- und Bildungszwecken bereitgestellt. Sie sollten einen qualifizierten Finanzberater konsultieren, bevor Sie Anlageentscheidungen treffen. Investitionen in Kryptowährungen bergen erhebliche Risiken, einschließlich der Möglichkeit eines Totalverlusts."
+				},
+				"dataAccuracy": {
+					"title": "4. Datengenauigkeit",
+					"description": "Marktdaten stammen von CoinGecko und anderen Drittanbietern. Obwohl wir um Genauigkeit bemüht sind, geben wir keine Garantien oder Zusicherungen hinsichtlich der Vollständigkeit, Genauigkeit, Zuverlässigkeit oder Aktualität der angezeigten Daten. Preise, Marktkapitalisierungen, Volumina und abgeleitete Berechnungen (Spekulation, Parität) können verzögert, ungenau oder unvollständig sein."
+				},
+				"thirdPartyServices": {
+					"title": "5. Dienste Dritter",
+					"description": "Der Dienst integriert Dienste Dritter, darunter Nanswap (Kryptowährungstausch), CoinGecko (Marktdaten) und Nano-Netzwerkknoten. Diese Dienste unterliegen ihren eigenen Bedingungen und Datenschutzerklärungen. Wir sind nicht verantwortlich für die Verfügbarkeit, Genauigkeit oder das Verhalten von Diensten Dritter. Die Nanswap-Integration enthält eine Affiliate-Empfehlungskennung."
+				},
+				"donations": {
+					"title": "6. Spenden",
+					"description": "Spenden sind freiwillige Beiträge in Nano (XNO) Kryptowährung zur Unterstützung der Entwicklung und Wartung von NanoMarketCap. Mit einer Spende erkennen Sie an, dass:",
+					"items": {
+						"voluntary": "Spenden völlig freiwillig sind und keine Rechte, Privilegien oder Eigentum verleihen",
+						"nonRefundable": "Kryptowährungstransaktionen irreversibel sind — Spenden können nicht erstattet werden",
+						"noTaxReceipt": "Wir keine Steuerquittungen oder Spendenzertifikate für steuerliche Zwecke ausstellen",
+						"noObligation": "Angegebene Spendenziele und Meilensteine orientierungsgemäß und nicht vertraglich bindend sind",
+						"noGuarantee": "Wir nicht garantieren, wie Spendengelder zugewiesen oder ausgegeben werden"
+					}
+				},
+				"partnerContent": {
+					"title": "7. Partner- und Gesponserte Inhalte",
+					"description": "Der Dienst kann Promotionen von zahlenden Partnern und gesponserte Inhalte anzeigen. Partner-Spotlights sind klar als solche gekennzeichnet. Das Vorhandensein von Partnerinhalten stellt keine Billigung, Empfehlung oder Garantie der Produkte oder Dienstleistungen des Partners dar. Benutzer sollten ihre eigene Sorgfaltspflicht walten lassen."
+				},
+				"intellectualProperty": {
+					"title": "8. Geistiges Eigentum",
+					"description": "Das Website-Design, die Originalinhalte und der Code von NanoMarketCap sind Eigentum von NanoMarketCap. Marktdaten werden von CoinGecko gemäß deren Nutzungsbedingungen bereitgestellt und ordnungsgemäß zugeschrieben. Nano™ und XNO sind mit der Nano Foundation verbunden. Alle Drittmarken bleiben Eigentum ihrer jeweiligen Inhaber."
+				},
+				"prohibitedUse": {
+					"title": "9. Verbotene Nutzung",
+					"description": "Sie verpflichten sich, Folgendes zu unterlassen:",
+					"items": {
+						"abuse": "Missbrauch, Überlastung oder Störung des Dienstes oder seiner Infrastruktur",
+						"scrape": "Scraping, Crawling oder Sammeln von Daten aus dem Dienst über die normale Nutzung hinaus",
+						"circumvent": "Umgehung von Ratenbegrenzungen oder Sicherheitsmaßnahmen",
+						"misrepresent": "Fälschung Ihrer Identität oder Zugehörigkeit",
+						"illegal": "Nutzung des Dienstes für illegale Zwecke"
+					}
+				},
+				"limitation": {
+					"title": "10. Haftungsbeschränkung",
+					"description": "Soweit gesetzlich zulässig, haften NanoMarketCap, ihre Betreiber, Mitwirkenden und verbundenen Unternehmen nicht für direkte, indirekte, zufällige, besondere, Folge- oder Strafschäden, die sich aus Ihrer Nutzung oder der Unmöglichkeit der Nutzung des Dienstes ergeben. Dies umfasst, ohne Einschränkung, Schäden durch Vertrauen auf Daten, Berechnungen oder Dienste Dritter, die über den Dienst zugänglich sind."
+				},
+				"indemnification": {
+					"title": "11. Freistellung",
+					"description": "Sie erklären sich damit einverstanden, NanoMarketCap und ihre Betreiber von allen Ansprüchen, Schäden, Verlusten oder Kosten freizustellen, die sich aus Ihrer Nutzung des Dienstes oder der Verletzung dieser Bedingungen ergeben."
+				},
+				"modification": {
+					"title": "12. Änderung und Kündigung",
+					"description": "Wir behalten uns das Recht vor, den Dienst jederzeit ohne Vorankündigung zu ändern, auszusetzen oder einzustellen. Wir können diese Bedingungen von Zeit zu Zeit aktualisieren. Die fortgesetzte Nutzung nach Änderungen stellt die Annahme der geänderten Bedingungen dar."
+				},
+				"governing": {
+					"title": "13. Anwendbares Recht",
+					"description": "Diese Bedingungen unterliegen dem Recht Frankreichs und werden nach diesem ausgelegt. Streitigkeiten aus diesen Bedingungen unterliegen der ausschließlichen Zuständigkeit der zuständigen Gerichte in Frankreich. Für EU-Verbraucher gelten weiterhin die zwingenden Verbraucherschutzgesetze Ihres Wohnsitzlandes."
+				},
+				"forceMajeure": {
+					"title": "14. Höhere Gewalt",
+					"description": "Wir haften nicht für Nichterfaulünung oder Verzögerung aufgrund von Ursachen außerhalb unserer angemessenen Kontrolle, einschließlich, aber nicht beschränkt auf Naturkatastrophen, Internetausfälle, Blockchain-Netzwerkprobleme, Ausfälle von Diensten Dritter oder staatliche Maßnahmen."
+				},
+				"severability": {
+					"title": "15. Salvatorische Klausel",
+					"description": "Wird eine Bestimmung dieser Bedingungen von einem zuständigen Gericht für ungültig oder nicht durchsetzbar erklärt, wird diese Bestimmung im maximal zulässigen Umfang durchgesetzt, und die übrigen Bestimmungen bleiben in vollem Umfang wirksam."
+				},
+				"entireAgreement": {
+					"title": "16. Vollständige Vereinbarung",
+					"description": "Diese Bedingungen bilden zusammen mit unserer Datenschutzerklärung, Cookie-Richtlinie und dem Haftungsausschluss die vollständige Vereinbarung zwischen Ihnen und NanoMarketCap in Bezug auf den Dienst und ersetzen alle früheren Vereinbarungen oder Absprachen."
+				},
+				"waiver": {
+					"title": "17. Verzichtserklärung",
+					"description": "Unser Versäumnis, ein Recht oder eine Bestimmung dieser Bedingungen auszuüben oder durchzusetzen, stellt keinen Verzicht auf dieses Recht oder diese Bestimmung dar. Jeder Verzicht muss schriftlich erfolgen und von der betreffenden Partei unterzeichnet werden."
+				},
+				"contact": {
+					"title": "18. Kontakt",
+					"description": "Bei Fragen zu diesen Bedingungen kontaktieren Sie uns unter:"
+				}
+			}
+		},
+		"cookies": {
+			"title": "Cookie- und Speicherrichtlinie",
+			"intro": "Diese Richtlinie erklärt, wie NanoMarketCap Cookies, lokalen Speicher und ähnliche Browser-Technologien verwendet.",
+			"sections": {
+				"whatAreCookies": {
+					"title": "1. Was sind Cookies und Lokaler Speicher?",
+					"description": "Cookies sind kleine Textdateien, die von Ihrem Browser gespeichert werden. Lokaler Speicher ist eine Browser-Funktion, die es Websites ermöglicht, Daten lokal auf Ihrem Gerät zu speichern. Beide werden verwendet, um Präferenzen zu speichern und Ihre Erfahrung zu verbessern."
+				},
+				"whatWeUse": {
+					"title": "2. Was Wir Verwenden",
+					"functional": {
+						"title": "Funktionale Cookies",
+						"description": "Diese Cookies sind für die ordnungsgemäße Funktion der Website erforderlich:",
+						"items": {
+							"locale": "NEXT_LOCALE — Merkt sich Ihre Sprachpräferenz (automatisch von unserem Internationalisierungsframework gesetzt)",
+							"theme": "Design-Präferenz — Merkt sich Ihre Hell/Dunkel-Modus-Auswahl"
+						}
+					},
+					"localStorage": {
+						"title": "Lokaler Speicher",
+						"description": "Wir verwenden den lokalen Speicher des Browsers, um Ihre Anzeigepräferenzen zu bewahren:",
+						"items": {
+							"primaryFiat": "xno-market-primary-fiat — Ihre primäre Fiat-Währung (Standard: USD)",
+							"secondaryFiat": "xno-market-secondary-fiat — Ihre sekundäre Fiat-Währung (Standard: EUR)",
+							"cryptoRef": "xno-market-crypto — Ihre Referenz-Kryptowährung (Standard: bitcoin)",
+							"parityFiat": "xno-parity-fiat-currencies — Fiat-Auswahl der Paritätsseite (Standard: USD, EUR)"
+						}
+					}
+				},
+				"thirdParty": {
+					"title": "3. Cookies von Dritten",
+					"description": "Wir setzen keine Drittanbieter-Cookies für Tracking, Analyse oder Werbung. Der folgende eingebettete Inhalt, der nur mit Ihrer Einwilligung geladen wird, kann Cookies unter eigener Domain setzen:",
+					"items": {
+						"nanswap": "Nanswap Iframe — Das Tausch-Widget auf der Seite Zu Nano tauschen lädt Inhalte von nanswap.com, das eigene Cookies setzen kann. Das Widget wird nur nach Ihrer ausdrücklichen Einwilligung geladen."
+					},
+					"fontsNote": "Schriftarten werden über Next.js Schriftartenoptimierung selbst gehostet und erfordern keine Drittanbieter-Cookies oder externen Anfragen."
+				},
+				"noTracking": {
+					"title": "4. Keine Tracking-Cookies",
+					"description": "Wir verwenden keine Analysedienste (Google Analytics usw.), Werbenetzwerke oder Verhaltens-Tracking-Technologien. Es findet kein Fingerprinting oder Cross-Site-Tracking statt."
+				},
+				"manage": {
+					"title": "5. Verwaltung Ihrer Einstellungen",
+					"description": "Sie können Cookies und lokalen Speicher über Ihre Browsereinstellungen verwalten:",
+					"items": {
+						"clearCookies": "Cookies löschen — Die meisten Browser ermöglichen das Löschen von Cookies über Einstellungen → Datenschutz → Browserdaten löschen",
+						"clearStorage": "Lokalen Speicher löschen — Öffnen Sie die Entwicklertools Ihres Browsers (F12) → Registerkarte Anwendung → Lokaler Speicher → Löschen",
+						"blockCookies": "Cookies blockieren — Sie können Ihren Browser so konfigurieren, dass alle oder bestimmte Cookies blockiert werden, obwohl dies die Funktionalität der Website beeinträchtigen kann"
+					}
+				},
+				"retention": {
+					"title": "6. Aufbewahrungsfristen",
+					"description": "Funktionale Cookies bleiben bestehen, bis Sie sie löschen oder sie ablaufen. Daten im lokalen Speicher bleiben bestehen, bis Sie sie manuell löschen. Wir setzen keine Ablaufzeit für Elemente im lokalen Speicher — sie bleiben bestehen, bis Sie oder Ihr Browser sie entfernen."
+				},
+				"changes": {
+					"title": "7. Änderungen dieser Richtlinie",
+					"description": "Wir können diese Richtlinie aktualisieren, wenn wir neue Technologien einführen oder die Nutzung bestehender ändern. Änderungen werden auf dieser Seite mit einem aktualisierten Datum angezeigt."
+				}
+			}
+		},
+		"disclaimer": {
+			"title": "Haftungsausschluss",
+			"intro": "Bitte lesen Sie diesen Hinweis sorgfältig, bevor Sie NanoMarketCap nutzen.",
+			"sections": {
+				"notFinancialAdvice": {
+					"title": "1. Keine Finanz- oder Anlageberatung",
+					"description": "Alle Inhalte auf NanoMarketCap — einschließlich Marktdaten, Preisdiagramme, Spekulationsrechner, Paritätsvergleiche und Bildungsmaterialien — werden ausschließlich zu Informations- und Bildungszwecken bereitgestellt. Nichts auf dieser Website stellt eine Finanz-, Anlage-, Handels- oder sonstige professionelle Beratung dar. Sie sollten keine finanziellen Entscheidungen allein auf der Grundlage der auf dieser Website präsentierten Informationen treffen."
+				},
+				"noRecommendation": {
+					"title": "2. Keine Anlageempfehlung",
+					"description": "Die Aufnahme einer Kryptowährung, eines Tokens oder eines Vermögenswerts auf dieser Website stellt keine Empfehlung dar, diesen Vermögenswert zu kaufen, zu verkaufen oder zu halten. Hypothetische Preisszenarien in den Spekulations- und Paritätsrechnern sind rein illustrativ und stellen keine Vorhersagen, Prognosen oder Anlageziele dar."
+				},
+				"dataAccuracy": {
+					"title": "3. Datengenauigkeit und Zuverlässigkeit",
+					"description": "Die auf dieser Website angezeigten Marktdaten stammen von CoinGecko und anderen Drittanbieter-Datenlieferanten. Obwohl wir angemessene Anstrengungen unternehmen, genaue Informationen anzuzeigen, können wir die Genauigkeit, Vollständigkeit, Aktualität oder Zuverlässigkeit der Daten nicht garantieren. Preise können verzögert sein und von den tatsächlichen Marktpreisen abweichen. Verlassen Sie sich bei Handelsentscheidungen nicht auf diese Daten."
+				},
+				"cryptoRisk": {
+					"title": "4. Risikowarnung für Kryptowährungen",
+					"description": "Investitionen in Kryptowährungen sind hochvolatil und bergen erhebliche Risiken, einschließlich aber nicht beschränkt auf: Totalverlust des investierten Kapitals, extreme Preisvolatilität, regulatorische Unsicherheit, technologische Risiken (Smart-Contract-Bugs, Netzwerkangriffen), Liquiditätsrisiko und Marktmanipulation. Vergangene Wertentwicklungen sind kein Indikator für zukünftige Ergebnisse."
+				},
+				"thirdPartyServices": {
+					"title": "5. Dienste Dritter",
+					"description": "NanoMarketCap integriert Dienste Dritter, darunter Nanswap für den Kryptowährungstausch. Wir sind nicht verantwortlich für den Betrieb, die Sicherheit, Zuverlässigkeit oder Ergebnisse von Diensten Dritter. Die Nutzung von Nanswap oder eines anderen verlinkten Dienstes erfolgt vollständig auf eigenes Risiko und unterliegt den jeweiligen Bedingungen. Unsere Nanswap-Integration enthält einen Affiliate-Empfehlungscode."
+				},
+				"affiliateDisclosure": {
+					"title": "6. Affiliate-Offenlegung",
+					"description": "NanoMarketCap nimmt am Affiliate-Programm von Nanswap teil. Wenn Sie das Tausch-Widget auf unserer Website nutzen, erhalten wir möglicherweise eine Empfehlungsvergütung. Dies hat keinen Einfluss auf den Preis, den Sie zahlen. Diese Beziehung wird im Interesse der Transparenz offengelegt."
+				},
+				"noGuarantees": {
+					"title": "7. Keine Garantien",
+					"description": "Der Dienst wird \"wie besehen\" und \"wie verfügbar\" ohne jegliche Gewährleistung, ausdrücklich oder stillschweigend, bereitgestellt. Wir garantieren keinen ununterbrochenen Zugang, fehlerfreien Betrieb oder die Genauigkeit von Berechnungen oder Daten. Die Nutzung des Dienstes erfolgt auf eigenes Risiko."
+				},
+				"liability": {
+					"title": "8. Haftungsbeschränkung",
+					"description": "Soweit gesetzlich zulässig, haften NanoMarketCap und ihre Betreiber nicht für Verluste, Schäden oder Kosten, die sich aus der Nutzung oder dem Vertrauen auf die über diese Website bereitgestellten Informationen ergeben, einschließlich, aber nicht beschränkt auf Handelsverluste, Datenungenauigkeiten oder Ausfälle von Diensten Dritter."
+				},
+				"ownResearch": {
+					"title": "9. Eigene Recherche Durchführen",
+					"description": "Führen Sie immer Ihre eigene Recherche durch und konsultieren Sie qualifizierte Finanzfachleute, bevor Sie Anlageentscheidungen treffen. Überprüfen Sie alle Informationen unabhängig. Investieren Sie niemals mehr, als Sie sich leisten können zu verlieren."
+				}
+			}
+		},
+		"imprint": {
+			"title": "Impressum",
+			"intro": "Angaben gemäß gesetzlicher Offenlegungspflichten.",
+			"sections": {
+				"operator": {
+					"title": "1. Seitenbetreiber",
+					"name": "[Ihr Name / Firmenname]",
+					"address": "[Ihre Adresse]",
+					"country": "[Ihr Land]",
+					"email": "Kontakt-E-Mail:",
+					"responsible": "Verantwortlich für den Inhalt:",
+					"placeholder": "Aktion erforderlich: Ersetzen Sie die obigen Platzhalter durch die tatsächlichen Betreiberdaten vor dem Produktiveinsatz."
+				},
+				"hosting": {
+					"title": "2. Hosting",
+					"description": "Diese Website wird gehostet von Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, USA."
+				},
+				"copyright": {
+					"title": "3. Urheberrecht",
+					"description": "© 2026 NanoMarketCap. Alle Rechte vorbehalten. Marktdaten werden von CoinGecko bereitgestellt und gemäß deren Bedingungen verwendet. Nano™ und das Nano-Logo sind Marken der Nano Foundation. Alle anderen Marken sind Eigentum ihrer jeweiligen Inhaber."
+				},
+				"contentLiability": {
+					"title": "4. Haftung für Inhalte",
+					"description": "Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß allgemeiner Gesetze für eigene Inhalte auf diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+				},
+				"linkLiability": {
+					"title": "5. Haftung für Links",
+					"description": "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft — rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar."
+				},
+				"dataProtection": {
+					"title": "6. Datenschutz",
+					"description": "Für detaillierte Informationen darüber, wie wir personenbezogene Daten behandeln, lesen Sie bitte unsere Datenschutzerklärung."
+				},
+				"disputeResolution": {
+					"title": "7. Streitbeilegung",
+					"description": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:",
+					"odrLink": "https://ec.europa.eu/consumers/odr",
+					"note": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+				}
+			}
+		},
+		"inlineDisclaimers": {
+			"speculation": "Nur zu Bildungszwecken. Hypothetische Szenarien sind keine Vorhersagen oder Anlageberatung.",
+			"parity": "Knappheitsparitätswerte sind theoretisch. Sie stellen keine Finanz- oder Anlageberatung dar.",
+			"donationNonRefundable": "Spenden sind freiwillig und nicht erstattungsfähig. Kryptowährungstransaktionen sind irreversibel.",
+			"affiliateDisclosure": "Die Nanswap-Integration enthält eine Affiliate-Empfehlung. Dies hat keinen Einfluss auf den Preis, den Sie zahlen."
 		}
 	}
 }

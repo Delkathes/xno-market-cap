@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useAtomValue } from 'jotai'
 import { AreaChartIcon, ArrowRightLeft, LineChartIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
@@ -17,9 +18,10 @@ import {
 	YAxis,
 } from 'recharts'
 
-import { CRYPTO_IDS } from '@/lib/constants'
+import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
+import { primaryFiatAtom } from '@/lib/currency-atoms'
 import { formatLargeNumber } from '@/lib/currency-helpers'
-import type { ChartTimeRange } from '@/lib/types'
+import type { ChartTimeRange, FiatCurrencyCode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -27,6 +29,7 @@ import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
 
@@ -114,9 +117,13 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 	const t = useTranslations('marketCapVolumeChart')
 	const { resolvedTheme } = useTheme()
 
+	const isXno = coinId === CRYPTO_IDS.NANO
+	const preferredFiat = useAtomValue(primaryFiatAtom)
+
 	const [timeRange, setTimeRange] = useState<ChartTimeRange>('30')
 	const [chartType, setChartType] = useState<'area' | 'line'>('area')
 	const [inverted, setInverted] = useState(false)
+	const [selectedFiat, setSelectedFiat] = useState<FiatCurrencyCode>(preferredFiat.toLowerCase() as FiatCurrencyCode)
 	const [referenceLines, setReferenceLines] = useState<{
 		start: boolean
 		end: boolean
@@ -132,22 +139,19 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 	const { data } = useMarketData()
 	const coin = data?.find((c) => c.id === coinId)
 
-	// For XNO itself, this chart doesn't make sense (would just show supply), so hide it
-	const isXno = coinId === CRYPTO_IDS.NANO
-
-	const { prices, isLoading, error } = usePriceChart(coinId, timeRange)
+	const { prices, isLoading, error } = usePriceChart(coinId, timeRange, isXno ? selectedFiat : undefined)
 
 	const chartData: ChartDataPoint[] = useMemo(() => {
 		if (!prices.length) return []
 
 		return prices.map((point) => ({
 			timestamp: point.timestamp,
-			// When inverted: show XNO's market cap/volume in terms of this coin
-			// When normal: show this coin's market cap/volume in XNO
-			marketCapInXNO: inverted ? point.xnoMarketCapInCoin : point.marketCapInXNO,
-			volumeInXNO: inverted ? point.xnoVolumeInCoin : point.volumeInXNO,
+			// For XNO with fiat: use raw marketCap/volume (already in fiat from API)
+			// For other coins: use the XNO-denominated values (inverted shows XNO in terms of coin)
+			marketCapInXNO: isXno ? point.marketCap : inverted ? point.xnoMarketCapInCoin : point.marketCapInXNO,
+			volumeInXNO: isXno ? point.volume : inverted ? point.xnoVolumeInCoin : point.volumeInXNO,
 		}))
-	}, [prices, inverted])
+	}, [prices, isXno, inverted])
 
 	// Calculate stats
 	const stats = useMemo(() => {
@@ -186,14 +190,9 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 	const isMCPositive = stats.marketCapChange >= 0
 	const colors = resolvedTheme === 'dark' ? CHART_COLORS.dark : CHART_COLORS.light
 
-	// Unit based on inverted state
-	const unit = inverted ? (coin?.symbol?.toUpperCase() ?? coinId.toUpperCase()) : 'XNO'
+	const fiatSymbol = selectedFiat.toUpperCase()
+	const unit = isXno ? fiatSymbol : inverted ? (coin?.symbol?.toUpperCase() ?? coinId.toUpperCase()) : 'XNO'
 	const formatValue = (value: number) => formatLargeNumber(value, { unit })
-
-	// Don't show this chart for XNO itself
-	if (isXno) {
-		return null
-	}
 
 	if (error) {
 		return (
@@ -211,26 +210,56 @@ export function MarketCapVolumeChart({ coinId }: MarketCapVolumeChartProps) {
 		<div>
 			<div className="mb-8">
 				<div className="flex flex-row sm:items-center justify-between gap-4">
-					<div className="relative">
-						<CardDescription className="absolute -top-4.5 whitespace-nowrap">
-							{inverted
-								? t('titleInverted', { coin: coin?.symbol?.toUpperCase() ?? coinId.toUpperCase() })
-								: t('title', { coin: coin?.symbol?.toUpperCase() ?? coinId.toUpperCase() })}
-						</CardDescription>
-						<div className="flex gap-3 sm:items-center">
-							<CardTitle className="text-lg whitespace-nowrap">
-								{inverted ? `XNO/${coin?.symbol?.toUpperCase()}` : `${coin?.symbol?.toUpperCase()}/XNO`}
-							</CardTitle>
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => setInverted(!inverted)}
-								className="h-8 w-8 p-0 cursor-pointer"
-								title={t('invertChart')}
-							>
-								<ArrowRightLeft className="h-4 w-4" />
-							</Button>
+					<div className="flex gap-3 sm:items-center flex-wrap">
+						<div className="relative">
+							<CardDescription className="absolute -top-6 whitespace-nowrap">
+								{isXno
+									? t('title', { coin: 'XNO', quote: fiatSymbol })
+									: inverted
+										? t('titleInverted', {
+												coin: coin?.symbol?.toUpperCase() ?? coinId.toUpperCase(),
+												quote: 'XNO',
+											})
+										: t('title', {
+												coin: coin?.symbol?.toUpperCase() ?? coinId.toUpperCase(),
+												quote: 'XNO',
+											})}
+							</CardDescription>
+							<div className="flex gap-3 sm:items-center">
+								<CardTitle className="text-lg whitespace-nowrap">
+									{isXno
+										? `XNO/${fiatSymbol}`
+										: inverted
+											? `XNO/${coin?.symbol?.toUpperCase()}`
+											: `${coin?.symbol?.toUpperCase()}/XNO`}
+								</CardTitle>
+								{!isXno && (
+									<Button
+										variant="ghost"
+										size="sm"
+										onClick={() => setInverted(!inverted)}
+										className="h-8 w-8 p-0 cursor-pointer"
+										title={t('invertChart')}
+									>
+										<ArrowRightLeft className="h-4 w-4" />
+									</Button>
+								)}
+							</div>
 						</div>
+						{isXno && (
+							<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
+								<SelectTrigger className="w-fit h-8 cursor-pointer">
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									{Object.entries(FiatCurrency).map(([key, value]) => (
+										<SelectItem key={value} value={value.toLowerCase()}>
+											{FIAT_CURRENCY_CONFIG[value as FiatCurrency].symbol} {key}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						)}
 					</div>
 					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse justify-end sm:flex-row sm:justify-end sm:flex-nowrap">
 						<div className="flex items-center gap-1">

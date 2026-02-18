@@ -156,7 +156,7 @@ export function AnimatedWorkflow() {
 	}, [workflowIndex])
 
 	return (
-		<div className="rounded-xl border border-border bg-card/60 backdrop-blur-xl overflow-hidden shadow-xl">
+		<div className="rounded-xl border border-border bg-card/80 backdrop-blur-xl overflow-hidden shadow-xl">
 			{/* Toolbar */}
 			<div className="flex items-center justify-between px-4 py-2.5 bg-muted/50 border-b border-border">
 				<div className="flex items-center gap-2">

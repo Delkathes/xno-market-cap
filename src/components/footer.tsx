@@ -23,6 +23,13 @@ const footerLinks = {
 		{ href: 'https://docs.nano.org', labelKey: 'docs', external: true },
 		{ href: 'https://hub.nano.org', labelKey: 'hub', external: true },
 	],
+	legal: [
+		{ href: '/legal/privacy', labelKey: 'privacy' },
+		{ href: '/legal/terms', labelKey: 'terms' },
+		{ href: '/legal/cookies', labelKey: 'cookies' },
+		{ href: '/legal/disclaimer', labelKey: 'disclaimer' },
+		{ href: '/legal/imprint', labelKey: 'imprint' },
+	],
 }
 
 const socialLinks = [
@@ -36,7 +43,7 @@ export async function Footer({ locale }: { locale: string }) {
 	return (
 		<footer className="border-t border-border bg-card mt-auto">
 			<div className="container mx-auto px-4 py-12">
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+				<div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
 					{/* Brand */}
 					<div className="col-span-2 md:col-span-1">
 						<Link href="/" className="inline-flex items-center font-bold text-xl mb-4">
@@ -120,6 +127,25 @@ export async function Footer({ locale }: { locale: string }) {
 									>
 										{t(`links.${link.labelKey}`)}
 									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					{/* Legal Links */}
+					<div>
+						<h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-4">
+							{t('legal')}
+						</h3>
+						<ul className="space-y-3">
+							{footerLinks.legal.map((link) => (
+								<li key={link.href}>
+									<Link
+										href={link.href}
+										className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+									>
+										{t(`links.${link.labelKey}`)}
+									</Link>
 								</li>
 							))}
 						</ul>

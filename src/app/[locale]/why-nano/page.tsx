@@ -536,12 +536,12 @@ export default async function WhyNanoPage({ params }: Props) {
 				</Appear>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-					<Appear delay={100}>
+					<Appear delay={100} className="backdrop-blur-xl">
 						<a
 							href="https://docs.nano.org"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60  p-6 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all duration-300"
 						>
 							<div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 dark:from-cyan-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 							<div className="relative z-10">
@@ -563,12 +563,12 @@ export default async function WhyNanoPage({ params }: Props) {
 						</a>
 					</Appear>
 
-					<Appear delay={150}>
+					<Appear delay={150} className="backdrop-blur-xl">
 						<a
 							href="https://github.com/x402nano"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 p-6 hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all duration-300"
 						>
 							<div className="absolute inset-0 bg-linear-to-br from-blue-500/5 dark:from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 							<div className="relative z-10">
@@ -590,12 +590,12 @@ export default async function WhyNanoPage({ params }: Props) {
 						</a>
 					</Appear>
 
-					<Appear delay={200}>
+					<Appear delay={200} className="backdrop-blur-xl">
 						<a
 							href="https://github.com/infinitybay/nano-sdk"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-purple-500/40 dark:hover:border-purple-500/30 transition-all duration-300"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 p-6 hover:border-purple-500/40 dark:hover:border-purple-500/30 transition-all duration-300"
 						>
 							<div className="absolute inset-0 bg-linear-to-br from-purple-500/5 dark:from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 							<div className="relative z-10">
@@ -617,12 +617,12 @@ export default async function WhyNanoPage({ params }: Props) {
 						</a>
 					</Appear>
 
-					<Appear delay={250}>
+					<Appear delay={250} className="backdrop-blur-xl">
 						<a
 							href="https://github.com/marvinroger/nanocurrency-js/tree/master/packages/nanocurrency"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 p-6 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300"
 						>
 							<div className="absolute inset-0 bg-linear-to-br from-orange-500/5 dark:from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 							<div className="relative z-10">
@@ -644,12 +644,12 @@ export default async function WhyNanoPage({ params }: Props) {
 						</a>
 					</Appear>
 
-					<Appear delay={300}>
+					<Appear delay={300} className="backdrop-blur-xl">
 						<a
 							href="https://nano.casa/"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-6 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 p-6 hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300"
 						>
 							<div className="absolute inset-0 bg-linear-to-br from-green-500/5 dark:from-green-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 							<div className="relative z-10">
@@ -682,7 +682,7 @@ export default async function WhyNanoPage({ params }: Props) {
 						<div className="h-px flex-1 bg-border" />
 					</div>
 
-					<div className="relative overflow-hidden rounded-2xl border border-dashed border-border bg-card/30 backdrop-blur-xl p-6 opacity-60">
+					<div className="relative overflow-hidden rounded-2xl border border-dashed border-border bg-card/40 backdrop-blur-xl p-6 opacity-80">
 						<div className="flex items-start gap-4">
 							<div className="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center text-muted-foreground shrink-0">
 								<Workflow className="w-5 h-5" />
@@ -711,7 +711,7 @@ export default async function WhyNanoPage({ params }: Props) {
 
 				<Appear delay={100}>
 					<div className="space-y-3">
-						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+						<details className="group rounded-2xl border border-border bg-card/80 backdrop-blur-xl">
 							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
 								{t('faq.q1.question')}
 								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
@@ -721,7 +721,7 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 						</details>
 
-						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+						<details className="group rounded-2xl border border-border bg-card/80 backdrop-blur-xl">
 							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
 								{t('faq.q2.question')}
 								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
@@ -731,7 +731,7 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 						</details>
 
-						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+						<details className="group rounded-2xl border border-border bg-card/80 backdrop-blur-xl">
 							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
 								{t('faq.q3.question')}
 								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
@@ -741,7 +741,7 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 						</details>
 
-						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+						<details className="group rounded-2xl border border-border bg-card/80 backdrop-blur-xl">
 							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
 								{t('faq.q4.question')}
 								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
@@ -751,7 +751,7 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 						</details>
 
-						<details className="group rounded-2xl border border-border bg-card/60 backdrop-blur-xl">
+						<details className="group rounded-2xl border border-border bg-card/80 backdrop-blur-xl">
 							<summary className="flex cursor-pointer list-none items-center justify-between p-6 font-semibold transition-colors hover:text-cyan-600 dark:hover:text-cyan-400 [&::-webkit-details-marker]:hidden">
 								{t('faq.q5.question')}
 								<ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />

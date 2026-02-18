@@ -84,7 +84,7 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 									{coin.symbol}
 								</Badge>
 							</div>
-							{coin.market_cap_rank && (
+							{coin.market_cap_rank && !isXNO && (
 								<p className="text-sm text-muted-foreground">
 									{t('rank', { rank: coin.market_cap_rank })}
 								</p>

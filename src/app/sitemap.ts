@@ -23,6 +23,11 @@ const routes: RouteConfig[] = [
 	{ path: '/get-nano', changeFrequency: 'monthly', priority: 0.7 },
 	{ path: '/swap-nano', changeFrequency: 'weekly', priority: 0.8 },
 	{ path: '/news', changeFrequency: 'daily', priority: 0.8 },
+	{ path: '/legal/privacy', changeFrequency: 'monthly', priority: 0.3 },
+	{ path: '/legal/terms', changeFrequency: 'monthly', priority: 0.3 },
+	{ path: '/legal/cookies', changeFrequency: 'monthly', priority: 0.3 },
+	{ path: '/legal/disclaimer', changeFrequency: 'monthly', priority: 0.3 },
+	{ path: '/legal/imprint', changeFrequency: 'monthly', priority: 0.3 },
 ]
 
 function buildAlternates(path: string): Record<string, string> {

@@ -55,6 +55,7 @@ export function DonationModal({
 	activeWalletAddress,
 }: DonationModalProps) {
 	const t = useTranslations('donation')
+	const tDisclaimer = useTranslations('legal.inlineDisclaimers')
 
 	const [copied, setCopied] = useState(false)
 
@@ -413,6 +414,9 @@ export function DonationModal({
 										<p className="text-sm text-muted-foreground text-center">
 											{t('scanToSend')}{' '}
 											<span className="font-mono font-medium text-primary">{amount} XNO</span>
+										</p>
+										<p className="text-xs text-muted-foreground/70 text-center">
+											{tDisclaimer('donationNonRefundable')}
 										</p>
 										<div className="flex items-center gap-2 text-xs">
 											{wsConnected ? (

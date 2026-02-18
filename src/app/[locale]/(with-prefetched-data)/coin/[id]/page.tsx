@@ -57,9 +57,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export async function generateStaticParams() {
 	try {
 		const marketData = await getMarketData()
-		return marketData.data.map((coin) => ({
-			id: coin.id,
-		}))
+		return marketData.data
+			.map((coin) => ({
+				id: coin.id,
+			}))
+			.slice(0, 5)
 	} catch {
 		// Return empty array if market data fails, pages will be generated on-demand
 		return []
@@ -142,7 +144,7 @@ function CoinInfoCardSkeleton() {
 
 function PriceChartSkeleton() {
 	return (
-		<div>
+		<div className="pb-1">
 			<div className="gap-6 sm:gap-2 mb-8">
 				<div className="flex justify-between">
 					<div className="h-8 w-36" />
@@ -165,7 +167,7 @@ function PriceChartSkeleton() {
 
 function MarketCapVolumeChartSkeleton() {
 	return (
-		<div>
+		<div className="pb-1">
 			<div className="gap-6 sm:gap-2 mb-8">
 				<div className="flex justify-between">
 					<div className="h-8 w-36" />

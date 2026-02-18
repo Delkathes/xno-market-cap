@@ -208,11 +208,16 @@ export function PriceChart({ coinId }: PriceChartProps) {
 				<div className="flex flex-row sm:items-center justify-between gap-4">
 					<div className="flex gap-3 sm:items-center flex-wrap">
 						<div className="relative">
-							<CardDescription className="absolute -top-4.5 whitespace-nowrap">
+							<CardDescription className="absolute -top-6 whitespace-nowrap">
 								{inverted
-									? t('titleInverted', { coin: coin?.symbol.toUpperCase() ?? '' })
-									: t('title', { coin: coin?.symbol.toUpperCase() ?? '' })}
-								{/* {t('title', { coin: coin?.symbol.toUpperCase() ?? '' })} */}
+									? t('titleInverted', {
+											coin: coin?.symbol.toUpperCase() ?? '',
+											quote: isXnoChart ? fiatSymbol : 'XNO',
+										})
+									: t('title', {
+											coin: coin?.symbol.toUpperCase() ?? '',
+											quote: isXnoChart ? fiatSymbol : 'XNO',
+										})}
 							</CardDescription>
 							<div className="flex gap-3 sm:items-center">
 								<CardTitle className="text-lg whitespace-nowrap uppercase">
@@ -237,7 +242,7 @@ export function PriceChart({ coinId }: PriceChartProps) {
 						</div>
 						{isXnoChart && (
 							<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
-								<SelectTrigger className="w-24 h-8 cursor-pointer">
+								<SelectTrigger className="w-fit h-8 cursor-pointer">
 									<SelectValue />
 								</SelectTrigger>
 								<SelectContent>

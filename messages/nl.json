@@ -71,6 +71,28 @@
 		"partners": {
 			"title": "Word Partner – Nano Market Cap",
 			"description": "Promoot uw bedrijf bij duizenden Nano-gebruikers. Lees meer over ons partner spotlight-programma, prijzen en hoe u kunt beginnen."
+		},
+		"legal": {
+			"privacy": {
+				"title": "Privacybeleid | NanoMarketCap",
+				"description": "Ontdek hoe NanoMarketCap uw gegevens verwerkt, wat we verzamelen en uw rechten onder de toepasselijke privacywetgeving."
+			},
+			"terms": {
+				"title": "Gebruiksvoorwaarden | NanoMarketCap",
+				"description": "Voorwaarden die het gebruik van NanoMarketCap diensten, tools en inhoud regelen."
+			},
+			"cookies": {
+				"title": "Cookie- en Opslagbeleid | NanoMarketCap",
+				"description": "Informatie over cookies, lokale opslag en vergelijkbare technologieën die door NanoMarketCap worden gebruikt."
+			},
+			"disclaimer": {
+				"title": "Disclaimer | NanoMarketCap",
+				"description": "Financiële waarschuwingen, aansprakelijkheidsbeperkingen en mededelingen over de nauwkeurigheid van inhoud op NanoMarketCap."
+			},
+			"imprint": {
+				"title": "Impressum | NanoMarketCap",
+				"description": "Juridische entiteitsinformatie, contactgegevens en wettelijke verklaringen van NanoMarketCap."
+			}
 		}
 	},
 	"common": {
@@ -347,7 +369,7 @@
 		"needWalletFirst": "Eerst een wallet nodig?",
 		"swapWithNanswap": "Wisselen met Nanswap",
 		"nanswapDescription": "Nanswap ondersteunt snelle conversies van tientallen valuta's naar Nano (XNO). Voer het bedrag in dat je wilt wisselen, stuur je crypto, en ontvang Nano direct in je wallet.",
-		"disclaimer": "Nanswap is een externe dienst en niet verbonden met XNO Market Cap. Controleer altijd adressen en doe je eigen onderzoek voordat je wisselt.",
+		"disclaimer": "Nanswap is een externe dienst en niet verbonden met NanoMarketCap. Controleer altijd adressen en doe je eigen onderzoek voordat je wisselt.",
 		"feeless": "Kosteloos",
 		"swapCoins": "Coins wisselen",
 		"swapComplete": "Wissel Voltooid!",
@@ -374,7 +396,13 @@
 		"swap": "Wisselen",
 		"poweredBy": "Mogelijk gemaakt door",
 		"minAmountError": "Minimumbedrag is {min} {currency}",
-		"maxAmountError": "Maximumbedrag is {max} {currency}"
+		"maxAmountError": "Maximumbedrag is {max} {currency}",
+		"consentGate": {
+			"title": "Widget voor Derden",
+			"description": "Deze widget laadt inhoud van nanswap.com, een dienst van derden die cookies kan plaatsen en uw gegevens kan verwerken volgens hun eigen privacybeleid.",
+			"privacyNote": "Door deze widget te laden, stemt u in met de verwerking van uw gegevens door Nanswap overeenkomstig hun voorwaarden.",
+			"loadButton": "Wisselwidget Laden"
+		}
 	},
 	"whyNano": {
 		"hero": {
@@ -733,6 +761,7 @@
 		"explore": "Verkennen",
 		"resources": "Bronnen",
 		"community": "Community",
+		"legal": "Juridisch",
 		"rights": "Alle rechten voorbehouden.",
 		"madeWith": "Gemaakt met",
 		"forNano": "voor Nano",
@@ -747,7 +776,379 @@
 			"calculators": "Rekenmachines",
 			"nanoOrg": "Nano.org",
 			"docs": "Documentatie",
-			"hub": "Nano Hub"
+			"hub": "Nano Hub",
+			"privacy": "Privacybeleid",
+			"terms": "Gebruiksvoorwaarden",
+			"cookies": "Cookiebeleid",
+			"disclaimer": "Disclaimer",
+			"imprint": "Impressum"
+		}
+	},
+	"legal": {
+		"lastUpdated": "Laatst bijgewerkt: {date}",
+		"englishOnly": "Dit document is opgesteld in het Engels. Bij discrepanties met vertaalde versies prevaleert de Engelse versie.",
+		"privacy": {
+			"title": "Privacybeleid",
+			"intro": "NanoMarketCap (\"wij\", \"ons\") zet zich in voor de bescherming van uw privacy. Dit Privacybeleid legt uit hoe wij informatie verzamelen, gebruiken en beschermen wanneer u onze website bezoekt.",
+			"sections": {
+				"dataCollected": {
+					"title": "1. Informatie die Wij Verzamelen",
+					"description": "Wij verzamelen de minimale hoeveelheid gegevens die nodig is om de dienst te laten werken:",
+					"ipAddresses": {
+						"title": "IP-adressen (Serverzijde, Efemeer)",
+						"description": "Wij verwerken uw IP-adres tijdelijk voor snelheidsbeperking (max. 60 verzoeken/minuut per IP). Deze gegevens worden alleen in het servergeheugen bewaard, nooit op schijf of in een database geschreven, en worden elke 5 minuten automatisch gewist. IP-adressen worden geëtraheerd uit de x-forwarded-for of x-real-ip verzoekheaders."
+					},
+					"localStorage": {
+						"title": "Lokale Opslagvoorkeuren (Clientzijde)",
+						"description": "Wij slaan de volgende gebruikersvoorkeuren op in de lokale opslag van uw browser om uw weergave-instellingen tussen sessies te onthouden:",
+						"items": {
+							"primaryFiat": "Primaire fiatvaluta (standaard: USD)",
+							"secondaryFiat": "Secundaire fiatvaluta (standaard: EUR)",
+							"cryptoRef": "Referentie cryptovaluta (standaard: bitcoin)",
+							"parityFiat": "Fiat-selectie Pariteitspagina (standaard: USD, EUR)",
+							"theme": "Themavoorkeur (licht/donker/systeem)"
+						}
+					},
+					"cookies": {
+						"title": "Cookies",
+						"description": "Wij plaatsen geen tracking- of advertentiecookies. De volgende functionele cookies kunnen automatisch door onze technologiestack worden geplaatst:",
+						"items": {
+							"locale": "NEXT_LOCALE — Slaat uw taalvoorkeur op voor de site",
+							"theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus"
+						}
+					}
+				},
+				"noTracking": {
+					"title": "2. Wat Wij NIET Verzamelen",
+					"description": "Wij gebruiken geen analyse-, tracking- of advertentiediensten. Geen Google Analytics, Facebook Pixel, fingerprinting of gedragsprofilering. Wij verzamelen geen persoonlijke informatie zoals namen, e-mailadressen of betalingsgegevens via de website."
+				},
+				"thirdParty": {
+					"title": "3. Diensten van Derden",
+					"description": "Wij integreren de volgende diensten van derden, elk met hun eigen privacybeleid:",
+					"coingecko": {
+						"title": "CoinGecko API",
+						"description": "Marktgegevens worden serverzijde opgehaald met onze API-sleutel. Er worden geen gebruikersgegevens naar CoinGecko verzonden."
+					},
+					"nanswap": {
+						"title": "Nanswap",
+						"description": "De wisselpagina integreert een Nanswap iframe. Wanneer u met de Nanswap-widget interacteert, worden uw gegevens (wisselbedragen, walletadressen) rechtstreeks door Nanswap verwerkt volgens hun privacybeleid. Onze integratie bevat een affiliate-verwijzingsidentificatie."
+					},
+					"nanoNodes": {
+						"title": "Nano Netwerknodes",
+						"description": "Voor het volgen van donaties verbinden wij met ws.nano.to en openbare Nano RPC-nodes om walletsaldi te monitoren en inkomende betalingen te detecteren. Alleen openbare walletadressen worden verzonden — er worden geen persoonlijke gegevens verzonden."
+					},
+					"fonts": {
+						"title": "Lettertypen (Zelf-gehost)",
+						"description": "Lettertypen worden tijdens het bouwen zelf gehost via Next.js lettertypeoptimalisatie. Er worden geen runtime-verbindingen naar Google-servers gemaakt en er worden geen gebruikersgegevens naar Google verzonden."
+					},
+					"imageCdns": {
+						"title": "Afbeeldings-CDN's",
+						"description": "Logo's en afbeeldingen van cryptovaluta worden geladen vanaf CoinGecko en Nanswap CDN's, die standaard webverzoekgegevens kunnen registreren."
+					}
+				},
+				"legalBasis": {
+					"title": "4. Rechtsgrond voor Verwerking (AVG)",
+					"description": "Onder de Algemene Verordening Gegevensbescherming (AVG) zijn onze rechtsgronden voor gegevensverwerking:",
+					"items": {
+						"legitimateInterest": "Gerechtvaardigd belang — Snelheidsbeperking om onze dienst tegen misbruik te beschermen (verwerking van IP-adressen)",
+						"functionalCookies": "Strikt noodzakelijk — Functionele cookies (taal, thema) zijn vereist voor de normale werking van de site en zijn vrijgesteld van toestemming onder de ePrivacy-richtlijn",
+						"consent": "Toestemming — Uw browservoorkeuren opgeslagen in lokale opslag worden nooit naar onze servers verzonden. De Nanswap-wisselwidget wordt alleen geladen na uw uitdrukkelijke toestemming"
+					}
+				},
+				"dataRights": {
+					"title": "5. Uw Rechten",
+					"description": "Onder de toepasselijke gegevensbeschermingswetten (waaronder de AVG) hebt u recht op:",
+					"items": {
+						"access": "Inzage — Informatie opvragen over de gegevens die wij over u verwerken",
+						"rectification": "Rectificatie — Correctie vragen van onjuiste gegevens die wij over u bewaren",
+						"erasure": "Wissing — Verwijdering vragen van alle gegevens die wij over u bewaren",
+						"restriction": "Beperking — Verzoeken om de manier waarop wij uw gegevens verwerken te beperken",
+						"portability": "Overdraagbaarheid — Uw gegevens ontvangen in een draagbaar formaat",
+						"objection": "Bezwaar — Bezwaar maken tegen gegevensverwerking op basis van gerechtvaardigd belang",
+						"withdrawConsent": "Intrekking van toestemming — U kunt uw toestemming op elk moment intrekken door de cookies en lokale opslag van uw browser te wissen"
+					},
+					"note": "Aangezien wij minimale gegevens verzamelen (efemere IP-verwerking en browservoorkeurinstellingen), worden de meeste van deze rechten standaard vervuld. U kunt alle lokaal opgeslagen voorkeuren op elk moment wissen via uw browserinstellingen."
+				},
+				"supervisoryAuthority": {
+					"title": "6. Recht om een Klacht in te Dienen",
+					"description": "U hebt het recht om een klacht in te dienen bij een toezichthoudende autoriteit voor gegevensbescherming, met name in de EU-lidstaat van uw gebruikelijke verblijfplaats, werkplek of plaats van de vermeende inbreuk.",
+					"cnil": "In Frankrijk is de toezichthoudende autoriteit de CNIL (Commission Nationale de l'Informatique et des Libertés).",
+					"cnilLink": "https://www.cnil.fr",
+					"note": "U kunt ook contact opnemen met uw lokale gegevensbeschermingsautoriteit als u zich in een ander EU/EER-land bevindt."
+				},
+				"dataBreach": {
+					"title": "7. Melding van Datalekken",
+					"description": "In het geval van een inbreuk op persoonsgegevens die een risico vormt voor uw rechten en vrijheden, zullen wij de bevoegde toezichthoudende autoriteit binnen 72 uur na kennisneming op de hoogte stellen, zoals vereist door Artikel 33 van de AVG. Als de inbreuk kan leiden tot een hoog risico voor uw rechten en vrijheden, zullen wij ook de getroffen personen zonder onnodige vertraging informeren."
+				},
+				"internationalTransfers": {
+					"title": "8. Internationale Gegevensoverdracht",
+					"description": "Onze website wordt gehost door Vercel Inc. (Verenigde Staten). Serverzijde API-aanroepen worden gedaan naar CoinGecko (wereldwijd CDN). Deze overdrachten vinden plaats in overeenstemming met de toepasselijke gegevensbeschermingsregelgeving, inclusief het EU-VS Data Privacy Framework waar van toepassing. Wij dragen alleen gegevens over die strikt noodzakelijk zijn voor de werking van de dienst (efemere IP-adressen voor snelheidsbeperking). Er worden geen persoonlijke gegevens buiten de EU opgeslagen, behalve transistoire serververwerking."
+				},
+				"dataRetention": {
+					"title": "9. Gegevensbewaring",
+					"description": "IP-snelheidsbeperkingsgegevens: Automatisch elke 5 minuten uit het servergeheugen gewist. Lokale opslaggegevens: Blijven in uw browser totdat u ze wist. Wij onderhouden geen gebruikersdatabase of persistente gegevensopslag."
+				},
+				"children": {
+					"title": "10. Privacy van Minderjarigen",
+					"description": "Onze dienst is niet gericht op personen jonger dan 16 jaar. Wij verzamelen niet bewust informatie van minderjarigen. Als u denkt dat wij onbedoeld gegevens over een minderjarige onder 16 jaar hebben verzameld, neem dan contact met ons op en wij zullen deze onmiddellijk verwijderen."
+				},
+				"changes": {
+					"title": "11. Wijzigingen in dit Beleid",
+					"description": "Wij kunnen dit Privacybeleid van tijd tot tijd bijwerken. Wijzigingen worden op deze pagina gepubliceerd met een bijgewerkte herzieningsdatum. Voortgezet gebruik van de site na wijzigingen vormt acceptatie."
+				},
+				"contact": {
+					"title": "12. Contact",
+					"description": "Voor privacygerelateerde vragen kunt u contact met ons opnemen via:"
+				}
+			}
+		},
+		"terms": {
+			"title": "Gebruiksvoorwaarden",
+			"intro": "Door NanoMarketCap (de \"Dienst\") te openen en te gebruiken, stemt u ermee in gebonden te zijn aan deze Gebruiksvoorwaarden. Als u niet akkoord gaat, gebruik de Dienst dan niet.",
+			"sections": {
+				"eligibility": {
+					"title": "1. Geschiktheid",
+					"description": "Door de Dienst te gebruiken, verklaart u dat u ten minste 16 jaar oud bent en juridisch bevoegd bent om deze Voorwaarden te accepteren. Als u jonger bent dan 16 jaar, mag u de Dienst niet gebruiken."
+				},
+				"serviceDescription": {
+					"title": "2. Beschrijving van de Dienst",
+					"description": "NanoMarketCap is een platform voor het aggregeren van cryptovaluta-marktgegevens dat het volgende biedt:",
+					"items": {
+						"marketData": "Realtime en historische marktgegevens voor Nano (XNO) en andere cryptovaluta, afkomstig van CoinGecko",
+						"tools": "Analytische tools waaronder dominantiediagrammen, schaarstepariteitsvergelijkingen en speculatierekenmachines",
+						"swapAccess": "Toegang tot wisselservices voor cryptovaluta van derden via een geïntegreerde Nanswap-widget",
+						"educational": "Educatieve inhoud over Nano, het x402-protocol en cryptovaluta in het algemeen",
+						"donations": "Een vrijwillig donatiesysteem ter ondersteuning van de voortdurende ontwikkeling"
+					}
+				},
+				"noFinancialAdvice": {
+					"title": "3. Geen Financieel Advies",
+					"description": "Niets op deze website vormt financieel, beleggings-, fiscaal of juridisch advies. Alle marktgegevens, prijsberekeningen, speculatiescenario's en pariteitsvergelijkingen worden uitsluitend verstrekt voor informatieve en educatieve doeleinden. U dient een gekwalificeerd financieel adviseur te raadplegen voordat u beleggingsbeslissingen neemt. Beleggingen in cryptovaluta brengen aanzienlijke risico's met zich mee, waaronder de mogelijkheid van totaal verlies."
+				},
+				"dataAccuracy": {
+					"title": "4. Nauwkeurigheid van Gegevens",
+					"description": "Marktgegevens zijn afkomstig van CoinGecko en andere externe leveranciers. Hoewel wij streven naar nauwkeurigheid, geven wij geen garanties of verklaringen over de volledigheid, nauwkeurigheid, betrouwbaarheid of actualiteit van de weergegeven gegevens. Prijzen, marktkapitalisaties, volumes en afgeleide berekeningen (speculatie, pariteit) kunnen vertraagd, onnauwkeurig of onvolledig zijn."
+				},
+				"thirdPartyServices": {
+					"title": "5. Diensten van Derden",
+					"description": "De Dienst integreert diensten van derden waaronder Nanswap (cryptovalutawissels), CoinGecko (marktgegevens) en Nano-netwerknodes. Deze diensten worden beheerst door hun eigen voorwaarden en privacybeleid. Wij zijn niet verantwoordelijk voor de beschikbaarheid, nauwkeurigheid of het gedrag van enige dienst van derden. De Nanswap-integratie bevat een affiliate-verwijzingsidentificatie."
+				},
+				"donations": {
+					"title": "6. Donaties",
+					"description": "Donaties zijn vrijwillige bijdragen in Nano (XNO) cryptovaluta ter ondersteuning van de ontwikkeling en het onderhoud van NanoMarketCap. Door een donatie te doen, erkent u dat:",
+					"items": {
+						"voluntary": "Donaties geheel vrijwillig zijn en geen rechten, privileges of eigendom verlenen",
+						"nonRefundable": "Cryptovalutatransacties onomkeerbaar zijn — donaties kunnen niet worden terugbetaald",
+						"noTaxReceipt": "Wij verstrekken geen belastingontvangsten of donatiecertificaten voor belastingdoeleinden",
+						"noObligation": "Aangegeven donatiedoelen en mijlpalen indicatief en niet contractueel bindend zijn",
+						"noGuarantee": "Wij niet garanderen hoe donatiegelden worden toegewezen of besteed"
+					}
+				},
+				"partnerContent": {
+					"title": "7. Partner- en Gesponsorde Inhoud",
+					"description": "De Dienst kan promoties van betaalde partners en gesponsorde inhoud weergeven. Partner spotlights zijn duidelijk als zodanig geïdentificeerd. De aanwezigheid van partnerinhoud vormt geen goedkeuring, aanbeveling of garantie van de producten of diensten van de partner. Gebruikers dienen hun eigen due diligence uit te voeren."
+				},
+				"intellectualProperty": {
+					"title": "8. Intellectueel Eigendom",
+					"description": "Het websiteontwerp, de originele inhoud en code van NanoMarketCap zijn eigendom van NanoMarketCap. Marktgegevens worden geleverd door CoinGecko volgens hun gebruiksvoorwaarden en naar behoren toegeschreven. Nano™ en XNO zijn verbonden met de Nano Foundation. Alle handelsmerken van derden blijven eigendom van hun respectieve houders."
+				},
+				"prohibitedUse": {
+					"title": "9. Verboden Gebruik",
+					"description": "U stemt ermee in om niet:",
+					"items": {
+						"abuse": "Misbruik te maken van, te overbelasten of te interfereren met de Dienst of de infrastructuur ervan",
+						"scrape": "Gegevens van de Dienst te scrapen, te crawlen of te verzamelen buiten normaal gebruik",
+						"circumvent": "Snelheidsbeperkingen of beveiligingsmaatregelen te omzeilen",
+						"misrepresent": "Uw identiteit of affiliatie te vervalsen",
+						"illegal": "De Dienst voor illegale doeleinden te gebruiken"
+					}
+				},
+				"limitation": {
+					"title": "10. Beperking van Aansprakelijkheid",
+					"description": "Voor zover maximaal toegestaan door de wet, zijn NanoMarketCap, haar exploitanten, bijdragers en gelieerde ondernemingen niet aansprakelijk voor enige directe, indirecte, incidentele, speciale, gevolgschade of punitieve schade voortvloeiend uit uw gebruik van of onvermogen tot gebruik van de Dienst. Dit omvat, zonder beperking, schade door vertrouwen op gegevens, berekeningen of diensten van derden die via de Dienst toegankelijk zijn."
+				},
+				"indemnification": {
+					"title": "11. Vrijwaring",
+					"description": "U stemt ermee in NanoMarketCap en haar exploitanten te vrijwaren van alle claims, schade, verliezen of kosten die voortvloeien uit uw gebruik van de Dienst of schending van deze Voorwaarden."
+				},
+				"modification": {
+					"title": "12. Wijziging en Beëindiging",
+					"description": "Wij behouden ons het recht voor om de Dienst op elk moment zonder voorafgaande kennisgeving te wijzigen, op te schorten of te beëindigen. Wij kunnen deze Voorwaarden van tijd tot tijd bijwerken. Voortgezet gebruik na wijzigingen vormt acceptatie van de gewijzigde Voorwaarden."
+				},
+				"governing": {
+					"title": "13. Toepasselijk Recht",
+					"description": "Deze Voorwaarden worden beheerst door en geïnterpreteerd in overeenstemming met de wetten van Frankrijk. Geschillen die voortvloeien uit deze Voorwaarden zijn onderworpen aan de exclusieve jurisdictie van de bevoegde rechtbanken van Frankrijk. Voor EU-consumenten blijven de dwingende consumentenbeschermingswetten van uw land van verblijf van toepassing."
+				},
+				"forceMajeure": {
+					"title": "14. Overmacht",
+					"description": "Wij zijn niet aansprakelijk voor enige tekortkoming of vertraging in de uitvoering als gevolg van oorzaken buiten onze redelijke controle, met inbegrip van maar niet beperkt tot natuurrampen, internetuitval, blockchain-netwerkproblemen, uitval van diensten van derden of overheidsmaatregelen."
+				},
+				"severability": {
+					"title": "15. Salvatorische Clausule",
+					"description": "Indien een bepaling van deze Voorwaarden ongeldig of niet-afdwingbaar wordt verklaard door een bevoegde rechtbank, zal die bepaling worden gehandhaafd voor zover maximaal toegestaan, en de overige bepalingen blijven volledig van kracht."
+				},
+				"entireAgreement": {
+					"title": "16. Volledige Overeenkomst",
+					"description": "Deze Voorwaarden, samen met ons Privacybeleid, Cookiebeleid en Disclaimer, vormen de volledige overeenkomst tussen u en NanoMarketCap met betrekking tot de Dienst en vervangen alle eerdere overeenkomsten of afspraken."
+				},
+				"waiver": {
+					"title": "17. Afstandsverklaring",
+					"description": "Het niet uitoefenen of afdwingen door ons van enig recht of bepaling van deze Voorwaarden vormt geen afstand van dat recht of die bepaling. Elke afstandsverklaring moet schriftelijk zijn en ondertekend door de betreffende partij."
+				},
+				"contact": {
+					"title": "18. Contact",
+					"description": "Voor vragen over deze Voorwaarden kunt u contact met ons opnemen via:"
+				}
+			}
+		},
+		"cookies": {
+			"title": "Cookie- en Opslagbeleid",
+			"intro": "Dit beleid legt uit hoe NanoMarketCap cookies, lokale opslag en vergelijkbare browsertechnologieën gebruikt.",
+			"sections": {
+				"whatAreCookies": {
+					"title": "1. Wat zijn Cookies en Lokale Opslag?",
+					"description": "Cookies zijn kleine tekstbestanden die door uw browser worden opgeslagen. Lokale opslag is een browserfunctie waarmee websites gegevens lokaal op uw apparaat kunnen opslaan. Beide worden gebruikt om voorkeuren te onthouden en uw ervaring te verbeteren."
+				},
+				"whatWeUse": {
+					"title": "2. Wat Wij Gebruiken",
+					"functional": {
+						"title": "Functionele Cookies",
+						"description": "Deze cookies zijn noodzakelijk voor de goede werking van de website:",
+						"items": {
+							"locale": "NEXT_LOCALE — Onthoudt uw taalvoorkeur (automatisch ingesteld door ons internationaliseringsframework)",
+							"theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus"
+						}
+					},
+					"localStorage": {
+						"title": "Lokale Opslag",
+						"description": "Wij gebruiken de lokale opslag van de browser om uw weergavevoorkeuren te bewaren:",
+						"items": {
+							"primaryFiat": "xno-market-primary-fiat — Uw primaire fiatvaluta (standaard: USD)",
+							"secondaryFiat": "xno-market-secondary-fiat — Uw secundaire fiatvaluta (standaard: EUR)",
+							"cryptoRef": "xno-market-crypto — Uw referentie cryptovaluta (standaard: bitcoin)",
+							"parityFiat": "xno-parity-fiat-currencies — Fiat-selectie Pariteitspagina (standaard: USD, EUR)"
+						}
+					}
+				},
+				"thirdParty": {
+					"title": "3. Cookies van Derden",
+					"description": "Wij plaatsen geen cookies van derden voor tracking, analyse of reclame. De volgende geïntegreerde inhoud, alleen geladen met uw toestemming, kan cookies binnen het eigen domein plaatsen:",
+					"items": {
+						"nanswap": "Nanswap Iframe — De wisselwidget op de pagina Wisselen naar Nano laadt inhoud van nanswap.com, dat eigen cookies kan plaatsen. De widget wordt alleen geladen na uw uitdrukkelijke toestemming."
+					},
+					"fontsNote": "Lettertypen worden zelf gehost via Next.js lettertypeoptimalisatie en vereisen geen cookies van derden of externe verzoeken."
+				},
+				"noTracking": {
+					"title": "4. Geen Tracking Cookies",
+					"description": "Wij gebruiken geen analysediensten (Google Analytics, etc.), advertentienetwerken of gedragstrackingtechnologieën. Er vindt geen fingerprinting of cross-site tracking plaats."
+				},
+				"manage": {
+					"title": "5. Beheer van uw Voorkeuren",
+					"description": "U kunt cookies en lokale opslag beheren via uw browserinstellingen:",
+					"items": {
+						"clearCookies": "Cookies wissen — De meeste browsers laten u cookies verwijderen via Instellingen → Privacy → Browsegegevens wissen",
+						"clearStorage": "Lokale opslag wissen — Open de ontwikkelaarshulpmiddelen van uw browser (F12) → Tabblad Applicatie → Lokale Opslag → Wissen",
+						"blockCookies": "Cookies blokkeren — U kunt uw browser configureren om alle of sommige cookies te blokkeren, hoewel dit de functionaliteit van de site kan beïnvloeden"
+					}
+				},
+				"retention": {
+					"title": "6. Bewaartermijnen",
+					"description": "Functionele cookies blijven bestaan totdat u ze wist of ze verlopen. Lokale opslaggegevens blijven bestaan totdat u ze handmatig wist. Wij stellen geen verloopdatum in op lokale opslagitems — ze blijven totdat u of uw browser ze verwijdert."
+				},
+				"changes": {
+					"title": "7. Wijzigingen in dit Beleid",
+					"description": "Wij kunnen dit beleid bijwerken als wij nieuwe technologieën introduceren of het gebruik van bestaande wijzigen. Wijzigingen worden op deze pagina weergegeven met een bijgewerkte datum."
+				}
+			}
+		},
+		"disclaimer": {
+			"title": "Disclaimer",
+			"intro": "Lees deze kennisgeving zorgvuldig door voordat u NanoMarketCap gebruikt.",
+			"sections": {
+				"notFinancialAdvice": {
+					"title": "1. Geen Financieel of Beleggingsadvies",
+					"description": "Alle inhoud op NanoMarketCap — inclusief marktgegevens, prijsgrafieken, speculatierekenmachines, pariteitsvergelijkingen en educatief materiaal — wordt uitsluitend verstrekt voor informatieve en educatieve doeleinden. Niets op deze website vormt financieel, beleggings-, handels- of enig ander professioneel advies. U mag geen financiële beslissingen nemen op basis van uitsluitend de informatie die op deze website wordt gepresenteerd."
+				},
+				"noRecommendation": {
+					"title": "2. Geen Beleggingsaanbeveling",
+					"description": "De opname van enige cryptovaluta, token of activum op deze website vormt geen aanbeveling om dat activum te kopen, verkopen of aan te houden. Hypothetische prijsscenario's in de speculatie- en pariteitsrekenmachines zijn louter illustratief en vertegenwoordigen geen voorspellingen, prognoses of beleggingsdoelen."
+				},
+				"dataAccuracy": {
+					"title": "3. Nauwkeurigheid en Betrouwbaarheid van Gegevens",
+					"description": "De marktgegevens op deze website zijn afkomstig van CoinGecko en andere externe dataleveranciers. Hoewel wij redelijke inspanningen leveren om nauwkeurige informatie weer te geven, kunnen wij de nauwkeurigheid, volledigheid, actualiteit of betrouwbaarheid van de gegevens niet garanderen. Prijzen kunnen vertraagd zijn en kunnen afwijken van werkelijke marktprijzen. Vertrouw niet op deze gegevens voor handelsbeslissingen."
+				},
+				"cryptoRisk": {
+					"title": "4. Risicowaarschuwing Cryptovaluta",
+					"description": "Beleggingen in cryptovaluta zijn zeer volatiel en brengen aanzienlijke risico's met zich mee, waaronder maar niet beperkt tot: totaal verlies van geïnvesteerd kapitaal, extreme prijsvolatiliteit, regulatoire onzekerheid, technologische risico's (bugs in smart contracts, netwerkaanvallen), liquiditeitsrisico en marktmanipulatie. In het verleden behaalde resultaten bieden geen garantie voor de toekomst."
+				},
+				"thirdPartyServices": {
+					"title": "5. Diensten van Derden",
+					"description": "NanoMarketCap integreert diensten van derden waaronder Nanswap voor cryptovalutawissels. Wij zijn niet verantwoordelijk voor de werking, beveiliging, betrouwbaarheid of resultaten van enige dienst van derden. Het gebruik van Nanswap of enige andere gekoppelde dienst is geheel op eigen risico en onderworpen aan hun respectieve voorwaarden. Onze Nanswap-integratie bevat een affiliate-verwijzingscode."
+				},
+				"affiliateDisclosure": {
+					"title": "6. Affiliatie-openbaarmaking",
+					"description": "NanoMarketCap neemt deel aan het affiliate-programma van Nanswap. Wanneer u de wisselwidget op onze site gebruikt, kunnen wij een verwijzingsvergoeding ontvangen. Dit heeft geen invloed op de prijs die u betaalt. Deze relatie wordt openbaar gemaakt in het belang van transparantie."
+				},
+				"noGuarantees": {
+					"title": "7. Geen Garanties",
+					"description": "De Dienst wordt geleverd \"zoals het is\" en \"zoals beschikbaar\" zonder enige garantie, uitdrukkelijk of impliciet. Wij garanderen geen ononderbroken toegang, foutloze werking of de nauwkeurigheid van enige berekening of gegeven. Het gebruik van de Dienst is op uw eigen risico."
+				},
+				"liability": {
+					"title": "8. Beperking van Aansprakelijkheid",
+					"description": "Voor zover maximaal toegestaan door de wet, zijn NanoMarketCap en haar exploitanten niet aansprakelijk voor enig verlies, schade of kosten die voortvloeien uit het gebruik van of het vertrouwen op de informatie die via deze website wordt verstrekt, inclusief maar niet beperkt tot handelsverliezen, onnauwkeurigheden van gegevens of storingen van diensten van derden."
+				},
+				"ownResearch": {
+					"title": "9. Doe uw Eigen Onderzoek",
+					"description": "Doe altijd uw eigen onderzoek en raadpleeg gekwalificeerde financiële professionals voordat u beleggingsbeslissingen neemt. Verifieer alle informatie onafhankelijk. Beleg nooit meer dan u zich kunt veroorloven te verliezen."
+				}
+			}
+		},
+		"imprint": {
+			"title": "Impressum",
+			"intro": "Informatie overeenkomstig wettelijke openbaarmakingsvereisten.",
+			"sections": {
+				"operator": {
+					"title": "1. Website-exploitant",
+					"name": "[Uw Naam / Bedrijfsnaam]",
+					"address": "[Uw Adres]",
+					"country": "[Uw Land]",
+					"email": "Contact-e-mail:",
+					"responsible": "Verantwoordelijk voor de inhoud:",
+					"placeholder": "Actie vereist: Vervang de bovenstaande plaatsaanduidingen door daadwerkelijke exploitantgegevens vóór productie-implementatie."
+				},
+				"hosting": {
+					"title": "2. Hosting",
+					"description": "Deze website wordt gehost door Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, Verenigde Staten."
+				},
+				"copyright": {
+					"title": "3. Auteursrecht",
+					"description": "© 2026 NanoMarketCap. Alle rechten voorbehouden. Marktgegevens worden geleverd door CoinGecko en gebruikt volgens hun voorwaarden. Nano™ en het Nano-logo zijn handelsmerken van de Nano Foundation. Alle andere handelsmerken zijn eigendom van hun respectieve houders."
+				},
+				"contentLiability": {
+					"title": "4. Aansprakelijkheid voor Inhoud",
+					"description": "De inhoud van onze website is met de grootst mogelijke zorg samengesteld. Wij kunnen echter de nauwkeurigheid, volledigheid of actualiteit van de inhoud niet garanderen. Als dienstverlener zijn wij verantwoordelijk voor onze eigen inhoud op deze pagina's volgens de algemene wetgeving. Wij zijn echter niet verplicht om informatie van derden die wordt verzonden of opgeslagen te monitoren, of om omstandigheden te onderzoeken die wijzen op illegale activiteit."
+				},
+				"linkLiability": {
+					"title": "5. Aansprakelijkheid voor Links",
+					"description": "Onze website bevat links naar externe websites van derden waarvan wij de inhoud niet kunnen beïnvloeden. Wij aanvaarden geen verantwoordelijkheid voor de inhoud van gelinkte websites. De betreffende aanbieder of exploitant van de gelinkte pagina's is altijd verantwoordelijk voor hun inhoud. Gelinkte pagina's zijn gecontroleerd op mogelijke wettelijke overtredingen op het moment van koppeling — er is op dat moment geen illegale inhoud geïdentificeerd."
+				},
+				"dataProtection": {
+					"title": "6. Gegevensbescherming",
+					"description": "Voor gedetailleerde informatie over hoe wij persoonsgegevens behandelen, raadpleeg ons Privacybeleid."
+				},
+				"disputeResolution": {
+					"title": "7. Geschillenbeslechting",
+					"description": "De Europese Commissie biedt een platform voor online geschillenbeslechting (ODR):",
+					"odrLink": "https://ec.europa.eu/consumers/odr",
+					"note": "Wij zijn niet verplicht en niet bereid deel te nemen aan geschillenbeslechtingsprocedures voor een consumentenarbitragecommissie."
+				}
+			}
+		},
+		"inlineDisclaimers": {
+			"speculation": "Alleen voor educatieve doeleinden. Hypothetische scenario's zijn geen voorspellingen of beleggingsadvies.",
+			"parity": "Schaarstepariteitswaarden zijn theoretisch. Ze vormen geen financieel of beleggingsadvies.",
+			"donationNonRefundable": "Donaties zijn vrijwillig en niet restitueerbaar. Cryptovalutatransacties zijn onomkeerbaar.",
+			"affiliateDisclosure": "De Nanswap-integratie bevat een affiliate-verwijzing. Dit heeft geen invloed op de prijs die u betaalt."
 		}
 	}
 }

@@ -46,6 +46,7 @@ export default async function SwapNanoPage({ params }: Props) {
 	setRequestLocale(locale)
 
 	const t = await getTranslations('swapNano')
+	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })
 
 	return (
 		<main className="container mx-auto px-4 py-12">
@@ -82,7 +83,12 @@ export default async function SwapNanoPage({ params }: Props) {
 			<Appear delay={200}>
 				<Alert className="max-w-2xl mx-auto">
 					<Info className="h-4 w-4" />
-					<AlertDescription>{t('disclaimer')}</AlertDescription>
+					<AlertDescription>
+						{t('disclaimer')}
+						<span className="block mt-1 text-xs text-muted-foreground/70">
+							{tDisclaimer('affiliateDisclosure')}
+						</span>
+					</AlertDescription>
 				</Alert>
 			</Appear>
 		</main>

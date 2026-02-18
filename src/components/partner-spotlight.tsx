@@ -164,7 +164,7 @@ function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: str
 	const isExternal = isExternalPartner(partner)
 
 	// Get partner content from hardcoded translations
-	const partnerContent = partnerTranslations[id]?.[locale] || partnerTranslations[id]?.['en']
+	const partnerContent = partnerTranslations[id]?.[locale] || partnerTranslations[id]?.en
 	if (!partnerContent) {
 		return null
 	}
