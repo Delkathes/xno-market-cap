@@ -786,7 +786,6 @@
 	},
 	"legal": {
 		"lastUpdated": "Última actualización: {date}",
-		"englishOnly": "Este documento se proporciona en inglés. En caso de discrepancia con las versiones traducidas, prevalece la versión en inglés.",
 		"privacy": {
 			"title": "Política de Privacidad",
 			"intro": "NanoMarketCap (\"nosotros\", \"nuestro\") se compromete a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, utilizamos y protegemos la información cuando visita nuestro sitio web.",
@@ -832,10 +831,6 @@
 					"nanswap": {
 						"title": "Nanswap",
 						"description": "La página de intercambio integra un iframe de Nanswap. Cuando interactúa con el widget de Nanswap, sus datos (montos de intercambio, direcciones de billetera) son procesados directamente por Nanswap según su política de privacidad. Nuestra integración incluye un identificador de referido afiliado."
-					},
-					"nanoNodes": {
-						"title": "Nodos de la Red Nano",
-						"description": "Para el seguimiento de donaciones, nos conectamos a ws.nano.to y nodos RPC públicos de Nano para monitorear saldos de billeteras y detectar pagos entrantes. Solo se transmiten direcciones de billetera públicas — no se envían datos personales."
 					},
 					"fonts": {
 						"title": "Fuentes (Auto-alojadas)",
@@ -1107,37 +1102,28 @@
 			"title": "Aviso Legal (Pie de Imprenta)",
 			"intro": "Información conforme a los requisitos legales de divulgación.",
 			"sections": {
-				"operator": {
-					"title": "1. Operador del Sitio",
-					"name": "[Su Nombre / Razón Social]",
-					"address": "[Su Dirección]",
-					"country": "[Su País]",
-					"email": "Email de contacto:",
-					"responsible": "Responsable del contenido:",
-					"placeholder": "Acción requerida: Reemplace los valores provisionales arriba con los datos reales del operador antes del despliegue en producción."
-				},
 				"hosting": {
-					"title": "2. Alojamiento",
+					"title": "1. Alojamiento",
 					"description": "Este sitio web está alojado por Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, Estados Unidos."
 				},
 				"copyright": {
-					"title": "3. Derechos de Autor",
+					"title": "2. Derechos de Autor",
 					"description": "© 2026 NanoMarketCap. Todos los derechos reservados. Los datos de mercado son proporcionados por CoinGecko y utilizados conforme a sus términos. Nano™ y el logo de Nano son marcas de la Nano Foundation. Todas las demás marcas son propiedad de sus respectivos titulares."
 				},
 				"contentLiability": {
-					"title": "4. Responsabilidad del Contenido",
+					"title": "3. Responsabilidad del Contenido",
 					"description": "Los contenidos de nuestro sitio web han sido creados con el mayor cuidado posible. Sin embargo, no podemos garantizar la precisión, integridad o actualidad del contenido. Como proveedor de servicios, somos responsables de nuestro propio contenido en estas páginas según la legislación general. Sin embargo, no estamos obligados a supervisar información de terceros transmitida o almacenada, ni a investigar circunstancias que indiquen actividad ilegal."
 				},
 				"linkLiability": {
-					"title": "5. Responsabilidad de los Enlaces",
+					"title": "4. Responsabilidad de los Enlaces",
 					"description": "Nuestro sitio web contiene enlaces a sitios web externos de terceros sobre cuyo contenido no tenemos influencia. No podemos aceptar responsabilidad por el contenido de sitios web enlazados. El proveedor u operador respectivo de las páginas enlazadas es siempre responsable de su contenido. Las páginas enlazadas fueron revisadas en busca de posibles violaciones legales en el momento del enlace — no se identificó contenido ilegal en ese momento."
 				},
 				"dataProtection": {
-					"title": "6. Protección de Datos",
+					"title": "5. Protección de Datos",
 					"description": "Para información detallada sobre cómo gestionamos los datos personales, consulte nuestra Política de Privacidad."
 				},
 				"disputeResolution": {
-					"title": "7. Resolución de Disputas",
+					"title": "6. Resolución de Disputas",
 					"description": "La Comisión Europea proporciona una plataforma para la resolución de disputas en línea (ODR):",
 					"odrLink": "https://ec.europa.eu/consumers/odr",
 					"note": "No estamos obligados ni dispuestos a participar en procedimientos de resolución de disputas ante una junta de arbitraje de consumidores."

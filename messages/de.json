@@ -786,7 +786,6 @@
 	},
 	"legal": {
 		"lastUpdated": "Zuletzt aktualisiert: {date}",
-		"englishOnly": "Dieses Dokument wird in englischer Sprache bereitgestellt. Im Falle von Abweichungen zu übersetzten Versionen hat die englische Version Vorrang.",
 		"privacy": {
 			"title": "Datenschutzerklärung",
 			"intro": "NanoMarketCap (\"wir\", \"uns\", \"unser\") verpflichtet sich zum Schutz Ihrer Privatsphäre. Diese Datenschutzerklärung erläutert, wie wir Informationen erfassen, nutzen und schützen, wenn Sie unsere Website besuchen.",
@@ -832,10 +831,6 @@
 					"nanswap": {
 						"title": "Nanswap",
 						"description": "Die Tausch-Seite integriert ein Nanswap-Iframe. Wenn Sie mit dem Nanswap-Widget interagieren, werden Ihre Daten (Tauschbeträge, Wallet-Adressen) direkt von Nanswap gemäß deren Datenschutzerklärung verarbeitet. Unsere Integration enthält eine Affiliate-Empfehlungskennung."
-					},
-					"nanoNodes": {
-						"title": "Nano-Netzwerkknoten",
-						"description": "Für die Spendenverfolgung verbinden wir uns mit ws.nano.to und öffentlichen Nano-RPC-Knoten, um Wallet-Salden zu überwachen und eingehende Zahlungen zu erkennen. Es werden nur öffentliche Wallet-Adressen übermittelt — keine persönlichen Daten werden gesendet."
 					},
 					"fonts": {
 						"title": "Schriftarten (Selbst-gehostet)",
@@ -1107,37 +1102,28 @@
 			"title": "Impressum",
 			"intro": "Angaben gemäß gesetzlicher Offenlegungspflichten.",
 			"sections": {
-				"operator": {
-					"title": "1. Seitenbetreiber",
-					"name": "[Ihr Name / Firmenname]",
-					"address": "[Ihre Adresse]",
-					"country": "[Ihr Land]",
-					"email": "Kontakt-E-Mail:",
-					"responsible": "Verantwortlich für den Inhalt:",
-					"placeholder": "Aktion erforderlich: Ersetzen Sie die obigen Platzhalter durch die tatsächlichen Betreiberdaten vor dem Produktiveinsatz."
-				},
 				"hosting": {
-					"title": "2. Hosting",
+					"title": "1. Hosting",
 					"description": "Diese Website wird gehostet von Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, USA."
 				},
 				"copyright": {
-					"title": "3. Urheberrecht",
+					"title": "2. Urheberrecht",
 					"description": "© 2026 NanoMarketCap. Alle Rechte vorbehalten. Marktdaten werden von CoinGecko bereitgestellt und gemäß deren Bedingungen verwendet. Nano™ und das Nano-Logo sind Marken der Nano Foundation. Alle anderen Marken sind Eigentum ihrer jeweiligen Inhaber."
 				},
 				"contentLiability": {
-					"title": "4. Haftung für Inhalte",
+					"title": "3. Haftung für Inhalte",
 					"description": "Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß allgemeiner Gesetze für eigene Inhalte auf diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
 				},
 				"linkLiability": {
-					"title": "5. Haftung für Links",
+					"title": "4. Haftung für Links",
 					"description": "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft — rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar."
 				},
 				"dataProtection": {
-					"title": "6. Datenschutz",
+					"title": "5. Datenschutz",
 					"description": "Für detaillierte Informationen darüber, wie wir personenbezogene Daten behandeln, lesen Sie bitte unsere Datenschutzerklärung."
 				},
 				"disputeResolution": {
-					"title": "7. Streitbeilegung",
+					"title": "6. Streitbeilegung",
 					"description": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:",
 					"odrLink": "https://ec.europa.eu/consumers/odr",
 					"note": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."

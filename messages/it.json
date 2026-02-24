@@ -786,7 +786,6 @@
 	},
 	"legal": {
 		"lastUpdated": "Ultimo aggiornamento: {date}",
-		"englishOnly": "Questo documento è fornito in inglese. In caso di discrepanza con le versioni tradotte, prevale la versione inglese.",
 		"privacy": {
 			"title": "Informativa sulla Privacy",
 			"intro": "NanoMarketCap (\"noi\", \"nostro\") si impegna a proteggere la tua privacy. Questa Informativa sulla Privacy spiega come raccogliamo, utilizziamo e proteggiamo le informazioni quando visiti il nostro sito web.",
@@ -832,10 +831,6 @@
 					"nanswap": {
 						"title": "Nanswap",
 						"description": "La pagina di scambio integra un iframe di Nanswap. Quando interagisci con il widget Nanswap, i tuoi dati (importi di scambio, indirizzi wallet) vengono elaborati direttamente da Nanswap secondo la loro informativa sulla privacy. La nostra integrazione include un identificatore di referral affiliato."
-					},
-					"nanoNodes": {
-						"title": "Nodi della Rete Nano",
-						"description": "Per il tracciamento delle donazioni, ci connettiamo a ws.nano.to e nodi RPC pubblici Nano per monitorare i saldi dei wallet e rilevare pagamenti in arrivo. Vengono trasmessi solo indirizzi wallet pubblici — nessun dato personale viene inviato."
 					},
 					"fonts": {
 						"title": "Font (Self-hosted)",
@@ -1107,33 +1102,24 @@
 			"title": "Impressum",
 			"intro": "Informazioni secondo i requisiti legali di divulgazione.",
 			"sections": {
-				"operator": {
-					"title": "1. Operatore del Sito",
-					"name": "[Il Tuo Nome / Ragione Sociale]",
-					"address": "[Il Tuo Indirizzo]",
-					"country": "[Il Tuo Paese]",
-					"email": "Email di contatto:",
-					"responsible": "Responsabile del contenuto:",
-					"placeholder": "Azione richiesta: Sostituisci i valori provvisori sopra con i dati reali dell'operatore prima del deployment in produzione."
-				},
 				"hosting": {
-					"title": "2. Hosting",
+					"title": "1. Hosting",
 					"description": "Questo sito web è ospitato da Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, Stati Uniti."
 				},
 				"copyright": {
-					"title": "3. Diritti d'Autore",
+					"title": "2. Diritti d'Autore",
 					"description": "© 2026 NanoMarketCap. Tutti i diritti riservati. I dati di mercato sono forniti da CoinGecko e utilizzati secondo i loro termini. Nano™ e il logo Nano sono marchi della Nano Foundation. Tutti gli altri marchi sono di proprietà dei rispettivi titolari."
 				},
 				"contentLiability": {
-					"title": "4. Responsabilità del Contenuto",
+					"title": "3. Responsabilità del Contenuto",
 					"description": "I contenuti del nostro sito web sono stati creati con la massima cura possibile. Tuttavia, non possiamo garantire l'accuratezza, completezza o attualità del contenuto. Come fornitore di servizi, siamo responsabili dei nostri contenuti su queste pagine secondo la legislazione generale. Tuttavia, non siamo obbligati a monitorare informazioni di terze parti trasmesse o memorizzate, né a indagare su circostanze che indichino attività illegale."
 				},
 				"linkLiability": {
-					"title": "5. Responsabilità dei Link",
+					"title": "4. Responsabilità dei Link",
 					"description": "Il nostro sito web contiene link a siti web esterni di terze parti sul cui contenuto non abbiamo alcuna influenza. Non possiamo accettare responsabilità per il contenuto dei siti web collegati. Il rispettivo fornitore o operatore delle pagine collegate è sempre responsabile del suo contenuto. Le pagine collegate sono state verificate per possibili violazioni legali al momento del collegamento — non è stato identificato contenuto illegale in quel momento."
 				},
 				"dataProtection": {
-					"title": "6. Protezione dei Dati",
+					"title": "5. Protezione dei Dati",
 					"description": "Per informazioni dettagliate su come gestiamo i dati personali, consulta la nostra Informativa sulla Privacy."
 				},
 				"disputeResolution": {

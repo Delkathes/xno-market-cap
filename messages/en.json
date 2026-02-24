@@ -780,7 +780,6 @@
 	},
 	"legal": {
 		"lastUpdated": "Last updated: {date}",
-		"englishOnly": "This document is provided in English. In case of any discrepancy with translated versions, the English version prevails.",
 		"privacy": {
 			"title": "Privacy Policy",
 			"intro": "NanoMarketCap (\"we\", \"us\", or \"our\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you visit our website.",
@@ -826,10 +825,6 @@
 					"nanswap": {
 						"title": "Nanswap",
 						"description": "The swap page embeds a Nanswap iframe. When you interact with the Nanswap widget, your data (swap amounts, wallet addresses) is processed directly by Nanswap under their privacy policy. Our integration includes an affiliate referral identifier."
-					},
-					"nanoNodes": {
-						"title": "Nano Network Nodes",
-						"description": "For donation tracking, we connect to ws.nano.to and public Nano RPC nodes to monitor wallet balances and detect incoming payments. Only public wallet addresses are transmitted — no personal data is sent."
 					},
 					"fonts": {
 						"title": "Fonts (Self‑Hosted)",
@@ -1101,37 +1096,28 @@
 			"title": "Legal Notice (Imprint)",
 			"intro": "Information in accordance with legal disclosure requirements.",
 			"sections": {
-				"operator": {
-					"title": "1. Site Operator",
-					"name": "[Your Name / Business Name]",
-					"address": "[Your Address]",
-					"country": "[Your Country]",
-					"email": "Contact email:",
-					"responsible": "Responsible for content:",
-					"placeholder": "Action required: Replace placeholder values above with real operator details before production deployment."
-				},
 				"hosting": {
-					"title": "2. Hosting",
+					"title": "1. Hosting",
 					"description": "This website is hosted by Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, United States."
 				},
 				"copyright": {
-					"title": "3. Copyright",
+					"title": "2. Copyright",
 					"description": "© 2026 NanoMarketCap. All rights reserved. Market data is provided by CoinGecko and used in accordance with their terms. Nano™ and the Nano logo are trademarks of the Nano Foundation. All other trademarks are the property of their respective owners."
 				},
 				"contentLiability": {
-					"title": "4. Liability for Content",
+					"title": "3. Liability for Content",
 					"description": "The contents of our website have been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, we are responsible for our own content on these pages under general law. However, we are not obligated to monitor transmitted or stored third-party information, or to investigate circumstances that indicate illegal activity."
 				},
 				"linkLiability": {
-					"title": "5. Liability for Links",
+					"title": "4. Liability for Links",
 					"description": "Our website contains links to external third-party websites over whose content we have no influence. We cannot accept any liability for the content of linked websites. The respective provider or operator of the linked pages is always responsible for their content. Linked pages were checked for possible legal violations at the time of linking — no illegal content was identified at that time."
 				},
 				"dataProtection": {
-					"title": "6. Data Protection",
+					"title": "5. Data Protection",
 					"description": "For detailed information about how we handle personal data, please refer to our Privacy Policy."
 				},
 				"disputeResolution": {
-					"title": "7. Dispute Resolution",
+					"title": "6. Dispute Resolution",
 					"description": "The European Commission provides a platform for online dispute resolution (ODR):",
 					"odrLink": "https://ec.europa.eu/consumers/odr",
 					"note": "We are not obligated and not willing to participate in dispute resolution proceedings before a consumer arbitration board."

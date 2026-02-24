@@ -786,7 +786,6 @@
 	},
 	"legal": {
 		"lastUpdated": "Dernière mise à jour : {date}",
-		"englishOnly": "Ce document est fourni en anglais. En cas de divergence avec les versions traduites, la version anglaise prévaut.",
 		"privacy": {
 			"title": "Politique de Confidentialité",
 			"intro": "NanoMarketCap (\"nous\", \"notre\") s'engage à protéger votre vie privée. Cette Politique de Confidentialité explique comment nous collectons, utilisons et protégeons les informations lorsque vous visitez notre site web.",
@@ -832,10 +831,6 @@
 					"nanswap": {
 						"title": "Nanswap",
 						"description": "La page d'échange intègre une iframe Nanswap. Lorsque vous interagissez avec le widget Nanswap, vos données (montants d'échange, adresses de portefeuille) sont traitées directement par Nanswap selon leur politique de confidentialité. Notre intégration inclut un identifiant de parrainage affilié."
-					},
-					"nanoNodes": {
-						"title": "Nœuds du Réseau Nano",
-						"description": "Pour le suivi des dons, nous nous connectons à ws.nano.to et aux nœuds RPC publics Nano pour surveiller les soldes des portefeuilles et détecter les paiements entrants. Seules les adresses de portefeuille publiques sont transmises — aucune donnée personnelle n'est envoyée."
 					},
 					"fonts": {
 						"title": "Polices (Auto-hébergées)",
@@ -1107,37 +1102,28 @@
 			"title": "Mentions Légales",
 			"intro": "Informations conformément aux obligations légales de divulgation.",
 			"sections": {
-				"operator": {
-					"title": "1. Éditeur du Site",
-					"name": "[Votre Nom / Raison Sociale]",
-					"address": "[Votre Adresse]",
-					"country": "[Votre Pays]",
-					"email": "Email de contact :",
-					"responsible": "Responsable du contenu :",
-					"placeholder": "Action requise : Remplacez les valeurs provisoires ci-dessus par les véritables coordonnées de l'éditeur avant la mise en production."
-				},
 				"hosting": {
-					"title": "2. Hébergement",
+					"title": "1. Hébergement",
 					"description": "Ce site web est hébergé par Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, États-Unis."
 				},
 				"copyright": {
-					"title": "3. Droits d'Auteur",
+					"title": "2. Droits d'Auteur",
 					"description": "© 2026 NanoMarketCap. Tous droits réservés. Les données de marché sont fournies par CoinGecko et utilisées conformément à leurs conditions. Nano™ et le logo Nano sont des marques de la Nano Foundation. Toutes les autres marques sont la propriété de leurs détenteurs respectifs."
 				},
 				"contentLiability": {
-					"title": "4. Responsabilité du Contenu",
+					"title": "3. Responsabilité du Contenu",
 					"description": "Le contenu de notre site web a été créé avec le plus grand soin possible. Cependant, nous ne pouvons pas garantir l'exactitude, l'exhaustivité ou l'actualité du contenu. En tant que prestataire de services, nous sommes responsables de notre propre contenu sur ces pages en vertu du droit général. Cependant, nous ne sommes pas tenus de surveiller les informations tierces transmises ou stockées, ni d'enquêter sur les circonstances indiquant une activité illégale."
 				},
 				"linkLiability": {
-					"title": "5. Responsabilité des Liens",
+					"title": "4. Responsabilité des Liens",
 					"description": "Notre site web contient des liens vers des sites web tiers externes sur le contenu desquels nous n'avons aucune influence. Nous déclinons toute responsabilité quant au contenu des sites web liés. Le fournisseur ou l'opérateur respectif des pages liées est toujours responsable de leur contenu. Les pages liées ont été vérifiées pour d'éventuelles violations légales au moment de la mise en lien — aucun contenu illégal n'a été identifié à ce moment-là."
 				},
 				"dataProtection": {
-					"title": "6. Protection des Données",
+					"title": "5. Protection des Données",
 					"description": "Pour des informations détaillées sur la façon dont nous traitons les données personnelles, veuillez consulter notre Politique de Confidentialité."
 				},
 				"disputeResolution": {
-					"title": "7. Règlement des Litiges",
+					"title": "6. Règlement des Litiges",
 					"description": "La Commission européenne fournit une plateforme de règlement en ligne des litiges (RLL) :",
 					"odrLink": "https://ec.europa.eu/consumers/odr",
 					"note": "Nous ne sommes pas tenus et ne souhaitons pas participer à des procédures de règlement des litiges devant un organisme d'arbitrage de consommation."

@@ -786,7 +786,6 @@
 	},
 	"legal": {
 		"lastUpdated": "Laatst bijgewerkt: {date}",
-		"englishOnly": "Dit document is opgesteld in het Engels. Bij discrepanties met vertaalde versies prevaleert de Engelse versie.",
 		"privacy": {
 			"title": "Privacybeleid",
 			"intro": "NanoMarketCap (\"wij\", \"ons\") zet zich in voor de bescherming van uw privacy. Dit Privacybeleid legt uit hoe wij informatie verzamelen, gebruiken en beschermen wanneer u onze website bezoekt.",
@@ -832,10 +831,6 @@
 					"nanswap": {
 						"title": "Nanswap",
 						"description": "De wisselpagina integreert een Nanswap iframe. Wanneer u met de Nanswap-widget interacteert, worden uw gegevens (wisselbedragen, walletadressen) rechtstreeks door Nanswap verwerkt volgens hun privacybeleid. Onze integratie bevat een affiliate-verwijzingsidentificatie."
-					},
-					"nanoNodes": {
-						"title": "Nano Netwerknodes",
-						"description": "Voor het volgen van donaties verbinden wij met ws.nano.to en openbare Nano RPC-nodes om walletsaldi te monitoren en inkomende betalingen te detecteren. Alleen openbare walletadressen worden verzonden — er worden geen persoonlijke gegevens verzonden."
 					},
 					"fonts": {
 						"title": "Lettertypen (Zelf-gehost)",
@@ -1107,37 +1102,28 @@
 			"title": "Impressum",
 			"intro": "Informatie overeenkomstig wettelijke openbaarmakingsvereisten.",
 			"sections": {
-				"operator": {
-					"title": "1. Website-exploitant",
-					"name": "[Uw Naam / Bedrijfsnaam]",
-					"address": "[Uw Adres]",
-					"country": "[Uw Land]",
-					"email": "Contact-e-mail:",
-					"responsible": "Verantwoordelijk voor de inhoud:",
-					"placeholder": "Actie vereist: Vervang de bovenstaande plaatsaanduidingen door daadwerkelijke exploitantgegevens vóór productie-implementatie."
-				},
 				"hosting": {
-					"title": "2. Hosting",
+					"title": "1. Hosting",
 					"description": "Deze website wordt gehost door Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, Verenigde Staten."
 				},
 				"copyright": {
-					"title": "3. Auteursrecht",
+					"title": "2. Auteursrecht",
 					"description": "© 2026 NanoMarketCap. Alle rechten voorbehouden. Marktgegevens worden geleverd door CoinGecko en gebruikt volgens hun voorwaarden. Nano™ en het Nano-logo zijn handelsmerken van de Nano Foundation. Alle andere handelsmerken zijn eigendom van hun respectieve houders."
 				},
 				"contentLiability": {
-					"title": "4. Aansprakelijkheid voor Inhoud",
+					"title": "3. Aansprakelijkheid voor Inhoud",
 					"description": "De inhoud van onze website is met de grootst mogelijke zorg samengesteld. Wij kunnen echter de nauwkeurigheid, volledigheid of actualiteit van de inhoud niet garanderen. Als dienstverlener zijn wij verantwoordelijk voor onze eigen inhoud op deze pagina's volgens de algemene wetgeving. Wij zijn echter niet verplicht om informatie van derden die wordt verzonden of opgeslagen te monitoren, of om omstandigheden te onderzoeken die wijzen op illegale activiteit."
 				},
 				"linkLiability": {
-					"title": "5. Aansprakelijkheid voor Links",
+					"title": "4. Aansprakelijkheid voor Links",
 					"description": "Onze website bevat links naar externe websites van derden waarvan wij de inhoud niet kunnen beïnvloeden. Wij aanvaarden geen verantwoordelijkheid voor de inhoud van gelinkte websites. De betreffende aanbieder of exploitant van de gelinkte pagina's is altijd verantwoordelijk voor hun inhoud. Gelinkte pagina's zijn gecontroleerd op mogelijke wettelijke overtredingen op het moment van koppeling — er is op dat moment geen illegale inhoud geïdentificeerd."
 				},
 				"dataProtection": {
-					"title": "6. Gegevensbescherming",
+					"title": "5. Gegevensbescherming",
 					"description": "Voor gedetailleerde informatie over hoe wij persoonsgegevens behandelen, raadpleeg ons Privacybeleid."
 				},
 				"disputeResolution": {
-					"title": "7. Geschillenbeslechting",
+					"title": "6. Geschillenbeslechting",
 					"description": "De Europese Commissie biedt een platform voor online geschillenbeslechting (ODR):",
 					"odrLink": "https://ec.europa.eu/consumers/odr",
 					"note": "Wij zijn niet verplicht en niet bereid deel te nemen aan geschillenbeslechtingsprocedures voor een consumentenarbitragecommissie."

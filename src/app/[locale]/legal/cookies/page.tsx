@@ -33,11 +33,6 @@ export default async function CookiePolicyPage({ params }: Props) {
 			</div>
 			<h1 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h1>
 
-			<div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4 mb-8 flex items-start gap-3">
-				<Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-				<p className="text-sm text-muted-foreground">{tLegal('englishOnly')}</p>
-			</div>
-
 			<div className="prose prose-sm dark:prose-invert max-w-none space-y-8">
 				<p className="text-muted-foreground leading-relaxed">{t('intro')}</p>
 

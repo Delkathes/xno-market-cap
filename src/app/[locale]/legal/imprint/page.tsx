@@ -33,47 +33,9 @@ export default async function ImprintPage({ params }: Props) {
 			</div>
 			<h1 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h1>
 
-			<div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4 mb-8 flex items-start gap-3">
-				<Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-				<p className="text-sm text-muted-foreground">{tLegal('englishOnly')}</p>
-			</div>
-
 			<div className="prose prose-sm dark:prose-invert max-w-none space-y-8">
 				<p className="text-muted-foreground leading-relaxed">{t('intro')}</p>
 
-				{/* Placeholder Warning */}
-				{t('sections.operator.name').startsWith('[') && (
-					<div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3">
-						<AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-						<p className="text-sm text-amber-700 dark:text-amber-400 font-medium">
-							{t('sections.operator.placeholder')}
-						</p>
-					</div>
-				)}
-
-				{/* 1. Site Operator */}
-				<section className="rounded-lg border border-border bg-card/60 p-5">
-					<h2 className="text-xl font-semibold mb-4">{t('sections.operator.title')}</h2>
-					<dl className="text-sm text-muted-foreground space-y-2">
-						<div>
-							<dt className="font-medium text-foreground">{t('sections.operator.responsible')}</dt>
-							<dd>{t('sections.operator.name')}</dd>
-						</div>
-						<div>
-							<dt className="font-medium text-foreground">Address:</dt>
-							<dd>{t('sections.operator.address')}</dd>
-							<dd>{t('sections.operator.country')}</dd>
-						</div>
-						<div>
-							<dt className="font-medium text-foreground">{t('sections.operator.email')}</dt>
-							<dd>
-								<a href="mailto:contact@xnomarketcap.com" className="text-primary hover:underline">
-									contact@xnomarketcap.com
-								</a>
-							</dd>
-						</div>
-					</dl>
-				</section>
 
 				{/* 2. Hosting */}
 				<section>
