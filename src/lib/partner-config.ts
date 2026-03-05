@@ -38,24 +38,44 @@ export const PARTNER_ROTATION_INTERVAL = 6000 // 6 seconds
 
 export const partnerConfig: PartnerContent[] = [
 	{
-		id: 'nanobrowser',
+		id: 'nano-gpt',
 		enabled: true,
-		partnerName: 'NanoBrowser',
-		title: 'NanoBrowser: Earn Nano While You Browse',
+		partnerName: 'Nano-GPT',
+		title: 'Nano-GPT: Pay-as-You-Go AI with Nano',
 		description:
-			'The privacy-focused browser that rewards you with XNO for your attention. No tracking, no ads, just Nano.',
-		logoUrl: '/nano/badge-blue.svg',
-		hasInternalPage: true, // Has dedicated page at /partners/nanobrowser
+			'Access GPT-4, Claude, Gemini, and more with flexible Nano payments. No subscriptions, just pay for what you use.',
+		logoUrl: '/partners/nano-gpt/nano-gpt.png',
+		hasInternalPage: true,
 	},
 	{
-		id: 'nanostore',
+		id: 'subnano',
 		enabled: true,
-		partnerName: 'NanoStore',
-		title: 'Shop With Nano - 10,000+ Products',
+		partnerName: 'SubNano',
+		title: 'SubNano: Get Paid When Readers Unlock Your Articles',
 		description:
-			'The largest marketplace accepting Nano payments. Electronics, clothing, gifts and more with instant checkout.',
-		logoUrl: '/nano/badge-white.svg',
-		externalUrl: 'https://example.com/nanostore',
+			'Monetize your writing with pay-per-article Nano payments. Instant earnings, zero fees, full audience ownership.',
+		logoUrl: '/partners/subnano/subnano.svg',
+		hasInternalPage: true,
+	},
+	{
+		id: 'rpc-nano-to',
+		enabled: true,
+		partnerName: 'RPC.Nano.To',
+		title: 'RPC.Nano.To: Production-Ready Nano Infrastructure',
+		description:
+			'Global RPC nodes, GPU proof-of-work, and developer APIs. Free tier with 50K calls/day to build instant payment apps.',
+		logoUrl: '/nano/badge-blue.svg',
+		hasInternalPage: true,
+	},
+	{
+		id: 'nanogotchi',
+		enabled: true,
+		partnerName: 'Nanogotchi',
+		title: 'Nanogotchi: Your Virtual Nano Pet',
+		description:
+			'Raise, breed, and trade digital pets powered by Nano. The blockchain tamagotchi bringing fun to cryptocurrency.',
+		logoUrl: '/partners/nanogotchi/nanogotchi.svg',
+		externalUrl: 'https://nanogotchi.com/',
 	},
 ]
 
