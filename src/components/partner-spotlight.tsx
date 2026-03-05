@@ -79,80 +79,156 @@ const partnerTranslations: Record<
 	string,
 	Record<string, { partnerName: string; title: string; description: string }>
 > = {
-	nanobrowser: {
+	'nano-gpt': {
 		en: {
-			partnerName: 'NanoBrowser',
-			title: 'NanoBrowser: Earn Nano While You Browse',
+			partnerName: 'Nano-GPT',
+			title: 'Nano-GPT: Pay-as-You-Go AI with Nano',
 			description:
-				'The privacy-focused browser that rewards you with XNO for your attention. No tracking, no ads, just Nano.',
+				'Access GPT-4, Claude, Gemini, and more with flexible Nano payments. No subscriptions, just pay for what you use.',
 		},
 		fr: {
-			partnerName: 'NanoBrowser',
-			title: 'NanoBrowser : Gagnez Nano en Naviguant',
+			partnerName: 'Nano-GPT',
+			title: 'Nano-GPT : IA à la carte avec Nano',
 			description:
-				'Le navigateur axé sur la confidentialité qui vous récompense avec du XNO pour votre attention. Pas de suivi, pas de publicités, juste Nano.',
+				"Accédez à GPT-4, Claude, Gemini et plus avec des paiements Nano flexibles. Pas d'abonnements, payez juste ce que vous utilisez.",
 		},
 		de: {
-			partnerName: 'NanoBrowser',
-			title: 'NanoBrowser: Verdienen Sie Nano beim Surfen',
+			partnerName: 'Nano-GPT',
+			title: 'Nano-GPT: AI nach Bedarf mit Nano',
 			description:
-				'Der datenschutzorientierte Browser, der Sie mit XNO für Ihre Aufmerksamkeit belohnt. Kein Tracking, keine Werbung, nur Nano.',
+				'Zugriff auf GPT-4, Claude, Gemini und mehr mit flexiblen Nano-Zahlungen. Keine Abonnements, zahlen Sie nur, was Sie verwenden.',
 		},
 		es: {
-			partnerName: 'NanoBrowser',
-			title: 'NanoBrowser: Gana Nano Mientras Navegas',
+			partnerName: 'Nano-GPT',
+			title: 'Nano-GPT: IA de pago por uso con Nano',
 			description:
-				'El navegador enfocado en la privacidad que te recompensa con XNO por tu atención. Sin rastreo, sin anuncios, solo Nano.',
+				'Accede a GPT-4, Claude, Gemini y más con pagos de Nano flexibles. Sin suscripciones, solo paga por lo que usas.',
 		},
 		nl: {
-			partnerName: 'NanoBrowser',
-			title: 'NanoBrowser: Verdien Nano Tijdens het Browsen',
+			partnerName: 'Nano-GPT',
+			title: 'Nano-GPT: AI naar behoefte met Nano',
 			description:
-				'De privacy-gerichte browser die je beloont met XNO voor je aandacht. Geen tracking, geen advertenties, alleen Nano.',
+				'Toegang tot GPT-4, Claude, Gemini en meer met flexibele Nano-betalingen. Geen abonnementen, betaal alleen wat je gebruikt.',
 		},
 		it: {
-			partnerName: 'NanoBrowser',
-			title: 'NanoBrowser: Guadagna Nano Mentre Navighi',
+			partnerName: 'Nano-GPT',
+			title: 'Nano-GPT: AI a pagamento con Nano',
 			description:
-				'Il browser incentrato sulla privacy che ti ricompensa con XNO per la tua attenzione. Nessun tracciamento, nessuna pubblicità, solo Nano.',
+				'Accedi a GPT-4, Claude, Gemini e altri con pagamenti Nano flessibili. Nessun abbonamento, paga solo quello che usi.',
 		},
 	},
-	nanostore: {
+	subnano: {
 		en: {
-			partnerName: 'NanoStore',
-			title: 'Shop With Nano - 10,000+ Products',
+			partnerName: 'SubNano',
+			title: 'SubNano: Get Paid When Readers Unlock Your Articles',
 			description:
-				'The largest marketplace accepting Nano payments. Electronics, clothing, gifts and more with instant checkout.',
+				'Monetize your writing with pay-per-article Nano payments. Instant earnings, zero fees, full audience ownership.',
 		},
 		fr: {
-			partnerName: 'NanoStore',
-			title: 'Achetez avec Nano - 10 000+ Produits',
+			partnerName: 'SubNano',
+			title: 'SubNano : Soyez payé quand les lecteurs déverrouillent vos articles',
 			description:
-				'Le plus grand marketplace acceptant les paiements Nano. Électronique, vêtements, cadeaux et plus avec paiement instantané.',
+				"Monétisez votre écriture avec des paiements Nano par article. Gains instantanés, zéro frais, propriété totale de l'audience.",
 		},
 		de: {
-			partnerName: 'NanoStore',
-			title: 'Mit Nano Einkaufen - 10.000+ Produkte',
+			partnerName: 'SubNano',
+			title: 'SubNano: Verdienen Sie, wenn Leser Ihre Artikel freigeben',
 			description:
-				'Der größte Marketplace, der Nano-Zahlungen akzeptiert. Elektronik, Kleidung, Geschenke und mehr mit sofortiger Kasse.',
+				'Monetarisieren Sie Ihr Schreiben mit Nano-Zahlungen pro Artikel. Sofortige Einnahmen, keine Gebühren, vollständiger Publikumsbesitz.',
 		},
 		es: {
-			partnerName: 'NanoStore',
-			title: 'Compra con Nano - 10.000+ Productos',
+			partnerName: 'SubNano',
+			title: 'SubNano: Gana cuando los lectores desbloquean tus artículos',
 			description:
-				'El marketplace más grande que acepta pagos Nano. Electrónica, ropa, regalos y más con pago instantáneo.',
+				'Monetiza tu escritura con pagos de Nano por artículo. Ganancias instantáneas, cero comisiones, propiedad total de la audiencia.',
 		},
 		nl: {
-			partnerName: 'NanoStore',
-			title: 'Winkel met Nano - 10.000+ Producten',
+			partnerName: 'SubNano',
+			title: 'SubNano: Verdien wanneer lezers je artikelen ontgrendelen',
 			description:
-				'De grootste marketplace die Nano-betalingen accepteert. Elektronica, kleding, cadeaus en meer met directe checkout.',
+				'Monetariseer je schrijven met Nano-betalingen per artikel. Directe inkomsten, geen kosten, volledig publiekseigendom.',
 		},
 		it: {
-			partnerName: 'NanoStore',
-			title: 'Acquista con Nano - 10.000+ Prodotti',
+			partnerName: 'SubNano',
+			title: 'SubNano: Guadagna quando i lettori sbloccano i tuoi articoli',
 			description:
-				'Il marketplace più grande che accetta pagamenti Nano. Elettronica, abbigliamento, regali e altro con pagamento istantaneo.',
+				'Monetizza la tua scrittura con pagamenti Nano per articolo. Guadagni istantanei, zero commissioni, proprietà completa del pubblico.',
+		},
+	},
+	'rpc-nano-to': {
+		en: {
+			partnerName: 'RPC.Nano.To',
+			title: 'RPC.Nano.To: Production-Ready Nano Infrastructure',
+			description:
+				'Global RPC nodes, GPU proof-of-work, and developer APIs. Free tier with 50K calls/day to build instant payment apps.',
+		},
+		fr: {
+			partnerName: 'RPC.Nano.To',
+			title: 'RPC.Nano.To : Infrastructure Nano prête pour la production',
+			description:
+				'Nœuds RPC mondiaux, preuve de travail GPU et APIs développeur. Tier gratuit avec 50K appels/jour pour construire des apps de paiement instantané.',
+		},
+		de: {
+			partnerName: 'RPC.Nano.To',
+			title: 'RPC.Nano.To: Produktionsreife Nano-Infrastruktur',
+			description:
+				'Globale RPC-Nodes, GPU Proof-of-Work und Entwickler-APIs. Kostenloser Tier mit 50K Aufrufen/Tag zum Erstellen sofortiger Payment-Apps.',
+		},
+		es: {
+			partnerName: 'RPC.Nano.To',
+			title: 'RPC.Nano.To: Infraestructura Nano lista para producción',
+			description:
+				'Nodos RPC globales, prueba de trabajo GPU y APIs de desarrollador. Tier gratuito con 50K llamadas/día para crear apps de pago instantáneo.',
+		},
+		nl: {
+			partnerName: 'RPC.Nano.To',
+			title: 'RPC.Nano.To: Productie-klare Nano-infrastructuur',
+			description:
+				"Globale RPC-nodes, GPU proof-of-work en ontwikkelaars-API's. Gratis tier met 50K aanroepen/dag om directe betaalingsapps te bouwen.",
+		},
+		it: {
+			partnerName: 'RPC.Nano.To',
+			title: 'RPC.Nano.To: Infrastruttura Nano pronta per la produzione',
+			description:
+				'Nodi RPC globali, proof-of-work GPU e API per sviluppatori. Tier gratuito con 50K chiamate/giorno per creare app di pagamento istantaneo.',
+		},
+	},
+	nanogotchi: {
+		en: {
+			partnerName: 'Nanogotchi',
+			title: 'Nanogotchi: Your Virtual Nano Pet',
+			description:
+				'Raise, breed, and trade digital pets powered by Nano. The blockchain tamagotchi bringing fun to cryptocurrency.',
+		},
+		fr: {
+			partnerName: 'Nanogotchi',
+			title: 'Nanogotchi : Votre Nano Animal Virtuel',
+			description:
+				'Élevez, reproduisez et échangez des animaux numériques alimentés par Nano. Le tamagotchi blockchain apportant du plaisir aux crypto-monnaies.',
+		},
+		de: {
+			partnerName: 'Nanogotchi',
+			title: 'Nanogotchi: Dein virtuelles Nano-Haustier',
+			description:
+				'Züchte, vermehre und handele digitale Haustiere, die von Nano angetrieben werden. Das Blockchain-Tamagotchi für Kryptospaß.',
+		},
+		es: {
+			partnerName: 'Nanogotchi',
+			title: 'Nanogotchi: Tu mascota virtual Nano',
+			description:
+				'Cría, reproduce y comercia mascotas digitales impulsadas por Nano. El tamagotchi blockchain que trae diversión a las criptomonedas.',
+		},
+		nl: {
+			partnerName: 'Nanogotchi',
+			title: 'Nanogotchi: Je virtuele Nano huisdier',
+			description:
+				'Kweek, vermenigvuldig en handel digitale huisdieren aangedreven door Nano. De blockchain tamagotchi die plezier naar cryptocurrency brengt.',
+		},
+		it: {
+			partnerName: 'Nanogotchi',
+			title: 'Nanogotchi: Il tuo animale domestico virtuale Nano',
+			description:
+				'Alleva, riproduci e scambia animali digitali potenziati da Nano. Il tamagotchi blockchain che porta il divertimento alle criptovalute.',
 		},
 	},
 }
