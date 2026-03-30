@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ES2025",
+    "lib": [ "dom", "esnext" ],
     "allowJs": true,
-    "target": "ES6",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -22,6 +18,7 @@
         "name": "next"
       }
     ],
+    "types": ["node"],
     "paths": {
       "@/*": [
         "./src/*"

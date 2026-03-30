@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { AlertTriangle, Info } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
@@ -35,7 +34,6 @@ export default async function ImprintPage({ params }: Props) {
 
 			<div className="prose prose-sm dark:prose-invert max-w-none space-y-8">
 				<p className="text-muted-foreground leading-relaxed">{t('intro')}</p>
-
 
 				{/* 2. Hosting */}
 				<section>

@@ -168,6 +168,7 @@ export function AnimatedTerminal() {
 							const isLast = i === visibleLines - 1
 							return (
 								<div
+									// biome-ignore lint/suspicious/noArrayIndexKey: Using index as key is acceptable here because the list is static and does not change order
 									key={`${scenarioIndex}-${line.delay}-${i}`}
 									className={`${line.type === 'command' && i > 0 ? 'pt-3' : ''} ${
 										isLast ? 'animate-[fade-in_0.25s_ease-out]' : ''

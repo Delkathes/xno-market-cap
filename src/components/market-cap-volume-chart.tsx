@@ -89,7 +89,7 @@ interface CustomTooltipProps {
 }
 
 function CustomTooltip({ active, payload, label, t, formatValue }: CustomTooltipProps) {
-	if (!active || !payload || !payload.length || !label) return null
+	if (!active || !payload?.length || !label) return null
 
 	const date = new Date(label)
 

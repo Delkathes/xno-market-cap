@@ -26,6 +26,3 @@ export function getCoingeckoClient(): Coingecko {
 export function resetCoingeckoClient(): void {
 	clientInstance = null
 }
-
-// Re-export types that consumers might need
-export type { Coingecko }

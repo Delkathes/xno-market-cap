@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Info } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'

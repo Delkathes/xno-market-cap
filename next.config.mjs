@@ -10,7 +10,7 @@ const nextConfig = {
 	typedRoutes: true,
 
 	// Enable MDX file extensions
-	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+	pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
 
 	images: {
 		remotePatterns: [
@@ -41,24 +41,31 @@ const nextConfig = {
 	cacheComponents: true,
 
 	experimental: {
+		// CSS
 		cssChunking: true,
-		useLightningcss: true, // still testing
-		// inlineCss: true,
+		useLightningcss: true,
+		inlineCss: true,
 
+		// UI
 		viewTransition: true,
 
+		// Build correctness
 		caseSensitiveRoutes: true,
-
-		serverMinification: true,
-
-		// serverComponentsHmrCache: true,
-
-		optimisticClientCache: true,
-		// optimizeCss: true,
-
 		typedEnv: true,
 
-		// serverActions: true,
+		// Performance - server
+		serverMinification: true,
+		parallelServerCompiles: true,
+
+		// Performance - client
+		optimisticClientCache: true,
+		optimisticRouting: true,
+
+		// Performance - Turbopack (used for both dev and build)
+		// turbopackRemoveUnusedImports: true,
+		// turbopackRemoveUnusedExports: true,
+
+		// Caching
 		useCache: true,
 	},
 
