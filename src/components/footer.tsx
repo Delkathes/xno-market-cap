@@ -1,9 +1,7 @@
-import { Github, Heart, Twitter } from 'lucide-react'
+import { Heart } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
-
-import { cn } from '@/lib/utils'
 
 const footerLinks = {
 	explore: [
@@ -32,10 +30,10 @@ const footerLinks = {
 	],
 }
 
-const socialLinks = [
-	{ href: 'https://github.com/nano-community', icon: Github, label: 'GitHub' },
-	{ href: 'https://x.com/nano', icon: Twitter, label: 'Twitter' },
-]
+// const socialLinks = [
+// 	{ href: 'https://github.com/nano-community', icon: () => <div>lol</div>, label: 'GitHub' },
+// 	{ href: 'https://x.com/nano', icon: () => <div>lol</div>, label: 'Twitter' },
+// ]
 
 export async function Footer({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: 'footer' })
@@ -53,7 +51,7 @@ export async function Footer({ locale }: { locale: string }) {
 							<span>MarketCap</span>
 						</Link>
 						<p className="text-sm text-muted-foreground mb-4 max-w-xs">{t('description')}</p>
-						<div className="flex items-center gap-3">
+						{/* <div className="flex items-center gap-3">
 							{socialLinks.map((social) => (
 								<a
 									key={social.label}
@@ -70,7 +68,7 @@ export async function Footer({ locale }: { locale: string }) {
 									<social.icon className="h-5 w-5" />
 								</a>
 							))}
-						</div>
+						</div> */}
 					</div>
 
 					{/* Explore Links */}
