@@ -1,0 +1,29 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="nmc-primary" x1="56" y1="192" x2="200" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22B8FF"/>
+      <stop offset="1" stop-color="#EFFFFF"/>
+    </linearGradient>
+    <linearGradient id="nmc-secondary" x1="56" y1="56" x2="200" y2="192" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EFFFFF"/>
+      <stop offset="1" stop-color="#179FEA"/>
+    </linearGradient>
+    <linearGradient id="nmc-core" x1="128" y1="98" x2="128" y2="158" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A2037"/>
+      <stop offset="1" stop-color="#0E3D67"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M56 170L116 110L136 130L76 190L56 170Z" fill="url(#nmc-primary)"/>
+  <path d="M120 106L180 46L200 66L140 126L120 106Z" fill="url(#nmc-primary)"/>
+  <path d="M56 86L76 66L136 126L116 146L56 86Z" fill="url(#nmc-secondary)"/>
+  <path d="M120 150L140 130L200 190L180 210L120 150Z" fill="url(#nmc-secondary)"/>
+
+  <path d="M90 168L128 130L166 168L128 206L90 168Z" fill="url(#nmc-core)"/>
+  <path d="M90 88L128 50L166 88L128 126L90 88Z" fill="url(#nmc-core)"/>
+
+  <path d="M99 160L128 131L157 160" stroke="#081E34" stroke-width="7" stroke-linecap="round"/>
+  <path d="M99 96L128 125L157 96" stroke="#081E34" stroke-width="7" stroke-linecap="round"/>
+
+  <circle cx="128" cy="128" r="10" fill="#EFFFFF"/>
+</svg>

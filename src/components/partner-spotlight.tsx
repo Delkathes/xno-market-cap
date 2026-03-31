@@ -365,7 +365,7 @@ export function PartnerSpotlight() {
 							key={item.type === 'cta' ? 'cta-indicator' : `${item.data.id}-indicator`}
 							type="button"
 							onClick={() => setCurrentIndex(index)}
-							className={`h-1.5 rounded-full transition-all ${
+							className={`h-1.5 rounded-full transition-all cursor-pointer ${
 								index === currentIndex
 									? 'w-4 bg-primary'
 									: 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
