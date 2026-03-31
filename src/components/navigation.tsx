@@ -1,7 +1,6 @@
 'use client'
 
 import { atom, useAtom } from 'jotai'
-import { TrendingUp } from 'lucide-react'
 
 import { Link } from '@/i18n/navigation'
 
@@ -9,6 +8,7 @@ import { AboutModal } from '@/components/about-modal'
 import { DesktopControls } from '@/components/desktop-controls'
 import { MobileControls } from '@/components/mobile-controls'
 import { MobileMenuPanel } from '@/components/mobile-menu-panel'
+import { XAbstractIcon } from '@/components/x-abstract-icon'
 
 export const isAboutOpenAtom = atom(false)
 
@@ -38,9 +38,7 @@ function LayoutLogo() {
 	return (
 		<div className="flex items-center gap-4">
 			<Link href="/" className="flex items-center gap-2 font-bold text-xl">
-				<div className="w-8 h-8 rounded-lg bg-linear-to-b from-cyan-400 to-blue-600 flex items-center justify-center">
-					<TrendingUp className="w-5 h-5 text-primary-foreground" />
-				</div>
+				<XAbstractIcon className="size-10" title="NanoMarketCap" />
 				<span className="hidden sm:inline">
 					<span className="bg-linear-to-b from-cyan-400 to-blue-600 bg-clip-text text-transparent">Nano</span>
 					<span>MarketCap</span>

@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { useRefreshCooldown } from '@/hooks/use-refresh-cooldown'
 
 import { Button } from '@/components/ui/button'
+import { LocaleSwitcher } from '@/components/locale-switcher'
 import { isMobileMenuOpenAtom } from '@/components/mobile-menu-panel'
 
 export function MobileControls() {
@@ -28,6 +29,8 @@ export function MobileControls() {
 				<Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
 				<span className="sr-only">{t('toggleTheme')}</span>
 			</Button>
+
+			<LocaleSwitcher />
 
 			<Button
 				variant="ghost"

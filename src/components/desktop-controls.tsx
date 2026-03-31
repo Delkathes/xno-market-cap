@@ -20,6 +20,7 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import { LocaleSwitcher } from '@/components/locale-switcher'
 // import { DonationButton } from '@/components/donation-button'
 import { isAboutOpenAtom } from '@/components/navigation'
 
@@ -42,6 +43,7 @@ export function DesktopControls() {
 			<Button
 				variant="ghost"
 				size="icon"
+				className="cursor-pointer"
 				onClick={() =>
 					setTheme(
 						theme === 'system'
@@ -61,9 +63,12 @@ export function DesktopControls() {
 				<span className="sr-only">{t('toggleTheme')}</span>
 			</Button>
 
+			<LocaleSwitcher />
+
 			<Button
 				variant="ghost"
 				size="icon"
+				className="cursor-pointer"
 				onClick={handleRefresh}
 				disabled={isRefreshDisabled}
 				title={
@@ -77,7 +82,7 @@ export function DesktopControls() {
 				<span className="sr-only">{t('refreshMarketData')}</span>
 			</Button>
 
-			<Button variant="ghost" size="icon" onClick={() => setIsAboutOpen(true)} className="mr-2">
+			<Button variant="ghost" size="icon" onClick={() => setIsAboutOpen(true)} className="mr-2 cursor-pointer">
 				<HelpCircle className="h-[1.2rem] w-[1.2rem]" />
 				<span className="sr-only">{t('aboutWebsite')}</span>
 			</Button>
