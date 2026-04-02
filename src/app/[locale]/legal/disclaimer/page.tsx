@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import { AlertTriangle } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
@@ -20,6 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function DisclaimerPage({ params }: Props) {
+	'use cache'
+	cacheLife('max')
+
 	const { locale } = await params
 	setRequestLocale(locale)
 

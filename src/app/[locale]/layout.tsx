@@ -84,7 +84,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 					media: '(prefers-color-scheme: dark)',
 				},
 				{
-					url: '/icon.svg',
+					url: '/X_abstract.svg',
 					type: 'image/svg+xml',
 				},
 			],

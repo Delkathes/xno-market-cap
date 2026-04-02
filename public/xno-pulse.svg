@@ -1,0 +1,293 @@
+<svg viewBox="0 0 280 210" fill="none" className="w-full max-w-65" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="gn-bg-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2" />
+            <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
+        </radialGradient>
+        <filter id="gn-glow-filter" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur std-deviation="2.5" in="SourceGraphic" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+    <!-- {/* Ambient glow */} -->
+    <ellipse cx="140" cy="105" rx="72" ry="62" fill="url(#gn-bg-grad)" />
+    <!-- {/* Center pulse rings */} -->
+    <circle cx="140" cy="105" r="24" fill="none" stroke="#06b6d4" stroke-width="1.5">
+        <animate attribute-name="r" values="24;56" dur="3s" repeat-count="indefinite" />
+        <animate
+            attribute-name="stroke-opacity"
+            values="0.55;0"
+            dur="3s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <circle cx="140" cy="105" r="24" fill="none" stroke="#06b6d4" stroke-width="1">
+        <animate
+            attribute-name="r"
+            values="24;56"
+            dur="3s"
+            begin="1.5s"
+            repeat-count="indefinite"
+        />
+        <animate
+            attribute-name="stroke-opacity"
+            values="0.35;0"
+            dur="3s"
+            begin="1.5s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <!-- {/* Connection lines */} -->
+    <line
+        x1="140"
+        y1="81"
+        x2="140"
+        y2="37"
+        stroke="#06b6d4"
+        stroke-width="1"
+        stroke-dasharray="3 4"
+        stroke-opacity="0.3"
+    >
+        <animate
+            attribute-name="stroke-dashoffset"
+            values="0;-50"
+            dur="3.5s"
+            repeat-count="indefinite"
+        />
+    </line>
+    <line
+        x1="162"
+        y1="95"
+        x2="203"
+        y2="75"
+        stroke="#3b82f6"
+        stroke-width="1"
+        stroke-dasharray="3 4"
+        stroke-opacity="0.3"
+    >
+        <animate
+            attribute-name="stroke-dashoffset"
+            values="0;-50"
+            dur="3.5s"
+            begin="0.7s"
+            repeat-count="indefinite"
+        />
+    </line>
+    <line
+        x1="156"
+        y1="123"
+        x2="184"
+        y2="156"
+        stroke="#3b82f6"
+        stroke-width="1"
+        stroke-dasharray="3 4"
+        stroke-opacity="0.3"
+    >
+        <animate
+            attribute-name="stroke-dashoffset"
+            values="0;-50"
+            dur="3.5s"
+            begin="1.4s"
+            repeat-count="indefinite"
+        />
+    </line>
+    <line
+        x1="124"
+        y1="123"
+        x2="96"
+        y2="156"
+        stroke="#8b5cf6"
+        stroke-width="1"
+        stroke-dasharray="3 4"
+        stroke-opacity="0.3"
+    >
+        <animate
+            attribute-name="stroke-dashoffset"
+            values="0;-50"
+            dur="3.5s"
+            begin="2.1s"
+            repeat-count="indefinite"
+        />
+    </line>
+    <line
+        x1="118"
+        y1="95"
+        x2="77"
+        y2="75"
+        stroke="#8b5cf6"
+        stroke-width="1"
+        stroke-dasharray="3 4"
+        stroke-opacity="0.3"
+    >
+        <animate
+            attribute-name="stroke-dashoffset"
+            values="0;-50"
+            dur="3.5s"
+            begin="2.8s"
+            repeat-count="indefinite"
+        />
+    </line>
+    {/* Traveling dots */}
+    <circle r="3" fill="#06b6d4" filter="url(#gn-glow-filter)">
+        <animateMotion
+            path="M140,37 L140,81"
+            dur="1.8s"
+            begin="0.2s"
+            repeat-count="indefinite"
+        />
+        <animate
+            attribute-name="opacity"
+            values="0;1;1;0"
+            keyTimes="0;0.1;0.85;1"
+            dur="1.8s"
+            begin="0.2s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <circle r="3" fill="#3b82f6" filter="url(#gn-glow-filter)">
+        <animateMotion
+            path="M162,95 L203,75"
+            dur="1.8s"
+            begin="0.8s"
+            repeat-count="indefinite"
+        />
+        <animate
+            attribute-name="opacity"
+            values="0;1;1;0"
+            keyTimes="0;0.1;0.85;1"
+            dur="1.8s"
+            begin="0.8s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <circle r="3" fill="#3b82f6" filter="url(#gn-glow-filter)">
+        <animateMotion
+            path="M184,156 L156,123"
+            dur="1.8s"
+            begin="1.5s"
+            repeat-count="indefinite"
+        />
+        <animate
+            attribute-name="opacity"
+            values="0;1;1;0"
+            keyTimes="0;0.1;0.85;1"
+            dur="1.8s"
+            begin="1.5s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <circle r="3" fill="#8b5cf6" filter="url(#gn-glow-filter)">
+        <animateMotion
+            path="M124,123 L96,156"
+            dur="1.8s"
+            begin="2.2s"
+            repeat-count="indefinite"
+        />
+        <animate
+            attribute-name="opacity"
+            values="0;1;1;0"
+            keyTimes="0;0.1;0.85;1"
+            dur="1.8s"
+            begin="2.2s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <circle r="3" fill="#8b5cf6" filter="url(#gn-glow-filter)">
+        <animateMotion
+            path="M77,75 L118,95"
+            dur="1.8s"
+            begin="2.9s"
+            repeat-count="indefinite"
+        />
+        <animate
+            attribute-name="opacity"
+            values="0;1;1;0"
+            keyTimes="0;0.1;0.85;1"
+            dur="1.8s"
+            begin="2.9s"
+            repeat-count="indefinite"
+        />
+    </circle>
+    <!-- {/* Peripheral nodes */} -->
+    <circle
+        cx="140"
+        cy="26"
+        r="11"
+        fill="#06b6d4"
+        fill-opacity="0.15"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        stroke-opacity="0.7"
+    />
+    <circle cx="140" cy="26" r="5" fill="#06b6d4" fill-opacity="0.6" />
+    <circle
+        cx="213"
+        cy="70"
+        r="11"
+        fill="#3b82f6"
+        fill-opacity="0.15"
+        stroke="#3b82f6"
+        stroke-width="1.5"
+        stroke-opacity="0.7"
+    />
+    <circle cx="213" cy="70" r="5" fill="#3b82f6" fill-opacity="0.6" />
+    <circle
+        cx="191"
+        cy="164"
+        r="11"
+        fill="#3b82f6"
+        fill-opacity="0.15"
+        stroke="#3b82f6"
+        stroke-width="1.5"
+        stroke-opacity="0.7"
+    />
+    <circle cx="191" cy="164" r="5" fill="#3b82f6" fill-opacity="0.6" />
+    <circle
+        cx="89"
+        cy="164"
+        r="11"
+        fill="#8b5cf6"
+        fill-opacity="0.15"
+        stroke="#8b5cf6"
+        stroke-width="1.5"
+        stroke-opacity="0.7"
+    />
+    <circle cx="89" cy="164" r="5" fill="#8b5cf6" fill-opacity="0.6" />
+    <circle
+        cx="67"
+        cy="70"
+        r="11"
+        fill="#8b5cf6"
+        fill-opacity="0.15"
+        stroke="#8b5cf6"
+        stroke-width="1.5"
+        stroke-opacity="0.7"
+    />
+    <circle cx="67" cy="70" r="5" fill="#8b5cf6" fill-opacity="0.6" />
+    <!-- {/* Center node */} -->
+    <circle
+        cx="140"
+        cy="105"
+        r="24"
+        fill="#06b6d4"
+        fill-opacity="0.1"
+        stroke="#06b6d4"
+        stroke-width="1.5"
+        stroke-opacity="0.85"
+    />
+    <text
+        x="140"
+        y="109"
+        text-anchor="middle"
+        fill="#06b6d4"
+        font-size="10"
+        font-weight="700"
+        letter-spacing="1.5"
+        font-family="monospace"
+    >
+        XNO
+    </text>
+</svg>

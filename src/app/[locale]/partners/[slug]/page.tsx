@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
@@ -48,13 +49,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PartnerPage({ params }: Props) {
-	const { locale, slug } = await params
+	'use cache'
+	cacheLife('max')
 
+	const { locale, slug } = await params
 	setRequestLocale(locale)
 
 	const partner = getPartnerById(slug)
 
-	if (!partner || !partner.hasInternalPage) {
+	if (!partner?.hasInternalPage) {
 		notFound()
 	}
 

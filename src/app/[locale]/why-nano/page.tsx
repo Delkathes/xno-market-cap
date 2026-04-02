@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import type { ComponentType } from 'react'
 import {
 	ArrowLeftRight,
@@ -52,35 +53,669 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function WhyNanoPage({ params }: Props) {
+	'use cache'
+	cacheLife('max')
+
 	const { locale } = await params
 	setRequestLocale(locale)
 	const t = await getTranslations({ locale, namespace: 'whyNano' })
 
 	return (
-		<main className="relative container mx-auto px-4 pt-28 pb-24 selection:bg-cyan-500/30">
-			{/* Background Effects */}
-			<div className="fixed inset-0 z-0 pointer-events-none animate-in fade-in duration-500">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#9f9f9f2e_1px,transparent_1px),linear-gradient(to_bottom,#9f9f9f2e_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]  bg-size-[50px_50px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-				<div className="absolute top-0 left-1/2 -translate-x-1/2 w-250 h-125 bg-cyan-500/10 dark:bg-cyan-500/12.5 blur-[120px] rounded-full mix-blend-screen" />
-				<div className="absolute bottom-0 right-0 w-200 h-150 bg-blue-600/10 blur-[100px] rounded-full mix-blend-screen" />
-			</div>
-
+		<main className="relative container mx-auto px-4 pt-28 pb-24">
 			{/* Hero Section */}
-			<Appear className="relative z-10 text-center mb-32">
-				<h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-					{t('hero.titlePart1')}{' '}
-					<span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 to-blue-500">
-						{t('hero.titleHighlight')}
-					</span>
-				</h1>
-				<p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">{t('hero.description1')}</p>
-				<p className="text-muted-foreground max-w-2xl mx-auto mb-6">{t('hero.description2')}</p>
-				<div className="flex items-center justify-center gap-4">
-					<Button variant="outline" asChild>
-						<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
-							{t('hero.learnAboutNano')} <ExternalLink className="w-4 h-4 ml-2" />
-						</a>
-					</Button>
+			<Appear className="relative z-10 mb-32 max-w-6xl mx-auto">
+				<div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+					<div>
+						<h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+							{t('hero.titlePart1')}{' '}
+							<span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 to-blue-500">
+								{t('hero.titleHighlight')}
+							</span>
+						</h1>
+						<p className="text-muted-foreground text-lg mb-2 max-w-2xl">{t('hero.description1')}</p>
+						<p className="text-muted-foreground mb-6 max-w-2xl">{t('hero.description2')}</p>
+						<div className="flex items-center gap-4">
+							<Button variant="outline" asChild>
+								<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
+									{t('hero.learnAboutNano')} <ExternalLink className="w-4 h-4 ml-2" />
+								</a>
+							</Button>
+						</div>
+					</div>
+
+					<div className="relative min-h-80 flex items-center justify-center">
+						{/* Agent Payment Network — 5 AI agent nodes on a pentagon, XNO hub at center */}
+						<svg
+							viewBox="0 0 460 300"
+							fill="none"
+							className="w-full max-w-135 filter-[brightness(0.78)_saturate(1.1)_contrast(1.15)] dark:filter-none"
+							aria-hidden="true"
+						>
+							<defs>
+								<filter id="wn-glow" x="-50%" y="-50%" width="200%" height="200%">
+									<feGaussianBlur stdDeviation="2.5" in="SourceGraphic" result="blur" />
+									<feMerge>
+										<feMergeNode in="blur" />
+										<feMergeNode in="SourceGraphic" />
+									</feMerge>
+								</filter>
+							</defs>
+
+							{/* Ambient glows */}
+							<ellipse cx="230" cy="150" rx="170" ry="105" fill="#0ea5e9" fillOpacity="0.06" />
+							<ellipse cx="230" cy="150" rx="105" ry="72" fill="#8b5cf6" fillOpacity="0.05" />
+
+							{/* Mesh connection lines */}
+							{/* Nodes: N1(230,58) N2(318,122) N3(284,225) N4(176,225) N5(143,122) C(230,150) */}
+							<g stroke="#60a5fa" strokeOpacity="0.18" strokeWidth="1">
+								{/* Outer pentagon ring */}
+								<line x1="230" y1="58" x2="318" y2="122" />
+								<line x1="318" y1="122" x2="284" y2="225" />
+								<line x1="284" y1="225" x2="176" y2="225" />
+								<line x1="176" y1="225" x2="143" y2="122" />
+								<line x1="143" y1="122" x2="230" y2="58" />
+								{/* Inner cross diagonals */}
+								<line x1="230" y1="58" x2="284" y2="225" strokeOpacity="0.09" />
+								<line x1="318" y1="122" x2="176" y2="225" strokeOpacity="0.09" />
+								<line x1="230" y1="58" x2="176" y2="225" strokeOpacity="0.09" />
+								<line x1="143" y1="122" x2="284" y2="225" strokeOpacity="0.09" />
+								<line x1="318" y1="122" x2="143" y2="122" strokeOpacity="0.09" />
+							</g>
+
+							{/* ── Center XNO hub ── */}
+							<g transform="translate(230, 150)">
+								<circle r="36" fill="none" stroke="#60a5fa" strokeOpacity="0.18" strokeWidth="1.2">
+									<animate attributeName="r" values="30;44;30" dur="2.6s" repeatCount="indefinite" />
+									<animate
+										attributeName="stroke-opacity"
+										values="0.18;0.05;0.18"
+										dur="2.6s"
+										repeatCount="indefinite"
+									/>
+								</circle>
+								<circle
+									r="26"
+									fill="hsl(var(--card))"
+									fillOpacity="0.95"
+									stroke="#60a5fa"
+									strokeOpacity="0.45"
+									strokeWidth="1.5"
+								/>
+								<text textAnchor="middle" y="4" fill="#93c5fd" fontSize="11" fontWeight="800">
+									XNO
+								</text>
+							</g>
+
+							{/* ── Agent nodes ── */}
+
+							{/* N1 — LLM (top) */}
+							<g transform="translate(230, 58)">
+								<circle r="20" fill="#22d3ee" fillOpacity="0.14" />
+								<circle
+									r="17"
+									fill="hsl(var(--card))"
+									stroke="#22d3ee"
+									strokeOpacity="0.72"
+									strokeWidth="1.3"
+								/>
+								<line
+									x1="-7"
+									y1="-4"
+									x2="7"
+									y2="-4"
+									stroke="#22d3ee"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-5"
+									y1="0"
+									x2="5"
+									y2="0"
+									stroke="#22d3ee"
+									strokeOpacity="0.5"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-7"
+									y1="4"
+									x2="7"
+									y2="4"
+									stroke="#22d3ee"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<circle cx="10" cy="-11" r="2.3" fill="#22d3ee" fillOpacity="0.9">
+									<animate
+										attributeName="fill-opacity"
+										values="0.9;0.3;0.9"
+										dur="1.6s"
+										repeatCount="indefinite"
+									/>
+								</circle>
+								<text
+									y="-25"
+									textAnchor="middle"
+									fill="#22d3ee"
+									fillOpacity="0.9"
+									fontSize="7.5"
+									fontWeight="700"
+								>
+									AI
+								</text>
+							</g>
+
+							{/* N2 — API (top-right) */}
+							<g transform="translate(318, 122)">
+								<circle r="20" fill="#60a5fa" fillOpacity="0.14" />
+								<circle
+									r="17"
+									fill="hsl(var(--card))"
+									stroke="#60a5fa"
+									strokeOpacity="0.72"
+									strokeWidth="1.3"
+								/>
+								<line
+									x1="-7"
+									y1="-4"
+									x2="7"
+									y2="-4"
+									stroke="#60a5fa"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-5"
+									y1="0"
+									x2="5"
+									y2="0"
+									stroke="#60a5fa"
+									strokeOpacity="0.5"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-7"
+									y1="4"
+									x2="7"
+									y2="4"
+									stroke="#60a5fa"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<circle cx="10" cy="-11" r="2.3" fill="#60a5fa" fillOpacity="0.9">
+									<animate
+										attributeName="fill-opacity"
+										values="0.9;0.3;0.9"
+										dur="1.8s"
+										begin="0.3s"
+										repeatCount="indefinite"
+									/>
+								</circle>
+								<text
+									x="24"
+									y="3"
+									textAnchor="start"
+									fill="#60a5fa"
+									fillOpacity="0.9"
+									fontSize="7.5"
+									fontWeight="700"
+								>
+									API
+								</text>
+							</g>
+
+							{/* N3 — Bot (bottom-right) */}
+							<g transform="translate(284, 225)">
+								<circle r="20" fill="#a78bfa" fillOpacity="0.14" />
+								<circle
+									r="17"
+									fill="hsl(var(--card))"
+									stroke="#a78bfa"
+									strokeOpacity="0.72"
+									strokeWidth="1.3"
+								/>
+								<line
+									x1="-7"
+									y1="-4"
+									x2="7"
+									y2="-4"
+									stroke="#a78bfa"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-5"
+									y1="0"
+									x2="5"
+									y2="0"
+									stroke="#a78bfa"
+									strokeOpacity="0.5"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-7"
+									y1="4"
+									x2="7"
+									y2="4"
+									stroke="#a78bfa"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<circle cx="10" cy="-11" r="2.3" fill="#a78bfa" fillOpacity="0.9">
+									<animate
+										attributeName="fill-opacity"
+										values="0.9;0.3;0.9"
+										dur="1.5s"
+										begin="0.7s"
+										repeatCount="indefinite"
+									/>
+								</circle>
+								<text
+									y="30"
+									textAnchor="middle"
+									fill="#a78bfa"
+									fillOpacity="0.9"
+									fontSize="7.5"
+									fontWeight="700"
+								>
+									Bot
+								</text>
+							</g>
+
+							{/* N4 — App (bottom-left) */}
+							<g transform="translate(176, 225)">
+								<circle r="20" fill="#2dd4bf" fillOpacity="0.14" />
+								<circle
+									r="17"
+									fill="hsl(var(--card))"
+									stroke="#2dd4bf"
+									strokeOpacity="0.72"
+									strokeWidth="1.3"
+								/>
+								<line
+									x1="-7"
+									y1="-4"
+									x2="7"
+									y2="-4"
+									stroke="#2dd4bf"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-5"
+									y1="0"
+									x2="5"
+									y2="0"
+									stroke="#2dd4bf"
+									strokeOpacity="0.5"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-7"
+									y1="4"
+									x2="7"
+									y2="4"
+									stroke="#2dd4bf"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<circle cx="10" cy="-11" r="2.3" fill="#2dd4bf" fillOpacity="0.9">
+									<animate
+										attributeName="fill-opacity"
+										values="0.9;0.3;0.9"
+										dur="2.0s"
+										begin="1.1s"
+										repeatCount="indefinite"
+									/>
+								</circle>
+								<text
+									y="30"
+									textAnchor="middle"
+									fill="#2dd4bf"
+									fillOpacity="0.9"
+									fontSize="7.5"
+									fontWeight="700"
+								>
+									App
+								</text>
+							</g>
+
+							{/* N5 — IoT (top-left) */}
+							<g transform="translate(143, 122)">
+								<circle r="20" fill="#fb923c" fillOpacity="0.14" />
+								<circle
+									r="17"
+									fill="hsl(var(--card))"
+									stroke="#fb923c"
+									strokeOpacity="0.72"
+									strokeWidth="1.3"
+								/>
+								<line
+									x1="-7"
+									y1="-4"
+									x2="7"
+									y2="-4"
+									stroke="#fb923c"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-5"
+									y1="0"
+									x2="5"
+									y2="0"
+									stroke="#fb923c"
+									strokeOpacity="0.5"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<line
+									x1="-7"
+									y1="4"
+									x2="7"
+									y2="4"
+									stroke="#fb923c"
+									strokeOpacity="0.7"
+									strokeWidth="1.4"
+									strokeLinecap="round"
+								/>
+								<circle cx="10" cy="-11" r="2.3" fill="#fb923c" fillOpacity="0.9">
+									<animate
+										attributeName="fill-opacity"
+										values="0.9;0.3;0.9"
+										dur="1.7s"
+										begin="1.4s"
+										repeatCount="indefinite"
+									/>
+								</circle>
+								<text
+									x="-24"
+									y="3"
+									textAnchor="end"
+									fill="#fb923c"
+									fillOpacity="0.9"
+									fontSize="7.5"
+									fontWeight="700"
+								>
+									IoT
+								</text>
+							</g>
+
+							{/* ── Info badges ── */}
+							<g transform="translate(362, 66)" className="dark:opacity-0">
+								<rect
+									x="-26"
+									y="-10"
+									width="52"
+									height="20"
+									rx="10"
+									fill="none"
+									stroke="#16a34a"
+									strokeOpacity="0.95"
+									strokeWidth="1.2"
+								/>
+								<text textAnchor="middle" y="3" fill="#15803d" fontSize="7.5" fontWeight="800">
+									{'< 1s'}
+								</text>
+							</g>
+							<g transform="translate(362, 66)" className="opacity-0 dark:opacity-100">
+								<rect
+									x="-26"
+									y="-10"
+									width="52"
+									height="20"
+									rx="10"
+									fill="#052e16"
+									fillOpacity="0.45"
+									stroke="#22c55e"
+									strokeOpacity="0.45"
+									strokeWidth="1"
+								/>
+								<text textAnchor="middle" y="3" fill="#4ade80" fontSize="7.5" fontWeight="700">
+									{'< 1s'}
+								</text>
+							</g>
+							<g transform="translate(100, 253)" className="dark:opacity-0">
+								<rect
+									x="-22"
+									y="-10"
+									width="44"
+									height="20"
+									rx="10"
+									fill="none"
+									stroke="#7c3aed"
+									strokeOpacity="0.95"
+									strokeWidth="1.2"
+								/>
+								<text textAnchor="middle" y="3" fill="#6d28d9" fontSize="7.5" fontWeight="800">
+									0 fee
+								</text>
+							</g>
+							<g transform="translate(100, 253)" className="opacity-0 dark:opacity-100">
+								<rect
+									x="-22"
+									y="-10"
+									width="44"
+									height="20"
+									rx="10"
+									fill="#1e1a3a"
+									fillOpacity="0.45"
+									stroke="#8b5cf6"
+									strokeOpacity="0.45"
+									strokeWidth="1"
+								/>
+								<text textAnchor="middle" y="3" fill="#c4b5fd" fontSize="7.5" fontWeight="700">
+									0 fee
+								</text>
+							</g>
+
+							{/* ── Animated payment packets (coherent destination mapping) ── */}
+							<g filter="url(#wn-glow)">
+								{/* App → API (client pays service) */}
+								<g opacity="0">
+									<animateMotion
+										path="M176 225 L318 122"
+										dur="1.8s"
+										begin="0s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="1.8s"
+										begin="0s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#0f4a3a"
+										fillOpacity="0.12"
+										stroke="#2dd4bf"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#5eead4" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+								{/* IoT → API (machine triggers payment) */}
+								<g opacity="0">
+									<animateMotion
+										path="M143 122 L318 122"
+										dur="1.7s"
+										begin="0.55s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="1.7s"
+										begin="0.55s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#431407"
+										fillOpacity="0.12"
+										stroke="#fb923c"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#fdba74" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+								{/* Bot → API (automation pays endpoint) */}
+								<g opacity="0">
+									<animateMotion
+										path="M284 225 L318 122"
+										dur="1.9s"
+										begin="1.1s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="1.9s"
+										begin="1.1s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#2e1065"
+										fillOpacity="0.12"
+										stroke="#a78bfa"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#c4b5fd" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+								{/* API → LLM (provider-to-provider call) */}
+								<g opacity="0">
+									<animateMotion
+										path="M318 122 L230 58"
+										dur="1.85s"
+										begin="1.75s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="1.85s"
+										begin="1.75s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#1e3a5f"
+										fillOpacity="0.12"
+										stroke="#60a5fa"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#93c5fd" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+								{/* LLM → IoT (direct service call) */}
+								<g opacity="0">
+									<animateMotion
+										path="M230 58 L143 122"
+										dur="1.95s"
+										begin="0.85s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="1.95s"
+										begin="0.85s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#0e7490"
+										fillOpacity="0.12"
+										stroke="#22d3ee"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#22d3ee" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+								{/* LLM → App (direct service call) */}
+								<g opacity="0">
+									<animateMotion
+										path="M230 58 L176 225"
+										dur="2.2s"
+										begin="1.4s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="2.2s"
+										begin="1.4s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#0f4a3a"
+										fillOpacity="0.09"
+										stroke="#2dd4bf"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#5eead4" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+								{/* IoT → Bot (direct service call) */}
+								<g opacity="0">
+									<animateMotion
+										path="M143 122 L284 225"
+										dur="2.1s"
+										begin="2.1s"
+										repeatCount="indefinite"
+									/>
+									<animate
+										attributeName="opacity"
+										values="0;1;1;0"
+										keyTimes="0;0.12;0.88;1"
+										dur="2.1s"
+										begin="2.1s"
+										repeatCount="indefinite"
+									/>
+									<circle
+										r="9"
+										fill="#2e1065"
+										fillOpacity="0.09"
+										stroke="#a78bfa"
+										strokeWidth="1.3"
+									/>
+									<text textAnchor="middle" dy="3" fill="#c4b5fd" fontSize="5.5" fontWeight="700">
+										XNO
+									</text>
+								</g>
+							</g>
+						</svg>
+					</div>
 				</div>
 			</Appear>
 

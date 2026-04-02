@@ -24,6 +24,25 @@ const SLICE_COLORS: Record<string, string> = {
 	Others: CRYPTO_COLORS.OTHERS,
 }
 
+interface CustomTooltipProps {
+	active?: boolean
+	payload?: { value: number; name: string; fill: string }[]
+}
+
+function CustomTooltip({ active, payload }: CustomTooltipProps) {
+	if (!active || !payload?.length) return null
+
+	return (
+		<div className="bg-popover border border-border rounded-lg shadow-lg p-3">
+			{payload.map((entry) => (
+				<p key={entry.name} className="text-sm font-medium" style={{ color: entry.fill }}>
+					{entry.name}: {formatLargeNumber(entry.value, { unit: 'XNO' })}
+				</p>
+			))}
+		</div>
+	)
+}
+
 export function DominanceChart() {
 	const t = useTranslations('dominance')
 
@@ -144,12 +163,7 @@ export function DominanceChart() {
 									/>
 								))}
 							</Pie>
-							<Tooltip
-								formatter={(value: number | undefined) => [
-									value ? formatLargeNumber(value, { unit: 'XNO' }) : '0.00',
-									t('marketCap'),
-								]}
-							/>
+							<Tooltip content={<CustomTooltip />} />
 							<Legend />
 						</PieChart>
 					)}

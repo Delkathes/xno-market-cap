@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
@@ -19,6 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ImprintPage({ params }: Props) {
+	'use cache'
+	cacheLife('max')
+
 	const { locale } = await params
 	setRequestLocale(locale)
 

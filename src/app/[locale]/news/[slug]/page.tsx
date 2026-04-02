@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, Calendar, User } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -6,7 +7,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
-import { formatNewsDate, getArticleLocale, getNewsMetadata, getNewsSlugs } from '@/lib/news'
+import { formatNewsDate, getAllNews, getArticleLocale, getNewsMetadata, getNewsOgImage } from '@/lib/news'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -15,12 +16,11 @@ type Props = {
 	params: Promise<{ locale: string; slug: string }>
 }
 
-export function generateStaticParams() {
-	const slugs = getNewsSlugs()
+export async function generateStaticParams() {
+	const articles = await getAllNews()
+	const slugs = articles.map((a) => a.slug)
 	return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
 }
-
-// export const dynamicParams = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { locale, slug } = await params
@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 
 	const t = await getTranslations({ locale, namespace: 'metadata.news' })
+	const ogImage = getNewsOgImage(article)
 
 	return {
 		title: t('articleTitle', { title: article.title }),
@@ -42,7 +43,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			type: 'article',
 			publishedTime: article.date,
 			authors: article.author ? [article.author] : undefined,
+			images: ogImage
+				? [
+						{
+							url: ogImage,
+							alt: article.title,
+						},
+					]
+				: undefined,
 		},
+		twitter: ogImage
+			? {
+					card: 'summary_large_image',
+					title: article.title,
+					description: article.description,
+					images: [ogImage],
+				}
+			: undefined,
 		alternates: {
 			canonical: `/news/${slug}`,
 		},
@@ -50,6 +67,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NewsArticlePage({ params }: Props) {
+	'use cache'
+	cacheLife('days')
+
 	const { locale, slug } = await params
 	setRequestLocale(locale)
 

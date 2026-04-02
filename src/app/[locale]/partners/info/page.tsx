@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import { Globe, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
@@ -21,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PartnerInfoPage({ params }: Props) {
+	'use cache'
+	cacheLife('max')
+
 	const { locale } = await params
 	setRequestLocale(locale)
 	const t = await getTranslations({ locale, namespace: 'partners' })

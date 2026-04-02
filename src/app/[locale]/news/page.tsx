@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import { Calendar, ChevronRight } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
@@ -32,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NewsPage({ params }: Props) {
+	'use cache'
+	cacheLife('hours')
+
 	const { locale } = await params
 	setRequestLocale(locale)
 

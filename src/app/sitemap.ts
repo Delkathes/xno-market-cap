@@ -6,6 +6,8 @@ import { getPartnersWithPages } from '@/lib/partner-config'
 
 import { env } from '@/env'
 
+export const revalidate = 3600
+
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
 type RouteConfig = {

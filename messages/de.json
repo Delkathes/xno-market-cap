@@ -331,8 +331,8 @@
 		"selectCurrency": "Währung auswählen"
 	},
 	"getNano": {
-		"badge": "Loslegen",
 		"title": "Nano kaufen & Wallet wählen",
+		"heroBadge": "Nano Start",
 		"description1": "Du brauchst ein Nano Wallet um Zahlungen zu empfangen oder zu senden.",
 		"description2": "Wähle ein Wallet dem du vertraust, lade es mit Nano auf, und du bist startklar.",
 		"swapToNano": "Zu Nano tauschen",
@@ -347,7 +347,6 @@
 		"hardware": "Hardware",
 		"hardwareDescription": "Nutze einen Ledger Nano S/X mit Nault für Cold Storage Unterstützung.",
 		"ledgerViaNault": "Ledger über Nault",
-		"viewWalletDirectory": "Wallet-Verzeichnis ansehen",
 		"step2Badge": "Schritt 2",
 		"step2Title": "Nano kaufen",
 		"step2Description": "Sobald du ein Wallet hast, erwerbe Nano um dein Konto aufzuladen.",
@@ -362,7 +361,6 @@
 		"newToNanoDescription": "Nano ist eine schnelle, gebührenfreie Kryptowährung perfekt für Mikrozahlungen. Sie ist umweltfreundlich und Transaktionen bestätigen in unter einer Sekunde."
 	},
 	"swapNano": {
-		"badge": "Krypto tauschen",
 		"title": "Sofort zu Nano tauschen",
 		"description1": "Tausche Altcoins zu Nano mit einem kompatiblen Tausch-Anbieter.",
 		"description2": "Nano Transaktionen bestätigen in unter einer Sekunde, sodass du deine Gelder sofort nach dem Tausch nutzen kannst.",

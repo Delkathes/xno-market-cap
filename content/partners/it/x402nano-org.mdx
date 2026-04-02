@@ -1,0 +1,35 @@
+# x402nano.org: Facilitatore x402 senza commissioni per Nano
+
+x402nano.org è un facilitatore per il [protocollo x402](https://www.x402.org/) su Nano. Aiuta sviluppatori e app orientate all’IA a verificare e regolare pagamenti HTTP 402 senza account.
+
+## Cosa fa
+
+Il servizio si colloca tra la tua app e la rete Nano:
+
+- **Verifica le firme di pagamento** inviate in `PAYMENT-SIGNATURE`
+- **Regola i pagamenti on-chain** dopo la validazione
+- Restituisce una risposta di pagamento così la tua app può servire contenuti protetti
+
+## Perché viene usato
+
+- **Nessuna registrazione obbligatoria** per iniziare
+- **Pagamenti Nano senza commissioni** per flussi di pagamento nativi di internet
+- Compatibile con **flussi di pagamento per agenti IA** e API machine-to-machine
+- Supporta integrazione con **Next.js** e integrazione manuale
+
+## Quick start
+
+1. Imposta l’URL del facilitatore su `https://x402nano.org/facilitator`
+2. Integra `@x402/next` (middleware + route handlers) oppure `@x402/core`
+3. Proteggi gli endpoint con HTTP 402 e regola i pagamenti riusciti
+
+## Pensato per gli sviluppatori x402
+
+Secondo la documentazione, x402nano.org offre un modo permissionless per eseguire flussi di pagamento x402 su Nano, inclusi endpoint verify/settle e analytics opzionali con API key.
+
+- Docs: [x402nano.org/docs](https://x402nano.org/docs)
+- Sito: [x402nano.org](https://x402nano.org/)
+
+---
+
+*Questa è una pagina partner sponsorizzata. x402nano.org è un servizio indipendente e non è affiliato a NanoMarketCap o alla Nano Foundation.*

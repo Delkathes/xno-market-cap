@@ -11,11 +11,10 @@ export interface NewsMetadata {
 	date: string
 	author?: string
 	image?: string
+	ogImage?: string
 	tags?: string[]
-}
-
-export interface NewsArticle extends NewsMetadata {
-	content: React.ComponentType
+	/** Must be explicitly set to true to appear publicly. Defaults to unpublished. */
+	published?: boolean
 }
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'news')
@@ -80,6 +79,7 @@ export async function getNewsMetadata(slug: string, locale: string = DEFAULT_LOC
 
 	try {
 		const { metadata } = await import(`@content/news/${effectiveLocale}/${slug}.mdx`)
+		if (!metadata.published) return null
 		return {
 			slug,
 			...metadata,
@@ -87,6 +87,14 @@ export async function getNewsMetadata(slug: string, locale: string = DEFAULT_LOC
 	} catch {
 		return null
 	}
+}
+
+/**
+ * Resolve the best social sharing image for a news article.
+ * Accepts either `ogImage` (preferred) or `image` for backwards compatibility.
+ */
+export function getNewsOgImage(article: Pick<NewsMetadata, 'ogImage' | 'image'>): string | undefined {
+	return article.ogImage ?? article.image
 }
 
 /**

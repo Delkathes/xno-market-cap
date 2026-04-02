@@ -55,7 +55,6 @@ const nextConfig = {
 
 		// Performance - server
 		serverMinification: true,
-		parallelServerCompiles: true,
 
 		// Performance - client
 		optimisticClientCache: true,

@@ -331,8 +331,8 @@
 		"selectCurrency": "Selecteer valuta"
 	},
 	"getNano": {
-		"badge": "Aan de slag",
 		"title": "Nano kopen & wallet kiezen",
+		"heroBadge": "Nano starten",
 		"description1": "Je hebt een Nano wallet nodig om betalingen te ontvangen of te verzenden.",
 		"description2": "Kies een wallet die je vertrouwt, vul deze met Nano, en je bent klaar om te gaan.",
 		"swapToNano": "Wisselen naar Nano",
@@ -347,7 +347,6 @@
 		"hardware": "Hardware",
 		"hardwareDescription": "Gebruik een Ledger Nano S/X met Nault voor cold storage ondersteuning.",
 		"ledgerViaNault": "Ledger via Nault",
-		"viewWalletDirectory": "Bekijk wallet-overzicht",
 		"step2Badge": "Stap 2",
 		"step2Title": "Nano kopen",
 		"step2Description": "Zodra je een wallet hebt, verkrijg Nano om je account te vullen.",
@@ -362,7 +361,6 @@
 		"newToNanoDescription": "Nano is een snelle, kostenloze cryptocurrency perfect voor microbetalingen. Het is milieuvriendelijk en transacties bevestigen in minder dan een seconde."
 	},
 	"swapNano": {
-		"badge": "Crypto Wisselen",
 		"title": "Direct wisselen naar Nano",
 		"description1": "Wissel altcoins naar Nano via een compatibele wissel-aanbieder.",
 		"description2": "Nano transacties bevestigen in minder dan een seconde, zodat je je fondsen direct na het wisselen kunt gebruiken.",

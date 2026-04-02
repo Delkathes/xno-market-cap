@@ -23,6 +23,8 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
+	cacheLife('minutes')
+
 	const { locale, id } = await params
 	const t = await getTranslations({ locale, namespace: 'metadata.coin' })
 
@@ -77,6 +79,7 @@ async function getCachedPriceChart(coinId: string, days: ChartTimeRange, vsCurre
 
 export default async function CoinDetailPage({ params }: Props) {
 	'use cache'
+	cacheLife('minutes')
 
 	const { locale, id: coinIdParam } = await params
 

@@ -170,7 +170,8 @@ export function SpeculationCalculator() {
 											/>
 											<span>{crypto.name}</span>
 											<span className="text-muted-foreground text-xs ml-auto">
-											{fiatConfig.symbol}{formatLargeNumber(crypto.market_cap * rate)}
+												{fiatConfig.symbol}
+												{formatLargeNumber(crypto.market_cap * rate)}
 											</span>
 										</div>
 									</SelectItem>

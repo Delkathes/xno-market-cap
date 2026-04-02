@@ -39,7 +39,7 @@ export async function Footer({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: 'footer' })
 
 	return (
-		<footer className="border-t border-border bg-card mt-auto">
+		<footer className="border-t border-border bg-card mt-auto backdrop-blur-sm">
 			<div className="container mx-auto px-4 py-12">
 				<div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
 					{/* Brand */}

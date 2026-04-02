@@ -15,27 +15,29 @@ const scenarioLines: TerminalLine[][] = [
 		{ type: 'command', text: '> Agent requesting api.weather-service.ai/forecast', delay: 0 },
 		{ type: 'detail', text: '  { city: "London" }', delay: 0 },
 		{ type: 'header', text: '← 402 Payment Required', color: 'text-yellow-400', delay: 500 },
-		{ type: 'detail', text: '  X-Payment-Address: nano_1weather...', delay: 750 },
-		{ type: 'detail', text: '  X-Payment-Amount: 0.0001 XNO', delay: 750 },
-		{ type: 'detail', text: '  X-Payment-Network: nano:mainnet', delay: 750 },
-		{ type: 'command', text: '> Creating signed block…', delay: 1200 },
-		{ type: 'status', text: '  ✓ Confirmed in 0.35s', delay: 1400 },
-		{ type: 'status', text: '  ✓ Block: A7F2C9...3E1B', delay: 1400 },
-		{ type: 'command', text: '> Retrying with signed block…', delay: 2000 },
-		{ type: 'success', text: '  ← 200 OK — Forecast data received', delay: 2500 },
+		{ type: 'detail', text: '  PAYMENT-REQUIRED: eyJhY2NlcHRlZFNjaGVtZXMiOlsiZXhhY3QiXSw...', delay: 750 },
+		{ type: 'command', text: '> Decoding payment requirements…', delay: 1100 },
+		{ type: 'status', text: '  ✓ payTo: nano_1weather... | amount: 0.0001 XNO', delay: 1250 },
+		{ type: 'command', text: '> Signing Nano block + computing PoW…', delay: 1700 },
+		{ type: 'status', text: '  ✓ Signed in 0.35s | Block: A7F2C9...3E1B', delay: 1900 },
+		{ type: 'command', text: '> Retrying with PAYMENT-SIGNATURE…', delay: 2350 },
+		{ type: 'header', text: '← 200 OK', color: 'text-green-400', delay: 2750 },
+		{ type: 'detail', text: '  PAYMENT-RESPONSE: eyJzdWNjZXNzIjp0cnVlLCJ0eElkIjoiQTdG...', delay: 2750 },
+		{ type: 'success', text: '  ✓ Settlement confirmed — Forecast data received', delay: 2950 },
 	],
 	[
 		{ type: 'command', text: '> Agent requesting llm-gateway.io/v1/completions', delay: 0 },
 		{ type: 'detail', text: '  { model: "mistral-large-3" }', delay: 0 },
 		{ type: 'header', text: '← 402 Payment Required', color: 'text-yellow-400', delay: 500 },
-		{ type: 'detail', text: '  X-Payment-Address: nano_1llmgtw...', delay: 750 },
-		{ type: 'detail', text: '  X-Payment-Amount: 0.00042 XNO', delay: 750 },
-		{ type: 'detail', text: '  X-Payment-Network: nano:mainnet', delay: 750 },
-		{ type: 'command', text: '> Creating signed block…', delay: 1200 },
-		{ type: 'status', text: '  ✓ Confirmed in 0.28s', delay: 1400 },
-		{ type: 'status', text: '  ✓ Block: D4E1A8...7C09', delay: 1400 },
-		{ type: 'command', text: '> Retrying with signed block…', delay: 2000 },
-		{ type: 'success', text: '  ← 200 OK — Streaming 1,247 tokens', delay: 2500 },
+		{ type: 'detail', text: '  PAYMENT-REQUIRED: eyJhY2NlcHRlZFNjaGVtZXMiOlsiZXhhY3QiXSw...', delay: 750 },
+		{ type: 'command', text: '> Decoding payment requirements…', delay: 1100 },
+		{ type: 'status', text: '  ✓ payTo: nano_1llmgtw... | amount: 0.00042 XNO', delay: 1250 },
+		{ type: 'command', text: '> Signing Nano block + computing PoW…', delay: 1700 },
+		{ type: 'status', text: '  ✓ Signed in 0.28s | Block: D4E1A8...7C09', delay: 1900 },
+		{ type: 'command', text: '> Retrying with PAYMENT-SIGNATURE…', delay: 2350 },
+		{ type: 'header', text: '← 200 OK', color: 'text-green-400', delay: 2750 },
+		{ type: 'detail', text: '  PAYMENT-RESPONSE: eyJzdWNjZXNzIjp0cnVlLCJ0eElkIjoiRDRF...', delay: 2750 },
+		{ type: 'success', text: '  ✓ Settlement confirmed — Streaming 1,247 tokens', delay: 2950 },
 	],
 ]
 
@@ -96,10 +98,10 @@ export function AnimatedTerminal() {
 		switch (line.type) {
 			case 'command':
 				return (
-					<>
+					<span className="whitespace-nowrap">
 						<span className="text-zinc-500">{'>'}</span>{' '}
 						<span className="text-white">{line.text.slice(2)}</span>
-					</>
+					</span>
 				)
 			case 'header':
 				return <span className={line.color ?? 'text-yellow-400'}>{line.text}</span>
@@ -114,7 +116,7 @@ export function AnimatedTerminal() {
 						? 'text-orange-400'
 						: 'text-purple-400'
 				return (
-					<span className="text-zinc-400">
+					<span className="text-zinc-400 whitespace-nowrap">
 						{key}
 						<span className={colorClass}>{value}</span>
 					</span>
@@ -123,16 +125,16 @@ export function AnimatedTerminal() {
 			case 'status': {
 				const parts = line.text.trimStart()
 				return (
-					<>
+					<span className="whitespace-nowrap">
 						<span className="text-green-500">✓</span>{' '}
 						<span className="text-zinc-400">{parts.slice(2)}</span>
-					</>
+					</span>
 				)
 			}
 			case 'success':
-				return <span className="text-green-400">{line.text.trimStart()}</span>
+				return <span className="text-green-400 whitespace-nowrap">{line.text.trimStart()}</span>
 			default:
-				return <span className="text-zinc-400">{line.text}</span>
+				return <span className="text-zinc-400 whitespace-nowrap">{line.text}</span>
 		}
 	}
 
@@ -163,7 +165,7 @@ export function AnimatedTerminal() {
 						isFading ? 'opacity-0' : 'opacity-100'
 					}`}
 				>
-					<div className="space-y-1.5 text-zinc-300 min-h-83.5 md:min-h-90">
+					<div className="space-y-1.5 text-zinc-300 min-h-88 md:min-h-100">
 						{lines.slice(0, visibleLines).map((line, i) => {
 							const isLast = i === visibleLines - 1
 							return (
