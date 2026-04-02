@@ -167,10 +167,10 @@ export default async function TermsOfServicePage({ params }: Props) {
 					<h2 className="text-xl font-semibold mb-3">{t('sections.contact.title')}</h2>
 					<p className="text-muted-foreground mb-2">{t('sections.contact.description')}</p>
 					<a
-						href="mailto:contact@xnomarketcap.com"
+						href="mailto:contact@nanomarketcap.com"
 						className="text-primary hover:underline text-sm font-medium"
 					>
-						contact@xnomarketcap.com
+						contact@nanomarketcap.com
 					</a>
 				</section>
 

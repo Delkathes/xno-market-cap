@@ -46,7 +46,7 @@ Website: ${data.website}
 Description:
 ${data.description}
 `
-		window.location.href = `mailto:partners@xnomarketcap.com?subject=${encodeURIComponent(
+		window.location.href = `mailto:partners@nanomarketcap.com?subject=${encodeURIComponent(
 			subject,
 		)}&body=${encodeURIComponent(body)}`
 	}

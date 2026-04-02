@@ -99,7 +99,7 @@ export default async function PartnerInfoPage({ params }: Props) {
 					<p className="mt-4 text-center text-sm text-muted-foreground">
 						{t('contact.text')}{' '}
 						<a
-							href="mailto:partners@xnomarketcap.com"
+							href="mailto:partners@nanomarketcap.com"
 							className="hover:text-foreground underline underline-offset-4"
 						>
 							{t('contact.email')}

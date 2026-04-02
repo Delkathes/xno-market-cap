@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Sparkles } from 'lucide-react'
 import { setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
@@ -10,6 +10,7 @@ import { routing } from '@/i18n/routing'
 
 import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
 
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 type Props = {
@@ -89,44 +90,46 @@ export default async function PartnerPage({ params }: Props) {
 				</Link>
 
 				{/* Header */}
-				<div className="flex items-start gap-4 mb-8">
+				<div className="flex items-start gap-4 mb-16 mt-12">
 					{partner.logoUrl && (
-						<div className="shrink-0">
-							<div className="relative h-16 w-16 overflow-hidden rounded-xl bg-muted shadow-sm">
-								<Image
-									src={partner.logoUrl}
-									alt={partner.partnerName}
-									fill
-									className="object-contain p-2"
-								/>
-							</div>
+						<div className="shrink-0 relative h-16 w-16 overflow-hidden">
+							<Image
+								src={partner.logoUrl}
+								alt={partner.partnerName}
+								fill
+								className="object-contain p-1"
+							/>
 						</div>
 					)}
-					<div className="flex-1 min-w-0">
+					<div className="flex-1 min-w-0 relative">
 						{/* Partner badge */}
-						<div className="flex items-center mb-1">
-							{/* <Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary">
-								<Sparkles className="h-3 w-3" />
-								Partner
-							</Badge> */}
+						<div className="flex items-center mb-1 absolute -top-5.5 gap-2">
 							<p className="text-sm text-muted-foreground">{partner.partnerName}</p>
+							<Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary" asChild>
+								<Link href={`/partners/info`}>
+									<Sparkles className="h-3 w-3" />
+									Partner
+								</Link>
+							</Badge>
 						</div>
 						<h1 className="text-2xl font-bold mb-2">{partner.title}</h1>
 						<p className="text-muted-foreground">{partner.description}</p>
+						{/* External link if available */}
+						{partner.externalUrl && (
+							<Button asChild variant="link" className="mt-2">
+								<a
+									href={partner.externalUrl}
+									target="_blank"
+									rel="noopener noreferrer partner"
+									className="px-0!"
+								>
+									Visit {partner.partnerName}
+									<ExternalLink className="h-4 w-4 ml-2" />
+								</a>
+							</Button>
+						)}
 					</div>
 				</div>
-
-				{/* External link if available */}
-				{partner.externalUrl && (
-					<div className="mb-8">
-						<Button asChild>
-							<a href={partner.externalUrl} target="_blank" rel="noopener noreferrer partner">
-								Visit {partner.partnerName}
-								<ExternalLink className="h-4 w-4 ml-2" />
-							</a>
-						</Button>
-					</div>
-				)}
 
 				{/* MDX Content */}
 				{MdxContent && (

@@ -40,7 +40,7 @@ export async function Footer({ locale }: { locale: string }) {
 
 	return (
 		<footer className="border-t border-border bg-card mt-auto backdrop-blur-sm">
-			<div className="container mx-auto px-4 py-12">
+			<div className="container mx-auto px-4 pt-12 pb-8">
 				<div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
 					{/* Brand */}
 					<div className="col-span-2 md:col-span-1">
