@@ -41,9 +41,12 @@ export function useAppearAnimation(options: UseAppearAnimationOptions = {}) {
 
 	const style: React.CSSProperties = {
 		opacity: isVisible ? 1 : 0,
-		transform: isVisible ? 'translateY(0)' : `translateY(${translateY}px)`,
-		transition: `opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`,
-		willChange: 'opacity, transform',
+		transform: translateY === 0 ? undefined : isVisible ? 'none' : `translateY(${translateY}px)`,
+		transition:
+			translateY === 0
+				? `opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`
+				: `opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+		willChange: isVisible ? 'auto' : translateY === 0 ? 'opacity' : 'opacity, transform',
 	}
 
 	return { ref, style, isVisible }

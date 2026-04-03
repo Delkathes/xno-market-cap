@@ -8,6 +8,7 @@ import { Link } from '@/i18n/navigation'
 import { Appear } from '@/components/ui/appear'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -95,6 +96,8 @@ export default async function GetNanoPage({ params }: Props) {
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24">
+			<ModernPageBackground />
+
 			{/* Hero */}
 			<section className="relative z-10 max-w-6xl mx-auto mb-20">
 				<Appear className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 items-stretch">

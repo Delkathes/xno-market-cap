@@ -90,12 +90,12 @@ export default async function NewsArticlePage({ params }: Props) {
 		<main className="container mx-auto px-4 py-8">
 			<div className="max-w-3xl mx-auto">
 				{/* Back navigation */}
-				<Link href="/news">
-					<Button variant="ghost" size="sm" className="mb-6 -ml-2">
+				<Button variant="ghost" size="sm" className="mb-6 -ml-2 cursor-pointer" asChild>
+					<Link href="/news">
 						<ArrowLeft className="w-4 h-4 mr-2" />
 						{t('backToNews')}
-					</Button>
-				</Link>
+					</Link>
+				</Button>
 
 				{/* Article header */}
 				<header className="mb-8">
@@ -129,16 +129,6 @@ export default async function NewsArticlePage({ params }: Props) {
 				<article className="prose-custom">
 					<Content />
 				</article>
-
-				{/* Footer navigation */}
-				<footer className="mt-12 pt-6 border-t border-border">
-					<Link href="/news">
-						<Button variant="outline">
-							<ArrowLeft className="w-4 h-4 mr-2" />
-							{t('backToNews')}
-						</Button>
-					</Link>
-				</footer>
 			</div>
 		</main>
 	)

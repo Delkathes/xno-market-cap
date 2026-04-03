@@ -36,7 +36,7 @@ export default async function SpeculationPage({ params }: Props) {
 	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })
 
 	return (
-		<main className="container mx-auto px-4 py-8">
+		<main className="relative isolate container mx-auto px-4 py-8">
 			<div className="mb-20 sm:mb-12">
 				<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">{t('title')}</h1>
 				<p className="text-muted-foreground text-lg">{t('description')}</p>

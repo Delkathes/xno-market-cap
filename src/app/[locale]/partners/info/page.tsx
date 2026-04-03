@@ -3,6 +3,7 @@ import { cacheLife } from 'next/cache'
 import { Globe, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
+import { Appear } from '@/components/ui/appear'
 import { Badge } from '@/components/ui/badge'
 import { PartnerForm } from '@/components/partner-form'
 
@@ -32,13 +33,13 @@ export default async function PartnerInfoPage({ params }: Props) {
 	return (
 		<main className="container mx-auto py-12 px-4 max-w-5xl">
 			{/* Background Effects */}
-			<div className="fixed inset-0 z-0 pointer-events-none animate-in fade-in duration-500">
+			<div className="fixed inset-0 z-0 pointer-events-none">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#9f9f9f2e_1px,transparent_1px),linear-gradient(to_bottom,#9f9f9f2e_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]  bg-size-[50px_50px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 				<div className="absolute top-0 left-1/2 -translate-x-1/2 w-250 h-125 bg-cyan-500/10 dark:bg-cyan-500/12.5 blur-[120px] rounded-full mix-blend-screen" />
 				<div className="absolute bottom-0 right-0 w-200 h-150 bg-blue-600/10 blur-[100px] rounded-full mix-blend-screen" />
 			</div>
 			{/* Hero Section */}
-			<div className="text-center mb-16 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+			<Appear className="text-center mb-16 space-y-4" translateY={16} duration={700} threshold={0}>
 				<Badge
 					variant="outline"
 					className="mb-4 text-green-600 border-green-400/20 bg-green-400/10 backdrop-blur-sm"
@@ -49,11 +50,11 @@ export default async function PartnerInfoPage({ params }: Props) {
 					{t('heroTitle')}
 				</h1>
 				<p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t('heroDescription')}</p>
-			</div>
+			</Appear>
 
 			<div className="grid md:grid-cols-2 gap-12 items-start">
 				{/* Left Column: Benefits & Details */}
-				<div className="space-y-10 animate-in fade-in slide-in-from-left-4 duration-700 delay-200">
+				<Appear className="space-y-10" delay={200} translateY={0} duration={700} threshold={0}>
 					{/* Benefits Grid */}
 					<div className="grid gap-6">
 						<BenefitItem
@@ -91,10 +92,10 @@ export default async function PartnerInfoPage({ params }: Props) {
 							</div>
 						</div>
 					</div>
-				</div>
+				</Appear>
 
 				{/* Right Column: Form */}
-				<div className="animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
+				<Appear delay={300} translateY={16} duration={700} threshold={0}>
 					<PartnerForm />
 					<p className="mt-4 text-center text-sm text-muted-foreground">
 						{t('contact.text')}{' '}
@@ -105,7 +106,7 @@ export default async function PartnerInfoPage({ params }: Props) {
 							{t('contact.email')}
 						</a>
 					</p>
-				</div>
+				</Appear>
 			</div>
 		</main>
 	)

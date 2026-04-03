@@ -7,6 +7,7 @@ import { Link } from '@/i18n/navigation'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Appear } from '@/components/ui/appear'
+import { ModernPageBackground } from '@/components/modern-page-background'
 import { NanswapIframe } from '@/components/nanswap-widget'
 
 type Props = {
@@ -53,6 +54,8 @@ export default async function SwapNanoPage({ params }: Props) {
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24">
+			<ModernPageBackground />
+
 			{/* Hero */}
 			<section className="relative z-10 max-w-6xl mx-auto mb-14">
 				<Appear className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6 items-stretch">

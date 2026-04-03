@@ -31,6 +31,7 @@ import { Link } from '@/i18n/navigation'
 
 import { Appear } from '@/components/ui/appear'
 import { Button } from '@/components/ui/button'
+import { ModernPageBackground } from '@/components/modern-page-background'
 import { AnimatedTerminal } from '@/components/why-nano/animated-terminal'
 import { AnimatedWorkflow } from '@/components/why-nano/animated-workflow'
 
@@ -62,6 +63,8 @@ export default async function WhyNanoPage({ params }: Props) {
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24">
+			<ModernPageBackground />
+
 			{/* Hero Section */}
 			<Appear className="relative z-10 mb-32 max-w-6xl mx-auto">
 				<div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
