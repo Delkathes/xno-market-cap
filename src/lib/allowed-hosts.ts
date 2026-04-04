@@ -8,7 +8,7 @@ export function getAllowedOrigins(): string[] {
 	const origins: string[] = [
 		// Always allow localhost for development
 		...(env.NODE_ENV === 'development' ? ['http://localhost:3000', 'http://localhost:3001'] : []),
-		...['https://dev--xnomarketcap.netlify.app', 'https://feat-prefetch-layout--xnomarketcap.netlify.app'],
+		...['https://dev--xnomarketcap.netlify.app', env.NEXT_PUBLIC_SITE_URL, 'https://xno-market-cap.vercel.app'],
 	]
 
 	// Add configured site URL
