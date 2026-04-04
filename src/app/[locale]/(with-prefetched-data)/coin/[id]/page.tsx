@@ -8,7 +8,6 @@ import { CRYPTO_IDS } from '@/lib/constants'
 import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
-import type { ChartTimeRange } from '@/lib/types'
 
 import { Card, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -70,13 +69,6 @@ export async function generateStaticParams() {
 	}
 }
 
-// Cache the data fetch, not the component
-async function getCachedPriceChart(coinId: string, days: ChartTimeRange, vsCurrency?: string) {
-	'use cache'
-	cacheLife('minutes')
-	return getPriceChart(coinId, days, vsCurrency)
-}
-
 export default async function CoinDetailPage({ params }: Props) {
 	'use cache'
 	cacheLife('minutes')
@@ -94,7 +86,7 @@ export default async function CoinDetailPage({ params }: Props) {
 	// Prefetch market data and initial chart data
 	void queryClient.prefetchQuery({
 		queryKey: ['price-chart', coinIdParam, '30', isXno ? defaultFiat : undefined],
-		queryFn: () => getCachedPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
+		queryFn: () => getPriceChart(coinIdParam, '30', isXno ? defaultFiat : undefined),
 	})
 
 	return (

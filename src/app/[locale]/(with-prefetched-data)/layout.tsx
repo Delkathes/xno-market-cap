@@ -9,13 +9,6 @@ type Props = {
 	params: Promise<{ locale: string }>
 }
 
-// Cache the data fetch, not the component
-async function getCachedMarketData() {
-	'use cache'
-	cacheLife('minutes')
-	return getMarketData()
-}
-
 export default async function PrefetchLayout({ children }: Props) {
 	'use cache'
 	cacheLife('minutes')
@@ -23,7 +16,7 @@ export default async function PrefetchLayout({ children }: Props) {
 
 	void queryClient.prefetchQuery({
 		queryKey: ['market-data'],
-		queryFn: getCachedMarketData,
+		queryFn: getMarketData,
 	})
 
 	return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>

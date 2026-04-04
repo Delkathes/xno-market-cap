@@ -143,7 +143,7 @@ export default async function RootLayout({ children, params }: Props) {
 				<Providers>
 					<div className="min-h-screen flex flex-col animate-gradient-shift">
 						<Navigation />
-						<main className="flex-1 z-0">{children}</main>
+						<main className="flex-1 z-0 flex flex-col">{children}</main>
 						<Footer locale={locale} />
 					</div>
 				</Providers>
