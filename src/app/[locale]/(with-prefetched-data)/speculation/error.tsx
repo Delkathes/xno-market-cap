@@ -30,7 +30,7 @@ export default function SpeculationError({ error, reset }: { error: Error & { di
 							{t('errorId', { digest: error.digest })}
 						</p>
 					)}
-					<Button onClick={reset} className="gap-2">
+					<Button onClick={reset} className="gap-2 cursor-pointer">
 						<RefreshCw className="w-4 h-4" />
 						{t('tryAgain')}
 					</Button>

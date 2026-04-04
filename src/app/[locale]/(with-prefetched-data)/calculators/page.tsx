@@ -99,7 +99,7 @@ async function _ParityHighlightCalculatorSkeleton() {
 						<Skeleton className="h-4 w-60 mt-1 sm:hidden" />
 					</CardDescription>
 				</div>
-				<Button variant="ghost" size="icon" className="h-8 w-8 flex-none">
+				<Button variant="ghost" size="icon" className="h-8 w-8 flex-none cursor-pointer">
 					<Loader2 className="h-4 w-4 animate-spin" />
 				</Button>
 			</CardHeader>

@@ -111,10 +111,10 @@ export default async function GetNanoPage({ params }: Props) {
 							<p className="text-muted-foreground text-lg mb-2 max-w-2xl">{t('description1')}</p>
 							<p className="text-muted-foreground mb-7 max-w-2xl">{t('description2')}</p>
 							<div className="flex items-center gap-3 flex-wrap">
-								<Button asChild>
+								<Button asChild className="cursor-pointer">
 									<Link href="/swap-nano">{t('swapToNano')}</Link>
 								</Button>
-								<Button variant="outline" asChild>
+								<Button variant="outline" asChild className="cursor-pointer">
 									<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
 										{t('learnAboutNano')} <ExternalLink className="w-4 h-4 ml-2" />
 									</a>
@@ -540,7 +540,7 @@ export default async function GetNanoPage({ params }: Props) {
 							<div>
 								<h3 className="font-semibold text-primary mb-1">{t('newToNano')}</h3>
 								<p className="text-sm text-muted-foreground mb-3">{t('newToNanoDescription')}</p>
-								<Button variant="outline" size="sm" asChild>
+								<Button variant="outline" size="sm" asChild className="cursor-pointer">
 									<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
 										{t('learnAboutNano')} <ExternalLink className="w-3 h-3 ml-1" />
 									</a>

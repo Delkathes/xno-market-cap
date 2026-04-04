@@ -78,7 +78,7 @@ export default async function WhyNanoPage({ params }: Props) {
 						<p className="text-muted-foreground text-lg mb-2 max-w-2xl">{t('hero.description1')}</p>
 						<p className="text-muted-foreground mb-6 max-w-2xl">{t('hero.description2')}</p>
 						<div className="flex items-center gap-4">
-							<Button variant="outline" asChild>
+							<Button variant="outline" asChild className="cursor-pointer">
 								<a href="https://nano.org" target="_blank" rel="noopener noreferrer">
 									{t('hero.learnAboutNano')} <ExternalLink className="w-4 h-4 ml-2" />
 								</a>
@@ -1418,10 +1418,10 @@ export default async function WhyNanoPage({ params }: Props) {
 				<h2 className="text-2xl md:text-3xl font-bold mb-4">{t('cta.title')}</h2>
 				<p className="text-muted-foreground mb-6 max-w-md mx-auto">{t('cta.description')}</p>
 				<div className="flex items-center justify-center gap-4">
-					<Button asChild>
+					<Button asChild className="cursor-pointer">
 						<Link href="/get-nano">{t('cta.getNano')}</Link>
 					</Button>
-					<Button variant="outline" asChild>
+					<Button variant="outline" asChild className="cursor-pointer">
 						<Link href="/swap-nano">{t('cta.swapToXno')}</Link>
 					</Button>
 				</div>

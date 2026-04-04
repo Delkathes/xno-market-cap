@@ -129,7 +129,7 @@ export function ParitySettingsPopover() {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="ghost" size="icon" className="h-8 w-8">
+				<Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer">
 					<Settings className="h-4 w-4" />
 					<span className="sr-only">{t('fiatCurrencySettings')}</span>
 				</Button>
@@ -149,7 +149,7 @@ export function ParitySettingsPopover() {
 									key={fiat}
 									variant={isEnabled ? 'default' : 'outline'}
 									size="sm"
-									className="justify-start"
+									className="justify-start cursor-pointer"
 									onClick={() => toggleFiat(fiat)}
 								>
 									<span className="w-8">{asset.symbol}</span>

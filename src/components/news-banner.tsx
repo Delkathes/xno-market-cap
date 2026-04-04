@@ -56,7 +56,7 @@ export function NewsBanner({ articles }: NewsBannerProps) {
 					<Button
 						variant="ghost"
 						size="icon"
-						className="relative h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm shadow-sm"
+						className="relative h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm shadow-sm cursor-pointer"
 						onClick={() => scroll('left')}
 					>
 						<ChevronLeft className="h-4 w-4" />
@@ -89,7 +89,7 @@ export function NewsBanner({ articles }: NewsBannerProps) {
 					<Button
 						variant="ghost"
 						size="icon"
-						className="relative h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm shadow-sm"
+						className="relative h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm shadow-sm cursor-pointer"
 						onClick={() => scroll('right')}
 					>
 						<ChevronRight className="h-4 w-4" />

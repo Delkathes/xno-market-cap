@@ -116,7 +116,7 @@ export default async function PartnerPage({ params }: Props) {
 						<p className="text-muted-foreground">{partner.description}</p>
 						{/* External link if available */}
 						{partner.externalUrl && (
-							<Button asChild variant="link" className="mt-2">
+							<Button asChild variant="link" className="mt-2 cursor-pointer">
 								<a
 									href={partner.externalUrl}
 									target="_blank"

@@ -56,7 +56,7 @@ export function DonationButton({ className }: { className?: string }) {
 					variant="default"
 					className={cn(
 						className,
-						'flex items-center gap-2 h-auto pt-2.5 px-3 border-accent/50 dark:border-accent/50',
+						'flex items-center gap-2 h-auto pt-2.5 px-3 border-accent/50 dark:border-accent/50 cursor-pointer',
 						buttonAnimationClasses,
 					)}
 					onClick={() => setOpen(true)}

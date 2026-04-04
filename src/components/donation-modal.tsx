@@ -336,12 +336,16 @@ export function DonationModal({
 							</div>
 
 							<div className="flex gap-2 pt-2">
-								<Button variant="outline" className="flex-1 bg-transparent" onClick={handleDonateAgain}>
+								<Button
+									variant="outline"
+									className="flex-1 bg-transparent cursor-pointer"
+									onClick={handleDonateAgain}
+								>
 									{t('donateAgain')}
 								</Button>
 								<Button
 									variant="outline"
-									className="flex-1 bg-transparent"
+									className="flex-1 bg-transparent cursor-pointer"
 									onClick={() => window.open(walletUrl, '_blank')}
 								>
 									<ExternalLink className="h-4 w-4 mr-2" />
@@ -382,7 +386,7 @@ export function DonationModal({
 											variant={selectedAmount === amt ? 'default' : 'outline'}
 											size="sm"
 											onClick={() => handleAmountSelect(amt)}
-											className="font-mono"
+											className="font-mono cursor-pointer"
 										>
 											{amt} XNO
 										</Button>
@@ -446,7 +450,7 @@ export function DonationModal({
 												variant="outline"
 												size="icon"
 												onClick={copyAddress}
-												className="shrink-0 bg-transparent"
+												className="shrink-0 bg-transparent cursor-pointer"
 											>
 												{copied ? (
 													<Check className="h-4 w-4 text-green-500" />
@@ -459,7 +463,7 @@ export function DonationModal({
 
 									<Button
 										variant="outline"
-										className="w-full bg-transparent"
+										className="w-full bg-transparent cursor-pointer"
 										onClick={() => window.open(walletUrl, '_blank')}
 									>
 										<ExternalLink className="h-4 w-4 mr-2" />

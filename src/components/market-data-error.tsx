@@ -26,7 +26,7 @@ export function MarketDataError({ error, compact = false }: MarketDataErrorProps
 			<div className="flex items-center justify-center gap-3 p-4 text-muted-foreground">
 				<AlertCircle className="h-4 w-4 text-destructive" />
 				<span className="text-sm">{t('unableToLoadMarketData')}</span>
-				<Button variant="ghost" size="sm" onClick={handleRetry} className="h-7 px-2">
+				<Button variant="ghost" size="sm" onClick={handleRetry} className="h-7 px-2 cursor-pointer">
 					<RefreshCw className="h-3 w-3 mr-1" />
 					{t('retry')}
 				</Button>
@@ -40,7 +40,7 @@ export function MarketDataError({ error, compact = false }: MarketDataErrorProps
 			<AlertTitle>{t('failedToLoadMarketData')}</AlertTitle>
 			<AlertDescription className="flex items-center justify-between">
 				<span>{error?.message || t('unexpectedError')}</span>
-				<Button variant="outline" size="sm" onClick={handleRetry} className="ml-4 shrink-0">
+				<Button variant="outline" size="sm" onClick={handleRetry} className="ml-4 shrink-0 cursor-pointer">
 					<RefreshCw className="h-3 w-3 mr-1" />
 					{t('tryAgain')}
 				</Button>

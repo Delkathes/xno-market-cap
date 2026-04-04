@@ -122,7 +122,7 @@ ${data.description}
 						{errors.description && <p className="text-xs text-destructive">{errors.description.message}</p>}
 					</div>
 
-					<Button type="submit" className="w-full" disabled={isSubmitting}>
+					<Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
 						{isSubmitting ? (
 							t('submit.loading')
 						) : (

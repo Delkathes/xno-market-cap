@@ -116,7 +116,7 @@ export function NanswapIframe() {
 				<h3 className="text-lg font-semibold">{t('consentGate.title')}</h3>
 				<p className="text-sm text-muted-foreground max-w-md">{t('consentGate.description')}</p>
 				<p className="text-xs text-muted-foreground/70 max-w-md">{t('consentGate.privacyNote')}</p>
-				<Button onClick={() => setConsented(true)} className="mt-2">
+				<Button onClick={() => setConsented(true)} className="mt-2 cursor-pointer">
 					{t('consentGate.loadButton')}
 				</Button>
 			</div>
@@ -341,6 +341,7 @@ export function NanswapWidget() {
 											variant="outline"
 											size="icon"
 											onClick={() => handleCopyAddress(order.payinAddress)}
+											className="cursor-pointer"
 										>
 											{copiedAddress ? (
 												<Check className="w-4 h-4 text-green-500" />
@@ -368,7 +369,7 @@ export function NanswapWidget() {
 						</div>
 					)}
 
-					<Button className="w-full" onClick={handleNewSwap}>
+					<Button className="w-full cursor-pointer" onClick={handleNewSwap}>
 						{t('newSwap')}
 					</Button>
 				</CardContent>
@@ -418,7 +419,7 @@ export function NanswapWidget() {
 						<Button
 							variant="outline"
 							size="icon"
-							className="rounded-full bg-transparent"
+							className="rounded-full bg-transparent cursor-pointer"
 							onClick={handleSwapCurrencies}
 						>
 							<ArrowUpDown className="w-4 h-4" />
@@ -501,7 +502,7 @@ export function NanswapWidget() {
 				)}
 
 				<Button
-					className="w-full"
+					className="w-full cursor-pointer"
 					size="lg"
 					disabled={!canSwap || createOrderMutation.isPending}
 					onClick={handleCreateOrder}
