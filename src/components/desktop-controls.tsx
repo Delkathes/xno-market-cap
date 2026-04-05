@@ -87,17 +87,19 @@ export function DesktopControls() {
 				<span className="sr-only">{t('aboutWebsite')}</span>
 			</Button>
 
-			<Link
-				href="/calculators"
-				className={cn(
-					'px-4 py-2 rounded-md text-sm font-medium transition-colors',
-					pathname === '/calculators'
-						? 'bg-secondary text-secondary-foreground'
-						: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
-				)}
-			>
-				{t('calculators')}
-			</Link>
+			<Button variant="ghost" asChild>
+				<Link
+					href="/calculators"
+					className={cn(
+						'px-4 py-2 rounded-md text-sm font-medium transition-colors',
+						pathname === '/calculators'
+							? 'bg-secondary text-secondary-foreground'
+							: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+					)}
+				>
+					{t('calculators')}
+				</Link>
+			</Button>
 
 			<NavigationMenu>
 				<NavigationMenuList>
@@ -126,7 +128,7 @@ export function DesktopControls() {
 											<div className="flex">
 												<ChartPie
 													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
 														pathname === '/dominance' && 'bg-accent text-accent-foreground',
 													)}
 												/>
@@ -134,7 +136,7 @@ export function DesktopControls() {
 													<div className="text-sm font-medium">{t('dominance')}</div>
 													<p
 														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
 															pathname === '/dominance' &&
 																'bg-accent text-accent-foreground',
 														)}
@@ -158,7 +160,7 @@ export function DesktopControls() {
 											<div className="flex">
 												<Scale
 													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
 														pathname === '/parity' && 'bg-accent text-accent-foreground',
 													)}
 												/>
@@ -166,7 +168,7 @@ export function DesktopControls() {
 													<div className="text-sm font-medium">{t('parity')}</div>
 													<p
 														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
 															pathname === '/parity' &&
 																'bg-accent text-accent-foreground',
 														)}
@@ -190,7 +192,7 @@ export function DesktopControls() {
 											<div className="flex">
 												<Zap
 													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
 														pathname === '/speculation' &&
 															'bg-accent text-accent-foreground',
 													)}
@@ -199,7 +201,7 @@ export function DesktopControls() {
 													<div className="text-sm font-medium">{t('speculation')}</div>
 													<p
 														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
 															pathname === '/speculation' &&
 																'bg-accent text-accent-foreground',
 														)}
@@ -239,7 +241,7 @@ export function DesktopControls() {
 											<div className="flex">
 												<Lightbulb
 													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
 														pathname === '/why-nano' && 'bg-accent text-accent-foreground',
 													)}
 												/>
@@ -247,7 +249,7 @@ export function DesktopControls() {
 													<div className="text-sm font-medium">{t('whyNano')}</div>
 													<p
 														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
 															pathname === '/why-nano' &&
 																'bg-accent text-accent-foreground',
 														)}
@@ -271,7 +273,7 @@ export function DesktopControls() {
 											<div className="flex">
 												<Wallet
 													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
 														pathname === '/get-nano' && 'bg-accent text-accent-foreground',
 													)}
 												/>
@@ -279,7 +281,7 @@ export function DesktopControls() {
 													<div className="text-sm font-medium">{t('getNano')}</div>
 													<p
 														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
 															pathname === '/get-nano' &&
 																'bg-accent text-accent-foreground',
 														)}
@@ -303,7 +305,7 @@ export function DesktopControls() {
 											<div className="flex">
 												<ArrowRightLeft
 													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground',
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
 														pathname === '/swap-nano' && 'bg-accent text-accent-foreground',
 													)}
 												/>
@@ -311,7 +313,7 @@ export function DesktopControls() {
 													<div className="text-sm font-medium">{t('swapToNano')}</div>
 													<p
 														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground',
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
 															pathname === '/swap-nano' &&
 																'bg-accent text-accent-foreground',
 														)}
