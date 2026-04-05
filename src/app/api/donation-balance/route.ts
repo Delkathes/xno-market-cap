@@ -1,9 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { isAllowedOrigin } from '@/lib/allowed-hosts'
 import { DONATION_MILESTONES, RPC_ENDPOINTS } from '@/lib/constants'
 import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
+import { getClientIdentifier, isAllowedApiRequest } from '@/lib/request-security'
 import { getSecurityHeaders } from '@/lib/security-headers'
 import { validateNanoBalanceResponse } from '@/lib/validation'
 
@@ -63,29 +63,6 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 
 	return 0
 }
-function getClientIP(request: NextRequest): string {
-	const forwarded = request.headers.get('x-forwarded-for')
-	if (forwarded) {
-		return forwarded.split(',')[0].trim()
-	}
-	const realIP = request.headers.get('x-real-ip')
-	if (realIP) {
-		return realIP
-	}
-	return 'unknown'
-}
-
-function isValidOrigin(request: NextRequest): boolean {
-	const origin = request.headers.get('origin')
-	const referer = request.headers.get('referer')
-
-	if (!origin && !referer) {
-		const secFetchSite = request.headers.get('sec-fetch-site')
-		return !secFetchSite || secFetchSite === 'same-origin'
-	}
-
-	return isAllowedOrigin(origin, referer)
-}
 
 export async function GET(request: NextRequest): Promise<NextResponse<DonationBalanceResponse | { error: string }>> {
 	const baseHeaders = {
@@ -93,7 +70,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<DonationBa
 		'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
 	}
 
-	if (!isValidOrigin(request)) {
+	if (!isAllowedApiRequest(request)) {
 		return NextResponse.json(
 			{ error: 'Forbidden' },
 			{
@@ -103,7 +80,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<DonationBa
 		)
 	}
 
-	const clientIP = getClientIP(request)
+	const clientIP = getClientIdentifier(request)
 	const rateLimitResult = checkRateLimit(clientIP)
 
 	if (!rateLimitResult.success) {

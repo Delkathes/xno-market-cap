@@ -1,3 +1,4 @@
+import { cacheLife } from 'next/cache'
 import * as v from 'valibot'
 
 import { getCoingeckoClient } from '@/lib/coingecko'
@@ -40,6 +41,9 @@ function mapSdkError(error: unknown, context: string): never {
 }
 
 export async function getMarketData(): Promise<MarketDataResponse> {
+	'use cache'
+	cacheLife('minutes')
+
 	try {
 		const client = getCoingeckoClient()
 

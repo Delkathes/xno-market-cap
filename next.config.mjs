@@ -3,6 +3,21 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
+const contentSecurityPolicy = [
+	"default-src 'self'",
+	"base-uri 'self'",
+	"form-action 'self'",
+	"frame-ancestors 'none'",
+	"object-src 'none'",
+	"script-src 'self' 'unsafe-inline'",
+	"style-src 'self' 'unsafe-inline'",
+	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com",
+	"font-src 'self' data:",
+	"connect-src 'self' https: wss://ws.nano.to wss://nanoslo.0x.no wss://node.somenano.com wss://rainstorm.city",
+	"worker-src 'self' blob:",
+	'upgrade-insecure-requests',
+].join('; ')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	poweredByHeader: false,
@@ -73,10 +88,12 @@ const nextConfig = {
 			source: '/:path*',
 			headers: [
 				// Security headers
+				{ key: 'Content-Security-Policy', value: contentSecurityPolicy },
 				{ key: 'X-Content-Type-Options', value: 'nosniff' },
 				{ key: 'X-Frame-Options', value: 'DENY' },
 				{ key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
 				{ key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+				{ key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
 				{
 					key: 'Permissions-Policy',
 					value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()',
@@ -86,6 +103,7 @@ const nextConfig = {
 					key: 'Strict-Transport-Security',
 					value: 'max-age=31536000; includeSubDomains; preload',
 				},
+				{ key: 'X-DNS-Prefetch-Control', value: 'off' },
 			],
 		},
 	],

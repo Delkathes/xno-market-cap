@@ -1,39 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { isAllowedOrigin } from '@/lib/allowed-hosts'
 import { getMarketData, RateLimitError, UpstreamError, ValidationError } from '@/lib/market-data-service'
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
+import { getClientIdentifier, isAllowedApiRequest } from '@/lib/request-security'
 import { getSecurityHeaders } from '@/lib/security-headers'
-
-function getClientIP(request: NextRequest): string {
-	// Check common headers for proxied requests
-	const forwarded = request.headers.get('x-forwarded-for')
-	if (forwarded) {
-		return forwarded.split(',')[0].trim()
-	}
-	const realIP = request.headers.get('x-real-ip')
-	if (realIP) {
-		return realIP
-	}
-	// Fallback
-	return 'unknown'
-}
-
-function isValidOrigin(request: NextRequest): boolean {
-	const origin = request.headers.get('origin')
-	const referer = request.headers.get('referer')
-
-	// If no origin/referer, only allow server-side requests (SSR, prefetch)
-	// Browser requests always include sec-fetch-site header
-	if (!origin && !referer) {
-		const secFetchSite = request.headers.get('sec-fetch-site')
-		// No sec-fetch-site means it's likely a server-side request (Next.js SSR)
-		// 'same-origin' means it's a same-site browser request (also allowed)
-		return !secFetchSite || secFetchSite === 'same-origin'
-	}
-
-	return isAllowedOrigin(origin, referer)
-}
 
 export async function GET(request: NextRequest) {
 	const baseHeaders = {
@@ -41,7 +11,7 @@ export async function GET(request: NextRequest) {
 		'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
 	}
 
-	if (!isValidOrigin(request)) {
+	if (!isAllowedApiRequest(request)) {
 		return NextResponse.json(
 			{ error: 'Forbidden' },
 			{
@@ -51,7 +21,7 @@ export async function GET(request: NextRequest) {
 		)
 	}
 
-	const clientIP = getClientIP(request)
+	const clientIP = getClientIdentifier(request)
 	const rateLimitResult = checkRateLimit(clientIP)
 
 	if (!rateLimitResult.success) {

@@ -1,42 +1,51 @@
 import { env } from '@/env'
 
+function normalizeOrigin(value: string): string | null {
+	try {
+		return new URL(value).origin
+	} catch {
+		return null
+	}
+}
+
 /**
  * Get all allowed origins for API requests
  * Includes configured site URL plus Netlify preview URLs
  */
 export function getAllowedOrigins(): string[] {
-	const origins: string[] = [
+	const origins = [
 		// Always allow localhost for development
 		...(env.NODE_ENV === 'development' ? ['http://localhost:3000', 'http://localhost:3001'] : []),
 		...['https://dev--xnomarketcap.netlify.app', env.NEXT_PUBLIC_SITE_URL, 'https://xno-market-cap.vercel.app'],
 	]
-
-	// Add configured site URL
-	if (env.NEXT_PUBLIC_SITE_URL) {
-		origins.push(env.NEXT_PUBLIC_SITE_URL)
-	}
 
 	// Add NETLIFY URL if available
 	if (env.URL) {
 		origins.push(env.URL)
 	}
 
-	return origins.filter(Boolean)
+	return [
+		...new Set(
+			origins.map((origin) => normalizeOrigin(origin)).filter((origin): origin is string => Boolean(origin)),
+		),
+	]
 }
 
 /**
  * Check if a request origin/referer is allowed
  */
 export function isAllowedOrigin(origin: string | null, referer: string | null): boolean {
-	const allowedOrigins = getAllowedOrigins()
+	const allowedOrigins = new Set(getAllowedOrigins())
+	const normalizedOrigin = origin ? normalizeOrigin(origin) : null
+	const normalizedReferer = referer ? normalizeOrigin(referer) : null
 
 	// Check origin
-	if (origin && allowedOrigins.some((host) => origin.startsWith(host))) {
+	if (normalizedOrigin && allowedOrigins.has(normalizedOrigin)) {
 		return true
 	}
 
 	// Check referer as fallback
-	if (referer && allowedOrigins.some((host) => referer.startsWith(host))) {
+	if (normalizedReferer && allowedOrigins.has(normalizedReferer)) {
 		return true
 	}
 

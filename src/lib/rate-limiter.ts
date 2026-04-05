@@ -8,8 +8,16 @@ interface RateLimitEntry {
 	resetTime: number
 }
 
-// In-memory store for rate limiting (resets on server restart)
-const rateLimitStore = new Map<string, RateLimitEntry>()
+declare global {
+	var __xnoRateLimitStore: Map<string, RateLimitEntry> | undefined
+	var __xnoRateLimitLastCleanup: number | undefined
+}
+
+// Best-effort process-local store. In distributed/serverless environments,
+// this still won't be globally shared, but persisting on globalThis avoids
+// module re-initialization resets within a warm runtime.
+const rateLimitStore = globalThis.__xnoRateLimitStore ?? new Map<string, RateLimitEntry>()
+globalThis.__xnoRateLimitStore = rateLimitStore
 
 // Configuration
 const RATE_LIMIT_WINDOW_MS = 60 * 1000 // 1 minute window
@@ -19,6 +27,10 @@ const MAX_REQUESTS_PER_WINDOW = 60 // 60 requests per minute per IP
 const CLEANUP_INTERVAL_MS = 5 * 60 * 1000
 
 let lastCleanup = Date.now()
+
+if (globalThis.__xnoRateLimitLastCleanup) {
+	lastCleanup = globalThis.__xnoRateLimitLastCleanup
+}
 
 function cleanupExpiredEntries() {
 	const now = Date.now()
@@ -30,6 +42,7 @@ function cleanupExpiredEntries() {
 		}
 	}
 	lastCleanup = now
+	globalThis.__xnoRateLimitLastCleanup = now
 }
 
 export interface RateLimitResult {

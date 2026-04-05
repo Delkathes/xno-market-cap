@@ -1,9 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { isAllowedOrigin } from '@/lib/allowed-hosts'
 import { RateLimitError, UpstreamError, ValidationError } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
+import { getClientIdentifier, isAllowedApiRequest } from '@/lib/request-security'
 import { getSecurityHeaders } from '@/lib/security-headers'
 import type { ChartTimeRange } from '@/lib/types'
 
@@ -15,34 +15,6 @@ type RouteParams = {
 	}>
 }
 
-function getClientIP(request: NextRequest): string {
-	const forwarded = request.headers.get('x-forwarded-for')
-	if (forwarded) {
-		return forwarded.split(',')[0].trim()
-	}
-	const realIP = request.headers.get('x-real-ip')
-	if (realIP) {
-		return realIP
-	}
-	return 'unknown'
-}
-
-function isValidOrigin(request: NextRequest): boolean {
-	const origin = request.headers.get('origin')
-	const referer = request.headers.get('referer')
-
-	// If no origin/referer, only allow server-side requests (SSR, prefetch)
-	// Browser requests always include sec-fetch-site header
-	if (!origin && !referer) {
-		const secFetchSite = request.headers.get('sec-fetch-site')
-		// No sec-fetch-site means it's likely a server-side request (Next.js SSR)
-		// 'same-origin' means it's a same-site browser request (also allowed)
-		return !secFetchSite || secFetchSite === 'same-origin'
-	}
-
-	return isAllowedOrigin(origin, referer)
-}
-
 export async function GET(request: NextRequest, { params }: RouteParams) {
 	const { coinId, days, vsCurrency: vsCurrencyArr } = await params
 	const vsCurrency = vsCurrencyArr?.[0] // Optional catch-all gives array
@@ -52,7 +24,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 		'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
 	}
 
-	if (!isValidOrigin(request)) {
+	if (!isAllowedApiRequest(request)) {
 		return NextResponse.json(
 			{ error: 'Forbidden' },
 			{
@@ -62,7 +34,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 		)
 	}
 
-	const clientIP = getClientIP(request)
+	const clientIP = getClientIdentifier(request)
 	const rateLimitResult = checkRateLimit(clientIP)
 
 	if (!rateLimitResult.success) {

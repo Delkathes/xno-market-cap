@@ -1,3 +1,4 @@
+import { cacheLife } from 'next/cache'
 import * as v from 'valibot'
 
 import { getCoingeckoClient } from '@/lib/coingecko'
@@ -107,6 +108,9 @@ export async function getPriceChart(
 	days: ChartTimeRange,
 	vsCurrency?: string,
 ): Promise<PriceChartResponse> {
+	'use cache'
+	cacheLife('minutes')
+
 	// Validate inputs
 	const daysResult = v.safeParse(ChartTimeRangeSchema, days)
 	if (!daysResult.success) {
