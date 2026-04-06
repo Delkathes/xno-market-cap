@@ -65,6 +65,8 @@ export const ALLOWED_GOAL_ORIGINS = [
 	new RegExp(`^${env.NEXT_PUBLIC_SITE_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`),
 	/^https:\/\/(?:dev--)?xnomarketcap\.netlify\.app$/,
 	/^https:\/\/xno-market-cap(?:-[a-z0-9-]+)*\.vercel\.app$/,
+	/^https:\/\/xnomarketcap.com$/,
+	/^https:\/\/nanomarketcap.com$/,
 	/^http:\/\/localhost(:\d+)?$/,
 	// /^http:\/\/127\.0\.0\.1(:\d+)?$/,
 ] as const

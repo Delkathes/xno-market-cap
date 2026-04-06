@@ -16,7 +16,15 @@ export function getAllowedOrigins(): string[] {
 	const origins = [
 		// Always allow localhost for development
 		...(env.NODE_ENV === 'development' ? ['http://localhost:3000', 'http://localhost:3001'] : []),
-		...['https://dev--xnomarketcap.netlify.app', env.NEXT_PUBLIC_SITE_URL, 'https://xno-market-cap.vercel.app'],
+		...[
+			'https://dev--xnomarketcap.netlify.app',
+			env.NEXT_PUBLIC_SITE_URL,
+			'https://xno-market-cap.vercel.app',
+			'https://xnomarketcap.com',
+			'https://nanomarketcap.com',
+			'https://www.xnomarketcap.com',
+			'https://www.nanomarketcap.com',
+		],
 	]
 
 	// Add NETLIFY URL if available
