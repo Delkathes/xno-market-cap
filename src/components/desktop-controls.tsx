@@ -220,7 +220,9 @@ export function DesktopControls() {
 						<NavigationMenuTrigger
 							className={cn(
 								'px-4 py-2 rounded-md text-sm font-medium transition-colors bg-transparent',
-								pathname.startsWith('/swap-nano') || pathname.startsWith('/get-nano')
+								pathname.startsWith('/swap-nano') ||
+									pathname.startsWith('/get-nano') ||
+									pathname.startsWith('/why-nano')
 									? 'bg-secondary text-secondary-foreground'
 									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 							)}
