@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
-	cacheLife('days')
+	cacheLife('max')
 
 	const { locale, slug } = await params
 	const article = await getNewsMetadata(slug, locale)

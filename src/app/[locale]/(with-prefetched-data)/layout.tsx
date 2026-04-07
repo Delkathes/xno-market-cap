@@ -11,7 +11,7 @@ type Props = {
 
 export default async function PrefetchLayout({ children }: Props) {
 	'use cache'
-	cacheLife('hours')
+	cacheLife('max')
 	const queryClient = getQueryClient()
 
 	void queryClient.prefetchQuery({
