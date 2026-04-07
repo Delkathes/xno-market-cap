@@ -14,7 +14,7 @@ export default async function PrefetchLayout({ children }: Props) {
 	cacheLife('hours')
 	const queryClient = getQueryClient()
 
-	await queryClient.prefetchQuery({
+	void queryClient.prefetchQuery({
 		queryKey: ['market-data'],
 		queryFn: getMarketData,
 	})
