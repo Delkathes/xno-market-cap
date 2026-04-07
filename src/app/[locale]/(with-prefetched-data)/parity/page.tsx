@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { Loader2 } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -15,6 +16,9 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	'use cache'
+	cacheLife('hours')
+
 	const { locale } = await params
 	const t = await getTranslations({ locale, namespace: 'metadata.parity' })
 
@@ -33,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ParityPage({ params }: Props) {
+	'use cache'
+	cacheLife('hours')
+
 	const { locale } = await params
 
 	setRequestLocale(locale)

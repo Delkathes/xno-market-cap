@@ -15,6 +15,9 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	'use cache'
+	cacheLife('max')
+
 	const { locale } = await params
 	const t = await getTranslations({ locale, namespace: 'metadata.getNano' })
 

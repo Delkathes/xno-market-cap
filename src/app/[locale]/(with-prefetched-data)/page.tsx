@@ -18,6 +18,9 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	'use cache'
+	cacheLife('hours')
+
 	const { locale } = await params
 	const t = await getTranslations({ locale, namespace: 'metadata.home' })
 
@@ -37,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Home({ params }: Props) {
 	'use cache'
-	cacheLife('minutes')
+	cacheLife('hours')
 
 	const { locale } = await params
 	setRequestLocale(locale)
