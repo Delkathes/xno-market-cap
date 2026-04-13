@@ -37,7 +37,7 @@ function PartnerCardSkeleton() {
 function GetPromotedCard() {
 	const t = useTranslations('partners.getPromoted')
 	return (
-		<Link href="/partners/info" className="group block" prefetch={false}>
+		<Link href="/partners/info" className="group block">
 			<div className="relative overflow-hidden rounded-lg border border-green-500 bg-linear-to-r from-green-400/10 via-blue-400/10 to-green-400/10 p-4 shadow-lg transition-all">
 				{/* CTA badge */}
 				<div className="absolute right-3 top-3">
