@@ -13,7 +13,7 @@ export interface AssetData extends AssetConfig {
 
 export type AssetId = keyof typeof ASSET_CONFIG
 
-export interface AssetConfig {
+interface AssetConfig {
 	id: string
 	coingeckoId?: string // For live data fetching
 	label: string
@@ -74,8 +74,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.USD.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-green-500/20', text: 'text-green-600' },
-		staticSupply: { current: 20_800_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 5_439_000_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 	EUR: {
 		id: FiatCurrency.EUR,
@@ -84,8 +84,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.EUR.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-blue-500/20', text: 'text-blue-600' },
-		staticSupply: { current: 16_000_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 4_245_000_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 	GBP: {
 		id: FiatCurrency.GBP,
@@ -94,8 +94,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.GBP.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-purple-500/20', text: 'text-purple-600' },
-		staticSupply: { current: 3_200_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 600_000_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 	JPY: {
 		id: FiatCurrency.JPY,
@@ -104,8 +104,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.JPY.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-red-500/20', text: 'text-red-600' },
-		staticSupply: { current: 2_100_000_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 589_889_000_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 	CHF: {
 		id: FiatCurrency.CHF,
@@ -114,8 +114,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.CHF.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-red-600/20', text: 'text-red-700' },
-		staticSupply: { current: 1_100_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 502_500_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 	CAD: {
 		id: FiatCurrency.CAD,
@@ -124,8 +124,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.CAD.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-red-500/20', text: 'text-red-500' },
-		staticSupply: { current: 2_400_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 248_700_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 	AUD: {
 		id: FiatCurrency.AUD,
@@ -134,8 +134,8 @@ export const ASSET_CONFIG: Record<string, AssetConfig> = {
 		symbol: FIAT_CURRENCY_CONFIG.AUD.symbol,
 		type: 'fiat',
 		color: { bg: 'bg-yellow-500/20', text: 'text-yellow-600' },
-		staticSupply: { current: 2_800_000_000_000, max: null },
-		note: 'M2 Supply, no cap',
+		staticSupply: { current: 304_000_000_000, max: null },
+		note: 'M0 Supply, no cap',
 	},
 }
 

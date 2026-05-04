@@ -297,7 +297,7 @@
 		"funFactNotable": "Du würdest mehr XNO besitzen als etwa 1 von {oneIn} Menschen auf der Erde je haben könnte!",
 		"funFactStarting": "Jeder {xno} zählt! Nanos festes Angebot bedeutet, dass dein Anteil niemals verwässert werden kann.",
 		"realFact": "Echte Tatsache",
-		"realFactComparison": "Dein XNO-Anteil ({xnoPercentage}) ist {ratio}× größer als dein {fiat}-Anteil ({fiatPercentage}) der M2-Geldmenge.",
+		"realFactComparison": "Dein XNO-Anteil ({xnoPercentage}) ist {ratio}× größer als dein {fiat}-Anteil ({fiatPercentage}) der M0-Geldmenge.",
 		"lockGuide": "Sperre Werte um sie fest zu halten während du andere anpasst. Maximal 2 Sperren erlaubt.",
 		"clickToLock": "Klicke um diesen Wert zu sperren",
 		"clickToUnlock": "Klicke um diesen Wert zu entsperren",

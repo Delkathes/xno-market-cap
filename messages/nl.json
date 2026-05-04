@@ -297,7 +297,7 @@
 		"funFactNotable": "Je zou meer XNO bezitten dan ongeveer 1 op de {oneIn} mensen op aarde ooit zou kunnen hebben!",
 		"funFactStarting": "Elke {xno} telt! Nano's vaste voorraad betekent dat jouw aandeel nooit kan worden verwaterd.",
 		"realFact": "Echt feit",
-		"realFactComparison": "Je XNO-aandeel ({xnoPercentage}) is {ratio}× groter dan je {fiat}-aandeel ({fiatPercentage}) van de M2-geldhoeveelheid.",
+		"realFactComparison": "Je XNO-aandeel ({xnoPercentage}) is {ratio}× groter dan je {fiat}-aandeel ({fiatPercentage}) van de M0-geldhoeveelheid.",
 		"lockGuide": "Vergrendel waarden om ze vast te houden terwijl je andere aanpast. Maximaal 2 vergrendelingen toegestaan.",
 		"clickToLock": "Klik om deze waarde te vergrendelen",
 		"clickToUnlock": "Klik om deze waarde te ontgrendelen",

@@ -892,13 +892,13 @@ export function ParityCalculator() {
 						</p>
 					</div>
 				)}
-				{/* Real fact - XNO supply % vs fiat M2 supply % comparison */}
+				{/* Real fact - XNO supply % vs fiat M0 supply % comparison */}
 				{amount > 0 &&
 					perPersonSupplyPercentage > 0 &&
 					(() => {
-						const fiatM2Supply = ASSET_CONFIG[selectedFiat]?.staticSupply.current
-						if (!fiatM2Supply) return null
-						const fiatSupplyPercentage = (amount / fiatM2Supply) * 100
+						const fiatM0Supply = ASSET_CONFIG[selectedFiat]?.staticSupply.current
+						if (!fiatM0Supply) return null
+						const fiatSupplyPercentage = (amount / fiatM0Supply) * 100
 						const ratio = perPersonSupplyPercentage / fiatSupplyPercentage
 						if (!Number.isFinite(ratio) || ratio <= 1) return null
 						return (

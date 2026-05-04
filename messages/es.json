@@ -297,7 +297,7 @@
 		"funFactNotable": "¡Poseerías más XNO de lo que aproximadamente 1 de cada {oneIn} personas en la Tierra podría tener!",
 		"funFactStarting": "¡Cada {xno} cuenta! El suministro fijo de Nano significa que tu porción nunca puede ser diluida.",
 		"realFact": "Dato real",
-		"realFactComparison": "Tu porción de XNO ({xnoPercentage}) es {ratio}× mayor que tu porción de {fiat} ({fiatPercentage}) de la masa monetaria M2.",
+		"realFactComparison": "Tu porción de XNO ({xnoPercentage}) es {ratio}× mayor que tu porción de {fiat} ({fiatPercentage}) de la masa monetaria M0.",
 		"lockGuide": "Bloquea valores para mantenerlos fijos mientras ajustas otros. Máximo 2 bloqueos permitidos.",
 		"clickToLock": "Clic para bloquear este valor",
 		"clickToUnlock": "Clic para desbloquear este valor",

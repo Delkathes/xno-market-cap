@@ -30,7 +30,7 @@ export const CRYPTO_IDS = {
 	BITCOIN: 'bitcoin',
 	ETHEREUM: 'ethereum',
 } as const
-export type CryptoId = (typeof CRYPTO_IDS)[keyof typeof CRYPTO_IDS]
+type CryptoId = (typeof CRYPTO_IDS)[keyof typeof CRYPTO_IDS]
 
 // Crypto tickers (uppercase, used for display)
 export enum CryptoTicker {
@@ -75,10 +75,10 @@ export const ALLOWED_GOAL_ORIGINS = [
 export const DONATION_FIXED_AMOUNTS = [1, 5, 10, 25, 50] as const
 
 // Donation milestones
-export type MilestoneId = 'development' | 'maintenance' | 'opensource'
-export type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
+type MilestoneId = 'development' | 'maintenance' | 'opensource'
+type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
 
-export interface DonationMilestoneConfig {
+interface DonationMilestoneConfig {
 	id: MilestoneId
 	targetXno: number
 	walletAddress: string

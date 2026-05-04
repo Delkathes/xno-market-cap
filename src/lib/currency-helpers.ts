@@ -153,7 +153,7 @@ export function formatSmartFiatPrice(value: number, currency: FiatCurrency): str
 // LARGE NUMBER FORMATTING
 // =============================================================================
 
-export interface FormatLargeNumberOptions {
+interface FormatLargeNumberOptions {
 	/** Unit suffix to append (e.g., 'XNO', 'BTC', 'kg') */
 	unit?: string
 	/** Number of decimal places (default: 2) */
@@ -198,7 +198,7 @@ export function formatLargeNumber(value: number, options: FormatLargeNumberOptio
 // XNO AMOUNT FORMATTING
 // =============================================================================
 
-export interface FormatXNOAmountOptions {
+interface FormatXNOAmountOptions {
 	/** Show Ӿ symbol prefix (default: false) */
 	showSymbol?: boolean
 	/** Use compact notation with M/K suffixes (default: true for large values) */
@@ -257,7 +257,7 @@ export function formatXNOAmount(value: number, options: FormatXNOAmountOptions =
 // PERCENTAGE FORMATTING
 // =============================================================================
 
-export interface FormatPercentageOptions {
+interface FormatPercentageOptions {
 	/** High precision mode for tiny values (uses adaptive decimals, default: false) */
 	highPrecision?: boolean
 	/** Show + sign for positive values (default: false) */
@@ -294,7 +294,7 @@ export function formatPercentage(value: number, options: FormatPercentageOptions
 // CRYPTO PRICE FORMATTING
 // =============================================================================
 
-export interface FormatCryptoPriceOptions {
+interface FormatCryptoPriceOptions {
 	/** Crypto symbol (e.g., 'BTC', 'ETH') */
 	symbol: string
 	/** For BTC: display as satoshis instead of BTC (default: false) */
@@ -346,9 +346,9 @@ export function formatCryptoMarketCap(value: number, options: FormatCryptoPriceO
 // SUPPLY FORMATTING
 // =============================================================================
 
-export type SupplyType = 'fiat' | 'crypto' | 'commodity'
+type SupplyType = 'fiat' | 'crypto' | 'commodity'
 
-export interface FormatSupplyOptions {
+interface FormatSupplyOptions {
 	/** Type of asset for appropriate formatting */
 	type: SupplyType
 	/** Symbol for fiat currencies (e.g., '$', '€') */
@@ -394,7 +394,7 @@ export function formatMaxSupply(value: number | null, options: FormatSupplyOptio
 // PARITY VALUE FORMATTING
 // =============================================================================
 
-export interface FormatParityValueOptions {
+interface FormatParityValueOptions {
 	/** Symbol for fiat (e.g., '$') or unit for crypto/commodity */
 	symbol?: string
 	/** Unit suffix (e.g., 'oz', 'XNO') */

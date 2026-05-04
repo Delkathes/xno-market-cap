@@ -297,7 +297,7 @@
 		"funFactNotable": "Vous posséderiez plus de XNO que ce que 1 personne sur {oneIn} sur Terre pourrait jamais détenir !",
 		"funFactStarting": "Chaque {xno} compte ! L'offre fixe de Nano signifie que votre part ne peut jamais être diluée.",
 		"realFact": "Fait réel",
-		"realFactComparison": "Votre part de XNO ({xnoPercentage}) est {ratio}× plus grande que votre part de {fiat} ({fiatPercentage}) de la masse monétaire M2.",
+		"realFactComparison": "Votre part de XNO ({xnoPercentage}) est {ratio}× plus grande que votre part de {fiat} ({fiatPercentage}) de la masse monétaire M0.",
 		"lockGuide": "Verrouillez des valeurs pour les garder fixes tout en ajustant les autres. Maximum 2 verrous autorisés.",
 		"clickToLock": "Cliquez pour verrouiller cette valeur",
 		"clickToUnlock": "Cliquez pour déverrouiller cette valeur",

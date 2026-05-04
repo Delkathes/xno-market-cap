@@ -38,13 +38,13 @@ export interface MarketDataResponse {
 	xnoData: CryptoData
 }
 
-export interface NanoBalanceResponse {
+interface NanoBalanceResponse {
 	balance: string
 	pending?: string
 	receivable?: string
 }
 
-export interface WebSocketConfirmation {
+interface WebSocketConfirmation {
 	topic: 'confirmation'
 	time: string
 	message: {

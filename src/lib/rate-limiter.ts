@@ -45,7 +45,7 @@ function cleanupExpiredEntries() {
 	globalThis.__xnoRateLimitLastCleanup = now
 }
 
-export interface RateLimitResult {
+interface RateLimitResult {
 	success: boolean
 	remaining: number
 	resetTime: number

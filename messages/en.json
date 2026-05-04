@@ -291,7 +291,7 @@
 		"funFactNotable": "You'd own more XNO than roughly 1 in every {oneIn} people on Earth could ever hold!",
 		"funFactStarting": "Every {xno} counts! Nano's fixed supply means your share can never be diluted.",
 		"realFact": "Real fact",
-		"realFactComparison": "Your XNO share ({xnoPercentage}) is {ratio}× larger than your {fiat} share ({fiatPercentage}) of M2 money supply.",
+		"realFactComparison": "Your XNO share ({xnoPercentage}) is {ratio}× larger than your {fiat} share ({fiatPercentage}) of M0 money supply.",
 		"lockGuide": "Lock values to keep them fixed while adjusting others. Up to 2 locks allowed.",
 		"clickToLock": "Click to lock this value",
 		"clickToUnlock": "Click to unlock this value",
