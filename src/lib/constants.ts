@@ -76,9 +76,9 @@ export const DONATION_FIXED_AMOUNTS = [1, 5, 10, 25, 50] as const
 
 // Donation milestones
 type MilestoneId = 'development' | 'maintenance' | 'opensource'
-type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
+export type MilestoneIcon = 'rocket' | 'shield' | 'code' | 'heart'
 
-interface DonationMilestoneConfig {
+export interface DonationMilestoneConfig {
 	id: MilestoneId
 	targetXno: number
 	walletAddress: string
