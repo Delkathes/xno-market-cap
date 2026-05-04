@@ -16,7 +16,7 @@ const contentSecurityPolicy = [
 	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com",
 	"font-src 'self' data:",
 	"connect-src 'self' https: wss://ws.nano.to wss://nanoslo.0x.no wss://node.somenano.com wss://rainstorm.city",
-	"frame-src https://nanswap.com",
+	"frame-src https://nanswap.com https://vercel.live",
 	"worker-src 'self' blob:",
 	'upgrade-insecure-requests',
 ].join('; ')
