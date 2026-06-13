@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { memo, useState } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, FiatCurrency } from '@/lib/constants'
@@ -22,19 +22,14 @@ import { MarketDataError } from '@/components/market-data-error'
 
 interface SpeculationRowProps {
 	crypto: CryptoData
+	index: number
 	formatMarketCap: (mcUSD: number) => string
 	formatPrice: (priceInFiat: number) => string
 	multiplier: number
 	xnoPriceIf: number
 }
 
-const SpeculationRow = memo(function SpeculationRow({
-	crypto,
-	formatMarketCap,
-	formatPrice,
-	multiplier,
-	xnoPriceIf,
-}: SpeculationRowProps) {
+function SpeculationRow({ crypto, index, formatMarketCap, formatPrice, multiplier, xnoPriceIf }: SpeculationRowProps) {
 	return (
 		<tr className="border-b border-border hover:bg-muted/50 transition-colors">
 			<td className="px-3 py-2">
@@ -48,6 +43,7 @@ const SpeculationRow = memo(function SpeculationRow({
 						width={32}
 						height={32}
 						className="w-6 h-6 sm:w-8 sm:h-8"
+						unoptimized={index < 25}
 					/>
 					<div>
 						<p className="font-semibold text-sm line-clamp-3">{crypto.name}</p>
@@ -77,7 +73,7 @@ const SpeculationRow = memo(function SpeculationRow({
 			</td>
 		</tr>
 	)
-})
+}
 
 export function SpeculationTable() {
 	const t = useTranslations('speculation')
@@ -135,7 +131,7 @@ export function SpeculationTable() {
 							</tr>
 						</thead>
 						<tbody>
-							{otherCryptos?.map((crypto) => {
+							{otherCryptos?.map((crypto, index) => {
 								const marketCapInFiat = crypto.market_cap * rate
 								const xnoPriceIf = marketCapInFiat / xnoCirculatingSupply
 								const multiplier = currentXnoPrice > 0 ? xnoPriceIf / currentXnoPrice : 0
@@ -143,6 +139,7 @@ export function SpeculationTable() {
 								return (
 									<SpeculationRow
 										key={crypto.id}
+										index={index}
 										crypto={crypto}
 										formatMarketCap={(marketCapUSD: number) => {
 											const marketCap = marketCapUSD * rate

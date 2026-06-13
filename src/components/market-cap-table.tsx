@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { memo, useState } from 'react'
+import { useState } from 'react'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -19,6 +19,7 @@ import { MarketDataError } from '@/components/market-data-error'
 
 interface CryptoRowProps {
 	crypto: CryptoData
+	index: number
 	isXNO: boolean
 	valueInXNO: number
 	marketCapInXNO: number
@@ -28,8 +29,9 @@ interface CryptoRowProps {
 	relativeChange7d: number
 }
 
-const CryptoRow = memo(function CryptoRow({
+function CryptoRow({
 	crypto,
+	index,
 	isXNO,
 	valueInXNO,
 	marketCapInXNO,
@@ -62,6 +64,7 @@ const CryptoRow = memo(function CryptoRow({
 							width={32}
 							height={32}
 							className="w-6 h-6 sm:w-8 sm:h-8"
+							unoptimized={index < 25}
 						/>
 						<div>
 							<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
@@ -90,7 +93,7 @@ const CryptoRow = memo(function CryptoRow({
 			</td>
 		</tr>
 	)
-})
+}
 
 function Change({ change }: { change: number }) {
 	return (
@@ -296,7 +299,7 @@ export function MarketCapTable() {
 					</tr>
 				</thead>
 				<tbody>
-					{sortedData?.map((crypto) => {
+					{sortedData?.map((crypto, index) => {
 						const isXNO = crypto.id === CRYPTO_IDS.NANO
 
 						const valueInXNO = crypto.current_price / xnoData.current_price
@@ -318,6 +321,7 @@ export function MarketCapTable() {
 							<CryptoRow
 								key={crypto.id}
 								crypto={crypto}
+								index={index}
 								isXNO={isXNO}
 								valueInXNO={valueInXNO}
 								marketCapInXNO={marketCapInXNO}
