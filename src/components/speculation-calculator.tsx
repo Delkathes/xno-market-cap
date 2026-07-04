@@ -167,6 +167,7 @@ export function SpeculationCalculator() {
 												width={20}
 												height={20}
 												className="w-5 h-5 rounded-full"
+												unoptimized
 											/>
 											<span>{crypto.name}</span>
 											<span className="text-muted-foreground text-xs ml-auto">
@@ -245,6 +246,7 @@ export function SpeculationCalculator() {
 									width={40}
 									height={40}
 									className="w-10 h-10 rounded-full"
+									unoptimized
 								/>
 							)}
 							<div>

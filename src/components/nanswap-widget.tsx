@@ -46,6 +46,7 @@ const CurrencySelectItem = memo(function CurrencySelectItem({
 					width={20}
 					height={20}
 					className="rounded-full"
+					unoptimized
 				/>
 				<span>{currencyKey}</span>
 				{currency.feeless && (
@@ -251,6 +252,7 @@ export function NanswapWidget() {
 									width={20}
 									height={20}
 									className="rounded-full"
+									unoptimized
 								/>
 								<span>{value}</span>
 							</div>

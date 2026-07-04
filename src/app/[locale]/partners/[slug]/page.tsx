@@ -101,6 +101,7 @@ export default async function PartnerPage({ params }: Props) {
 								alt={partner.partnerName}
 								fill
 								className="object-contain p-1"
+								unoptimized
 							/>
 						</div>
 					)}
