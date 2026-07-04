@@ -64,7 +64,7 @@ function CryptoRow({
 							width={32}
 							height={32}
 							className="w-6 h-6 sm:w-8 sm:h-8"
-							unoptimized={index < 25}
+							unoptimized
 						/>
 						<div>
 							<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>

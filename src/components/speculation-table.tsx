@@ -43,7 +43,7 @@ function SpeculationRow({ crypto, index, formatMarketCap, formatPrice, multiplie
 						width={32}
 						height={32}
 						className="w-6 h-6 sm:w-8 sm:h-8"
-						unoptimized={index < 25}
+						unoptimized
 					/>
 					<div>
 						<p className="font-semibold text-sm line-clamp-3">{crypto.name}</p>

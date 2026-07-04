@@ -300,7 +300,7 @@ function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: str
 				{logoUrl && (
 					<div className="shrink-0">
 						<div className="relative h-12 w-12 overflow-hidden">
-							<Image src={logoUrl} alt={partnerName} fill className="object-contain p-1" />
+							<Image src={logoUrl} alt={partnerName} fill className="object-contain p-1" unoptimized />
 						</div>
 					</div>
 				)}

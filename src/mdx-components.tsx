@@ -119,6 +119,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 				sizes="100vw"
 				style={{ width: '100%', height: 'auto' }}
 				className="rounded-lg my-4"
+				unoptimized
 				{...(props as ImageProps)}
 			/>
 		),
