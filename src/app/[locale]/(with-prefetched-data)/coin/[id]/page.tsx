@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
+import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -12,9 +13,18 @@ import { getPriceChart } from '@/lib/price-chart-service'
 import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
 import { LoadingArea } from '@/components/loading-area'
-import { MarketCapVolumeChart } from '@/components/market-cap-volume-chart'
 import { ModernPageBackground } from '@/components/modern-page-background'
-import { PriceChart } from '@/components/price-chart'
+
+const PriceChart = dynamic(() => import('@/components/price-chart').then((m) => m.PriceChart), {
+	loading: () => <PriceChartSkeleton />,
+})
+
+const MarketCapVolumeChart = dynamic(
+	() => import('@/components/market-cap-volume-chart').then((m) => m.MarketCapVolumeChart),
+	{
+		loading: () => <MarketCapVolumeChartSkeleton />,
+	},
+)
 
 type Props = {
 	params: Promise<{ locale: string; id: string }>
@@ -106,14 +116,10 @@ export default async function CoinDetailPage({ params }: Props) {
 
 				<HydrationBoundary state={dehydrate(queryClient)}>
 					<div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-						<Suspense fallback={<PriceChartSkeleton />}>
-							<PriceChart coinId={coinIdParam} />
-						</Suspense>
+						<PriceChart coinId={coinIdParam} />
 					</div>
 					<div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-						<Suspense fallback={<MarketCapVolumeChartSkeleton />}>
-							<MarketCapVolumeChart coinId={coinIdParam} />
-						</Suspense>
+						<MarketCapVolumeChart coinId={coinIdParam} />
 					</div>
 				</HydrationBoundary>
 			</div>

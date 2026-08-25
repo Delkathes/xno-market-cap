@@ -99,6 +99,7 @@ export default async function NewsArticlePage({ params }: Props) {
 
 			<script
 				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify({
 						'@context': 'https://schema.org',

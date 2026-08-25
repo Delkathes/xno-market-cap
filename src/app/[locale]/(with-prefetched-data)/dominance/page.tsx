@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
+import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Skeleton } from '@/components/ui/skeleton'
-import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
 import { LoadingArea } from '@/components/loading-area'
 import { ModernPageBackground } from '@/components/modern-page-background'
+
+const DominanceChart = dynamic(() => import('@/components/dominance-chart').then((m) => m.DominanceChart), {
+	loading: () => <DominanceChartSkeleton />,
+})
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -52,9 +56,7 @@ export default async function DominancePage({ params }: Props) {
 
 			<div className="grid gap-8">
 				<div className="animate-fade-in-up">
-					<Suspense fallback={<DominanceChartSkeleton locale={locale} />}>
-						<DominanceChart />
-					</Suspense>
+					<DominanceChart />
 				</div>
 				<div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
 					<Suspense fallback={<DominanceTableSkeleton />}>
@@ -66,9 +68,7 @@ export default async function DominancePage({ params }: Props) {
 	)
 }
 
-async function DominanceChartSkeleton({ locale }: { locale: string }) {
-	const t = await getTranslations({ locale, namespace: 'dominance' })
-
+function DominanceChartSkeleton() {
 	return (
 		<div className="rounded-md border bg-card p-4 sm:p-5">
 			<Skeleton className="h-6 w-64 max-w-full" />

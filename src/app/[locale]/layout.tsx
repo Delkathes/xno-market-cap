@@ -9,6 +9,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { type Locale, routing } from '@/i18n/routing'
 
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
+
 import { env } from '@/env'
 
 import { Footer } from '@/components/footer'
@@ -110,10 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		alternates: {
 			canonical: SITE_URL,
 			languages: Object.fromEntries(
-				LOCALES.map((locale) => [
-					locale,
-					locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`,
-				]),
+				LOCALES.map((locale) => [locale, locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`]),
 			),
 		},
 		category: 'finance',
@@ -133,11 +131,18 @@ export default async function RootLayout({ children, params }: Props) {
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-				suppressHydrationWarning
-			>
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
 				<Providers>
+					{/* hreflang alternates — hoisted into <head> by Next.js (layout metadata
+					    alternates.languages is not emitted with cacheComponents) */}
+					{LOCALES.map((locale) => (
+						<link
+							key={locale}
+							rel="alternate"
+							hrefLang={locale}
+							href={locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`}
+						/>
+					))}
 					<div className="min-h-screen flex flex-col animate-gradient-shift">
 						{/* Navigation uses usePathname (URL data) — wrap in Suspense so it
 						    streams in after prerendering instead of blocking it */}

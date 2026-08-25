@@ -20,15 +20,22 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 function PartnerCardSkeleton() {
 	return (
-		<div className="relative overflow-hidden rounded-lg border border-primary/20 bg-linear-to-r from-primary/5 via-primary/10 to-primary/5 p-4 mb-7.5">
-			<div className="flex items-start gap-4">
-				<Skeleton className="h-12 w-12 rounded-lg shrink-0" />
-				<div className="min-w-0 flex-1 pr-20">
-					<Skeleton className="h-3 w-20 mb-1.75" />
-					<Skeleton className="h-5 w-3/4 mb-2.75" />
-					<Skeleton className="h-4 w-full" />
-					<Skeleton className="h-4 w-full mt-1 sm:hidden" />
+		<div className="mt-4">
+			{/* Mirrors the final card structure so no layout shift occurs */}
+			<div className="relative overflow-hidden rounded-md border border-border bg-muted/30 p-4">
+				<div className="flex items-start gap-4">
+					<Skeleton className="h-12 w-12 shrink-0 rounded-lg" />
+					<div className="min-w-0 flex-1 pr-20">
+						<Skeleton className="mb-2 h-3.5 w-24" />
+						<Skeleton className="mb-2 h-6 w-3/4" />
+						<Skeleton className="h-3.25 w-full" />
+					</div>
 				</div>
+			</div>
+			{/* Rotation indicators row */}
+			<div aria-hidden="true" className="mt-2 flex justify-center gap-1.5">
+				<Skeleton className="h-1.5 w-1.5 rounded-full" />
+				<Skeleton className="h-1.5 w-4 rounded-full" />
 			</div>
 		</div>
 	)

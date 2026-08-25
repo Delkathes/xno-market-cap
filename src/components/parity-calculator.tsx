@@ -1,8 +1,9 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
-import { Coins, Lock, Pencil, Percent, PiggyBank, Unlock, Users, Wallet } from 'lucide-react'
+import { Coins, Loader2, Lock, Pencil, Percent, PiggyBank, Unlock, Users, Wallet } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { ASSET_CONFIG } from '@/lib/asset-config'
@@ -19,7 +20,16 @@ import { Label } from '@/components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
-import { HolderTierDialog, type TierKey } from '@/components/holder-tier-dialog'
+import type { TierKey } from '@/components/holder-tier-dialog'
+
+// recharts is only needed once the tier dialog is opened
+const HolderTierDialog = dynamic(() => import('@/components/holder-tier-dialog').then((m) => m.HolderTierDialog), {
+	loading: () => (
+		<Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2 h-6 w-6" disabled>
+			<Loader2 className="h-3.5 w-3.5 animate-spin" />
+		</Button>
+	),
+})
 
 // =============================================================================
 // CONSTANTS & TYPES

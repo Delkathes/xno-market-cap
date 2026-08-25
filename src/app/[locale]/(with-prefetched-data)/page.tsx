@@ -51,8 +51,10 @@ export default async function Home({ params }: Props) {
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<ModernPageBackground />
 
+			{/* Structured data for search engines; content is JSON-serialized local data, not user HTML */}
 			<script
 				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify({
 						'@context': 'https://schema.org',
