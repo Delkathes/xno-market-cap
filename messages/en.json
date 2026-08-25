@@ -137,6 +137,7 @@
 	},
 	"home": {
 		"marketLedger": "Market Ledger",
+		"partnerSection": "Partners",
 		"xnoMarketCap": "XNO Market Cap",
 		"xnoPrice": "XNO Price",
 		"xnoDominance": "XNO Dominance",
@@ -610,8 +611,8 @@
 		"heroDescription": "Put your project in front of the most engaged Nano community. Reach thousands of daily users who live and breathe XNO.",
 		"benefits": {
 			"globalReach": {
-				"title": "Global Reach",
-				"description": "Your brand displayed on our high-traffic homepage and dedicated partner page."
+				"title": "Early Mover",
+				"description": "Be among the first partners as NanoMarketCap grows, featured front-and-center at the top of our homepage and on your dedicated partner page."
 			},
 			"instantSetup": {
 				"title": "Instant Setup",
@@ -625,8 +626,8 @@
 		"stats": {
 			"title": "Why Partner?",
 			"visitors": {
-				"value": "5k+",
-				"label": "Mo. Visitors"
+				"value": "Limited",
+				"label": "Slots"
 			},
 			"focus": {
 				"value": "100%",

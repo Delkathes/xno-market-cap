@@ -143,6 +143,7 @@
 	},
 	"home": {
 		"marketLedger": "Marktregister",
+		"partnerSection": "Partners",
 		"xnoMarketCap": "XNO Marktkapitalisatie",
 		"xnoPrice": "XNO Prijs",
 		"xnoDominance": "XNO Dominantie",
@@ -616,8 +617,8 @@
 		"heroDescription": "Zet je project voor de meest betrokken Nano-community. Bereik duizenden dagelijkse gebruikers die XNO leven en ademen.",
 		"benefits": {
 			"globalReach": {
-				"title": "Wereldwijd Bereik",
-				"description": "Jouw merk weergegeven op onze drukbezochte homepage en speciale partnerpagina."
+				"title": "Pionier",
+				"description": "Wees een van de eerste partners terwijl NanoMarketCap groeit, prominent boven aan onze homepage en op je eigen partnerpagina."
 			},
 			"instantSetup": {
 				"title": "Directe Setup",
@@ -631,8 +632,8 @@
 		"stats": {
 			"title": "Waarom Partner?",
 			"visitors": {
-				"value": "5k+",
-				"label": "Bez. per Maand"
+				"value": "Limited",
+				"label": "Plekken"
 			},
 			"focus": {
 				"value": "100%",

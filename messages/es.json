@@ -143,6 +143,7 @@
 	},
 	"home": {
 		"marketLedger": "Registro del mercado",
+		"partnerSection": "Socios",
 		"xnoMarketCap": "Capitalización XNO",
 		"xnoPrice": "Precio XNO",
 		"xnoDominance": "Dominancia XNO",
@@ -616,8 +617,8 @@
 		"heroDescription": "Coloca tu proyecto frente a la comunidad Nano más comprometida. Llega a miles de usuarios diarios que viven y respiran XNO.",
 		"benefits": {
 			"globalReach": {
-				"title": "Alcance Global",
-				"description": "Tu marca mostrada en nuestra página de inicio de alto tráfico y página de socios dedicada."
+				"title": "Pionero",
+				"description": "Sé uno de los primeros socios a medida que NanoMarketCap crece, destacado en la parte superior de nuestra página de inicio y en tu página de socio dedicada."
 			},
 			"instantSetup": {
 				"title": "Configuración Instantánea",
@@ -631,8 +632,8 @@
 		"stats": {
 			"title": "¿Por qué Asociarse?",
 			"visitors": {
-				"value": "5k+",
-				"label": "Visitas/Mes"
+				"value": "Limited",
+				"label": "Cupos"
 			},
 			"focus": {
 				"value": "100%",

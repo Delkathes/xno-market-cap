@@ -18,24 +18,20 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 
+// Mirrors the exact structure and dimensions of the rendered cards so the
+// skeleton swaps in without any layout shift (logo 48px + eyebrow + 1-line
+// title + 2-line description).
 function PartnerCardSkeleton() {
 	return (
-		<div className="mt-4">
-			{/* Mirrors the final card structure so no layout shift occurs */}
-			<div className="relative overflow-hidden rounded-md border border-border bg-muted/30 p-4">
-				<div className="flex items-start gap-4">
-					<Skeleton className="h-12 w-12 shrink-0 rounded-lg" />
-					<div className="min-w-0 flex-1 pr-20">
-						<Skeleton className="mb-2 h-3.5 w-24" />
-						<Skeleton className="mb-2 h-6 w-3/4" />
-						<Skeleton className="h-3.25 w-full" />
-					</div>
+		<div className="relative overflow-hidden rounded-md border border-border bg-card p-4 sm:p-5">
+			<div className="flex items-start gap-4">
+				<Skeleton className="h-12 w-12 shrink-0 rounded-md" />
+				<div className="min-w-0 flex-1">
+					<Skeleton className="mb-1 h-3 w-24" />
+					<Skeleton className="mb-1 h-6 w-3/4" />
+					<Skeleton className="h-5 w-full" />
+					<Skeleton className="mt-1 h-5 w-5/6" />
 				</div>
-			</div>
-			{/* Rotation indicators row */}
-			<div aria-hidden="true" className="mt-2 flex justify-center gap-1.5">
-				<Skeleton className="h-1.5 w-1.5 rounded-full" />
-				<Skeleton className="h-1.5 w-4 rounded-full" />
 			</div>
 		</div>
 	)
@@ -45,13 +41,13 @@ function GetPromotedCard() {
 	const t = useTranslations('partners.getPromoted')
 	return (
 		<Link href="/partners/info" className="group block">
-			<div className="relative overflow-hidden rounded-md border border-green-500 bg-linear-to-r from-green-400/10 via-blue-400/10 to-green-400/10 p-4 shadow-lg transition-all">
+			<div className="relative overflow-hidden rounded-md border border-border bg-card p-4 transition-colors hover:border-primary/50 sm:p-5">
+				{/* Top accent hairline */}
+				<div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-primary/40" />
+
 				{/* CTA badge */}
 				<div className="absolute right-3 top-3">
-					<Badge
-						variant="default"
-						className="gap-1 bg-green-500 font-mono text-[10px] uppercase tracking-widest text-white"
-					>
+					<Badge variant="default" className="gap-1 font-mono text-[10px] uppercase tracking-widest">
 						<Sparkles className="h-3 w-3" />
 						{t('badge')}
 					</Badge>
@@ -60,24 +56,24 @@ function GetPromotedCard() {
 				<div className="flex items-start gap-4">
 					{/* Logo */}
 					<div className="shrink-0">
-						<div className="relative h-12 w-12 overflow-hidden rounded-lg shadow-sm items-center justify-center flex border border-green-400">
-							<Sparkles className="h-8 w-8 text-green-400" />
+						<div className="grid h-12 w-12 place-items-center rounded-md border border-primary/40 bg-primary/5">
+							<Sparkles className="h-6 w-6 text-primary" />
 						</div>
 					</div>
 
 					{/* Content */}
-					<div className="min-w-0 flex-1 pr-20">
-						<p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-green-500">
+					<div className="min-w-0 flex-1 pr-8">
+						<p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-primary">
 							{t('subtitle')}
 						</p>
-						<h3 className="mb-1 font-semibold text-green-600 group-hover:text-green-400 transition-colors line-clamp-1">
+						<h3 className="mb-1 line-clamp-1 font-semibold text-foreground transition-colors group-hover:text-primary">
 							{t('title')}
 						</h3>
-						<p className="text-sm text-green-600 line-clamp-2">{t('description')}</p>
+						<p className="line-clamp-2 text-sm text-muted-foreground">{t('description')}</p>
 					</div>
 
 					{/* Arrow indicator */}
-					<div className="absolute bottom-4 right-4 text-muted-foreground group-hover:text-primary transition-colors">
+					<div className="absolute bottom-4 right-4 text-muted-foreground transition-colors group-hover:text-primary">
 						<ArrowRight className="h-4 w-4" />
 					</div>
 				</div>
@@ -284,7 +280,6 @@ const partnerTranslations: Record<
 }
 
 function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: string }) {
-	const t = useTranslations('partners')
 	const { id, logoUrl } = partner
 	const href = getPartnerHref(partner)
 	const isExternal = isExternalPartner(partner)
@@ -298,41 +293,28 @@ function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: str
 	const { partnerName, title, description } = partnerContent
 
 	const cardContent = (
-		<div className="relative overflow-hidden rounded-md border border-border bg-muted/30 p-4 transition-all hover:border-primary/40 hover:bg-muted/40">
-			{/* Partner badge */}
-			<div className="absolute right-3 top-3">
-				<Badge
-					variant="outline"
-					className="gap-1 border-primary/30 font-mono text-[10px] uppercase tracking-widest text-primary"
-				>
-					<Sparkles className="h-3 w-3" />
-					{t('badge')}
-				</Badge>
-			</div>
-
+		<div className="relative overflow-hidden rounded-md border border-border bg-card p-4 transition-colors hover:border-primary/50 sm:p-5">
 			<div className="flex items-start gap-4">
 				{/* Logo */}
 				{logoUrl && (
-					<div className="shrink-0">
-						<div className="relative h-12 w-12 overflow-hidden">
-							<Image src={logoUrl} alt={partnerName} fill className="object-contain p-1" unoptimized />
-						</div>
+					<div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border/60 bg-muted/30">
+						<Image src={logoUrl} alt={partnerName} fill className="object-contain p-1.5" unoptimized />
 					</div>
 				)}
 
 				{/* Content */}
-				<div className="min-w-0 flex-1 pr-20">
+				<div className="min-w-0 flex-1 pr-8">
 					<p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
 						{partnerName}
 					</p>
-					<h3 className="mb-1 font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+					<h3 className="mb-1 line-clamp-1 font-semibold text-foreground transition-colors group-hover:text-primary">
 						{title}
 					</h3>
-					<p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+					<p className="line-clamp-2 text-sm text-muted-foreground">{description}</p>
 				</div>
 
 				{/* Arrow indicator */}
-				<div className="absolute bottom-4 right-4 text-muted-foreground group-hover:text-primary transition-colors">
+				<div className="absolute bottom-4 right-4 text-muted-foreground transition-colors group-hover:text-primary">
 					{isExternal ? <ExternalLink className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
 				</div>
 			</div>
@@ -356,6 +338,7 @@ function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: str
 
 export function PartnerSpotlight() {
 	const locale = useLocale()
+	const t = useTranslations('home')
 	const [partners, setPartners] = useState<PartnerContent[] | null>(null)
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [isPaused, setIsPaused] = useState(false)
@@ -378,10 +361,18 @@ export function PartnerSpotlight() {
 		return () => clearInterval(interval)
 	}, [partners, isPaused])
 
+	// Section header stays stable across loading and loaded states
+	const sectionHeader = (
+		<h2 className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+			{t('partnerSection')}
+		</h2>
+	)
+
 	// Show skeleton while loading
 	if (partners === null) {
 		return (
-			<div className="mt-4">
+			<div className="space-y-3">
+				{sectionHeader}
 				<PartnerCardSkeleton />
 			</div>
 		)
@@ -402,34 +393,37 @@ export function PartnerSpotlight() {
 	const currentItem = items[currentIndex]
 
 	return (
-		// biome-ignore lint/a11y/noStaticElementInteractions: hover pause is non-essential UX enhancement
-		<div className="mt-4" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
-			<div key={`${currentItem.type}-${currentIndex}`} className="animate-in fade-in duration-500">
-				{currentItem.type === 'cta' ? (
-					<GetPromotedCard />
-				) : (
-					<PartnerCard partner={currentItem.data} locale={locale} />
+		<div className="space-y-3">
+			{sectionHeader}
+			{/* biome-ignore lint/a11y/noStaticElementInteractions: hover pause is non-essential UX enhancement */}
+			<div onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+				<div key={`${currentItem.type}-${currentIndex}`} className="animate-in fade-in duration-500">
+					{currentItem.type === 'cta' ? (
+						<GetPromotedCard />
+					) : (
+						<PartnerCard partner={currentItem.data} locale={locale} />
+					)}
+				</div>
+
+				{/* Rotation indicators */}
+				{items.length > 1 && (
+					<div className="flex justify-center gap-1.5 mt-2">
+						{items.map((item, index) => (
+							<button
+								key={item.type === 'cta' ? 'cta-indicator' : `${item.data.id}-indicator`}
+								type="button"
+								onClick={() => setCurrentIndex(index)}
+								className={`h-1.5 rounded-full transition-all cursor-pointer ${
+									index === currentIndex
+										? 'w-4 bg-primary'
+										: 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+								}`}
+								aria-label={`Show item ${index + 1}`}
+							/>
+						))}
+					</div>
 				)}
 			</div>
-
-			{/* Rotation indicators */}
-			{items.length > 1 && (
-				<div className="flex justify-center gap-1.5 mt-2">
-					{items.map((item, index) => (
-						<button
-							key={item.type === 'cta' ? 'cta-indicator' : `${item.data.id}-indicator`}
-							type="button"
-							onClick={() => setCurrentIndex(index)}
-							className={`h-1.5 rounded-full transition-all cursor-pointer ${
-								index === currentIndex
-									? 'w-4 bg-primary'
-									: 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
-							}`}
-							aria-label={`Show item ${index + 1}`}
-						/>
-					))}
-				</div>
-			)}
 		</div>
 	)
 }

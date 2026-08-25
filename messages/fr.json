@@ -143,6 +143,7 @@
 	},
 	"home": {
 		"marketLedger": "Grand livre du marché",
+		"partnerSection": "Partenaires",
 		"xnoMarketCap": "Capitalisation XNO",
 		"xnoPrice": "Prix XNO",
 		"xnoDominance": "Dominance XNO",
@@ -607,7 +608,7 @@
 	"partners": {
 		"badge": "Programme Partenaire",
 		"getPromoted": {
-			"badge": "Faire la Promotion",
+			"badge": "Devenez partenaire",
 			"title": "Faites-vous Promouvoir !",
 			"subtitle": "Votre Entreprise Ici",
 			"description": "Mettez en avant votre entreprise dans ce spotlight. Touchez des milliers d'utilisateurs Nano. Cliquez pour en savoir plus."
@@ -616,8 +617,8 @@
 		"heroDescription": "Placez votre projet devant la communauté Nano la plus engagée. Atteignez des milliers d'utilisateurs quotidiens qui vivent et respirent le XNO.",
 		"benefits": {
 			"globalReach": {
-				"title": "Portée Mondiale",
-				"description": "Votre marque affichée sur notre page d'accueil à fort trafic et notre page partenaire dédiée."
+				"title": "Pionnier",
+				"description": "Soyez parmi les premiers partenaires à mesure que NanoMarketCap grandit, mis en avant au sommet de notre page d'accueil et sur votre page partenaire dédiée."
 			},
 			"instantSetup": {
 				"title": "Configuration Instantanée",
@@ -631,8 +632,8 @@
 		"stats": {
 			"title": "Pourquoi Partenariat ?",
 			"visitors": {
-				"value": "5k+",
-				"label": "Visiteurs/Mois"
+				"value": "Limited",
+				"label": "Places"
 			},
 			"focus": {
 				"value": "100%",

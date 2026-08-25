@@ -26,6 +26,7 @@ interface CryptoRowProps {
 	relativeChange1h: number
 	relativeChange24h: number
 	relativeChange7d: number
+	priority?: boolean
 }
 
 function CryptoRow({
@@ -37,6 +38,7 @@ function CryptoRow({
 	relativeChange1h,
 	relativeChange24h,
 	relativeChange7d,
+	priority,
 }: CryptoRowProps) {
 	const router = useRouter()
 
@@ -67,6 +69,7 @@ function CryptoRow({
 							height={32}
 							className="w-6 h-6 sm:w-7 sm:h-7"
 							unoptimized
+							priority={priority}
 						/>
 						<div>
 							<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
@@ -335,6 +338,7 @@ export function MarketCapTable() {
 								relativeChange1h={relativeChange1h}
 								relativeChange24h={relativeChange24h}
 								relativeChange7d={relativeChange7d}
+								priority={index < 3}
 							/>
 						)
 					})}
