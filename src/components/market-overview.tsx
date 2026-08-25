@@ -86,7 +86,9 @@ export function MarketOverview() {
 	const othersDominance = (othersMarketCapXNO / totalMarketCapInXNO) * 100
 
 	const xnoPricePrimary = xnoData ? xnoData.current_price * primaryRate : 0
+
 	const xnoPriceSecondary = xnoData ? xnoData.current_price * secondaryRate : 0
+
 	const xnoPriceCrypto = xnoData && selectedCrypto ? xnoData.current_price / selectedCrypto.current_price : 0
 
 	return (

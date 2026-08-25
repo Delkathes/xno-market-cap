@@ -5,6 +5,8 @@ import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
 import { getClientIdentifier, isAllowedApiRequest } from '@/lib/request-security'
 import { getSecurityHeaders } from '@/lib/security-headers'
 
+import { env } from '@/env'
+
 export async function GET(request: NextRequest) {
 	const baseHeaders = {
 		...getSecurityHeaders(),
@@ -21,10 +23,12 @@ export async function GET(request: NextRequest) {
 		)
 	}
 
+	// Rate limiting only applies in production; dev is single-user and the
+	// in-memory limiter would otherwise cause self-inflicted lockouts.
 	const clientIP = getClientIdentifier(request)
-	const rateLimitResult = checkRateLimit(clientIP)
+	const rateLimitResult = env.NODE_ENV === 'production' ? checkRateLimit(clientIP) : null
 
-	if (!rateLimitResult.success) {
+	if (rateLimitResult && !rateLimitResult.success) {
 		return NextResponse.json(
 			{ error: 'Too many requests. Please try again later.' },
 			{
@@ -43,7 +47,7 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json(data, {
 			headers: {
 				...baseHeaders,
-				...getRateLimitHeaders(rateLimitResult),
+				...(rateLimitResult ? getRateLimitHeaders(rateLimitResult) : {}),
 			},
 		})
 	} catch (error) {
@@ -62,7 +66,7 @@ export async function GET(request: NextRequest) {
 					status: 503,
 					headers: {
 						...baseHeaders,
-						...getRateLimitHeaders(rateLimitResult),
+						...(rateLimitResult ? getRateLimitHeaders(rateLimitResult) : {}),
 						'Retry-After': '60',
 					},
 				},
@@ -77,7 +81,7 @@ export async function GET(request: NextRequest) {
 					status: 502,
 					headers: {
 						...baseHeaders,
-						...getRateLimitHeaders(rateLimitResult),
+						...(rateLimitResult ? getRateLimitHeaders(rateLimitResult) : {}),
 					},
 				},
 			)
@@ -91,7 +95,7 @@ export async function GET(request: NextRequest) {
 					status: 502,
 					headers: {
 						...baseHeaders,
-						...getRateLimitHeaders(rateLimitResult),
+						...(rateLimitResult ? getRateLimitHeaders(rateLimitResult) : {}),
 					},
 				},
 			)
@@ -104,7 +108,7 @@ export async function GET(request: NextRequest) {
 				status: 500,
 				headers: {
 					...baseHeaders,
-					...getRateLimitHeaders(rateLimitResult),
+					...(rateLimitResult ? getRateLimitHeaders(rateLimitResult) : {}),
 				},
 			},
 		)

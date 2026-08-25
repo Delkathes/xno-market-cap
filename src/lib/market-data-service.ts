@@ -6,6 +6,36 @@ import { CRYPTO_IDS } from '@/lib/constants'
 import type { CryptoData, MarketDataResponse, XnoPriceChangePerCurrency } from '@/lib/types'
 import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from '@/lib/validation'
 
+import { env } from '@/env'
+
+// Dev-only in-memory cache: 'use cache' is a no-op during development, so every
+// page reload would otherwise fire the full CoinGecko batch (~4 calls), easily
+// exhausting the demo tier's 30 req/min limit.
+const DEV_CACHE_TTL_MS = 60 * 1000
+
+declare global {
+	var __xnoMarketDataCache: { data: MarketDataResponse; expiresAt: number } | undefined
+}
+
+interface DevCacheEntry {
+	data: MarketDataResponse
+	expiresAt: number
+}
+
+function getDevCache(): DevCacheEntry | null {
+	if (env.NODE_ENV !== 'development') return null
+	const cached = globalThis.__xnoMarketDataCache
+	if (cached && cached.expiresAt > Date.now()) {
+		return cached
+	}
+	return null
+}
+
+function setDevCache(data: MarketDataResponse): void {
+	if (env.NODE_ENV !== 'development') return
+	globalThis.__xnoMarketDataCache = { data, expiresAt: Date.now() + DEV_CACHE_TTL_MS }
+}
+
 // Custom error classes for specific failure scenarios
 export class RateLimitError extends Error {
 	constructor(message = 'CoinGecko API rate limit exceeded') {
@@ -43,6 +73,11 @@ function mapSdkError(error: unknown, context: string): never {
 export async function getMarketData(): Promise<MarketDataResponse> {
 	'use cache'
 	cacheLife('minutes')
+
+	const cached = getDevCache()
+	if (cached) {
+		return cached.data
+	}
 
 	try {
 		const client = getCoingeckoClient()
@@ -102,8 +137,8 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		const fetchRates = async () => {
 			try {
 				const ratesJson = await client.simple.price.get({
-					ids: 'usd',
-					vs_currencies: 'eur,gbp,jpy,chf,cad,aud',
+					ids: 'nano',
+					vs_currencies: 'usd,eur,gbp,jpy,chf,cad,aud',
 				})
 				return ratesJson
 			} catch (error) {
@@ -135,30 +170,39 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			throw new UpstreamError('Failed to fetch XNO data')
 		}
 
-		// Parse exchange rates
+		// Parse exchange rates (XNO price per currency, then derive USD->fiat rates)
 		const ratesResult = v.safeParse(ExchangeRatesSchema, ratesJson)
-		if (!ratesResult.success || !ratesResult.output.usd) {
+		if (!ratesResult.success || !ratesResult.output.nano) {
 			throw new ValidationError('Invalid exchange rates response')
 		}
 
 		const {
-			eur: eurRate,
-			gbp: gbpRate,
-			jpy: jpyRate,
-			chf: chfRate,
-			cad: cadRate,
-			aud: audRate,
-		} = ratesResult.output.usd
+			usd: usdPrice,
+			eur: eurPrice,
+			gbp: gbpPrice,
+			jpy: jpyPrice,
+			chf: chfPrice,
+			cad: cadPrice,
+			aud: audPrice,
+		} = ratesResult.output.nano
 		if (
-			eurRate === undefined ||
-			gbpRate === undefined ||
-			jpyRate === undefined ||
-			chfRate === undefined ||
-			cadRate === undefined ||
-			audRate === undefined
+			usdPrice === undefined ||
+			eurPrice === undefined ||
+			gbpPrice === undefined ||
+			jpyPrice === undefined ||
+			chfPrice === undefined ||
+			cadPrice === undefined ||
+			audPrice === undefined
 		) {
 			throw new ValidationError('Missing required exchange rates')
 		}
+
+		const eurRate = eurPrice / usdPrice
+		const gbpRate = gbpPrice / usdPrice
+		const jpyRate = jpyPrice / usdPrice
+		const chfRate = chfPrice / usdPrice
+		const cadRate = cadPrice / usdPrice
+		const audRate = audPrice / usdPrice
 
 		// Parse XNO detail for per-currency 1h, 24h, 7d changes
 		const defaultPriceChange: XnoPriceChangePerCurrency = {
@@ -230,7 +274,7 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		// Sort by market cap rank
 		combinedData.sort((a, b) => a.market_cap_rank - b.market_cap_rank)
 
-		return {
+		const result: MarketDataResponse = {
 			data: combinedData,
 			eurRate,
 			gbpRate,
@@ -243,6 +287,8 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			xnoPriceChange24h,
 			xnoPriceChange7d,
 		}
+		setDevCache(result)
+		return result
 	} catch (error) {
 		// Re-throw custom errors as-is
 		if (error instanceof RateLimitError || error instanceof ValidationError || error instanceof UpstreamError) {

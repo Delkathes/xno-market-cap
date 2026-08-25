@@ -58,14 +58,15 @@ const nextConfig = {
 	reactCompiler: true,
 	cacheComponents: true,
 
+	turbopack: {
+		root: process.cwd(),
+	},
+
 	experimental: {
 		// CSS
 		cssChunking: true,
 		useLightningcss: true,
 		inlineCss: true,
-
-		// UI
-		viewTransition: true,
 
 		// Build correctness
 		caseSensitiveRoutes: true,
@@ -81,9 +82,6 @@ const nextConfig = {
 		// Performance - Turbopack (used for both dev and build)
 		// turbopackRemoveUnusedImports: true,
 		// turbopackRemoveUnusedExports: true,
-
-		// Caching
-		useCache: true,
 	},
 
 	headers: async () => [

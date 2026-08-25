@@ -35,8 +35,9 @@ export const CryptoDataSchema = v.object({
 export const CryptoDataArraySchema = v.array(CryptoDataSchema)
 
 export const ExchangeRatesSchema = v.object({
-	usd: v.optional(
+	nano: v.optional(
 		v.object({
+			usd: v.optional(v.number()),
 			eur: v.optional(v.number()),
 			gbp: v.optional(v.number()),
 			jpy: v.optional(v.number()),

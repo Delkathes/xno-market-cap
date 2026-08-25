@@ -17,7 +17,9 @@ const fetcher = async (): Promise<MarketDataResponse> => {
 		const errorData: ApiErrorResponse = await response
 			.json()
 			.catch(() => ({ error: 'Failed to fetch market data' }))
-		throw new Error(errorData.error || 'Failed to fetch market data')
+		const error = new Error(errorData.error || 'Failed to fetch market data') as Error & { status?: number }
+		error.status = response.status
+		throw error
 	}
 	return response.json()
 }
@@ -28,7 +30,12 @@ export function useMarketData() {
 		queryFn: fetcher,
 		refetchInterval: 120000, // Refresh every 2:00min
 		refetchOnWindowFocus: false,
-		retry: 3,
+		// Don't retry rate-limited requests (429 own API, 503 upstream) — retrying
+		// only amplifies the load that caused the rate limit.
+		retry: (failureCount, error) => {
+			const status = (error as Error & { status?: number }).status
+			return status !== 429 && status !== 503 && failureCount < 3
+		},
 		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff: 1s, 2s, 4s, capped at 30s
 		staleTime: 60000, // Data is fresh for 1:00min
 	})
