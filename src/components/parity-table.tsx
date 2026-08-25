@@ -15,9 +15,7 @@ import { useAssetData } from '@/hooks/use-asset-data'
 import { calculateAllParities, useFilteredAssets } from '@/hooks/use-filtered-assets'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Progress } from '@/components/ui/progress'
 import { MarketDataError } from '@/components/market-data-error'
 
 // =============================================================================
@@ -40,14 +38,15 @@ interface SupplyCellProps {
 }
 
 function SupplyCell({ asset }: SupplyCellProps) {
+	const t = useTranslations('parity')
 	const percentage = getSupplyPercentage(asset)
 	const isInfinite = asset.maxSupply === null
 	const isFullyDistributed = percentage === 100
 
 	return (
 		<div className="space-y-1.5">
-			<div className="flex items-center justify-between gap-2 text-xs">
-				<span className="font-mono text-primary">
+			<div className="flex items-center justify-between gap-2 font-mono text-[10px] tabular-nums">
+				<span className="text-primary">
 					{formatSupply(asset.currentSupply, {
 						type: asset.type,
 						symbol: asset.symbol,
@@ -74,35 +73,32 @@ function SupplyCell({ asset }: SupplyCellProps) {
 					</span>
 				)}
 			</div>
-			<div className="relative">
+			<div className="h-1.5 w-full overflow-hidden rounded-sm bg-muted">
 				{isInfinite ? (
 					// Infinite supply - animated gradient bar
-					<div className="h-1.5 w-full rounded-full bg-linear-to-r from-destructive/30 via-destructive/60 to-destructive/30 overflow-hidden">
+					<div className="h-full w-full rounded-sm bg-linear-to-r from-destructive/30 via-destructive/60 to-destructive/30 overflow-hidden">
 						<div
 							className="h-full w-full bg-linear-to-r from-transparent via-destructive/80 to-transparent animate-pulse"
 							style={{ animationDuration: '2s' }}
 						/>
 					</div>
 				) : (
-					// Fixed supply - show progress
-					<Progress
-						value={percentage ?? 0}
+					<div
 						className={cn(
-							'h-1.5',
-							isFullyDistributed
-								? '*:data-[slot=progress-indicator]:bg-emerald-500'
-								: '*:data-[slot=progress-indicator]:bg-primary',
+							'h-full rounded-sm transition-all',
+							isFullyDistributed ? 'bg-emerald-500' : 'bg-primary',
 						)}
+						style={{ width: `${percentage ?? 0}%` }}
 					/>
 				)}
 			</div>
-			<div className="text-[10px] text-muted-foreground text-right">
+			<div className="text-right font-mono text-[10px] text-muted-foreground">
 				{isInfinite ? (
-					<span className="text-destructive/80">Unbounded supply</span>
+					<span className="text-destructive/80">{t('unboundedSupply')}</span>
 				) : isFullyDistributed ? (
-					<span className="text-emerald-600">100% distributed</span>
+					<span className="text-emerald-600">{t('fullyDistributed')}</span>
 				) : (
-					<span>{percentage?.toFixed(1)}% of max</span>
+					<span>{t('ofMax', { percentage: percentage !== null ? percentage.toFixed(1) : '0' })}</span>
 				)}
 			</div>
 		</div>
@@ -152,7 +148,7 @@ export function ParitySettingsPopover() {
 									className="justify-start cursor-pointer"
 									onClick={() => toggleFiat(fiat)}
 								>
-									<span className="w-8">{asset.symbol}</span>
+									<span className="w-8 font-mono">{asset.symbol}</span>
 									{asset.label}
 								</Button>
 							)
@@ -181,12 +177,17 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 	)
 
 	return (
-		<tr className={cn('border-b border-border hover:bg-muted/50 transition-colors', isXNO && 'bg-primary/5')}>
-			<td className="px-3 py-2">
+		<tr
+			className={cn(
+				'border-b border-l-2 border-border border-l-transparent transition-colors hover:bg-muted/40',
+				isXNO && 'border-l-[#209CE9] bg-[#209CE9]/[0.05]',
+			)}
+		>
+			<td className="px-3 py-1.5">
 				<div className="flex items-center gap-3">
 					<div
 						className={cn(
-							'w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm font-bold',
+							'w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold',
 							asset.color.bg,
 							asset.color.text,
 						)}
@@ -194,8 +195,10 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 						{asset.symbol}
 					</div>
 					<div>
-						<p className="font-semibold text-sm sm:text-base">{asset.label}</p>
-						<p className="text-xs text-muted-foreground">1 {asset.unit}</p>
+						<p className="font-semibold text-sm sm:text-base line-clamp-1">{asset.label}</p>
+						<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+							1 {asset.unit}
+						</p>
 					</div>
 				</div>
 			</td>
@@ -208,7 +211,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 					<td
 						key={targetId}
 						className={cn(
-							'px-3 py-2 text-right font-mono text-sm font-medium',
+							'px-3 py-1.5 text-right font-mono text-sm font-medium tabular-nums',
 							isSelf ? 'text-muted-foreground' : targetAsset.color.text,
 						)}
 					>
@@ -223,7 +226,7 @@ const ParityRow = memo(function ParityRow({ assetId, targetAssets, assetMap }: P
 					</td>
 				)
 			})}
-			<td className="px-3 py-2 min-w-35">
+			<td className="px-3 py-1.5 min-w-35">
 				<SupplyCell asset={asset} />
 			</td>
 		</tr>
@@ -239,49 +242,45 @@ export function ParityTable() {
 
 	if (error) {
 		return (
-			<Card>
-				<CardHeader>
-					<CardTitle>{t('nanoScarcityParity')}</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<MarketDataError error={error} />
-				</CardContent>
-			</Card>
+			<div className="rounded-md border bg-card p-6 text-center text-sm text-muted-foreground">
+				<MarketDataError error={error} compact />
+			</div>
 		)
 	}
 
 	return (
-		<div>
-			<div className="pb-0">
-				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
-				<CardDescription>{t('tableDescription')}</CardDescription>
-			</div>
-			<div className="p-0 whitespace-nowrap">
-				<div className="overflow-x-auto">
-					<table className="w-full">
-						<thead className="border-b border-border">
-							<tr className="text-foreground text-sm">
-								<th className="text-left px-3 py-2 font-medium">{t('asset')}</th>
-								{filteredAssets.map((assetId) => (
-									<th key={assetId} className="text-right px-3 py-2 font-medium">
-										{assetMap[assetId].label}
-									</th>
-								))}
-								<th className="text-right px-3 py-2 font-medium">{t('totalSupply')}</th>
-							</tr>
-						</thead>
-						<tbody>
+		<div className="rounded-md border bg-card">
+			<div className="relative max-h-150 overflow-auto rounded-md">
+				<table className="w-full whitespace-nowrap">
+					<thead className="sticky top-0 z-10 border-b border-border bg-card">
+						<tr className="text-foreground text-sm">
+							<th className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-left">
+								{t('asset')}
+							</th>
 							{filteredAssets.map((assetId) => (
-								<ParityRow
+								<th
 									key={assetId}
-									assetId={assetId}
-									targetAssets={filteredAssets}
-									assetMap={assetMap}
-								/>
+									className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-right"
+								>
+									{assetMap[assetId].label}
+								</th>
 							))}
-						</tbody>
-					</table>
-				</div>
+							<th className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-right">
+								{t('totalSupply')}
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{filteredAssets.map((assetId) => (
+							<ParityRow
+								key={assetId}
+								assetId={assetId}
+								targetAssets={filteredAssets}
+								assetMap={assetMap}
+							/>
+						))}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	)

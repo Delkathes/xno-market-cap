@@ -1,13 +1,10 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
-import { Loader2 } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { LoadingArea } from '@/components/loading-area'
+import { ModernPageBackground } from '@/components/modern-page-background'
 import { ParityHighlight } from '@/components/parity-highlight'
 import { ParitySettingsPopover, ParityTable } from '@/components/parity-table'
 
@@ -36,6 +33,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
+function SectionHeader({
+	index,
+	title,
+	description,
+	action,
+}: {
+	index: string
+	title: string
+	description?: string
+	action?: React.ReactNode
+}) {
+	return (
+		<div className="mb-4 flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+			<div className="flex items-baseline gap-3 min-w-0">
+				<span className="font-mono text-sm text-muted-foreground/60 tabular-nums tracking-widest select-none">
+					{index}
+				</span>
+				<div className="min-w-0">
+					<h2 className="text-xl sm:text-2xl font-bold tracking-tight text-balance">{title}</h2>
+					{description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+				</div>
+			</div>
+			{action && <div className="flex-none">{action}</div>}
+		</div>
+	)
+}
+
 export default async function ParityPage({ params }: Props) {
 	const { locale } = await params
 
@@ -46,101 +70,100 @@ export default async function ParityPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
-			<div className="mb-8">
-				<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">{t('title')}</h1>
-				<p className="text-muted-foreground text-lg">{t('description')}</p>
-				<p className="text-xs text-muted-foreground/70 mt-2">{tDisclaimer('parity')}</p>
-			</div>
+			<ModernPageBackground />
 
-			<div className="grid gap-8">
-				{/* XNO Parity Highlight */}
-				<Suspense
-					fallback={
-						<section>
-							<div className="flex items-center justify-between mb-4">
-								<h2 className="text-2xl font-semibold">{t('nanoScarcityParity')}</h2>
-								<Button variant="ghost" size="icon" className="h-8 w-8">
-									<Loader2 className="h-4 w-4 animate-spin" />
-									<span className="sr-only">{t('fiatCurrencySettings')}</span>
-								</Button>
-							</div>
-							<section>
-								<div className="grid gap-3 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
-									{[1, 2, 3, 4, 5].map((index) => (
-										<Skeleton
-											key={`${index}-highlight-skeleton-item`}
-											className="h-22 rounded-lg"
-										/>
-									))}
+			<header className="mb-12 sm:mb-14 animate-fade-in-up">
+				<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('title')}</h1>
+				<p className="text-muted-foreground text-base sm:text-lg">{t('description')}</p>
+				<p className="text-xs text-muted-foreground/70 mt-3">{tDisclaimer('parity')}</p>
+			</header>
+
+			<div className="grid gap-10">
+				{/* 01 — Highlight */}
+				<section className="animate-fade-in-up">
+					<Suspense
+						fallback={
+							<>
+								<SectionHeader
+									index="01"
+									title={t('nanoScarcityParity')}
+									description={t('description')}
+								/>
+								<div className="rounded-md border bg-card p-4 sm:p-6">
+									<div className="grid gap-3 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+										{[1, 2, 3, 4, 5].map((index) => (
+											<Skeleton key={`highlight-${index}`} className="h-24 rounded-md" />
+										))}
+									</div>
 								</div>
-							</section>
-						</section>
-					}
-				>
-					<section>
-						<div className="flex items-center justify-between mb-4">
-							<h2 className="text-2xl font-semibold">{t('nanoScarcityParity')}</h2>
-							<ParitySettingsPopover />
+							</>
+						}
+					>
+						<SectionHeader
+							index="01"
+							title={t('nanoScarcityParity')}
+							description={t('description')}
+							action={<ParitySettingsPopover />}
+						/>
+						<div className="rounded-md border bg-card p-4 sm:p-6">
+							<ParityHighlight />
 						</div>
-						<ParityHighlight />
-					</section>
-				</Suspense>
+					</Suspense>
+				</section>
 
-				{/* Main Parity Table */}
-				<Suspense
-					fallback={
-						<section className="w-full overflow-x-auto">
-							<div className="flex items-center justify-between mb-4">
-								<h2 className="text-2xl font-semibold">{t('scarcityParityMatrix')}</h2>
-								<Button variant="ghost" size="icon" className="h-8 w-8">
-									<Loader2 className="h-4 w-4 animate-spin" />
-									<span className="sr-only">{t('fiatCurrencySettings')}</span>
-								</Button>
-							</div>
-							<ParityTableSkeleton locale={locale} />
-						</section>
-					}
-				>
-					<section className="w-full overflow-x-auto">
-						<div className="flex items-center justify-between mb-4">
-							<h2 className="text-2xl font-semibold">{t('scarcityParityMatrix')}</h2>
-							<ParitySettingsPopover />
-						</div>
+				{/* 02 — Matrix */}
+				<section className="animate-fade-in-up" style={{ animationDelay: '120ms' }}>
+					<Suspense
+						fallback={
+							<>
+								<SectionHeader
+									index="02"
+									title={t('scarcityParityMatrix')}
+									description={t('tableDescription')}
+								/>
+								<div className="rounded-md border bg-card p-4">
+									<div className="space-y-2.5">
+										{[1, 2, 3, 4, 5, 6].map((row) => (
+											<div key={row} className="flex items-center gap-4">
+												<Skeleton className="h-8 w-8 rounded-full" />
+												<Skeleton className="h-4 w-28" />
+												<div className="ml-auto flex gap-10">
+													<Skeleton className="h-4 w-20" />
+													<Skeleton className="h-4 w-20" />
+													<Skeleton className="h-4 w-20" />
+												</div>
+											</div>
+										))}
+									</div>
+								</div>
+							</>
+						}
+					>
+						<SectionHeader
+							index="02"
+							title={t('scarcityParityMatrix')}
+							description={t('tableDescription')}
+							action={<ParitySettingsPopover />}
+						/>
 						<ParityTable />
-					</section>
-				</Suspense>
+					</Suspense>
+				</section>
 
-				{/* Key Takeaway */}
-				<Card className="border-primary/20">
-					<CardContent className="p-6">
-						<h3 className="text-lg font-semibold mb-3">{t('keyTakeaway')}</h3>
-						<p className="text-muted-foreground mb-4">
+				{/* 03 — Key Takeaway */}
+				<section className="animate-fade-in-up" style={{ animationDelay: '240ms' }}>
+					<SectionHeader index="03" title={t('keyTakeaway')} />
+					<div className="rounded-md border bg-card p-4 sm:p-6">
+						<p className="text-sm text-muted-foreground mb-5 leading-relaxed">
 							{t.rich('keyTakeawayText', {
 								highlight: (chunks) => <span className="text-foreground font-medium">{chunks}</span>,
 							})}
 						</p>
-						<blockquote className="border-l-4 border-primary pl-4 italic text-foreground">
+						<blockquote className="border-l-2 border-[#209CE9] pl-4 italic text-foreground leading-relaxed">
 							{t('blockquote')}
 						</blockquote>
-					</CardContent>
-				</Card>
+					</div>
+				</section>
 			</div>
 		</main>
-	)
-}
-
-async function ParityTableSkeleton({ locale }: { locale: string }) {
-	const t = await getTranslations({ locale, namespace: 'parity' })
-
-	return (
-		<div className="overflow-hidden">
-			<div className="pb-0">
-				<CardTitle>{t('nanoScarcityParity')}</CardTitle>
-				<CardDescription>{t('tableDescription')}</CardDescription>
-			</div>
-			<div className="p-6 relative h-91.75">
-				<LoadingArea />
-			</div>
-		</div>
 	)
 }

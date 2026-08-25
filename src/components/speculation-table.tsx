@@ -16,48 +16,50 @@ import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
-import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { MarketDataError } from '@/components/market-data-error'
 
 interface SpeculationRowProps {
 	crypto: CryptoData
-	index: number
 	formatMarketCap: (mcUSD: number) => string
 	formatPrice: (priceInFiat: number) => string
 	multiplier: number
 	xnoPriceIf: number
 }
 
-function SpeculationRow({ crypto, index, formatMarketCap, formatPrice, multiplier, xnoPriceIf }: SpeculationRowProps) {
+function SpeculationRow({ crypto, formatMarketCap, formatPrice, multiplier, xnoPriceIf }: SpeculationRowProps) {
 	return (
-		<tr className="border-b border-border hover:bg-muted/50 transition-colors">
-			<td className="px-3 py-2">
-				<span className="font-medium text-sm sm:text-base">{crypto.market_cap_rank}</span>
+		<tr className="border-b border-border transition-colors hover:bg-muted/40">
+			<td className="px-3 py-1.5">
+				<span className="font-medium tabular-nums text-sm sm:text-base">{crypto.market_cap_rank}</span>
 			</td>
-			<td className="px-3 py-2 pl-0 sm:pl-4">
+			<td className="px-3 py-1.5 pl-0 sm:pl-4">
 				<div className="flex items-center gap-3">
 					<Image
 						src={crypto.image || '/placeholder.svg'}
 						alt={crypto.name}
 						width={32}
 						height={32}
-						className="w-6 h-6 sm:w-8 sm:h-8"
+						className="w-6 h-6 sm:w-7 sm:h-7"
 						unoptimized
 					/>
 					<div>
-						<p className="font-semibold text-sm line-clamp-3">{crypto.name}</p>
-						<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+						<p className="font-semibold text-sm line-clamp-1">{crypto.name}</p>
+						<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+							{crypto.symbol}
+						</p>
 					</div>
 				</div>
 			</td>
-			<td className="px-3 py-2 text-right font-mono text-sm text-muted-foreground font-medium">
+			<td className="px-3 py-1.5 text-right font-mono text-sm font-medium tabular-nums text-muted-foreground">
 				{formatMarketCap(crypto.market_cap)}
 			</td>
-			<td className="px-3 py-2 text-right">
-				<span className="font-mono font-bold text-sm text-xno-value">{formatPrice(xnoPriceIf)}</span>
+			<td className="px-3 py-1.5 text-right">
+				<span className="font-mono font-bold text-sm tabular-nums text-xno-value">
+					{formatPrice(xnoPriceIf)}
+				</span>
 			</td>
-			<td className="px-3 py-2 text-right">
+			<td className="px-3 py-1.5 text-right">
 				<span
 					className={cn(
 						'font-mono font-medium text-sm px-2 py-1 rounded',
@@ -89,11 +91,9 @@ export function SpeculationTable() {
 
 	if (error || !data) {
 		return (
-			<Card>
-				<CardContent className="p-6">
-					<MarketDataError error={error} />
-				</CardContent>
-			</Card>
+			<div className="rounded-md border bg-card p-6 text-center text-sm text-muted-foreground">
+				<MarketDataError error={error} compact />
+			</div>
 		)
 	}
 
@@ -103,10 +103,13 @@ export function SpeculationTable() {
 	const otherCryptos = data.filter((c) => c.id !== CRYPTO_IDS.NANO).sort((a, b) => b.market_cap - a.market_cap)
 
 	return (
-		<div className="relative">
-			<div className="absolute -top-12 right-0">
+		<div className="rounded-md border bg-card">
+			<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 pt-4">
+				<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+					{t('xnoPriceIf')}
+				</p>
 				<Select value={currency} onValueChange={(v) => setCurrency(v as FiatCurrency)}>
-					<SelectTrigger className="w-40 bg-card dark:bg-card border-border">
+					<SelectTrigger className="h-7 w-36 font-mono text-xs cursor-pointer">
 						<SelectValue placeholder={t('selectCurrency')} />
 					</SelectTrigger>
 					<SelectContent>
@@ -118,42 +121,49 @@ export function SpeculationTable() {
 					</SelectContent>
 				</Select>
 			</div>
-			<div className="p-0">
-				<div className="overflow-x-auto">
-					<table className="w-full">
-						<thead className="border-b border-border">
-							<tr className="text-foreground text-sm whitespace-nowrap">
-								<th className="text-left px-3 py-2 font-medium">{t('rank')}</th>
-								<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-medium">{t('name')}</th>
-								<th className="text-right px-3 py-2 font-medium">{t('marketCap')}</th>
-								<th className="text-right px-3 py-2 font-medium">{t('xnoPrice')}</th>
-								<th className="text-right px-3 py-2 font-medium">{t('multiplier')}</th>
-							</tr>
-						</thead>
-						<tbody>
-							{otherCryptos?.map((crypto, index) => {
-								const marketCapInFiat = crypto.market_cap * rate
-								const xnoPriceIf = marketCapInFiat / xnoCirculatingSupply
-								const multiplier = currentXnoPrice > 0 ? xnoPriceIf / currentXnoPrice : 0
+			<div className="relative mt-3 max-h-150 overflow-auto rounded-b-md">
+				<table className="w-full">
+					<thead className="sticky top-0 z-10 border-b border-border bg-card">
+						<tr className="text-foreground text-sm whitespace-nowrap">
+							<th className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-left">
+								{t('rank')}
+							</th>
+							<th className="px-3 py-2 pl-0 sm:pl-4 font-mono text-[10px] uppercase tracking-widest text-left">
+								{t('name')}
+							</th>
+							<th className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-right">
+								{t('marketCap')}
+							</th>
+							<th className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-right">
+								{t('xnoPrice')}
+							</th>
+							<th className="px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-right">
+								{t('multiplier')}
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{otherCryptos?.map((crypto) => {
+							const marketCapInFiat = crypto.market_cap * rate
+							const xnoPriceIf = marketCapInFiat / xnoCirculatingSupply
+							const multiplier = currentXnoPrice > 0 ? xnoPriceIf / currentXnoPrice : 0
 
-								return (
-									<SpeculationRow
-										key={crypto.id}
-										index={index}
-										crypto={crypto}
-										formatMarketCap={(marketCapUSD: number) => {
-											const marketCap = marketCapUSD * rate
-											return `${symbol}${formatLargeNumber(marketCap)}`
-										}}
-										formatPrice={(priceInFiat: number) => formatPrice(priceInFiat, currency)}
-										multiplier={multiplier}
-										xnoPriceIf={xnoPriceIf}
-									/>
-								)
-							})}
-						</tbody>
-					</table>
-				</div>
+							return (
+								<SpeculationRow
+									key={crypto.id}
+									crypto={crypto}
+									formatMarketCap={(marketCapUSD: number) => {
+										const marketCap = marketCapUSD * rate
+										return `${symbol}${formatLargeNumber(marketCap)}`
+									}}
+									formatPrice={(priceInFiat: number) => formatPrice(priceInFiat, currency)}
+									multiplier={multiplier}
+									xnoPriceIf={xnoPriceIf}
+								/>
+							)
+						})}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	)

@@ -3,7 +3,8 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import { LoadingArea } from '@/components/loading-area'
+import { Skeleton } from '@/components/ui/skeleton'
+import { ModernPageBackground } from '@/components/modern-page-background'
 import { SpeculationTable } from '@/components/speculation-table'
 
 type Props = {
@@ -41,21 +42,44 @@ export default async function SpeculationPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
-			<div className="mb-20 sm:mb-12">
-				<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">{t('title')}</h1>
-				<p className="text-muted-foreground text-lg">{t('description')}</p>
-				<p className="text-xs text-muted-foreground/70 mt-2">{tDisclaimer('speculation')}</p>
-			</div>
+			<ModernPageBackground />
 
-			<Suspense
-				fallback={
-					<div className="overflow-hidden h-365.5 relative">
-						<LoadingArea />
-					</div>
-				}
-			>
-				<SpeculationTable />
-			</Suspense>
+			<header className="mb-12 sm:mb-14 animate-fade-in-up">
+				<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('title')}</h1>
+				<p className="text-muted-foreground text-base sm:text-lg">{t('description')}</p>
+				<p className="text-xs text-muted-foreground/70 mt-3">{tDisclaimer('speculation')}</p>
+			</header>
+
+			<div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+				<Suspense fallback={<SpeculationTableSkeleton />}>
+					<SpeculationTable />
+				</Suspense>
+			</div>
 		</main>
+	)
+}
+
+function SpeculationTableSkeleton() {
+	return (
+		<div className="rounded-md border bg-card p-4">
+			<div className="flex items-center justify-between gap-4">
+				<Skeleton className="h-4 w-40" />
+				<Skeleton className="h-7 w-36" />
+			</div>
+			<div className="mt-4 space-y-2.5">
+				{[1, 2, 3, 4, 5, 6].map((row) => (
+					<div key={row} className="flex items-center gap-4">
+						<Skeleton className="h-4 w-6" />
+						<Skeleton className="h-8 w-8 rounded-full" />
+						<Skeleton className="h-4 w-32" />
+						<div className="ml-auto hidden gap-8 sm:flex">
+							<Skeleton className="h-4 w-20" />
+							<Skeleton className="h-4 w-16" />
+							<Skeleton className="h-4 w-14" />
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
 	)
 }

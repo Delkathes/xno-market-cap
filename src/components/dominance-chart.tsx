@@ -11,7 +11,6 @@ import { useIsClientSide } from '@/hooks/use-is-client-side'
 import { useIsMobile } from '@/hooks/use-is-mobile'
 import { useMarketData } from '@/hooks/use-market-data'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { MarketDataError } from '@/components/market-data-error'
 
 const SLICE_COLORS: Record<string, string> = {
@@ -33,10 +32,16 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 	if (!active || !payload?.length) return null
 
 	return (
-		<div className="bg-popover border border-border rounded-lg shadow-lg p-3">
+		<div className="rounded-md border border-border bg-popover p-3 font-mono shadow-lg">
 			{payload.map((entry) => (
-				<p key={entry.name} className="text-sm font-medium" style={{ color: entry.fill }}>
-					{entry.name}: {formatLargeNumber(entry.value, { unit: 'XNO' })}
+				<p key={entry.name} className="flex items-center gap-2 text-sm font-semibold tabular-nums">
+					<span
+						aria-hidden="true"
+						className="inline-block h-2 w-2 rounded-full"
+						style={{ backgroundColor: entry.fill }}
+					/>
+					{entry.name}
+					<span className="text-muted-foreground">{formatLargeNumber(entry.value, { unit: 'XNO' })}</span>
 				</p>
 			))}
 		</div>
@@ -53,14 +58,9 @@ export function DominanceChart() {
 
 	if (error || !data) {
 		return (
-			<Card>
-				<CardHeader>
-					<CardTitle>{t('chartTitle')}</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<MarketDataError error={error} />
-				</CardContent>
-			</Card>
+			<div className="rounded-md border bg-card p-6 text-center text-sm text-muted-foreground">
+				<MarketDataError error={error} compact />
+			</div>
 		)
 	}
 
@@ -105,12 +105,11 @@ export function DominanceChart() {
 	const xnoDominance = ((xnoMarketCapXNO / totalMarketCapXNO) * 100).toFixed(4)
 
 	return (
-		<div>
-			<div className="pb-0">
-				<CardTitle>{t('distributionTitle')}</CardTitle>
-				<CardDescription>{t('chartDescription', { xnoDominance })}</CardDescription>
-			</div>
-			<div className="pb-4 px-4">
+		<div className="rounded-md border bg-card p-4 sm:p-5">
+			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{t('chartTitle')}</p>
+			<h2 className="mt-1 text-lg font-bold tracking-tight">{t('distributionTitle')}</h2>
+			<p className="mt-1 font-mono text-xs text-muted-foreground">{t('chartDescription', { xnoDominance })}</p>
+			<div className="mt-4">
 				<ResponsiveContainer width="100%" height={400}>
 					{isClientSide && (
 						<PieChart>
@@ -164,7 +163,7 @@ export function DominanceChart() {
 								))}
 							</Pie>
 							<Tooltip content={<CustomTooltip />} />
-							<Legend />
+							<Legend wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-geist-mono)' }} />
 						</PieChart>
 					)}
 				</ResponsiveContainer>

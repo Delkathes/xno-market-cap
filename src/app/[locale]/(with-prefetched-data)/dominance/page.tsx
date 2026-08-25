@@ -3,10 +3,11 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { DominanceChart } from '@/components/dominance-chart'
 import { DominanceTable } from '@/components/dominance-table'
 import { LoadingArea } from '@/components/loading-area'
+import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -42,19 +43,25 @@ export default async function DominancePage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
-			<div className="mb-8">
-				<h1 className="text-4xl md:text-5xl font-bold mb-3 text-balance">{t('title')}</h1>
-				<p className="text-muted-foreground text-lg">{t('description')}</p>
-			</div>
+			<ModernPageBackground />
 
-			<div className="grid gap-6 mb-8">
-				<Suspense fallback=<DominanceChartSkeleton locale={locale} />>
-					<DominanceChart />
-				</Suspense>
+			<header className="mb-12 sm:mb-14 animate-fade-in-up">
+				<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('title')}</h1>
+				<p className="text-muted-foreground text-base sm:text-lg">{t('description')}</p>
+			</header>
+
+			<div className="grid gap-8">
+				<div className="animate-fade-in-up">
+					<Suspense fallback={<DominanceChartSkeleton locale={locale} />}>
+						<DominanceChart />
+					</Suspense>
+				</div>
+				<div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+					<Suspense fallback={<DominanceTableSkeleton />}>
+						<DominanceTable />
+					</Suspense>
+				</div>
 			</div>
-			<Suspense fallback=<DominanceTableSkeleton />>
-				<DominanceTable />
-			</Suspense>
 		</main>
 	)
 }
@@ -63,20 +70,33 @@ async function DominanceChartSkeleton({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: 'dominance' })
 
 	return (
-		<div>
-			<div className="pb-0">
-				<CardTitle>{t('distributionTitle')}</CardTitle>
-				<CardDescription>{t('chartDescription', { xnoDominance: '' })}</CardDescription>
-			</div>
-			<div className="overflow-hidden relative px-4 pb-4">
-				<div className="relative h-100 w-full z-0">
-					<LoadingArea />
-				</div>
+		<div className="rounded-md border bg-card p-4 sm:p-5">
+			<Skeleton className="h-6 w-64 max-w-full" />
+			<Skeleton className="mt-2 h-4 w-96 max-w-full" />
+			<div className="relative mt-4 h-100 w-full overflow-hidden rounded-md">
+				<LoadingArea />
 			</div>
 		</div>
 	)
 }
 
-async function DominanceTableSkeleton() {
-	return <div className="overflow-hidden h-405.75 relative" />
+function DominanceTableSkeleton() {
+	return (
+		<div className="rounded-md border border-border bg-card p-4">
+			<div className="space-y-2.5">
+				{[1, 2, 3, 4, 5, 6].map((row) => (
+					<div key={row} className="flex items-center gap-4">
+						<Skeleton className="h-4 w-6" />
+						<Skeleton className="h-8 w-8 rounded-full" />
+						<Skeleton className="h-4 w-32" />
+						<div className="ml-auto hidden gap-8 sm:flex">
+							<Skeleton className="h-4 w-20" />
+							<Skeleton className="h-4 w-16" />
+							<Skeleton className="h-4 w-24" />
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	)
 }
