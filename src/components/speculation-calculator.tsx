@@ -106,7 +106,7 @@ export function SpeculationCalculator() {
 								className="pl-8 font-mono w-fit"
 							/>
 						</div>
-						<p className="text-xs text-muted-foreground">
+						<p suppressHydrationWarning className="text-xs text-muted-foreground">
 							{t('currentValue')}: {fiatConfig.symbol}
 							{currentValue.toLocaleString()}
 						</p>
@@ -249,6 +249,7 @@ export function SpeculationCalculator() {
 						<div>
 							<p className="text-sm text-muted-foreground mb-1">{t('multiplier')}</p>
 							<p
+								suppressHydrationWarning
 								className={cn(
 									'font-bold text-5xl sm:text-6xl tabular-nums tracking-tighter leading-none',
 									multiplier >= 100
@@ -264,7 +265,10 @@ export function SpeculationCalculator() {
 						{gain > 0 && (
 							<div className="text-right">
 								<p className="text-sm text-muted-foreground mb-1">{t('potentialGain')}</p>
-								<p className="font-mono font-bold text-2xl text-emerald-500 tabular-nums">
+								<p
+									suppressHydrationWarning
+									className="font-mono font-bold text-2xl text-emerald-500 tabular-nums"
+								>
 									+{gain.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 								</p>
 							</div>
@@ -275,13 +279,16 @@ export function SpeculationCalculator() {
 					<div className="grid gap-3 sm:grid-cols-2">
 						<div className="rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]">
 							<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')}</p>
-							<p className="font-mono font-bold text-2xl tabular-nums">
+							<p suppressHydrationWarning className="font-mono font-bold text-2xl tabular-nums">
 								{formatSmartFiatPrice(xnoPriceIf, selectedFiat)}
 							</p>
 						</div>
 						<div className="rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]">
 							<p className="text-sm text-muted-foreground mb-1">{t('yourStackValue')}</p>
-							<p className="font-mono font-bold text-2xl text-primary tabular-nums">
+							<p
+								suppressHydrationWarning
+								className="font-mono font-bold text-2xl text-primary tabular-nums"
+							>
 								{futureValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 							</p>
 						</div>

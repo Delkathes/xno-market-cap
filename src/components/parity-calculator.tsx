@@ -185,6 +185,7 @@ function EditableStatCard({
 				<PopoverTrigger asChild>
 					<button
 						type="button"
+						suppressHydrationWarning
 						className={cn(
 							'font-mono text-2xl font-bold tabular-nums text-left flex items-center gap-1 hover:opacity-85 transition-opacity cursor-pointer w-fit',
 							highlight && 'text-[#209CE9]',
@@ -229,7 +230,12 @@ function EditableStatCard({
 			</Popover>
 
 			{subValue && (
-				<p className="text-xs text-muted-foreground border-t border-dashed border-border pt-1.5">{subValue}</p>
+				<p
+					suppressHydrationWarning
+					className="text-xs text-muted-foreground border-t border-dashed border-border pt-1.5"
+				>
+					{subValue}
+				</p>
 			)}
 		</div>
 	)
@@ -320,18 +326,6 @@ export function ParityCalculator() {
 
 	const [primaryFiat] = useAtom(primaryFiatAtom)
 
-	// Core values (the "source of truth")
-	const [price, setPrice] = useState<number>(0)
-	const [amount, setAmount] = useState<number>(INITIAL_AMOUNT)
-	const [people, setPeople] = useState<number>(1)
-	const [totalInvestment, setTotalInvestment] = useState<number>(INITIAL_AMOUNT)
-	const [totalXNO, setTotalXNO] = useState<number>(0)
-
-	const [selectedFiat, setSelectedFiat] = useState<FiatCurrency>(primaryFiat)
-
-	// Lock states - which fields are locked (at most 2 can be locked for the system to be solvable)
-	const [lockedFields, setLockedFields] = useState<Set<LockableField>>(new Set(['price']))
-
 	// Get conversion rate for selected fiat
 	const getFiatRate = useCallback(
 		(fiat: FiatCurrency): number => {
@@ -357,24 +351,35 @@ export function ParityCalculator() {
 		[eurRate, gbpRate, jpyRate, chfRate, cadRate, audRate],
 	)
 
+	const [selectedFiat, setSelectedFiat] = useState<FiatCurrency>(primaryFiat)
+
+	// Core values (the "source of truth")
+	// Price and totalXNO are initialized from the live market price on the first
+	// render — the data is already resolved when this component mounts (suspense),
+	// so initializing lazily here avoids a post-mount effect that made the derived
+	// fun-fact strips pop in one frame late.
+	const [price, setPrice] = useState<number>(() => {
+		const current = xnoData?.current_price
+		return current ? current * getFiatRate(primaryFiat) : 0
+	})
+	const [amount, setAmount] = useState<number>(INITIAL_AMOUNT)
+	const [people, setPeople] = useState<number>(1)
+	const [totalInvestment, setTotalInvestment] = useState<number>(INITIAL_AMOUNT)
+	const [totalXNO, setTotalXNO] = useState<number>(() => {
+		const current = xnoData?.current_price
+		const initialPrice = current ? current * getFiatRate(primaryFiat) : 0
+		return initialPrice > 0 ? INITIAL_AMOUNT / initialPrice : 0
+	})
+
+	// Lock states - which fields are locked (at most 2 can be locked for the system to be solvable)
+	const [lockedFields, setLockedFields] = useState<Set<LockableField>>(new Set(['price']))
+
 	// Calculate XNO price in selected fiat
 	const xnoPriceInFiat = useMemo(() => {
 		if (!xnoData?.current_price) return 1
 		const rate = getFiatRate(selectedFiat)
 		return xnoData.current_price * rate
 	}, [xnoData, selectedFiat, getFiatRate])
-
-	// Initialize price with market price on first load
-	const initializedRef = useRef(false)
-	useEffect(() => {
-		if (!initializedRef.current && xnoPriceInFiat > 0) {
-			initializedRef.current = true
-			setPrice(xnoPriceInFiat)
-			// Calculate initial totalXNO based on defaults
-			const initialTotalXNO = INITIAL_AMOUNT / xnoPriceInFiat
-			setTotalXNO(initialTotalXNO)
-		}
-	}, [xnoPriceInFiat])
 
 	// Supply percentage (derived from totalXNO)
 	const supplyPercentage = useMemo(() => (totalXNO / XNO_TOTAL_SUPPLY) * 100, [totalXNO])
@@ -853,7 +858,10 @@ export function ParityCalculator() {
 					>
 						{t('supplyAcquired')}
 					</span>
-					<span className={cn('font-mono font-bold tabular-nums', isImpossibleScenario && 'text-amber-500')}>
+					<span
+						suppressHydrationWarning
+						className={cn('font-mono font-bold tabular-nums', isImpossibleScenario && 'text-amber-500')}
+					>
 						{isImpossibleScenario
 							? formatPercentage(theoreticalSupplyPercentage, { highPrecision: true })
 							: formatPercentage(supplyPercentage, { highPrecision: true })}

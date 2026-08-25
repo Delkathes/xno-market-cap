@@ -195,7 +195,10 @@ export function ParityHighlight() {
 										</span>
 										<span className="truncate text-xs text-muted-foreground">{asset.label}</span>
 									</div>
-									<p className="font-mono text-xl font-bold tabular-nums text-[#209CE9]">
+									<p
+										suppressHydrationWarning
+										className="font-mono text-xl font-bold tabular-nums text-[#209CE9]"
+									>
 										{formatXNOAmount(xnoAmount, { compact: false, showSymbol: false })}
 									</p>
 									<p className="flex items-center justify-between gap-2 text-xs text-muted-foreground/80 sm:hidden">
@@ -249,13 +252,16 @@ export function ParityHighlight() {
 							</span>
 							<span className="truncate text-xs text-muted-foreground">{asset.label}</span>
 						</div>
-						<p className={cn('font-mono text-xl font-bold tabular-nums', asset.color.text)}>
+						<p
+							suppressHydrationWarning
+							className={cn('font-mono text-xl font-bold tabular-nums', asset.color.text)}
+						>
 							{formatParityValue(value, asset)}
 						</p>
 						{futureValue !== null && (
 							<p className="flex items-center gap-1.5 border-t border-dashed border-border pt-2 text-xs text-muted-foreground/90">
 								<TrendingUp className="h-3 w-3 shrink-0" />
-								<span className="font-mono truncate">
+								<span suppressHydrationWarning className="font-mono truncate">
 									{futureValue === Number.POSITIVE_INFINITY
 										? t('noLimit')
 										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatParityValue(futureValue * xnoAmount, asset)}`}
