@@ -30,7 +30,6 @@ interface CryptoRowProps {
 
 function CryptoRow({
 	crypto,
-	index,
 	isXNO,
 	valueInXNO,
 	marketCapInXNO,
@@ -46,7 +45,7 @@ function CryptoRow({
 			onClick={() => router.push(`/coin/${crypto.id}`)}
 			className={cn(
 				'border-b border-l-2 border-border border-l-transparent transition-colors cursor-pointer hover:bg-muted/40',
-				isXNO && 'border-l-[#209CE9] bg-[#209CE9]/[0.05]',
+				isXNO && 'border-l-[#209CE9] bg-[#209CE9]/5',
 			)}
 		>
 			<td className="px-3 py-1.5">

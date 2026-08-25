@@ -113,33 +113,33 @@ export default async function Home({ params }: Props) {
 }
 
 function TickerSkeleton() {
-	return <Skeleton className="h-[30px] w-full rounded-md" />
+	return <Skeleton className="h-7.5 w-full rounded-md" />
 }
 
 export async function MarketOverviewSkeleton() {
 	return (
 		<div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
 			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-4">
-				<Skeleton className="h-[17px] w-24" />
+				<Skeleton className="h-4.25 w-24" />
 				<div className="mt-3 grid grid-cols-3 gap-2">
 					{[1, 2, 3].map((index) => (
 						<div
 							key={`price-cell-${index}`}
 							className="rounded-md border border-border bg-muted/30 px-3 py-2.5"
 						>
-							<Skeleton className="h-[15px] w-10" />
+							<Skeleton className="h-3.75 w-10" />
 							<Skeleton className="mt-1 h-5 w-full sm:h-6" />
 							<div className="mt-2 space-y-1 border-t border-dashed border-border pt-1.5">
-								<Skeleton className="h-[15px] w-12" />
-								<Skeleton className="h-[15px] w-12" />
-								<Skeleton className="h-[15px] w-12" />
+								<Skeleton className="h-3.75 w-12" />
+								<Skeleton className="h-3.75 w-12" />
+								<Skeleton className="h-3.75 w-12" />
 							</div>
 						</div>
 					))}
 				</div>
 			</div>
 			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
-				<Skeleton className="h-[17px] w-24" />
+				<Skeleton className="h-4.25 w-24" />
 				<Skeleton className="mt-2 h-9 w-32" />
 				<div className="mt-4 space-y-1.5 border-t border-border pt-3">
 					<Skeleton className="h-5 w-full" />
@@ -148,14 +148,14 @@ export async function MarketOverviewSkeleton() {
 				</div>
 			</div>
 			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
-				<Skeleton className="h-[17px] w-28" />
+				<Skeleton className="h-4.25 w-28" />
 				<div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-5">
 					{[1, 2, 3, 4].map((index) => (
 						<div key={`dom-${index}`}>
 							<Skeleton className="h-5 w-16" />
 							<Skeleton className="mt-1.5 h-1 w-full" />
 							<div className="mt-2 border-t border-dashed border-border pt-1.5">
-								<Skeleton className="h-[15px] w-16" />
+								<Skeleton className="h-3.75 w-16" />
 							</div>
 						</div>
 					))}

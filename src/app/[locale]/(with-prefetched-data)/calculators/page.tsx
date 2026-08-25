@@ -101,7 +101,7 @@ function TierCardSkeleton() {
 				<Skeleton className="h-9 w-9 rounded-full" />
 				<Skeleton className="h-5 w-24" />
 			</div>
-			<Skeleton className="h-[25px] w-32" />
+			<Skeleton className="h-6.25 w-32" />
 		</div>
 	)
 }
@@ -144,12 +144,9 @@ export default async function CalculatorsPage({ params }: Props) {
 								/>
 								<div className="rounded-xl border bg-card p-4 shadow-xs sm:p-6">
 									<div className="grid gap-3 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
-										<Skeleton className="h-[102px] rounded-lg sm:h-[111px]" />
+										<Skeleton className="h-25.5 rounded-lg sm:h-27.75" />
 										{[2, 3, 4, 5].map((index) => (
-											<Skeleton
-												key={`parity-skeleton-${index}`}
-												className="h-[111px] rounded-lg"
-											/>
+											<Skeleton key={`parity-skeleton-${index}`} className="h-27.75 rounded-lg" />
 										))}
 									</div>
 								</div>
@@ -203,7 +200,7 @@ export default async function CalculatorsPage({ params }: Props) {
 										</section>
 										<section className="space-y-3 rounded-lg border p-4">
 											<div className="flex items-center justify-between gap-2 text-sm">
-												<Skeleton className="h-[17px] w-32" />
+												<Skeleton className="h-4.25 w-32" />
 												<Skeleton className="h-5 w-16" />
 											</div>
 											<div>
@@ -217,7 +214,7 @@ export default async function CalculatorsPage({ params }: Props) {
 										</section>
 										<div className="space-y-3">
 											<div className="relative rounded-md border border-dashed border-primary/25 bg-primary/5 px-4 py-3">
-												<Skeleton className="h-[60px] w-3/4 sm:h-5" />
+												<Skeleton className="h-15 w-3/4 sm:h-5" />
 											</div>
 											<div className="relative rounded-md border border-dashed border-emerald-500/25 bg-emerald-500/5 px-4 py-3">
 												<Skeleton className="h-5 w-2/3" />
@@ -269,7 +266,7 @@ export default async function CalculatorsPage({ params }: Props) {
 											<div className="flex items-end justify-between gap-4 mb-6">
 												<div>
 													<Skeleton className="h-5 w-20" />
-													<Skeleton className="mt-1 h-12 w-36 sm:h-[60px]" />
+													<Skeleton className="mt-1 h-12 w-36 sm:h-15" />
 												</div>
 												<div className="text-right">
 													<Skeleton className="ml-auto h-5 w-28" />
