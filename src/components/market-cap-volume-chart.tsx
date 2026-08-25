@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { useAtomValue } from 'jotai'
 import { AreaChartIcon, ArrowRightLeft, LineChartIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/components/theme-provider'
 import {
 	Area,
 	Bar,

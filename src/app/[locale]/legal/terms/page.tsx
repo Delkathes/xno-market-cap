@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -27,7 +27,6 @@ export default async function TermsOfServicePage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'legal.terms' })
 	const tLegal = await getTranslations({ locale, namespace: 'legal' })

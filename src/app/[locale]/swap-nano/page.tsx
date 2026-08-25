@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Info } from 'lucide-react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -50,7 +50,6 @@ export default async function SwapNanoPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations('swapNano')
 	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })

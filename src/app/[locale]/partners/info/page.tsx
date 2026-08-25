@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Globe, ShieldCheck, Sparkles, Zap } from 'lucide-react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Appear } from '@/components/ui/appear'
 import { Badge } from '@/components/ui/badge'
@@ -31,7 +31,6 @@ export default async function PartnerInfoPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	setRequestLocale(locale)
 	const t = await getTranslations({ locale, namespace: 'partners' })
 
 	return (

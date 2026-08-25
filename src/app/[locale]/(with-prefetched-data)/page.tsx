@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { getRecentNews } from '@/lib/news'
 
@@ -41,7 +41,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Home({ params }: Props) {
 	const { locale } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'home' })
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { DominanceTable } from '@/components/dominance-table'
@@ -40,8 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DominancePage({ params }: Props) {
 	const { locale } = await params
-
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'dominance' })
 

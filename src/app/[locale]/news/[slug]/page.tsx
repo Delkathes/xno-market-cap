@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
@@ -76,7 +76,6 @@ export default async function NewsArticlePage({ params }: Props) {
 	cacheLife('days')
 
 	const { locale, slug } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'news' })
 	const article = await getNewsMetadata(slug, locale)

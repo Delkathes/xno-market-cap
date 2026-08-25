@@ -25,7 +25,7 @@ import {
 	Workflow,
 	Zap,
 } from 'lucide-react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -61,7 +61,6 @@ export default async function WhyNanoPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	setRequestLocale(locale)
 	const t = await getTranslations({ locale, namespace: 'whyNano' })
 
 	return (

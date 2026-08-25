@@ -3,7 +3,6 @@ import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink, Sparkles } from 'lucide-react'
-import { setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
@@ -60,7 +59,6 @@ export default async function PartnerPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale, slug } = await params
-	setRequestLocale(locale)
 
 	const partner = getPartnerById(slug)
 

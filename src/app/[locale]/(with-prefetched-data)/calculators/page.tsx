@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { ModernPageBackground } from '@/components/modern-page-background'
@@ -70,7 +70,6 @@ export default async function CalculatorsPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'navigation' })
 	const tMeta = await getTranslations({ locale, namespace: 'metadata.calculators' })

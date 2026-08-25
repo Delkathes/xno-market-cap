@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { ModernPageBackground } from '@/components/modern-page-background'
@@ -62,8 +62,6 @@ function SectionHeader({
 
 export default async function ParityPage({ params }: Props) {
 	const { locale } = await params
-
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'parity' })
 	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })

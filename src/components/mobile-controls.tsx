@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai'
 import { Menu, Moon, RefreshCw, Sun, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/components/theme-provider'
 
 import { cn } from '@/lib/utils'
 

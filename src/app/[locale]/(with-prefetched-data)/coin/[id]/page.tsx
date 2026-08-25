@@ -3,7 +3,7 @@ import { cacheLife } from 'next/cache'
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { CRYPTO_IDS } from '@/lib/constants'
 import getQueryClient from '@/lib/get-query-client'
@@ -87,9 +87,7 @@ export default async function CoinDetailPage({ params }: Props) {
 	'use cache'
 	cacheLife('hours')
 
-	const { locale, id: coinIdParam } = await params
-
-	setRequestLocale(locale)
+	const { id: coinIdParam } = await params
 
 	const queryClient = getQueryClient()
 

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { AlertTriangle } from 'lucide-react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -28,7 +28,6 @@ export default async function DisclaimerPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations({ locale, namespace: 'legal.disclaimer' })
 	const tLegal = await getTranslations({ locale, namespace: 'legal' })

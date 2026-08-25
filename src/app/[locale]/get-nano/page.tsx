@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { ArrowRightLeft, Building2, Droplets, ExternalLink, Info, Monitor, Shield, Smartphone } from 'lucide-react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -49,9 +49,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function GetNanoPage({ params }: Props) {
 	'use cache'
 	cacheLife('max')
-
-	const { locale } = await params
-	setRequestLocale(locale)
 
 	const t = await getTranslations('getNano')
 

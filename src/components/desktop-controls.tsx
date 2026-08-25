@@ -3,7 +3,7 @@
 import { useSetAtom } from 'jotai'
 import { ArrowRightLeft, ChartPie, HelpCircle, Lightbulb, Moon, RefreshCw, Scale, Sun, Wallet, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/components/theme-provider'
 
 import { Link, usePathname } from '@/i18n/navigation'
 
