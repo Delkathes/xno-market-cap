@@ -402,7 +402,7 @@ function DomRow({
 					suppressHydrationWarning
 					className={cn('font-bold tabular-nums', isXNO ? 'text-[#209CE9]' : 'text-foreground')}
 				>
-					{value.toFixed(2)}%
+					{value.toFixed(isXNO ? 4 : 2)}%
 				</span>
 			</div>
 			<div className="mt-1.5 h-1 overflow-hidden rounded-sm bg-muted">
