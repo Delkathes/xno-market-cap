@@ -110,7 +110,7 @@ export default async function ParityPage({ params }: Props) {
 				</section>
 
 				{/* 02 — Matrix */}
-				<section className="animate-fade-in-up" style={{ animationDelay: '120ms' }}>
+				<section className="animate-fade-in-up min-w-0" style={{ animationDelay: '120ms' }}>
 					<Suspense
 						fallback={
 							<>

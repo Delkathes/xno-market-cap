@@ -245,13 +245,13 @@ export function SpeculationCalculator() {
 					</div>
 
 					{/* Hero multiplier */}
-					<div className="flex items-end justify-between gap-4 mb-6">
-						<div>
+					<div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+						<div className="min-w-0">
 							<p className="text-sm text-muted-foreground mb-1">{t('multiplier')}</p>
 							<p
 								suppressHydrationWarning
 								className={cn(
-									'font-bold text-5xl sm:text-6xl tabular-nums tracking-tighter leading-none',
+									'font-bold text-4xl sm:text-6xl tabular-nums tracking-tighter leading-none break-all',
 									multiplier >= 100
 										? 'text-emerald-500'
 										: multiplier >= 10
@@ -263,11 +263,11 @@ export function SpeculationCalculator() {
 							</p>
 						</div>
 						{gain > 0 && (
-							<div className="text-right">
+							<div className="min-w-0 text-left sm:text-right">
 								<p className="text-sm text-muted-foreground mb-1">{t('potentialGain')}</p>
 								<p
 									suppressHydrationWarning
-									className="font-mono font-bold text-2xl text-emerald-500 tabular-nums"
+									className="font-mono font-bold text-xl sm:text-2xl text-emerald-500 tabular-nums break-all"
 								>
 									+{gain.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 								</p>
@@ -279,7 +279,7 @@ export function SpeculationCalculator() {
 					<div className="grid gap-3 sm:grid-cols-2">
 						<div className="rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]">
 							<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')}</p>
-							<p suppressHydrationWarning className="font-mono font-bold text-2xl tabular-nums">
+							<p suppressHydrationWarning className="font-mono font-bold text-2xl tabular-nums break-all">
 								{formatSmartFiatPrice(xnoPriceIf, selectedFiat)}
 							</p>
 						</div>
@@ -287,7 +287,7 @@ export function SpeculationCalculator() {
 							<p className="text-sm text-muted-foreground mb-1">{t('yourStackValue')}</p>
 							<p
 								suppressHydrationWarning
-								className="font-mono font-bold text-2xl text-primary tabular-nums"
+								className="font-mono font-bold text-2xl text-primary tabular-nums break-all"
 							>
 								{futureValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 							</p>

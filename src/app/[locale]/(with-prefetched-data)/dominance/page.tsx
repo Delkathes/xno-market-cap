@@ -56,7 +56,7 @@ export default async function DominancePage({ params }: Props) {
 				<div className="animate-fade-in-up">
 					<DominanceChart />
 				</div>
-				<div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+				<div className="animate-fade-in-up min-w-0" style={{ animationDelay: '150ms' }}>
 					<Suspense fallback={<DominanceTableSkeleton />}>
 						<DominanceTable />
 					</Suspense>
