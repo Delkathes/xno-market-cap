@@ -1,0 +1,31 @@
+export const metadata = {
+	emoji: '⚙️',
+	title: 'How Nano Consensus Actually Works',
+	description: "A practical look at Nano's consensus mechanism, Open Representative Voting, and why it allows instant, feeless transactions.",
+	date: '2026-05-20',
+	author: 'NanoMarketCap Team',
+	tags: ['nano', 'technology', 'explainer'],
+	published: true,
+}
+
+# How Nano Consensus Actually Works
+
+Nano is often described as "the feeless, instant cryptocurrency", but the interesting part is not what it claims, it is how it gets there. Most cryptocurrencies rely on mining or staking, which means energy consumption, fees, and waiting times. Nano uses something else entirely: Open Representative Voting, usually shortened to ORV.
+
+## No miners, just representatives
+
+Nano does not have miners. The network does not pay anyone to secure it, because it does not need to. Instead, every account can vote with its balance for a representative. The representatives with the most delegated weight are the ones that confirm transactions on behalf of the network.
+
+That delegation is the key insight. You never lose control of your funds by delegating, your balance stays in your account, it simply also acts as a vote. Most people let their wallet choose a default representative, and that is perfectly fine.
+
+## What a confirmation actually is
+
+When you send a Nano transaction, your block is broadcast to the network. Representatives check it against their local ledger, and if it is valid they cast a vote for it. Once enough voting weight agrees, the transaction is confirmed. Because the network is structured as a directed acyclic graph rather than a chain, there is no block to wait for and no block reward to fight over. Confirmations settle in under a second, usually well under.
+
+## Why this matters in practice
+
+The consequences are not just technical. A network without miners has no energy arms race, no fee market, and no congestion based on block space. Sending 0.000001 XNO costs the same as sending 1,000 XNO: nothing. That is what makes Nano interesting for micropayments, tipping, and machine-to-machine payments, the kind of use cases where transaction costs would eat the entire value of the payment.
+
+The trade-off is that security depends on honest representatives and a distributed voter base. That is why the community pushes for decentralization, and why the "Open Representative Voting" name matters: the system only works if the weight stays spread out.
+
+None of this is theory you have to take on faith. You can verify the network state yourself with any public node, and if you hold XNO, you can even pick your representative. The tools to do so have existed for years. They just do not get talked about as much as they deserve.

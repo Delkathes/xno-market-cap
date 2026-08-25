@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { cacheLife } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
@@ -15,17 +15,6 @@ import { env } from '@/env'
 import { Footer } from '@/components/footer'
 import { Navigation } from '@/components/navigation'
 import { Providers } from '@/components/providers'
-
-import './globals.css'
-
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin'],
-})
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
-	subsets: ['latin'],
-})
 
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
@@ -118,7 +107,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
-export default async function RootLayout({ children, params }: Props) {
+export default async function LocaleLayout({ children, params }: Props) {
 	const { locale } = await params
 
 	// Validate locale
@@ -130,33 +119,29 @@ export default async function RootLayout({ children, params }: Props) {
 	setRequestLocale(locale)
 
 	return (
-		<html lang={locale} suppressHydrationWarning>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-				<Providers>
-					{/* hreflang alternates — hoisted into <head> by Next.js (layout metadata
-					    alternates.languages is not emitted with cacheComponents) */}
-					{LOCALES.map((locale) => (
-						<link
-							key={locale}
-							rel="alternate"
-							hrefLang={locale}
-							href={locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`}
-						/>
-					))}
-					<div className="min-h-screen flex flex-col animate-gradient-shift">
-						{/* Navigation uses usePathname (URL data) — wrap in Suspense so it
-						    streams in after prerendering instead of blocking it */}
-						<Suspense fallback={<NavigationFallback />}>
-							<Navigation />
-						</Suspense>
-						<main className="flex-1 z-0 flex flex-col">{children}</main>
-						<Footer locale={locale} />
-					</div>
-				</Providers>
-				<Analytics />
-				<SpeedInsights />
-			</body>
-		</html>
+		<Providers>
+			{/* hreflang alternates — hoisted into <head> by Next.js (layout metadata
+			    alternates.languages is not emitted with cacheComponents) */}
+			{LOCALES.map((locale) => (
+				<link
+					key={locale}
+					rel="alternate"
+					hrefLang={locale}
+					href={locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`}
+				/>
+			))}
+			<div className="min-h-screen flex flex-col animate-gradient-shift">
+				{/* Navigation uses usePathname (URL data) — wrap in Suspense so it
+				    streams in after prerendering instead of blocking it */}
+				<Suspense fallback={<NavigationFallback />}>
+					<Navigation />
+				</Suspense>
+				<main className="flex-1 z-0 flex flex-col">{children}</main>
+				<Footer locale={locale} />
+			</div>
+			<Analytics />
+			<SpeedInsights />
+		</Providers>
 	)
 }
 
