@@ -10,6 +10,8 @@ import { routing } from '@/i18n/routing'
 
 import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
 
+import { env } from '@/env'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ModernPageBackground } from '@/components/modern-page-background'
@@ -84,6 +86,20 @@ export default async function PartnerPage({ params }: Props) {
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<ModernPageBackground />
+
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@type': 'Organization',
+						name: partner.partnerName,
+						description: partner.description,
+						url: partner.externalUrl ?? `${env.NEXT_PUBLIC_SITE_URL}/partners/${slug}`,
+						logo: partner.logoUrl ? `${env.NEXT_PUBLIC_SITE_URL}${partner.logoUrl}` : undefined,
+					}),
+				}}
+			/>
 
 			<div className="mx-auto max-w-3xl animate-fade-in-up">
 				{/* Back link */}

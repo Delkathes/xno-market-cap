@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
@@ -8,6 +8,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { type Locale, routing } from '@/i18n/routing'
 
+import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
 import { env } from '@/env'
 
 import { Footer } from '@/components/footer'
@@ -24,7 +25,6 @@ const geistMono = Geist_Mono({
 	variable: '--font-geist-mono',
 	subsets: ['latin'],
 })
-const spaceGrotesk = Space_Grotesk({ variable: '--space-grotesk', subsets: ['latin'] })
 
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
@@ -79,14 +79,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		icons: {
 			icon: [
 				{
-					url: '/icon-light-32x32.png',
-					media: '(prefers-color-scheme: light)',
-				},
-				{
-					url: '/icon-dark-32x32.png',
-					media: '(prefers-color-scheme: dark)',
-				},
-				{
 					url: '/X_abstract.svg',
 					type: 'image/svg+xml',
 				},
@@ -117,10 +109,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		},
 		alternates: {
 			canonical: SITE_URL,
-			languages: {
-				en: `${SITE_URL}/en`,
-				fr: `${SITE_URL}/fr`,
-			},
+			languages: Object.fromEntries(
+				LOCALES.map((locale) => [
+					locale,
+					locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`,
+				]),
+			),
 		},
 		category: 'finance',
 	}
@@ -140,7 +134,7 @@ export default async function RootLayout({ children, params }: Props) {
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				suppressHydrationWarning
 			>
 				<Providers>

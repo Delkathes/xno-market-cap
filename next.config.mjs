@@ -11,7 +11,7 @@ const contentSecurityPolicy = [
 	"form-action 'self'",
 	"frame-ancestors 'none'",
 	"object-src 'none'",
-	`script-src 'self' 'unsafe-inline' https://vercel.live${isDev ? " 'unsafe-eval'" : ''}`,
+	`script-src 'self' 'unsafe-inline' https://vercel.live https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ''}`,
 	"style-src 'self' 'unsafe-inline'",
 	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com",
 	"font-src 'self' data:",

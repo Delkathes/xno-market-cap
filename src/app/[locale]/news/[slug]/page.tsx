@@ -9,6 +9,8 @@ import { routing } from '@/i18n/routing'
 
 import { formatNewsDate, getAllNews, getArticleLocale, getNewsMetadata, getNewsOgImage } from '@/lib/news'
 
+import { env } from '@/env'
+
 import { Button } from '@/components/ui/button'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
@@ -86,12 +88,39 @@ export default async function NewsArticlePage({ params }: Props) {
 	// Get the effective locale (falls back to default if article doesn't exist in requested locale)
 	const effectiveLocale = getArticleLocale(slug, locale)
 
+	const ogImage = getNewsOgImage(article)
+
 	// Dynamically import the MDX content
 	const { default: Content } = await import(`@content/news/${effectiveLocale}/${slug}.mdx`)
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<ModernPageBackground />
+
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@type': 'NewsArticle',
+						headline: article.title,
+						description: article.description,
+						datePublished: article.date,
+						author: article.author ? { '@type': 'Person', name: article.author } : undefined,
+						image: ogImage ? `${env.NEXT_PUBLIC_SITE_URL}${ogImage}` : undefined,
+						publisher: {
+							'@type': 'Organization',
+							name: 'NanoMarketCap',
+							logo: {
+								'@type': 'ImageObject',
+								url: `${env.NEXT_PUBLIC_SITE_URL}/X_abstract.svg`,
+							},
+						},
+						mainEntityOfPage: `${env.NEXT_PUBLIC_SITE_URL}/news/${slug}`,
+						inLanguage: effectiveLocale,
+					}),
+				}}
+			/>
 
 			<div className="mx-auto max-w-3xl animate-fade-in-up">
 				{/* Back navigation */}

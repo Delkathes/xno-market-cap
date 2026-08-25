@@ -5,6 +5,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { getRecentNews } from '@/lib/news'
 
+import { env } from '@/env'
+
 import { Skeleton } from '@/components/ui/skeleton'
 import { MarketCapTable } from '@/components/market-cap-table'
 import { MarketOverview } from '@/components/market-overview'
@@ -48,6 +50,32 @@ export default async function Home({ params }: Props) {
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<ModernPageBackground />
+
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@graph': [
+							{
+								'@type': 'Organization',
+								'@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization`,
+								name: 'NanoMarketCap',
+								url: env.NEXT_PUBLIC_SITE_URL,
+								logo: `${env.NEXT_PUBLIC_SITE_URL}/X_abstract.svg`,
+							},
+							{
+								'@type': 'WebSite',
+								'@id': `${env.NEXT_PUBLIC_SITE_URL}/#website`,
+								url: env.NEXT_PUBLIC_SITE_URL,
+								name: 'NanoMarketCap',
+								publisher: { '@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization` },
+								inLanguage: ['en', 'nl', 'es', 'it', 'de', 'fr'],
+							},
+						],
+					}),
+				}}
+			/>
 
 			<div className="space-y-8">
 				{/* Ticker tape */}

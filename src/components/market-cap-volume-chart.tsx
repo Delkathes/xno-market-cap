@@ -137,6 +137,7 @@ function StatCell({
 		<div className="rounded-md border border-border bg-muted/30 px-3 py-2">
 			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
 			<p
+				suppressHydrationWarning
 				className={cn(
 					'mt-1 truncate font-mono text-sm font-semibold tabular-nums leading-none',
 					accent === 'up' && 'text-trendup',

@@ -217,21 +217,21 @@ export function MarketOverview() {
 							{primaryFiat !== FiatCurrency.USD && (
 								<div className="flex items-baseline justify-between">
 									<dt className="text-muted-foreground">USD</dt>
-									<dd className="tabular-nums">
+									<dd suppressHydrationWarning className="tabular-nums">
 										{formatFiatMarketCap(xnoMarketCapUSD, FiatCurrency.USD)}
 									</dd>
 								</div>
 							)}
 							<div className="flex items-baseline justify-between">
 								<dt className="text-muted-foreground">{primaryFiat}</dt>
-								<dd className="tabular-nums">
+								<dd suppressHydrationWarning className="tabular-nums">
 									{formatFiatMarketCap(xnoMarketCapPrimary, primaryFiat)}
 								</dd>
 							</div>
 							{secondaryFiat !== primaryFiat && (
 								<div className="flex items-baseline justify-between">
 									<dt className="text-muted-foreground">{secondaryFiat}</dt>
-									<dd className="tabular-nums">
+									<dd suppressHydrationWarning className="tabular-nums">
 										{formatFiatMarketCap(xnoMarketCapSecondary, secondaryFiat)}
 									</dd>
 								</div>
@@ -240,7 +240,7 @@ export function MarketOverview() {
 								<dt className="text-muted-foreground">
 									{selectedCrypto ? selectedCrypto.symbol.toUpperCase() : '—'}
 								</dt>
-								<dd className="tabular-nums">
+								<dd suppressHydrationWarning className="tabular-nums">
 									{!selectedCrypto
 										? '—'
 										: formatCryptoMarketCap(xnoMarketCapCrypto, {
@@ -323,7 +323,10 @@ function PriceCell({
 	const content = (
 		<>
 			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{code}</p>
-			<p className="mt-1 truncate font-mono text-xl font-bold tabular-nums tracking-tight leading-none sm:text-2xl">
+			<p
+				suppressHydrationWarning
+				className="mt-1 truncate font-mono text-xl font-bold tabular-nums tracking-tight leading-none sm:text-2xl"
+			>
 				{value}
 			</p>
 			<div className="mt-2 space-y-1 border-t border-dashed border-border pt-1.5">
@@ -355,6 +358,7 @@ function ChangeRow({ label, value }: { label: string; value: number }) {
 		<div className="flex items-center justify-between gap-1 font-mono text-[10px] tabular-nums">
 			<span className="text-muted-foreground/70">{label}</span>
 			<span
+				suppressHydrationWarning
 				className={cn('flex items-center gap-1 font-semibold', value >= 0 ? 'text-trendup' : 'text-trenddown')}
 			>
 				<span aria-hidden="true" className="text-[7px] leading-none">
@@ -394,7 +398,10 @@ function DomRow({
 				>
 					{label}
 				</span>
-				<span className={cn('font-bold tabular-nums', isXNO ? 'text-[#209CE9]' : 'text-foreground')}>
+				<span
+					suppressHydrationWarning
+					className={cn('font-bold tabular-nums', isXNO ? 'text-[#209CE9]' : 'text-foreground')}
+				>
 					{value.toFixed(2)}%
 				</span>
 			</div>

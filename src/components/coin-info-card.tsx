@@ -29,11 +29,15 @@ function StatCell({
 	return (
 		<div className="rounded-md border border-border bg-muted/30 px-3 py-2.5">
 			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-			<p className="mt-1 truncate font-mono text-lg font-bold tabular-nums tracking-tight leading-none">
+			<p
+				suppressHydrationWarning
+				className="mt-1 truncate font-mono text-lg font-bold tabular-nums tracking-tight leading-none"
+			>
 				{value}
 			</p>
 			{sub && (
 				<p
+					suppressHydrationWarning
 					className={cn(
 						'mt-1.5 flex items-center gap-1 font-mono text-[10px] font-semibold tabular-nums',
 						accent === 'up' && 'text-trendup',
