@@ -563,10 +563,9 @@
 				"title": "Nano Casa",
 				"description": "Suivez l'activité de développement et découvrez les projets de l'écosystème Nano."
 			},
-			"comingSoon": "Bientôt Disponible",
 			"n8nNode": {
-				"title": "Nœud Communautaire n8n",
-				"badge": "En Développement",
+				"title": "Nœud n8n",
+				"badge": "Disponible",
 				"description": "Nœud communautaire officiel n8n pour les commandes RPC Nano. Construisez des flux visuels avec intégration native Nano."
 			}
 		},

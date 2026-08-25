@@ -257,6 +257,20 @@
     }
   }
 
+  /* Diagonal stripe scroll for the "exceeds supply" gauge state */
+  @keyframes tick-scroll {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 16.97px 0;
+    }
+  }
+
+  .animate-tick-scroll {
+    animation: tick-scroll 0.7s linear infinite;
+  }
+
   .animate-blob {
     animation: blob 7s ease-out infinite;
   }

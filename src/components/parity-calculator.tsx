@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
-import { Calculator, Coins, Lock, Pencil, Percent, PiggyBank, Unlock, Users, Wallet } from 'lucide-react'
+import { Coins, Lock, Pencil, Percent, PiggyBank, Unlock, Users, Wallet } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { ASSET_CONFIG } from '@/lib/asset-config'
@@ -14,11 +14,9 @@ import { cn } from '@/lib/utils'
 import { useMarketData } from '@/hooks/use-market-data'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Progress } from '@/components/ui/progress'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
 import { HolderTierDialog, type TierKey } from '@/components/holder-tier-dialog'
@@ -158,9 +156,9 @@ function EditableStatCard({
 	return (
 		<div
 			className={cn(
-				'p-4 rounded-lg border bg-card space-y-1 relative group',
-				highlight && 'bg-[#209CE9]/10 border-[#209CE9]/30',
-				isLocked && 'ring-1 ring-amber-500/30',
+				'group relative flex flex-col gap-2 rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]',
+				highlight && 'border-[#209CE9]/40 bg-[#209CE9]/[0.07]',
+				isLocked && 'ring-1 ring-amber-500/40',
 			)}
 		>
 			{/* Lock button - top right */}
@@ -178,12 +176,12 @@ function EditableStatCard({
 					<button
 						type="button"
 						className={cn(
-							'text-2xl font-bold font-mono text-left flex items-center gap-1 hover:opacity-80 transition-opacity cursor-pointer w-fit',
+							'font-mono text-2xl font-bold tabular-nums text-left flex items-center gap-1 hover:opacity-85 transition-opacity cursor-pointer w-fit',
 							highlight && 'text-[#209CE9]',
 						)}
 					>
 						{value}
-						<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity ml-1" />
+						<Pencil className="h-3.5 w-3.5 opacity-0 group-hover:opacity-60 transition-opacity ml-1" />
 					</button>
 				</PopoverTrigger>
 				<PopoverContent className="w-56 p-3" align="start">
@@ -220,7 +218,9 @@ function EditableStatCard({
 				</PopoverContent>
 			</Popover>
 
-			{subValue && <p className="text-xs text-muted-foreground">{subValue}</p>}
+			{subValue && (
+				<p className="text-xs text-muted-foreground border-t border-dashed border-border pt-1.5">{subValue}</p>
+			)}
 		</div>
 	)
 }
@@ -614,20 +614,12 @@ export function ParityCalculator() {
 	)
 
 	return (
-		<Card>
-			<CardHeader className="pb-0">
-				<div>
-					<CardTitle className="flex items-center gap-2">
-						<Calculator className="h-5 w-5 text-[#209CE9]" />
-						{t('title')}
-					</CardTitle>
-					<CardDescription>{t('description')}</CardDescription>
-				</div>
-			</CardHeader>
-			<CardContent className="space-y-6 px-4">
+		<div className="space-y-6">
+			{/* ============ CONTROL BANK ============ */}
+			<section className="space-y-6 rounded-lg border bg-muted/20 p-4 sm:p-5">
 				{/* Lock guide */}
-				<div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 rounded-lg p-3">
-					<Lock className="h-3.5 w-3.5 text-amber-500" />
+				<div className="flex items-center gap-2 text-xs text-muted-foreground">
+					<Lock className="h-3.5 w-3.5 text-amber-500 shrink-0" />
 					<span>{t('lockGuide')}</span>
 				</div>
 
@@ -765,101 +757,114 @@ export function ParityCalculator() {
 						<span>10B</span>
 					</div>
 				</div>
+			</section>
 
-				{/* Results - now editable with locks */}
-				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-					<EditableStatCard
-						icon={<PiggyBank className="h-4 w-4" />}
-						label={t('totalInvestment')}
-						value={formatFiatPrice(totalInvestment, selectedFiat)}
-						numericValue={totalInvestment}
-						onValueChange={(v) => solveSystem('totalInvestment', v)}
-						isLocked={lockedFields.has('totalInvestment')}
-						onLockToggle={() => toggleLock('totalInvestment')}
-						canLock={canLock('totalInvestment')}
-						inputPrefix={fiatConfig.symbol}
-						subValue={people > 1 ? `${people} × ${formatFiatPrice(amount, selectedFiat)}` : undefined}
-					/>
-					<EditableStatCard
-						icon={<Coins className="h-4 w-4" />}
-						label={t('totalXNO')}
-						value={`${formatXNOAmount(totalXNO, { compact: false, showSymbol: false })}`}
-						numericValue={totalXNO}
-						onValueChange={(v) => solveSystem('totalXNO', v)}
-						isLocked={lockedFields.has('totalXNO')}
-						onLockToggle={() => toggleLock('totalXNO')}
-						canLock={canLock('totalXNO')}
-						inputSuffix="Ӿ"
-						highlight
-						max={XNO_TOTAL_SUPPLY}
-						subValue={
-							people > 1
-								? `Ӿ ${formatXNOAmount(totalXNO / people, { compact: false, showSymbol: false })} ${t('perPerson')}`
-								: undefined
-						}
-					/>
-					<EditableStatCard
-						icon={<Percent className="h-4 w-4" />}
-						label={t('supplyPercentage')}
-						value={formatPercentage(supplyPercentage, { highPrecision: true })}
-						numericValue={supplyPercentage}
-						onValueChange={handleSupplyPercentageChange}
-						isLocked={lockedFields.has('totalXNO')}
-						onLockToggle={() => toggleLock('totalXNO')}
-						canLock={canLock('totalXNO')}
-						inputSuffix="%"
-						subValue={
-							people > 1
-								? `${formatPercentage(perPersonSupplyPercentage, { highPrecision: true })} ${t('perPerson')} · ${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
-								: `${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
-						}
-						max={100}
-						step={0.0001}
-					/>
-					{/* Holder tier - display only */}
-					<div className={cn('p-4 rounded-lg border bg-card space-y-1 relative', tier.color)}>
-						<HolderTierDialog
-							currentTierKey={tierInfo.tierKey}
-							currentPercentage={perPersonSupplyPercentage}
-						/>
-						<div className="flex items-center gap-2 text-sm text-muted-foreground pr-6">
-							<span className="text-base">{tier.emoji}</span>
-							{t('holderTier')}
-						</div>
-						<p className="text-2xl font-bold">{tier.label}</p>
-					</div>
-				</div>
-
-				{/* Supply visualization */}
+			{/* ============ READOUT BANK ============ */}
+			<section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+				<EditableStatCard
+					icon={<PiggyBank className="h-4 w-4" />}
+					label={t('totalInvestment')}
+					value={formatFiatPrice(totalInvestment, selectedFiat)}
+					numericValue={totalInvestment}
+					onValueChange={(v) => solveSystem('totalInvestment', v)}
+					isLocked={lockedFields.has('totalInvestment')}
+					onLockToggle={() => toggleLock('totalInvestment')}
+					canLock={canLock('totalInvestment')}
+					inputPrefix={fiatConfig.symbol}
+					subValue={people > 1 ? `${people} × ${formatFiatPrice(amount, selectedFiat)}` : undefined}
+				/>
+				<EditableStatCard
+					icon={<Coins className="h-4 w-4" />}
+					label={t('totalXNO')}
+					value={`${formatXNOAmount(totalXNO, { compact: false, showSymbol: false })}`}
+					numericValue={totalXNO}
+					onValueChange={(v) => solveSystem('totalXNO', v)}
+					isLocked={lockedFields.has('totalXNO')}
+					onLockToggle={() => toggleLock('totalXNO')}
+					canLock={canLock('totalXNO')}
+					inputSuffix="Ӿ"
+					highlight
+					max={XNO_TOTAL_SUPPLY}
+					subValue={
+						people > 1
+							? `Ӿ ${formatXNOAmount(totalXNO / people, { compact: false, showSymbol: false })} ${t('perPerson')}`
+							: undefined
+					}
+				/>
+				<EditableStatCard
+					icon={<Percent className="h-4 w-4" />}
+					label={t('supplyPercentage')}
+					value={formatPercentage(supplyPercentage, { highPrecision: true })}
+					numericValue={supplyPercentage}
+					onValueChange={handleSupplyPercentageChange}
+					isLocked={lockedFields.has('totalXNO')}
+					onLockToggle={() => toggleLock('totalXNO')}
+					canLock={canLock('totalXNO')}
+					inputSuffix="%"
+					subValue={
+						people > 1
+							? `${formatPercentage(perPersonSupplyPercentage, { highPrecision: true })} ${t('perPerson')} · ${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
+							: `${t('of')} ${XNO_TOTAL_SUPPLY.toLocaleString()} XNO`
+					}
+					max={100}
+					step={0.0001}
+				/>
+				{/* Holder tier - specimen card */}
 				<div
 					className={cn(
-						'space-y-3 p-4 rounded-lg border',
-						isImpossibleScenario
-							? 'bg-amber-500/10 border-amber-500/50'
-							: 'bg-[#209CE9]/10 border-[#209CE9]/30',
+						'relative flex flex-col gap-2 rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]',
+						tier.color,
 					)}
 				>
-					<div className="flex items-center justify-between text-sm">
-						<span className={isImpossibleScenario ? 'text-amber-500 font-medium' : 'text-muted-foreground'}>
-							{t('supplyAcquired')}
+					<HolderTierDialog currentTierKey={tierInfo.tierKey} currentPercentage={perPersonSupplyPercentage} />
+					<div className="flex items-center gap-2.5 pr-6">
+						<span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border bg-card text-lg shadow-sm">
+							{tier.emoji}
 						</span>
-						<span className={cn('font-mono font-medium', isImpossibleScenario && 'text-amber-500')}>
-							{isImpossibleScenario
-								? formatPercentage(theoreticalSupplyPercentage, { highPrecision: true })
-								: formatPercentage(supplyPercentage, { highPrecision: true })}
-						</span>
+						<span className="text-sm text-muted-foreground">{t('holderTier')}</span>
 					</div>
-					<Progress
-						value={Math.min(isImpossibleScenario ? theoreticalSupplyPercentage : supplyPercentage, 100)}
+					<p className="text-xl font-bold tabular-nums leading-tight">{tier.label}</p>
+				</div>
+			</section>
+
+			{/* ============ SUPPLY GAUGE ============ */}
+			<section
+				className={cn(
+					'space-y-3 rounded-lg border p-4',
+					isImpossibleScenario ? 'border-amber-500/40 bg-amber-500/5' : 'border-[#209CE9]/30 bg-[#209CE9]/5',
+				)}
+			>
+				<div className="flex items-center justify-between gap-2 text-sm">
+					<span
 						className={cn(
-							'h-3',
-							isImpossibleScenario
-								? '*:data-[slot=progress-indicator]:bg-amber-500'
-								: '*:data-[slot=progress-indicator]:bg-[#209CE9]',
+							'font-mono text-[11px] uppercase tracking-[0.2em]',
+							isImpossibleScenario ? 'text-amber-500' : 'text-muted-foreground',
 						)}
-					/>
-					<div className="flex justify-between text-xs text-muted-foreground">
-						<span>0%</span>
+					>
+						{t('supplyAcquired')}
+					</span>
+					<span className={cn('font-mono font-bold tabular-nums', isImpossibleScenario && 'text-amber-500')}>
+						{isImpossibleScenario
+							? formatPercentage(theoreticalSupplyPercentage, { highPrecision: true })
+							: formatPercentage(supplyPercentage, { highPrecision: true })}
+					</span>
+				</div>
+				<div>
+					<div className="relative h-5 overflow-hidden rounded-sm border border-border bg-background/60">
+						<div
+							className={cn(
+								'h-full transition-[width] duration-500 ease-out',
+								isImpossibleScenario
+									? 'animate-tick-scroll bg-[repeating-linear-gradient(45deg,oklch(0.72_0.16_75)_0px,oklch(0.72_0.16_75)_6px,oklch(0.6_0.18_75)_6px,oklch(0.6_0.18_75)_12px)]'
+									: 'bg-linear-to-r from-[#209CE9]/60 to-[#209CE9]',
+							)}
+							style={{
+								width: `${Math.min(isImpossibleScenario ? theoreticalSupplyPercentage : supplyPercentage, 100)}%`,
+							}}
+						/>
+					</div>
+					<div className="mt-1.5 flex justify-between text-xs text-muted-foreground font-mono">
+						<span>0</span>
 						<span>
 							{isImpossibleScenario ? (
 								<span className="text-amber-500 font-medium">{t('exceedsSupply')}</span>
@@ -867,14 +872,18 @@ export function ParityCalculator() {
 								`${t('fixedSupply')}: Ӿ ${XNO_TOTAL_SUPPLY.toLocaleString()}`
 							)}
 						</span>
-						<span>100%</span>
+						<span>100</span>
 					</div>
 				</div>
-			</CardContent>
-			<CardFooter className="w-full pb-4 flex-col gap-3 px-4">
+			</section>
+
+			{/* ============ TICKET STRIPS ============ */}
+			<div className="space-y-3">
 				{/* Fun fact - based on per-person share */}
 				{perPersonSupplyPercentage > 0 && (
-					<div className="text-sm w-full text-muted-foreground bg-primary/5 rounded-lg p-4 border border-primary/10">
+					<div className="relative rounded-md border border-dashed border-primary/25 bg-primary/5 px-4 py-3 text-sm text-muted-foreground">
+						<span aria-hidden="true" className="absolute -top-1.5 -left-2 h-3 w-3 rounded-full bg-card" />
+						<span aria-hidden="true" className="absolute -top-1.5 -right-2 h-3 w-3 rounded-full bg-card" />
 						<p>
 							<span className="text-primary font-medium">{t('funFact')}:</span>{' '}
 							{perPersonSupplyPercentage >= 1
@@ -902,7 +911,15 @@ export function ParityCalculator() {
 						const ratio = perPersonSupplyPercentage / fiatSupplyPercentage
 						if (!Number.isFinite(ratio) || ratio <= 1) return null
 						return (
-							<div className="text-sm w-full text-muted-foreground bg-emerald-500/5 rounded-lg p-4 border border-emerald-500/10">
+							<div className="relative rounded-md border border-dashed border-emerald-500/25 bg-emerald-500/5 px-4 py-3 text-sm text-muted-foreground">
+								<span
+									aria-hidden="true"
+									className="absolute -top-1.5 -left-2 h-3 w-3 rounded-full bg-card"
+								/>
+								<span
+									aria-hidden="true"
+									className="absolute -top-1.5 -right-2 h-3 w-3 rounded-full bg-card"
+								/>
 								<p>
 									<span className="text-emerald-600 dark:text-emerald-400 font-medium">
 										{t('realFact')}:
@@ -919,7 +936,7 @@ export function ParityCalculator() {
 							</div>
 						)
 					})()}
-			</CardFooter>
-		</Card>
+			</div>
+		</div>
 	)
 }

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { useAtom } from 'jotai'
-import { Calculator, Coins, TrendingUp } from 'lucide-react'
+import { Coins } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, FIAT_CURRENCY_CONFIG, type FiatCurrency } from '@/lib/constants'
@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -77,30 +76,14 @@ export function SpeculationCalculator() {
 
 	if (error || !data) {
 		return (
-			<Card>
-				<CardHeader>
-					<CardTitle className="flex items-center gap-2">
-						<TrendingUp className="h-5 w-5 text-primary" />
-						{t('title')}
-					</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<p className="text-muted-foreground">{t('errorLoading')}</p>
-				</CardContent>
-			</Card>
+			<div className="rounded-lg border p-6 text-center text-muted-foreground text-sm">{t('errorLoading')}</div>
 		)
 	}
 
 	return (
-		<Card>
-			<CardHeader>
-				<CardTitle className="flex items-center gap-2">
-					<Calculator className="h-5 w-5 text-primary" />
-					{t('title')}
-				</CardTitle>
-				<CardDescription>{t('description')}</CardDescription>
-			</CardHeader>
-			<CardContent className="space-y-6 px-4 pb-4">
+		<div className="space-y-6">
+			{/* ============ INPUT BANK ============ */}
+			<section className="space-y-6 rounded-lg border bg-muted/20 p-4 sm:p-5">
 				{/* Input Section */}
 				<div className="grid gap-4 sm:grid-cols-3">
 					{/* XNO Amount Input */}
@@ -220,9 +203,9 @@ export function SpeculationCalculator() {
 										type="button"
 										onClick={() => setCustomMarketCap(billions * 1_000_000_000)}
 										className={cn(
-											'px-2 py-1 rounded text-xs font-medium transition-colors',
+											'px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer active:scale-95',
 											customMarketCap === billions * 1_000_000_000
-												? 'bg-primary text-primary-foreground'
+												? 'bg-primary text-primary-foreground shadow-sm'
 												: 'bg-muted hover:bg-muted/80 text-muted-foreground',
 										)}
 									>
@@ -234,74 +217,77 @@ export function SpeculationCalculator() {
 						</div>
 					)}
 				</div>
+			</section>
 
-				{/* Results Display */}
-				{targetMarketCap > 0 && (
-					<div className="p-6 rounded-xl border-2 border-primary/20 bg-linear-to-br from-primary/5 to-transparent">
-						<div className="flex items-center gap-3 mb-6">
-							{!useCustomMarketCap && selectedCrypto && (
-								<Image
-									src={selectedCrypto.image || '/placeholder.svg'}
-									alt={selectedCrypto.name}
-									width={40}
-									height={40}
-									className="w-10 h-10 rounded-full"
-									unoptimized
-								/>
-							)}
-							<div>
-								<p className="text-sm text-muted-foreground">{t('ifXnoHadMarketCapOf')}</p>
-								<p className="font-semibold text-lg">
-									{useCustomMarketCap
-										? `${fiatConfig.symbol}${formatLargeNumber(customMarketCap)}`
-										: `${selectedCrypto?.name} (${fiatConfig.symbol}${formatLargeNumber(targetMarketCap)})`}
-								</p>
-							</div>
+			{/* ============ RESULT READOUT ============ */}
+			{targetMarketCap > 0 && (
+				<section className="rounded-lg border border-primary/25 bg-linear-to-br from-primary/10 via-primary/5 to-transparent p-5 sm:p-6">
+					{/* Target header */}
+					<div className="flex items-center gap-3 mb-6">
+						{!useCustomMarketCap && selectedCrypto && (
+							<Image
+								src={selectedCrypto.image || '/placeholder.svg'}
+								alt={selectedCrypto.name}
+								width={40}
+								height={40}
+								className="w-10 h-10 rounded-full ring-1 ring-border"
+								unoptimized
+							/>
+						)}
+						<div>
+							<p className="text-sm text-muted-foreground">{t('ifXnoHadMarketCapOf')}</p>
+							<p className="font-semibold text-lg">
+								{useCustomMarketCap
+									? `${fiatConfig.symbol}${formatLargeNumber(customMarketCap)}`
+									: `${selectedCrypto?.name} (${fiatConfig.symbol}${formatLargeNumber(targetMarketCap)})`}
+							</p>
 						</div>
+					</div>
 
-						<div className="grid gap-6 sm:grid-cols-3">
-							<div className="space-y-1">
-								<p className="text-sm text-muted-foreground">{t('xnoPrice')}</p>
-								<p className="font-mono font-bold text-2xl">
-									{formatSmartFiatPrice(xnoPriceIf, selectedFiat)}
-								</p>
-							</div>
-							<div className="space-y-1">
-								<p className="text-sm text-muted-foreground">{t('yourStackValue')}</p>
-								<p className="font-mono font-bold text-2xl text-primary">
-									{futureValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-								</p>
-							</div>
-							<div className="space-y-1">
-								<p className="text-sm text-muted-foreground">{t('multiplier')}</p>
-								<div className="flex items-center gap-2">
-									<span
-										className={cn(
-											'font-mono font-bold text-2xl',
-											multiplier >= 100
-												? 'text-emerald-500'
-												: multiplier >= 10
-													? 'text-primary'
-													: '',
-										)}
-									>
-										{`${multiplier.toLocaleString(undefined, { maximumFractionDigits: 2 })}×`}
-									</span>
-								</div>
-							</div>
+					{/* Hero multiplier */}
+					<div className="flex items-end justify-between gap-4 mb-6">
+						<div>
+							<p className="text-sm text-muted-foreground mb-1">{t('multiplier')}</p>
+							<p
+								className={cn(
+									'font-bold text-5xl sm:text-6xl tabular-nums tracking-tighter leading-none',
+									multiplier >= 100
+										? 'text-emerald-500'
+										: multiplier >= 10
+											? 'text-primary'
+											: 'text-foreground',
+								)}
+							>
+								{`${multiplier.toLocaleString(undefined, { maximumFractionDigits: 2 })}×`}
+							</p>
 						</div>
-
 						{gain > 0 && (
-							<div className="mt-4 pt-4 border-t border-primary/10">
-								<p className="text-sm text-muted-foreground">{t('potentialGain')}</p>
-								<p className="font-mono font-bold text-xl text-emerald-500">
+							<div className="text-right">
+								<p className="text-sm text-muted-foreground mb-1">{t('potentialGain')}</p>
+								<p className="font-mono font-bold text-2xl text-emerald-500 tabular-nums">
 									+{gain.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 								</p>
 							</div>
 						)}
 					</div>
-				)}
-			</CardContent>
-		</Card>
+
+					{/* Readout tiles */}
+					<div className="grid gap-3 sm:grid-cols-2">
+						<div className="rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]">
+							<p className="text-sm text-muted-foreground mb-1">{t('xnoPrice')}</p>
+							<p className="font-mono font-bold text-2xl tabular-nums">
+								{formatSmartFiatPrice(xnoPriceIf, selectedFiat)}
+							</p>
+						</div>
+						<div className="rounded-lg border bg-muted/30 p-4 shadow-[inset_0_1px_0_hsl(var(--border)/0.5)]">
+							<p className="text-sm text-muted-foreground mb-1">{t('yourStackValue')}</p>
+							<p className="font-mono font-bold text-2xl text-primary tabular-nums">
+								{futureValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+							</p>
+						</div>
+					</div>
+				</section>
+			)}
+		</div>
 	)
 }

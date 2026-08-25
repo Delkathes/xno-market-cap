@@ -563,10 +563,9 @@
 				"title": "Nano Casa",
 				"description": "Verfolge Entwicklungsaktivitäten und entdecke Projekte im Nano-Ökosystem."
 			},
-			"comingSoon": "Demnächst verfügbar",
 			"n8nNode": {
-				"title": "n8n Community Node",
-				"badge": "In Entwicklung",
+				"title": "n8n Node",
+				"badge": "Verfügbar",
 				"description": "Offizieller n8n Community Node für Nano RPC-Befehle. Erstelle visuelle Workflows mit nativer Nano-Integration."
 			}
 		},

@@ -1311,36 +1311,33 @@ export default async function WhyNanoPage({ params }: Props) {
 							</div>
 						</a>
 					</Appear>
-				</div>
 
-				{/* Coming Soon */}
-				<div className="space-y-3">
-					<div className="flex items-center gap-2 mb-4">
-						<div className="h-px flex-1 bg-border" />
-						<span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-							{t('developerResources.comingSoon')}
-						</span>
-						<div className="h-px flex-1 bg-border" />
-					</div>
-
-					<div className="relative overflow-hidden rounded-2xl border border-dashed border-border bg-card/40 backdrop-blur-xl p-6 opacity-80">
-						<div className="flex items-start gap-4">
-							<div className="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center text-muted-foreground shrink-0">
-								<Workflow className="w-5 h-5" />
-							</div>
-							<div className="flex-1">
-								<div className="flex items-center gap-2 mb-1">
-									<h3 className="text-base font-bold">{t('developerResources.n8nNode.title')}</h3>
-									<span className="px-2 py-0.5 text-xs font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 rounded-full border border-cyan-500/20 whitespace-nowrap">
-										{t('developerResources.n8nNode.badge')}
-									</span>
+					<Appear delay={350} className="backdrop-blur-xl">
+						<a
+							href="https://www.npmjs.com/package/n8n-nodes-nano-rpc"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block relative group overflow-hidden rounded-2xl border border-border bg-card/60 p-6 hover:border-rose-500/40 dark:hover:border-rose-500/30 transition-all duration-300"
+						>
+							<div className="absolute inset-0 bg-linear-to-br from-rose-500/5 dark:from-rose-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+							<div className="relative z-10">
+								<div className="flex items-center justify-between mb-3">
+									<div className="flex items-center">
+										<div className="w-10 h-10 rounded-lg bg-rose-100 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-400">
+											<Workflow className="w-5 h-5" />
+										</div>
+										<h3 className="ml-3 text-base font-bold">
+											{t('developerResources.n8nNode.title')}
+										</h3>
+									</div>
+									<ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-rose-500 transition-colors" />
 								</div>
 								<p className="text-muted-foreground text-sm leading-relaxed">
 									{t('developerResources.n8nNode.description')}
 								</p>
 							</div>
-						</div>
-					</div>
+						</a>
+					</Appear>
 				</div>
 			</section>
 

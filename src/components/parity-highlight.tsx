@@ -177,7 +177,7 @@ export function ParityHighlight() {
 				const value = parities[assetId] * xnoAmount
 				const futureValue = futureParities[assetId]
 
-				// XNO card with popover for amount input
+				// XNO card with popover for amount input — the "source" of the measurement
 				if (isXNO) {
 					return (
 						<Popover key={assetId} open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
@@ -185,22 +185,26 @@ export function ParityHighlight() {
 								<button
 									ref={containerRef}
 									type="button"
-									className="py-2 px-4 rounded-lg bg-[#209CE9]/10 cursor-pointer hover:bg-[#209CE9]/15 transition-colors group"
+									className="group relative flex flex-col justify-between gap-2 rounded-lg border border-[#209CE9]/40 bg-[#209CE9]/10 px-4 py-3 text-left cursor-pointer transition-all duration-200 hover:border-[#209CE9]/80 hover:bg-[#209CE9]/15 hover:shadow-[0_0_28px_-8px_hsl(200_86%_55%/0.55)]"
 									tabIndex={0}
 									aria-label={t('clickToEditXnoAmount')}
 								>
-									<p className="text-sm text-muted-foreground mb-1 flex items-center justify-between">
-										{asset.label}
-										<Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 transition-opacity" />
-									</p>
-									<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
+									<div className="flex items-center justify-between gap-2">
+										<span className="font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-[#209CE9]">
+											{asset.id}
+										</span>
+										<span className="truncate text-xs text-muted-foreground">{asset.label}</span>
+									</div>
+									<p className="font-mono text-xl font-bold tabular-nums text-[#209CE9]">
 										{formatXNOAmount(xnoAmount, { compact: false, showSymbol: false })}
 									</p>
-									<p className="mt-1 text-xs text-muted-foreground/70 sm:hidden">
-										{t('clickToEdit')}
+									<p className="flex items-center justify-between gap-2 text-xs text-muted-foreground/80 sm:hidden">
+										<span className="truncate">{t('clickToEdit')}</span>
+										<Pencil className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-60" />
 									</p>
-									<p className="mt-1 text-xs text-muted-foreground/70 hidden sm:block">
-										{t('clickOrScrollToEdit')}
+									<p className="flex items-center justify-between gap-2 text-xs text-muted-foreground/80 hidden sm:flex">
+										<span className="truncate">{t('clickOrScrollToEdit')}</span>
+										<Pencil className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-60" />
 									</p>
 								</button>
 							</PopoverTrigger>
@@ -235,15 +239,23 @@ export function ParityHighlight() {
 				}
 
 				return (
-					<div key={assetId} className="py-2 px-4 block">
-						<p className="text-sm text-muted-foreground mb-1">{asset.label}</p>
-						<p className={cn('text-xl font-bold font-mono', asset.color.text)}>
+					<div
+						key={assetId}
+						className="group relative flex flex-col justify-between gap-2 rounded-lg border bg-card px-4 py-3 transition-colors duration-200 hover:border-primary/30"
+					>
+						<div className="flex items-center justify-between gap-2">
+							<span className="font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground/80">
+								{asset.id}
+							</span>
+							<span className="truncate text-xs text-muted-foreground">{asset.label}</span>
+						</div>
+						<p className={cn('font-mono text-xl font-bold tabular-nums', asset.color.text)}>
 							{formatParityValue(value, asset)}
 						</p>
 						{futureValue !== null && (
-							<p className="flex items-center gap-1 mt-1 text-xs text-muted-foreground/90">
-								<TrendingUp className="h-3 w-3 mr-1" />
-								<span className="font-mono">
+							<p className="flex items-center gap-1.5 border-t border-dashed border-border pt-2 text-xs text-muted-foreground/90">
+								<TrendingUp className="h-3 w-3 shrink-0" />
+								<span className="font-mono truncate">
 									{futureValue === Number.POSITIVE_INFINITY
 										? t('noLimit')
 										: `${assetId === 'GOLD' ? 'approx ' : assetId === 'BTC' ? 'to fixed ' : ''}${formatParityValue(futureValue * xnoAmount, asset)}`}
