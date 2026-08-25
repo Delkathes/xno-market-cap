@@ -80,8 +80,11 @@ export function ThemeProvider({
 	const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme)
 
 	useEffect(() => {
-		applyTheme(theme === 'system' ? getSystemTheme() : theme)
-	}, [])
+		// Re-apply once on mount (the init script already set the class pre-hydration;
+		// this guards the edge where the script didn't run). setTheme handles changes.
+		const stored = readStoredTheme() ?? defaultTheme
+		applyTheme(stored === 'system' ? getSystemTheme() : stored)
+	}, [defaultTheme])
 
 	useEffect(() => {
 		scriptInjected = true
