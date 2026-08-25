@@ -5,7 +5,6 @@ import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getTranslations } from 'next-intl/server'
-import { ThemeProvider } from '@/components/theme-provider'
 
 import { type Locale, routing } from '@/i18n/routing'
 
@@ -16,6 +15,7 @@ import { env } from '@/env'
 import { Footer } from '@/components/footer'
 import { Navigation } from '@/components/navigation'
 import { Providers } from '@/components/providers'
+import { ThemeProvider } from '@/components/theme-provider'
 
 import './globals.css'
 

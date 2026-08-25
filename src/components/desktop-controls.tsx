@@ -3,7 +3,6 @@
 import { useSetAtom } from 'jotai'
 import { ArrowRightLeft, ChartPie, HelpCircle, Lightbulb, Moon, RefreshCw, Scale, Sun, Wallet, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from '@/components/theme-provider'
 
 import { Link, usePathname } from '@/i18n/navigation'
 
@@ -23,6 +22,7 @@ import {
 import { LocaleSwitcher } from '@/components/locale-switcher'
 // import { DonationButton } from '@/components/donation-button'
 import { isAboutOpenAtom } from '@/components/navigation'
+import { useTheme } from '@/components/theme-provider'
 
 export function DesktopControls() {
 	const t = useTranslations('navigation')

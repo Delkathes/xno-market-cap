@@ -88,7 +88,7 @@ export default async function Home({ params }: Props) {
 
 				{/* Market overview */}
 				<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
-					<Suspense fallback={<MarketOverviewSkeleton locale={locale} />}>
+					<Suspense fallback={<MarketOverviewSkeleton />}>
 						<MarketOverview />
 					</Suspense>
 				</div>
@@ -116,7 +116,7 @@ function TickerSkeleton() {
 	return <Skeleton className="h-9 w-full rounded-md" />
 }
 
-export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
+export async function MarketOverviewSkeleton() {
 	return (
 		<div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
 			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-4">
@@ -168,22 +168,47 @@ export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
 
 function MarketCapTableSkeleton() {
 	return (
-		<div className="rounded-md border border-border bg-card p-4">
-			<div className="space-y-2.5">
-				{[1, 2, 3, 4, 5, 6].map((row) => (
-					<div key={row} className="flex items-center gap-4">
-						<Skeleton className="h-4 w-6" />
-						<Skeleton className="h-8 w-8 rounded-full" />
-						<Skeleton className="h-4 w-32" />
-						<div className="ml-auto hidden gap-8 sm:flex">
-							<Skeleton className="h-4 w-20" />
-							<Skeleton className="h-4 w-16" />
-							<Skeleton className="h-4 w-16" />
-							<Skeleton className="h-4 w-16" />
-						</div>
-					</div>
-				))}
-			</div>
+		<div className="relative max-h-150 overflow-auto rounded-md border border-border bg-card">
+			<table className="w-full">
+				<thead className="sticky top-0 z-10 border-b border-border bg-card">
+					<tr className="text-foreground text-sm">
+						<th className="px-3 py-2 text-left">
+							<Skeleton className="h-3 w-8" />
+						</th>
+						<th className="px-3 py-2 pl-0 text-left sm:pl-4">
+							<Skeleton className="h-3 w-12" />
+						</th>
+						{[1, 2, 3, 4, 5, 6].map((column) => (
+							<th key={column} className="px-3 py-2 text-right">
+								<Skeleton className="ml-auto h-3 w-16" />
+							</th>
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((row) => (
+						<tr key={row} className="border-b border-border">
+							<td className="px-3 py-1.5">
+								<Skeleton className="h-4 w-6" />
+							</td>
+							<td className="px-3 py-1.5 pl-0 sm:pl-4">
+								<div className="flex items-center gap-3">
+									<Skeleton className="h-6 w-6 rounded-full sm:h-7 sm:w-7" />
+									<div className="space-y-1.5">
+										<Skeleton className="h-4 w-28" />
+										<Skeleton className="h-2.5 w-12" />
+									</div>
+								</div>
+							</td>
+							{[1, 2, 3, 4, 5, 6].map((cell) => (
+								<td key={cell} className="px-3 py-1.5 text-right">
+									<Skeleton className="ml-auto h-4 w-16" />
+								</td>
+							))}
+						</tr>
+					))}
+				</tbody>
+			</table>
 		</div>
 	)
 }

@@ -3,7 +3,6 @@
 import { useMemo } from 'react'
 import { Info } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from '@/components/theme-provider'
 import { Area, AreaChart, ReferenceDot, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { formatXNOAmount } from '@/lib/currency-helpers'
@@ -18,6 +17,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
+import { useTheme } from '@/components/theme-provider'
 
 // =============================================================================
 // TYPES & CONSTANTS

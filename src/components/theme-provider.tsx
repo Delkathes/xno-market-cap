@@ -1,7 +1,7 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 const STORAGE_KEY = 'theme'
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
@@ -81,7 +81,6 @@ export function ThemeProvider({
 
 	useEffect(() => {
 		applyTheme(theme === 'system' ? getSystemTheme() : theme)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
@@ -135,7 +134,11 @@ export function ThemeProvider({
 	return (
 		<ThemeContext.Provider value={value}>
 			{scriptInjected ? null : (
-				<script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} suppressHydrationWarning />
+				<script
+					suppressHydrationWarning
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: static theme init script, no user input
+					dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+				/>
 			)}
 			{children}
 		</ThemeContext.Provider>

@@ -3,7 +3,6 @@
 import { useAtom } from 'jotai'
 import { Menu, Moon, RefreshCw, Sun, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from '@/components/theme-provider'
 
 import { cn } from '@/lib/utils'
 
@@ -12,6 +11,7 @@ import { useRefreshCooldown } from '@/hooks/use-refresh-cooldown'
 import { Button } from '@/components/ui/button'
 import { LocaleSwitcher } from '@/components/locale-switcher'
 import { isMobileMenuOpenAtom } from '@/components/mobile-menu-panel'
+import { useTheme } from '@/components/theme-provider'
 
 export function MobileControls() {
 	const t = useTranslations('navigation')

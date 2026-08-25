@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
-export default async function GetNanoPage({ params }: Props) {
+export default async function GetNanoPage() {
 	'use cache'
 	cacheLife('max')
 

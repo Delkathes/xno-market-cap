@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import { useAtomValue } from 'jotai'
 import { AreaChartIcon, ArrowRightLeft, LineChartIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useTheme } from '@/components/theme-provider'
 import {
 	Area,
 	AreaChart,
@@ -33,6 +32,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
+import { useTheme } from '@/components/theme-provider'
 
 interface PriceChartProps {
 	coinId: string
