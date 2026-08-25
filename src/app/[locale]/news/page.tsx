@@ -7,6 +7,7 @@ import { Link } from '@/i18n/navigation'
 
 import { formatNewsDate, getAllNews } from '@/lib/news'
 
+import { ArticleCoverThumb } from '@/components/article-cover'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
@@ -66,6 +67,7 @@ export default async function NewsPage({ params }: Props) {
 							style={{ animationDelay: `${Math.min(index * 60, 300)}ms` }}
 						>
 							<article className="group flex h-full flex-col rounded-md border bg-card p-4 transition-colors hover:border-primary/40">
+								<ArticleCoverThumb article={article} />
 								<div className="flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
 									<span className="flex items-center gap-2">
 										{article.emoji && <span className="text-sm leading-none">{article.emoji}</span>}

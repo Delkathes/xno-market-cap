@@ -7,11 +7,12 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
-import { formatNewsDate, getAllNews, getArticleLocale, getNewsMetadata, getNewsOgImage } from '@/lib/news'
+import { getAllNews, getArticleLocale, getNewsMetadata } from '@/lib/news'
 
 import { env } from '@/env'
 
 import { Button } from '@/components/ui/button'
+import { ArticleCover } from '@/components/article-cover'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 
 	const t = await getTranslations({ locale, namespace: 'metadata.news' })
-	const ogImage = getNewsOgImage(article)
+	const ogImage = `${env.NEXT_PUBLIC_SITE_URL}/api/og?slug=${slug}`
 
 	return {
 		title: t('articleTitle', { title: article.title }),
@@ -48,23 +49,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			type: 'article',
 			publishedTime: article.date,
 			authors: article.author ? [article.author] : undefined,
-			images: ogImage
-				? [
-						{
-							url: ogImage,
-							alt: article.title,
-						},
-					]
-				: undefined,
+			images: [
+				{
+					url: ogImage,
+					alt: article.title,
+				},
+			],
 		},
-		twitter: ogImage
-			? {
-					card: 'summary_large_image',
-					title: article.title,
-					description: article.description,
-					images: [ogImage],
-				}
-			: undefined,
+		twitter: {
+			card: 'summary_large_image',
+			title: article.title,
+			description: article.description,
+			images: [ogImage],
+		},
 		alternates: {
 			canonical: `/news/${slug}`,
 		},
@@ -87,7 +84,7 @@ export default async function NewsArticlePage({ params }: Props) {
 	// Get the effective locale (falls back to default if article doesn't exist in requested locale)
 	const effectiveLocale = getArticleLocale(slug, locale)
 
-	const ogImage = getNewsOgImage(article)
+	const ogImage = `${env.NEXT_PUBLIC_SITE_URL}/api/og?slug=${slug}`
 
 	// Dynamically import the MDX content
 	const { default: Content } = await import(`@content/news/${effectiveLocale}/${slug}.mdx`)
@@ -136,33 +133,8 @@ export default async function NewsArticlePage({ params }: Props) {
 					</Link>
 				</Button>
 
-				{/* Article header */}
-				<header className="mb-10">
-					<div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-						{article.emoji && <span className="text-base leading-none">{article.emoji}</span>}
-						<time dateTime={article.date}>{formatNewsDate(article.date, locale)}</time>
-						{article.author && (
-							<>
-								<span className="text-muted-foreground/40">{'//'}</span>
-								<span>{article.author}</span>
-							</>
-						)}
-					</div>
-					<h1 className="text-3xl md:text-4xl font-bold tracking-tight text-balance mb-5">{article.title}</h1>
-
-					{article.tags && article.tags.length > 0 && (
-						<div className="flex flex-wrap gap-1.5">
-							{article.tags.map((tag) => (
-								<span
-									key={tag}
-									className="rounded bg-muted px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground"
-								>
-									{tag}
-								</span>
-							))}
-						</div>
-					)}
-				</header>
+				{/* Article cover */}
+				<ArticleCover article={article} locale={locale} />
 
 				{/* Article content */}
 				<article className="article-prose">

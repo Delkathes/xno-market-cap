@@ -19,7 +19,7 @@ Unlike Bitcoin's single blockchain where all transactions are recorded sequentia
 - Only the account owner can modify their chain
 - Transactions are asynchronous and independent
 
-This means your transaction doesn't have to wait in line behind thousands of others. It's processed immediately on your own chain.
+<Callout type="insight" title="No queue">Your transaction is processed immediately on its own chain, not behind thousands of others.</Callout>
 
 ## Open Representative Voting (ORV)
 
@@ -30,6 +30,12 @@ Nano uses a consensus mechanism called **Open Representative Voting** instead of
 3. **Confirmation** – Transactions are confirmed when they reach quorum (>50% voting weight)
 
 The entire process typically completes in **under 1 second**.
+
+<StatGrid>
+	<Stat label="Confirmation" value="under 1 second" accent />
+	<Stat label="$0.00" value="Energy per tx" />
+	<Stat label="0.000112 kWh" value="undefined" />
+</StatGrid>
 
 ## Why This Matters
 

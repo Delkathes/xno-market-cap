@@ -20,12 +20,29 @@ Genau hier liegt der Kern. Durch Delegation verlieren Sie nie die Kontrolle übe
 
 ## Was eine Bestätigung tatsächlich ist
 
-Wenn Sie eine Nano-Transaktion senden, wird Ihr Block an das Netzwerk gesendet. Repräsentanten prüfen ihn gegen ihr lokales Ledger, und wenn er gültig ist, stimmen sie dafür. Sobald genug Stimmgewicht zustimmt, ist die Transaktion bestätigt. Da das Netzwerk als gerichteter azyklischer Graph und nicht als Kette aufgebaut ist, gibt es keinen Block, auf den man warten müsste, und keine Blockbelohnung, um die man kämpfen müsste. Bestätigungen erfolgen in unter einer Sekunde, meist deutlich darunter.
+Wenn Sie eine Nano-Transaktion senden, passiert Folgendes in rascher Folge:
+
+<Steps title="Vom Senden zur Bestätigung">
+	<Step index="01" title="Senden">Ihr Block wird an das Netzwerk gesendet.</Step>
+	<Step index="02" title="Prüfen">Repräsentanten prüfen ihn gegen ihr lokales Ledger.</Step>
+	<Step index="03" title="Abstimmen">Wenn er gültig ist, stimmen sie dafür.</Step>
+	<Step index="04" title="Bestätigen">Sobald genug Stimmgewicht zustimmt, ist die Transaktion bestätigt.</Step>
+</Steps>
+
+Da das Netzwerk als gerichteter azyklischer Graph und nicht als Kette aufgebaut ist, gibt es keinen Block, auf den man warten müsste, und keine Blockbelohnung, um die man kämpfen müsste. Bestätigungen erfolgen in unter einer Sekunde, meist deutlich darunter.
 
 ## Warum das in der Praxis zählt
 
 Die Folgen sind nicht nur technisch. Ein Netzwerk ohne Miner hat kein Energie-Wettrüsten, keinen Gebührenmarkt und keine Überlastung durch Blockplatz. 0,000001 XNO zu senden kostet genauso viel wie 1.000 XNO zu senden: nichts. Genau das macht Nano interessant für Mikrozahlungen, Trinkgelder und Maschine-zu-Maschine-Zahlungen, also Anwendungsfälle, bei denen Transaktionsgebühren den gesamten Wert der Zahlung auffressen würden.
 
-Der Preis dafür ist, dass die Sicherheit von ehrlichen Repräsentanten und einer verteilten Wählerbasis abhängt. Deshalb drängt die Community auf Dezentralisierung, und deshalb zählt der Name „offenes repräsentatives Voting": Das System funktioniert nur, wenn das Gewicht verteilt bleibt.
+<StatGrid>
+	<Stat label="0,000001 XNO senden" value="Kosten: null" />
+	<Stat label="1.000 XNO senden" value="Kosten: null" accent />
+	<Stat label="Bestätigung" value="unter einer Sekunde" />
+</StatGrid>
+
+<Callout type="warning" title="Der Preis dafür">
+	Die Sicherheit hängt von ehrlichen Repräsentanten und einer verteilten Wählerbasis ab. Deshalb drängt die Community auf Dezentralisierung: Das System funktioniert nur, wenn das Gewicht verteilt bleibt.
+</Callout>
 
 Das ist keine Theorie, die Sie auf Treu und Glauben annehmen müssen. Sie können den Zustand des Netzwerks selbst mit jedem öffentlichen Node prüfen, und wenn Sie XNO halten, können Sie sogar Ihren Repräsentanten wählen. Die Werkzeuge dafür gibt es seit Jahren. Sie werden nur nicht so oft erwähnt, wie sie es verdienen.

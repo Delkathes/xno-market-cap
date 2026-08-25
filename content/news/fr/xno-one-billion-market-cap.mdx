@@ -14,13 +14,39 @@ Le calcul de la capitalisation est simple, et c'est précisément pour ça qu'il
 
 ## L'arithmétique
 
-L'offre de Nano est fixe, à 133 248 297 XNO, et elle est entièrement en circulation. Aucune inflation ne viendra diluer ce chiffre plus tard, ce qui rend le calcul stable. Pour atteindre une capitalisation d'un milliard de dollars, le prix du XNO devrait être d'environ 7,50 dollars.
+L’offre de Nano est fixe, à 133 248 297 XNO, et elle est entièrement en circulation. Aucune inflation ne viendra diluer ce chiffre plus tard, ce qui rend le calcul stable. Pour atteindre une capitalisation d’un milliard de dollars, le prix du XNO devrait être d’environ 7,50 dollars.
+
+<Terminal title="calculateur de capitalisation">
+	$1 000 000 000 ÷ 133 248 297 XNO = 7,50 $ / XNO
+</Terminal>
+
+<StatGrid>
+	<Stat label="Offre fixe" value="133 248 297 XNO" />
+	<Stat label="Capitalisation cible" value="1 milliard $" accent />
+	<Stat label="Prix implicite" value="≈ 7,50 $" />
+</StatGrid>
+
+<BarChart
+	title="Prix implicite du XNO par capitalisation"
+	footnote="échelle logarithmique"
+	data={[
+		{ label: "$100M", value: 0.75 },
+		{ label: "$500M", value: 3.75 },
+		{ label: "$1B", value: 7.5, accent: true },
+		{ label: "$10B", value: 75 },
+		{ label: "$100B", value: 750 },
+	]}
+/>
 
 C'est tout le calcul. Ce qui est intéressant, c'est ce qu'il implique.
 
 ## Ce qui change à ce prix
 
-À 7,50 dollars, plusieurs choses se produisent en même temps. Nano entrerait dans le top 100 des cryptomonnaies par capitalisation, aux côtés de noms que la plupart des gens connaissent. Une transaction de 100 XNO vaudrait environ 750 dollars, ce qui change le calcul mental de ce à quoi Nano sert. L'histoire des micropaiements, qui est la force de Nano, se déplacerait vers les paiements du quotidien, pour des biens et des services.
+À 7,50 dollars, Nano entrerait dans le top 100 des cryptomonnaies par capitalisation, aux côtés de noms que la plupart des gens connaissent.
+
+<Callout type="insight" title="Ce qui change">
+	Une transaction de 100 XNO devient une transaction de 750 dollars. Le calcul mental de ce à quoi Nano sert change : l’histoire des micropaiements se déplace vers les paiements du quotidien, pour des biens et des services.
+</Callout>
 
 Tout cela ne dit rien sur la probabilité de ce prix. Ça décrit simplement à quoi ressemblerait le réseau s'il y arrivait.
 

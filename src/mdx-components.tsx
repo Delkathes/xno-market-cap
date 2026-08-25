@@ -1,9 +1,246 @@
 import Image, { type ImageProps } from 'next/image'
+import type { ReactNode } from 'react'
 import type { MDXComponents } from 'mdx/types'
 
 import { Link } from '@/i18n/navigation'
 
 import { cn } from '@/lib/utils'
+
+import { ArticleChart } from '@/components/article-chart'
+import { ArticleTicker } from '@/components/article-ticker'
+import { GitHubRepoCard } from '@/components/github-repo-card'
+
+// =============================================================================
+// Article building blocks
+// =============================================================================
+
+type CalloutType = 'info' | 'insight' | 'warning'
+
+const CALLOUT_STYLES: Record<CalloutType, string> = {
+	info: 'border-primary/30 bg-primary/5',
+	insight: 'border-[#209CE9]/40 bg-[#209CE9]/[0.06]',
+	warning: 'border-amber-500/40 bg-amber-500/5',
+}
+
+function Callout({
+	type = 'info',
+	title,
+	children,
+	className,
+}: {
+	type?: CalloutType
+	title?: string
+	children?: ReactNode
+	className?: string
+}) {
+	return (
+		<div
+			className={cn(
+				'relative my-6 rounded-md border border-dashed px-4 py-3 text-sm text-muted-foreground',
+				CALLOUT_STYLES[type],
+				className,
+			)}
+		>
+			<span aria-hidden="true" className="absolute -top-1.5 -left-2 h-3 w-3 rounded-full bg-card" />
+			<span aria-hidden="true" className="absolute -top-1.5 -right-2 h-3 w-3 rounded-full bg-card" />
+			{title && (
+				<p
+					className={cn(
+						'font-mono text-[10px] font-semibold uppercase tracking-[0.22em]',
+						type === 'warning' ? 'text-amber-500' : type === 'insight' ? 'text-[#209CE9]' : 'text-primary',
+					)}
+				>
+					{title}
+				</p>
+			)}
+			<div className="mt-1 leading-6 [&_p:last-child]:mb-0">{children}</div>
+		</div>
+	)
+}
+
+function StatGrid({ children, className }: { children?: ReactNode; className?: string }) {
+	return <div className={cn('my-6 grid grid-cols-2 gap-2 sm:grid-cols-3', className)}>{children}</div>
+}
+
+function Stat({
+	label,
+	value,
+	accent = false,
+	className,
+}: {
+	label: string
+	value: string
+	accent?: boolean
+	className?: string
+}) {
+	return (
+		<div
+			className={cn(
+				'rounded-md border border-border bg-muted/30 px-3 py-2.5',
+				accent && 'border-[#209CE9]/40 bg-[#209CE9]/[0.07]',
+				className,
+			)}
+		>
+			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
+			<p
+				className={cn(
+					'mt-1 truncate font-mono text-base font-bold tabular-nums tracking-tight',
+					accent ? 'text-[#209CE9]' : 'text-foreground',
+				)}
+			>
+				{value}
+			</p>
+		</div>
+	)
+}
+
+function Terminal({ title, children, className }: { title?: string; children?: ReactNode; className?: string }) {
+	return (
+		<div className={cn('my-6 overflow-hidden rounded-lg border border-border bg-muted/40', className)}>
+			<div className="flex items-center gap-1.5 border-b border-border bg-muted/70 px-3 py-2">
+				<span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+				<span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
+				<span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+				{title && (
+					<span className="ml-2 truncate font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+						{title}
+					</span>
+				)}
+			</div>
+			<div className="overflow-x-auto p-4 font-mono text-sm leading-6 whitespace-pre-wrap [&_p]:my-0 [&_p]:whitespace-pre-wrap">
+				{children}
+			</div>
+		</div>
+	)
+}
+
+function Steps({ title, children, className }: { title?: string; children?: ReactNode; className?: string }) {
+	return (
+		<div className={cn('my-6', className)}>
+			{title && (
+				<p className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{title}</p>
+			)}
+			<ol className="space-y-4">{children}</ol>
+		</div>
+	)
+}
+
+interface BarChartItem {
+	label: string
+	value: number
+	accent?: boolean
+}
+
+// Static scenario bar chart (log-scaled bar widths) for authored, hypothetical data.
+function BarChart({
+	title,
+	footnote,
+	data,
+	unit = '$',
+	className,
+}: {
+	title?: string
+	footnote?: string
+	data: BarChartItem[]
+	unit?: string
+	className?: string
+}) {
+	const max = Math.max(...data.map((item) => item.value))
+
+	return (
+		<div className={cn('my-6 rounded-md border border-border bg-card p-4', className)}>
+			{title && (
+				<p className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{title}</p>
+			)}
+			<div className="space-y-2">
+				{data.map((item) => {
+					const width = Math.max(3, (Math.log10(item.value) / Math.log10(max)) * 100)
+					return (
+						<div key={item.label} className="flex items-center gap-3">
+							<span className="w-16 shrink-0 font-mono text-xs text-muted-foreground">{item.label}</span>
+							<div className="h-1.5 flex-1 overflow-hidden rounded-sm bg-muted">
+								<div
+									className={cn(
+										'h-full rounded-sm',
+										item.accent ? 'bg-[#209CE9]' : 'bg-[#209CE9]/50',
+									)}
+									style={{ width: `${width}%` }}
+								/>
+							</div>
+							<span
+								className={cn(
+									'w-20 shrink-0 text-right font-mono text-sm font-bold tabular-nums',
+									item.accent ? 'text-[#209CE9]' : 'text-foreground',
+								)}
+							>
+								{unit}
+								{Number.isInteger(item.value) ? item.value : item.value.toFixed(2)}
+							</span>
+						</div>
+					)
+				})}
+			</div>
+			{footnote && (
+				<p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+					{footnote}
+				</p>
+			)}
+		</div>
+	)
+}
+
+function Step({ index, title, children }: { index: string; title?: string; children?: ReactNode }) {
+	return (
+		<li className="relative flex gap-4 pb-5 last:pb-0 before:absolute before:top-8 before:bottom-0 before:left-4 before:w-px before:border-l before:border-dashed before:border-border last:before:hidden">
+			<span className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-border bg-card font-mono text-xs font-bold text-[#209CE9]">
+				{index}
+			</span>
+			<div className="min-w-0 flex-1">
+				{title && <p className="font-semibold text-foreground">{title}</p>}
+				<div className="mt-1 text-sm leading-6 text-muted-foreground">{children}</div>
+			</div>
+		</li>
+	)
+}
+
+function Figure({
+	src,
+	alt,
+	caption,
+	className,
+	...props
+}: {
+	src: string
+	alt: string
+	caption?: string
+	className?: string
+} & Omit<ImageProps, 'src' | 'alt'>) {
+	return (
+		<figure className={cn('my-6', className)}>
+			<Image
+				src={src}
+				alt={alt}
+				sizes="100vw"
+				className="rounded-lg"
+				unoptimized
+				style={{ width: '100%', height: 'auto' }}
+				{...props}
+			/>
+			{caption && (
+				<figcaption className="mt-2 font-mono text-[11px] text-muted-foreground">
+					<span aria-hidden="true" className="mr-2 text-[#209CE9]">
+						{'//'}
+					</span>
+					{caption}
+				</figcaption>
+			)}
+		</figure>
+	)
+}
+
+// =============================================================================
+// Global MDX component mapping
+// =============================================================================
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
 	return {
@@ -142,6 +379,19 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 				{children}
 			</td>
 		),
+
+		// Custom article building blocks
+		Callout,
+		StatGrid,
+		Stat,
+		Terminal,
+		Steps,
+		Step,
+		Figure,
+		BarChart,
+		Ticker: ArticleTicker,
+		Chart: ArticleChart,
+		GitHubRepo: GitHubRepoCard,
 
 		...components,
 	}

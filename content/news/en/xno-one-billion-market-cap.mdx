@@ -16,11 +16,37 @@ Market cap math is simple, which is exactly why it is worth doing carefully. If 
 
 Nano's supply is fixed at 133,248,297 XNO, and all of it is in circulation. There is no inflation to dilute this figure later, which makes the calculation stable. To reach a $1 billion market cap, the price of XNO would need to be about $7.50.
 
+<Terminal title="market cap calculator">
+	$1,000,000,000 ÷ 133,248,297 XNO = $7.50 / XNO
+</Terminal>
+
+<StatGrid>
+	<Stat label="Fixed supply" value="133,248,297 XNO" />
+	<Stat label="Target market cap" value="$1 billion" accent />
+	<Stat label="Implied price" value="≈ $7.50" />
+</StatGrid>
+
+<BarChart
+	title="Implied XNO price at each market cap"
+	footnote="log scale"
+	data={[
+		{ label: "$100M", value: 0.75 },
+		{ label: "$500M", value: 3.75 },
+		{ label: "$1B", value: 7.5, accent: true },
+		{ label: "$10B", value: 75 },
+		{ label: "$100B", value: 750 },
+	]}
+/>
+
 That is the whole calculation. The interesting part is what it implies.
 
 ## What changes at that price
 
-At $7.50, a few things happen at once. Nano would enter the top 100 cryptocurrencies by market cap, sitting alongside names most people have heard of. A transaction of 100 XNO would be worth about $750, which changes the mental math of what Nano is for. The micropayment story, which is Nano's strength, would shift toward everyday payments for goods and services instead.
+At $7.50, Nano would enter the top 100 cryptocurrencies by market cap, sitting alongside names most people have heard of.
+
+<Callout type="insight" title="What changes">
+	A transaction of 100 XNO becomes a $750 transaction. The mental math of what Nano is for shifts: the micropayment story moves toward everyday payments for goods and services.
+</Callout>
 
 None of this says anything about whether that price is likely. It just describes what the network would look like if it got there.
 

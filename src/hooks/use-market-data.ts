@@ -11,7 +11,7 @@ interface ApiErrorResponse {
 	code?: string
 }
 
-const fetcher = async (): Promise<MarketDataResponse> => {
+export const fetchMarketData = async (): Promise<MarketDataResponse> => {
 	const response = await fetch(`${env.NODE_ENV === 'development' ? env.NEXT_PUBLIC_SITE_URL : ''}/api/market-data`)
 	if (!response.ok) {
 		const errorData: ApiErrorResponse = await response
@@ -27,7 +27,7 @@ const fetcher = async (): Promise<MarketDataResponse> => {
 export function useMarketData() {
 	const { data, error, isLoading } = useSuspenseQuery<MarketDataResponse>({
 		queryKey: ['market-data'],
-		queryFn: fetcher,
+		queryFn: fetchMarketData,
 		refetchInterval: 120000, // Refresh every 2:00min
 		refetchOnWindowFocus: false,
 		// Don't retry rate-limited requests (429 own API, 503 upstream) — retrying

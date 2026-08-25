@@ -20,12 +20,29 @@ Nano non ha minatori. La rete non paga nessuno per metterla in sicurezza, perch�
 
 ## Cos'è davvero una conferma
 
-Quando invii una transazione Nano, il tuo blocco viene trasmesso alla rete. I rappresentanti lo verificano contro il loro registro locale e, se è valido, esprimono un voto a favore. Quando abbastanza peso di voto è d'accordo, la transazione è confermata. Poiché la rete è strutturata come un grafo aciclico diretto e non come una catena, non c'è un blocco da aspettare né una ricompensa per cui combattere. Le conferme si regolano in meno di un secondo, di solito molto meno.
+Quando invii una transazione Nano, quattro cose accadono in rapida successione:
+
+<Steps title="Dall’invio alla conferma">
+	<Step index="01" title="Trasmissione">Il tuo blocco viene inviato alla rete.</Step>
+	<Step index="02" title="Verifica">I rappresentanti lo verificano contro il loro registro locale.</Step>
+	<Step index="03" title="Voto">Se è valido, esprimono un voto a favore.</Step>
+	<Step index="04" title="Conferma">Quando abbastanza peso di voto è d’accordo, la transazione è confermata.</Step>
+</Steps>
+
+Poiché la rete è strutturata come un grafo aciclico diretto e non come una catena, non c’è un blocco da aspettare né una ricompensa per cui combattere. Le conferme si regolano in meno di un secondo, di solito molto meno.
 
 ## Perché conta nella pratica
 
 Le conseguenze non sono solo tecniche. Una rete senza minatori non ha corsa all'energia, né mercato delle commissioni, né congestione legata allo spazio dei blocchi. Inviare 0,000001 XNO costa quanto inviare 1.000 XNO: nulla. È questo che rende Nano interessante per i micropagamenti, le mance e i pagamenti macchina a macchina, quel tipo di casi d'uso in cui le commissioni divorerebbero l'intero valore del pagamento.
 
-Il compromesso è che la sicurezza dipende da rappresentanti onesti e da una base di elettori distribuita. È per questo che la comunità spinge verso la decentralizzazione, e per questo il nome «voto aperto per rappresentanti» conta: il sistema funziona solo se il peso resta distribuito.
+<StatGrid>
+	<Stat label="Inviare 0,000001 XNO" value="costo: zero" />
+	<Stat label="Inviare 1.000 XNO" value="costo: zero" accent />
+	<Stat label="Conferma" value="meno di un secondo" />
+</StatGrid>
+
+<Callout type="warning" title="Il compromesso">
+	La sicurezza dipende da rappresentanti onesti e da una base di elettori distribuita. È per questo che la comunità spinge verso la decentralizzazione: il sistema funziona solo se il peso resta distribuito.
+</Callout>
 
 Niente di tutto questo è teoria da prendere per fede. Puoi verificare tu stesso lo stato della rete con qualsiasi nodo pubblico e, se possiedi XNO, puoi persino scegliere il tuo rappresentante. Gli strumenti per farlo esistono da anni. Semplicemente non se ne parla quanto meriterebbero.

@@ -20,12 +20,29 @@ That delegation is the key insight. You never lose control of your funds by dele
 
 ## What a confirmation actually is
 
-When you send a Nano transaction, your block is broadcast to the network. Representatives check it against their local ledger, and if it is valid they cast a vote for it. Once enough voting weight agrees, the transaction is confirmed. Because the network is structured as a directed acyclic graph rather than a chain, there is no block to wait for and no block reward to fight over. Confirmations settle in under a second, usually well under.
+When you send a Nano transaction, four things happen in quick succession:
+
+<Steps title="From send to confirmation">
+	<Step index="01" title="Broadcast">Your block is sent to the network.</Step>
+	<Step index="02" title="Validate">Representatives check it against their local ledger.</Step>
+	<Step index="03" title="Vote">If it is valid, they cast a vote for it.</Step>
+	<Step index="04" title="Confirm">Enough voting weight agrees, and the transaction is confirmed.</Step>
+</Steps>
+
+Because the network is structured as a directed acyclic graph rather than a chain, there is no block to wait for and no block reward to fight over. Confirmations settle in under a second, usually well under.
 
 ## Why this matters in practice
 
 The consequences are not just technical. A network without miners has no energy arms race, no fee market, and no congestion based on block space. Sending 0.000001 XNO costs the same as sending 1,000 XNO: nothing. That is what makes Nano interesting for micropayments, tipping, and machine-to-machine payments, the kind of use cases where transaction costs would eat the entire value of the payment.
 
-The trade-off is that security depends on honest representatives and a distributed voter base. That is why the community pushes for decentralization, and why the "Open Representative Voting" name matters: the system only works if the weight stays spread out.
+<StatGrid>
+	<Stat label="Send 0.000001 XNO" value="cost: zero" />
+	<Stat label="Send 1,000 XNO" value="cost: zero" accent />
+	<Stat label="Confirmation" value="under a second" />
+</StatGrid>
+
+<Callout type="warning" title="The trade-off">
+	Security depends on honest representatives and a distributed voter base. That is why the community pushes for decentralization: the system only works if the weight stays spread out.
+</Callout>
 
 None of this is theory you have to take on faith. You can verify the network state yourself with any public node, and if you hold XNO, you can even pick your representative. The tools to do so have existed for years. They just do not get talked about as much as they deserve.

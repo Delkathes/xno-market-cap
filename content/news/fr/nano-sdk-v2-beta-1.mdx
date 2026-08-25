@@ -1,0 +1,64 @@
+export const metadata = {
+	emoji: '🧰',
+	title: 'nano-sdk v2 : préparer l’outillage avant la sortie de node V29',
+	description:
+		'La première bêta de nano-sdk v2 vise Nano node V29 (télémétrie v2, pagination indexée des délégateurs, grands nombres plus sûrs) avant même la sortie du nœud.',
+	date: '2026-08-25',
+	author: 'Équipe NanoMarketCap',
+	tags: ['nano', 'développement', 'outils'],
+	published: true,
+}
+
+# nano-sdk v2 : préparer l’outillage avant la sortie de node V29
+
+Si vous construisez quoi que ce soit sur Nano (un portefeuille, un explorateur, un service de données de marché), vous finissez tôt ou tard par parler à un nœud. nano-sdk est la bibliothèque TypeScript qui rend cette conversation agréable : appels RPC typés, sujets WebSocket validés, schémas de réponse conformes à ce que le nœud renvoie réellement. Cette semaine, Exxenoz a publié la première bêta de la version 2, et un détail compte plus que n’importe quelle fonctionnalité : Nano node V29 n’est pas encore sorti. Le SDK prend simplement de l’avance.
+
+## La ligne de démarcation, tracée en avance
+
+La bêta trace une ligne de compatibilité claire : la version 2 parlera à Nano node V29, la version 1 reste sur V28.2. Cette séparation pèse plus lourd que n’importe quelle nouvelle fonctionnalité, et elle est tracée en avance, délibérément. Le SDK valide déjà le nouveau champ `topo_height` dans l’historique de compte et les informations de bloc, les priorités de bootstrap restructurées et les capacités des pairs en V29, si bien que le jour où le nœud sortira, l’outillage sera déjà en place. C’est la différence entre migrer en même temps qu’une sortie de nœud et courir après elle.
+
+<Terminal title="matrice de compatibilité">
+	nano-sdk 2.x  →  Nano node V29.0
+	nano-sdk 1.x  →  Nano node V28.2
+</Terminal>
+
+## Ce que V29 débloquera pour les développeurs
+
+L’intéressant n’est pas dans le changelog, mais dans ce que ces changements préparent :
+
+<StatGrid>
+	<Stat label="Télémétrie" value="p50 · p90 · p99" accent />
+	<Stat label="Plage brute" value="jusqu’à 10^30" />
+	<Stat label="Délégateurs" value="pagination par curseur" />
+</StatGrid>
+
+- **Télémétrie v2.** Les nœuds V29 rapporteront les percentiles de latence de confirmation (p50, p90, p99), leur moteur de base de données et leur statut de bootstrap. La surveillance d’un nœud passe du bricolage aux tableaux de bord : repérez un nœud sous-dimensionné par sa courbe de latence avant que vos utilisateurs ne s’en aperçoivent.
+- **Pagination indexée des délégateurs.** Les listes de délégateurs pourront être récupérées avec de vrais curseurs de continuation au lieu de déverser des milliers d’entrées d’un coup. Pour tout service qui affiche des pages de représentants, c’est la différence entre passer à l’échelle et caler.
+- **Requêtes de représentants plus fines.** Un paramètre de seuil de poids (`threshold`) permet de filtrer les petits représentants lors des sondages. Moins de bruit, moins d’allers-retours.
+- **Des nombres plus sûrs.** Les montants bruts de Nano vont jusqu’à 10^30, bien au-delà de la plage des entiers sûrs de JavaScript. Le nouveau `UInt64String` valide les chaînes décimales sur toute la plage non signée 64 bits, corrigeant ce type de bug de débordement qui corrompt silencieusement les statistiques au-delà de 9 000 billions.
+
+## Qui devrait s’y intéresser maintenant
+
+C’est une bêta qui vise un nœud pas encore sorti, donc l’ordre des étapes compte :
+
+<Steps title="L’ordre des étapes">
+	<Step index="01" title="Rester">
+		Les services en production restent sur 1.x et V28.2 jusqu’à ce que V29 sorte et se stabilise.
+	</Step>
+	<Step index="02" title="Tester">
+		Montez un environnement de développement sur une version de développement de V29 et exercez les nouveaux chemins de pagination et de télémétrie.
+	</Step>
+	<Step index="03" title="Signaler">
+		Ouvrez des issues pendant que les mainteneurs sont les plus réactifs. Un retour précoce sur une bêta vaut dix plaintes après une version stable.
+	</Step>
+</Steps>
+
+Une bêta qui arrive avant le nœud donne une longueur d’avance à tout l’écosystème.
+
+L’écosystème d’outils Nano a longtemps été dispersé : petits utilitaires, bibliothèques à moitié maintenues, schémas qui dérivent de ce que les nœuds renvoient réellement. Un SDK typé qui traite la compatibilité des nœuds comme un contrat de premier ordre, c’est ce qui met fin à cela. La v2 est une bêta pour une version de nœud qui n’existe pas encore, mais une bêta dans la bonne direction.
+
+La version est signée Exxenoz.
+
+<GitHubRepo repo="infinitybay/nano-sdk" />
+
+Testez-la sur une version de développement de V29 et signalez ce qui casse.

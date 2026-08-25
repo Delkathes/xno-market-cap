@@ -16,11 +16,37 @@ De rekensom van een marktkapitalisatie is simpel, en juist daarom is het de moei
 
 Het aanbod van Nano is vast, 133.248.297 XNO, en het is volledig in omloop. Er is geen inflatie die dit getal later kan verwateren, wat de berekening stabiel maakt. Om een marktkapitalisatie van 1 miljard dollar te bereiken, zou de prijs van XNO ongeveer 7,50 dollar moeten zijn.
 
+<Terminal title="marktkapitalisatiecalculator">
+	$1.000.000.000 ÷ 133.248.297 XNO = 7,50 $ / XNO
+</Terminal>
+
+<StatGrid>
+	<Stat label="Vast aanbod" value="133.248.297 XNO" />
+	<Stat label="Doelmarktkapitalisatie" value="1 miljard dollar" accent />
+	<Stat label="Impliciete prijs" value="≈ 7,50 dollar" />
+</StatGrid>
+
+<BarChart
+	title="Impliciete XNO-prijs per marktkapitalisatie"
+	footnote="logaritmische schaal"
+	data={[
+		{ label: "$100M", value: 0.75 },
+		{ label: "$500M", value: 3.75 },
+		{ label: "$1B", value: 7.5, accent: true },
+		{ label: "$10B", value: 75 },
+		{ label: "$100B", value: 750 },
+	]}
+/>
+
 Dat is de hele berekening. Het interessante deel is wat het betekent.
 
 ## Wat er verandert bij die prijs
 
-Bij 7,50 dollar gebeuren er meerdere dingen tegelijk. Nano zou de top 100 van cryptocurrencies qua marktkapitalisatie binnenkomen, naast namen die de meeste mensen kennen. Een transactie van 100 XNO zou ongeveer 750 dollar waard zijn, wat de mentale rekensom verandert van waar Nano voor dient. Het micropayments-verhaal, dat Nanos kracht is, zou verschuiven naar alledaagse betalingen voor goederen en diensten.
+Bij 7,50 dollar zou Nano de top 100 van cryptocurrencies qua marktkapitalisatie binnenkomen, naast namen die de meeste mensen kennen.
+
+<Callout type="insight" title="Wat er verandert">
+	Een transactie van 100 XNO wordt een transactie van 750 dollar. De mentale rekensom van waar Nano voor dient verschuift: het micropayments-verhaal beweegt naar alledaagse betalingen voor goederen en diensten.
+</Callout>
 
 Niets hiervan zegt iets over of die prijs waarschijnlijk is. Het beschrijft alleen hoe het netwerk eruit zou zien als het daar zou komen.
 

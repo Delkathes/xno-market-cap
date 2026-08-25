@@ -1,0 +1,50 @@
+export const metadata = {
+	emoji: '📢',
+	title: 'NanoBid: an Ad Leaderboard Where the Payment Is the Message',
+	description:
+		'A Nano-powered ad leaderboard where the payment amount is the message itself. Gabriel Patrola built it in days, and community feedback brought in its first customer.',
+	date: '2026-08-24',
+	author: 'NanoMarketCap Team',
+	tags: ['nano', 'ecosystem', 'payments'],
+	published: true,
+}
+
+# NanoBid: an Ad Leaderboard Where the Payment Is the Message
+
+Advertising in crypto is usually a mess of banners, ad networks, and payment rails that do not fit the medium. NanoBid goes the other way: a leaderboard for Nano ecosystem projects where the ad is not a picture, it is an amount. You bid a number of XNO, and that amount becomes the entry. The payment is the message.
+
+## An idea simple enough to ship in days
+
+NanoBid was built in a matter of days by Gabriel Patrola, an independent developer and researcher. The mechanics stay intentionally simple: projects place bids, and the leaderboard ranks them by what they are willing to pay. No impression dashboards, no auction back-ends, no billing integrations. The bid is the product and the ad at the same time.
+
+What makes the idea work is what makes Nano work: feeless, instant, divisible payments. On a network with fees, a bid of a fraction of a XNO would be pointless, the fee could be larger than the bid. On Nano, an ad can cost exactly what it is worth, down to the smallest fraction, and settle in under a second. The price itself becomes the message:
+
+<StatGrid>
+	<Stat label="Small bid" value="1 XNO" />
+	<Stat label="Big bid" value="100 XNO" accent />
+	<Stat label="Cost to send" value="zero" />
+</StatGrid>
+
+## Payment as a medium
+
+This is the part worth thinking about. Most ad marketplaces treat payment as an administrative detail bolted on after the creative is designed. NanoBid collapses the two into one: the amount is the creative. Ranking, attention, and price are a single variable. That is a genuinely different way to think about attention on the web, and it is only plausible because payments are cheap enough to be part of the interaction instead of a rounding error on top of it.
+
+<Callout type="insight" title="The amount is the creative">
+	Ranking, attention, and price are one variable. The bid is the product and the ad at the same time.
+</Callout>
+
+Community feedback shaped the project too. Early versions got suggestions, and that back-and-forth did not just polish the product, it brought in the first customer.
+
+<Steps title="From idea to first customer">
+	<Step index="01" title="The idea">An ad leaderboard where the bid is the ad, and the payment is the message.</Step>
+	<Step index="02" title="The build">Shipped in a matter of days by one developer.</Step>
+	<Step index="03" title="Community feedback">Suggestions polish the product and bring in the first customer.</Step>
+</Steps>
+
+A tool that went from idea to paying user in days, built by one person, is a small proof that the Nano ecosystem can produce useful experiments without a team or a budget.
+
+## A small experiment, a bigger idea
+
+NanoBid is not trying to become an advertising giant. It is trying to be a working example of a pattern: use Nano's properties to make the payment itself carry meaning. Leaderboards, rankings, sponsored placements, tips that display the exact amount, all of it becomes more expressive when the number can be exact, instant, and free of fees.
+
+Patrola wrote up the build process on Subnano, covering the challenges of turning the idea into a real product: [Building NanoBid: When the Payment Amount Becomes the Message](https://subnano.me/@gabrielpatrola/building-nanobid-when-the-payment-amount-becomes-the-message). You can see the live leaderboard at [patrola.me/nanobid](https://patrola.me/nanobid). If you run a Nano project, it is worth a look.

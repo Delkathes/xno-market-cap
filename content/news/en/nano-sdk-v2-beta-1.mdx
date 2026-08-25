@@ -1,0 +1,64 @@
+export const metadata = {
+	emoji: '🧰',
+	title: 'nano-sdk v2: Getting Tooling Ready Before Node V29 Ships',
+	description:
+		'The first nano-sdk v2 beta targets Nano node V29 (telemetry-v2, indexed delegator pagination, safer big-number handling) before the node itself is even released.',
+	date: '2026-08-25',
+	author: 'NanoMarketCap Team',
+	tags: ['nano', 'development', 'tools'],
+	published: true,
+}
+
+# nano-sdk v2: Getting Tooling Ready Before Node V29 Ships
+
+If you build anything on Nano (a wallet, an explorer, a market data service), at some point you end up talking to a node. nano-sdk is the TypeScript library that makes that conversation pleasant: typed RPC calls, validated WebSocket topics, response schemas that match what the node actually returns. This week Exxenoz shipped the first beta of version 2, and one detail matters more than any feature in it: Nano node V29 has not been released yet. The SDK is simply getting there first.
+
+## The line in the sand, drawn early
+
+The beta draws a clear compatibility line: version 2 will speak Nano node V29, version 1 stays on V28.2. That split matters more than any single new feature, and it is drawn ahead of time, on purpose. The SDK already validates the new `topo_height` field in account history and block info, the restructured bootstrap priorities, and the V29 peer capabilities, so when the node finally ships, the tooling is already in place. It is the difference between upgrading alongside a node release and scrambling after one.
+
+<Terminal title="compatibility matrix">
+	nano-sdk 2.x  →  Nano node V29.0
+	nano-sdk 1.x  →  Nano node V28.2
+</Terminal>
+
+## What V29 will unlock for builders
+
+The interesting parts are not in the changelog, they are in what the changes prepare for:
+
+<StatGrid>
+	<Stat label="Telemetry" value="p50 · p90 · p99" accent />
+	<Stat label="Raw range" value="up to 10^30" />
+	<Stat label="Delegators" value="cursor pagination" />
+</StatGrid>
+
+- **Telemetry v2.** V29 nodes will report confirmation latency percentiles (p50, p90, p99), their database backend, and bootstrap status. That turns node monitoring from guesswork into dashboards: spot an under-provisioned node by its latency curve before users notice it.
+- **Indexed delegator pagination.** Delegator lists will be fetchable with proper continuation cursors instead of dumping thousands of entries at once. For any service that renders representative pages, that is the difference between scaling and stalling.
+- **Smarter representatives queries.** A weight `threshold` parameter lets you filter out tiny reps when polling. Less noise, fewer round-trips.
+- **Safer numbers.** Nano raw amounts run to 10^30, far beyond JavaScript's safe integer range. The new `UInt64String` validates decimal strings across the full unsigned 64-bit range, fixing the kind of overflow bug that silently corrupts stats above 9 quadrillion.
+
+## Who should care now
+
+It is a beta targeting an unreleased node, so the move order matters:
+
+<Steps title="The move order">
+	<Step index="01" title="Stay">
+		Production services remain on 1.x and V28.2 until V29 ships and stabilizes.
+	</Step>
+	<Step index="02" title="Test">
+		Spin up a dev environment against a V29 development build and exercise the new pagination and telemetry paths.
+	</Step>
+	<Step index="03" title="Report">
+		File issues while the maintainers are most responsive. Early feedback on a beta is worth ten complaints after a stable release.
+	</Step>
+</Steps>
+
+A beta that arrives before the node does gives the ecosystem a head start.
+
+The Nano tooling landscape has been scattered for years: small helpers, half-maintained libraries, schemas that drift from what nodes actually return. A typed SDK that treats node compatibility as a first-class contract is how that stops. v2 is a beta for a node version that is not out yet, but it is a beta in the right direction.
+
+The release is credited to Exxenoz.
+
+<GitHubRepo repo="infinitybay/nano-sdk" />
+
+Try it against a V29 development build and report what breaks.

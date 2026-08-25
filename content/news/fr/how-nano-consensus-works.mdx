@@ -20,12 +20,29 @@ C'est là qu'est la clé. En déléguant, vous ne perdez jamais le contrôle de 
 
 ## Ce qu'est réellement une confirmation
 
-Quand vous envoyez une transaction Nano, votre bloc est diffusé au réseau. Les représentants le vérifient contre leur registre local, et s'il est valide, ils votent pour lui. Dès que suffisamment de poids de vote est d'accord, la transaction est confirmée. Comme le réseau est structuré en graphe acyclique dirigé plutôt qu'en chaîne, il n'y a ni bloc à attendre ni récompense de bloc à se disputer. Les confirmations se règlent en moins d'une seconde, généralement bien moins.
+Quand vous envoyez une transaction Nano, quatre choses se succèdent rapidement :
+
+<Steps title="De l’envoi à la confirmation">
+	<Step index="01" title="Diffusion">Votre bloc est envoyé au réseau.</Step>
+	<Step index="02" title="Vérification">Les représentants le vérifient contre leur registre local.</Step>
+	<Step index="03" title="Vote">S’il est valide, ils votent pour lui.</Step>
+	<Step index="04" title="Confirmation">Dès que suffisamment de poids de vote est d’accord, la transaction est confirmée.</Step>
+</Steps>
+
+Comme le réseau est structuré en graphe acyclique dirigé plutôt qu’en chaîne, il n’y a ni bloc à attendre ni récompense de bloc à se disputer. Les confirmations se règlent en moins d’une seconde, généralement bien moins.
 
 ## Pourquoi c'est important en pratique
 
 Les conséquences ne sont pas que techniques. Un réseau sans mineurs n'a ni course à l'énergie, ni marché de frais, ni congestion liée à l'espace de bloc. Envoyer 0,000001 XNO coûte autant qu'envoyer 1 000 XNO : rien. C'est ce qui rend Nano intéressant pour les micropaiements, les pourboires et les paiements de machine à machine, le genre de cas d'usage où les frais de transaction dévoreraient toute la valeur du paiement.
 
-La contrepartie, c'est que la sécurité dépend de représentants honnêtes et d'une base de votants distribuée. C'est pour ça que la communauté pousse à la décentralisation, et pourquoi le nom « vote ouvert par représentants » compte : le système ne fonctionne que si le poids reste réparti.
+<StatGrid>
+	<Stat label="Envoyer 0,000001 XNO" value="coût : zéro" />
+	<Stat label="Envoyer 1 000 XNO" value="coût : zéro" accent />
+	<Stat label="Confirmation" value="moins d’une seconde" />
+</StatGrid>
+
+<Callout type="warning" title="La contrepartie">
+	La sécurité dépend de représentants honnêtes et d’une base de votants distribuée. C’est pour ça que la communauté pousse à la décentralisation : le système ne fonctionne que si le poids reste réparti.
+</Callout>
 
 Tout cela n'est pas une théorie à prendre au pied de la lettre. Vous pouvez vérifier l'état du réseau vous-même avec n'importe quel nœud public, et si vous détenez du XNO, vous pouvez même choisir votre représentant. Les outils pour le faire existent depuis des années. Ils ne sont simplement pas autant mis en avant qu'ils le méritent.

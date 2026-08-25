@@ -13,7 +13,7 @@ const contentSecurityPolicy = [
 	"object-src 'none'",
 	`script-src 'self' 'unsafe-inline' https://vercel.live https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ''}`,
 	"style-src 'self' 'unsafe-inline' https://vercel.live",
-	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com https://vercel.live https://vercel.com",
+	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com https://vercel.live https://vercel.com https://avatars.githubusercontent.com",
 	"font-src 'self' data: https://vercel.live https://assets.vercel.com",
 	"connect-src 'self' https: wss://ws.nano.to wss://nanoslo.0x.no wss://node.somenano.com wss://rainstorm.city wss://ws-us3.pusher.com",
 	"frame-src https://nanswap.com https://vercel.live",

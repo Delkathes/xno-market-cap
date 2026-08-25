@@ -20,12 +20,29 @@ Daar zit de kern. Door te delegeren verlies je nooit de controle over je geld, j
 
 ## Wat een bevestiging eigenlijk is
 
-Wanneer je een Nano-transactie verstuurt, wordt je block naar het netwerk gestuurd. Vertegenwoordigers controleren het tegen hun lokale ledger, en als het geldig is, stemmen ze ervoor. Zodra genoeg stemgewicht het eens is, is de transactie bevestigd. Omdat het netwerk is opgebouwd als een gerichte acyclische graaf in plaats van een keten, is er geen block om op te wachten en geen blockbeloning om over te vechten. Bevestigingen worden in minder dan een seconde geregeld, meestal ruim daaronder.
+Wanneer je een Nano-transactie verstuurt, gebeuren er vier dingen achter elkaar:
+
+<Steps title="Van versturen naar bevestiging">
+	<Step index="01" title="Versturen">Je block wordt naar het netwerk gestuurd.</Step>
+	<Step index="02" title="Controleren">Vertegenwoordigers controleren het tegen hun lokale ledger.</Step>
+	<Step index="03" title="Stemmen">Als het geldig is, stemmen ze ervoor.</Step>
+	<Step index="04" title="Bevestigen">Zodra genoeg stemgewicht het eens is, is de transactie bevestigd.</Step>
+</Steps>
+
+Omdat het netwerk is opgebouwd als een gerichte acyclische graaf in plaats van een keten, is er geen block om op te wachten en geen blockbeloning om over te vechten. Bevestigingen worden in minder dan een seconde geregeld, meestal ruim daaronder.
 
 ## Waarom dit in de praktijk telt
 
 De gevolgen zijn niet alleen technisch. Een netwerk zonder miners kent geen energie-wapenwedloop, geen kostenmarkt en geen congestie door blockruimte. 0,000001 XNO versturen kost evenveel als 1.000 XNO versturen: niets. Dat maakt Nano interessant voor micropayments, fooien en machine-naar-machine-betalingen, het soort use cases waar transactiekosten de hele waarde van de betaling zouden opeten.
 
-De keerzijde is dat de beveiliging afhangt van eerlijke vertegenwoordigers en een verspreide kiezersbasis. Daarom duwt de community richting decentralisatie, en daarom telt de naam "open vertegenwoordigend stemmen": het systeem werkt alleen als het gewicht verdeeld blijft.
+<StatGrid>
+	<Stat label="0,000001 XNO versturen" value="kosten: niets" />
+	<Stat label="1.000 XNO versturen" value="kosten: niets" accent />
+	<Stat label="Bevestiging" value="onder een seconde" />
+</StatGrid>
+
+<Callout type="warning" title="De keerzijde">
+	De beveiliging hangt af van eerlijke vertegenwoordigers en een verspreide kiezersbasis. Daarom duwt de community richting decentralisatie: het systeem werkt alleen als het gewicht verdeeld blijft.
+</Callout>
 
 Niets hiervan is theorie die je op vertrouwen moet aannemen. Je kunt de staat van het netwerk zelf verifiëren met elke publieke node, en als je XNO hebt, kun je zelfs je eigen vertegenwoordiger kiezen. De tools daarvoor bestaan al jaren. Er wordt alleen minder over gepraat dan ze verdienen.
