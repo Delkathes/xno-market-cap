@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Calendar, User } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
@@ -9,8 +9,8 @@ import { routing } from '@/i18n/routing'
 
 import { formatNewsDate, getAllNews, getArticleLocale, getNewsMetadata, getNewsOgImage } from '@/lib/news'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
 	params: Promise<{ locale: string; slug: string }>
@@ -90,46 +90,53 @@ export default async function NewsArticlePage({ params }: Props) {
 	const { default: Content } = await import(`@content/news/${effectiveLocale}/${slug}.mdx`)
 
 	return (
-		<main className="container mx-auto px-4 py-8">
-			<div className="max-w-3xl mx-auto">
+		<main className="relative isolate container mx-auto px-4 py-8">
+			<ModernPageBackground />
+
+			<div className="mx-auto max-w-3xl animate-fade-in-up">
 				{/* Back navigation */}
-				<Button variant="ghost" size="sm" className="mb-6 -ml-2 cursor-pointer" asChild>
+				<Button
+					variant="ghost"
+					size="sm"
+					className="-ml-2 mb-10 cursor-pointer font-mono text-[11px] uppercase tracking-widest"
+					asChild
+				>
 					<Link href="/news">
-						<ArrowLeft className="w-4 h-4 mr-2" />
+						<ArrowLeft className="h-3.5 w-3.5 mr-2" />
 						{t('backToNews')}
 					</Link>
 				</Button>
 
 				{/* Article header */}
-				<header className="mb-8">
-					<h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{article.title}</h1>
-
-					<div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
-						<div className="flex items-center gap-2">
-							<Calendar className="w-4 h-4" />
-							<time dateTime={article.date}>{formatNewsDate(article.date, locale)}</time>
-						</div>
+				<header className="mb-10">
+					<div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+						{article.emoji && <span className="text-base leading-none">{article.emoji}</span>}
+						<time dateTime={article.date}>{formatNewsDate(article.date, locale)}</time>
 						{article.author && (
-							<div className="flex items-center gap-2">
-								<User className="w-4 h-4" />
+							<>
+								<span className="text-muted-foreground/40">{'//'}</span>
 								<span>{article.author}</span>
-							</div>
+							</>
 						)}
 					</div>
+					<h1 className="text-3xl md:text-4xl font-bold tracking-tight text-balance mb-5">{article.title}</h1>
 
 					{article.tags && article.tags.length > 0 && (
-						<div className="flex flex-wrap gap-2">
+						<div className="flex flex-wrap gap-1.5">
 							{article.tags.map((tag) => (
-								<Badge key={tag} variant="secondary">
+								<span
+									key={tag}
+									className="rounded bg-muted px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground"
+								>
 									{tag}
-								</Badge>
+								</span>
 							))}
 						</div>
 					)}
 				</header>
 
 				{/* Article content */}
-				<article className="prose-custom">
+				<article className="article-prose">
 					<Content />
 				</article>
 			</div>

@@ -1,14 +1,13 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
-import { Calendar, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
 import { formatNewsDate, getAllNews } from '@/lib/news'
 
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -46,47 +45,62 @@ export default async function NewsPage({ params }: Props) {
 	const articles = await getAllNews(locale)
 
 	return (
-		<main className="container mx-auto px-4 py-8">
-			<div className="mb-8">
-				<h1 className="text-3xl font-bold tracking-tight mb-2">{t('title')}</h1>
-				<p className="text-muted-foreground">{t('subtitle')}</p>
-			</div>
+		<main className="relative isolate container mx-auto px-4 py-8">
+			<ModernPageBackground />
+
+			<header className="mb-12 sm:mb-14 animate-fade-in-up">
+				<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('title')}</h1>
+				<p className="text-muted-foreground text-base sm:text-lg">{t('subtitle')}</p>
+			</header>
 
 			{articles.length === 0 ? (
-				<Card>
-					<CardContent className="p-6">
-						<p className="text-muted-foreground text-center">{t('noArticles')}</p>
-					</CardContent>
-				</Card>
+				<div className="rounded-md border bg-card p-6 text-center text-sm text-muted-foreground">
+					<p>{t('noArticles')}</p>
+				</div>
 			) : (
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-					{articles.map((article) => (
-						<Link key={article.slug} href={`/news/${article.slug}`}>
-							<Card className="h-full transition-colors hover:bg-muted/50">
-								<CardHeader className="grow">
-									<div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-										<Calendar className="w-4 h-4" />
+				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+					{articles.map((article, index) => (
+						<Link
+							key={article.slug}
+							href={`/news/${article.slug}`}
+							className="animate-fade-in-up"
+							style={{ animationDelay: `${Math.min(index * 60, 300)}ms` }}
+						>
+							<article className="group flex h-full flex-col rounded-md border bg-card p-4 transition-colors hover:border-primary/40">
+								<div className="flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+									<span className="flex items-center gap-2">
+										{article.emoji && <span className="text-sm leading-none">{article.emoji}</span>}
 										<time dateTime={article.date}>{formatNewsDate(article.date, locale)}</time>
-									</div>
-									<CardTitle className="line-clamp-2 leading-tight">{article.title}</CardTitle>
-									<CardDescription className="line-clamp-3">{article.description}</CardDescription>
-								</CardHeader>
-								<CardContent className="pb-4 flex items-center justify-between">
+									</span>
+									<span aria-hidden="true" className="text-[#209CE9]">
+										Ӿ
+									</span>
+								</div>
+								<h2 className="mt-3 line-clamp-2 text-lg font-bold leading-snug tracking-tight transition-colors group-hover:text-primary">
+									{article.title}
+								</h2>
+								<p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">
+									{article.description}
+								</p>
+								<div className="mt-4 flex items-center justify-between gap-2 border-t border-dashed border-border pt-3">
 									{article.tags && article.tags.length > 0 && (
-										<div className="flex flex-wrap gap-2">
+										<div className="flex flex-wrap gap-1.5">
 											{article.tags.slice(0, 3).map((tag) => (
-												<Badge key={tag} variant="secondary">
+												<span
+													key={tag}
+													className="rounded bg-muted px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground"
+												>
 													{tag}
-												</Badge>
+												</span>
 											))}
 										</div>
 									)}
-									<div className="flex items-center text-sm text-accent font-medium">
+									<span className="ml-auto flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-[#209CE9]">
 										{t('readMore')}
-										<ChevronRight className="w-4 h-4 ml-1" />
-									</div>
-								</CardContent>
-							</Card>
+										<ChevronRight className="h-3 w-3" />
+									</span>
+								</div>
+							</article>
 						</Link>
 					))}
 				</div>

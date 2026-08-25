@@ -12,6 +12,7 @@ import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
 	params: Promise<{ locale: string; slug: string }>
@@ -81,63 +82,70 @@ export default async function PartnerPage({ params }: Props) {
 	}
 
 	return (
-		<main className="container mx-auto px-4 py-8">
-			<div className="max-w-3xl mx-auto">
+		<main className="relative isolate container mx-auto px-4 py-8">
+			<ModernPageBackground />
+
+			<div className="mx-auto max-w-3xl animate-fade-in-up">
 				{/* Back link */}
 				<Link
 					href="/"
-					className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6"
+					className="-ml-2 mb-10 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
 				>
-					<ArrowLeft className="h-4 w-4" />
-					Back to home
+					<ArrowLeft className="h-3.5 w-3.5" />
+					Home
 				</Link>
 
 				{/* Header */}
-				<div className="flex items-start gap-4 mb-16 mt-12">
-					{partner.logoUrl && (
-						<div className="shrink-0 relative h-16 w-16 overflow-hidden">
-							<Image
-								src={partner.logoUrl}
-								alt={partner.partnerName}
-								fill
-								className="object-contain p-1"
-								unoptimized
-							/>
-						</div>
-					)}
-					<div className="flex-1 min-w-0 relative">
-						{/* Partner badge */}
-						<div className="flex items-center mb-1 absolute -top-5.5 gap-2">
-							<p className="text-sm text-muted-foreground">{partner.partnerName}</p>
-							<Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary" asChild>
-								<Link href={`/partners/info`}>
-									<Sparkles className="h-3 w-3" />
-									Partner
-								</Link>
-							</Badge>
-						</div>
-						<h1 className="text-2xl font-bold mb-2">{partner.title}</h1>
-						<p className="text-muted-foreground">{partner.description}</p>
-						{/* External link if available */}
-						{partner.externalUrl && (
-							<Button asChild variant="link" className="mt-2 cursor-pointer">
-								<a
-									href={partner.externalUrl}
-									target="_blank"
-									rel="noopener noreferrer partner"
-									className="px-0!"
-								>
-									Visit {partner.partnerName}
-									<ExternalLink className="h-4 w-4 ml-2" />
-								</a>
-							</Button>
+				<div className="mb-10 rounded-md border bg-card p-5 sm:p-6">
+					<div className="flex items-start gap-4">
+						{partner.logoUrl && (
+							<div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md border bg-muted/30 p-2">
+								<Image
+									src={partner.logoUrl}
+									alt={partner.partnerName}
+									fill
+									className="object-contain"
+									unoptimized
+								/>
+							</div>
 						)}
+						<div className="min-w-0 flex-1">
+							<div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+								<span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+									{partner.partnerName}
+								</span>
+								<Badge
+									variant="outline"
+									className="gap-1 border-primary/30 font-mono text-[10px] uppercase tracking-widest text-primary"
+									asChild
+								>
+									<Link href={`/partners/info`}>
+										<Sparkles className="h-3 w-3" />
+										Partner
+									</Link>
+								</Badge>
+							</div>
+							<h1 className="text-2xl font-bold tracking-tight text-balance">{partner.title}</h1>
+							<p className="mt-2 text-sm text-muted-foreground">{partner.description}</p>
+							{partner.externalUrl && (
+								<Button
+									asChild
+									variant="link"
+									className="mt-3 h-auto cursor-pointer p-0 font-mono text-[11px] uppercase tracking-widest text-[#209CE9]"
+								>
+									<a href={partner.externalUrl} target="_blank" rel="noopener noreferrer partner">
+										Visit {partner.partnerName}
+										<ExternalLink className="h-3.5 w-3.5 ml-2" />
+									</a>
+								</Button>
+							)}
+						</div>
 					</div>
 				</div>
 
 				{/* MDX Content */}
 				{MdxContent && (
-					<article className="prose prose-neutral dark:prose-invert max-w-none">
+					<article className="article-prose">
 						<MdxContent />
 					</article>
 				)}
