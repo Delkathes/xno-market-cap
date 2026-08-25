@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { TrendingDown, TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link, useRouter } from '@/i18n/navigation'
@@ -46,16 +45,20 @@ function CryptoRow({
 		<tr
 			onClick={() => router.push(`/coin/${crypto.id}`)}
 			className={cn(
-				'border-b border-border hover:bg-muted/50 transition-colors cursor-pointer',
-				isXNO && 'bg-primary/5',
+				'border-b border-l-2 border-border border-l-transparent transition-colors cursor-pointer hover:bg-muted/40',
+				isXNO && 'border-l-[#209CE9] bg-[#209CE9]/[0.05]',
 			)}
 		>
-			<td className="px-3 py-2">
-				<div className="flex items-center gap-2 text-sm sm:text-base">
-					{!isXNO && <span className="font-medium">{crypto.market_cap_rank}</span>}
+			<td className="px-3 py-1.5">
+				<div className="flex w-6 items-center justify-center text-sm sm:text-base">
+					{isXNO ? (
+						<span className="font-mono text-[#209CE9]">Ӿ</span>
+					) : (
+						<span className="font-medium tabular-nums">{crypto.market_cap_rank}</span>
+					)}
 				</div>
 			</td>
-			<td className="px-3 py-2 pl-0 sm:pl-4">
+			<td className="px-3 py-1.5 pl-0 sm:pl-4">
 				<Link href={`/coin/${crypto.id}`} className="contents">
 					<div className="flex items-center gap-3">
 						<Image
@@ -63,32 +66,34 @@ function CryptoRow({
 							alt={crypto.name}
 							width={32}
 							height={32}
-							className="w-6 h-6 sm:w-8 sm:h-8"
+							className="w-6 h-6 sm:w-7 sm:h-7"
 							unoptimized
 						/>
 						<div>
 							<p className="font-semibold text-sm sm:text-base">{crypto.name}</p>
-							<p className="text-xs sm:text-sm text-muted-foreground uppercase">{crypto.symbol}</p>
+							<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+								{crypto.symbol}
+							</p>
 						</div>
 					</div>
 				</Link>
 			</td>
-			<td className="px-3 py-2 text-right font-mono text-sm font-medium text-xno-value">
+			<td className="px-3 py-1.5 text-right font-mono text-sm font-medium tabular-nums text-xno-value">
 				{isXNO ? <span>1.00</span> : formatPrice(valueInXNO)}
 			</td>
-			<td className="px-3 py-2 text-right text-xs sm:text-sm">
+			<td className="px-3 py-1.5 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange1h} />}
 			</td>
-			<td className="px-3 py-2 text-right text-xs sm:text-sm">
+			<td className="px-3 py-1.5 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange24h} />}
 			</td>
-			<td className="px-3 py-2 text-right text-xs sm:text-sm">
+			<td className="px-3 py-1.5 text-right text-xs sm:text-sm">
 				{isXNO ? <span className="text-muted-foreground">-</span> : <Change change={relativeChange7d} />}
 			</td>
-			<td className="px-3 py-2 text-right font-mono font-medium text-xno-value text-sm">
+			<td className="px-3 py-1.5 text-right font-mono font-medium tabular-nums text-xno-value text-sm">
 				{formatLargeNumber(volumeInXNO)}
 			</td>
-			<td className="px-3 py-2 text-right font-mono font-medium text-xno-value text-sm">
+			<td className="px-3 py-1.5 text-right font-mono font-medium tabular-nums text-xno-value text-sm">
 				{formatLargeNumber(marketCapInXNO)}
 			</td>
 		</tr>
@@ -103,11 +108,9 @@ function Change({ change }: { change: number }) {
 				change >= 0 ? 'text-trendup' : 'text-trenddown',
 			)}
 		>
-			{change >= 0 ? (
-				<TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-			) : (
-				<TrendingDown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-			)}
+			<span aria-hidden="true" className="text-[11px] leading-none">
+				{change >= 0 ? '▲' : '▼'}
+			</span>
 			{formatPercentage(Math.abs(change))}
 		</div>
 	)
@@ -138,7 +141,7 @@ function SortableHeader({
 	return (
 		<th
 			className={cn(
-				'px-3 py-2 font-semibold text-xs cursor-pointer select-none hover:bg-muted/50 transition-colors',
+				'px-3 py-2 font-mono text-[10px] uppercase tracking-widest cursor-pointer select-none hover:bg-muted/50 transition-colors',
 				align === 'right' ? 'text-right' : 'text-left',
 			)}
 			onClick={() => onSort(column)}
@@ -242,12 +245,16 @@ export function MarketCapTable() {
 	})
 
 	return (
-		<section className="overflow-x-auto">
+		<div className="relative max-h-150 overflow-auto rounded-md border border-border bg-card">
 			<table className="w-full">
-				<thead className="border-b border-border">
+				<thead className="sticky top-0 z-10 border-b border-border bg-card">
 					<tr className="text-foreground text-sm">
-						<th className="text-left px-3 py-2 font-medium">{t('rank')}</th>
-						<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-medium">{t('name')}</th>
+						<th className="text-left px-3 py-2 font-mono text-[10px] uppercase tracking-widest">
+							{t('rank')}
+						</th>
+						<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-mono text-[10px] uppercase tracking-widest">
+							{t('name')}
+						</th>
 						<SortableHeader
 							column="price"
 							currentSort={sortColumn}
@@ -334,6 +341,6 @@ export function MarketCapTable() {
 					})}
 				</tbody>
 			</table>
-		</section>
+		</div>
 	)
 }

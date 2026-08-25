@@ -136,6 +136,7 @@
 		"toggleMenu": "Toggle menu"
 	},
 	"home": {
+		"marketLedger": "Market Ledger",
 		"xnoMarketCap": "XNO Market Cap",
 		"xnoPrice": "XNO Price",
 		"xnoDominance": "XNO Dominance",
@@ -144,7 +145,8 @@
 		"othersDominance": "Others",
 		"clickToToggle": "Click to toggle {options}",
 		"betweenBtcAndSatoshi": "between BTC and satoshi",
-		"units": "units"
+		"units": "units",
+		"clickToSwitchTimeframe": "Click to switch timeframe. Dominance change is approximated from price changes."
 	},
 	"marketTable": {
 		"loadingMarketData": "Loading market data...",

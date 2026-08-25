@@ -38,10 +38,13 @@ function GetPromotedCard() {
 	const t = useTranslations('partners.getPromoted')
 	return (
 		<Link href="/partners/info" className="group block">
-			<div className="relative overflow-hidden rounded-lg border border-green-500 bg-linear-to-r from-green-400/10 via-blue-400/10 to-green-400/10 p-4 shadow-lg transition-all">
+			<div className="relative overflow-hidden rounded-md border border-green-500 bg-linear-to-r from-green-400/10 via-blue-400/10 to-green-400/10 p-4 shadow-lg transition-all">
 				{/* CTA badge */}
 				<div className="absolute right-3 top-3">
-					<Badge variant="default" className="gap-1 text-xs bg-green-500 text-white">
+					<Badge
+						variant="default"
+						className="gap-1 bg-green-500 font-mono text-[10px] uppercase tracking-widest text-white"
+					>
 						<Sparkles className="h-3 w-3" />
 						{t('badge')}
 					</Badge>
@@ -57,7 +60,9 @@ function GetPromotedCard() {
 
 					{/* Content */}
 					<div className="min-w-0 flex-1 pr-20">
-						<p className="mb-0.5 text-xs text-green-500">{t('subtitle')}</p>
+						<p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-green-500">
+							{t('subtitle')}
+						</p>
 						<h3 className="mb-1 font-semibold text-green-600 group-hover:text-green-400 transition-colors line-clamp-1">
 							{t('title')}
 						</h3>
@@ -286,10 +291,13 @@ function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: str
 	const { partnerName, title, description } = partnerContent
 
 	const cardContent = (
-		<div className="relative overflow-hidden rounded-lg border border-primary/20 bg-linear-to-r from-primary/5 via-primary/10 to-primary/5 p-4 transition-all hover:border-primary/40 hover:shadow-md hover:shadow-primary/5">
+		<div className="relative overflow-hidden rounded-md border border-border bg-muted/30 p-4 transition-all hover:border-primary/40 hover:bg-muted/40">
 			{/* Partner badge */}
 			<div className="absolute right-3 top-3">
-				<Badge variant="outline" className="gap-1 border-primary/30 text-xs text-primary">
+				<Badge
+					variant="outline"
+					className="gap-1 border-primary/30 font-mono text-[10px] uppercase tracking-widest text-primary"
+				>
 					<Sparkles className="h-3 w-3" />
 					{t('badge')}
 				</Badge>
@@ -307,7 +315,9 @@ function PartnerCard({ partner, locale }: { partner: PartnerContent; locale: str
 
 				{/* Content */}
 				<div className="min-w-0 flex-1 pr-20">
-					<p className="mb-0.5 text-xs text-muted-foreground">{partnerName}</p>
+					<p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+						{partnerName}
+					</p>
 					<h3 className="mb-1 font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
 						{title}
 					</h3>

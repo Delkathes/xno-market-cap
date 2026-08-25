@@ -1,101 +1,64 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
 
 import type { NewsMetadata } from '@/lib/news'
-
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 
 interface NewsBannerProps {
 	articles: NewsMetadata[]
 }
 
 export function NewsBanner({ articles }: NewsBannerProps) {
-	const scrollRef = useRef<HTMLDivElement>(null)
-	const [canScrollLeft, setCanScrollLeft] = useState(false)
-	const [canScrollRight, setCanScrollRight] = useState(false)
-
-	const checkScroll = useCallback(() => {
-		const el = scrollRef.current
-		if (!el) return
-
-		setCanScrollLeft(el.scrollLeft > 0)
-		setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1)
-	}, [])
-
-	useEffect(() => {
-		checkScroll()
-		window.addEventListener('resize', checkScroll)
-		return () => window.removeEventListener('resize', checkScroll)
-	}, [checkScroll])
-
-	const scroll = (direction: 'left' | 'right') => {
-		const el = scrollRef.current
-		if (!el) return
-
-		const scrollAmount = 200
-		el.scrollBy({
-			left: direction === 'left' ? -scrollAmount : scrollAmount,
-			behavior: 'smooth',
-		})
-	}
+	const t = useTranslations('news')
 
 	if (articles.length === 0) {
 		return null
 	}
 
-	return (
-		<div className="relative flex items-center mt-4">
-			{canScrollLeft && (
-				<div className="absolute left-0 z-10 flex items-center h-full">
-					<div className="absolute inset-y-0 left-0 w-16 bg-linear-to-r from-background via-background/80 to-transparent pointer-events-none" />
-					<Button
-						variant="ghost"
-						size="icon"
-						className="relative h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm shadow-sm cursor-pointer"
-						onClick={() => scroll('left')}
-					>
-						<ChevronLeft className="h-4 w-4" />
-					</Button>
-				</div>
-			)}
+	const renderItems = () =>
+		articles.map((article) => (
+			<li key={article.slug} className="flex shrink-0 items-center">
+				<Link
+					href={`/news/${article.slug}`}
+					className="flex items-center gap-2 px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+				>
+					<span aria-hidden="true">{article.emoji}</span>
+					<span className="tracking-wide">{article.title}</span>
+				</Link>
+				<span aria-hidden="true" className="px-2 text-[#209CE9]">
+					Ӿ
+				</span>
+			</li>
+		))
 
-			<div
-				ref={scrollRef}
-				onScroll={checkScroll}
-				className="flex items-center gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-1"
-				style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-			>
-				{articles.map((article) => (
-					<Link key={article.slug} href={`/news/${article.slug}`}>
-						<Badge
-							variant="outline"
-							className="whitespace-nowrap hover:bg-accent hover:border-accent hover:text-primary-foreground dark:hover:text-foreground transition-colors cursor-pointer px-4 py-2 rounded-full"
-						>
-							<span className="mr-0.5">{article.emoji}</span>
-							{article.title}
-						</Badge>
-					</Link>
-				))}
+	return (
+		<div className="ticker-tape flex items-stretch overflow-hidden rounded-md border border-border bg-muted/40">
+			{/* Label */}
+			<div className="relative z-10 flex shrink-0 items-center gap-2 border-r border-border bg-card/60 px-3">
+				<span aria-hidden="true" className="relative flex h-1.5 w-1.5">
+					<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+					<span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+				</span>
+				<span className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+					{t('latestNews')}
+				</span>
 			</div>
 
-			{canScrollRight && (
-				<div className="absolute right-0 z-10 flex items-center justify-end h-full">
-					<div className="absolute inset-y-0 right-0 w-16 bg-linear-to-l from-background via-background/80 to-transparent pointer-events-none" />
-					<Button
-						variant="ghost"
-						size="icon"
-						className="relative h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm shadow-sm cursor-pointer"
-						onClick={() => scroll('right')}
-					>
-						<ChevronRight className="h-4 w-4" />
-					</Button>
+			{/* Tape */}
+			<div className="relative flex-1 overflow-hidden motion-reduce:overflow-x-auto">
+				<div className="flex w-max animate-marquee">
+					<ul className="flex items-center">{renderItems()}</ul>
+					<ul aria-hidden="true" className="flex items-center motion-reduce:hidden">
+						{renderItems()}
+					</ul>
 				</div>
-			)}
+				<div
+					aria-hidden="true"
+					className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-linear-to-l from-background/70 to-transparent"
+				/>
+			</div>
 		</div>
 	)
 }

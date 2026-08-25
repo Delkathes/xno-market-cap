@@ -30,6 +30,7 @@ export const CryptoDataSchema = v.object({
 	total_volume: v.number(),
 	circulating_supply: v.optional(v.number()),
 	max_supply: v.optional(v.nullable(v.number())),
+	last_updated: v.optional(v.string()),
 })
 
 export const CryptoDataArraySchema = v.array(CryptoDataSchema)

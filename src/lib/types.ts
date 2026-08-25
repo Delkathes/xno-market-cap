@@ -12,6 +12,7 @@ export interface CryptoData {
 	total_volume: number
 	circulating_supply?: number
 	max_supply?: number | null
+	last_updated?: string
 }
 
 export interface XnoPriceChangePerCurrency {

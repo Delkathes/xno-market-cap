@@ -5,11 +5,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { getRecentNews } from '@/lib/news'
 
-import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { LoadingArea } from '@/components/loading-area'
 import { MarketCapTable } from '@/components/market-cap-table'
 import { MarketOverview } from '@/components/market-overview'
+import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsBanner } from '@/components/news-banner'
 import { PartnerSpotlight } from '@/components/partner-spotlight'
 
@@ -42,81 +41,119 @@ export default async function Home({ params }: Props) {
 	const { locale } = await params
 	setRequestLocale(locale)
 
+	const t = await getTranslations({ locale, namespace: 'home' })
+
 	const recentNews = await getRecentNews(locale, 6)
 
 	return (
-		<main className="container mx-auto px-4 py-8">
-			<Suspense fallback=<MarketOverviewSkeleton locale={locale} />>
-				<MarketOverview />
-			</Suspense>
+		<main className="relative isolate container mx-auto px-4 py-8">
+			<ModernPageBackground />
 
-			<PartnerSpotlight />
+			<div className="space-y-8">
+				{/* Ticker tape */}
+				<div className="animate-fade-in-up">
+					<Suspense fallback={<TickerSkeleton />}>
+						<NewsBanner articles={recentNews} />
+					</Suspense>
+				</div>
 
-			{recentNews.length > 0 && <NewsBanner articles={recentNews} />}
+				{/* Market overview */}
+				<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
+					<Suspense fallback={<MarketOverviewSkeleton locale={locale} />}>
+						<MarketOverview />
+					</Suspense>
+				</div>
 
-			<div className="mt-6">
-				<Suspense fallback=<MarketCapTableSkeleton />>
-					<MarketCapTable />
-				</Suspense>
+				{/* Sponsor channel */}
+				<div className="animate-fade-in-up" style={{ animationDelay: '160ms' }}>
+					<PartnerSpotlight />
+				</div>
+
+				{/* Market ledger */}
+				<div className="animate-fade-in-up" style={{ animationDelay: '240ms' }}>
+					<h2 className="mb-3 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+						{t('marketLedger')}
+					</h2>
+					<Suspense fallback={<MarketCapTableSkeleton />}>
+						<MarketCapTable />
+					</Suspense>
+				</div>
 			</div>
 		</main>
 	)
 }
 
+function TickerSkeleton() {
+	return <Skeleton className="h-9 w-full rounded-md" />
+}
+
 export async function MarketOverviewSkeleton({ locale }: { locale: string }) {
-	const t = await getTranslations({ locale, namespace: 'home' })
-
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-8 gap-4">
-			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-5">
-					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoMarketCap')}</p>
-					<Skeleton className="w-30 h-6 my-2 sm:my-1" />
-					<div className="flex items-center gap-3 mt-2 flex-wrap">
-						<Skeleton className="w-16 h-5 sm:h-4" />
-						<Skeleton className="w-16 h-5 sm:h-4" />
-						<Skeleton className="w-32 h-5 sm:h-4" />
-					</div>
-				</CardContent>
-			</Card>
-
-			<Card className="md:col-span-4">
-				<CardContent className="p-4 sm:p-5">
-					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoPrice')} • 24h %</p>
-					<div className="grid grid-cols-3 gap-x-1 sm:gap-x-4 gap-y-1">
-						{/* Row 1: Prices */}
-						<Skeleton className="w-20 h-6 my-0.5 sm:my-1" />
-						<Skeleton className="w-20 h-6 my-0.5 sm:my-1" />
-						<Skeleton className="w-24 h-6 my-0.5 sm:my-1" />
-
-						{/* Row 2: 24h variations */}
-						<Skeleton className="inline-block w-16 h-5" />
-						<Skeleton className="inline-block w-16 h-5" />
-						<Skeleton className="inline-block w-16 h-5" />
-					</div>
-				</CardContent>
-			</Card>
-
-			<Card className="md:col-span-2">
-				<CardContent className="p-4 sm:p-5">
-					<p className="text-sm text-muted-foreground mb-1 sm:mb-2">{t('xnoDominance')}</p>
-					<Skeleton className="w-24 h-6 my-2 sm:my-1" />
-					<div className="flex items-center gap-4 mt-2">
-						<Skeleton className="w-20 h-5" />
-						<Skeleton className="w-20 h-5" />
-						<Skeleton className="w-20 h-5" />
-					</div>
-				</CardContent>
-			</Card>
+		<div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
+			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-4">
+				<Skeleton className="h-3 w-24" />
+				<div className="mt-3 grid grid-cols-3 gap-2">
+					{[1, 2, 3].map((index) => (
+						<div
+							key={`price-cell-${index}`}
+							className="rounded-md border border-border bg-muted/30 px-3 py-2.5"
+						>
+							<Skeleton className="h-3 w-10" />
+							<Skeleton className="mt-2 h-6 w-full" />
+							<div className="mt-2 space-y-1 border-t border-dashed border-border pt-1.5">
+								<Skeleton className="h-3 w-12" />
+								<Skeleton className="h-3 w-12" />
+								<Skeleton className="h-3 w-12" />
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
+				<Skeleton className="h-3 w-24" />
+				<Skeleton className="mt-2 h-8 w-32" />
+				<div className="mt-4 space-y-2">
+					<Skeleton className="h-4 w-full" />
+					<Skeleton className="h-4 w-full" />
+					<Skeleton className="h-4 w-full" />
+					<Skeleton className="h-4 w-full" />
+				</div>
+			</div>
+			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
+				<Skeleton className="h-3 w-28" />
+				<div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-5">
+					{[1, 2, 3, 4].map((index) => (
+						<div key={`dom-${index}`}>
+							<Skeleton className="h-4 w-16" />
+							<Skeleton className="mt-2 h-1.5 w-full" />
+							<div className="mt-2 border-t border-dashed border-border pt-1.5">
+								<Skeleton className="h-3 w-16" />
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
 		</div>
 	)
 }
 
 function MarketCapTableSkeleton() {
 	return (
-		<div className="h-405.75 relative">
-			<div className="h-200 relative">
-				<LoadingArea />
+		<div className="rounded-md border border-border bg-card p-4">
+			<div className="space-y-2.5">
+				{[1, 2, 3, 4, 5, 6].map((row) => (
+					<div key={row} className="flex items-center gap-4">
+						<Skeleton className="h-4 w-6" />
+						<Skeleton className="h-8 w-8 rounded-full" />
+						<Skeleton className="h-4 w-32" />
+						<div className="ml-auto hidden gap-8 sm:flex">
+							<Skeleton className="h-4 w-20" />
+							<Skeleton className="h-4 w-16" />
+							<Skeleton className="h-4 w-16" />
+							<Skeleton className="h-4 w-16" />
+						</div>
+					</div>
+				))}
 			</div>
 		</div>
 	)

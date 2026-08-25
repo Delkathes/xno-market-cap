@@ -41,7 +41,7 @@
 			"title": "Zu Nano tauschen",
 			"description": "Tausche Altcoins sofort zu Nano (XNO) mit Nanswap. Tausche Bitcoin, Ethereum und 50+ Kryptowährungen zu XNO mit schnellen, gebührenfreien Transaktionen.",
 			"ogTitle": "Zu Nano tauschen | NanoMarketCap",
-				"ogDescription": "Tausche Altcoins sofort zu Nano (XNO) mit Nanswap. Tausche 50+ Kryptowährungen zu XNO."
+			"ogDescription": "Tausche Altcoins sofort zu Nano (XNO) mit Nanswap. Tausche 50+ Kryptowährungen zu XNO."
 		},
 		"calculators": {
 			"title": "XNO Rechner & Tools",
@@ -142,6 +142,7 @@
 		"toggleMenu": "Menü umschalten"
 	},
 	"home": {
+		"marketLedger": "Marktübersicht",
 		"xnoMarketCap": "XNO Marktkapitalisierung",
 		"xnoPrice": "XNO Preis",
 		"xnoDominance": "XNO Dominanz",
@@ -150,7 +151,8 @@
 		"othersDominance": "Andere",
 		"clickToToggle": "Klicken zum Wechseln {options}",
 		"betweenBtcAndSatoshi": "zwischen BTC und Satoshi",
-		"units": "Einheiten"
+		"units": "Einheiten",
+		"clickToSwitchTimeframe": "Klicken, um den Zeitraum zu wechseln. Dominanzänderung anhand von Preisänderungen approximiert."
 	},
 	"marketTable": {
 		"loadingMarketData": "Lade Marktdaten...",

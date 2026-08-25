@@ -142,6 +142,7 @@
 		"toggleMenu": "Alternar menú"
 	},
 	"home": {
+		"marketLedger": "Registro del mercado",
 		"xnoMarketCap": "Capitalización XNO",
 		"xnoPrice": "Precio XNO",
 		"xnoDominance": "Dominancia XNO",
@@ -150,7 +151,8 @@
 		"othersDominance": "Otros",
 		"clickToToggle": "Clic para alternar {options}",
 		"betweenBtcAndSatoshi": "entre BTC y satoshi",
-		"units": "unidades"
+		"units": "unidades",
+		"clickToSwitchTimeframe": "Haz clic para cambiar el período. Cambio de dominancia aproximado a partir de cambios de precio."
 	},
 	"marketTable": {
 		"loadingMarketData": "Cargando datos del mercado...",
