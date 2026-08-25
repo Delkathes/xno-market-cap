@@ -9,11 +9,11 @@ import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
 
-import { Card, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
 import { LoadingArea } from '@/components/loading-area'
 import { MarketCapVolumeChart } from '@/components/market-cap-volume-chart'
+import { ModernPageBackground } from '@/components/modern-page-background'
 import { PriceChart } from '@/components/price-chart'
 
 type Props = {
@@ -54,6 +54,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 }
 
+// Every piece of this page depends on the [id] param (no static shell to stream),
+// so the route renders per-request instead of participating in instant navigation.
+export const instant = false
+
 // Generate static params for known coins
 export async function generateStaticParams() {
 	try {
@@ -90,18 +94,27 @@ export default async function CoinDetailPage({ params }: Props) {
 	})
 
 	return (
-		<main className="container mx-auto px-4 py-8">
-			<div className="space-y-16">
-				<Suspense fallback=<CoinInfoCardSkeleton />>
-					<CoinInfoCard coinId={coinIdParam} />
-				</Suspense>
+		<main className="relative isolate container mx-auto px-4 py-8">
+			<ModernPageBackground />
+
+			<div className="space-y-8">
+				<div className="animate-fade-in-up">
+					<Suspense fallback={<CoinInfoCardSkeleton />}>
+						<CoinInfoCard coinId={coinIdParam} />
+					</Suspense>
+				</div>
+
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<Suspense fallback=<PriceChartSkeleton />>
-						<PriceChart coinId={coinIdParam} />
-					</Suspense>
-					<Suspense fallback=<MarketCapVolumeChartSkeleton />>
-						<MarketCapVolumeChart coinId={coinIdParam} />
-					</Suspense>
+					<div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+						<Suspense fallback={<PriceChartSkeleton />}>
+							<PriceChart coinId={coinIdParam} />
+						</Suspense>
+					</div>
+					<div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+						<Suspense fallback={<MarketCapVolumeChartSkeleton />}>
+							<MarketCapVolumeChart coinId={coinIdParam} />
+						</Suspense>
+					</div>
 				</HydrationBoundary>
 			</div>
 		</main>
@@ -110,50 +123,48 @@ export default async function CoinDetailPage({ params }: Props) {
 
 function CoinInfoCardSkeleton() {
 	return (
-		<Card>
-			<CardHeader>
-				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-					<div className="flex items-center gap-4">
-						<Skeleton className="h-12 w-12 rounded-full" />
-						<div className="space-y-2">
-							<Skeleton className="h-6 w-32" />
-							<Skeleton className="h-4 w-16" />
-						</div>
-					</div>
-					<div className="grid grid-cols-2 sm:grid-cols-4 gap-4 gap-x-14 sm:gap-12 w-fit">
-						{[...Array(4)].map((_, i) => {
-							const key = `skeleton-${i}`
-							return (
-								<div key={key} className="space-y-1">
-									<Skeleton className="h-3 w-20" />
-									<Skeleton className="h-5 w-20" />
-								</div>
-							)
-						})}
+		<div className="rounded-md border bg-card p-4 sm:p-5">
+			<div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+				<div className="flex items-center gap-4">
+					<Skeleton className="h-12 w-12 rounded-full" />
+					<div className="space-y-2">
+						<Skeleton className="h-5 w-32" />
+						<Skeleton className="h-3 w-24" />
 					</div>
 				</div>
-			</CardHeader>
-		</Card>
+				<div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+					{[1, 2, 3, 4, 5, 6].map((index) => (
+						<div key={`stat-${index}`} className="rounded-md border border-border bg-muted/30 px-3 py-2.5">
+							<Skeleton className="h-3 w-12" />
+							<Skeleton className="mt-2 h-4 w-20" />
+							<Skeleton className="mt-1.5 h-3 w-10" />
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
 	)
 }
 
 function PriceChartSkeleton() {
 	return (
-		<div className="pb-1">
-			<div className="gap-6 sm:gap-2 mb-8">
-				<div className="flex justify-between">
-					<div className="h-8 w-36" />
-					<div className="flex flex-col gap-y-2">
-						<div className="h-8 w-36 sm:w-96" />
-						<div className="h-8 w-36 sm:hidden" />
-					</div>
+		<div className="rounded-md border bg-card p-4 sm:p-5">
+			<div className="flex items-center justify-between gap-4">
+				<div className="space-y-2">
+					<Skeleton className="h-3 w-24" />
+					<Skeleton className="h-5 w-28" />
 				</div>
-				<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
-					<div className="h-9 w-full sm:w-80" />
-					<div className="h-9 w-full sm:w-80" />
-				</div>
+				<Skeleton className="h-7 w-40" />
 			</div>
-			<div className="h-75 w-full relative rounded-lg overflow-hidden">
+			<div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
+				{[1, 2, 3, 4, 5, 6, 7].map((index) => (
+					<div key={`stat-${index}`} className="rounded-md border border-border bg-muted/30 px-3 py-2">
+						<Skeleton className="h-3 w-12" />
+						<Skeleton className="mt-1.5 h-4 w-16" />
+					</div>
+				))}
+			</div>
+			<div className="relative mt-4 h-75 w-full overflow-hidden rounded-md">
 				<LoadingArea />
 			</div>
 		</div>
@@ -162,22 +173,23 @@ function PriceChartSkeleton() {
 
 function MarketCapVolumeChartSkeleton() {
 	return (
-		<div className="pb-1">
-			<div className="gap-6 sm:gap-2 mb-8">
-				<div className="flex justify-between">
-					<div className="h-8 w-36" />
-					<div className="flex flex-col gap-y-2">
-						<div className="h-8 w-36 sm:w-96" />
-						<div className="h-8 w-36 sm:hidden" />
-					</div>
+		<div className="rounded-md border bg-card p-4 sm:p-5">
+			<div className="flex items-center justify-between gap-4">
+				<div className="space-y-2">
+					<Skeleton className="h-3 w-24" />
+					<Skeleton className="h-5 w-28" />
 				</div>
-				<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl sm:mt-4">
-					<div className="h-9 w-full sm:w-80" />
-					<div className="h-9 w-full sm:w-80" />
-					<div className="h-9 w-full sm:w-80" />
-				</div>
+				<Skeleton className="h-7 w-40" />
 			</div>
-			<div className="h-75 w-full relative rounded-lg overflow-hidden">
+			<div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-5">
+				{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
+					<div key={`stat-${index}`} className="rounded-md border border-border bg-muted/30 px-3 py-2">
+						<Skeleton className="h-3 w-12" />
+						<Skeleton className="mt-1.5 h-4 w-16" />
+					</div>
+				))}
+			</div>
+			<div className="relative mt-4 h-75 w-full overflow-hidden rounded-md">
 				<LoadingArea />
 			</div>
 		</div>

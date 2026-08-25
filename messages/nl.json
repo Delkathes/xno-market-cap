@@ -181,7 +181,10 @@
 		"marketCap": "Marktkapitalisatie",
 		"volume24h": "24u Volume",
 		"circulatingSupply": "Circulerende Voorraad",
-		"maxSupply": "Maximale Voorraad"
+		"maxSupply": "Maximale Voorraad",
+		"price": "Prijs",
+		"fdv": "Volledig verwaterde MC",
+		"diluted": "{ratio}× verwaterd"
 	},
 	"priceChart": {
 		"title": "{coin} Prijs in XNO",

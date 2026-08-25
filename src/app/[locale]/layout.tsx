@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -144,7 +145,11 @@ export default async function RootLayout({ children, params }: Props) {
 			>
 				<Providers>
 					<div className="min-h-screen flex flex-col animate-gradient-shift">
-						<Navigation />
+						{/* Navigation uses usePathname (URL data) — wrap in Suspense so it
+						    streams in after prerendering instead of blocking it */}
+						<Suspense fallback={<NavigationFallback />}>
+							<Navigation />
+						</Suspense>
 						<main className="flex-1 z-0 flex flex-col">{children}</main>
 						<Footer locale={locale} />
 					</div>
@@ -154,4 +159,8 @@ export default async function RootLayout({ children, params }: Props) {
 			</body>
 		</html>
 	)
+}
+
+function NavigationFallback() {
+	return <div className="h-16 border-b border-border bg-card/60 backdrop-blur-lg" />
 }

@@ -8,6 +8,7 @@ import { useTheme } from 'next-themes'
 import {
 	Area,
 	AreaChart,
+	CartesianGrid,
 	Line,
 	LineChart,
 	ReferenceArea,
@@ -28,8 +29,8 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { usePriceChart } from '@/hooks/use-price-chart'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoadingArea } from '@/components/loading-area'
 
@@ -92,8 +93,8 @@ function CustomTooltip({ active, payload, label, quoteCurrency }: CustomTooltipP
 	const date = new Date(label)
 
 	return (
-		<div className="bg-popover border border-border rounded-lg shadow-lg p-3">
-			<p className="text-xs text-muted-foreground mb-1">
+		<div className="rounded-md border border-border bg-popover p-3 font-mono shadow-lg">
+			<p className="mb-1 text-[10px] uppercase tracking-widest text-muted-foreground">
 				{date.toLocaleDateString(undefined, {
 					month: 'short',
 					day: 'numeric',
@@ -102,8 +103,26 @@ function CustomTooltip({ active, payload, label, quoteCurrency }: CustomTooltipP
 					minute: '2-digit',
 				})}
 			</p>
-			<p className="text-sm font-medium text-primary">
-				{formatPrice(data.value)} {quoteCurrency}
+			<p className="text-sm font-bold tabular-nums">
+				{formatPrice(data.value)} <span className="text-muted-foreground">{quoteCurrency}</span>
+			</p>
+		</div>
+	)
+}
+
+function ChartStatCell({ label, value, accent }: { label: string; value: string; accent?: 'up' | 'down' }) {
+	return (
+		<div className="rounded-md border border-border bg-muted/30 px-3 py-2">
+			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
+			<p
+				className={cn(
+					'mt-1 truncate font-mono text-sm font-semibold tabular-nums leading-none',
+					accent === 'up' && 'text-trendup',
+					accent === 'down' && 'text-trenddown',
+					!accent && 'text-foreground',
+				)}
+			>
+				{value}
 			</p>
 		</div>
 	)
@@ -192,212 +211,190 @@ export function PriceChart({ coinId }: PriceChartProps) {
 
 	if (error) {
 		return (
-			<Card>
-				<CardContent className="p-6">
-					<div className="text-center text-muted-foreground">
-						<p>{t('errorLoading')}</p>
-					</div>
-				</CardContent>
-			</Card>
+			<div className="rounded-md border bg-card p-6 text-center text-sm text-muted-foreground">
+				<p>{t('errorLoading')}</p>
+			</div>
 		)
 	}
 
 	return (
-		<div>
-			<div className="mb-8">
-				<div className="flex flex-row sm:items-center justify-between gap-4">
-					<div className="flex gap-3 sm:items-center flex-wrap">
-						<div className="relative">
-							<CardDescription className="absolute -top-6 whitespace-nowrap">
-								{inverted
-									? t('titleInverted', {
-											coin: coin?.symbol.toUpperCase() ?? '',
-											quote: isXnoChart ? fiatSymbol : 'XNO',
-										})
-									: t('title', {
-											coin: coin?.symbol.toUpperCase() ?? '',
-											quote: isXnoChart ? fiatSymbol : 'XNO',
-										})}
-							</CardDescription>
-							<div className="flex gap-3 sm:items-center">
-								<CardTitle className="text-lg whitespace-nowrap uppercase">
-									{isXnoChart
-										? inverted
-											? `${fiatSymbol}/XNO`
-											: `XNO/${fiatSymbol}`
-										: inverted
-											? `XNO/${coin?.symbol}`
-											: `${coin?.symbol}/XNO`}
-								</CardTitle>
-								<Button
-									variant="ghost"
-									size="sm"
-									onClick={() => setInverted(!inverted)}
-									className="h-8 w-8 p-0 cursor-pointer"
-									title={t('invertChart')}
-								>
-									<ArrowRightLeft className="h-4 w-4" />
-								</Button>
-							</div>
-						</div>
-						{isXnoChart && (
-							<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
-								<SelectTrigger className="w-fit h-8 cursor-pointer">
-									<SelectValue />
-								</SelectTrigger>
-								<SelectContent>
-									{Object.entries(FiatCurrency).map(([key, value]) => (
-										<SelectItem key={value} value={value.toLowerCase()}>
-											{FIAT_CURRENCY_CONFIG[value as FiatCurrency].symbol} {key}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-						)}
-					</div>
-					<div className="flex gap-x-4 gap-y-2 flex-wrap items-end flex-col-reverse justify-end sm:flex-row sm:justify-end sm:flex-nowrap">
-						<div className="flex items-center gap-1">
+		<div className="rounded-md border bg-card p-4 sm:p-5">
+			{/* Header */}
+			<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+					<div>
+						<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+							{inverted
+								? t('titleInverted', {
+										coin: coin?.symbol.toUpperCase() ?? '',
+										quote: isXnoChart ? fiatSymbol : 'XNO',
+									})
+								: t('title', {
+										coin: coin?.symbol.toUpperCase() ?? '',
+										quote: isXnoChart ? fiatSymbol : 'XNO',
+									})}
+						</p>
+						<div className="mt-1 flex items-center gap-2">
+							<span className="font-mono text-base font-bold uppercase tracking-wider">
+								{isXnoChart
+									? inverted
+										? `${fiatSymbol}/XNO`
+										: `XNO/${fiatSymbol}`
+									: inverted
+										? `XNO/${coin?.symbol}`
+										: `${coin?.symbol}/XNO`}
+							</span>
 							<Button
-								variant={referenceLines.start ? 'secondary' : 'ghost'}
+								variant="ghost"
 								size="sm"
-								onClick={() => setReferenceLines((prev) => ({ ...prev, start: !prev.start }))}
-								className="h-8 px-3 text-xs cursor-pointer"
+								onClick={() => setInverted(!inverted)}
+								className="h-7 w-7 p-0 cursor-pointer"
+								title={t('invertChart')}
 							>
-								Start
+								<ArrowRightLeft className="h-3.5 w-3.5" />
 							</Button>
-							<Button
-								variant={referenceLines.end ? 'secondary' : 'ghost'}
-								size="sm"
-								onClick={() => setReferenceLines((prev) => ({ ...prev, end: !prev.end }))}
-								className="h-8 px-3 text-xs cursor-pointer"
-							>
-								End
-							</Button>
-							<Button
-								variant={referenceLines.min ? 'secondary' : 'ghost'}
-								size="sm"
-								onClick={() => setReferenceLines((prev) => ({ ...prev, min: !prev.min }))}
-								className="h-8 px-3 text-xs text-destructive cursor-pointer"
-							>
-								Low
-							</Button>
-							<Button
-								variant={referenceLines.max ? 'secondary' : 'ghost'}
-								size="sm"
-								onClick={() => setReferenceLines((prev) => ({ ...prev, max: !prev.max }))}
-								className="h-8 px-3 text-xs text-constructive cursor-pointer"
-							>
-								High
-							</Button>
-						</div>
-
-						<div className="flex flex-nowrap items-center gap-2">
-							<div className="flex items-center gap-2">
-								<Button
-									variant={chartType === 'line' ? 'secondary' : 'ghost'}
-									size="sm"
-									onClick={() => setChartType('line')}
-									className="h-8 w-8 p-0 cursor-pointer"
-									title={t('lineChart')}
-								>
-									<LineChartIcon className="h-4 w-4" />
-								</Button>
-								<Button
-									variant={chartType === 'area' ? 'secondary' : 'ghost'}
-									size="sm"
-									onClick={() => setChartType('area')}
-									className="h-8 w-8 p-0 cursor-pointer"
-									title={t('areaChart')}
-								>
-									<AreaChartIcon className="h-4 w-4" />
-								</Button>
-							</div>
-
-							<Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as ChartTimeRange)}>
-								<TabsList className="h-8">
-									{TIME_RANGES.map((range) => (
-										<TabsTrigger
-											key={range.value}
-											value={range.value}
-											className="text-xs px-2 py-1 cursor-pointer"
-										>
-											{range.label}
-										</TabsTrigger>
-									))}
-								</TabsList>
-							</Tabs>
 						</div>
 					</div>
+					{isXnoChart && (
+						<Select value={selectedFiat} onValueChange={(v) => setSelectedFiat(v as FiatCurrencyCode)}>
+							<SelectTrigger className="h-7 w-fit font-mono text-xs cursor-pointer">
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{Object.entries(FiatCurrency).map(([key, value]) => (
+									<SelectItem key={value} value={value.toLowerCase()}>
+										{FIAT_CURRENCY_CONFIG[value as FiatCurrency].symbol} {key}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					)}
 				</div>
 
-				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4">
-					{isLoading ? (
-						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
-							<div className="h-9 w-full sm:w-80" />
-							<div className="h-9 w-full sm:w-80" />
+				<div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+					<div className="flex items-center gap-1">
+						<Button
+							variant={referenceLines.start ? 'secondary' : 'ghost'}
+							size="sm"
+							onClick={() => setReferenceLines((prev) => ({ ...prev, start: !prev.start }))}
+							className="h-7 px-2 font-mono text-[10px] uppercase tracking-widest cursor-pointer"
+						>
+							{t('start')}
+						</Button>
+						<Button
+							variant={referenceLines.end ? 'secondary' : 'ghost'}
+							size="sm"
+							onClick={() => setReferenceLines((prev) => ({ ...prev, end: !prev.end }))}
+							className="h-7 px-2 font-mono text-[10px] uppercase tracking-widest cursor-pointer"
+						>
+							{t('end')}
+						</Button>
+						<Button
+							variant={referenceLines.min ? 'secondary' : 'ghost'}
+							size="sm"
+							onClick={() => setReferenceLines((prev) => ({ ...prev, min: !prev.min }))}
+							className="h-7 px-2 font-mono text-[10px] uppercase tracking-widest text-destructive cursor-pointer"
+						>
+							{t('low')}
+						</Button>
+						<Button
+							variant={referenceLines.max ? 'secondary' : 'ghost'}
+							size="sm"
+							onClick={() => setReferenceLines((prev) => ({ ...prev, max: !prev.max }))}
+							className="h-7 px-2 font-mono text-[10px] uppercase tracking-widest text-constructive cursor-pointer"
+						>
+							{t('high')}
+						</Button>
+					</div>
+
+					<div className="flex items-center gap-2">
+						<div className="flex items-center gap-1">
+							<Button
+								variant={chartType === 'line' ? 'secondary' : 'ghost'}
+								size="sm"
+								onClick={() => setChartType('line')}
+								className="h-7 w-7 p-0 cursor-pointer"
+								title={t('lineChart')}
+							>
+								<LineChartIcon className="h-3.5 w-3.5" />
+							</Button>
+							<Button
+								variant={chartType === 'area' ? 'secondary' : 'ghost'}
+								size="sm"
+								onClick={() => setChartType('area')}
+								className="h-7 w-7 p-0 cursor-pointer"
+								title={t('areaChart')}
+							>
+								<AreaChartIcon className="h-3.5 w-3.5" />
+							</Button>
 						</div>
-					) : (
-						<div className="gap-4 grow flex flex-col sm:grid sm:grid-cols-2 max-w-4xl">
-							<div className="flex gap-4 sm:gap-x-6">
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('start')}</span>
-									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{formatPrice(priceStats.start)} {quoteCurrency}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('end')}</span>
-									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{formatPrice(priceStats.end)} {quoteCurrency}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('change')}</span>
-									<span
-										className={cn(
-											'text-sm font-medium',
-											isPositive ? 'text-constructive' : 'text-destructive',
-										)}
+
+						<Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as ChartTimeRange)}>
+							<TabsList className="h-7 rounded-md">
+								{TIME_RANGES.map((range) => (
+									<TabsTrigger
+										key={range.value}
+										value={range.value}
+										className="px-2 font-mono text-[10px] uppercase tracking-wider cursor-pointer"
 									>
-										{isPositive ? '+' : ''}
-										{priceChange.percentage.toFixed(2)}%
-									</span>
-								</div>
-							</div>
-							<div className="flex gap-4 sm:gap-6">
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('low')}</span>
-									<span className="text-sm font-medium text-destructive">
-										{formatPrice(priceStats.min)} {quoteCurrency}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('high')}</span>
-									<span className="text-sm font-medium text-constructive">
-										{formatPrice(priceStats.max)} {quoteCurrency}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('diff')}</span>
-									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{formatPrice(priceStats.max - priceStats.min)}
-									</span>
-								</div>
-								<div className="flex flex-col">
-									<span className="text-xs text-muted-foreground">{t('spread')}</span>
-									<span className="text-sm font-medium text-primary whitespace-nowrap">
-										{(((priceStats.max - priceStats.min) / priceStats.min) * 100).toFixed(2)}%
-									</span>
-								</div>
-							</div>
-						</div>
-					)}
+										{range.label}
+									</TabsTrigger>
+								))}
+							</TabsList>
+						</Tabs>
+					</div>
 				</div>
 			</div>
 
-			<div>
+			{/* Stat strip */}
+			<div className="mt-4">
 				{isLoading ? (
-					<div className="h-75 w-full relative rounded-lg overflow-hidden">
+					<div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
+						{[1, 2, 3, 4, 5, 6, 7].map((index) => (
+							<div
+								key={`stat-${index}`}
+								className="rounded-md border border-border bg-muted/30 px-3 py-2"
+							>
+								<Skeleton className="h-3 w-12" />
+								<Skeleton className="mt-1.5 h-4 w-16" />
+							</div>
+						))}
+					</div>
+				) : (
+					<div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
+						<ChartStatCell label={t('start')} value={`${formatPrice(priceStats.start)} ${quoteCurrency}`} />
+						<ChartStatCell label={t('end')} value={`${formatPrice(priceStats.end)} ${quoteCurrency}`} />
+						<ChartStatCell
+							label={t('change')}
+							value={`${isPositive ? '+' : ''}${priceChange.percentage.toFixed(2)}%`}
+							accent={isPositive ? 'up' : 'down'}
+						/>
+						<ChartStatCell
+							label={t('low')}
+							value={`${formatPrice(priceStats.min)} ${quoteCurrency}`}
+							accent="down"
+						/>
+						<ChartStatCell
+							label={t('high')}
+							value={`${formatPrice(priceStats.max)} ${quoteCurrency}`}
+							accent="up"
+						/>
+						<ChartStatCell
+							label={t('diff')}
+							value={`${formatPrice(priceStats.max - priceStats.min)} ${quoteCurrency}`}
+						/>
+						<ChartStatCell
+							label={t('spread')}
+							value={`${(((priceStats.max - priceStats.min) / priceStats.min) * 100).toFixed(2)}%`}
+						/>
+					</div>
+				)}
+			</div>
+
+			{/* Chart */}
+			<div className="mt-4">
+				{isLoading ? (
+					<div className="relative h-75 w-full overflow-hidden rounded-md">
 						<LoadingArea />
 					</div>
 				) : (
@@ -410,6 +407,12 @@ export function PriceChart({ coinId }: PriceChartProps) {
 										<stop offset="95%" stopColor={chartColor} stopOpacity={0} />
 									</linearGradient>
 								</defs>
+								<CartesianGrid
+									strokeDasharray="3 3"
+									stroke={axisColor}
+									strokeOpacity={0.15}
+									vertical={false}
+								/>
 								<XAxis
 									dataKey="timestamp"
 									tickFormatter={(ts) => formatXAxis(ts, timeRange)}
@@ -478,6 +481,12 @@ export function PriceChart({ coinId }: PriceChartProps) {
 							</AreaChart>
 						) : (
 							<LineChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
+								<CartesianGrid
+									strokeDasharray="3 3"
+									stroke={axisColor}
+									strokeOpacity={0.15}
+									vertical={false}
+								/>
 								<XAxis
 									dataKey="timestamp"
 									tickFormatter={(ts) => formatXAxis(ts, timeRange)}

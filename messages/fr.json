@@ -181,7 +181,10 @@
 		"marketCap": "Capitalisation",
 		"volume24h": "Volume 24h",
 		"circulatingSupply": "Offre en Circulation",
-		"maxSupply": "Offre Maximale"
+		"maxSupply": "Offre Maximale",
+		"price": "Prix",
+		"fdv": "MC entièrement diluée",
+		"diluted": "{ratio}× dilué"
 	},
 	"priceChart": {
 		"title": "Prix de {coin} en XNO",

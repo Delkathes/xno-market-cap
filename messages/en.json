@@ -175,7 +175,10 @@
 		"marketCap": "Market Cap",
 		"volume24h": "24h Volume",
 		"circulatingSupply": "Circulating Supply",
-		"maxSupply": "Max Supply"
+		"maxSupply": "Max Supply",
+		"price": "Price",
+		"fdv": "Fully Diluted MC",
+		"diluted": "{ratio}× diluted"
 	},
 	"priceChart": {
 		"title": "{coin} Price in {quote}",
