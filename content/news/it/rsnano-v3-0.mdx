@@ -1,0 +1,65 @@
+export const metadata = {
+	emoji: '🍌',
+	title: 'RsNano V3.0: un solo codice, due valute',
+	description:
+		'La riscrittura in Rust del nodo Nano ora funziona anche come nodo Banano: un feature flag al momento della compilazione, un binario rsban dedicato, immagini Docker ufficiali e un motore di bootstrap riscritto.',
+	date: '2026-06-05',
+	author: 'Team NanoMarketCap',
+	tags: ['nano', 'sviluppo', 'strumenti'],
+	published: true,
+}
+
+# RsNano V3.0: un solo codice, due valute
+
+RsNano è la riscrittura in Rust del nodo Nano, e lo sviluppatore gschauwecker ha pubblicato la sua versione più corposa finora. V3.0 trasforma il progetto da nodo Nano a nodo per due catene: la stessa base di codice ora compila per Nano o per Banano, con la valuta scelta al momento della compilazione. La notizia principale di questa versione è il supporto Banano di prima classe.
+
+## Un solo codice, due valute
+
+Il supporto Banano è completo, non un ripiego. Un feature flag `banano` seleziona la valuta in fase di compilazione. Il repository include pesi dei rappresentanti e costanti valutarie integrati per entrambe le reti, e compilare per Banano produce un binario dedicato, `rsban`. Se interroghi il RPC della versione su una build Banano, risponde « RsBan ». Nessun fork separato da mantenere, nessuna seconda base di codice che possa divergere.
+
+<StatGrid>
+	<Stat label="Base di codice" value="una base in Rust" />
+	<Stat label="Valute" value="Nano + Banano" accent />
+	<Stat label="Binari" value="rsnano · rsban" />
+</StatGrid>
+
+Per gli operatori Banano è importante: la rete ha finalmente un'alternativa indipendente al nodo in C++, scritta in Rust.
+
+## Immagini Docker ufficiali
+
+RsNano ora offre immagini Docker ufficiali, pubblicate automaticamente a ogni push tramite GitHub Actions. Sono basate su Alpine per restare leggere, e le build passano da cargo-chef per layer rapidi e cachati. C'è un'immagine separata per ogni valuta:
+
+<Terminal title="avviare le immagini ufficiali">
+# Nano
+docker run -p 7075:7075 -v ~/Nano:/home/nanocurrency/Nano rsnano/rsnano:V3.0 node run
+
+# Banano
+docker run -p 7075:7075 -v ~/Banano:/home/bananocurrency/Banano rsnano/rsban:V3.0 node run
+</Terminal>
+
+Entrambe le immagini espongono la stessa porta, la 7075. Se vuoi eseguire entrambe le catene sulla stessa macchina, regola il lato host del mapping `-p`.
+
+## GUI Insight, molto migliorata
+
+La GUI di monitoraggio ha ricevuto un grosso aggiornamento. Nuove viste: visualizzazione del punteggio dei peer, elezioni attive (AEC) con dettagli per bucket, una vista di dettaglio delle elezioni e una vista Bootstrap completa che mostra account bloccati, in download e prioritari, con filtri e un controllo di coerenza. Nuovo anche il filtraggio del log dei messaggi per direzione e tipo.
+
+## Motore di bootstrap riscritto
+
+Il sottosistema di sincronizzazione del ledger è stato riscritto a fondo, non rattoppato. Il traffico di rete live viene ignorato durante il bootstrap, così i blocchi in arrivo non interferiscono con la sincronizzazione. Priorità e dimensioni dei pull sono state calibrate sul comportamento del `nano_node` ufficiale, e l'annuncio elenca fix per stalli di sincronizzazione, freeze e perdite di block-handoff. Sono bug difficili da riprodurre, quindi questi fix meritano test in condizioni reali.
+
+## Il resto del changelog
+
+- Una nuova impostazione di rete `handshake_timeout`, con pulizia centralizzata dei canali inattivi.
+- Default LMDB modificati per le prestazioni: `nosync_unsafe` e `NO_READAHEAD`.
+
+<Callout type="warning" title="Un compromesso da conoscere">
+	`nosync_unsafe` scambia durabilità con velocità: LMDB salta la sincronizzazione dei dati su disco a ogni commit. Va bene per la maggior parte dei nodi, meno su hardware poco affidabile.
+</Callout>
+
+- Controlli di coerenza del ledger all'avvio.
+- Nuovi strumenti CLI: informazioni sul peso dei rappresentanti e un diff del ledger.
+- Passaggio a Rust edition 2024.
+
+V3.0 è una release con una portata reale: una seconda valuta, un percorso di sincronizzazione ricostruito e una distribuzione curata. Gli operatori di nodi dovrebbero testare il percorso di bootstrap su un nodo di staging prima di aggiornare il mainnet. Gli operatori Banano hanno finalmente una scelta.
+
+<GitHubRepo repo="rsnano-node/rsnano-node" />

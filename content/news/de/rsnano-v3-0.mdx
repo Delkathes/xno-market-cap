@@ -1,0 +1,65 @@
+export const metadata = {
+	emoji: '🍌',
+	title: 'RsNano V3.0: Eine Rust-Codebasis, zwei Währungen',
+	description:
+		'Die Rust-Neuimplementierung des Nano-Nodes läuft jetzt auch als Banano-Node: ein Feature-Flag zur Build-Zeit, ein eigenes rsban-Binary, offizielle Docker-Images und eine neu geschriebene Bootstrap-Engine.',
+	date: '2026-06-05',
+	author: 'NanoMarketCap Team',
+	tags: ['nano', 'entwicklung', 'tools'],
+	published: true,
+}
+
+# RsNano V3.0: Eine Rust-Codebasis, zwei Währungen
+
+RsNano ist die Rust-Neuimplementierung des Nano-Nodes, und Entwickler gschauwecker hat das bisher größte Release des Projekts veröffentlicht. V3.0 macht aus einem reinen Nano-Node einen Node für zwei Chains: Dieselbe Codebasis lässt sich jetzt wahlweise für Nano oder Banano kompilieren, die Währung wird zur Build-Zeit festgelegt. Die Schlagzeile dieses Releases ist der erstklassige Banano-Support.
+
+## Eine Codebasis, zwei Währungen
+
+Der Banano-Support ist ausgewachsen, kein Notbehelf. Ein `banano`-Feature-Flag wählt die Währung zur Build-Zeit. Das Repository enthält eingebaute Rep-Gewichte und Währungs-Konstanten für beide Netzwerke, und ein Build für Banano erzeugt ein eigenes `rsban`-Binary. Fragt man bei einem Banano-Build die Version per RPC ab, lautet die Antwort „RsBan". Kein separater Fork, keine zweite Codebasis, die auseinanderdriften kann.
+
+<StatGrid>
+	<Stat label="Codebasis" value="eine Rust-Codebasis" />
+	<Stat label="Währungen" value="Nano + Banano" accent />
+	<Stat label="Binaries" value="rsnano · rsban" />
+</StatGrid>
+
+Für Banano-Betreiber ist das ein wichtiger Schritt: Das Netzwerk bekommt endlich eine unabhängige Alternative zum C++-Node, eine in Rust.
+
+## Offizielle Docker-Images
+
+RsNano liefert jetzt offizielle Docker-Images mit, die bei jedem Push automatisch über GitHub Actions veröffentlicht werden. Sie basieren auf Alpine, damit sie klein bleiben, und die Builds laufen über cargo-chef für schnelle, gecachte Layer. Für jede Währung gibt es ein eigenes Image:
+
+<Terminal title="die offiziellen Images starten">
+# Nano
+docker run -p 7075:7075 -v ~/Nano:/home/nanocurrency/Nano rsnano/rsnano:V3.0 node run
+
+# Banano
+docker run -p 7075:7075 -v ~/Banano:/home/bananocurrency/Banano rsnano/rsban:V3.0 node run
+</Terminal>
+
+Beide Images verwenden denselben Port, 7075. Wer beide Chains auf einer Maschine betreiben will, sollte die Host-Seite des `-p`-Mappings anpassen.
+
+## Insight-GUI, deutlich erweitert
+
+Die Monitoring-GUI hat ein großes Update bekommen. Neue Ansichten: Peer-Score-Visualisierung, aktive Wahlen (AEC) mit Details pro Bucket, eine Detailansicht für einzelne Wahlen und eine vollständige Bootstrap-Ansicht, die blockierte, ladende und priorisierte Konten zeigt, mit Filtern und einem Konsistenzcheck. Dazu kommt die Filterung des Nachrichtenlogs nach Richtung und Typ.
+
+## Bootstrap-Engine, neu geschrieben
+
+Das Ledger-Sync-Subsystem wurde grundlegend überarbeitet statt nur geflickt. Live-Netzwerkverkehr wird beim Bootstrapping jetzt ignoriert, damit eingehende Blöcke den Sync nicht stören können. Prioritäten und Pull-Größen wurden an das Verhalten des offiziellen `nano_node` angeglichen, und das Changelog nennt Fixes für Sync-Stalls, Freezes und Block-Handoff-Leaks. Das sind Fehlerklassen, die sich nur schwer reproduzieren lassen, die Fixes verdienen also Tests im echten Betrieb.
+
+## Der Rest des Changelogs
+
+- Eine neue Netzwerk-Einstellung `handshake_timeout` mit zentraler Bereinigung inaktiver Kanäle.
+- Geänderte LMDB-Standardwerte für mehr Tempo: `nosync_unsafe` und `NO_READAHEAD`.
+
+<Callout type="warning" title="Ein Kompromiss, den man kennen sollte">
+	`nosync_unsafe` tauscht Haltbarkeit gegen Durchsatz: LMDB überspringt das Synchronisieren der Daten auf die Festplatte bei jedem Commit. Für die meisten Nodes in Ordnung, auf unzuverlässiger Hardware weniger.
+</Callout>
+
+- Konsistenzchecks des Ledgers beim Start.
+- Neue CLI-Werkzeuge: Rep-Gewicht-Informationen und ein Ledger-Diff-Tool.
+- Umstieg auf Rust Edition 2024.
+
+V3.0 ist ein Release mit echter Tragweite: eine zweite Währung, ein neu gebauter Sync-Pfad und ordentliche Distributions-Werkzeuge. Node-Betreiber sollten den Bootstrap-Pfad vor dem Upgrade auf einem Staging-Node testen. Banano-Betreiber haben endlich eine Wahl.
+
+<GitHubRepo repo="rsnano-node/rsnano-node" />

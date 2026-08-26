@@ -1,0 +1,65 @@
+export const metadata = {
+	emoji: '🍌',
+	title: 'RsNano V3.0: één codebase, twee valuta\'s',
+	description:
+		'De Rust-herschrijving van de Nano-node draait nu ook als Banano-node: een feature flag bij het compileren, een eigen rsban-binary, officiële Docker-images en een herschreven bootstrap-engine.',
+	date: '2026-06-05',
+	author: 'NanoMarketCap Team',
+	tags: ['nano', 'ontwikkeling', 'tools'],
+	published: true,
+}
+
+# RsNano V3.0: één codebase, twee valuta's
+
+RsNano is de Rust-herschrijving van de Nano-node, en ontwikkelaar gschauwecker heeft de grootste release tot nu toe gepubliceerd. V3.0 verandert het project van een Nano-node in een node voor twee ketens: dezelfde codebase compileert nu voor Nano of Banano, waarbij de valuta bij het compileren wordt gekozen. Het kopstuk van deze release is de eersteklas Banano-ondersteuning.
+
+## Eén codebase, twee valuta's
+
+De Banano-ondersteuning is volwaardig, geen knutselwerk. Een `banano`-feature flag kiest de valuta bij het compileren. De repository bevat ingebouwde rep-gewichten en valuta-constanten voor beide netwerken, en een build voor Banano levert een eigen `rsban`-binary op. Vraag je de versie op via RPC bij een Banano-build, dan antwoordt die met "RsBan". Geen aparte fork om te onderhouden, geen tweede codebase die kan divergeren.
+
+<StatGrid>
+	<Stat label="Codebase" value="één Rust-codebase" />
+	<Stat label="Valuta's" value="Nano + Banano" accent />
+	<Stat label="Binaries" value="rsnano · rsban" />
+</StatGrid>
+
+Voor Banano-beheerders is dit belangrijk: het netwerk krijgt eindelijk een onafhankelijk alternatief voor de C++-node, in Rust geschreven.
+
+## Officiële Docker-images
+
+RsNano levert nu officiële Docker-images, die bij elke push automatisch worden gepubliceerd via GitHub Actions. Ze zijn gebaseerd op Alpine om klein te blijven, en de builds draaien via cargo-chef voor snelle, gecachte lagen. Er is een aparte image voor elke valuta:
+
+<Terminal title="de officiële images starten">
+# Nano
+docker run -p 7075:7075 -v ~/Nano:/home/nanocurrency/Nano rsnano/rsnano:V3.0 node run
+
+# Banano
+docker run -p 7075:7075 -v ~/Banano:/home/bananocurrency/Banano rsnano/rsban:V3.0 node run
+</Terminal>
+
+Beide images gebruiken dezelfde poort, 7075. Wil je beide ketens op één machine draaien, pas dan de hostkant van de `-p`-mapping aan.
+
+## Insight-GUI, flink uitgebreid
+
+De monitoring-GUI heeft een grote upgrade gekregen. Nieuwe weergaven: visualisatie van peer-scores, actieve verkiezingen (AEC) met details per bucket, een detailweergave per verkiezing en een volledige Bootstrap-weergave met geblokkeerde, downloadende en geprioriteerde accounts, inclusief filters en een consistentiecheck. Ook nieuw is het filteren van het berichtenlogboek op richting en type.
+
+## Bootstrap-engine herschreven
+
+Het synchronisatiesubsysteem van de ledger is grondig herschreven in plaats van gerepareerd. Live netwerkverkeer wordt tijdens het bootstrappen genegeerd, zodat inkomende blokken de synchronisatie niet kunnen verstoren. Prioriteiten en pull-groottes zijn afgestemd op het gedrag van de officiële `nano_node`, en de aankondiging noemt fixes voor sync-stalls, freezes en block-handoff-leaks. Dit zijn bugs die moeilijk te reproduceren zijn, dus deze fixes verdienen tests in de praktijk.
+
+## De rest van de changelog
+
+- Een nieuwe netwerkinstelling `handshake_timeout`, met centrale opschoning van inactieve kanalen.
+- Gewijzigde LMDB-standaardwaarden voor betere prestaties: `nosync_unsafe` en `NO_READAHEAD`.
+
+<Callout type="warning" title="Een afweging die je moet kennen">
+	`nosync_unsafe` ruilt duurzaamheid in voor doorvoer: LMDB slaat het synchroniseren van data naar schijf bij elke commit over. Prima voor de meeste nodes, minder goed op onbetrouwbare hardware.
+</Callout>
+
+- Consistentiechecks van de ledger bij het opstarten.
+- Nieuwe CLI-tools: rep-gewichtsinformatie en een ledger-diff.
+- Overstap naar Rust edition 2024.
+
+V3.0 is een release met echte omvang: een tweede valuta, een herbouwd synchronisatiepad en nette distributie. Node-beheerders moeten het bootstrap-pad eerst op een staging-node testen voordat ze hun mainnet upgraden. Banano-beheerders hebben eindelijk een keuze.
+
+<GitHubRepo repo="rsnano-node/rsnano-node" />

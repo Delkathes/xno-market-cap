@@ -1,0 +1,65 @@
+export const metadata = {
+	emoji: '🍌',
+	title: 'RsNano V3.0: One Rust Codebase, Two Currencies',
+	description:
+		'The Rust rewrite of the Nano node now runs Banano too: a build-time feature flag, a dedicated rsban binary, official Docker images, and a rewritten bootstrap engine.',
+	date: '2026-06-05',
+	author: 'NanoMarketCap Team',
+	tags: ['nano', 'development', 'tools'],
+	published: true,
+}
+
+# RsNano V3.0: One Rust Codebase, Two Currencies
+
+RsNano is the Rust rewrite of the Nano node, and developer gschauwecker has published its biggest release so far. V3.0 turns the project from a Nano node into a dual-chain node: the same codebase now builds for Nano or Banano, with the currency picked at compile time. The headline feature is first-class Banano support.
+
+## One codebase, two currencies
+
+Banano support is complete, not a hack. A `banano` feature flag selects the currency at build time. The repo ships built-in rep weights and currency constants for both networks, and building for Banano produces a dedicated `rsban` binary. Query the version RPC on a Banano build and it answers "RsBan". No separate fork to maintain, no second codebase that can drift apart.
+
+<StatGrid>
+	<Stat label="Codebase" value="one Rust codebase" />
+	<Stat label="Currencies" value="Nano + Banano" accent />
+	<Stat label="Binaries" value="rsnano · rsban" />
+</StatGrid>
+
+For Banano operators this matters: the network finally gets an independent alternative to the C++ node, one written in Rust.
+
+## Official Docker images
+
+RsNano now ships official Docker images, published automatically on every push via GitHub Actions. They are Alpine-based to stay small, and builds run through cargo-chef for fast, cached layers. There is a separate image for each currency:
+
+<Terminal title="run the official images">
+# Nano
+docker run -p 7075:7075 -v ~/Nano:/home/nanocurrency/Nano rsnano/rsnano:V3.0 node run
+
+# Banano
+docker run -p 7075:7075 -v ~/Banano:/home/bananocurrency/Banano rsnano/rsban:V3.0 node run
+</Terminal>
+
+Both images expose the same port, 7075. If you plan to run both chains on one machine, adjust the host side of the `-p` mapping.
+
+## Insight GUI, upgraded
+
+The monitoring GUI got a major upgrade. New views: peer score visualization, Active Elections (AEC) with per-bucket details, an election detail view, and a full Bootstrap view showing blocked, downloading, and prioritized accounts, with filtering and a consistency check. Message log filtering by direction and type rounds out the release.
+
+## Bootstrap engine, rewritten
+
+The ledger sync subsystem was reworked rather than patched. Live network traffic is ignored while bootstrapping, so incoming blocks cannot interfere with the sync. Priorities and pull sizes were tuned to match upstream `nano_node` behavior, and the announcement lists fixes for sync stalls, freezes, and block-handoff leaks. Those are hard bugs to reproduce, so the fixes deserve real-world testing.
+
+## The rest of the changelog
+
+- A new `handshake_timeout` network setting, with centralized idle-channel cleanup.
+- LMDB defaults changed for better performance: `nosync_unsafe` and `NO_READAHEAD`.
+
+<Callout type="warning" title="A tradeoff worth knowing">
+	`nosync_unsafe` trades durability for throughput: LMDB skips syncing data to disk on every commit. Fine for most nodes, less so on unreliable hardware.
+</Callout>
+
+- Ledger consistency checks now run at startup.
+- New CLI tools: rep weight info and a ledger diff utility.
+- The project moved to Rust edition 2024.
+
+V3.0 is a release with real scope: a second currency, a rebuilt sync path, and proper distribution tooling. Node operators should test the bootstrap path on a staging node before upgrading mainnet. Banano operators finally get a choice.
+
+<GitHubRepo repo="rsnano-node/rsnano-node" />
