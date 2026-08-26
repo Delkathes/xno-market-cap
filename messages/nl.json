@@ -167,13 +167,13 @@
 		"volume24h": "24u Vol (XNO)"
 	},
 	"news": {
-		"title": "Laatste Nieuws",
+		"title": "Nieuws",
 		"subtitle": "Blijf op de hoogte van het laatste Nano nieuws en platformupdates",
 		"readMore": "Lees meer",
 		"viewAll": "Bekijk al het nieuws",
 		"backToNews": "Terug naar Nieuws",
 		"noArticles": "Nog geen artikelen beschikbaar. Kom snel terug!",
-		"latestNews": "Laatste Nieuws",
+		"latestNews": "Nieuws",
 		"searchPlaceholder": "Artikelen zoeken...",
 		"searchButton": "Zoeken",
 		"tagsLabel": "Tags",

@@ -167,13 +167,13 @@
 		"volume24h": "24h Vol (XNO)"
 	},
 	"news": {
-		"title": "Neueste Nachrichten",
+		"title": "Nachrichten",
 		"subtitle": "Bleiben Sie auf dem Laufenden mit den neuesten Nano Nachrichten und Plattform-Updates",
 		"readMore": "Mehr lesen",
 		"viewAll": "Alle Nachrichten anzeigen",
 		"backToNews": "Zurück zu Nachrichten",
 		"noArticles": "Noch keine Artikel verfügbar. Schauen Sie bald wieder vorbei!",
-		"latestNews": "Neueste Nachrichten",
+		"latestNews": "Nachrichten",
 		"searchPlaceholder": "Artikel durchsuchen...",
 		"searchButton": "Suchen",
 		"tagsLabel": "Tags",

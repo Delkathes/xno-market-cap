@@ -27,9 +27,6 @@ export function NewsBanner({ articles }: NewsBannerProps) {
 					<span aria-hidden="true">{article.emoji}</span>
 					<span className="tracking-wide">{article.title}</span>
 				</Link>
-				<span aria-hidden="true" className="px-2 text-[#209CE9]">
-					Ӿ
-				</span>
 			</li>
 		))
 
