@@ -1,0 +1,70 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'Ӿ402Nano: ein gebührenfreier x402-Facilitator für KI-Agenten-Zahlungen',
+	description:
+		'Ӿ402Nano ist ein gebührenfreier, permissionless x402-Facilitator für Nano. Jeder x402-kompatible Server kann auf https://x402nano.org/facilitator zeigen und XNO von KI-Agenten annehmen: kein Konto, kein API-Key, Abrechnung nur bei Erfolg.',
+	date: '2026-08-20',
+	author: 'NanoMarketCap Team',
+	tags: ['payments', 'development', 'tools'],
+	published: true,
+}
+
+# Ӿ402Nano: ein gebührenfreier x402-Facilitator für KI-Agenten-Zahlungen
+
+Nano hat jetzt eine gebührenfreie Tür zu x402, dem HTTP-Zahlungsprotokoll für KI-Agenten. Ӿ402Nano ist ein Facilitator für Nano: Jeder x402-kompatible Ressourcen-Server kann auf `https://x402nano.org/facilitator` zeigen und sofort XNO annehmen, ohne Konto, ohne API-Key und ohne mehr als eine Konfigurationszeile. Das Banner auf der Startseite bestätigt es: „facilitator live“.
+
+<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="Die Startseite von Ӿ402Nano: das Banner „facilitator live“, der Hero, der den gebührenfreien x402-Facilitator für Nano erklärt, der FACILITATOR_URL-Ausschnitt, die Live-Statistikzeile und die Tabelle der letzten Transaktionen" caption="Startseite: Hero mit Facilitator-URL, Live-Statistiken und letzte Transaktionen" />
+
+## Was x402 ist
+
+402 Payment Required ist ein echter HTTP-Statuscode, in der Spezifikation definiert, aber fast nie genutzt. x402 gibt ihm einen Job. Ein geschützter Endpoint antwortet auf eine unbezahlte Anfrage mit 402 und einem Base64-kodierten `PAYMENT-REQUIRED`-Header, der die Bedingungen nennt: akzeptiertes Scheme, Netzwerk, Preis, Empfängeradresse. Der Client signiert eine Zahlung und versucht es erneut mit einem `PAYMENT-SIGNATURE`-Header; der Server prüft, wickelt die Abrechnung ab und liefert den Inhalt aus.
+
+Das Protokoll ist kettenagnostisch und wird inzwischen von der x402 Foundation betreut, deren operativen Start die Linux Foundation angekündigt hat. Dieser Facilitator setzt die Nano-Seite des Standards um.
+
+## Warum es passt
+
+x402 zielt auf Maschine-zu-Maschine-Mikrozahlungen: ein KI-Agent, der pro API-Aufruf, pro Inference zahlt. Diese Beträge sind winzig, und winzige Beträge leiden am meisten unter Gebühren. Auf kostenpflichtigen Rails wird eine Zahlung von Bruchteilen eines Cents verschlungen, bevor sie ankommt. Auf Nano wird sie in unter einer Sekunde abgewickelt, ganz ohne Gebühren.
+
+Die Live-Tabelle zeigt genau diese Form: Zeilen mit Ӿ0.0001 und Ӿ0.005, Mikrozahlungen, die ein gebührenbasiertes Netzwerk nicht wirtschaftlich transportieren könnte. Die Zahlen dahinter, zum Zeitpunkt der Veröffentlichung:
+
+<StatGrid>
+	<Stat label="Transaktionen" value="116" />
+	<Stat label="Volumen" value="Ӿ3.5606" />
+	<Stat label="Eindeutige Zahler" value="6" />
+</StatGrid>
+
+Ein ehrlicher Hinweis, bevor der Hype-Detektor anschlägt: Das Volumen wird von wiederholten Kleinstzahlungen zwischen denselben zwei Adressen dominiert, das sieht nach Tests aus. Sechs eindeutige Zahler sind keine Adoption, sondern ein früher Beweis, dass die Leitungen funktionieren. Der [Scanner](https://www.x402nano.org/scanner) zeigt den kompletten Verlauf, jede Transaktion verlinkt auf ihren Block bei nanexplorer.
+
+## So läuft eine Zahlung ab
+
+Die Doku beschreibt den Ablauf in fünf Schritten:
+
+1. Ein Client fragt eine geschützte Ressource an.
+2. Der Server antwortet mit 402; `PAYMENT-REQUIRED` trägt die akzeptierten Schemes, den Preis, das Netzwerk und die Nano-Adresse des Empfängers.
+3. Der Client baut einen Nano-Send-Block, signiert ihn und erzeugt Proof of Work.
+4. Der Client versucht es erneut mit dem Base64-kodierten Zahlungs-Payload in `PAYMENT-SIGNATURE`.
+5. Ihr Server reicht den Payload an den Facilitator weiter, der die Blocksignatur prüft und den Block an das Nano-Netzwerk sendet. Das Ergebnis kommt in `PAYMENT-RESPONSE` zurück; nach Bestätigung liefert der Server den Inhalt aus.
+
+<Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="Die Dokumentationsseite von Ӿ402Nano mit dem Quick-Start-Abschnitt und dem fünfschrittigen Zahlungsfluss vom 402 Payment Required bis zur Abrechnung durch den Facilitator" caption="Doku: Quick Start und der fünfschrittige Zahlungsfluss" />
+
+<Callout type="insight" title="Abrechnung nur bei Erfolg">
+	Ein Designdetail, das für Maschinen wichtig ist: Die Abrechnung passiert nur nach einer erfolgreichen Antwort, Clients werden also nie für fehlgeschlagene Anfragen belastet. Agenten versuchen es ständig erneut; genau das unterscheidet ein vertrauenswürdiges Protokoll von einem, das Sackgassen in Rechnung stellt.
+</Callout>
+
+## Kein Konto, kein API-Key
+
+Permissionless ist hier das entscheidende Wort. Keine Anmeldung, kein Key, kein Dashboard: Server auf die URL zeigen lassen und loslegen. Ein optionaler `x-api-key`- oder Bearer-Header aktiviert nur Nutzungsstatistiken im Dashboard. Fehler kommen in einem einheitlichen JSON-Format zurück (400 ungültiger Body, 401 ungültiger Key, 429 Rate Limit, 500 Serverfehler), und die Limits liegen bei 200 Requests pro Minute und IP für `/facilitator/verify` und `/facilitator/settle`.
+
+## Der Blick für Entwickler
+
+Zwei SDKs decken die Integration ab. `@x402/next` gibt Next.js-Entwicklern `paymentProxy` (Middleware, die Seitenrouten schützt) und `withX402` (umhüllt API-Route-Handler). `@x402/core` stellt `HTTPFacilitatorClient` mit manuellem verify/settle für Express, Hono oder jedes Framework bereit. Beide zeigen auf dieselbe URL:
+
+<Terminal title="Facilitator-Konfiguration">
+FACILITATOR_URL=https://x402nano.org/facilitator
+</Terminal>
+
+## Frühe Tage, ehrliche Einschätzung
+
+Der KI-Agenten-Abschnitt der Doku ist der Teil, der das Ganze interessant macht. Ein Agent kann einen geschützten Endpoint autonom entdecken, die Zahlungsbedingungen lesen, einen Nano-Block signieren, Proof of Work berechnen und erneut versuchen: kein Mensch, kein Konto, keine Karte. Genau dafür wurde Nano gebaut.
+
+Also ist Ӿ402Nano ein vielversprechendes Stück des KI-Zahlungs-Puzzles für Nano, noch nichts weiter. Die Leitungen sind live auf [x402nano.org](https://www.x402nano.org/), die Doku liegt unter [/docs](https://www.x402nano.org/docs), das Protokoll selbst ist auf [x402.org](https://www.x402.org) dokumentiert. Die Zahl, die man beobachten sollte, ist, ob sich die ersten echten Server registrieren.

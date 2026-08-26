@@ -1,0 +1,70 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'Ӿ402Nano: un facilitatore x402 senza commissioni per i pagamenti degli agenti AI',
+	description:
+		'Ӿ402Nano è un facilitatore x402 senza commissioni e permissionless per Nano. Qualsiasi server compatibile con x402 può puntare a https://x402nano.org/facilitator e accettare XNO dagli agenti AI: niente account, niente chiave API, liquidazione solo a successo.',
+	date: '2026-08-20',
+	author: 'NanoMarketCap Team',
+	tags: ['payments', 'development', 'tools'],
+	published: true,
+}
+
+# Ӿ402Nano: un facilitatore x402 senza commissioni per i pagamenti degli agenti AI
+
+Nano ora ha una porta senza commissioni verso x402, il protocollo di pagamento HTTP costruito per gli agenti AI. Ӿ402Nano è un facilitatore per Nano: qualsiasi server di risorse compatibile con x402 può puntare a `https://x402nano.org/facilitator` e iniziare ad accettare XNO, senza account, senza chiave API e senza configurare più di una riga. Il banner in homepage lo conferma: «facilitator live».
+
+<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="La homepage di Ӿ402Nano: il banner «facilitator live», l'hero che presenta il facilitatore x402 senza commissioni per Nano, lo snippet FACILITATOR_URL, la riga delle statistiche live e la tabella delle transazioni recenti" caption="Homepage: hero con l'URL del facilitatore, statistiche live e transazioni recenti" />
+
+## Cos'è x402
+
+Lo stato HTTP 402 Payment Required esiste davvero, definito nella specifica ma quasi mai usato. x402 gli dà un lavoro. Un endpoint protetto risponde a una richiesta non pagata con 402 e un header `PAYMENT-REQUIRED` codificato in Base64 che enuncia le condizioni: scheme accettato, rete, prezzo, indirizzo del destinatario. Il client firma un pagamento e riprova con un header `PAYMENT-SIGNATURE`; il server verifica, liquida e serve il contenuto.
+
+Il protocollo è agnostico rispetto alla chain, e ora è gestito dalla x402 Foundation, il cui lancio operativo è stato annunciato dalla Linux Foundation. Questo facilitatore implementa il lato Nano dello standard.
+
+## Perché ci sta bene
+
+x402 punta ai micropagamenti machine-to-machine: un agente AI che paga per chiamata API, per inferenza. Sono importi minuscoli, ed è proprio lì che le commissioni fanno più male. Su rail con commissioni, un pagamento da frazioni di centesimo viene mangiato prima di arrivare. Su Nano si liquida in meno di un secondo e senza alcuna commissione.
+
+La tabella live mostra esattamente questa forma: righe da Ӿ0.0001 e Ӿ0.005, micropagamenti che una rete a commissioni non potrebbe trasportare in modo economico. I numeri dietro, al momento della scrittura:
+
+<StatGrid>
+	<Stat label="Transazioni" value="116" />
+	<Stat label="Volume" value="Ӿ3.5606" />
+	<Stat label="Pagatori unici" value="6" />
+</StatGrid>
+
+Una nota onesta prima che scatti il rilevatore di hype: il volume è dominato da piccoli pagamenti ripetuti tra le stesse due indirizzi, che sanno di test. Sei pagatori unici non sono adozione, sono la prova iniziale che l'infrastruttura funziona. Lo [scanner](https://www.x402nano.org/scanner) mostra l'intero storico, con ogni transazione collegata al suo blocco su nanexplorer.
+
+## Come scorre un pagamento
+
+La documentazione descrive il flusso in cinque passaggi:
+
+1. Un client richiede una risorsa protetta.
+2. Il server risponde 402, con `PAYMENT-REQUIRED` che trasporta gli scheme accettati, il prezzo, la rete e l'indirizzo Nano del destinatario.
+3. Il client costruisce un blocco di invio Nano, lo firma e genera proof of work.
+4. Il client riprova con il payload di pagamento codificato in Base64 in `PAYMENT-SIGNATURE`.
+5. Il tuo server inoltra il payload al facilitatore, che valida la firma del blocco e lo trasmette alla rete Nano. L'esito torna in `PAYMENT-RESPONSE`; una volta confermato, il server serve il contenuto.
+
+<Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="La pagina di documentazione di Ӿ402Nano con la sezione Quick Start e il flusso di pagamento in cinque passaggi, dal 402 Payment Required alla liquidazione tramite facilitatore" caption="Documentazione: Quick Start e flusso di pagamento in cinque passaggi" />
+
+<Callout type="insight" title="Liquidazione solo a successo">
+	Un dettaglio di design che conta per le macchine: la liquidazione avviene solo dopo una risposta riuscita, quindi i client non vengono mai addebitati per richieste fallite. Gli agenti riprovano di continuo; è questo che distingue un protocollo affidabile da uno che fa pagare i vicoli ciechi.
+</Callout>
+
+## Niente account, niente chiave API
+
+Permissionless è la parola giusta. Niente registrazione, niente chiave, niente dashboard: punta il tuo server all'URL e via. Un header `x-api-key` o Bearer opzionale serve solo ad attivare le statistiche d'uso in una dashboard. Gli errori tornano in un formato JSON coerente (400 body non valido, 401 chiave non valida, 429 rate limit, 500 errore del server), e i limiti sono di 200 richieste al minuto per IP per `/facilitator/verify` e `/facilitator/settle`.
+
+## Il punto di vista dello sviluppatore
+
+Due SDK coprono l'integrazione. `@x402/next` offre agli sviluppatori Next.js `paymentProxy` (middleware che protegge le rotte delle pagine) e `withX402` (avvolge gli handler delle rotte API). `@x402/core` espone `HTTPFacilitatorClient` con verify/settle manuali per Express, Hono o qualsiasi framework. Entrambi puntano alla stessa URL:
+
+<Terminal title="config del facilitatore">
+FACILITATOR_URL=https://x402nano.org/facilitator
+</Terminal>
+
+## Primi giorni, lettura onesta
+
+La sezione sugli agenti AI della documentazione è la parte che rende tutto interessante. Un agente può scoprire in autonomia un endpoint protetto, leggere i requisiti di pagamento, firmare un blocco Nano, calcolare il proof of work e riprovare: niente umani, niente account, niente carta. È esattamente il flusso per cui Nano è stato costruito.
+
+Quindi Ӿ402Nano è un tassello promettente del puzzle dei pagamenti AI per Nano, niente di più per ora. I binari sono live su [x402nano.org](https://www.x402nano.org/), la documentazione è su [/docs](https://www.x402nano.org/docs), il protocollo documentato su [x402.org](https://www.x402.org). Il numero da guardare è se si registreranno i primi server veri.

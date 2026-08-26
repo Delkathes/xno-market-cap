@@ -1,0 +1,70 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'Ӿ402Nano: a Feeless x402 Facilitator for AI Agent Payments',
+	description:
+		'Ӿ402Nano is a feeless, permissionless x402 facilitator for Nano. Any x402-compatible server can point at https://x402nano.org/facilitator and accept XNO from AI agents: no account, no API key, settle only on success.',
+	date: '2026-08-20',
+	author: 'NanoMarketCap Team',
+	tags: ['payments', 'development', 'tools'],
+	published: true,
+}
+
+# Ӿ402Nano: a Feeless x402 Facilitator for AI Agent Payments
+
+Nano now has a feeless door into x402, the HTTP payment protocol built for AI agents. Ӿ402Nano is a facilitator for Nano: any x402-compatible resource server can point at `https://x402nano.org/facilitator` and start accepting XNO, with no account, no API key, no setup beyond a config line. A banner on the homepage confirms it: "facilitator live".
+
+<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="The Ӿ402Nano homepage: the 'facilitator live' banner, the hero explaining the feeless x402 facilitator for Nano, the FACILITATOR_URL snippet, the live stats row and the Recent Transactions table" caption="Homepage: hero with the facilitator URL, live stats, and recent transactions" />
+
+## What x402 is
+
+402 Payment Required is a real HTTP status code, defined in the spec but rarely used. x402 gives it a job. A protected endpoint answers an unpaid request with 402 and a Base64-encoded `PAYMENT-REQUIRED` header stating the terms: accepted scheme, network, price, recipient address. The client signs a payment and retries with a `PAYMENT-SIGNATURE` header; the server verifies, settles, and serves the content.
+
+The protocol is chain-agnostic, and now stewarded by the x402 Foundation, whose operational launch the Linux Foundation announced. This facilitator implements the Nano side.
+
+## Why the fit works
+
+x402 targets machine-to-machine micro-payments: an AI agent paying per API call, per inference. Those amounts are tiny, which is where fees hurt most. On fee-bearing rails a fraction-of-a-cent payment is eaten before it lands; on Nano it settles in under a second, fee-free.
+
+The live table shows that shape exactly: rows of Ӿ0.0001 and Ӿ0.005, micropayments a fee-based network could not carry economically. The numbers behind it, at the time of writing:
+
+<StatGrid>
+	<Stat label="Transactions" value="116" />
+	<Stat label="Volume" value="Ӿ3.5606" />
+	<Stat label="Unique payers" value="6" />
+</StatGrid>
+
+One honest note before the hype detector goes off: the volume is dominated by repeated small payments between the same two addresses, which looks like testing. Six unique payers is not adoption, it is early proof the plumbing works. The [scanner](https://www.x402nano.org/scanner) shows the full history, each transaction linking to its block on nanexplorer.
+
+## How a payment flows
+
+The docs lay out the flow in five steps:
+
+1. A client requests a protected resource.
+2. The server answers 402, with `PAYMENT-REQUIRED` carrying the accepted schemes, price, network, and recipient Nano address.
+3. The client builds a Nano send block, signs it, and generates proof of work.
+4. The client retries with the Base64 payment payload in `PAYMENT-SIGNATURE`.
+5. Your server forwards the payload to the facilitator, which validates the block signature and broadcasts it to the Nano network. The outcome comes back in `PAYMENT-RESPONSE`; once confirmed, the server serves the content.
+
+<Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="The Ӿ402Nano docs page showing the Quick Start section and the five-step Payment Flow from 402 Payment Required to facilitator settlement" caption="Docs: Quick Start and the five-step payment flow" />
+
+<Callout type="insight" title="Settle only on success">
+	One design detail matters for machines: settlement only happens after a successful response, so clients are never charged for failed requests. Agents retry constantly; this is what separates a trustworthy protocol from one that bills dead ends.
+</Callout>
+
+## No account, no API key
+
+Permissionless is the operative word. No signup, no key, no dashboard: point your server at the URL and go. An optional `x-api-key` or Bearer header only turns on usage analytics in a dashboard. Errors come back in a consistent JSON shape (400 invalid body, 401 bad key, 429 rate limit, 500 server error), and rate limits sit at 200 requests per minute per IP for `/facilitator/verify` and `/facilitator/settle`.
+
+## The developer angle
+
+Two SDKs cover integration. `@x402/next` gives Next.js developers `paymentProxy` (middleware that protects page routes) and `withX402` (wraps API route handlers). `@x402/core` exposes `HTTPFacilitatorClient` with manual verify/settle for Express, Hono, or any framework. Both point at the same URL:
+
+<Terminal title="facilitator config">
+FACILITATOR_URL=https://x402nano.org/facilitator
+</Terminal>
+
+## Early days, honest read
+
+The AI agent section of the docs is the part that makes this interesting. An agent can autonomously discover a protected endpoint, read the payment requirements, sign a Nano block, compute proof of work, and retry: no human, no account, no card. That is exactly the workflow Nano was built for.
+
+So Ӿ402Nano is a promising piece of the AI-payment puzzle for Nano, nothing more yet. The rails are live at [x402nano.org](https://www.x402nano.org/), the docs at [/docs](https://www.x402nano.org/docs), the protocol documented at [x402.org](https://www.x402.org). Whether the first real servers register is the number to watch.
