@@ -52,11 +52,13 @@ Body starts here...
 
 # Custom MDX components
 
-Use these instead of generic HTML when they fit. They render as designed; never wrap them in markdown inside.
+Plain markdown (## headings, paragraphs, [links], `code`, lists, blockquotes) is the default and covers most articles. Custom components exist for specific jobs and must ONLY be used when the content genuinely calls for them. If a component would not make the article clearer or more useful, do not use it. A good rule: an article with zero custom components is fine; an article where every paragraph is wrapped in a component is wrong.
+
+Each component's "use when" trigger is stated below. Never wrap components in markdown or in each other.
 
 ## Callout
 
-A bordered note box. `type` is `info` (default), `insight` (blue accent), or `warning` (amber). Optional `title`.
+A bordered note box for a side note that deserves visual separation. `type` is `info` (default), `insight` (blue accent), or `warning` (amber). Optional `title`. Use when: a short aside that would otherwise interrupt the flow (a caveat, a definition, a "why it matters" note). Do not use for ordinary paragraphs.
 
 ```
 <Callout type="insight" title="Why it matters">
@@ -66,7 +68,7 @@ A bordered note box. `type` is `info` (default), `insight` (blue accent), or `wa
 
 ## StatGrid + Stat
 
-A row of stat tiles for hard numbers. Wrap 2-6 `Stat` in a `StatGrid`. `accent` highlights one tile blue.
+A row of stat tiles for hard numbers. Wrap 2-6 `Stat` in a `StatGrid`. `accent` highlights one tile blue. Use when: a handful of concrete figures (supply, cap, price, counts) that read better as tiles than as prose. Do not use for a single number or for numbers that fit naturally in a sentence.
 
 ```
 <StatGrid>
@@ -78,7 +80,7 @@ A row of stat tiles for hard numbers. Wrap 2-6 `Stat` in a `StatGrid`. `accent` 
 
 ## Terminal
 
-A terminal-style window (traffic lights + mono text) for commands, code output, config snippets, or anything that belongs in a shell. `title` sets the window label.
+A terminal-style window (traffic lights + mono text) for commands, code output, config snippets, or anything that belongs in a shell. `title` sets the window label. Use when: the article contains commands readers will copy, or verbatim CLI/API output. Do not use for prose or for code that fits inline.
 
 ```
 <Terminal title="install">
@@ -88,7 +90,7 @@ npm install nano-sdk
 
 ## Steps + Step
 
-A numbered step list for guides. `Step` takes `index` (a string label like "01") and optional `title`.
+A numbered step list for guides and walkthroughs. `Step` takes `index` (a string label like "01") and optional `title`. Use when: the article is a how-to with sequential actions. Do not use for non-sequential lists (use markdown lists instead).
 
 ```
 <Steps title="Setup">
@@ -103,15 +105,15 @@ A numbered step list for guides. `Step` takes `index` (a string label like "01")
 
 ## Figure
 
-An image with an optional mono caption. `src` is a site-relative path, `alt` is required.
+An image with an optional mono caption. `src` is a site-relative path, `alt` is required. Use when: a screenshot or diagram genuinely helps the reader understand the subject (a GUI feature, a website, a visual). Do not add images just to have an image.
 
 ```
-<Figure src="/images/example.png" alt="Description of the image" caption="What this shows" />
+<Figure src="/news/rsnano-v3-0/01-insight-gui.png" alt="The Insight GUI active elections view" caption="Active Elections view with per-bucket details" />
 ```
 
 ## BarChart
 
-A static, authored scenario chart (log-scaled bars) for hypothetical data. `title` and `footnote` are optional; `unit` defaults to `$`; `accent: true` highlights a bar in blue.
+A static, authored scenario chart (log-scaled bars) for hypothetical data. `title` and `footnote` are optional; `unit` defaults to `$`; `accent: true` highlights a bar in blue. Use when: the article makes an explicit "what if" scenario across a few values. Do not use for real historical data (that belongs in the live Chart) or for values better shown as StatGrid tiles.
 
 ```
 <BarChart
@@ -129,7 +131,42 @@ A static, authored scenario chart (log-scaled bars) for hypothetical data. `titl
 
 - `<Ticker />` renders the live market ticker (use sparingly, e.g. in ecosystem/market pieces).
 - `<Chart days="30" />` renders a live price chart (needs a valid coin context; prefer BarChart for hypothetical numbers).
-- `<GitHubRepo repo="owner/name" />` renders a repo card (owner avatar, maintainer, stars/forks/language/license) for the given GitHub repository. Use it when an article discusses a specific open-source repo.
+- `<GitHubRepo repo="owner/name" />` renders a repo card (owner avatar, maintainer, stars/forks/language/license) for the given GitHub repository. Use it when an article discusses a specific open-source repo and the repo card adds real value.
+
+# Screenshots with playwright-cli
+
+When an article covers something visual (a GUI, a website, an app interface), capture real screenshots with playwright-cli and embed them with `Figure`. Do not fabricate images or hotlink external screenshots.
+
+Workflow:
+
+1. Open the site and navigate to the page you want to capture:
+   ```
+   playwright-cli open https://example.com
+   playwright-cli goto https://example.com/features
+   ```
+2. Wait for the page to render (a `playwright-cli snapshot` or brief evaluation confirms content is loaded).
+3. Capture the shot at a sensible viewport (default is fine; `playwright-cli resize 1280 800` if needed):
+   ```
+   playwright-cli screenshot --filename=insight-gui.png
+   ```
+   `playwright-cli close` when done.
+4. Move the file into the article's asset folder (playwright-cli saves into `.playwright-cli/` by default):
+   ```
+   mkdir -p public/news/{slug}
+   mv .playwright-cli/insight-gui.png public/news/{slug}/01-insight-gui.png
+   ```
+5. Reference it with a site-relative path and a descriptive `alt`/`caption`:
+   ```
+   <Figure src="/news/{slug}/01-insight-gui.png" alt="..." caption="..." />
+   ```
+
+Asset conventions (keep the public folder clean):
+
+- All article images live under `public/news/{slug}/` (one folder per article slug).
+- Filenames: lowercase, hyphens, zero-padded sequence prefix: `01-peer-scores.png`, `02-bootstrap-view.png`.
+- Do not commit the whole public folder; only the asset folder for the article you are writing.
+- Do not leave intermediate captures behind in `.playwright-cli/`.
+- Use screenshots sparingly: 1-3 per article, only when they add real understanding. Crop/avoid capturing unrelated browser chrome where possible.
 
 # Translation rules
 
@@ -142,11 +179,12 @@ A static, authored scenario chart (log-scaled bars) for hypothetical data. `titl
 # Workflow
 
 1. Read everything the user provides (context, URLs, notes). If URLs are given, fetch and read them before writing.
-2. Draft the article in English first: frontmatter + MDX body using the components above where they genuinely fit (do not force components in).
-3. Create the other 5 locale files (`content/news/fr/`, `de/`, `es/`, `it/`, `nl/`) with the same slug.
-4. Verify: `grep -rn "—" content/news/` must return nothing for your files; run `npm run typecheck` and `npm run build` if asked; keep prose under any length limit the user set.
-5. Credit developers or sources by name in the intro or credits.
+2. If the article subject is visual (a GUI, a website, an app), capture screenshots first with playwright-cli and place them in `public/news/{slug}/` (see the screenshots section). Skip this entirely when the subject has nothing visual to show.
+3. Draft the article in English first: frontmatter + MDX body. Use custom components only when the content genuinely calls for them; plain markdown is the default.
+4. Create the other 5 locale files (`content/news/fr/`, `de/`, `es/`, `it/`, `nl/`) with the same slug. Screenshots are referenced from the same path in every locale.
+5. Verify: `grep -rn "—" content/news/` must return nothing for your files; run `npm run typecheck` and `npm run build` if asked; keep prose under any length limit the user set.
+6. Credit developers or sources by name in the intro or credits.
 
 # Output expectations
 
-- Report back: slug used, which locales were written, article word count, tags chosen, and any component usage. Flag anything you invented that the user should fact-check.
+- Report back: slug used, which locales were written, article word count, tags chosen, any component usage, and any screenshots captured (paths under `public/news/{slug}/`). Flag anything you invented that the user should fact-check.
