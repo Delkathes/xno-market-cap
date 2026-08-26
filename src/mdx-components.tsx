@@ -84,7 +84,7 @@ function Stat({
 			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
 			<p
 				className={cn(
-					'mt-1 truncate font-mono text-base font-bold tabular-nums tracking-tight',
+					'mt-1 font-mono text-base font-bold leading-snug tabular-nums tracking-tight break-words',
 					accent ? 'text-[#209CE9]' : 'text-foreground',
 				)}
 			>
@@ -215,17 +215,40 @@ function Figure({
 	caption?: string
 	className?: string
 } & Omit<ImageProps, 'src' | 'alt'>) {
+	// next/image requires explicit dimensions; fall back to a plain img when the
+	// author did not provide them (e.g. screenshots with unknown dimensions).
+	const hasDimensions = props.width !== undefined && props.height !== undefined
+	const {
+		width: _width,
+		height: _height,
+		sizes: _sizes,
+		unoptimized: _unoptimized,
+		priority: _priority,
+		...imgProps
+	} = props
+
 	return (
 		<figure className={cn('my-6', className)}>
-			<Image
-				src={src}
-				alt={alt}
-				sizes="100vw"
-				className="rounded-lg"
-				unoptimized
-				style={{ width: '100%', height: 'auto' }}
-				{...props}
-			/>
+			{hasDimensions ? (
+				<Image
+					src={src}
+					alt={alt}
+					sizes="100vw"
+					className="rounded-lg"
+					unoptimized
+					style={{ width: '100%', height: 'auto' }}
+					{...props}
+				/>
+			) : (
+				// biome-ignore lint/performance/noImgElement: author figures without explicit dimensions
+				<img
+					src={src}
+					alt={alt}
+					className="rounded-lg"
+					style={{ width: '100%', height: 'auto' }}
+					{...imgProps}
+				/>
+			)}
 			{caption && (
 				<figcaption className="mt-2 font-mono text-[11px] text-muted-foreground">
 					<span aria-hidden="true" className="mr-2 text-[#209CE9]">
