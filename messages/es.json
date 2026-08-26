@@ -173,7 +173,22 @@
 		"viewAll": "Ver todas las noticias",
 		"backToNews": "Volver a Noticias",
 		"noArticles": "No hay artículos disponibles todavía. ¡Vuelve pronto!",
-		"latestNews": "Últimas Noticias"
+		"latestNews": "Últimas Noticias",
+		"searchPlaceholder": "Buscar artículos...",
+		"searchButton": "Buscar",
+		"tagsLabel": "Etiquetas",
+		"sortLabel": "Ordenar",
+		"allTags": "Todos",
+		"sortNewest": "Recientes",
+		"sortOldest": "Antiguos",
+		"sortTitle": "Título",
+		"resultsCount": "{count, plural, one {# artículo} other {# artículos}}",
+		"noResults": "No se encontraron artículos",
+		"noResultsDescription": "Prueba otra búsqueda o elimina algunos filtros.",
+		"clearFilters": "Borrar filtros",
+		"prevPage": "Página anterior",
+		"nextPage": "Página siguiente",
+		"paginationLabel": "Paginación de noticias"
 	},
 	"coinDetail": {
 		"errorLoading": "No se pueden cargar los datos de la moneda. Inténtalo más tarde.",

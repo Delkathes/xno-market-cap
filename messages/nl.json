@@ -173,7 +173,22 @@
 		"viewAll": "Bekijk al het nieuws",
 		"backToNews": "Terug naar Nieuws",
 		"noArticles": "Nog geen artikelen beschikbaar. Kom snel terug!",
-		"latestNews": "Laatste Nieuws"
+		"latestNews": "Laatste Nieuws",
+		"searchPlaceholder": "Artikelen zoeken...",
+		"searchButton": "Zoeken",
+		"tagsLabel": "Tags",
+		"sortLabel": "Sorteren",
+		"allTags": "Alle",
+		"sortNewest": "Nieuwste",
+		"sortOldest": "Oudste",
+		"sortTitle": "Titel",
+		"resultsCount": "{count, plural, one {# artikel} other {# artikelen}}",
+		"noResults": "Geen artikelen gevonden",
+		"noResultsDescription": "Probeer een andere zoekopdracht of verwijder enkele filters.",
+		"clearFilters": "Filters wissen",
+		"prevPage": "Vorige pagina",
+		"nextPage": "Volgende pagina",
+		"paginationLabel": "Paginering van nieuws"
 	},
 	"coinDetail": {
 		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",

@@ -173,7 +173,22 @@
 		"viewAll": "Alle Nachrichten anzeigen",
 		"backToNews": "Zurück zu Nachrichten",
 		"noArticles": "Noch keine Artikel verfügbar. Schauen Sie bald wieder vorbei!",
-		"latestNews": "Neueste Nachrichten"
+		"latestNews": "Neueste Nachrichten",
+		"searchPlaceholder": "Artikel durchsuchen...",
+		"searchButton": "Suchen",
+		"tagsLabel": "Tags",
+		"sortLabel": "Sortieren",
+		"allTags": "Alle",
+		"sortNewest": "Neueste",
+		"sortOldest": "Älteste",
+		"sortTitle": "Titel",
+		"resultsCount": "{count, plural, one {# Artikel} other {# Artikel}}",
+		"noResults": "Keine Artikel gefunden",
+		"noResultsDescription": "Versuchen Sie eine andere Suche oder entfernen Sie einige Filter.",
+		"clearFilters": "Filter zurücksetzen",
+		"prevPage": "Vorherige Seite",
+		"nextPage": "Nächste Seite",
+		"paginationLabel": "Artikel-Paginierung"
 	},
 	"coinDetail": {
 		"errorLoading": "Coin-Daten können nicht geladen werden. Bitte später erneut versuchen.",

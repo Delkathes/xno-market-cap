@@ -167,7 +167,22 @@
 		"viewAll": "View all news",
 		"backToNews": "Back to News",
 		"noArticles": "No articles available yet. Check back soon!",
-		"latestNews": "Latest News"
+		"latestNews": "Latest News",
+		"searchPlaceholder": "Search articles...",
+		"searchButton": "Search",
+		"tagsLabel": "Tags",
+		"sortLabel": "Sort",
+		"allTags": "All",
+		"sortNewest": "Newest",
+		"sortOldest": "Oldest",
+		"sortTitle": "Title",
+		"resultsCount": "{count, plural, one {# article} other {# articles}}",
+		"noResults": "No articles found",
+		"noResultsDescription": "Try a different search or remove some filters.",
+		"clearFilters": "Clear filters",
+		"prevPage": "Previous page",
+		"nextPage": "Next page",
+		"paginationLabel": "News pagination"
 	},
 	"coinDetail": {
 		"errorLoading": "Unable to load coin data. Please try again later.",

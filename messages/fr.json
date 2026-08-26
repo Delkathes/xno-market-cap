@@ -173,7 +173,22 @@
 		"viewAll": "Voir toutes les actualités",
 		"backToNews": "Retour aux Actualités",
 		"noArticles": "Aucun article disponible pour le moment. Revenez bientôt !",
-		"latestNews": "Dernières Actualités"
+		"latestNews": "Dernières Actualités",
+		"searchPlaceholder": "Rechercher des articles...",
+		"searchButton": "Rechercher",
+		"tagsLabel": "Tags",
+		"sortLabel": "Trier",
+		"allTags": "Tous",
+		"sortNewest": "Récents",
+		"sortOldest": "Anciens",
+		"sortTitle": "Titre",
+		"resultsCount": "{count, plural, one {# article} other {# articles}}",
+		"noResults": "Aucun article trouvé",
+		"noResultsDescription": "Essayez une autre recherche ou retirez certains filtres.",
+		"clearFilters": "Effacer les filtres",
+		"prevPage": "Page précédente",
+		"nextPage": "Page suivante",
+		"paginationLabel": "Pagination des actualités"
 	},
 	"coinDetail": {
 		"errorLoading": "Impossible de charger les données de la crypto. Veuillez réessayer plus tard.",
