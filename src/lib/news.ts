@@ -344,6 +344,15 @@ export function buildNewsQuery(current: URLSearchParams, overrides: NewsQueryOve
 }
 
 /**
+ * Build a news href that never degrades to an empty string: an empty query
+ * would render `href=""`, pointing at the current URL (e.g. staying on
+ * `?page=2` after clicking the page-1 button).
+ */
+export function buildNewsHref(current: URLSearchParams, overrides: NewsQueryOverrides): string {
+	return buildNewsQuery(current, overrides) || '/news'
+}
+
+/**
  * Format date for display
  */
 export function formatNewsDate(dateString: string, locale = 'en'): string {

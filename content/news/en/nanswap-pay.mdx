@@ -1,0 +1,68 @@
+export const metadata = {
+	emoji: '💳',
+	title: 'Nanswap Pay: 0% Fees, 1,431 Currencies, Payouts in Nano or Stablecoins',
+	description:
+		'Nanswap Pay lets merchants accept Nano and 1,431 other cryptocurrencies with 0% fees. Nanswap handles conversion and pays out instantly in Nano, NanUSD or USDT, with a hosted checkout demo anyone can try.',
+	date: '2026-06-03',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments', 'adoption'],
+	published: true,
+}
+
+# Nanswap Pay: 0% Fees, 1,431 Currencies, Payouts in Nano or Stablecoins
+
+Nanswap, the long-running Nano exchange and swap service, now has a payments product for merchants. Benskalz launched Nanswap Pay on June 3 with a deliberately short pitch: accept Nano with 0% fees, plus more than 1,000 other cryptocurrencies, while Nanswap handles the volatility and conversion. The merchant gets the payout in Nano, NanUSD or USDT.
+
+It slots into a busy stretch for payments on Nano. nanobid built a marketplace where bids are payments, nanodrops pays viewers per minute of watch time, Nagora runs escrow marketplaces, and Subnano sells API-based paywalls. Pay is the first of the batch aimed at ordinary online shops rather than crypto-native users.
+
+## How a payment flows
+
+Standard checkout, with the crypto plumbing outsourced.
+
+<Steps title="From invoice to payout">
+	<Step index="01" title="Create the invoice">The merchant sets a price and a currency (USD, EUR, GBP, XNO and more) via a payment link, the widget or the REST API. The invoice quotes an expected amount and expires.</Step>
+	<Step index="02" title="The customer pays">The customer picks any of the 1,431 supported currencies and sends to a deposit address. Nano is the pre-selected default.</Step>
+	<Step index="03" title="Nanswap converts">The incoming coins are converted at the rate quoted on the invoice. The merchant never carries the price risk.</Step>
+	<Step index="04" title="Payout">The settlement lands in the merchant's chosen asset: Nano, NanUSD or USDT.</Step>
+</Steps>
+
+## What the merchant gets
+
+The product page is blunt about the selling points: "Accept Nano with 0 fees and instant settlement", and "Free to use. No fees. No minimums." The currency pages add the line that matters most: "Automatic Nano conversion to stable coin, no exposure to price volatility."
+
+That last part is the real value. A shop can price in USD, let a customer pay with anything on the list, and never touch a volatile asset. The exchange engine in the middle is Nanswap's existing business; Pay is just a checkout layer on top of it.
+
+<StatGrid>
+	<Stat label="Nanswap fee" value="0%" accent />
+	<Stat label="Payin currencies" value="1,431" />
+	<Stat label="Settlement assets" value="3 (XNO, NanUSD, USDT)" />
+</StatGrid>
+
+## Integration options
+
+Four documented routes, in increasing order of effort:
+
+- Widget: an iframe checkout for any page. The docs note that no backend is required.
+- Payment button or hosted link: a URL with query parameters (publicKey, priceAmount, priceCurrency, shopName, defaultCurrency, invoiceId, callbackUrl). The public key comes from the Nanswap Pay section of the account dashboard.
+- REST API: POST /order creates an invoice and returns a deposit address plus a payment link; webhooks fire on every status change, signed with HMAC-SHA512 (x-nanswap-sig). Statuses include waiting, processing, completed, underpaid, and error, which the docs describe as "price moved too much, payout failed".
+- Plugins and PoS: one-click WooCommerce and WHMCS plugins, plus a PoS terminal mode that turns any device into a checkout.
+
+<Figure src="/news/nanswap-pay/01-pay-page.jpg" alt="The Nanswap Pay landing page: a hero section promising zero fees, instant settlement, over 1,000 cryptocurrencies and payouts in Nano, NanUSD or USDT, followed by integration cards for the widget, payment button, REST API, WooCommerce, WHMCS and PoS terminal." caption="The Pay landing page: 0 fees, 1,431 currencies, three settlement assets." />
+
+## Try the checkout before integrating
+
+The demo needs no account and no API key. The landing page embeds a live widget demo and a sample payment button for "My Shop" that opens a hosted checkout for 10 USD. The customer picks a currency from a searchable list, with Nano pre-selected, and the page builds the payment from there. A merchant can click through the entire flow before writing a line of code.
+
+<Figure src="/news/nanswap-pay/02-checkout-demo.jpg" alt="The hosted checkout demo for My Shop, a 10 USD invoice with a currency picker listing Nano (XNO, pre-selected), Banano, DogeNano, NanUSD, NanBTC, Bitcoin, Monero and Ethereum, plus a Pay with Nano button." caption="The demo checkout: My Shop, 10 USD, with Nano pre-selected." />
+
+## The fine print
+
+"Instant" and "0%" are the product's claims, and the docs show where the edges are. Invoices expire, and the API returns a warningHighFees flag when the customer's chosen chain carries heavy network fees. The 0% fee is Nanswap's cut; a customer paying in BTC or ETH still pays miner or gas fees on that chain. Nano payin, as usual, is free.
+
+<Callout type="info" title="USDT payouts">
+	The API docs list payout currencies as XNO, NANUSD and USDT-MATIC: USDT payouts arrive on Polygon.
+</Callout>
+
+The docs do not cover refunds in detail. A cancelled checkout redirects via cancelUrl, and an underpaid invoice is flagged rather than silently accepted. Nothing in the checkout demo requires a customer account.
+
+For a protocol that is often told it has no use cases, this is the least exotic tool yet: a hosted checkout that lets any shop take Nano without managing price risk. Whether merchants bite is a different question, but the demo takes two minutes and the fee is zero. Details and docs live at [nanswap.com/pay](https://nanswap.com/pay).

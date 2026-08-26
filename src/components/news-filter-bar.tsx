@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { getPathname, Link } from '@/i18n/navigation'
 
-import { buildNewsQuery, type NewsSort } from '@/lib/news'
+import { buildNewsHref, type NewsSort } from '@/lib/news'
 import { cn } from '@/lib/utils'
 
 import { NewsSearchForm } from '@/components/news-search-form'
@@ -40,7 +40,7 @@ export async function NewsFilterBar({ locale, current, tags, total }: NewsFilter
 	const sort = (current.get('sort') as NewsSort | null) ?? 'newest'
 
 	const formAction = getPathname({ href: '/news', locale })
-	const allHref = buildNewsQuery(current, { tags: [] }) || '/news'
+	const allHref = buildNewsHref(current, { tags: [] })
 
 	const toggleTag = (tag: string) =>
 		selectedTags.includes(tag) ? selectedTags.filter((item) => item !== tag) : [...selectedTags, tag]
@@ -70,7 +70,7 @@ export async function NewsFilterBar({ locale, current, tags, total }: NewsFilter
 						{tags.map((tag) => (
 							<FilterChip
 								key={tag}
-								href={buildNewsQuery(current, { tags: toggleTag(tag) })}
+								href={buildNewsHref(current, { tags: toggleTag(tag) })}
 								active={selectedTags.includes(tag)}
 							>
 								{tag}
@@ -83,13 +83,13 @@ export async function NewsFilterBar({ locale, current, tags, total }: NewsFilter
 					<span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
 						{t('sortLabel')}
 					</span>
-					<FilterChip href={buildNewsQuery(current, { sort: 'newest' })} active={sort === 'newest'}>
+					<FilterChip href={buildNewsHref(current, { sort: 'newest' })} active={sort === 'newest'}>
 						{t('sortNewest')}
 					</FilterChip>
-					<FilterChip href={buildNewsQuery(current, { sort: 'oldest' })} active={sort === 'oldest'}>
+					<FilterChip href={buildNewsHref(current, { sort: 'oldest' })} active={sort === 'oldest'}>
 						{t('sortOldest')}
 					</FilterChip>
-					<FilterChip href={buildNewsQuery(current, { sort: 'title' })} active={sort === 'title'}>
+					<FilterChip href={buildNewsHref(current, { sort: 'title' })} active={sort === 'title'}>
 						{t('sortTitle')}
 					</FilterChip>
 				</div>

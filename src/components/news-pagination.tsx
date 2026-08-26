@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
-import { buildNewsQuery } from '@/lib/news'
+import { buildNewsHref } from '@/lib/news'
 import { cn } from '@/lib/utils'
 
 interface NewsPaginationProps {
@@ -31,7 +31,7 @@ export async function NewsPagination({ locale, current, currentPage, totalPages 
 		<nav aria-label={t('paginationLabel')} className="flex items-center justify-center gap-1.5 pt-2">
 			{currentPage > 1 ? (
 				<Link
-					href={buildNewsQuery(current, { page: currentPage - 1 })}
+					href={buildNewsHref(current, { page: currentPage - 1 })}
 					className={cn(navClass, idleClass)}
 					aria-label={t('prevPage')}
 				>
@@ -46,7 +46,7 @@ export async function NewsPagination({ locale, current, currentPage, totalPages 
 			{pageLinks.map((page) => (
 				<Link
 					key={page}
-					href={buildNewsQuery(current, { page })}
+					href={buildNewsHref(current, { page })}
 					aria-current={page === currentPage ? 'page' : undefined}
 					className={cn(
 						navClass,
@@ -61,7 +61,7 @@ export async function NewsPagination({ locale, current, currentPage, totalPages 
 
 			{currentPage < totalPages ? (
 				<Link
-					href={buildNewsQuery(current, { page: currentPage + 1 })}
+					href={buildNewsHref(current, { page: currentPage + 1 })}
 					className={cn(navClass, idleClass)}
 					aria-label={t('nextPage')}
 				>

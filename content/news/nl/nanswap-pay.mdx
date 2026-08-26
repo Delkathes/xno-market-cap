@@ -1,0 +1,68 @@
+export const metadata = {
+	emoji: '💳',
+	title: 'Nanswap Pay: 0% kosten, 1.431 valuta’s, uitbetaling in Nano of stablecoins',
+	description:
+		'Nanswap Pay laat handelaren Nano en 1.431 andere cryptocurrencies accepteren zonder kosten. Nanswap regelt de conversie en betaalt direct uit in Nano, NanUSD of USDT, met een demo-checkout om uit te proberen.',
+	date: '2026-06-03',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments', 'adoption'],
+	published: true,
+}
+
+# Nanswap Pay: 0% kosten, 1.431 valuta’s, uitbetaling in Nano of stablecoins
+
+Nanswap, de al jaren draaiende Nano-exchange met swapdienst, heeft nu een betaalproduct voor handelaren. Benskalz lanceerde Nanswap Pay op 3 juni met een bewust korte pitch: accepteer Nano met 0% kosten, plus meer dan 1.000 andere cryptocurrencies, terwijl Nanswap de volatiliteit en conversie voor zijn rekening neemt. De handelaar ontvangt de uitbetaling in Nano, NanUSD of USDT.
+
+Het past in een drukke periode voor betalingen op Nano. nanobid bouwde een marktplaats waar biedingen betalingen zijn, nanodrops betaalt kijkers per minuut kijktijd, Nagora runt marktplaatsen met escrow en Subnano verkoopt paywalls op basis van een API. Pay is de eerste van dit rijtje die gericht is op gewone webshops in plaats van op crypto-native gebruikers.
+
+## Hoe een betaling verloopt
+
+Een klassieke checkout, met de crypto-techniek uitbesteed.
+
+<Steps title="Van factuur tot uitbetaling">
+	<Step index="01" title="Factuur aanmaken">De handelaar stelt een prijs en valuta vast (USD, EUR, GBP, XNO en meer) via een betaallink, de widget of de REST-API. De factuur vermeldt een verwacht bedrag en verloopt.</Step>
+	<Step index="02" title="De klant betaalt">De klant kiest een van de 1.431 ondersteunde valuta’s en stuurt naar een stortingsadres. Nano staat vooraf geselecteerd.</Step>
+	<Step index="03" title="Nanswap converteert">De binnenkomende coins worden omgezet tegen de koers op de factuur. De handelaar draagt nooit het prijsrisico.</Step>
+	<Step index="04" title="Uitbetaling">Het bedrag komt binnen in het door de handelaar gekozen activum: Nano, NanUSD of USDT.</Step>
+</Steps>
+
+## Wat de handelaar eraan heeft
+
+De productpagina is bot over de verkoopargumenten: “Accepteer Nano met 0 kosten en directe afwikkeling” en “Gratis te gebruiken. Geen kosten. Geen minimumbedragen.” Op de valutapagina’s staat de belangrijkste zin: “Automatische conversie van Nano naar stablecoin, geen blootstelling aan prijsvolatiliteit.”
+
+Daar zit de echte waarde. Een winkel kan prijzen in USD noteren, de klant laten betalen met alles op de lijst, en nooit een volatiel activum aanraken. De exchange-engine in het midden is Nanswaps bestaande business; Pay is slechts een checkout-laag erbovenop.
+
+<StatGrid>
+	<Stat label="Nanswap-kosten" value="0%" accent />
+	<Stat label="Betaalmogelijkheden" value="1.431" />
+	<Stat label="Uitbetalingsactiva" value="3 (XNO, NanUSD, USDT)" />
+</StatGrid>
+
+## Integratiemogelijkheden
+
+Vier gedocumenteerde routes, in oplopende volgorde van inspanning:
+
+- Widget: een iframe-checkout voor elke pagina. De documentatie merkt op dat er geen backend nodig is.
+- Betaalknop of gehoste link: een URL met queryparameters (publicKey, priceAmount, priceCurrency, shopName, defaultCurrency, invoiceId, callbackUrl). De public key komt uit het Nanswap Pay-gedeelte van het accountdashboard.
+- REST-API: POST /order maakt een factuur aan en geeft een stortingsadres plus betaallink terug; webhooks melden elke statuswijziging, ondertekend met HMAC-SHA512 (x-nanswap-sig). Statussen zijn onder meer waiting, processing, completed, underpaid en error, door de documentatie omschreven als “koers te veel bewogen, uitbetaling mislukt”.
+- Plugins en PoS: one-click-plugins voor WooCommerce en WHMCS, plus een PoS-terminalmodus die van elk apparaat een kassa maakt.
+
+<Figure src="/news/nanswap-pay/01-pay-page.jpg" alt="De landingspagina van Nanswap Pay: een hero-gedeelte dat nul kosten, directe afwikkeling, meer dan 1.000 cryptocurrencies en uitbetalingen in Nano, NanUSD of USDT belooft, gevolgd door integratiekaarten voor de widget, betaalknop, REST-API, WooCommerce, WHMCS en PoS-terminal." caption="De Pay-landingspagina: 0 kosten, 1.431 valuta’s, drie uitbetalingsactiva." />
+
+## Checkout uitproberen voor je integreert
+
+De demo heeft geen account of API-sleutel nodig. Op de landingspagina staan een live widget-demo en een voorbeeld-betaalknop voor “My Shop” die een gehoste checkout van 10 USD opent. De klant kiest een valuta uit een doorzoekbare lijst, met Nano vooraf geselecteerd, en de pagina bouwt daar de betaling uit op. Een handelaar kan het hele traject doorlopen voordat hij één regel code schrijft.
+
+<Figure src="/news/nanswap-pay/02-checkout-demo.jpg" alt="De gehoste demo-checkout voor My Shop, een factuur van 10 USD met een valutakeuzelijst: Nano (XNO, vooraf geselecteerd), Banano, DogeNano, NanUSD, NanBTC, Bitcoin, Monero en Ethereum, plus een knop Betaal met Nano." caption="De demo-checkout: My Shop, 10 USD, met Nano vooraf geselecteerd." />
+
+## Het fijne lettertype
+
+“Direct” en “0%” zijn de claims van het product, en de documentatie laat zien waar de grenzen liggen. Facturen verlopen, en de API geeft een warningHighFees-vlag terug wanneer de door de klant gekozen chain hoge netwerkkosten met zich meebrengt. De 0% is Nanswaps eigen aandeel; een klant die in BTC of ETH betaalt, betaalt nog steeds de miner- of gaskosten van die chain. Betalen in Nano is zoals altijd gratis.
+
+<Callout type="info" title="USDT-uitbetalingen">
+	De API-documentatie vermeldt uitbetalingsvaluta’s als XNO, NANUSD en USDT-MATIC: USDT-uitbetalingen komen binnen op Polygon.
+</Callout>
+
+De documentatie regelt restituties niet in detail. Een geannuleerde checkout verwijst door via cancelUrl, en een te laag betaalde factuur wordt gemarkeerd in plaats van stilzwijgend geaccepteerd. Niets in de demo-checkout vereist een klantaccount.
+
+Voor een protocol dat vaak wordt verweten geen use cases te hebben, is dit het minst exotische instrument tot nu toe: een gehoste checkout waarmee elke winkel Nano kan accepteren zonder prijsrisico te beheren. Of handelaren toehappen is een andere vraag, maar de demo duurt twee minuten en de kosten zijn nul. Details en documentatie op [nanswap.com/pay](https://nanswap.com/pay).

@@ -1,0 +1,68 @@
+export const metadata = {
+	emoji: '💳',
+	title: 'Nanswap Pay: 0% di commissioni, 1.431 valute, pagamenti in Nano o stablecoin',
+	description:
+		'Nanswap Pay consente ai commercianti di accettare Nano e altre 1.431 criptovalute senza commissioni. Nanswap gestisce conversione e volatilità e paga subito in Nano, NanUSD o USDT, con un checkout demo da provare.',
+	date: '2026-06-03',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments', 'adoption'],
+	published: true,
+}
+
+# Nanswap Pay: 0% di commissioni, 1.431 valute, pagamenti in Nano o stablecoin
+
+Nanswap, lo storico exchange e servizio di swap di Nano, ora ha un prodotto di pagamento per i commercianti. Benskalz ha lanciato Nanswap Pay il 3 giugno con una presentazione volutamente breve: accetta Nano con 0% di commissioni, oltre a più di 1.000 altre criptovalute, mentre Nanswap gestisce volatilità e conversione. Il commerciante riceve il pagamento in Nano, NanUSD o USDT.
+
+Si inserisce in un periodo intenso per i pagamenti su Nano. nanobid ha costruito un marketplace dove le offerte sono pagamenti, nanodrops paga gli spettatori al minuto di visione, Nagora gestisce marketplace con escrow e Subnano vende paywall basati su API. Pay è il primo del gruppo pensato per i negozi online normali, non per utenti crypto esperti.
+
+## Come funziona un pagamento
+
+Un checkout classico, con la parte crypto esternalizzata.
+
+<Steps title="Dalla fattura al pagamento">
+	<Step index="01" title="Creare la fattura">Il commerciante fissa prezzo e valuta (USD, EUR, GBP, XNO e altre) tramite un link di pagamento, il widget o l'API REST. La fattura indica un importo atteso e scade.</Step>
+	<Step index="02" title="Il cliente paga">Il cliente sceglie una delle 1.431 valute supportate e invia i fondi a un indirizzo di deposito. Nano è la scelta predefinita.</Step>
+	<Step index="03" title="Nanswap converte">Le monete ricevute vengono convertite al tasso indicato in fattura. Il commerciante non si assume mai il rischio di prezzo.</Step>
+	<Step index="04" title="Pagamento">Il saldo arriva nell'asset scelto dal commerciante: Nano, NanUSD o USDT.</Step>
+</Steps>
+
+## Cosa ci guadagna il commerciante
+
+La pagina del prodotto è diretta sui punti di forza: «Accetta Nano con 0 commissioni e regolamento istantaneo» e «Gratis. Nessuna commissione. Nessun minimo.» Le pagine delle valute aggiungono la frase più importante: «Conversione automatica del Nano in stablecoin, nessuna esposizione alla volatilità dei prezzi.»
+
+È qui che sta il valore reale. Un negozio può fissare i prezzi in USD, lasciare che il cliente paghi con qualsiasi valuta della lista e non toccare mai un asset volatile. Il motore di scambio al centro è l'attività storica di Nanswap; Pay è solo un livello di checkout sopra.
+
+<StatGrid>
+	<Stat label="Commissione Nanswap" value="0%" accent />
+	<Stat label="Valute accettate" value="1.431" />
+	<Stat label="Asset di regolamento" value="3 (XNO, NanUSD, USDT)" />
+</StatGrid>
+
+## Opzioni di integrazione
+
+Quattro percorsi documentati, in ordine crescente di impegno:
+
+- Widget: un checkout in iframe per qualsiasi pagina. I documenti precisano che non serve un backend.
+- Pulsante di pagamento o link ospitato: un URL con parametri di query (publicKey, priceAmount, priceCurrency, shopName, defaultCurrency, invoiceId, callbackUrl). La chiave pubblica arriva dalla sezione Nanswap Pay della dashboard dell'account.
+- API REST: POST /order crea una fattura e restituisce un indirizzo di deposito più un link di pagamento; i webhook notificano ogni cambio di stato, firmati con HMAC-SHA512 (x-nanswap-sig). Gli stati includono waiting, processing, completed, underpaid ed error, descritto dai documenti come «il prezzo si è mosso troppo, pagamento fallito».
+- Plugin e PoS: plugin one-click per WooCommerce e WHMCS, più una modalità terminale PoS che trasforma qualsiasi dispositivo in una cassa.
+
+<Figure src="/news/nanswap-pay/01-pay-page.jpg" alt="La pagina di destinazione di Nanswap Pay: una sezione principale che promette zero commissioni, regolamento istantaneo, oltre 1.000 criptovalute e pagamenti in Nano, NanUSD o USDT, seguita dalle card di integrazione per widget, pulsante di pagamento, API REST, WooCommerce, WHMCS e terminale PoS." caption="La pagina di Pay: 0 commissioni, 1.431 valute, tre asset di regolamento." />
+
+## Provare il checkout prima di integrarsi
+
+La demo non richiede account né chiave API. La pagina include una demo del widget dal vivo e un pulsante di pagamento d'esempio per «My Shop» che apre un checkout ospitato da 10 USD. Il cliente sceglie una valuta da un elenco ricercabile, con Nano preselezionato, e la pagina costruisce il pagamento da lì. Un commerciante può percorrere l'intero flusso prima di scrivere una riga di codice.
+
+<Figure src="/news/nanswap-pay/02-checkout-demo.jpg" alt="Il checkout demo ospitato per My Shop, una fattura da 10 USD con un selettore di valuta che elenca Nano (XNO, preselezionato), Banano, DogeNano, NanUSD, NanBTC, Bitcoin, Monero ed Ethereum, più un pulsante Paga con Nano." caption="Il checkout demo: My Shop, 10 USD, con Nano preselezionato." />
+
+## Le clausole in piccolo
+
+«Istantaneo» e «0%» sono le promesse del prodotto, e i documenti mostrano dove sono i limiti. Le fatture scadono e l'API restituisce un flag warningHighFees quando la rete scelta dal cliente comporta commissioni di rete elevate. Lo 0% è la commissione di Nanswap; un cliente che paga in BTC o ETH paga comunque le commissioni miner o gas di quella rete. Il pagamento in Nano, come sempre, è gratuito.
+
+<Callout type="info" title="Pagamenti in USDT">
+	I documenti API elencano le valute di pagamento come XNO, NANUSD e USDT-MATIC: i pagamenti in USDT arrivano su Polygon.
+</Callout>
+
+I documenti non trattano i rimborsi in dettaglio. Un checkout annullato reindirizza tramite cancelUrl e una fattura pagata in meno viene segnalata invece di essere accettata in silenzio. Nulla nel checkout demo richiede un account cliente.
+
+Per un protocollo a cui si rimprovera spesso di non avere casi d'uso, questo è lo strumento meno esotico finora: un checkout ospitato che permette a qualsiasi negozio di accettare Nano senza gestire il rischio di prezzo. Se i commercianti aderiranno è un'altra questione, ma la demo dura due minuti e la commissione è zero. Dettagli e documentazione su [nanswap.com/pay](https://nanswap.com/pay).
