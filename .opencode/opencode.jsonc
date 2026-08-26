@@ -1,0 +1,12 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+	"autoupdate": true,
+
+	"mcp": {
+		// ######## nanomarketcap ########
+		"next-devtools/nanomarketcap": {
+			"type": "remote",
+			"url": "http://localhost:3000/_next/mcp"
+		},
+	}
+}
