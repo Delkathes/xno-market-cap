@@ -93,6 +93,10 @@
 				"title": "Impressum | NanoMarketCap",
 				"description": "Juridische entiteitsinformatie, contactgegevens en wettelijke verklaringen van NanoMarketCap."
 			}
+		},
+		"milestones": {
+			"title": "Mijlpalen",
+			"description": "De volledige XNO-marktkapitalisatieladder in elke valuta, met een interactieve simulator."
 		}
 	},
 	"common": {
@@ -139,7 +143,9 @@
 		"whyNanoDescription": "Waarom het superieur geld is",
 		"whyNanoDescriptionShort": "Waarom het superieur geld is",
 		"closeMenu": "Menu sluiten",
-		"toggleMenu": "Menu wisselen"
+		"toggleMenu": "Menu wisselen",
+		"milestones": "Mijlpalen",
+		"milestonesDescription": "Marktkapitalisatieladder in elke valuta"
 	},
 	"home": {
 		"marketLedger": "Marktregister",
@@ -160,9 +166,9 @@
 		"milestoneSection": "MIJLPALENTRACKER",
 		"milestoneNext": "VOLGENDE",
 		"milestoneToGo": "NOG",
-		"milestoneStory": "HET $1B VERHAAL",
 		"milestoneTooltipCap": "MARKETCAP",
-		"milestoneTooltipXno": "1 XNO"
+		"milestoneTooltipXno": "1 XNO",
+		"milestoneAll": "ALLE MIJLPALEN"
 	},
 	"marketTable": {
 		"loadingMarketData": "Marktgegevens laden...",
@@ -1166,5 +1172,22 @@
 			"donationNonRefundable": "Donaties zijn vrijwillig en niet restitueerbaar. Cryptovalutatransacties zijn onomkeerbaar.",
 			"affiliateDisclosure": "De Nanswap-integratie bevat een affiliate-verwijzing. Dit heeft geen invloed op de prijs die u betaalt."
 		}
+	},
+	"milestones": {
+		"title": "Mijlpalen",
+		"subtitle": "De volledige XNO-marktkapitalisatieladder in elke valuta. Sleep aan de knop om elke marktkapitalisatie te simuleren.",
+		"masterLabel": "MARKETCAP",
+		"current": "HUIDIG",
+		"hypothetical": "HYPOTHETISCH",
+		"dragHint": "SLEEP OM TE SIMULEREN",
+		"next": "VOLGENDE",
+		"toGo": "NOG",
+		"ladder": "LADDER",
+		"supplyNote": "De impliciete prijzen gaan uit van de vaste circulerende voorraad van {supply} XNO: bij elke marktkapitalisatie is 1 XNO gewoon de kapitalisatie gedeeld door de voorraad.",
+		"storyLabel": "HET $1B VERHAAL",
+		"xnoPrice": "1 XNO",
+		"tooltipCap": "MARKETCAP",
+		"jumpNext": "VOLGENDE MIJPAAL",
+		"jumpPrev": "VORIGE MIJPAAL"
 	}
 }

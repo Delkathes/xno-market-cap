@@ -3,7 +3,7 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
-import { getNewsMetadata, getRecentNews } from '@/lib/news'
+import { getRecentNews } from '@/lib/news'
 
 import { env } from '@/env'
 
@@ -45,11 +45,6 @@ export default async function Home({ params }: Props) {
 	const t = await getTranslations({ locale, namespace: 'home' })
 
 	const recentNews = await getRecentNews(locale, 6)
-
-	// Editorial hook for the milestone tracker: only shown while the $1B story
-	// is published in the requested locale (null otherwise).
-	const milestoneStory = await getNewsMetadata('xno-one-billion-market-cap', locale)
-	const story = milestoneStory ? { label: milestoneStory.title } : undefined
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
@@ -94,7 +89,7 @@ export default async function Home({ params }: Props) {
 				{/* Market overview */}
 				<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
 					<Suspense fallback={<MarketOverviewSkeleton />}>
-						<MarketOverview story={story} />
+						<MarketOverview />
 					</Suspense>
 				</div>
 

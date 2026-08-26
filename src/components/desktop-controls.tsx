@@ -1,7 +1,19 @@
 'use client'
 
 import { useSetAtom } from 'jotai'
-import { ArrowRightLeft, ChartPie, HelpCircle, Lightbulb, Moon, RefreshCw, Scale, Sun, Wallet, Zap } from 'lucide-react'
+import {
+	ArrowRightLeft,
+	ChartPie,
+	Flag,
+	HelpCircle,
+	Lightbulb,
+	Moon,
+	RefreshCw,
+	Scale,
+	Sun,
+	Wallet,
+	Zap,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/navigation'
@@ -107,7 +119,10 @@ export function DesktopControls() {
 						<NavigationMenuTrigger
 							className={cn(
 								'px-4 py-2 rounded-md text-sm font-medium transition-colors bg-transparent',
-								pathname === '/dominance' || pathname === '/parity' || pathname === '/speculation'
+								pathname === '/dominance' ||
+									pathname === '/parity' ||
+									pathname === '/speculation' ||
+									pathname === '/milestones'
 									? 'bg-secondary text-secondary-foreground'
 									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 							)}
@@ -207,6 +222,39 @@ export function DesktopControls() {
 														)}
 													>
 														{t('speculationDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/milestones"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/milestones' && 'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Flag
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/milestones' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('milestones')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/milestones' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('milestonesDescription')}
 													</p>
 												</div>
 											</div>

@@ -93,6 +93,10 @@
 				"title": "Legal Notice | NanoMarketCap",
 				"description": "Legal entity information, contact details, and regulatory disclosures for NanoMarketCap."
 			}
+		},
+		"milestones": {
+			"title": "Milestones",
+			"description": "The full XNO market cap ladder in every fiat currency, with an interactive simulator."
 		}
 	},
 	"common": {
@@ -133,7 +137,9 @@
 		"whyNanoDescription": "Why it is superior money",
 		"whyNanoDescriptionShort": "Why it is superior money",
 		"closeMenu": "Close menu",
-		"toggleMenu": "Toggle menu"
+		"toggleMenu": "Toggle menu",
+		"milestones": "Milestones",
+		"milestonesDescription": "Market cap ladder in every currency"
 	},
 	"home": {
 		"marketLedger": "Market Ledger",
@@ -154,9 +160,9 @@
 		"milestoneSection": "MILESTONE TRACKER",
 		"milestoneNext": "NEXT",
 		"milestoneToGo": "TO GO",
-		"milestoneStory": "THE $1B STORY",
 		"milestoneTooltipCap": "MARKET CAP",
-		"milestoneTooltipXno": "1 XNO"
+		"milestoneTooltipXno": "1 XNO",
+		"milestoneAll": "ALL MILESTONES"
 	},
 	"marketTable": {
 		"loadingMarketData": "Loading market data...",
@@ -1160,5 +1166,22 @@
 			"donationNonRefundable": "Donations are voluntary and non-refundable. Cryptocurrency transactions are irreversible.",
 			"affiliateDisclosure": "Nanswap integration includes an affiliate referral. This does not affect the price you pay."
 		}
+	},
+	"milestones": {
+		"title": "Milestones",
+		"subtitle": "The full XNO market cap ladder in every fiat currency. Drag the dial to simulate any market cap.",
+		"masterLabel": "MARKET CAP",
+		"current": "CURRENT",
+		"hypothetical": "HYPOTHETICAL",
+		"dragHint": "DRAG TO SIMULATE",
+		"next": "NEXT",
+		"toGo": "TO GO",
+		"ladder": "LADDER",
+		"supplyNote": "Implied prices assume the fixed circulating supply of {supply} XNO: at any market cap, 1 XNO is simply cap divided by supply.",
+		"storyLabel": "THE $1B STORY",
+		"xnoPrice": "1 XNO",
+		"tooltipCap": "MARKET CAP",
+		"jumpNext": "NEXT MILESTONE",
+		"jumpPrev": "PREVIOUS MILESTONE"
 	}
 }

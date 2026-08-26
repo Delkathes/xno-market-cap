@@ -16,61 +16,19 @@ import {
 	getFiatRate,
 	getFiatSymbol,
 } from '@/lib/currency-helpers'
+import { MILESTONES_BY_CURRENCY, niceStep, shortCap } from '@/lib/milestones'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
 import { PrimaryCurrencySelect } from '@/components/primary-currency-select'
 
-/** Server-resolved editorial hook: label rendered as chip, href locale-aware via <Link>. */
-export type MilestoneStory = { label: string }
-
-// Round milestones per currency: each ladder is native to its unit, so every
-// target is a round number in the displayed currency (1B/2B/5B/... USD/EUR/GBP,
-// 10B/20B/50B/... JPY). USD remains the canonical upstream unit.
-const MILESTONES_STANDARD = [1e9, 2e9, 5e9, 1e10, 2e10, 5e10, 1e11, 2e11, 5e11, 1e12, 2e12, 5e12, 1e13, 2e13, 5e13]
-const MILESTONES_JPY = [1e10, 2e10, 5e10, 1e11, 2e11, 5e11, 1e12, 2e12, 5e12, 1e13, 2e13, 5e13, 1e14, 2e14, 5e14]
-
-const MILESTONES_BY_CURRENCY: Record<FiatCurrency, number[]> = {
-	[FiatCurrency.USD]: MILESTONES_STANDARD,
-	[FiatCurrency.EUR]: MILESTONES_STANDARD,
-	[FiatCurrency.GBP]: MILESTONES_STANDARD,
-	[FiatCurrency.CHF]: MILESTONES_STANDARD,
-	[FiatCurrency.CAD]: MILESTONES_STANDARD,
-	[FiatCurrency.AUD]: MILESTONES_STANDARD,
-	[FiatCurrency.JPY]: MILESTONES_JPY,
-}
-
 const TRACK_TICKS: React.CSSProperties = {
 	backgroundImage: 'repeating-linear-gradient(90deg, oklch(0.96 0.005 260 / 0.22) 0 1px, transparent 1px 10%)',
 }
 
-/**
- * Nice-number step for the tick ladder: round the raw step (range/4) to the
- * closest 1/2/5 × 10^k so labels stay readable.
- */
-function niceStep(range: number): number {
-	const power = 10 ** Math.floor(Math.log10(range / 4))
-	const digit = range / 4 / power
-	const nice = digit >= 7.5 ? 10 : digit >= 3.5 ? 5 : digit >= 1.5 ? 2 : 1
-	return nice * power
-}
-
-/** Compact milestone label: $2B, $12.5B, $1T ... */
-function shortCap(value: number, currency: FiatCurrency): string {
-	const symbol = getFiatSymbol(currency)
-	if (value >= 1e12) return `${symbol}${trimDecimals(value / 1e12)}T`
-	if (value >= 1e9) return `${symbol}${trimDecimals(value / 1e9)}B`
-	if (value >= 1e6) return `${symbol}${trimDecimals(value / 1e6)}M`
-	return `${symbol}${value.toFixed(0)}`
-}
-
-function trimDecimals(value: number): string {
-	return value % 1 === 0 ? value.toFixed(0) : value.toFixed(1)
-}
-
 /** Animate a value toward a target with cubic ease-out; jumps when reduced motion is preferred. */
-function useAnimatedCap(target: number): number {
+export function useAnimatedCap(target: number): number {
 	const [value, setValue] = useState(0)
 	const fromRef = useRef(0)
 	const rafRef = useRef<number>(0)
@@ -101,7 +59,7 @@ function useAnimatedCap(target: number): number {
 	return value
 }
 
-export function MilestoneTracker({ story }: { story?: MilestoneStory }) {
+export function MilestoneTracker() {
 	const t = useTranslations('home')
 	const [primaryFiat] = useAtom(primaryFiatAtom)
 	const {
@@ -235,6 +193,7 @@ export function MilestoneTracker({ story }: { story?: MilestoneStory }) {
 					<div className="absolute inset-0 rounded-full bg-muted" />
 					<div className="absolute inset-0 overflow-hidden rounded-full">
 						<div
+							suppressHydrationWarning
 							className="h-full bg-linear-to-r from-[#0f6dbd] to-[#209CE9] transition-[width] duration-700 ease-out"
 							style={{ width: `${progressPct}%` }}
 						/>
@@ -249,6 +208,7 @@ export function MilestoneTracker({ story }: { story?: MilestoneStory }) {
 					)}
 					<div
 						aria-hidden="true"
+						suppressHydrationWarning
 						className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transition-[left] duration-700 ease-out"
 						style={{ left: `${progressPct}%` }}
 					>
@@ -291,22 +251,19 @@ export function MilestoneTracker({ story }: { story?: MilestoneStory }) {
 				</div>
 			</div>
 
-			{/* Footer: currency selector / progress / story */}
+			{/* Footer: currency selector / progress / all milestones */}
 			<div className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-border pt-3">
 				<PrimaryCurrencySelect />
 				<p className="font-mono text-lg font-bold tabular-nums tracking-tight text-[#209CE9]">{progressPct}%</p>
-				{story && (
-					<Link
-						href="/news/xno-one-billion-market-cap"
-						title={story.label}
-						className="group flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed border-border bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
-					>
-						{t('milestoneStory')}
-						<span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
-							→
-						</span>
-					</Link>
-				)}
+				<Link
+					href="/milestones"
+					className="group flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed border-border bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+				>
+					{t('milestoneAll')}
+					<span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
+						→
+					</span>
+				</Link>
 			</div>
 		</div>
 	)

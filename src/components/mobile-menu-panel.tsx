@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { atom, useAtom, useSetAtom } from 'jotai'
-import { ArrowRightLeft, ChartPie, HelpCircle, Lightbulb, Scale, Wallet, X, Zap } from 'lucide-react'
+import { ArrowRightLeft, ChartPie, Flag, HelpCircle, Lightbulb, Scale, Wallet, X, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/navigation'
@@ -150,6 +150,23 @@ export function MobileMenuPanel() {
 									<div>{t('speculation')}</div>
 									<p className="text-xs text-muted-foreground font-normal">
 										{t('speculationDescription')}
+									</p>
+								</div>
+							</Link>
+							<Link
+								href="/milestones"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/milestones'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Flag className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('milestones')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('milestonesDescription')}
 									</p>
 								</div>
 							</Link>

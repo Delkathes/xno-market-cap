@@ -93,6 +93,10 @@
 				"title": "Aviso Legal (Pie de Imprenta) | NanoMarketCap",
 				"description": "Información de la entidad legal, datos de contacto y declaraciones regulatorias de NanoMarketCap."
 			}
+		},
+		"milestones": {
+			"title": "Hitos",
+			"description": "La escalera completa de capitalización de XNO en cada moneda, con un simulador interactivo."
 		}
 	},
 	"common": {
@@ -139,7 +143,9 @@
 		"whyNanoDescription": "Por qué es dinero superior",
 		"whyNanoDescriptionShort": "Por qué es dinero superior",
 		"closeMenu": "Cerrar menú",
-		"toggleMenu": "Alternar menú"
+		"toggleMenu": "Alternar menú",
+		"milestones": "Hitos",
+		"milestonesDescription": "Escalera de capitalización en cada moneda"
 	},
 	"home": {
 		"marketLedger": "Registro del mercado",
@@ -160,9 +166,9 @@
 		"milestoneSection": "SEGUIMIENTO DE HITOS",
 		"milestoneNext": "SIGUIENTE",
 		"milestoneToGo": "FALTAN",
-		"milestoneStory": "LA HISTORIA DEL $1B",
 		"milestoneTooltipCap": "CAPITALIZACIÓN",
-		"milestoneTooltipXno": "1 XNO"
+		"milestoneTooltipXno": "1 XNO",
+		"milestoneAll": "TODOS LOS HITOS"
 	},
 	"marketTable": {
 		"loadingMarketData": "Cargando datos del mercado...",
@@ -1166,5 +1172,22 @@
 			"donationNonRefundable": "Las donaciones son voluntarias y no reembolsables. Las transacciones de criptomonedas son irreversibles.",
 			"affiliateDisclosure": "La integración de Nanswap incluye un referido afiliado. Esto no afecta el precio que usted paga."
 		}
+	},
+	"milestones": {
+		"title": "Hitos",
+		"subtitle": "La escalera completa de capitalización de XNO en cada moneda. Arrastra el dial para simular cualquier capitalización.",
+		"masterLabel": "CAPITALIZACIÓN",
+		"current": "ACTUAL",
+		"hypothetical": "HIPOTÉTICO",
+		"dragHint": "ARRASTRA PARA SIMULAR",
+		"next": "SIGUIENTE",
+		"toGo": "FALTAN",
+		"ladder": "ESCALERA",
+		"supplyNote": "Los precios implícitos suponen la oferta circulante fija de {supply} XNO: en cualquier capitalización, 1 XNO equivale a la capitalización dividida por la oferta.",
+		"storyLabel": "LA HISTORIA DEL $1B",
+		"xnoPrice": "1 XNO",
+		"tooltipCap": "CAPITALIZACIÓN",
+		"jumpNext": "SIGUIENTE HITO",
+		"jumpPrev": "HITO ANTERIOR"
 	}
 }

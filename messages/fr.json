@@ -93,6 +93,10 @@
 				"title": "Mentions Légales | NanoMarketCap",
 				"description": "Informations sur l'entité juridique, coordonnées et déclarations réglementaires de NanoMarketCap."
 			}
+		},
+		"milestones": {
+			"title": "Jalons",
+			"description": "L'échelle complète de capitalisation de XNO dans chaque devise, avec un simulateur interactif."
 		}
 	},
 	"common": {
@@ -139,7 +143,9 @@
 		"whyNanoDescription": "Pourquoi c'est une monnaie supérieure",
 		"whyNanoDescriptionShort": "Pourquoi c'est une monnaie supérieure",
 		"closeMenu": "Fermer le menu",
-		"toggleMenu": "Basculer le menu"
+		"toggleMenu": "Basculer le menu",
+		"milestones": "Jalons",
+		"milestonesDescription": "Échelle de capitalisation dans chaque devise"
 	},
 	"home": {
 		"marketLedger": "Grand livre du marché",
@@ -160,9 +166,9 @@
 		"milestoneSection": "SUIVI DES JALONS",
 		"milestoneNext": "PROCHAIN",
 		"milestoneToGo": "RESTE",
-		"milestoneStory": "L'HISTOIRE DU $1B",
 		"milestoneTooltipCap": "CAPITALISATION",
-		"milestoneTooltipXno": "1 XNO"
+		"milestoneTooltipXno": "1 XNO",
+		"milestoneAll": "TOUS LES JALONS"
 	},
 	"marketTable": {
 		"loadingMarketData": "Chargement des données de marché...",
@@ -1166,5 +1172,22 @@
 			"donationNonRefundable": "Les dons sont volontaires et non remboursables. Les transactions en cryptomonnaie sont irréversibles.",
 			"affiliateDisclosure": "L'intégration Nanswap inclut un parrainage affilié. Cela n'affecte pas le prix que vous payez."
 		}
+	},
+	"milestones": {
+		"title": "Jalons",
+		"subtitle": "L'échelle complète de capitalisation de XNO dans chaque devise. Faites glisser le cadran pour simuler n'importe quelle capitalisation.",
+		"masterLabel": "CAPITALISATION",
+		"current": "ACTUEL",
+		"hypothetical": "HYPOTHÉTIQUE",
+		"dragHint": "FAITES GLISSER POUR SIMULER",
+		"next": "SUIVANT",
+		"toGo": "RESTE",
+		"ladder": "ÉCHELLE",
+		"supplyNote": "Les prix implicites supposent l'offre en circulation fixe de {supply} XNO : pour toute capitalisation, 1 XNO vaut la capitalisation divisée par l'offre.",
+		"storyLabel": "L'HISTOIRE DU $1B",
+		"xnoPrice": "1 XNO",
+		"tooltipCap": "CAPITALISATION",
+		"jumpNext": "JALON SUIVANT",
+		"jumpPrev": "JALON PRÉCÉDENT"
 	}
 }

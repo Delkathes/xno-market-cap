@@ -93,6 +93,10 @@
 				"title": "Impressum | NanoMarketCap",
 				"description": "Angaben zur juristischen Person, Kontaktdaten und regulatorische Erklärungen von NanoMarketCap."
 			}
+		},
+		"milestones": {
+			"title": "Meilensteine",
+			"description": "Die komplette XNO-Marktkapitalisierungs-Leiter in jeder Währung, mit interaktivem Simulator."
 		}
 	},
 	"common": {
@@ -139,7 +143,9 @@
 		"whyNanoDescription": "Warum es überlegenes Geld ist",
 		"whyNanoDescriptionShort": "Warum es überlegenes Geld ist",
 		"closeMenu": "Menü schließen",
-		"toggleMenu": "Menü umschalten"
+		"toggleMenu": "Menü umschalten",
+		"milestones": "Meilensteine",
+		"milestonesDescription": "Marktkapitalisierungs-Leiter in jeder Währung"
 	},
 	"home": {
 		"marketLedger": "Marktübersicht",
@@ -160,9 +166,9 @@
 		"milestoneSection": "MEILENSTEIN-TRACKER",
 		"milestoneNext": "NÄCHSTER",
 		"milestoneToGo": "NOCH",
-		"milestoneStory": "DIE $1B GESCHICHTE",
 		"milestoneTooltipCap": "MARKETCAP",
-		"milestoneTooltipXno": "1 XNO"
+		"milestoneTooltipXno": "1 XNO",
+		"milestoneAll": "ALLE MEILENSTEINE"
 	},
 	"marketTable": {
 		"loadingMarketData": "Lade Marktdaten...",
@@ -1166,5 +1172,22 @@
 			"donationNonRefundable": "Spenden sind freiwillig und nicht erstattungsfähig. Kryptowährungstransaktionen sind irreversibel.",
 			"affiliateDisclosure": "Die Nanswap-Integration enthält eine Affiliate-Empfehlung. Dies hat keinen Einfluss auf den Preis, den Sie zahlen."
 		}
+	},
+	"milestones": {
+		"title": "Meilensteine",
+		"subtitle": "Die komplette XNO-Marktkapitalisierungs-Leiter in jeder Währung. Ziehen Sie das Zifferblatt, um jede Marktkapitalisierung zu simulieren.",
+		"masterLabel": "MARKETCAP",
+		"current": "AKTUELL",
+		"hypothetical": "HYPOTHETISCH",
+		"dragHint": "ZIEHEN ZUM SIMULIEREN",
+		"next": "NÄCHSTER",
+		"toGo": "NOCH",
+		"ladder": "LEITER",
+		"supplyNote": "Implizite Preise gehen von der festen zirkulierenden Versorgung von {supply} XNO aus: Bei jeder Marktkapitalisierung entspricht 1 XNO einfach der Marktkapitalisierung geteilt durch die Versorgung.",
+		"storyLabel": "DIE $1B GESCHICHTE",
+		"xnoPrice": "1 XNO",
+		"tooltipCap": "MARKETCAP",
+		"jumpNext": "NÄCHSTER MEILENSTEIN",
+		"jumpPrev": "VORHERIGER MEILENSTEIN"
 	}
 }

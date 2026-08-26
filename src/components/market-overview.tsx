@@ -25,9 +25,9 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { Card, CardContent } from '@/components/ui/card'
 import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
-import { type MilestoneStory, MilestoneTracker } from '@/components/milestone-tracker'
+import { MilestoneTracker } from '@/components/milestone-tracker'
 
-export function MarketOverview({ story }: { story?: MilestoneStory }) {
+export function MarketOverview() {
 	const {
 		data,
 		xnoCirculatingSupply,
@@ -335,7 +335,7 @@ export function MarketOverview({ story }: { story?: MilestoneStory }) {
 			</div>
 
 			{/* Milestone tracker */}
-			<MilestoneTracker story={story} />
+			<MilestoneTracker />
 		</div>
 	)
 }
