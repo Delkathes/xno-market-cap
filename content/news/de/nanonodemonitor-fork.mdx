@@ -1,0 +1,52 @@
+export const metadata = {
+	emoji: '🖥️',
+	title: 'nanoNodeMonitor-Fork: modernes Theme, PHP 8.5 und RsNano-Versionsprüfung',
+	description:
+		'Gigaion hält den nanoNodeMonitor-Fork am Leben: modernes Theme, PHP-8.5-Kompatibilität, lokale QR-Codes, GHCR-Images, Config-Migration und v1.10.0 mit korrektem RsNano-Versionsbanner.',
+	date: '2026-06-23',
+	author: 'NanoMarketCap Team',
+	tags: ['development', 'tools'],
+	published: true,
+}
+
+# nanoNodeMonitor-Fork: modernes Theme, PHP 8.5 und RsNano-Versionsprüfung
+
+nanoNodeMonitor, das selbst gehostete Web-Dashboard für die Gesundheit von Nano-Nodes, bekommt wieder echte Pflege. Der Fork von Gigaion veröffentlichte im Juni zwei Updates: einen Modernisierungsdurchgang am 10. Juni und v1.10.0 am 23. Juni, das den RsNano-Versionsbanner korrigiert.
+
+Das Tool selbst ist alt und bewährt: serverseitiges PHP, das über RPC mit deinem Node spricht und Status, Sync-Zustand, Peers und Voting auf einer einfachen Webseite anzeigt. Da alles serverseitig läuft, wird die RPC-Schnittstelle des Nodes nie öffentlich exponiert. Das ursprüngliche Projekt wurde archiviert; der Fork von Gigaion macht weiter, modernisiert für PHP 8.1 bis 8.5 mit gehärteter Cache-Schicht und Template-Ausgabe.
+
+<Figure src="/news/nanonodemonitor-fork/01-repo.jpg" alt="README des nanoNodeMonitor-Forks von GigaionLLC mit der Projektbeschreibung, dem Hinweis auf KI-gestützte Entwicklung und den Theme-Vorschauen" caption="Das README des Forks: RPC-basiertes Monitoring, fünf Themes und GHCR-first Installation" />
+
+## Das Update vom 10. Juni
+
+Der Modernisierungspaket deckt die Grundlagen ab, die ein selbst gehostetes Tool nutzbar halten:
+
+- Ein neues modernes Theme, neben den bestehenden Light-, Dark- und Banano-Themes.
+- Kompatibilität mit PHP 8.5.
+- QR-Code-Erzeugung läuft jetzt lokal, eine Drittanbieter-Abhängigkeit samt externer Aufrufe entfällt.
+- GitHub Container Registry (GHCR) als bevorzugte Image-Quelle, Docker Hub bleibt als Alternative erhalten.
+- config.php-Migrationslogik zur Vereinfachung von Upgrades. Docker-Container migrieren die Config beim Start; manuelle Installationen nutzen ein Skript, das die alte Config sichert, Einstellungen übernimmt und eine saubere Datei mit Versionsmarker schreibt.
+
+## v1.10.0: der RsNano-Banner-Fix
+
+Die Version vom 23. Juni ist klein, aber nützlich. Die Versionsprüfung von nanoNodeMonitor kannte nur den C++-Node, daher sahen Betreiber unter RsNano, der hier im Juni behandelten Rust-Neuimplementierung, die Warnung „veraltete Serverversion“, selbst auf dem neuesten Release. v1.10.0 prüft RsNano-Versionen korrekt: keine falschen Alarme mehr auf aktuellen Builds, und der Banner schlägt nun ein Update vor, wenn eine neue RsNano-Version erscheint.
+
+Gigaion dankt badsyntax_ für den vorgeschlagenen Fix.
+
+## Der Transparenz-Hinweis
+
+Sowohl die Ankündigung als auch das README sagen klar, dass in diesem Zyklus KI-gestützte Entwicklung verwendet wurde, und laden zu Security-Reviews und Prüfung durch die Community ein. Für ein Tool, das am RPC-Port deines Nodes sitzt, ist das die richtige Haltung: Code lesen, Issues melden, selbst urteilen. Das erklärte Ziel ist, den Fork aktiv zu pflegen statt ihn veralten zu lassen.
+
+## Ausprobieren
+
+Das Deployment ist Docker-first, das GHCR-Image ist die empfohlene Quelle:
+
+<Terminal title="GHCR-Image ziehen">
+docker pull ghcr.io/gigaionllc/nanonodemonitor:latest
+</Terminal>
+
+Manuelle Installationen bleiben möglich: Repo klonen, config.sample.php nach config.php kopieren, auf den Node zeigen. Das README behandelt auch das Migrationsskript für Bestandsinstallationen; Configs mit eigener PHP-Logik werden erkannt und nie überschrieben.
+
+Wenn du einen Nano- oder Banano-Node betreibst, ist dieses Dashboard wirklich nützlich. Der Fork des archivierten [NanoTools/nanoNodeMonitor](https://github.com/NanoTools/nanoNodeMonitor) ist lebendig, gepflegt und einen Blick wert.
+
+<GitHubRepo repo="GigaionLLC/nanoNodeMonitor" />

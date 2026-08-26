@@ -1,0 +1,52 @@
+export const metadata = {
+	emoji: '🖥️',
+	title: 'El fork de nanoNodeMonitor: tema moderno, PHP 8.5 y comprobación de versión de RsNano',
+	description:
+		'Gigaion mantiene vivo el fork de nanoNodeMonitor: tema moderno, compatibilidad con PHP 8.5, códigos QR locales, imágenes en GHCR, migración de config y v1.10.0 con el aviso de versión de RsNano corregido.',
+	date: '2026-06-23',
+	author: 'NanoMarketCap Team',
+	tags: ['development', 'tools'],
+	published: true,
+}
+
+# El fork de nanoNodeMonitor: tema moderno, PHP 8.5 y comprobación de versión de RsNano
+
+nanoNodeMonitor, el panel web autoalojado para la salud de los nodos de Nano, vuelve a recibir mantenimiento real. El fork de Gigaion publicó dos actualizaciones en junio: una pasada de modernización el 10 de junio y la v1.10.0 el 23 de junio, que corrige el aviso de versión de RsNano.
+
+La herramienta es antigua y probada: PHP del lado del servidor que habla con tu nodo vía RPC y muestra su estado, sincronización, pares y voto en una página web sencilla. Como todo corre en el servidor, la interfaz RPC del nodo nunca queda expuesta al público. El proyecto original fue archivado, y el fork de Gigaion retoma el testigo, modernizado para PHP 8.1 a 8.5 con el endurecimiento de la capa de caché y de la salida de las plantillas.
+
+<Figure src="/news/nanonodemonitor-fork/01-repo.jpg" alt="README del fork nanoNodeMonitor de GigaionLLC con la descripción del proyecto, la nota sobre desarrollo asistido por IA y las vistas previas de los temas" caption="El README del fork: monitoreo vía RPC, cinco temas e instalación con GHCR como prioridad" />
+
+## La actualización del 10 de junio
+
+El paquete de modernización cubre lo básico para que una herramienta autoalojada siga siendo útil:
+
+- Un nuevo tema moderno, junto a los temas claro, oscuro y Banano existentes.
+- Compatibilidad con PHP 8.5.
+- Generación de códigos QR en local, sin la dependencia de terceros ni las llamadas externas que traía.
+- GitHub Container Registry (GHCR) como fuente de imágenes preferida, con Docker Hub como alternativa.
+- Lógica de migración de config.php para simplificar las actualizaciones. Los contenedores Docker migran la config al arrancar; las instalaciones manuales ejecutan un script que respalda la config antigua, conserva los ajustes y escribe un archivo limpio con un marcador de versión.
+
+## v1.10.0: el arreglo del aviso de RsNano
+
+La versión del 23 de junio es pequeña pero útil. La comprobación de versión de nanoNodeMonitor solo entendía el nodo C++, así que quien operaba con RsNano, la reescritura en Rust que cubrimos aquí en junio, veía el aviso de "versión de servidor desactualizada" incluso en el último release. La v1.10.0 comprueba las versiones de RsNano correctamente: sin falsas alarmas en builds actuales, y el aviso ahora sugiere actualizar cuando sale una versión nueva de RsNano.
+
+Gigaion agradece a badsyntax_ el arreglo sugerido.
+
+## La nota de transparencia
+
+Tanto el anuncio como el README indican sin rodeos que se usó desarrollo asistido por IA durante este ciclo, e invitan a revisiones de seguridad y al escrutinio de la comunidad. Para una herramienta que se conecta al puerto RPC de tu nodo, esa es la postura correcta: lee el código, reporta problemas, juzga por ti mismo. El objetivo declarado es mantener el fork activo y en evolución en lugar de dejarlo estancado.
+
+## Pruébalo
+
+El despliegue es Docker-first y la imagen de GHCR es la fuente recomendada:
+
+<Terminal title="descargar la imagen de GHCR">
+docker pull ghcr.io/gigaionllc/nanonodemonitor:latest
+</Terminal>
+
+Las instalaciones manuales siguen siendo posibles: clona el repositorio, copia config.sample.php a config.php y apunta a tu nodo. El README también documenta el script de migración para instalaciones existentes; las configs con lógica PHP personalizada se detectan y nunca se reescriben.
+
+Si operas un nodo de Nano o Banano, este panel es de verdad útil. El fork del archivado [NanoTools/nanoNodeMonitor](https://github.com/NanoTools/nanoNodeMonitor) está vivo, mantenido y merece la pena echarle un vistazo.
+
+<GitHubRepo repo="GigaionLLC/nanoNodeMonitor" />
