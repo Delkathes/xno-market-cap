@@ -4,10 +4,12 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { getRecentNews } from '@/lib/news'
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { env } from '@/env'
 
 import { Skeleton } from '@/components/ui/skeleton'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { MarketCapTable } from '@/components/market-cap-table'
 import { MarketOverview } from '@/components/market-overview'
 import { ModernPageBackground } from '@/components/modern-page-background'
@@ -32,9 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/',
+			canonical: localePath('/', locale),
 		},
 	}
 }
@@ -48,6 +53,7 @@ export default async function Home({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path="/" />
 			<ModernPageBackground />
 
 			{/* Structured data for search engines; content is JSON-serialized local data, not user HTML */}

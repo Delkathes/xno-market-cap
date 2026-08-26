@@ -8,11 +8,13 @@ import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
 import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { env } from '@/env'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
 	cacheLife('max')
 
-	const { slug } = await params
+	const { locale, slug } = await params
 	const partner = getPartnerById(slug)
 
 	if (!partner) {
@@ -43,9 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: partner.title,
 			description: partner.description,
 			url: `/partners/${slug}`,
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: `/partners/${slug}`,
+			canonical: localePath(`/partners/${slug}`, locale),
 		},
 		robots: {
 			index: true,
@@ -83,6 +88,7 @@ export default async function PartnerPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path={`/partners/${slug}`} />
 			<ModernPageBackground />
 
 			<script

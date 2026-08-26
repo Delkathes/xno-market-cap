@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
-import { getNewsSlugs } from '@/lib/news'
+import { getAllNews } from '@/lib/news'
 import { getPartnersWithPages } from '@/lib/partner-config'
 
 import { env } from '@/env'
@@ -39,7 +39,7 @@ function buildAlternates(path: string): Record<string, string> {
 	return alternates
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const lastModified = new Date()
 
 	// Static routes
@@ -53,15 +53,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		},
 	}))
 
-	// News article routes
-	const newsSlugs = getNewsSlugs()
-	const newsRoutes = newsSlugs.map((slug) => ({
-		url: `${SITE_URL}/news/${slug}`,
-		lastModified,
+	// News article routes — PUBLISHED articles only (drafts 404 and must not
+	// pollute the sitemap; getAllNews filters on the `published` flag).
+	const newsArticles = await getAllNews()
+	const newsRoutes = newsArticles.map((article) => ({
+		url: `${SITE_URL}/news/${article.slug}`,
+		lastModified: article.date ? new Date(article.date) : lastModified,
 		changeFrequency: 'weekly' as const,
 		priority: 0.6,
 		alternates: {
-			languages: buildAlternates(`/news/${slug}`),
+			languages: buildAlternates(`/news/${article.slug}`),
 		},
 	}))
 

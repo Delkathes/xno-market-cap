@@ -1183,5 +1183,12 @@
 		"tooltipCap": "MARKET CAP",
 		"jumpNext": "NEXT MILESTONE",
 		"jumpPrev": "PREVIOUS MILESTONE"
+	},
+	"notFound": {
+		"code": "ERROR 404",
+		"title": "Page not found",
+		"description": "The page you're looking for doesn't exist or has been moved. Check the URL or head back to the home page.",
+		"backHome": "Back to home",
+		"backNews": "Browse the news"
 	}
 }

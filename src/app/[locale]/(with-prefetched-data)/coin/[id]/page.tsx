@@ -9,9 +9,11 @@ import { CRYPTO_IDS } from '@/lib/constants'
 import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { LoadingArea } from '@/components/loading-area'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
@@ -57,9 +59,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle', { coin: coinName }),
 			description: t('ogDescription', { coin: coinName }),
 			url: `/coin/${id}`,
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: `/coin/${id}`,
+			canonical: localePath(`/coin/${id}`, locale),
 		},
 	}
 }
@@ -103,6 +108,7 @@ export default async function CoinDetailPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path={`/coin/${coinIdParam}`} />
 			<ModernPageBackground />
 
 			<div className="space-y-8">

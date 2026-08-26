@@ -5,6 +5,10 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
+import { localePath } from '@/lib/seo'
+
+import { HreflangLinks } from '@/components/hreflang-links'
+
 type Props = {
 	params: Promise<{ locale: string }>
 }
@@ -19,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	return {
 		title: t('title'),
 		description: t('description'),
-		alternates: { canonical: '/legal/disclaimer' },
+		alternates: { canonical: localePath('/legal/disclaimer', locale) },
 	}
 }
 
@@ -34,6 +38,7 @@ export default async function DisclaimerPage({ params }: Props) {
 
 	return (
 		<main className="container mx-auto px-4 py-12 max-w-3xl">
+			<HreflangLinks path="/legal/disclaimer" />
 			<div className="mb-2">
 				<p className="text-sm text-muted-foreground">{tLegal('lastUpdated', { date: 'February 16, 2026' })}</p>
 			</div>

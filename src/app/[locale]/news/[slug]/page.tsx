@@ -8,11 +8,13 @@ import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
 import { getAllNews, getArticleLocale, getNewsMetadata, getRelatedNews } from '@/lib/news'
+import { localePath, ogLocale } from '@/lib/seo'
 
 import { env } from '@/env'
 
 import { Button } from '@/components/ui/button'
 import { ArticleCover } from '@/components/article-cover'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsCard } from '@/components/news-card'
 
@@ -51,8 +53,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			title: article.title,
 			description: article.description,
-			url: `/news/${slug}`,
+			url: localePath(`/news/${slug}`, locale),
 			type: 'article',
+			locale: ogLocale(locale),
 			publishedTime: article.date,
 			authors: article.author ? [article.author] : undefined,
 			images: [
@@ -69,7 +72,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			images: [ogImage],
 		},
 		alternates: {
-			canonical: `/news/${slug}`,
+			canonical: localePath(`/news/${slug}`, locale),
 		},
 	}
 }
@@ -99,6 +102,7 @@ export default async function NewsArticlePage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path={`/news/${slug}`} />
 			<ModernPageBackground />
 
 			<script

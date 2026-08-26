@@ -5,9 +5,12 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
+
 import { Appear } from '@/components/ui/appear'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
@@ -39,9 +42,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/get-nano',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/get-nano',
+			canonical: localePath('/get-nano', locale),
 		},
 	}
 }
@@ -96,6 +102,7 @@ export default async function GetNanoPage() {
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24">
+			<HreflangLinks path="/get-nano" />
 			<ModernPageBackground />
 
 			{/* Hero */}

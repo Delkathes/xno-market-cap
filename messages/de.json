@@ -1189,5 +1189,12 @@
 		"tooltipCap": "MARKETCAP",
 		"jumpNext": "NÄCHSTER MEILENSTEIN",
 		"jumpPrev": "VORHERIGER MEILENSTEIN"
+	},
+	"notFound": {
+		"code": "FEHLER 404",
+		"title": "Seite nicht gefunden",
+		"description": "Die gesuchte Seite existiert nicht oder wurde verschoben. Prüfen Sie die URL oder kehren Sie zur Startseite zurück.",
+		"backHome": "Zur Startseite",
+		"backNews": "Nachrichten lesen"
 	}
 }

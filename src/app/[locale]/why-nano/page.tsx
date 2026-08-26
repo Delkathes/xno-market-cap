@@ -29,8 +29,11 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
+
 import { Appear } from '@/components/ui/appear'
 import { Button } from '@/components/ui/button'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { AnimatedTerminal } from '@/components/why-nano/animated-terminal'
 import { AnimatedWorkflow } from '@/components/why-nano/animated-workflow'
@@ -52,6 +55,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
+			url: '/why-nano',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
+		},
+		alternates: {
+			canonical: localePath('/why-nano', locale),
 		},
 	}
 }
@@ -65,6 +75,7 @@ export default async function WhyNanoPage({ params }: Props) {
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24">
+			<HreflangLinks path="/why-nano" />
 			<ModernPageBackground />
 
 			{/* Hero Section */}

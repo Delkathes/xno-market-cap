@@ -9,6 +9,7 @@ import { getTranslations } from 'next-intl/server'
 import { type Locale, routing } from '@/i18n/routing'
 
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
+import { ogLocale } from '@/lib/seo'
 
 import { env } from '@/env'
 
@@ -85,11 +86,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 					type: 'image/svg+xml',
 				},
 			],
-			// apple: '/apple-icon.png',
+			apple: '/apple-icon.png',
 		},
 		openGraph: {
 			type: 'website',
-			locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+			locale: ogLocale(locale),
 			url: SITE_URL,
 			siteName: 'NanoMarketCap',
 			title: t('ogTitle'),
@@ -132,16 +133,6 @@ export default async function RootLayout({ children, params }: Props) {
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
 				<ThemeProvider defaultTheme="system" disableTransitionOnChange>
 					<Providers>
-						{/* hreflang alternates — hoisted into <head> by Next.js (layout metadata
-						    alternates.languages is not emitted with cacheComponents) */}
-						{LOCALES.map((locale) => (
-							<link
-								key={locale}
-								rel="alternate"
-								hrefLang={locale}
-								href={locale === DEFAULT_LOCALE ? SITE_URL : `${SITE_URL}/${locale}`}
-							/>
-						))}
 						<div className="min-h-screen flex flex-col animate-gradient-shift">
 							{/* Navigation uses usePathname (URL data) — wrap in Suspense so it
 							    streams in after prerendering instead of blocking it */}

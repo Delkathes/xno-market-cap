@@ -1189,5 +1189,12 @@
 		"tooltipCap": "CAPITALIZACIÓN",
 		"jumpNext": "SIGUIENTE HITO",
 		"jumpPrev": "HITO ANTERIOR"
+	},
+	"notFound": {
+		"code": "ERROR 404",
+		"title": "Página no encontrada",
+		"description": "La página que buscas no existe o se ha movido. Revisa la URL o vuelve a la página de inicio.",
+		"backHome": "Volver al inicio",
+		"backNews": "Ver las noticias"
 	}
 }

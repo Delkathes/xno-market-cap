@@ -5,8 +5,11 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
+
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Appear } from '@/components/ui/appear'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { NanswapIframe } from '@/components/nanswap-widget'
 
@@ -38,9 +41,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/swap-nano',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/swap-nano',
+			canonical: localePath('/swap-nano', locale),
 		},
 	}
 }
@@ -56,6 +62,7 @@ export default async function SwapNanoPage({ params }: Props) {
 
 	return (
 		<main className="relative container mx-auto px-4 pt-28 pb-24">
+			<HreflangLinks path="/swap-nano" />
 			<ModernPageBackground />
 
 			{/* Hero */}

@@ -3,7 +3,10 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
+
 import { Skeleton } from '@/components/ui/skeleton'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { ParityCalculator } from '@/components/parity-calculator'
 import { ParityHighlight } from '@/components/parity-highlight'
@@ -28,9 +31,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/calculators',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/calculators',
+			canonical: localePath('/calculators', locale),
 		},
 	}
 }
@@ -286,6 +292,7 @@ export default async function CalculatorsPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path="/calculators" />
 			<ModernPageBackground />
 
 			{/* Hero */}

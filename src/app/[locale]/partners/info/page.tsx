@@ -3,8 +3,11 @@ import { cacheLife } from 'next/cache'
 import { Globe, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
+import { localePath } from '@/lib/seo'
+
 import { Appear } from '@/components/ui/appear'
 import { Badge } from '@/components/ui/badge'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { PartnerForm } from '@/components/partner-form'
 
@@ -23,6 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		title: t('partners.title'),
 		description: t('partners.description'),
 		robots: 'index,follow',
+		alternates: {
+			canonical: localePath('/partners/info', locale),
+		},
 	}
 }
 
@@ -35,6 +41,7 @@ export default async function PartnerInfoPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto py-12 px-4 max-w-5xl">
+			<HreflangLinks path="/partners/info" />
 			<ModernPageBackground />
 
 			{/* Hero Section */}

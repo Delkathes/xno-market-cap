@@ -4,8 +4,11 @@ import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
+
 import { Skeleton } from '@/components/ui/skeleton'
 import { DominanceTable } from '@/components/dominance-table'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { LoadingArea } from '@/components/loading-area'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
@@ -31,9 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/dominance',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/dominance',
+			canonical: localePath('/dominance', locale),
 		},
 	}
 }
@@ -45,6 +51,7 @@ export default async function DominancePage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path="/dominance" />
 			<ModernPageBackground />
 
 			<header className="mb-12 sm:mb-14 animate-fade-in-up">

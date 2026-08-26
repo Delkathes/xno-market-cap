@@ -1189,5 +1189,12 @@
 		"tooltipCap": "CAPITALISATION",
 		"jumpNext": "JALON SUIVANT",
 		"jumpPrev": "JALON PRÉCÉDENT"
+	},
+	"notFound": {
+		"code": "ERREUR 404",
+		"title": "Page introuvable",
+		"description": "La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou revenez à la page d'accueil.",
+		"backHome": "Retour à l'accueil",
+		"backNews": "Parcourir les actualités"
 	}
 }

@@ -3,7 +3,10 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
+
 import { Skeleton } from '@/components/ui/skeleton'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { SpeculationTable } from '@/components/speculation-table'
 
@@ -25,9 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/speculation',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/speculation',
+			canonical: localePath('/speculation', locale),
 		},
 	}
 }
@@ -40,6 +46,7 @@ export default async function SpeculationPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path="/speculation" />
 			<ModernPageBackground />
 
 			<header className="mb-12 sm:mb-14 animate-fade-in-up">

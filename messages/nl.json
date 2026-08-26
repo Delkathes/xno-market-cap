@@ -1189,5 +1189,12 @@
 		"tooltipCap": "MARKETCAP",
 		"jumpNext": "VOLGENDE MIJPAAL",
 		"jumpPrev": "VORIGE MIJPAAL"
+	},
+	"notFound": {
+		"code": "FOUT 404",
+		"title": "Pagina niet gevonden",
+		"description": "De pagina die je zoekt bestaat niet of is verplaatst. Controleer de URL of ga terug naar de homepagina.",
+		"backHome": "Terug naar huis",
+		"backNews": "Bekijk het nieuws"
 	}
 }

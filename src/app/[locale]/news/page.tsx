@@ -15,8 +15,10 @@ import {
 	paginateNews,
 	queryNews,
 } from '@/lib/news'
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { Skeleton } from '@/components/ui/skeleton'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsCard } from '@/components/news-card'
 import { NewsFilterBar } from '@/components/news-filter-bar'
@@ -49,9 +51,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
 			url: '/news',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/news',
+			canonical: localePath('/news', locale),
 			types: {
 				'application/rss+xml': '/rss.xml',
 			},
@@ -65,6 +70,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path="/news" />
 			<ModernPageBackground />
 
 			<header className="mb-8 animate-fade-in-up sm:mb-10">

@@ -4,8 +4,10 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { getNewsMetadata } from '@/lib/news'
+import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { Skeleton } from '@/components/ui/skeleton'
+import { HreflangLinks } from '@/components/hreflang-links'
 import { MilestonesView } from '@/components/milestones-view'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
@@ -27,9 +29,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: t('title'),
 			description: t('description'),
 			url: '/milestones',
+			type: 'website',
+			locale: ogLocale(locale),
+			images: ogImage(),
 		},
 		alternates: {
-			canonical: '/milestones',
+			canonical: localePath('/milestones', locale),
 		},
 	}
 }
@@ -45,6 +50,7 @@ export default async function MilestonesPage({ params }: Props) {
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
+			<HreflangLinks path="/milestones" />
 			<ModernPageBackground />
 
 			<header className="mb-8 animate-fade-in-up sm:mb-10">
