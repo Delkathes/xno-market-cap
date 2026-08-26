@@ -84,7 +84,7 @@ function Stat({
 			<p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
 			<p
 				className={cn(
-					'mt-1 font-mono text-base font-bold leading-snug tabular-nums tracking-tight break-words',
+					'mt-1 font-mono text-base font-bold leading-snug tabular-nums tracking-tight wrap-break-word',
 					accent ? 'text-[#209CE9]' : 'text-foreground',
 				)}
 			>

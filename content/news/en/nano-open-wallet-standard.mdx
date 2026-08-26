@@ -1,0 +1,67 @@
+export const metadata = {
+	emoji: '🔑',
+	title: 'Nano Joins the Open Wallet Standard',
+	description:
+		'OWS PR #109 adds Nano as a supported chain: wallets and tools built on the standard can now derive nano:mainnet addresses and sign Nano state blocks with Ed25519 and remote proof of work.',
+	date: '2026-04-08',
+	author: 'NanoMarketCap Team',
+	tags: ['development', 'ecosystem', 'tools'],
+	published: true,
+}
+
+# Nano Joins the Open Wallet Standard
+
+On April 8, 2026, [pull request #109](https://github.com/open-wallet-standard/core/pull/109) merged into the Open Wallet Standard core repository, and Nano became a supported chain. The PR was authored by cbrunnkvist and merged by maintainer njdawn. The practical effect is simple: the `ows` CLI and the libraries around it can now derive Nano addresses and sign Nano state blocks the same way they handle Solana, Sui, or TON.
+
+<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="The Open Wallet Standard PR #109 on GitHub: title 'feat: add Nano (XNO) chain support' and the start of the PR description explaining the block lattice and signing details" caption="PR #109 as merged: the title, the merge state, and a description that leads with Nano's block lattice" />
+
+## What the Open Wallet Standard is
+
+The Open Wallet Standard is a shared layer for wallet interoperability. Instead of every wallet and every app re-implementing key derivation and signing for every chain, OWS defines one flow: create a wallet, derive keys from a mnemonic, sign transactions. Chains plug in as signers. Before this PR, the roster was Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin, and Tron. Nano makes ten.
+
+<Callout type="insight" title="Why it matters">
+	Wallets and tools built on OWS can now handle Nano exactly like they handle Solana or Sui. That is a step toward Nano being a first-class citizen in general wallet tooling, not just in Nano-specific apps.
+</Callout>
+
+## What the PR changes
+
+The CLI surface barely moves: no new commands, no new flags. `ows wallet create` and `ows mnemonic derive` now emit `nano:mainnet` addresses, and `ows sign tx` and `ows sign send-tx` accept `--chain nano`. The signer adds no new crypto dependencies; it reuses ed25519-dalek's hazmat raw signing with blake2b-512, plus blake2 and hex.
+
+<StatGrid>
+	<Stat label="Chain (CAIP-2)" value="nano:mainnet" accent />
+	<Stat label="Coin type" value="BIP-44 165" />
+	<Stat label="Signing" value="Ed25519 + blake2b" />
+	<Stat label="Unit" value="1 XNO = 10^30 raw" />
+</StatGrid>
+
+## The part that is actually different
+
+Signing Nano is easy. Broadcasting is not, and that is the interesting part of this PR. Nano has no global chain: every account owns its own chain of blocks (the block lattice), and a transfer only becomes spendable when two blocks exist, a send block on the sender's chain and a receive block on the receiver's chain.
+
+A state block is 176 bytes (account, previous, representative, balance, link). The signer hashes it with blake2b-256 and signs the hash with Ed25519, standard crypto. The broadcast path is the unusual part: OWS must query the account state to work out whether a block is a send, a receive, or an open, generate proof of work (remote-only in this PR, delegated to RPC endpoints, roughly a second, no fees), then publish through the Nano RPC `process` action. And receiving stays explicit: the recipient has to publish a receive block, it does not happen by itself.
+
+## The mainnet roundtrip, condensed
+
+The author proved it on mainnet, not just in tests. He built the blocks with the [xno-skills CLI](https://github.com/CasualSecurityInc/xno-skills), signed them with OWS, and moved 0.1 XNO; both blocks confirmed and are visible on blocklattice.io.
+
+<Terminal title="mainnet roundtrip: 0.1 XNO">
+	ows wallet create --wallet test
+	# -> nano:mainnet address, funded from an external account
+
+	npx xno-skills block receive -a $OWS_ACCT
+	# builds the receive block; OWS signs and publishes it
+	ows sign send-tx --chain nano --wallet test --tx "$R_TXN"
+
+	npx xno-skills block send -a $OWS_ACCT -t $EXT_ACCT --amount-xno 0.1
+	ows sign send-tx --chain nano --wallet test --tx "$S_TXN"
+</Terminal>
+
+## What is honestly not in this PR
+
+Three things, stated plainly in the PR itself. First, message signing: `sign message` exists for other chains, but the Nano version is deliberately unimplemented, marked #TBDL, pending a de facto standard for what a "signed message" even is on Nano ([tracking issue #183](https://github.com/open-wallet-standard/core/issues/183), same approach as XRPL). Second, no higher-level commands: there is no `ows send --to ... --amount ...` or `ows balance`, because OWS is consistently "bring your own unsigned transaction" across all chains. cbrunnkvist notes that constructing a state block by hand is painful, and that Nano would be a good candidate to pilot a generic send/balance layer if the maintainers want one. Third, proof of work is remote-only: no CPU or GPU PoW, everything goes through RPC endpoints.
+
+The testing story is solid: 20 unit tests in the Nano signer (address encoding, 12- and 24-word mnemonic derivation vectors, signing, verification, state block hashing), all 458 workspace tests pass, clippy is clean. The thread even drew reactions from Exxenoz and xnoforge.
+
+This is an infrastructure PR, not a user-facing launch. No new app, no new token. What it does is quietly important: Nano now speaks the same signing language as the rest of the wallet ecosystem, and the next wallet that ships OWS support can list Nano out of the box. The dev-facing crate is [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+
+<GitHubRepo repo="open-wallet-standard/core" />

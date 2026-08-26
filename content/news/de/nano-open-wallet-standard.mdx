@@ -1,0 +1,67 @@
+export const metadata = {
+	emoji: '🔑',
+	title: 'Nano ist jetzt Teil des Open Wallet Standard',
+	description:
+		'Mit PR #109 ist Nano eine unterstützte Kette im Open Wallet Standard: Wallets und Tools können jetzt nano:mainnet-Adressen ableiten und Nano-State-Blöcke per Ed25519 mit Remote-Proof-of-Work signieren.',
+	date: '2026-04-08',
+	author: 'NanoMarketCap Team',
+	tags: ['development', 'ecosystem', 'tools'],
+	published: true,
+}
+
+# Nano ist jetzt Teil des Open Wallet Standard
+
+Am 8. April 2026 wurde [Pull Request #109](https://github.com/open-wallet-standard/core/pull/109) in das Kern-Repository des Open Wallet Standard gemerged, und Nano ist seitdem eine unterstützte Kette. Geschrieben wurde die PR von cbrunnkvist, gemerged vom Maintainer njdawn. Die praktische Wirkung ist einfach erklärt: Die `ows`-CLI und die dazugehörigen Bibliotheken können jetzt Nano-Adressen ableiten und Nano-State-Blöcke signieren, genau so, wie sie es für Solana, Sui oder TON tun.
+
+<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="Pull Request #109 des Open Wallet Standard auf GitHub: Titel «feat: add Nano (XNO) chain support» und der Beginn der PR-Beschreibung mit Erklärungen zu Block Lattice und Signatur-Details" caption="Die gemergte PR #109: Titel, Merge-Status und eine Beschreibung, die mit Nanos Block Lattice beginnt" />
+
+## Was der Open Wallet Standard ist
+
+Der Open Wallet Standard ist eine gemeinsame Schicht für die Interoperabilität von Wallets. Statt dass jedes Wallet und jede App die Schlüsselableitung und Signatur für jede Kette neu implementiert, definiert OWS einen einzigen Ablauf: Wallet erstellen, Schlüssel aus einer Mnemonic ableiten, Transaktionen signieren. Ketten stecken sich als Signer ein. Vor dieser PR standen Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin und Tron auf der Liste. Nano macht zehn.
+
+<Callout type="insight" title="Warum das zählt">
+	Wallets und Tools auf OWS-Basis können Nano jetzt genauso behandeln wie Solana oder Sui. Das ist ein Schritt in Richtung Nano als vollwertiger Teil der allgemeinen Wallet-Werkzeuge, nicht nur von Nano-spezifischen Apps.
+</Callout>
+
+## Was die PR ändert
+
+An der CLI-Oberfläche bewegt sich kaum etwas: keine neuen Befehle, keine neuen Flags. `ows wallet create` und `ows mnemonic derive` geben jetzt `nano:mainnet`-Adressen aus, und `ows sign tx` sowie `ows sign send-tx` akzeptieren `--chain nano`. Der Signer bringt keine neuen Krypto-Abhängigkeiten mit; er nutzt das Hazmat-Raw-Signing von ed25519-dalek mit blake2b-512 sowie blake2 und hex.
+
+<StatGrid>
+	<Stat label="Kette (CAIP-2)" value="nano:mainnet" accent />
+	<Stat label="Coin-Typ" value="BIP-44 165" />
+	<Stat label="Signatur" value="Ed25519 + blake2b" />
+	<Stat label="Einheit" value="1 XNO = 10^30 raw" />
+</StatGrid>
+
+## Der Teil, der wirklich anders ist
+
+Nano zu signieren ist einfach. Es zu übertragen nicht, und genau das ist der interessante Teil dieser PR. Nano hat keine globale Blockchain: Jedes Konto besitzt seine eigene Blockkette (das Block Lattice), und ein Transfer wird erst ausgabefähig, wenn zwei Blöcke existieren, ein Send-Block auf der Kette des Absenders und ein Receive-Block auf der Kette des Empfängers.
+
+Ein State-Block ist 176 Bytes groß (account, previous, representative, balance, link). Der Signer hasht ihn mit blake2b-256 und signiert den Hash per Ed25519, Standard-Krypto. Ungewöhnlich ist der Broadcast-Weg: OWS muss den Kontostand abfragen, um zu bestimmen, ob ein Block ein Send, ein Receive oder ein Open ist, dann Proof of Work erzeugen (in dieser PR ausschließlich remote, delegiert an RPC-Endpunkte, etwa eine Sekunde, ohne Gebühren) und schließlich über die `process`-Aktion des Nano-RPC veröffentlichen. Und Empfangen bleibt explizit: Der Empfänger muss einen Receive-Block veröffentlichen, von selbst passiert das nicht.
+
+## Der Mainnet-Test, komprimiert
+
+Der Autor hat es auf dem Mainnet bewiesen, nicht nur in Tests. Er baute die Blöcke mit der [xno-skills-CLI](https://github.com/CasualSecurityInc/xno-skills), signierte sie mit OWS und bewegte 0.1 XNO; beide Blöcke wurden bestätigt und sind auf blocklattice.io einsehbar.
+
+<Terminal title="Mainnet-Roundtrip: 0.1 XNO">
+	ows wallet create --wallet test
+	# -> nano:mainnet-Adresse, von einem externen Konto finanziert
+
+	npx xno-skills block receive -a $OWS_ACCT
+	# baut den Receive-Block; OWS signiert und veröffentlicht ihn
+	ows sign send-tx --chain nano --wallet test --tx "$R_TXN"
+
+	npx xno-skills block send -a $OWS_ACCT -t $EXT_ACCT --amount-xno 0.1
+	ows sign send-tx --chain nano --wallet test --tx "$S_TXN"
+</Terminal>
+
+## Was ehrlich gesagt fehlt
+
+Drei Dinge, die die PR selbst klar benennt. Erstens Message-Signing: `sign message` gibt es für andere Ketten, aber die Nano-Variante ist bewusst nicht implementiert, als #TBDL markiert, bis sich ein De-facto-Standard dafür etabliert, was eine «signierte Nachricht» auf Nano überhaupt ist ([Tracking-Issue #183](https://github.com/open-wallet-standard/core/issues/183), gleicher Ansatz wie bei XRPL). Zweitens keine höheren Befehle: Es gibt kein `ows send --to ... --amount ...` und kein `ows balance`, denn OWS ist über alle Ketten hinweg konsequent «bring your own unsigned transaction». cbrunnkvist merkt an, dass das manuelle Konstruieren eines State-Blocks mühsam ist und Nano ein guter Kandidat wäre, um eine generische Send/Balance-Schicht zu pilotieren, falls die Maintainer das wollen. Drittens ist Proof of Work nur remote möglich: kein CPU- oder GPU-PoW, alles läuft über RPC-Endpunkte.
+
+Die Testlage ist solide: 20 Unit-Tests im Nano-Signer (Adresskodierung, Ableitungsvektoren für 12- und 24-Wort-Mnemonics, Signieren, Verifizieren, State-Block-Hashing), alle 458 Workspace-Tests bestehen, clippy ist sauber. Im Thread gab es außerdem Reaktionen von Exxenoz und xnoforge.
+
+Das ist eine Infrastruktur-PR, kein Release für Endnutzer. Keine neue App, kein neues Token. Was sie tut, ist still und wichtig: Nano spricht jetzt dieselbe Signatursprache wie der Rest des Wallet-Ökosystems, und das nächste Wallet mit OWS-Support kann Nano ohne Zusatzaufwand auflisten. Das Entwickler-Crate ist [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+
+<GitHubRepo repo="open-wallet-standard/core" />

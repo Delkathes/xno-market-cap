@@ -1,0 +1,67 @@
+export const metadata = {
+	emoji: '🔑',
+	title: 'Nano sluit zich aan bij de Open Wallet Standard',
+	description:
+		'OWS PR #109 voegt Nano toe als ondersteunde keten: wallets en tools op de standaard kunnen nu nano:mainnet-adressen afleiden en Nano-state-blokken ondertekenen met Ed25519 en externe proof of work.',
+	date: '2026-04-08',
+	author: 'NanoMarketCap Team',
+	tags: ['development', 'ecosystem', 'tools'],
+	published: true,
+}
+
+# Nano sluit zich aan bij de Open Wallet Standard
+
+Op 8 april 2026 werd [pull request #109](https://github.com/open-wallet-standard/core/pull/109) gemerged in de kernrepository van de Open Wallet Standard, en Nano werd een ondersteunde keten. De PR is geschreven door cbrunnkvist en gemerged door maintainer njdawn. Het praktische effect is simpel: de `ows`-CLI en de bibliotheken eromheen kunnen nu Nano-adressen afleiden en Nano-state-blokken ondertekenen, precies zoals ze dat voor Solana, Sui of TON doen.
+
+<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="Pull request #109 van de Open Wallet Standard op GitHub: titel 'feat: add Nano (XNO) chain support' en het begin van de PR-beschrijving waarin het block lattice en de ondertekeningsdetails worden uitgelegd" caption="De gemergde PR #109: de titel, de merge-status en een beschrijving die begint met het block lattice van Nano" />
+
+## Wat de Open Wallet Standard is
+
+De Open Wallet Standard is een gedeelde laag voor wallet-interoperabiliteit. In plaats van dat elke wallet en elke app sleutelafleiding en ondertekening voor elke keten opnieuw implementeert, definieert OWS één flow: een wallet aanmaken, sleutels afleiden uit een mnemonic, transacties ondertekenen. Ketens pluggen in als signers. Vóór deze PR bestond de lijst uit Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin en Tron. Nano maakt er tien.
+
+<Callout type="insight" title="Waarom dit ertoe doet">
+	Wallets en tools die op OWS zijn gebouwd, kunnen Nano nu precies zo behandelen als Solana of Sui. Dat is een stap richting Nano als eersteklas burger in algemene wallet-tooling, niet alleen in Nano-specifieke apps.
+</Callout>
+
+## Wat de PR verandert
+
+Het CLI-oppervlak beweegt nauwelijks: geen nieuwe commando's, geen nieuwe flags. `ows wallet create` en `ows mnemonic derive` geven nu `nano:mainnet`-adressen uit, en `ows sign tx` en `ows sign send-tx` accepteren `--chain nano`. De signer voegt geen nieuwe crypto-afhankelijkheden toe; hij hergebruikt het hazmat raw signing van ed25519-dalek met blake2b-512, plus blake2 en hex.
+
+<StatGrid>
+	<Stat label="Keten (CAIP-2)" value="nano:mainnet" accent />
+	<Stat label="Coin type" value="BIP-44 165" />
+	<Stat label="Ondertekening" value="Ed25519 + blake2b" />
+	<Stat label="Eenheid" value="1 XNO = 10^30 raw" />
+</StatGrid>
+
+## Het deel dat écht anders is
+
+Nano ondertekenen is makkelijk. Broadcasten niet, en dat is het interessante deel van deze PR. Nano heeft geen globale blockchain: elke account heeft een eigen keten van blokken (het block lattice), en een transfer wordt pas besteedbaar als er twee blokken bestaan, een send-blok op de keten van de verzender en een receive-blok op die van de ontvanger.
+
+Een state-blok is 176 bytes groot (account, previous, representative, balance, link). De signer hasht het met blake2b-256 en ondertekent de hash met Ed25519, standaardcrypto. Het ongebruikelijke zit in het broadcastpad: OWS moet de accountstate opvragen om te bepalen of een blok een send, een receive of een open is, proof of work genereren (in deze PR alleen extern, gedelegeerd aan RPC-endpoints, ongeveer een seconde, zonder kosten), en dan publiceren via de `process`-actie van de Nano-RPC. En ontvangen blijft expliciet: de ontvanger moet zelf een receive-blok publiceren, dat gebeurt niet vanzelf.
+
+## De mainnet-test, ingekort
+
+De auteur bewees het op mainnet, niet alleen in tests. Hij bouwde de blokken met de [xno-skills-CLI](https://github.com/CasualSecurityInc/xno-skills), ondertekende ze met OWS en verplaatste 0.1 XNO; beide blokken zijn bevestigd en zichtbaar op blocklattice.io.
+
+<Terminal title="mainnet-test: 0.1 XNO">
+	ows wallet create --wallet test
+	# -> nano:mainnet-adres, gefinancierd vanaf een extern account
+
+	npx xno-skills block receive -a $OWS_ACCT
+	# bouwt het receive-blok; OWS ondertekent en publiceert het
+	ows sign send-tx --chain nano --wallet test --tx "$R_TXN"
+
+	npx xno-skills block send -a $OWS_ACCT -t $EXT_ACCT --amount-xno 0.1
+	ows sign send-tx --chain nano --wallet test --tx "$S_TXN"
+</Terminal>
+
+## Wat er eerlijk gezegd niet in zit
+
+Drie dingen, helder benoemd in de PR zelf. Ten eerste message signing: `sign message` bestaat voor andere ketens, maar de Nano-variant is bewust niet geïmplementeerd, gemarkeerd als #TBDL, tot er een de facto standaard is voor wat een «ondertekend bericht» op Nano is ([tracking issue #183](https://github.com/open-wallet-standard/core/issues/183), zelfde aanpak als XRPL). Ten tweede geen hogere commando's: er is geen `ows send --to ... --amount ...` en geen `ows balance`, want OWS is op alle ketens consequent «breng je eigen ongetekende transactie». cbrunnkvist merkt op dat een state-blok met de hand bouwen pijnlijk is, en dat Nano een goede kandidaat zou zijn om een generieke send/balance-laag te piloten als de maintainers dat willen. Ten derde is proof of work alleen extern: geen CPU- of GPU-PoW, alles loopt via RPC-endpoints.
+
+De tests zijn solide: 20 unit tests in de Nano-signer (adrescodering, afleidingsvectoren voor 12- en 24-woorden-mnemonics, ondertekenen, verifiëren, hashing van state-blokken), alle 458 workspace-tests slagen, clippy is schoon. De thread kreeg ook reacties van Exxenoz en xnoforge.
+
+Dit is een infrastructuur-PR, geen lancering voor gebruikers. Geen nieuwe app, geen nieuw token. Wat het doet is stilletjes belangrijk: Nano spreekt nu dezelfde ondertekenings-taal als de rest van het wallet-ecosysteem, en de volgende wallet met OWS-ondersteuning kan Nano zonder extra werk opnemen. De crate voor ontwikkelaars is [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+
+<GitHubRepo repo="open-wallet-standard/core" />

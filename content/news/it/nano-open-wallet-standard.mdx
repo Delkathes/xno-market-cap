@@ -1,0 +1,67 @@
+export const metadata = {
+	emoji: '🔑',
+	title: "Nano entra nell'Open Wallet Standard",
+	description:
+		"La PR #109 di OWS aggiunge Nano come catena supportata: i wallet e gli strumenti basati sullo standard possono ora derivare indirizzi nano:mainnet e firmare gli state block di Nano con Ed25519 e proof of work remota.",
+	date: '2026-04-08',
+	author: 'NanoMarketCap Team',
+	tags: ['development', 'ecosystem', 'tools'],
+	published: true,
+}
+
+# Nano entra nell'Open Wallet Standard
+
+L'8 aprile 2026, la [pull request #109](https://github.com/open-wallet-standard/core/pull/109) è stata mergiata nel repository principale dell'Open Wallet Standard e Nano è diventata una catena supportata. La PR è stata scritta da cbrunnkvist e mergiata dal maintainer njdawn. L'effetto pratico è semplice: la CLI `ows` e le librerie che la circondano ora possono derivare indirizzi Nano e firmare state block di Nano esattamente come fanno per Solana, Sui o TON.
+
+<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="La PR #109 dell'Open Wallet Standard su GitHub: titolo «feat: add Nano (XNO) chain support» e l'inizio della descrizione della PR che spiega il block lattice e i dettagli di firma" caption="La PR #109 dopo il merge: titolo, stato del merge e una descrizione che parte dal block lattice di Nano" />
+
+## Cos'è l'Open Wallet Standard
+
+L'Open Wallet Standard è un livello condiviso per l'interoperabilità dei wallet. Invece di far reimplementare a ogni wallet e a ogni app la derivazione delle chiavi e la firma per ogni catena, OWS definisce un unico flusso: crea un wallet, deriva le chiavi da una frase mnemonic, firma le transazioni. Le catene si inseriscono come signer. Prima di questa PR, la lista era Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin e Tron. Nano fa dieci.
+
+<Callout type="insight" title="Perché conta">
+	I wallet e gli strumenti costruiti su OWS ora gestiscono Nano esattamente come Solana o Sui. È un passo verso Nano come cittadino di prima classe nel tooling wallet generale, non solo nelle app specifiche per Nano.
+</Callout>
+
+## Cosa cambia la PR
+
+La superficie della CLI si muove appena: nessun comando nuovo, nessun flag nuovo. `ows wallet create` e `ows mnemonic derive` ora emettono indirizzi `nano:mainnet`, e `ows sign tx` e `ows sign send-tx` accettano `--chain nano`. Il signer non aggiunge dipendenze crittografiche nuove; riusa il raw signing hazmat di ed25519-dalek con blake2b-512, più blake2 e hex.
+
+<StatGrid>
+	<Stat label="Catena (CAIP-2)" value="nano:mainnet" accent />
+	<Stat label="Coin type" value="BIP-44 165" />
+	<Stat label="Firma" value="Ed25519 + blake2b" />
+	<Stat label="Unità" value="1 XNO = 10^30 raw" />
+</StatGrid>
+
+## La parte davvero diversa
+
+Firmare su Nano è facile. Trasmettere non lo è, ed è la parte interessante di questa PR. Nano non ha una catena globale: ogni account possiede la propria catena di blocchi (il block lattice), e un trasferimento diventa spendibile solo quando esistono due blocchi, uno di invio sulla catena del mittente e uno di ricezione su quella del destinatario.
+
+Uno state block è di 176 byte (account, previous, representative, balance, link). Il signer lo hasha con blake2b-256 e firma l'hash con Ed25519, crittografia standard. L'insolito è il percorso di broadcast: OWS deve interrogare lo stato dell'account per capire se il blocco è un send, un receive o un open, generare la proof of work (solo remota in questa PR, delegata agli endpoint RPC, circa un secondo, senza fee), e poi pubblicare tramite l'azione `process` dell'RPC di Nano. E ricevere resta esplicito: il destinatario deve pubblicare il proprio blocco di ricezione, non avviene da solo.
+
+## Il roundtrip su mainnet, condensato
+
+L'autore l'ha dimostrato su mainnet, non solo nei test. Ha costruito i blocchi con la [CLI xno-skills](https://github.com/CasualSecurityInc/xno-skills), li ha firmati con OWS e ha spostato 0.1 XNO; entrambi i blocchi sono stati confermati e sono visibili su blocklattice.io.
+
+<Terminal title="roundtrip mainnet: 0.1 XNO">
+	ows wallet create --wallet test
+	# -> indirizzo nano:mainnet, finanziato da un account esterno
+
+	npx xno-skills block receive -a $OWS_ACCT
+	# costruisce il blocco di ricezione; OWS lo firma e lo pubblica
+	ows sign send-tx --chain nano --wallet test --tx "$R_TXN"
+
+	npx xno-skills block send -a $OWS_ACCT -t $EXT_ACCT --amount-xno 0.1
+	ows sign send-tx --chain nano --wallet test --tx "$S_TXN"
+</Terminal>
+
+## Cosa manca, onestamente, in questa PR
+
+Tre cose, dette chiaramente nella PR stessa. Prima, la firma dei messaggi: `sign message` esiste per altre catene, ma la versione per Nano è deliberatamente non implementata, marcata #TBDL, in attesa di uno standard di fatto su cosa sia un «messaggio firmato» su Nano ([issue di tracciamento #183](https://github.com/open-wallet-standard/core/issues/183), stesso approccio di XRPL). Seconda, niente comandi di livello superiore: non esiste `ows send --to ... --amount ...` né `ows balance`, perché OWS è coerentemente «bring your own unsigned transaction» su tutte le catene. cbrunnkvist nota che costruire uno state block a mano è faticoso, e che Nano sarebbe un buon candidato per sperimentare un livello generico di invio e saldo se i maintainer lo vogliono. Terza, la proof of work è solo remota: niente PoW su CPU o GPU, tutto passa dagli endpoint RPC.
+
+Il quadro dei test è solido: 20 unit test nel signer Nano (codifica degli indirizzi, vettori di derivazione mnemonic a 12 e 24 parole, firma, verifica, hashing degli state block), tutti i 458 test del workspace passano, clippy è pulito. Il thread ha anche raccolto reazioni da Exxenoz e xnoforge.
+
+È una PR di infrastruttura, non un lancio per l'utente finale. Nessuna app nuova, nessun token nuovo. Ciò che fa è importante in silenzio: Nano ora parla lo stesso linguaggio di firma del resto dell'ecosistema wallet, e il prossimo wallet con supporto OWS potrà elencare Nano senza lavoro aggiuntivo. Il crate per sviluppatori è [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+
+<GitHubRepo repo="open-wallet-standard/core" />
