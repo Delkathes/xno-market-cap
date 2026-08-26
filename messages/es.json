@@ -188,7 +188,8 @@
 		"clearFilters": "Borrar filtros",
 		"prevPage": "Página anterior",
 		"nextPage": "Página siguiente",
-		"paginationLabel": "Paginación de noticias"
+		"paginationLabel": "Paginación de noticias",
+		"relatedArticles": "Artículos relacionados"
 	},
 	"coinDetail": {
 		"errorLoading": "No se pueden cargar los datos de la moneda. Inténtalo más tarde.",

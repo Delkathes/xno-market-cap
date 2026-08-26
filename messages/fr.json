@@ -188,7 +188,8 @@
 		"clearFilters": "Effacer les filtres",
 		"prevPage": "Page précédente",
 		"nextPage": "Page suivante",
-		"paginationLabel": "Pagination des actualités"
+		"paginationLabel": "Pagination des actualités",
+		"relatedArticles": "Articles similaires"
 	},
 	"coinDetail": {
 		"errorLoading": "Impossible de charger les données de la crypto. Veuillez réessayer plus tard.",

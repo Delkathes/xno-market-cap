@@ -188,7 +188,8 @@
 		"clearFilters": "Filter zurücksetzen",
 		"prevPage": "Vorherige Seite",
 		"nextPage": "Nächste Seite",
-		"paginationLabel": "Artikel-Paginierung"
+		"paginationLabel": "Artikel-Paginierung",
+		"relatedArticles": "Ähnliche Artikel"
 	},
 	"coinDetail": {
 		"errorLoading": "Coin-Daten können nicht geladen werden. Bitte später erneut versuchen.",

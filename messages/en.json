@@ -182,7 +182,8 @@
 		"clearFilters": "Clear filters",
 		"prevPage": "Previous page",
 		"nextPage": "Next page",
-		"paginationLabel": "News pagination"
+		"paginationLabel": "News pagination",
+		"relatedArticles": "Related articles"
 	},
 	"coinDetail": {
 		"errorLoading": "Unable to load coin data. Please try again later.",

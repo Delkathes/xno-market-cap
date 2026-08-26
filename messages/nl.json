@@ -188,7 +188,8 @@
 		"clearFilters": "Filters wissen",
 		"prevPage": "Vorige pagina",
 		"nextPage": "Volgende pagina",
-		"paginationLabel": "Paginering van nieuws"
+		"paginationLabel": "Paginering van nieuws",
+		"relatedArticles": "Gerelateerde artikelen"
 	},
 	"coinDetail": {
 		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",

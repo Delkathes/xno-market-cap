@@ -32,7 +32,7 @@ export function ArticleTicker() {
 	})
 
 	if (!data) {
-		return <Skeleton className="my-6 h-8 w-52 rounded-md" />
+		return <Skeleton className="h-8 w-46 rounded-md" />
 	}
 
 	const rates: ExchangeRates = {
@@ -56,11 +56,11 @@ export function ArticleTicker() {
 	]
 
 	return (
-		<div className="group relative my-6 inline-block">
+		<div className="group h-8 w-46 relative inline-block">
 			<div
 				role="status"
 				aria-label={`XNO price in ${fiat.toUpperCase()}`}
-				className="flex cursor-default items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+				className="flex justify-between cursor-default items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
 			>
 				<span aria-hidden="true" className="relative flex h-1.5 w-1.5">
 					<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
@@ -129,7 +129,10 @@ export function ArticleTicker() {
 					<div className="flex justify-between">
 						<dt className="text-muted-foreground">SUPPLY</dt>
 						<dd className="tabular-nums">
-							{formatXNOAmount(data.xnoData.circulating_supply ?? 0, { compact: true, showSymbol: true })}
+							{formatXNOAmount(data.xnoData.circulating_supply ?? 0, {
+								compact: true,
+								showSymbol: true,
+							})}
 						</dd>
 					</div>
 				</dl>

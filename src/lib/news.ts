@@ -122,6 +122,38 @@ export async function getRecentNews(locale: string = DEFAULT_LOCALE, count = 3):
 	return allNews.slice(0, count)
 }
 
+/**
+ * Get articles related to a given article: shared tags first (highest overlap,
+ * then most recent), falling back to the most recent articles when nothing
+ * shares a tag. Excludes the article itself.
+ */
+export async function getRelatedNews(
+	slug: string,
+	locale: string = DEFAULT_LOCALE,
+	count = 3,
+): Promise<NewsMetadata[]> {
+	const articles = await getAllNews(locale)
+	const current = articles.find((article) => article.slug === slug)
+	const others = articles.filter((article) => article.slug !== slug)
+
+	if (!current) {
+		return others.slice(0, count)
+	}
+
+	const currentTags = new Set(current.tags ?? [])
+	const scored = others
+		.map((article) => ({
+			article,
+			score: (article.tags ?? []).filter((tag) => currentTags.has(tag)).length,
+		}))
+		.sort((a, b) => b.score - a.score || new Date(b.article.date).getTime() - new Date(a.article.date).getTime())
+
+	if (scored[0]?.score > 0) {
+		return scored.slice(0, count).map((entry) => entry.article)
+	}
+	return others.slice(0, count)
+}
+
 // =============================================================================
 // BROWSE ENGINE - search, multi-tag filtering, sorting, pagination
 // =============================================================================

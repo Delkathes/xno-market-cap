@@ -7,17 +7,23 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
-import { getAllNews, getArticleLocale, getNewsMetadata } from '@/lib/news'
+import { getAllNews, getArticleLocale, getNewsMetadata, getRelatedNews } from '@/lib/news'
 
 import { env } from '@/env'
 
 import { Button } from '@/components/ui/button'
 import { ArticleCover } from '@/components/article-cover'
 import { ModernPageBackground } from '@/components/modern-page-background'
+import { NewsCard } from '@/components/news-card'
 
 type Props = {
 	params: Promise<{ locale: string; slug: string }>
 }
+
+// Article pages mix cached MDX, a client-side market ticker, and dynamic
+// imports, so they cannot be validated as instant-navigation segments.
+// Render them as blocking routes (still cached via 'use cache' below).
+export const instant = false
 
 export async function generateStaticParams() {
 	const articles = await getAllNews()
@@ -89,6 +95,8 @@ export default async function NewsArticlePage({ params }: Props) {
 	// Dynamically import the MDX content
 	const { default: Content } = await import(`@content/news/${effectiveLocale}/${slug}.mdx`)
 
+	const relatedArticles = await getRelatedNews(slug, effectiveLocale, 3)
+
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<ModernPageBackground />
@@ -140,6 +148,20 @@ export default async function NewsArticlePage({ params }: Props) {
 				<article className="article-prose">
 					<Content />
 				</article>
+
+				{/* Related articles */}
+				{relatedArticles.length > 0 && (
+					<section className="mt-16">
+						<h2 className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+							{t('relatedArticles')}
+						</h2>
+						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+							{relatedArticles.map((article, index) => (
+								<NewsCard key={article.slug} article={article} locale={locale} index={index} />
+							))}
+						</div>
+					</section>
+				)}
 			</div>
 		</main>
 	)
