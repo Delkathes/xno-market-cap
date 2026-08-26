@@ -214,24 +214,23 @@ export async function GitHubRepoCard({ repo }: { repo: string }) {
 	const languageColor = info?.language ? (LANGUAGE_COLORS[info.language] ?? DEFAULT_LANGUAGE_COLOR) : null
 	const licenseId = info?.license?.spdx_id ?? null
 
-	let maintainer: { name: string; url: string; avatar: string } | null = null
+	let _maintainer: { name: string; url: string; avatar: string } | null = null
 	if (data?.user) {
-		maintainer = {
+		_maintainer = {
 			name: data.user.name ?? data.user.login,
 			url: data.user.html_url,
 			avatar: data.user.avatar_url,
 		}
 	} else if (info) {
-		maintainer = { name: info.owner.login, url: info.owner.html_url, avatar: info.owner.avatar_url }
+		_maintainer = { name: info.owner.login, url: info.owner.html_url, avatar: info.owner.avatar_url }
 	}
 
 	return (
 		<div className="my-6 rounded-lg border border-border bg-card p-4">
 			{/* Mini header */}
 			<div className="flex items-start justify-between gap-1.5">
-				{/* Identity row: repo on the left, maintainer aligned right on the same baseline */}
-
-				<div className="flex items-start gap-4 mb-4">
+				{/* Identity row: repo on the left, maintainer below on mobile, aligned right on larger screens */}
+				<div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
 					<div className="flex min-w-0 items-start gap-3">
 						{info ? (
 							// biome-ignore lint/performance/noImgElement: decorative repo owner avatar
@@ -260,7 +259,7 @@ export async function GitHubRepoCard({ repo }: { repo: string }) {
 						</div>
 					</div>
 
-					{maintainer && (
+					{/* {maintainer && (
 						<div className="flex items-center gap-2">
 							<span>by </span>{' '}
 							<a
@@ -269,7 +268,6 @@ export async function GitHubRepoCard({ repo }: { repo: string }) {
 								rel="noopener noreferrer"
 								className="group flex shrink-0 items-center gap-2"
 							>
-								{/* biome-ignore lint/performance/noImgElement: maintainer avatar */}
 								<img
 									src={maintainer.avatar}
 									alt=""
@@ -280,7 +278,7 @@ export async function GitHubRepoCard({ repo }: { repo: string }) {
 								</span>
 							</a>
 						</div>
-					)}
+					)} */}
 				</div>
 				<div className="whitespace-nowrap flex">
 					<GithubIcon className="h-3 w-3 text-muted-foreground mr-2" />
