@@ -153,7 +153,16 @@
 		"clickToToggle": "Klicken zum Wechseln {options}",
 		"betweenBtcAndSatoshi": "zwischen BTC und Satoshi",
 		"units": "Einheiten",
-		"clickToSwitchTimeframe": "Klicken, um den Zeitraum zu wechseln. Dominanzänderung anhand von Preisänderungen approximiert."
+		"clickToSwitchTimeframe": "Klicken, um den Zeitraum zu wechseln. Dominanzänderung anhand von Preisänderungen approximiert.",
+		"live": "LIVE",
+		"lastSync": "LETZTE SYNC",
+		"syncAgo": "VOR {seconds}s",
+		"milestoneSection": "MEILENSTEIN-TRACKER",
+		"milestoneNext": "NÄCHSTER",
+		"milestoneToGo": "NOCH",
+		"milestoneStory": "DIE $1B GESCHICHTE",
+		"milestoneTooltipCap": "MARKETCAP",
+		"milestoneTooltipXno": "1 XNO"
 	},
 	"marketTable": {
 		"loadingMarketData": "Lade Marktdaten...",
@@ -189,7 +198,9 @@
 		"prevPage": "Vorherige Seite",
 		"nextPage": "Nächste Seite",
 		"paginationLabel": "Artikel-Paginierung",
-		"relatedArticles": "Ähnliche Artikel"
+		"relatedArticles": "Ähnliche Artikel",
+		"rssFeed": "RSS",
+		"rssFeedTitle": "Zum RSS-Feed abonnieren"
 	},
 	"coinDetail": {
 		"errorLoading": "Coin-Daten können nicht geladen werden. Bitte später erneut versuchen.",

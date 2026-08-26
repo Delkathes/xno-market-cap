@@ -40,10 +40,19 @@ export function getAllowedOrigins(): string[] {
 }
 
 /**
- * Check if a request origin/referer is allowed
+ * Check if a request origin/referer is allowed.
+ * In development, the request's own Host header is also accepted so LAN and
+ * Tailscale testing works (e.g. a phone served from http://100.80.26.88:3000
+ * whose browser sends an Origin header on same-origin GET requests).
  */
-export function isAllowedOrigin(origin: string | null, referer: string | null): boolean {
+export function isAllowedOrigin(origin: string | null, referer: string | null, requestHost?: string | null): boolean {
 	const allowedOrigins = new Set(getAllowedOrigins())
+
+	if (env.NODE_ENV === 'development' && requestHost) {
+		allowedOrigins.add(`http://${requestHost}`)
+		allowedOrigins.add(`https://${requestHost}`)
+	}
+
 	const normalizedOrigin = origin ? normalizeOrigin(origin) : null
 	const normalizedReferer = referer ? normalizeOrigin(referer) : null
 

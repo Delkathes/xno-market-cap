@@ -12,7 +12,10 @@ interface ApiErrorResponse {
 }
 
 export const fetchMarketData = async (): Promise<MarketDataResponse> => {
-	const response = await fetch(`${env.NODE_ENV === 'development' ? env.NEXT_PUBLIC_SITE_URL : ''}/api/market-data`)
+	// Relative on the client so LAN/Tailscale testing hits the host the page
+	// was served from; absolute only during SSR (no origin available).
+	const baseUrl = env.NODE_ENV === 'development' && typeof window === 'undefined' ? env.NEXT_PUBLIC_SITE_URL : ''
+	const response = await fetch(`${baseUrl}/api/market-data`)
 	if (!response.ok) {
 		const errorData: ApiErrorResponse = await response
 			.json()
@@ -25,10 +28,10 @@ export const fetchMarketData = async (): Promise<MarketDataResponse> => {
 }
 
 export function useMarketData() {
-	const { data, error, isLoading } = useSuspenseQuery<MarketDataResponse>({
+	const { data, error, isLoading, dataUpdatedAt } = useSuspenseQuery<MarketDataResponse>({
 		queryKey: ['market-data'],
 		queryFn: fetchMarketData,
-		refetchInterval: 120000, // Refresh every 2:00min
+		refetchInterval: 60000, // Refresh every 1:00min
 		refetchOnWindowFocus: false,
 		// Don't retry rate-limited requests (429 own API, 503 upstream) — retrying
 		// only amplifies the load that caused the rate limit.
@@ -58,5 +61,6 @@ export function useMarketData() {
 
 		isLoading,
 		error,
+		fetchedAt: dataUpdatedAt,
 	}
 }

@@ -33,7 +33,7 @@ export function CurrencySettingsPopover({ cryptoList }: CurrencySettingsPopoverP
 				<Button
 					variant="ghost"
 					size="icon"
-					className="h-6 w-6 md:opacity-0 md:group-hover:opacity-100 transition-opacity absolute top-2 right-2 cursor-pointer"
+					className="h-6 w-6 transition-opacity cursor-pointer md:opacity-0 md:group-hover:opacity-100 absolute top-2 right-2"
 				>
 					<Settings className="h-4 w-4" />
 					<span className="sr-only">{t('currencySettings')}</span>

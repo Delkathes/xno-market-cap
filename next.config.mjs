@@ -18,7 +18,11 @@ const contentSecurityPolicy = [
 	"connect-src 'self' https: wss://ws.nano.to wss://nanoslo.0x.no wss://node.somenano.com wss://rainstorm.city wss://ws-us3.pusher.com",
 	"frame-src https://nanswap.com https://vercel.live",
 	"worker-src 'self' blob:",
-	'upgrade-insecure-requests',
+	// upgrade-insecure-requests would force every subresource to https on any
+	// plain-http origin that isn't a browser-trusted context (e.g. LAN/Tailscale
+	// IPs in dev), breaking CSS/JS. Production is served over https, so only
+	// send it there.
+	...(isDev ? [] : ['upgrade-insecure-requests']),
 ].join('; ')
 
 /** @type {import('next').NextConfig} */
@@ -57,6 +61,10 @@ const nextConfig = {
 
 	reactCompiler: true,
 	cacheComponents: true,
+
+	// LAN/Tailscale dev testing: the dev server blocks dev resources (HMR
+	// websocket) from origins other than localhost unless explicitly allowed.
+	allowedDevOrigins: ['100.80.26.88'],
 
 	turbopack: {
 		root: process.cwd(),

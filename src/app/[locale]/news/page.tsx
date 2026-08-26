@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
+import { Rss } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
@@ -51,6 +52,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		},
 		alternates: {
 			canonical: '/news',
+			types: {
+				'application/rss+xml': '/rss.xml',
+			},
 		},
 	}
 }
@@ -64,8 +68,22 @@ export default async function NewsPage({ params, searchParams }: Props) {
 			<ModernPageBackground />
 
 			<header className="mb-8 animate-fade-in-up sm:mb-10">
-				<h1 className="text-4xl font-bold tracking-tight text-balance mb-3 md:text-5xl">{t('title')}</h1>
-				<p className="text-muted-foreground text-base sm:text-lg">{t('subtitle')}</p>
+				<div className="flex flex-wrap items-end justify-between gap-4">
+					<div className="min-w-0">
+						<h1 className="text-4xl font-bold tracking-tight text-balance mb-3 md:text-5xl">
+							{t('title')}
+						</h1>
+						<p className="text-muted-foreground text-base sm:text-lg">{t('subtitle')}</p>
+					</div>
+					<Link
+						href="/rss.xml"
+						title={t('rssFeedTitle')}
+						className="group flex shrink-0 cursor-pointer items-center gap-2 rounded-md border border-dashed border-border bg-muted/30 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+					>
+						<Rss className="h-3 w-3 transition-transform group-hover:scale-110" />
+						{t('rssFeed')}
+					</Link>
+				</div>
 			</header>
 
 			<Suspense fallback={<NewsBrowseSkeleton />}>

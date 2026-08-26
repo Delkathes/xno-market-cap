@@ -175,7 +175,11 @@ export interface NewsFilters {
  * Strips the `export const metadata` block and markdown syntax while keeping
  * the actual prose and code content.
  */
-export function toSearchText(raw: string): string {
+/**
+ * Strip MDX markup down to plain text (case-preserving). Used for search
+ * (lowercased via toSearchText) and RSS descriptions (readable case).
+ */
+export function stripMdx(raw: string): string {
 	const metaMatch = raw.match(/^export const metadata = \{[\s\S]*?^\}$/m)
 	const body = metaMatch ? raw.slice(metaMatch[0].length) : raw
 
@@ -191,7 +195,10 @@ export function toSearchText(raw: string): string {
 		.replace(/<[^>]+>/g, ' ')
 		.replace(/\s+/g, ' ')
 		.trim()
-		.toLowerCase()
+}
+
+export function toSearchText(raw: string): string {
+	return stripMdx(raw).toLowerCase()
 }
 
 /**
@@ -202,6 +209,19 @@ export function getNewsBodyText(slug: string, locale: string = DEFAULT_LOCALE): 
 	try {
 		const raw = fs.readFileSync(path.join(getLocaleContentDir(effectiveLocale), `${slug}.mdx`), 'utf8')
 		return toSearchText(raw)
+	} catch {
+		return ''
+	}
+}
+
+/**
+ * Case-preserving plain text of an article body (for RSS descriptions).
+ */
+export function getNewsBodyPlain(slug: string, locale: string = DEFAULT_LOCALE): string {
+	const effectiveLocale = getArticleLocale(slug, locale)
+	try {
+		const raw = fs.readFileSync(path.join(getLocaleContentDir(effectiveLocale), `${slug}.mdx`), 'utf8')
+		return stripMdx(raw)
 	} catch {
 		return ''
 	}

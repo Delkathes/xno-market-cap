@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAtom } from 'jotai'
 import { useTranslations } from 'next-intl'
 
-import { CRYPTO_IDS, FiatCurrency } from '@/lib/constants'
+import { CRYPTO_IDS, type FiatCurrency } from '@/lib/constants'
 import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
 import {
 	type ExchangeRates,
@@ -25,8 +25,9 @@ import { useMarketData } from '@/hooks/use-market-data'
 import { Card, CardContent } from '@/components/ui/card'
 import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
+import { type MilestoneStory, MilestoneTracker } from '@/components/milestone-tracker'
 
-export function MarketOverview() {
+export function MarketOverview({ story }: { story?: MilestoneStory }) {
 	const {
 		data,
 		xnoCirculatingSupply,
@@ -41,9 +42,27 @@ export function MarketOverview() {
 		xnoPriceChange24h,
 		xnoPriceChange7d,
 		error,
+		fetchedAt,
 	} = useMarketData()
 
 	const t = useTranslations('home')
+
+	// Client-side clock for the sync strip. Rendered only after mount to avoid
+	// hydration mismatches; ticks every second.
+	const [mounted, setMounted] = useState(false)
+	const [now, setNow] = useState(0)
+	useEffect(() => {
+		setMounted(true)
+		setNow(Date.now())
+		const interval = window.setInterval(() => setNow(Date.now()), 1000)
+		return () => window.clearInterval(interval)
+	}, [])
+
+	const syncSeconds = mounted && fetchedAt ? Math.max(0, Math.floor((now - fetchedAt) / 1000)) : null
+	const syncClock =
+		mounted && fetchedAt
+			? new Date(fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+			: null
 
 	const [showSatoshi, setShowSatoshi] = useState(true)
 	const [domChangeTimeframe, setDomChangeTimeframe] = useState<'1h' | '24h' | '7d'>('7d')
@@ -157,6 +176,31 @@ export function MarketOverview() {
 
 	return (
 		<div className="space-y-4">
+			{/* Telemetry strip: live indicator + last sync time */}
+			<div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-dashed border-border pb-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+				<span className="flex items-center gap-1.5">
+					<span className="relative flex h-1.5 w-1.5">
+						<span
+							aria-hidden="true"
+							className="absolute inline-flex h-full w-full animate-ping rounded-full bg-trendup opacity-60"
+						/>
+						<span aria-hidden="true" className="relative inline-flex h-1.5 w-1.5 rounded-full bg-trendup" />
+					</span>
+					<span className="font-bold text-trendup">{t('live')}</span>
+				</span>
+				<span aria-hidden="true" className="text-muted-foreground/40">
+					{'//'}
+				</span>
+				<span className="flex items-center gap-1.5">
+					{t('lastSync')}
+					<span className="tabular-nums text-foreground/80">{syncClock ?? '--:--:--'}</span>
+				</span>
+				<span aria-hidden="true" className="text-muted-foreground/40">
+					{'//'}
+				</span>
+				{syncSeconds !== null && <span className="tabular-nums">{t('syncAgo', { seconds: syncSeconds })}</span>}
+			</div>
+
 			{/* ============ PRICE + MARKET CAP + DOMINANCE ============ */}
 			<div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
 				{/* Price hero */}
@@ -214,14 +258,6 @@ export function MarketOverview() {
 						</p>
 
 						<dl className="mt-4 space-y-1.5 border-t border-border pt-3 font-mono text-sm">
-							{primaryFiat !== FiatCurrency.USD && (
-								<div className="flex items-baseline justify-between">
-									<dt className="text-muted-foreground">USD</dt>
-									<dd suppressHydrationWarning className="tabular-nums">
-										{formatFiatMarketCap(xnoMarketCapUSD, FiatCurrency.USD)}
-									</dd>
-								</div>
-							)}
 							<div className="flex items-baseline justify-between">
 								<dt className="text-muted-foreground">{primaryFiat}</dt>
 								<dd suppressHydrationWarning className="tabular-nums">
@@ -297,6 +333,9 @@ export function MarketOverview() {
 					</CardContent>
 				</Card>
 			</div>
+
+			{/* Milestone tracker */}
+			<MilestoneTracker story={story} />
 		</div>
 	)
 }

@@ -153,7 +153,16 @@
 		"clickToToggle": "Klik om te wisselen {options}",
 		"betweenBtcAndSatoshi": "tussen BTC en satoshi",
 		"units": "eenheden",
-		"clickToSwitchTimeframe": "Klik om periode te wisselen. Dominantieverandering benaderd op basis van prijswijzigingen."
+		"clickToSwitchTimeframe": "Klik om periode te wisselen. Dominantieverandering benaderd op basis van prijswijzigingen.",
+		"live": "LIVE",
+		"lastSync": "LAATSTE SYNC",
+		"syncAgo": "{seconds}s GELEDEN",
+		"milestoneSection": "MIJLPALENTRACKER",
+		"milestoneNext": "VOLGENDE",
+		"milestoneToGo": "NOG",
+		"milestoneStory": "HET $1B VERHAAL",
+		"milestoneTooltipCap": "MARKETCAP",
+		"milestoneTooltipXno": "1 XNO"
 	},
 	"marketTable": {
 		"loadingMarketData": "Marktgegevens laden...",
@@ -189,7 +198,9 @@
 		"prevPage": "Vorige pagina",
 		"nextPage": "Volgende pagina",
 		"paginationLabel": "Paginering van nieuws",
-		"relatedArticles": "Gerelateerde artikelen"
+		"relatedArticles": "Gerelateerde artikelen",
+		"rssFeed": "RSS",
+		"rssFeedTitle": "Abonneren op de RSS-feed"
 	},
 	"coinDetail": {
 		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",

@@ -44,9 +44,10 @@ export function getClientIdentifier(request: NextRequest): string {
 export function isAllowedApiRequest(request: NextRequest): boolean {
 	const origin = request.headers.get('origin')
 	const referer = request.headers.get('referer')
+	const host = request.headers.get('host')
 
 	if (origin || referer) {
-		return isAllowedOrigin(origin, referer)
+		return isAllowedOrigin(origin, referer, host)
 	}
 
 	const secFetchSite = request.headers.get('sec-fetch-site')

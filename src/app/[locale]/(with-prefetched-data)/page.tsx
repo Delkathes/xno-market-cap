@@ -3,7 +3,7 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
-import { getRecentNews } from '@/lib/news'
+import { getNewsMetadata, getRecentNews } from '@/lib/news'
 
 import { env } from '@/env'
 
@@ -45,6 +45,11 @@ export default async function Home({ params }: Props) {
 	const t = await getTranslations({ locale, namespace: 'home' })
 
 	const recentNews = await getRecentNews(locale, 6)
+
+	// Editorial hook for the milestone tracker: only shown while the $1B story
+	// is published in the requested locale (null otherwise).
+	const milestoneStory = await getNewsMetadata('xno-one-billion-market-cap', locale)
+	const story = milestoneStory ? { label: milestoneStory.title } : undefined
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
@@ -89,7 +94,7 @@ export default async function Home({ params }: Props) {
 				{/* Market overview */}
 				<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
 					<Suspense fallback={<MarketOverviewSkeleton />}>
-						<MarketOverview />
+						<MarketOverview story={story} />
 					</Suspense>
 				</div>
 
@@ -118,47 +123,70 @@ function TickerSkeleton() {
 
 export async function MarketOverviewSkeleton() {
 	return (
-		<div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
-			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-4">
-				<Skeleton className="h-4.25 w-24" />
-				<div className="mt-3 grid grid-cols-3 gap-2">
-					{[1, 2, 3].map((index) => (
-						<div
-							key={`price-cell-${index}`}
-							className="rounded-md border border-border bg-muted/30 px-3 py-2.5"
-						>
-							<Skeleton className="h-3.75 w-10" />
-							<Skeleton className="mt-1 h-5 w-full sm:h-6" />
-							<div className="mt-2 space-y-1 border-t border-dashed border-border pt-1.5">
-								<Skeleton className="h-3.75 w-12" />
-								<Skeleton className="h-3.75 w-12" />
-								<Skeleton className="h-3.75 w-12" />
+		<div className="space-y-4">
+			{/* Telemetry strip */}
+			<div className="flex items-center gap-3 border-b border-dashed border-border pb-2">
+				<Skeleton className="h-3 w-32" />
+			</div>
+
+			<div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
+				<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-4">
+					<Skeleton className="h-4.25 w-24" />
+					<div className="mt-3 grid grid-cols-3 gap-2">
+						{[1, 2, 3].map((index) => (
+							<div
+								key={`price-cell-${index}`}
+								className="rounded-md border border-border bg-muted/30 px-3 py-2.5"
+							>
+								<Skeleton className="h-3.75 w-10" />
+								<Skeleton className="mt-1 h-5 w-full sm:h-6" />
+								<div className="mt-2 space-y-1 border-t border-dashed border-border pt-1.5">
+									<Skeleton className="h-3.75 w-12" />
+									<Skeleton className="h-3.75 w-12" />
+									<Skeleton className="h-3.75 w-12" />
+								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
+				</div>
+				<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
+					<Skeleton className="h-4.25 w-24" />
+					<Skeleton className="mt-2 h-9 w-32" />
+					<div className="mt-4 space-y-1.5 border-t border-border pt-3">
+						<Skeleton className="h-5 w-full" />
+						<Skeleton className="h-5 w-full" />
+						<Skeleton className="h-5 w-full" />
+					</div>
+				</div>
+				<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
+					<Skeleton className="h-4.25 w-28" />
+					<div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-5">
+						{[1, 2, 3, 4].map((index) => (
+							<div key={`dom-${index}`}>
+								<Skeleton className="h-5 w-16" />
+								<Skeleton className="mt-1.5 h-1 w-full" />
+								<div className="mt-2 border-t border-dashed border-border pt-1.5">
+									<Skeleton className="h-3.75 w-16" />
+								</div>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
-			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
-				<Skeleton className="h-4.25 w-24" />
-				<Skeleton className="mt-2 h-9 w-32" />
-				<div className="mt-4 space-y-1.5 border-t border-border pt-3">
-					<Skeleton className="h-5 w-full" />
-					<Skeleton className="h-5 w-full" />
-					<Skeleton className="h-5 w-full" />
+
+			{/* Milestone band */}
+			<div className="rounded-md border bg-card p-4 sm:p-5">
+				<div className="flex items-center justify-between">
+					<Skeleton className="h-4 w-36" />
+					<Skeleton className="h-3 w-20" />
 				</div>
-			</div>
-			<div className="rounded-md border bg-card p-4 sm:p-5 lg:col-span-2">
-				<Skeleton className="h-4.25 w-28" />
-				<div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-5">
-					{[1, 2, 3, 4].map((index) => (
-						<div key={`dom-${index}`}>
-							<Skeleton className="h-5 w-16" />
-							<Skeleton className="mt-1.5 h-1 w-full" />
-							<div className="mt-2 border-t border-dashed border-border pt-1.5">
-								<Skeleton className="h-3.75 w-16" />
-							</div>
-						</div>
-					))}
+				<Skeleton className="mt-3 h-8 w-40" />
+				<Skeleton className="mt-4 h-3 w-full" />
+				<Skeleton className="mt-4 h-3 w-1/3" />
+				<div className="mt-3 flex items-center justify-between border-t border-dashed border-border pt-3">
+					<Skeleton className="h-3 w-24" />
+					<Skeleton className="h-4 w-12" />
+					<Skeleton className="h-3 w-24" />
 				</div>
 			</div>
 		</div>
