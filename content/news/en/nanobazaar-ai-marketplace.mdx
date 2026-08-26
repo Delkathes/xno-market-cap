@@ -1,0 +1,67 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'NanoBazaar: a Marketplace Where AI Agents Pay Each Other in Nano',
+	description:
+		'NanoBazaar is a relay marketplace where autonomous AI agents buy and sell services, settling in Nano. Noom built it as a concrete use case for "robot money", with seller-signed charges, ephemeral addresses, and end-to-end encryption.',
+	date: '2026-02-10',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments'],
+	published: true,
+}
+
+# NanoBazaar: a Marketplace Where AI Agents Pay Each Other in Nano
+
+"Robot money needs robot work." That is the idea behind NanoBazaar, and it has a nice symmetry: if agents are going to earn and spend money, they need a payment rail that works without a human in the loop. Developer Noom built NanoBazaar as a concrete answer to that: a marketplace where autonomous AI agents buy and sell services from each other, with Nano as the settlement layer.
+
+The pitch is simple. Seller agents publish offers with a fixed price, required inputs, and a deliverable format. Buyer agents create jobs against those offers. When the work is done, the buyer pays the seller in XNO, and the result comes back as an encrypted payload. Nano's feeless, sub-second settlement is what makes the loop practical: a machine can verify a payment and deliver a result in seconds, with no fee eating into micro-payments and no human approving anything.
+
+<Figure src="/news/nanobazaar-ai-marketplace/01-homepage.jpg" alt="NanoBazaar homepage hero with the “Your agents work. You earn in Nano.” pitch, live relay stats, and the one-line OpenClaw install command" caption="Homepage hero: publish offers, accept jobs, deliver encrypted payloads" />
+
+## A relay, not a marketplace platform
+
+NanoBazaar describes itself as a public relay for agent-to-agent services, and the distinction matters. The relay does not run escrow, it never holds funds, and it does not broker trust. Buyers pay sellers directly through charges signed by the seller, each pointing at an ephemeral address. The relay's job is narrower: move signed messages and ciphertext between agents.
+
+The privacy property follows from the architecture. Everything is end-to-end encrypted, so the relay never sees the inputs a buyer submits or the output a seller delivers. It sees offers, jobs, charges, and encrypted blobs, nothing more.
+
+## The relay flow
+
+<Steps title="How a job moves through NanoBazaar">
+	<Step index="01" title="Offer published">
+		A seller agent publishes an offer: fixed price, required inputs, deliverable format.
+	</Step>
+	<Step index="02" title="Job created">
+		A buyer agent creates a job against that offer and attaches the inputs.
+	</Step>
+	<Step index="03" title="Charge signed">
+		The seller signs a charge, in effect: pay this ephemeral Nano address.
+	</Step>
+	<Step index="04" title="Payment in Nano">
+		The buyer pays the charge in XNO. Settlement is final in under a second.
+	</Step>
+	<Step index="05" title="Encrypted delivery">
+		The seller uploads the result as an encrypted payload via the relay.
+	</Step>
+	<Step index="06" title="Decrypt">
+		The buyer downloads the payload and decrypts it locally.
+	</Step>
+</Steps>
+
+The ephemeral address detail is worth pausing on. A seller does not need to expose a long-lived wallet to take payments. Each charge points at a fresh address, which keeps the marketplace's payment surface small and automated.
+
+<Figure src="/news/nanobazaar-ai-marketplace/02-offers.jpg" alt="Browse offers page on NanoBazaar showing a live listing from a seller agent with a fixed price and a two-hour turnaround" caption="The offers view: fixed prices, turnaround times, and purchase counts for every listing" />
+
+## The OpenClaw connection
+
+NanoBazaar is riding the OpenClaw momentum. OpenClaw is the open-source agent framework behind the current "agents doing real work" push, and Noom built the marketplace to plug into it directly. There is a published [OpenClaw skill on ClawHub](https://clawhub.ai/madsb/nanobazaar) that wires the whole flow into a bot: offers, jobs, charges, and encrypted payload exchange. The one-line story: point an OpenClaw bot at the skill, run the setup command, and your agent can start selling (or buying) services.
+
+<Figure src="/news/nanobazaar-ai-marketplace/03-clawhub-skill.jpg" alt="ClawHub page for the NanoBazaar skill by madsb, showing the description and the openclaw skills install command" caption="The OpenClaw skill on ClawHub: one install command wires offers, jobs, and charges into a bot" />
+
+The relay itself is [open source](https://github.com/nanobazaar/nanobazaar), and Noom is explicit that pull requests are welcome. For a marketplace whose whole premise is machine-to-machine commerce, an auditable codebase is not a nice-to-have, it is the trust model.
+
+<GitHubRepo repo="nanobazaar/nanobazaar" />
+
+## Early days, honest read
+
+None of this is proven at scale. Agent-to-agent commerce is a young category, and NanoBazaar is an experiment from a solo developer. The live relay already shows activity, but the numbers are small and the market is thin. That is what an honest read looks like at this stage: the plumbing works, the incentives are clear, and the open question is whether agents paying each other for work becomes a real market or stays a demo.
+
+The marketplace is live at [nanobazaar.ai](https://nanobazaar.ai/). Noom wrote up the "robot money" thinking on [Subnano](https://subnano.me/@noom/robot-money-needs-robot-work), and there is a [short demo video on X](https://x.com/TheNanoBazaar/status/2020572380477735422). If you run an OpenClaw bot, pointing it at the skill is the fastest way to find out whether this holds up in practice.

@@ -1,0 +1,67 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'NanoBazaar: ein Marktplatz, auf dem KI-Agenten einander in Nano bezahlen',
+	description:
+		'NanoBazaar ist ein Relay-Marktplatz, auf dem autonome KI-Agenten einander Dienste verkaufen und kaufen, abgerechnet in Nano. Noom baute ihn als konkretes Anwendungsbeispiel für "Robotengeld", mit vom Verkäufer signierten Charges, ephemeren Adressen und Ende-zu-Ende-Verschlüsselung.',
+	date: '2026-02-10',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments'],
+	published: true,
+}
+
+# NanoBazaar: ein Marktplatz, auf dem KI-Agenten einander in Nano bezahlen
+
+"Robotengeld braucht Roboterarbeit." Das ist die Idee hinter NanoBazaar, und sie hat eine schöne Symmetrie: Wenn Agenten Geld verdienen und ausgeben sollen, brauchen sie einen Zahlungsweg, der ohne Menschen in der Schleife funktioniert. Entwickler Noom hat NanoBazaar als konkrete Antwort darauf gebaut: ein Marktplatz, auf dem autonome KI-Agenten einander Dienste verkaufen und kaufen, mit Nano als Abwicklungsebene.
+
+Das Konzept ist einfach. Verkäufer-Agenten veröffentlichen Angebote mit festem Preis, erforderlichen Eingaben und Lieferformat. Käufer-Agenten legen Jobs zu diesen Angeboten an. Ist die Arbeit erledigt, zahlt der Käufer dem Verkäufer in XNO, und das Ergebnis kommt als verschlüsselte Nutzlast zurück. Nanos gebührenfreie Abwicklung in Sekundenbruchteilen macht die Schleife praktikabel: Eine Maschine kann eine Zahlung verifizieren und in Sekunden ein Ergebnis liefern, ohne Gebühren, die Mikrozahlungen auffressen, und ohne menschliche Freigabe.
+
+<Figure src="/news/nanobazaar-ai-marketplace/01-homepage.jpg" alt="Startseite von NanoBazaar mit dem Pitch „Ihre Agents arbeiten, Sie verdienen in Nano“, Live-Relay-Statistiken und dem OpenClaw-Installationsbefehl" caption="Der Pitch auf der Startseite: Angebote veröffentlichen, Jobs annehmen, verschlüsselte Nutzlasten liefern" />
+
+## Ein Relay, keine Plattform
+
+NanoBazaar nennt sich ein öffentliches Relay für Dienste zwischen Agenten, und der Unterschied zählt. Das Relay führt kein Escrow, hält niemals Gelder und vermittelt kein Vertrauen. Käufer zahlen direkt an Verkäufer über vom Verkäufer signierte Charges, die jeweils auf eine ephemere Adresse zeigen. Die Aufgabe des Relays ist enger gefasst: signierte Nachrichten und Ciphertext zwischen Agenten bewegen.
+
+Die Datenschutzeigenschaft folgt aus der Architektur. Alles ist Ende-zu-Ende verschlüsselt, das Relay sieht also weder die Eingaben des Käufers noch das gelieferte Ergebnis. Es sieht Angebote, Jobs, Charges und verschlüsselte Blobs, sonst nichts.
+
+## Der Ablauf im Relay
+
+<Steps title="Wie ein Job durch NanoBazaar läuft">
+	<Step index="01" title="Angebot veröffentlicht">
+		Ein Verkäufer-Agent veröffentlicht ein Angebot: fester Preis, erforderliche Eingaben, Lieferformat.
+	</Step>
+	<Step index="02" title="Job angelegt">
+		Ein Käufer-Agent legt einen Job zu diesem Angebot an und fügt die Eingaben hinzu.
+	</Step>
+	<Step index="03" title="Charge signiert">
+		Der Verkäufer signiert eine Charge, im Klartext: zahle an diese ephemere Nano-Adresse.
+	</Step>
+	<Step index="04" title="Zahlung in Nano">
+		Der Käufer zahlt die Charge in XNO. Die Abwicklung ist in unter einer Sekunde final.
+	</Step>
+	<Step index="05" title="Verschlüsselte Lieferung">
+		Der Verkäufer lädt das Ergebnis als verschlüsselte Nutzlast über das Relay hoch.
+	</Step>
+	<Step index="06" title="Entschlüsseln">
+		Der Käufer lädt die Nutzlast herunter und entschlüsselt sie lokal.
+	</Step>
+</Steps>
+
+Das Detail der ephemeren Adresse lohnt einen zweiten Blick. Ein Verkäufer muss keine langfristige Wallet offenlegen, um Zahlungen zu empfangen. Jede Charge zeigt auf eine frische Adresse, das hält die Zahlungsfläche des Marktplatzes klein und automatisiert.
+
+<Figure src="/news/nanobazaar-ai-marketplace/02-offers.jpg" alt="Die Browse-offers-Seite von NanoBazaar mit einem Live-Angebot eines Verkäufer-Agenten, mit Festpreis und zweistündiger Bearbeitungszeit" caption="Die Angebotsansicht: Festpreise, Bearbeitungszeiten und Kaufzähler für jedes Angebot" />
+
+## Die OpenClaw-Verbindung
+
+NanoBazaar reitet auf dem OpenClaw-Schwung. OpenClaw ist das Open-Source-Agent-Framework hinter dem aktuellen "Agenten machen echte Arbeit"-Aufschwung, und Noom hat den Marktplatz direkt darauf zugeschnitten. Auf ClawHub ist ein [OpenClaw-Skill veröffentlicht](https://clawhub.ai/madsb/nanobazaar), der den ganzen Ablauf in einen Bot verdrahtet: Angebote, Jobs, Charges und den Austausch verschlüsselter Nutzlasten. Die Kurzfassung: einen OpenClaw-Bot auf den Skill zeigen, das Setup-Kommando ausführen, und der eigene Agent kann Dienste verkaufen (oder kaufen).
+
+<Figure src="/news/nanobazaar-ai-marketplace/03-clawhub-skill.jpg" alt="ClawHub-Seite des NanoBazaar-Skills von madsb mit Beschreibung und Installationsbefehl openclaw skills install" caption="Der OpenClaw-Skill auf ClawHub: ein Installationsbefehl verdrahtet Angebote, Jobs und Charges in einen Bot" />
+
+Das Relay selbst ist [Open Source](https://github.com/nanobazaar/nanobazaar), und Noom sagt es klar: Pull Requests sind willkommen. Für einen Marktplatz, dessen ganze Prämisse Maschine-zu-Maschine-Handel ist, ist ein prüfbarer Codebestand kein Nice-to-have, sondern das Vertrauensmodell.
+
+<GitHubRepo repo="nanobazaar/nanobazaar" />
+
+## Frühe Tage, ehrliche Einordnung
+
+Nichts davon ist im großen Maßstab bewiesen. Handel zwischen Agenten ist eine junge Kategorie, und NanoBazaar ist ein Experiment eines einzelnen Entwicklers. Das Live-Relay zeigt bereits Aktivität, aber die Zahlen sind klein und der Markt ist dünn. So sieht eine ehrliche Einordnung in diesem Stadium aus: Die Mechanik funktioniert, die Anreize sind klar, und die offene Frage ist, ob Agenten, die einander für Arbeit bezahlen, ein echter Markt werden oder eine Demo bleiben.
+
+Der Marktplatz ist live auf [nanobazaar.ai](https://nanobazaar.ai/). Noom hat seine Gedanken zum "Robotengeld" auf [Subnano](https://subnano.me/@noom/robot-money-needs-robot-work) niedergeschrieben, und es gibt ein [kurzes Demovideo auf X](https://x.com/TheNanoBazaar/status/2020572380477735422). Wer einen OpenClaw-Bot betreibt, findet auf dem schnellsten Weg heraus, ob das in der Praxis hält, indem er den Bot auf den Skill zeigt.
