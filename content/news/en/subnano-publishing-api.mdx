@@ -1,0 +1,59 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'Subnano Launches a Publishing API for Scripts, Bots, and AI Agents',
+	description:
+		'Subnano, the pay-per-article publishing platform on Nano, now has a publishing API: posts can be created and published programmatically with a personal API key. Developer Noom shipped it with a single-file skill for AI agents, after his own agent Pawl started publishing on the platform.',
+	date: '2026-03-06',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments', 'development'],
+	published: true,
+}
+
+# Subnano Launches a Publishing API for Scripts, Bots, and AI Agents
+
+Subnano, the pay-per-article publishing platform on Nano, is now programmable. On March 6, developer Noom launched a publishing API that lets posts be created and published from scripts, apps, or AI agents. He says the idea had been on his mind for a long time, and it finally clicked when he enabled his own AI agent, Pawl, to publish on Subnano.
+
+## What the API does
+
+The v1 API lives at `https://subnano.me/api/v1` and authenticates with a personal API key sent as a Bearer token. It covers the full post lifecycle: create, list, get, update, and delete drafts; publish and unpublish transitions; image uploads for content and OG images; and Markdown content. Publishing is idempotent, so retries with the same `Idempotency-Key` replay the stored response instead of creating duplicates.
+
+<Figure src="/news/subnano-publishing-api/01-api-docs.jpg" alt="The Subnano Publishing API v1 overview page with the base URL and the supported endpoints list" caption="The v1 overview: base URL, draft lifecycle, image uploads, and the quickstart" />
+
+The quickstart in the docs is short: create an API key in Subnano settings, store it somewhere safe, create a draft, publish it. The whole flow starts with one curl call:
+
+<Terminal title="create a draft">
+curl -X POST "https://subnano.me/api/v1/posts" \
+-H "Authorization: Bearer $SUBNANO_PUBLISH_KEY" \
+-H "Content-Type: application/json" \
+-d '&#123;
+"title": "Agent draft",
+"description": "Draft created via API",
+"paidContentMarkdown": "# Hello from API\n\nDraft body.",
+"enablePaywall": true,
+"priceRaw": "100000000000000000000000000000",
+"primaryCategoryId": 4,
+"language": "en",
+"commentsEnabled": true,
+"creationMethod": "ai_assisted_research",
+"creationDetails": "AI helped locate sources; the author reviewed and wrote the post.",
+"creationAttested": true
+&#125;'
+</Terminal>
+
+The sample payload is telling. It is a paywalled draft priced at 0.1 XNO, since prices are passed in raw units, and it carries `creationMethod: ai_assisted_research` plus `creationAttested: true`, a disclosure that the post was reviewed before publishing. Now that posting no longer requires a human at the keyboard, that kind of metadata matters.
+
+<Figure src="/news/subnano-publishing-api/02-create-draft.jpg" alt="The create draft curl example as shown on the Subnano docs page" caption="The docs' create-draft example: an agent-created, paywalled post" />
+
+## Built for agents
+
+Alongside the API, Noom published a single-file skill for AI agents at `https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md`. It packs the endpoints, JSON payload templates, curl recipes, image upload rules, and error handling into one document an agent can load directly, with no extra references. His own agent Pawl already publishes on Subnano through it.
+
+The use cases he names: AI agents publishing paid reports, bots posting daily research digests, GitHub or CI pipelines publishing devlogs, and SaaS tools using Subnano as a Nano-powered paywall backend.
+
+## A programmable publishing layer
+
+The move fits where Subnano was heading. The platform added x402 support months ago: x402 is the HTTP 402 payment flow, a machine-readable way for apps and agents to request and settle payment, the same protocol the [x402nano.org](https://x402nano.org/) facilitator serves on Nano. Combine that with instant paywalls, instant payouts to creators, and now a publishing API, and Subnano becomes a programmable publishing layer. Noom's own framing: ready for the agentic era.
+
+## Early days
+
+The honest caveats: the API is new, the project is one developer, and the announcement includes no usage numbers, so there is nothing yet to measure adoption by. What exists is concrete: a documented API, a working agent skill, and a platform that pays creators in XNO when a post sells. The [docs](https://docs.subnano.me/) walk through the whole contract, the [agent skill](https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md) is worth reading if you run agents, and the platform is live at [subnano.me](https://subnano.me/). Noom asked for feedback, and for a young API that is probably the most valuable input it can get right now.

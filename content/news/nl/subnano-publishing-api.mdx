@@ -1,0 +1,59 @@
+export const metadata = {
+	emoji: '🤖',
+	title: 'Subnano lanceert een publicatie-API voor scripts, bots en AI-agenten',
+	description:
+		'Subnano, het betaal-per-artikel publicatieplatform op Nano, heeft nu een publicatie-API: berichten kunnen programmatisch worden aangemaakt en gepubliceerd met een persoonlijke API-sleutel. Ontwikkelaar Noom lanceerde die samen met een skill voor AI-agenten, nadat zijn eigen agent Pawl op het platform was gaan publiceren.',
+	date: '2026-03-06',
+	author: 'NanoMarketCap Team',
+	tags: ['ecosystem', 'payments', 'development'],
+	published: true,
+}
+
+# Subnano lanceert een publicatie-API voor scripts, bots en AI-agenten
+
+Subnano, het betaal-per-artikel publicatieplatform op Nano, is nu programmeerbaar. Op 6 maart lanceerde ontwikkelaar Noom een publicatie-API waarmee berichten kunnen worden aangemaakt en gepubliceerd vanuit scripts, apps of AI-agenten. Hij zegt dat het idee hem al lang door het hoofd spookte en dat het eindelijk klikte toen hij zijn eigen AI-agent Pawl toestemming gaf om op Subnano te publiceren.
+
+## Wat de API doet
+
+De v1-API draait op `https://subnano.me/api/v1` en authenticatie verloopt via een persoonlijke API-sleutel als Bearer-token. Hij dekt de volledige levenscyclus van een bericht: concepten aanmaken, weergeven, ophalen, bijwerken en verwijderen; publiceren en depubliceren; image-uploads voor content en OG-afbeeldingen; en Markdown-content. Publiceren is idempotent: opnieuw proberen met dezelfde `Idempotency-Key` speelt het opgeslagen antwoord opnieuw af in plaats van duplicaten te maken.
+
+<Figure src="/news/subnano-publishing-api/01-api-docs.jpg" alt="De overzichtspagina van de Subnano Publishing API v1 met de basis-URL en de lijst van ondersteunde endpoints" caption="Het v1-overzicht: basis-URL, conceptlevenscyclus, image-uploads en de quickstart" />
+
+De quickstart in de docs is kort: maak een API-sleutel aan in de Subnano-instellingen, bewaar die op een veilige plek, maak een concept en publiceer het. Het hele traject begint met één curl-oproep:
+
+<Terminal title="create a draft">
+curl -X POST "https://subnano.me/api/v1/posts" \
+-H "Authorization: Bearer $SUBNANO_PUBLISH_KEY" \
+-H "Content-Type: application/json" \
+-d '&#123;
+"title": "Agent draft",
+"description": "Draft created via API",
+"paidContentMarkdown": "# Hello from API\n\nDraft body.",
+"enablePaywall": true,
+"priceRaw": "100000000000000000000000000000",
+"primaryCategoryId": 4,
+"language": "en",
+"commentsEnabled": true,
+"creationMethod": "ai_assisted_research",
+"creationDetails": "AI helped locate sources; the author reviewed and wrote the post.",
+"creationAttested": true
+&#125;'
+</Terminal>
+
+Het voorbeeld is veelzeggend. Het is een concept met paywall van 0,1 XNO, want prijzen worden in raw-eenheden meegegeven, en het bevat `creationMethod: ai_assisted_research` plus `creationAttested: true`, een verklaring dat het bericht vóór publicatie is nagelezen. Nu publiceren niet langer per se een mens achter het toetsenbord vereist, telt precies dit soort metadata.
+
+<Figure src="/news/subnano-publishing-api/02-create-draft.jpg" alt="Het curl-voorbeeld voor het aanmaken van een concept zoals getoond op de Subnano-documentatiepagina" caption="Het create-draft-voorbeeld uit de docs: een door een agent gemaakt bericht met paywall" />
+
+## Gebouwd voor agenten
+
+Naast de API publiceerde Noom een single-file skill voor AI-agenten op `https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md`. Die bundelt de endpoints, JSON-payloadsjablonen, curl-recepten, image-uploadregels en foutafhandeling in één document dat een agent direct kan laden, zonder extra referenties. Zijn eigen agent Pawl publiceert er al via op Subnano.
+
+De use cases die hij noemt: AI-agenten die betaalde rapporten publiceren, bots die dagelijkse research-digests posten, GitHub- of CI-pipelines die devlogs publiceren, en SaaS-tools die Subnano gebruiken als Nano-aangedreven paywall-backend.
+
+## Een programmeerbare publicatielaag
+
+De stap past bij de richting die Subnano al opging. Het platform kreeg maanden geleden x402-ondersteuning: x402 is de HTTP 402-betaalflow, een machineleesbare manier voor apps en agenten om betalingen aan te vragen en af te wikkelen, hetzelfde protocol dat de facilitator [x402nano.org](https://x402nano.org/) op Nano bedient. Combineer dat met instant paywalls, directe uitbetalingen aan makers en nu ook een publicatie-API, en Subnano wordt een programmeerbare publicatielaag. Nooms eigen omschrijving: klaar voor het agententijdperk.
+
+## Nog pril
+
+De eerlijke kanttekeningen: de API is nieuw, het project is het werk van één ontwikkelaar en de aankondiging bevat geen gebruikscijfers, dus er is nog niets om adoptie aan af te meten. Wat er is, is concreet: een gedocumenteerde API, een werkende agent-skill en een platform dat makers in XNO uitbetaalt wanneer een bericht wordt verkocht. De [docs](https://docs.subnano.me/) doorlopen het hele contract, de [agent-skill](https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md) is het lezen waard als je agenten draait, en het platform is live op [subnano.me](https://subnano.me/). Noom vroeg om feedback, en voor zo'n jonge API is dat waarschijnlijk de waardevolste inbreng die hij op dit moment kan krijgen.
