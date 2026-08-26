@@ -55,7 +55,7 @@ function SectionHeader({
 					{description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
 				</div>
 			</div>
-			{action && <div className="flex-none">{action}</div>}
+			{action && <div className="flex-none absolute right-0 top-0">{action}</div>}
 		</div>
 	)
 }
