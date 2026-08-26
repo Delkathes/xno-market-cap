@@ -140,7 +140,9 @@ export async function getRelatedNews(
 		return others.slice(0, count)
 	}
 
-	const currentTags = new Set(current.tags ?? [])
+	// 'nano'/'xno' are site-wide by definition and carry no signal
+	const GENERIC_TAGS = new Set(['nano', 'xno'])
+	const currentTags = new Set((current.tags ?? []).filter((tag) => !GENERIC_TAGS.has(tag)))
 	const scored = others
 		.map((article) => ({
 			article,
