@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
 import { HreflangLinks } from '@/components/hreflang-links'
 import { LoadingArea } from '@/components/loading-area'
+import MarketDataShell from '@/components/market-data-shell'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 const PriceChart = dynamic(() => import('@/components/price-chart').then((m) => m.PriceChart), {
@@ -31,6 +32,8 @@ const MarketCapVolumeChart = dynamic(
 type Props = {
 	params: Promise<{ locale: string; id: string }>
 }
+
+export const instant = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
@@ -71,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // Every piece of this page depends on the [id] param (no static shell to stream),
 // so the route renders per-request instead of participating in instant navigation.
-export const instant = false
+// (Declared above; merged with the group pages' instant = false.)
 
 // Generate static params for known coins
 export async function generateStaticParams() {
@@ -89,10 +92,14 @@ export async function generateStaticParams() {
 }
 
 export default async function CoinDetailPage({ params }: Props) {
+	const { id: coinIdParam } = await params
+
+	return <CoinDetailContent coinIdParam={coinIdParam} />
+}
+
+async function CoinDetailContent({ coinIdParam }: { coinIdParam: string }) {
 	'use cache'
 	cacheLife('hours')
-
-	const { id: coinIdParam } = await params
 
 	const queryClient = getQueryClient()
 
@@ -107,27 +114,29 @@ export default async function CoinDetailPage({ params }: Props) {
 	})
 
 	return (
-		<main className="relative isolate container mx-auto px-4 py-8">
-			<HreflangLinks path={`/coin/${coinIdParam}`} />
-			<ModernPageBackground />
+		<MarketDataShell>
+			<main className="relative isolate container mx-auto px-4 py-8">
+				<HreflangLinks path={`/coin/${coinIdParam}`} />
+				<ModernPageBackground />
 
-			<div className="space-y-8">
-				<div className="animate-fade-in-up">
-					<Suspense fallback={<CoinInfoCardSkeleton />}>
-						<CoinInfoCard coinId={coinIdParam} />
-					</Suspense>
+				<div className="space-y-8">
+					<div className="animate-fade-in-up">
+						<Suspense fallback={<CoinInfoCardSkeleton />}>
+							<CoinInfoCard coinId={coinIdParam} />
+						</Suspense>
+					</div>
+
+					<HydrationBoundary state={dehydrate(queryClient)}>
+						<div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+							<PriceChart coinId={coinIdParam} />
+						</div>
+						<div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+							<MarketCapVolumeChart coinId={coinIdParam} />
+						</div>
+					</HydrationBoundary>
 				</div>
-
-				<HydrationBoundary state={dehydrate(queryClient)}>
-					<div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-						<PriceChart coinId={coinIdParam} />
-					</div>
-					<div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-						<MarketCapVolumeChart coinId={coinIdParam} />
-					</div>
-				</HydrationBoundary>
-			</div>
-		</main>
+			</main>
+		</MarketDataShell>
 	)
 }
 

@@ -8,12 +8,15 @@ import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { HreflangLinks } from '@/components/hreflang-links'
+import MarketDataShell from '@/components/market-data-shell'
 import { MilestonesView } from '@/components/milestones-view'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 type Props = {
 	params: Promise<{ locale: string }>
 }
+
+export const instant = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
@@ -42,6 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function MilestonesPage({ params }: Props) {
 	const { locale } = await params
 
+	return <MilestonesContent locale={locale} />
+}
+
+async function MilestonesContent({ locale }: { locale: string }) {
+	'use cache'
+	cacheLife('hours')
+
+
 	const t = await getTranslations({ locale, namespace: 'milestones' })
 
 	// Editorial hook: only shown while the $1B story is published in this locale
@@ -49,19 +60,21 @@ export default async function MilestonesPage({ params }: Props) {
 	const story = storyArticle ? { label: storyArticle.title } : undefined
 
 	return (
-		<main className="relative isolate container mx-auto px-4 py-8">
-			<HreflangLinks path="/milestones" />
-			<ModernPageBackground />
+		<MarketDataShell>
+			<main className="relative isolate container mx-auto px-4 py-8">
+				<HreflangLinks path="/milestones" />
+				<ModernPageBackground />
 
-			<header className="mb-8 animate-fade-in-up sm:mb-10">
-				<h1 className="text-4xl font-bold tracking-tight text-balance mb-3 md:text-5xl">{t('title')}</h1>
-				<p className="text-muted-foreground text-base sm:text-lg">{t('subtitle')}</p>
-			</header>
+				<header className="mb-8 animate-fade-in-up sm:mb-10">
+					<h1 className="text-4xl font-bold tracking-tight text-balance mb-3 md:text-5xl">{t('title')}</h1>
+					<p className="text-muted-foreground text-base sm:text-lg">{t('subtitle')}</p>
+				</header>
 
-			<Suspense fallback={<MilestonesSkeleton />}>
-				<MilestonesView story={story} />
-			</Suspense>
-		</main>
+				<Suspense fallback={<MilestonesSkeleton />}>
+					<MilestonesView story={story} />
+				</Suspense>
+			</main>
+		</MarketDataShell>
 	)
 }
 

@@ -8,9 +8,9 @@
 		"twitterTitle": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
 		"twitterDescription": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies en wissel direct naar Nano.",
 		"home": {
-			"title": "XNO Prijs & Marktoverzicht",
+			"title": "Nano (XNO) Marktkapitalisatie, prijs & live grafiek",
 			"description": "Live Nano (XNO) prijs, marktkapitalisatie, 24u volume en vergelijking met top cryptocurrencies. Volg XNO prestaties in realtime.",
-			"ogTitle": "XNO Prijs & Marktoverzicht | NanoMarketCap",
+			"ogTitle": "Nano (XNO) Marktkapitalisatie, prijs & live grafiek | NanoMarketCap",
 			"ogDescription": "Live Nano (XNO) prijs, marktkapitalisatie, 24u volume en vergelijking met top cryptocurrencies."
 		},
 		"dominance": {
@@ -145,7 +145,9 @@
 		"closeMenu": "Menu sluiten",
 		"toggleMenu": "Menu wisselen",
 		"milestones": "Mijlpalen",
-		"milestonesDescription": "Marktkapitalisatieladder in elke valuta"
+		"milestonesDescription": "Marktkapitalisatieladder in elke valuta",
+		"decentralization": "Decentralisatie",
+		"decentralizationDescription": "Stemgewicht & live decentralisatiemetrieken"
 	},
 	"home": {
 		"marketLedger": "Marktregister",
@@ -295,7 +297,8 @@
 		"noLimit": "geen limiet",
 		"approx": "circa ",
 		"toFixed": "naar vast ",
-		"liveData": "Live data"
+		"liveData": "Live data",
+		"seoParagraph": "Nano heeft een vaste voorraad van 133.248.297 XNO, volledig verdeeld sinds de genesis. De pariteitscalculator herwaardeert elk asset uitsluitend op basis van schaarste, door elke totale voorraad te delen door dezelfde wereldwijde geldpool, om te laten zien wat 1 XNO waard zou zijn als alle markten op absolute schaarste draaiden."
 	},
 	"parityCalculator": {
 		"title": "Voorraad Calculator",
@@ -341,7 +344,8 @@
 		"clickToLock": "Klik om deze waarde te vergrendelen",
 		"clickToUnlock": "Klik om deze waarde te ontgrendelen",
 		"pressEnterToConfirm": "Druk op Enter om te bevestigen",
-		"resetToMarket": "reset"
+		"resetToMarket": "reset",
+		"seoParagraph": "Omdat de voorraad van Nano voor altijd is vastgesteld, vertegenwoordigt elke XNO die je bezit een permanent aandeel in het netwerk. Voer een investeringsbedrag in jouw valuta in om te zien hoeveel XNO het vandaag zou kopen en welk deel van de totale voorraad van 133.248.297 XNO dat is."
 	},
 	"speculationCalculator": {
 		"title": "Speculatie Calculator",
@@ -356,7 +360,8 @@
 		"yourStackValue": "Waarde van je Stack",
 		"multiplier": "Vermenigvuldiger",
 		"potentialGain": "Potentiële Winst",
-		"errorLoading": "Kan marktgegevens niet laden. Probeer het later opnieuw."
+		"errorLoading": "Kan marktgegevens niet laden. Probeer het later opnieuw.",
+		"seoParagraph": "Marktkapitalisatie is simpelweg de prijs maal de totale voorraad, waardoor prijsdoelen makkelijk te doordenken zijn. Verschuif de marktkapitalisatie-schuifregelaar om te zien wat Nano per XNO waard zou zijn bij verschillende marktkapitalisaties, van conservatief tot extreem."
 	},
 	"speculation": {
 		"title": "Marktspeculatie",
@@ -806,6 +811,7 @@
 			"dominance": "Dominantie",
 			"parity": "Pariteit",
 			"speculation": "Speculatie",
+			"milestones": "Mijlpalen",
 			"getNano": "Nano Krijgen",
 			"swapNano": "Wisselen naar Nano",
 			"whyNano": "Waarom Nano?",
@@ -1196,5 +1202,27 @@
 		"description": "De pagina die je zoekt bestaat niet of is verplaatst. Controleer de URL of ga terug naar de homepagina.",
 		"backHome": "Terug naar huis",
 		"backNews": "Bekijk het nieuws"
+	},
+	"decentralization": {
+		"title": "Nano-decentralisatie & stemgewicht",
+		"description": "Live decentralisatiemetrieken van Nano (XNO): stemgewicht van vertegenwoordigers, aantal hoofdvertegenwoordigers en top-10 concentratie, van publieke Nano-nodes.",
+		"ogTitle": "Nano-decentralisatie & stemgewicht | NanoMarketCap",
+		"ogDescription": "Live decentralisatiemetrieken van Nano (XNO): stemgewicht van vertegenwoordigers, hoofdvertegenwoordigers en concentratie, van publieke Nano-nodes.",
+		"h1": "Nano-decentralisatie & stemgewicht",
+		"intro": "Wie heeft op dit moment het Nano-stemgewicht? Elke XNO-houder delegeert zijn saldo aan een vertegenwoordiger. Deze pagina toont de live verdeling van het online stemgewicht, hoeveel hoofdvertegenwoordigers er zijn en hoe geconcentreerd de top van het delegatienetwerk werkelijk is.",
+		"onlineWeight": "Online stemgewicht",
+		"onlineWeightHint": "XNO momenteel online",
+		"principalReps": "Hoofdvertegenwoordigers",
+		"principalWeightOfOnline": "van online gewicht",
+		"top10Share": "Top-10 concentratie",
+		"top10ShareHint": "aandeel van de 10 grootste reps",
+		"gini": "Gini stemgewicht",
+		"giniHint": "0 = volledig gelijk, 1 = volledig gecentraliseerd",
+		"topRepsTitle": "Belangrijkste vertegenwoordigers",
+		"repColumn": "Vertegenwoordiger",
+		"weightColumn": "Gewicht",
+		"shareColumn": "Aandeel",
+		"updatedNote": "De gegevens komen van publieke Nano-RPC-nodes en worden elk uur ververst. Het stemgewicht verandert met elk gedelegeerd saldo.",
+		"failedNotice": "De publieke Nano-RPC-nodes zijn op dit moment niet bereikbaar. De laatst succesvol gecachte waarden worden getoond."
 	}
 }

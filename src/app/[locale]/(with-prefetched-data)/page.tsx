@@ -11,6 +11,7 @@ import { env } from '@/env'
 import { Skeleton } from '@/components/ui/skeleton'
 import { HreflangLinks } from '@/components/hreflang-links'
 import { MarketCapTable } from '@/components/market-cap-table'
+import MarketDataShell from '@/components/market-data-shell'
 import { MarketOverview } from '@/components/market-overview'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsBanner } from '@/components/news-banner'
@@ -19,6 +20,8 @@ import { PartnerSpotlight } from '@/components/partner-spotlight'
 type Props = {
 	params: Promise<{ locale: string }>
 }
+
+export const instant = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
@@ -47,74 +50,84 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
 	const { locale } = await params
 
+	return <HomeContent locale={locale} />
+}
+
+async function HomeContent({ locale }: { locale: string }) {
+	'use cache'
+	cacheLife('hours')
+
+
 	const t = await getTranslations({ locale, namespace: 'home' })
 
 	const recentNews = await getRecentNews(locale, 6)
 
 	return (
-		<main className="relative isolate container mx-auto px-4 py-8">
-			<HreflangLinks path="/" />
-			<ModernPageBackground />
+		<MarketDataShell>
+			<main className="relative isolate container mx-auto px-4 py-8">
+				<HreflangLinks path="/" />
+				<ModernPageBackground />
 
-			{/* Structured data for search engines; content is JSON-serialized local data, not user HTML */}
-			<script
-				type="application/ld+json"
-				// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
-				dangerouslySetInnerHTML={{
-					__html: JSON.stringify({
-						'@context': 'https://schema.org',
-						'@graph': [
-							{
-								'@type': 'Organization',
-								'@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization`,
-								name: 'NanoMarketCap',
-								url: env.NEXT_PUBLIC_SITE_URL,
-								logo: `${env.NEXT_PUBLIC_SITE_URL}/X_abstract.svg`,
-							},
-							{
-								'@type': 'WebSite',
-								'@id': `${env.NEXT_PUBLIC_SITE_URL}/#website`,
-								url: env.NEXT_PUBLIC_SITE_URL,
-								name: 'NanoMarketCap',
-								publisher: { '@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization` },
-								inLanguage: ['en', 'nl', 'es', 'it', 'de', 'fr'],
-							},
-						],
-					}),
-				}}
-			/>
+				{/* Structured data for search engines; content is JSON-serialized local data, not user HTML */}
+				<script
+					type="application/ld+json"
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							'@context': 'https://schema.org',
+							'@graph': [
+								{
+									'@type': 'Organization',
+									'@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization`,
+									name: 'NanoMarketCap',
+									url: env.NEXT_PUBLIC_SITE_URL,
+									logo: `${env.NEXT_PUBLIC_SITE_URL}/X_abstract.svg`,
+								},
+								{
+									'@type': 'WebSite',
+									'@id': `${env.NEXT_PUBLIC_SITE_URL}/#website`,
+									url: env.NEXT_PUBLIC_SITE_URL,
+									name: 'NanoMarketCap',
+									publisher: { '@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization` },
+									inLanguage: ['en', 'nl', 'es', 'it', 'de', 'fr'],
+								},
+							],
+						}),
+					}}
+				/>
 
 			<div className="space-y-8">
 				{/* Ticker tape */}
-				<div className="animate-fade-in-up">
-					<Suspense fallback={<TickerSkeleton />}>
-						<NewsBanner articles={recentNews} />
-					</Suspense>
-				</div>
+					<div className="animate-fade-in-up">
+						<Suspense fallback={<TickerSkeleton />}>
+							<NewsBanner articles={recentNews} />
+						</Suspense>
+					</div>
 
-				{/* Market overview */}
-				<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
-					<Suspense fallback={<MarketOverviewSkeleton />}>
-						<MarketOverview />
-					</Suspense>
-				</div>
+					{/* Market overview */}
+					<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
+						<Suspense fallback={<MarketOverviewSkeleton />}>
+							<MarketOverview />
+						</Suspense>
+					</div>
 
-				{/* Sponsor channel */}
-				<div className="animate-fade-in-up" style={{ animationDelay: '160ms' }}>
-					<PartnerSpotlight />
-				</div>
+					{/* Sponsor channel */}
+					<div className="animate-fade-in-up" style={{ animationDelay: '160ms' }}>
+						<PartnerSpotlight />
+					</div>
 
-				{/* Market ledger */}
-				<div className="animate-fade-in-up" style={{ animationDelay: '240ms' }}>
-					<h2 className="mb-3 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-						{t('marketLedger')}
-					</h2>
-					<Suspense fallback={<MarketCapTableSkeleton />}>
-						<MarketCapTable />
-					</Suspense>
+					{/* Market ledger */}
+					<div className="animate-fade-in-up" style={{ animationDelay: '240ms' }}>
+						<h2 className="mb-3 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+							{t('marketLedger')}
+						</h2>
+						<Suspense fallback={<MarketCapTableSkeleton />}>
+							<MarketCapTable />
+						</Suspense>
+					</div>
 				</div>
-			</div>
-		</main>
+			</main>
+		</MarketDataShell>
 	)
 }
 

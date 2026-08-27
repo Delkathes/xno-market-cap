@@ -9,6 +9,7 @@ const footerLinks = {
 		{ href: '/dominance', labelKey: 'dominance' },
 		{ href: '/parity', labelKey: 'parity' },
 		{ href: '/speculation', labelKey: 'speculation' },
+		{ href: '/milestones', labelKey: 'milestones' },
 	],
 	resources: [
 		{ href: '/why-nano', labelKey: 'whyNano' },

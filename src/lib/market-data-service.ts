@@ -1,12 +1,48 @@
 import { cacheLife } from 'next/cache'
 import * as v from 'valibot'
 
-import { getCoingeckoClient } from '@/lib/coingecko'
 import { CRYPTO_IDS } from '@/lib/constants'
+import { fetchWithRetry } from '@/lib/fetch-with-timeout'
 import type { CryptoData, MarketDataResponse, XnoPriceChangePerCurrency } from '@/lib/types'
 import { CryptoDataArraySchema, ExchangeRatesSchema, XnoCoinDetailSchema } from '@/lib/validation'
 
 import { env } from '@/env'
+
+// Direct CoinGecko REST client. The official SDK instruments every request with
+// Date.now() (timing stats, retry-After handling), which Next.js rejects inside
+// cached functions during build-time cache seeding ("unstable value" error).
+// Plain fetch keeps this module deterministic, so 'use cache' pages can be
+// prerendered and seeded at build. Retries and 429 handling come from
+// fetchWithRetry; rate limiting is handled by the cache layers around this.
+const COINGECKO_BASE_URL = 'https://api.coingecko.com/api/v3'
+
+async function cgGet<T>(path: string, params: Record<string, string | number | boolean>): Promise<T> {
+	const url = new URL(COINGECKO_BASE_URL + path)
+	for (const [key, value] of Object.entries(params)) {
+		url.searchParams.set(key, String(value))
+	}
+
+	const response = await fetchWithRetry(
+		url.toString(),
+		{
+			headers: {
+				accept: 'application/json',
+				'x-cg-demo-api-key': env.COINGECKO_API_KEY,
+			},
+			cache: 'no-store',
+		},
+		{ timeoutMs: 10000, retries: 3, baseDelayMs: 1000 },
+	)
+
+	if (response.status === 429) {
+		throw new RateLimitError('CoinGecko API rate limit exceeded')
+	}
+	if (!response.ok) {
+		throw new UpstreamError(`CoinGecko API error: HTTP ${response.status}`)
+	}
+
+	return (await response.json()) as T
+}
 
 // Dev-only in-memory cache: 'use cache' is a no-op during development, so every
 // page reload would otherwise fire the full CoinGecko batch (~4 calls), easily
@@ -80,12 +116,10 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 	}
 
 	try {
-		const client = getCoingeckoClient()
-
 		// Fetch top 25 cryptocurrencies
 		let top25Json: unknown
 		try {
-			top25Json = await client.coins.markets.get({
+			top25Json = await cgGet('/coins/markets', {
 				vs_currency: 'usd',
 				order: 'market_cap_desc',
 				per_page: 100,
@@ -115,12 +149,12 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		const fetchXno = async (): Promise<CryptoData | null> => {
 			if (hasXNO) return null
 			try {
-				const xnoJson = await client.coins.markets.get({
-					vs_currency: 'usd',
-					ids: 'nano',
-					sparkline: false,
-					price_change_percentage: '1h,24h,7d',
-				})
+			const xnoJson = await cgGet('/coins/markets', {
+				vs_currency: 'usd',
+				ids: 'nano',
+				sparkline: false,
+				price_change_percentage: '1h,24h,7d',
+			})
 				const xnoResult = v.safeParse(CryptoDataArraySchema, xnoJson)
 				if (xnoResult.success && xnoResult.output[0]) {
 					return {
@@ -136,10 +170,10 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
 		const fetchRates = async () => {
 			try {
-				const ratesJson = await client.simple.price.get({
-					ids: 'nano',
-					vs_currencies: 'usd,eur,gbp,jpy,chf,cad,aud',
-				})
+			const ratesJson = await cgGet('/simple/price', {
+				ids: 'nano',
+				vs_currencies: 'usd,eur,gbp,jpy,chf,cad,aud',
+			})
 				return ratesJson
 			} catch (error) {
 				mapSdkError(error, 'exchange rates')
@@ -148,14 +182,14 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
 		const fetchXnoDetail = async () => {
 			try {
-				const xnoDetailJson = await client.coins.getID('nano', {
-					localization: false,
-					tickers: false,
-					market_data: true,
-					community_data: false,
-					developer_data: false,
-					sparkline: false,
-				})
+			const xnoDetailJson = await cgGet('/coins/nano', {
+				localization: false,
+				tickers: false,
+				market_data: true,
+				community_data: false,
+				developer_data: false,
+				sparkline: false,
+			})
 				return xnoDetailJson
 			} catch (error) {
 				// Non-critical: log warning and return null

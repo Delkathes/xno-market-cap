@@ -7,6 +7,7 @@ import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { HreflangLinks } from '@/components/hreflang-links'
+import MarketDataShell from '@/components/market-data-shell'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { ParityCalculator } from '@/components/parity-calculator'
 import { ParityHighlight } from '@/components/parity-highlight'
@@ -16,6 +17,8 @@ import { SpeculationCalculator } from '@/components/speculation-calculator'
 type Props = {
 	params: Promise<{ locale: string }>
 }
+
+export const instant = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
@@ -46,13 +49,20 @@ interface InstrumentPanelProps {
 	index: string
 	title: string
 	description: string
+	seoParagraph?: string
 	action?: React.ReactNode
 	children: React.ReactNode
 }
 
 // The header is fully static (server-rendered translations) — the skeleton renders
 // the same real text so the section headers never shift when content streams in.
-function InstrumentPanelHeader({ index, title, description, action }: Omit<InstrumentPanelProps, 'children'>) {
+function InstrumentPanelHeader({
+	index,
+	title,
+	description,
+	seoParagraph,
+	action,
+}: Omit<InstrumentPanelProps, 'children'>) {
 	return (
 		<div className="mb-5 flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
 			<div className="flex items-baseline gap-3 min-w-0">
@@ -62,6 +72,7 @@ function InstrumentPanelHeader({ index, title, description, action }: Omit<Instr
 				<div className="min-w-0">
 					<h2 className="text-xl sm:text-2xl font-bold tracking-tight text-balance">{title}</h2>
 					<p className="mt-1 text-sm text-muted-foreground">{description}</p>
+					{seoParagraph && <p className="mt-2 max-w-3xl text-sm text-muted-foreground/90">{seoParagraph}</p>}
 				</div>
 			</div>
 			{action && <div className="flex-none absolute right-0 top-0">{action}</div>}
@@ -69,10 +80,16 @@ function InstrumentPanelHeader({ index, title, description, action }: Omit<Instr
 	)
 }
 
-function InstrumentPanel({ index, title, description, action, children }: InstrumentPanelProps) {
+function InstrumentPanel({ index, title, description, seoParagraph, action, children }: InstrumentPanelProps) {
 	return (
 		<section>
-			<InstrumentPanelHeader index={index} title={title} description={description} action={action} />
+			<InstrumentPanelHeader
+				index={index}
+				title={title}
+				description={description}
+				seoParagraph={seoParagraph}
+				action={action}
+			/>
 			<div className="rounded-xl border bg-card p-4 shadow-xs sm:p-6">{children}</div>
 		</section>
 	)
@@ -278,10 +295,15 @@ function TierCardSkeleton() {
 }
 
 export default async function CalculatorsPage({ params }: Props) {
+	const { locale } = await params
+
+	return <CalculatorsContent locale={locale} />
+}
+
+async function CalculatorsContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('max')
 
-	const { locale } = await params
 
 	const t = await getTranslations({ locale, namespace: 'navigation' })
 	const tMeta = await getTranslations({ locale, namespace: 'metadata.calculators' })
@@ -291,79 +313,86 @@ export default async function CalculatorsPage({ params }: Props) {
 	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })
 
 	return (
-		<main className="relative isolate container mx-auto px-4 py-8">
-			<HreflangLinks path="/calculators" />
-			<ModernPageBackground />
+		<MarketDataShell>
+			<main className="relative isolate container mx-auto px-4 py-8">
+				<HreflangLinks path="/calculators" />
+				<ModernPageBackground />
 
-			{/* Hero */}
-			<header className="mb-14 sm:mb-16 animate-fade-in-up">
-				<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('calculators')}</h1>
-				<p className="text-muted-foreground text-base sm:text-lg max-w-2xl">{tMeta('description')}</p>
-				<p className="text-xs text-muted-foreground/70 mt-3">{tDisclaimer('parity')}</p>
-			</header>
+				{/* Hero */}
+				<header className="mb-14 sm:mb-16 animate-fade-in-up">
+					<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">
+						{t('calculators')}
+					</h1>
+					<p className="text-muted-foreground text-base sm:text-lg max-w-2xl">{tMeta('description')}</p>
+					<p className="text-xs text-muted-foreground/70 mt-3">{tDisclaimer('parity')}</p>
+				</header>
 
-			<div className="grid gap-14">
-				{/* The animated wrappers sit OUTSIDE the Suspense boundaries so each
+				<div className="grid gap-14">
+					{/* The animated wrappers sit OUTSIDE the Suspense boundaries so each
 				    entrance animation runs exactly once — when the streamed content
 				    replaces the fallback inside, the wrapper stays put (no re-fade). */}
-				<div className="animate-fade-in-up">
-					<Suspense
-						fallback={
-							<ParityFallback
+					<div className="animate-fade-in-up">
+						<Suspense
+							fallback={
+								<ParityFallback
+									title={tParity('nanoScarcityParity')}
+									description={tParity('description')}
+								/>
+							}
+						>
+							<InstrumentPanel
+								index="01"
 								title={tParity('nanoScarcityParity')}
 								description={tParity('description')}
-							/>
-						}
-					>
-						<InstrumentPanel
-							index="01"
-							title={tParity('nanoScarcityParity')}
-							description={tParity('description')}
-							action={<ParitySettingsPopover />}
-						>
-							<ParityHighlight />
-						</InstrumentPanel>
-					</Suspense>
-				</div>
+								seoParagraph={tParity('seoParagraph')}
+								action={<ParitySettingsPopover />}
+							>
+								<ParityHighlight />
+							</InstrumentPanel>
+						</Suspense>
+					</div>
 
-				<div className="animate-fade-in-up" style={{ animationDelay: '120ms' }}>
-					<Suspense
-						fallback={
-							<SupplyFallback
+					<div className="animate-fade-in-up" style={{ animationDelay: '120ms' }}>
+						<Suspense
+							fallback={
+								<SupplyFallback
+									title={tParityCalculator('title')}
+									description={tParityCalculator('description')}
+								/>
+							}
+						>
+							<InstrumentPanel
+								index="02"
 								title={tParityCalculator('title')}
 								description={tParityCalculator('description')}
-							/>
-						}
-					>
-						<InstrumentPanel
-							index="02"
-							title={tParityCalculator('title')}
-							description={tParityCalculator('description')}
-						>
-							<ParityCalculator />
-						</InstrumentPanel>
-					</Suspense>
-				</div>
+								seoParagraph={tParityCalculator('seoParagraph')}
+							>
+								<ParityCalculator />
+							</InstrumentPanel>
+						</Suspense>
+					</div>
 
-				<div className="animate-fade-in-up" style={{ animationDelay: '240ms' }}>
-					<Suspense
-						fallback={
-							<SpeculationFallback
+					<div className="animate-fade-in-up" style={{ animationDelay: '240ms' }}>
+						<Suspense
+							fallback={
+								<SpeculationFallback
+									title={tSpeculation('title')}
+									description={tSpeculation('description')}
+								/>
+							}
+						>
+							<InstrumentPanel
+								index="03"
 								title={tSpeculation('title')}
 								description={tSpeculation('description')}
-							/>
-						}
-					>
-						<InstrumentPanel
-							index="03"
-							title={tSpeculation('title')}
-							description={tSpeculation('description')}
-						>
-							<SpeculationCalculator />
-						</InstrumentPanel>
-					</Suspense>
+								seoParagraph={tSpeculation('seoParagraph')}
+							>
+								<SpeculationCalculator />
+							</InstrumentPanel>
+						</Suspense>
+					</div>
 				</div>
-			</div>
-		</main>
+			</main>
+		</MarketDataShell>
 	)
 }

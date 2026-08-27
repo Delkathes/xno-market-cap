@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { DominanceTable } from '@/components/dominance-table'
 import { HreflangLinks } from '@/components/hreflang-links'
 import { LoadingArea } from '@/components/loading-area'
+import MarketDataShell from '@/components/market-data-shell'
 import { ModernPageBackground } from '@/components/modern-page-background'
 
 const DominanceChart = dynamic(() => import('@/components/dominance-chart').then((m) => m.DominanceChart), {
@@ -19,6 +20,8 @@ const DominanceChart = dynamic(() => import('@/components/dominance-chart').then
 type Props = {
 	params: Promise<{ locale: string }>
 }
+
+export const instant = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	'use cache'
@@ -47,29 +50,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DominancePage({ params }: Props) {
 	const { locale } = await params
 
+	return <DominanceContent locale={locale} />
+}
+
+async function DominanceContent({ locale }: { locale: string }) {
+	'use cache'
+	cacheLife('hours')
+
+
 	const t = await getTranslations({ locale, namespace: 'dominance' })
 
 	return (
-		<main className="relative isolate container mx-auto px-4 py-8">
-			<HreflangLinks path="/dominance" />
-			<ModernPageBackground />
+		<MarketDataShell>
+			<main className="relative isolate container mx-auto px-4 py-8">
+				<HreflangLinks path="/dominance" />
+				<ModernPageBackground />
 
-			<header className="mb-12 sm:mb-14 animate-fade-in-up">
-				<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('title')}</h1>
-				<p className="text-muted-foreground text-base sm:text-lg">{t('description')}</p>
-			</header>
+				<header className="mb-12 sm:mb-14 animate-fade-in-up">
+					<h1 className="text-4xl md:text-5xl font-bold tracking-tight text-balance mb-3">{t('title')}</h1>
+					<p className="text-muted-foreground text-base sm:text-lg">{t('description')}</p>
+				</header>
 
-			<div className="grid gap-8">
-				<div className="animate-fade-in-up">
-					<DominanceChart />
+				<div className="grid gap-8">
+					<div className="animate-fade-in-up">
+						<DominanceChart />
+					</div>
+					<div className="animate-fade-in-up min-w-0" style={{ animationDelay: '150ms' }}>
+						<Suspense fallback={<DominanceTableSkeleton />}>
+							<DominanceTable />
+						</Suspense>
+					</div>
 				</div>
-				<div className="animate-fade-in-up min-w-0" style={{ animationDelay: '150ms' }}>
-					<Suspense fallback={<DominanceTableSkeleton />}>
-						<DominanceTable />
-					</Suspense>
-				</div>
-			</div>
-		</main>
+			</main>
+		</MarketDataShell>
 	)
 }
 

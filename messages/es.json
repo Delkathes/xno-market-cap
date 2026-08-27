@@ -8,9 +8,9 @@
 		"twitterTitle": "NanoMarketCap – Precio XNO, Capitalización de Mercado & Rastreador de Dominancia",
 		"twitterDescription": "Sigue el precio, capitalización de mercado y dominancia de Nano (XNO). Compara XNO con las principales criptomonedas e intercambia a Nano al instante.",
 		"home": {
-			"title": "Precio XNO & Resumen del Mercado",
+			"title": "Capitalización de mercado Nano (XNO) y precio en vivo",
 			"description": "Precio en vivo de Nano (XNO), capitalización de mercado, volumen 24h y comparación con las principales criptomonedas. Sigue el rendimiento de XNO en tiempo real.",
-			"ogTitle": "Precio XNO & Resumen del Mercado | NanoMarketCap",
+			"ogTitle": "Capitalización de mercado Nano (XNO) y precio en vivo | NanoMarketCap",
 			"ogDescription": "Precio en vivo de Nano (XNO), capitalización de mercado, volumen 24h y comparación con las principales criptomonedas."
 		},
 		"dominance": {
@@ -145,7 +145,9 @@
 		"closeMenu": "Cerrar menú",
 		"toggleMenu": "Alternar menú",
 		"milestones": "Hitos",
-		"milestonesDescription": "Escalera de capitalización en cada moneda"
+		"milestonesDescription": "Escalera de capitalización en cada moneda",
+		"decentralization": "Descentralización",
+		"decentralizationDescription": "Peso de voto y métricas de descentralización en vivo"
 	},
 	"home": {
 		"marketLedger": "Registro del mercado",
@@ -295,7 +297,8 @@
 		"noLimit": "sin límite",
 		"approx": "aprox. ",
 		"toFixed": "a fijo ",
-		"liveData": "Datos en vivo"
+		"liveData": "Datos en vivo",
+		"seoParagraph": "Nano tiene una oferta fija de 133.248.297 XNO, totalmente distribuida desde su génesis. La calculadora de paridad reevalúa cada activo únicamente por su escasez, dividiendo cada oferta total en el mismo fondo monetario global para mostrar cuánto valdría 1 XNO si todos los mercados funcionaran por escasez absoluta."
 	},
 	"parityCalculator": {
 		"title": "Calculadora de Suministro",
@@ -341,7 +344,8 @@
 		"clickToLock": "Clic para bloquear este valor",
 		"clickToUnlock": "Clic para desbloquear este valor",
 		"pressEnterToConfirm": "Presiona Enter para confirmar",
-		"resetToMarket": "restablecer"
+		"resetToMarket": "restablecer",
+		"seoParagraph": "Como la oferta de Nano tiene un tope eterno, cada XNO que tienes representa una parte permanente de la red. Introduce un importe de inversión en tu moneda para ver cuántos XNO compraría hoy y qué parte de la oferta total de 133.248.297 XNO representa esa cantidad."
 	},
 	"speculationCalculator": {
 		"title": "Calculadora de Especulación",
@@ -356,7 +360,8 @@
 		"yourStackValue": "Valor de tu Stack",
 		"multiplier": "Multiplicador",
 		"potentialGain": "Ganancia Potencial",
-		"errorLoading": "No se pueden cargar los datos del mercado. Inténtalo más tarde."
+		"errorLoading": "No se pueden cargar los datos del mercado. Inténtalo más tarde.",
+		"seoParagraph": "La capitalización de mercado es el simple producto del precio por la oferta total, lo que hace que los objetivos de precio sean fáciles de razonar. Mueve el deslizador de capitalización para ver cuánto tendría que valer Nano por XNO en distintas capitalizaciones, de conservadoras a extremas."
 	},
 	"speculation": {
 		"title": "Especulación del Mercado",
@@ -806,6 +811,7 @@
 			"dominance": "Dominancia",
 			"parity": "Paridad",
 			"speculation": "Especulación",
+			"milestones": "Hitos",
 			"getNano": "Obtener Nano",
 			"swapNano": "Cambiar a Nano",
 			"whyNano": "¿Por qué Nano?",
@@ -1196,5 +1202,27 @@
 		"description": "La página que buscas no existe o se ha movido. Revisa la URL o vuelve a la página de inicio.",
 		"backHome": "Volver al inicio",
 		"backNews": "Ver las noticias"
+	},
+	"decentralization": {
+		"title": "Descentralización de Nano y peso de voto",
+		"description": "Métricas de descentralización de Nano (XNO) en vivo: peso de voto de los representantes, número de representantes principales y concentración del top 10, desde nodos públicos de Nano.",
+		"ogTitle": "Descentralización de Nano y peso de voto | NanoMarketCap",
+		"ogDescription": "Métricas de descentralización de Nano (XNO) en vivo: peso de voto de los representantes, representantes principales y concentración, desde nodos públicos de Nano.",
+		"h1": "Descentralización de Nano y peso de voto",
+		"intro": "¿Quién tiene el peso de voto de Nano ahora mismo? Cada titular de XNO delega su saldo en un representante. Esta página muestra la distribución en vivo del peso de voto en línea, cuántos representantes principales existen y cuán concentrada está realmente la cima de la red de delegación.",
+		"onlineWeight": "Peso de voto en línea",
+		"onlineWeightHint": "XNO actualmente en línea",
+		"principalReps": "Reps principales",
+		"principalWeightOfOnline": "del peso en línea",
+		"top10Share": "Concentración top 10",
+		"top10ShareHint": "participación de los 10 mayores reps",
+		"gini": "Gini del peso de voto",
+		"giniHint": "0 = totalmente igual, 1 = totalmente centralizado",
+		"topRepsTitle": "Principales representantes",
+		"repColumn": "Representante",
+		"weightColumn": "Peso",
+		"shareColumn": "Participación",
+		"updatedNote": "Los datos provienen de nodos RPC públicos de Nano y se actualizan cada hora. El peso de voto cambia con cada saldo delegado.",
+		"failedNotice": "Los nodos RPC públicos de Nano no están accesibles por ahora. Mostrando los últimos valores en caché."
 	}
 }

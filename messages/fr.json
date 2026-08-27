@@ -8,9 +8,9 @@
 		"twitterTitle": "NanoMarketCap – Prix XNO, Capitalisation & Dominance",
 		"twitterDescription": "Suivez le prix du Nano (XNO), sa capitalisation et sa dominance. Comparez XNO aux principales cryptomonnaies et échangez vers Nano instantanément.",
 		"home": {
-			"title": "Prix XNO & Aperçu du Marché",
+			"title": "Capitalisation et prix du Nano (XNO) en direct",
 			"description": "Prix du Nano (XNO) en direct, capitalisation, volume 24h et comparaison avec les principales cryptomonnaies. Suivez la performance de XNO en temps réel.",
-			"ogTitle": "Prix XNO & Aperçu du Marché | NanoMarketCap",
+			"ogTitle": "Capitalisation et prix du Nano (XNO) en direct | NanoMarketCap",
 			"ogDescription": "Prix du Nano (XNO) en direct, capitalisation, volume 24h et comparaison avec les principales cryptomonnaies."
 		},
 		"dominance": {
@@ -145,7 +145,9 @@
 		"closeMenu": "Fermer le menu",
 		"toggleMenu": "Basculer le menu",
 		"milestones": "Jalons",
-		"milestonesDescription": "Échelle de capitalisation dans chaque devise"
+		"milestonesDescription": "Échelle de capitalisation dans chaque devise",
+		"decentralization": "Décentralisation",
+		"decentralizationDescription": "Poids de vote et métriques de décentralisation en direct"
 	},
 	"home": {
 		"marketLedger": "Grand livre du marché",
@@ -295,7 +297,8 @@
 		"noLimit": "sans limite",
 		"approx": "environ ",
 		"toFixed": "vers fixé ",
-		"liveData": "Données en direct"
+		"liveData": "Données en direct",
+		"seoParagraph": "Nano a une offre fixe de 133 248 297 XNO, entièrement distribuée depuis sa genèse. Le calculateur de parité réévalue chaque actif uniquement selon sa rareté, en divisant chaque offre totale dans le même pool monétaire mondial pour montrer ce que vaudrait 1 XNO si tous les marchés reposaient sur la rareté absolue."
 	},
 	"parityCalculator": {
 		"title": "Calculateur d'Offre",
@@ -341,7 +344,8 @@
 		"clickToLock": "Cliquez pour verrouiller cette valeur",
 		"clickToUnlock": "Cliquez pour déverrouiller cette valeur",
 		"pressEnterToConfirm": "Appuyez sur Entrée pour confirmer",
-		"resetToMarket": "réinitialiser"
+		"resetToMarket": "réinitialiser",
+		"seoParagraph": "Comme l'offre de Nano est plafonnée pour toujours, chaque XNO que vous détenez représente une part permanente du réseau. Saisissez un montant d'investissement dans votre devise pour voir combien de XNO il permettrait d'acheter aujourd'hui, et quelle part de l'offre totale de 133 248 297 XNO ce montant représente."
 	},
 	"speculationCalculator": {
 		"title": "Calculateur de Spéculation",
@@ -356,7 +360,8 @@
 		"yourStackValue": "Valeur de votre Stack",
 		"multiplier": "Multiplicateur",
 		"potentialGain": "Gain Potentiel",
-		"errorLoading": "Impossible de charger les données de marché. Veuillez réessayer plus tard."
+		"errorLoading": "Impossible de charger les données de marché. Veuillez réessayer plus tard.",
+		"seoParagraph": "La capitalisation est simplement le produit du prix et de l'offre totale, ce qui rend les objectifs de prix faciles à raisonner. Déplacez le curseur de capitalisation pour voir ce que Nano vaudrait par XNO à différentes capitalisations, de conservatrices à extrêmes."
 	},
 	"speculation": {
 		"title": "Spéculation de Marché",
@@ -383,7 +388,7 @@
 		"mobileDescription": "Natrium, Nautilus et Cake Wallet sont des portefeuilles mobiles rapides pour iOS et Android.",
 		"desktopWeb": "Ordinateur/Web",
 		"desktopWebDescription": "Gérez vos fonds dans le navigateur avec Nault pour un accès rapide depuis n'importe quel appareil. Cake Wallet est aussi une excellente option pour ordinateur.",
-		"hardware": "Matériel",
+		"hardware": "Hardware",
 		"hardwareDescription": "Utilisez un Ledger Nano S/X avec Nault pour le support du stockage à froid.",
 		"ledgerViaNault": "Ledger via Nault",
 		"step2Badge": "Étape 2",
@@ -391,7 +396,7 @@
 		"step2Description": "Une fois que vous avez un portefeuille, acquérez du Nano pour alimenter votre compte.",
 		"exchanges": "Exchanges",
 		"exchangesDescription": "Binance, Kraken, KuCoin et d'autres grandes plateformes listent Nano (XNO).",
-		"swapServices": "Services d'Échange",
+		"swapServices": "Swaps",
 		"swapServicesDescription": "Convertissez des altcoins en Nano avec Nanswap, ChangeNOW ou SimpleSwap.",
 		"faucets": "Faucets",
 		"faucetsDescription": "Essayez Nano gratuitement avec les faucets communautaires qui distribuent de petites quantités.",
@@ -806,6 +811,7 @@
 			"dominance": "Dominance",
 			"parity": "Parité",
 			"speculation": "Spéculation",
+			"milestones": "Jalons",
 			"getNano": "Obtenir Nano",
 			"swapNano": "Échanger vers Nano",
 			"whyNano": "Pourquoi Nano ?",
@@ -1196,5 +1202,27 @@
 		"description": "La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou revenez à la page d'accueil.",
 		"backHome": "Retour à l'accueil",
 		"backNews": "Parcourir les actualités"
+	},
+	"decentralization": {
+		"title": "Décentralisation du Nano et poids de vote",
+		"description": "Métriques de décentralisation du Nano (XNO) en direct : poids de vote des représentants, nombre de représentants principaux et concentration du top 10, depuis les nœuds publics Nano.",
+		"ogTitle": "Décentralisation du Nano et poids de vote | NanoMarketCap",
+		"ogDescription": "Métriques de décentralisation du Nano (XNO) en direct : poids de vote des représentants, représentants principaux et concentration, depuis les nœuds publics Nano.",
+		"h1": "Décentralisation du Nano et poids de vote",
+		"intro": "Qui détient le poids de vote du Nano en ce moment ? Chaque détenteur de XNO délègue son solde à un représentant. Cette page montre la répartition en direct du poids de vote en ligne, le nombre de représentants principaux et le degré de concentration du haut du réseau de délégation.",
+		"onlineWeight": "Poids de vote en ligne",
+		"onlineWeightHint": "XNO actuellement en ligne",
+		"principalReps": "Représentants principaux",
+		"principalWeightOfOnline": "du poids en ligne",
+		"top10Share": "Concentration top 10",
+		"top10ShareHint": "part détenue par les 10 plus gros représentants",
+		"gini": "Gini du poids de vote",
+		"giniHint": "0 = parfaitement égal, 1 = totalement centralisé",
+		"topRepsTitle": "Principaux représentants",
+		"repColumn": "Représentant",
+		"weightColumn": "Poids",
+		"shareColumn": "Part",
+		"updatedNote": "Les données proviennent des nœuds RPC publics Nano et sont actualisées toutes les heures. Le poids de vote évolue avec chaque solde délégué.",
+		"failedNotice": "Les nœuds RPC publics Nano sont injoignables pour le moment. Affichage des dernières valeurs mises en cache avec succès."
 	}
 }

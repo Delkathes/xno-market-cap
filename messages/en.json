@@ -8,9 +8,9 @@
 		"twitterTitle": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
 		"twitterDescription": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies and swap to Nano instantly.",
 		"home": {
-			"title": "XNO Price & Market Overview",
+			"title": "Nano (XNO) Market Cap, Price & Live Chart",
 			"description": "Live Nano (XNO) price, market cap, 24h volume, and comparison with top cryptocurrencies. Track XNO performance in real-time.",
-			"ogTitle": "XNO Price & Market Overview | NanoMarketCap",
+			"ogTitle": "Nano (XNO) Market Cap, Price & Live Chart | NanoMarketCap",
 			"ogDescription": "Live Nano (XNO) price, market cap, 24h volume, and comparison with top cryptocurrencies."
 		},
 		"dominance": {
@@ -139,7 +139,9 @@
 		"closeMenu": "Close menu",
 		"toggleMenu": "Toggle menu",
 		"milestones": "Milestones",
-		"milestonesDescription": "Market cap ladder in every currency"
+		"milestonesDescription": "Market cap ladder in every currency",
+		"decentralization": "Decentralization",
+		"decentralizationDescription": "Voting weight & live decentralization metrics"
 	},
 	"home": {
 		"marketLedger": "Market Ledger",
@@ -289,7 +291,8 @@
 		"noLimit": "no limit",
 		"approx": "approx ",
 		"toFixed": "to fixed ",
-		"liveData": "Live data"
+		"liveData": "Live data",
+		"seoParagraph": "Nano has a fixed supply of 133,248,297 XNO, fully distributed since genesis. The parity calculator revalues every asset purely by its scarcity, dividing each total supply into the same global money pool to show what one XNO would be worth if all markets ran on absolute scarcity."
 	},
 	"parityCalculator": {
 		"title": "Supply Calculator",
@@ -335,7 +338,8 @@
 		"clickToLock": "Click to lock this value",
 		"clickToUnlock": "Click to unlock this value",
 		"pressEnterToConfirm": "Press Enter to confirm",
-		"resetToMarket": "reset"
+		"resetToMarket": "reset",
+		"seoParagraph": "Because Nano supply is capped forever, every XNO you hold represents a permanent share of the network. Enter any investment amount in your currency to see how many XNO it would buy today, and how much of the total 133,248,297 XNO supply that stake represents."
 	},
 	"speculationCalculator": {
 		"title": "Speculation Calculator",
@@ -350,7 +354,8 @@
 		"yourStackValue": "Your Stack Value",
 		"multiplier": "Multiplier",
 		"potentialGain": "Potential Gain",
-		"errorLoading": "Unable to load market data. Please try again later."
+		"errorLoading": "Unable to load market data. Please try again later.",
+		"seoParagraph": "Market cap is the simple product of price and total supply, which makes price targets easy to reason about. Move the market cap slider to see what Nano would need to be worth per XNO at different market capitalizations, from conservative to extreme."
 	},
 	"speculation": {
 		"title": "Market Speculation",
@@ -800,6 +805,7 @@
 			"dominance": "Dominance",
 			"parity": "Parity",
 			"speculation": "Speculation",
+			"milestones": "Milestones",
 			"getNano": "Get Nano",
 			"swapNano": "Swap to Nano",
 			"whyNano": "Why Nano?",
@@ -1190,5 +1196,27 @@
 		"description": "The page you're looking for doesn't exist or has been moved. Check the URL or head back to the home page.",
 		"backHome": "Back to home",
 		"backNews": "Browse the news"
+	},
+	"decentralization": {
+		"title": "Nano Decentralization & Voting Weight",
+		"description": "Live Nano (XNO) decentralization metrics: representative voting weight, principal representative count and top-10 concentration, from public Nano nodes.",
+		"ogTitle": "Nano Decentralization & Voting Weight | NanoMarketCap",
+		"ogDescription": "Live Nano (XNO) decentralization metrics: representative voting weight, principal representatives and concentration, from public Nano nodes.",
+		"h1": "Nano Decentralization & Voting Weight",
+		"intro": "Who holds Nano voting weight right now? Every XNO holder delegates their balance to a representative. This page shows the live distribution of online voting weight, how many principal representatives exist, and how concentrated the top of the delegation network really is.",
+		"onlineWeight": "Online Voting Weight",
+		"onlineWeightHint": "XNO currently online",
+		"principalReps": "Principal Reps",
+		"principalWeightOfOnline": "of online weight",
+		"top10Share": "Top 10 Concentration",
+		"top10ShareHint": "share held by the 10 largest reps",
+		"gini": "Voting Weight Gini",
+		"giniHint": "0 = fully equal, 1 = fully centralized",
+		"topRepsTitle": "Top Representatives",
+		"repColumn": "Representative",
+		"weightColumn": "Weight",
+		"shareColumn": "Share",
+		"updatedNote": "Data is fetched from public Nano RPC nodes and refreshed hourly. Voting weight changes with each delegated balance.",
+		"failedNotice": "Public Nano RPC nodes could not be reached right now. Showing the last successfully cached values."
 	}
 }
