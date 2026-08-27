@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
 
-import { FiatCurrency } from '@/lib/constants'
 import { primaryFiatAtom } from '@/lib/currency-atoms'
 import {
 	type ExchangeRates,
@@ -14,7 +13,6 @@ import {
 	formatFiatPrice,
 	formatPercentage,
 	getFiatRate,
-	getFiatSymbol,
 } from '@/lib/currency-helpers'
 import { MILESTONES_BY_CURRENCY, niceStep, shortCap } from '@/lib/milestones'
 import { cn } from '@/lib/utils'

@@ -79,7 +79,7 @@ function MilestonesSkeleton() {
 				</div>
 			</div>
 			<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-				{[1, 2, 3, 4, 5, 6, 7].map((panel) => (
+				{[1, 2, 3, 4, 5, 6].map((panel) => (
 					<div key={panel} className="rounded-md border bg-card p-4">
 						<div className="flex items-center justify-between">
 							<Skeleton className="h-4 w-14" />

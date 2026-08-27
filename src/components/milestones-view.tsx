@@ -422,7 +422,6 @@ export function MilestonesView({ story }: { story?: MilestonesStory }) {
 							isHypo && 'text-amber-400',
 						)}
 					>
-						<span className="text-[#209CE9]">Ӿ</span>{' '}
 						<span suppressHydrationWarning>{formatFiatMarketCap(masterCap, activeFiat)}</span>
 					</p>
 					<p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
