@@ -19,13 +19,25 @@ export interface RepWeightEntry {
 	share: number
 }
 
+export interface LorenzPoint {
+	countPct: number
+	weightPct: number
+}
+
 export interface DecentralizationData {
 	onlineWeightXno: number
 	principalReps: number
 	principalWeightShare: number
+	top1Share: number
+	top5Share: number
 	top10Share: number
+	top25Share: number
+	top50Share: number
 	gini: number
+	medianWeightXno: number
+	meanWeightXno: number
 	repCount: number
+	lorenz: LorenzPoint[]
 	topReps: RepWeightEntry[]
 	fetchedAt: number
 }
@@ -95,9 +107,16 @@ function computeDecentralization(reps: Array<{ address: string; weight: string }
 			onlineWeightXno: 0,
 			principalReps: 0,
 			principalWeightShare: 0,
+			top1Share: 0,
+			top5Share: 0,
 			top10Share: 0,
+			top25Share: 0,
+			top50Share: 0,
 			gini: 0,
+			medianWeightXno: 0,
+			meanWeightXno: 0,
 			repCount: entries.length,
+			lorenz: [],
 			topReps: [],
 			fetchedAt: Date.now(),
 		}
@@ -107,7 +126,14 @@ function computeDecentralization(reps: Array<{ address: string; weight: string }
 	const principals = entries.filter((rep) => rep.weightXno >= principalThreshold)
 	const principalWeight = principals.reduce((sum, rep) => sum + rep.weightXno, 0)
 
-	const top10Share = entries.slice(0, 10).reduce((sum, rep) => sum + rep.weightXno, 0) / onlineWeightXno
+	const shareAt = (n: number): number =>
+		entries.slice(0, n).reduce((sum, rep) => sum + rep.weightXno, 0) / onlineWeightXno
+
+	const top1Share = shareAt(1)
+	const top5Share = shareAt(5)
+	const top10Share = shareAt(10)
+	const top25Share = shareAt(25)
+	const top50Share = shareAt(50)
 
 	const topReps = entries.slice(0, TOP_REPS_LIMIT).map((rep) => ({
 		...rep,
@@ -118,12 +144,40 @@ function computeDecentralization(reps: Array<{ address: string; weight: string }
 		onlineWeightXno,
 		principalReps: principals.length,
 		principalWeightShare: principalWeight / onlineWeightXno,
+		top1Share,
+		top5Share,
 		top10Share,
+		top25Share,
+		top50Share,
 		gini: computeGini(entries.map((rep) => rep.weightXno)),
+		medianWeightXno: entries[Math.floor(entries.length / 2)]?.weightXno ?? 0,
+		meanWeightXno: onlineWeightXno / entries.length,
 		repCount: entries.length,
+		lorenz: computeLorenz(entries, onlineWeightXno),
 		topReps,
 		fetchedAt: Date.now(),
 	}
+}
+
+// Lorenz curve points: for each cumulative share of representatives (by weight,
+// largest first), the cumulative share of voting weight they hold. 21 points
+// from 0% to 100% of the rep population. A perfectly equal network follows the
+// diagonal; the gap between the curve and the diagonal is the Gini region.
+function computeLorenz(
+	entries: Array<{ weightXno: number }>,
+	onlineWeightXno: number,
+): LorenzPoint[] {
+	const points: LorenzPoint[] = []
+	const step = entries.length > 0 ? 1 / Math.min(20, entries.length) : 1
+
+	for (let i = 0; i <= 20; i++) {
+		const countPct = Math.round((i * step) * 1000) / 10
+		const count = Math.min(entries.length, Math.round((i / 20) * entries.length))
+		const weightPct = count <= 0 ? 0 : (entries.slice(0, count).reduce((s, r) => s + r.weightXno, 0) / onlineWeightXno) * 100
+		points.push({ countPct: Math.min(100, countPct), weightPct: Math.min(100, weightPct) })
+	}
+
+	return points
 }
 
 // Gini coefficient over the full online voting weight distribution.
