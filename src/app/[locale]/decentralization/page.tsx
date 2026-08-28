@@ -88,7 +88,7 @@ export default async function DecentralizationPage({ params }: Props) {
 					<div className="grid gap-4 lg:grid-cols-5">
 						{/* Lorenz curve */}
 						<section className="lg:col-span-3 rounded-md border border-border bg-card p-4 sm:p-5">
-							<PanelHeader index="01" title={t('lorenzTitle')} sub={t('lorenzSub')} />
+							<PanelHeader title={t('lorenzTitle')} sub={t('lorenzSub')} />
 							<LorenzChart data={data.lorenz} />
 							<div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 border-t border-dashed border-border pt-3">
 								<LegendSwatch color="var(--chart-curve)" dashed={false} label={t('legendCurve')} />
@@ -103,7 +103,7 @@ export default async function DecentralizationPage({ params }: Props) {
 
 						{/* Concentration ladder */}
 						<section className="lg:col-span-2 rounded-md border border-border bg-card p-4 sm:p-5">
-							<PanelHeader index="02" title={t('ladderTitle')} sub={t('ladderHint')} />
+							<PanelHeader title={t('ladderTitle')} sub={t('ladderHint')} />
 							<ConcentrationLadder
 								rows={[
 									{ key: 'top1', share: data.top1Share },
@@ -121,7 +121,7 @@ export default async function DecentralizationPage({ params }: Props) {
 
 				{data && data.topReps.length > 0 && (
 					<section className="rounded-md border border-border bg-card p-4 sm:p-5">
-						<PanelHeader index="03" title={t('treemapTitle')} sub={t('treemapHint')} />
+						<PanelHeader title={t('treemapTitle')} sub={t('treemapHint')} />
 						<RepTreemap data={buildTreemapData(data)} />
 					</section>
 				)}
@@ -241,14 +241,11 @@ function GiniGlyph({ lorenz }: { lorenz: DecentralizationData['lorenz'] }) {
 	)
 }
 
-function PanelHeader({ index, title, sub }: { index: string; title: string; sub: string }) {
+function PanelHeader({ title, sub }: { title: string; sub: string }) {
 	return (
-		<div className="mb-4 flex items-start justify-between gap-4">
-			<div>
-				<h2 className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{title}</h2>
-				<p className="mt-1 text-sm text-muted-foreground/80">{sub}</p>
-			</div>
-			<span className="font-mono text-xs text-muted-foreground/40 tabular-nums select-none">{index}</span>
+		<div className="mb-4">
+			<h2 className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{title}</h2>
+			<p className="mt-1 text-sm text-muted-foreground/80">{sub}</p>
 		</div>
 	)
 }

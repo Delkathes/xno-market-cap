@@ -67,6 +67,7 @@ export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 					) {
 						return <g />
 					}
+					const isTop = item.address !== null && maxShare > 0 && item.share === maxShare
 					const fill =
 						item.address === null
 							? isDark
@@ -93,7 +94,15 @@ export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 									dominantBaseline="middle"
 									fontFamily="var(--font-geist-mono), ui-monospace, monospace"
 									fontSize={11}
-									fill={isDark ? TREEMAP_RAMP.text.dark : TREEMAP_RAMP.text.light}
+									fill={
+										isTop
+											? isDark
+												? TREEMAP_RAMP.text.light
+												: TREEMAP_RAMP.text.dark
+											: isDark
+												? TREEMAP_RAMP.text.dark
+												: TREEMAP_RAMP.text.light
+									}
 									fillOpacity={0.9}
 								>
 									{item.address === null ? t('treemapOthers') : shortenAddress(item.address)}
