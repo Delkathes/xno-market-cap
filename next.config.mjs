@@ -121,6 +121,24 @@ const nextConfig = {
 				{ key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
 			],
 		},
+		// Edge-cache the news listing: the page is searchParams-dynamic, so
+		// without explicit caching every request (incl. ?page/?tag/?q variants)
+		// renders at origin. 5 min freshness + 1 h stale-while-revalidate keeps
+		// publishes visible quickly while slashing origin renders. Safe to
+		// cache: the news page reads no cookies. Crawlers that send
+		// `Cache-Control: no-cache` bypass this — handled via robots.txt.
+		{
+			source: '/news/:path*',
+			headers: [
+				{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' },
+			],
+		},
+		{
+			source: '/(en|nl|es|it|de|fr)/news/:path*',
+			headers: [
+				{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' },
+			],
+		},
 	],
 }
 

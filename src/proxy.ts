@@ -23,9 +23,75 @@ function guardAccountPath(request: NextRequest): NextResponseType | null {
 	return NextResponse.redirect(new URL(`${prefix}/tools/account-inspector`, request.url), 307)
 }
 
+// AI/content crawlers stay ALLOWED (robots.txt permits them, so they remain
+// discoverable and citable), but heavy ones are throttled to one request per
+// window per path-group. They must back off on 429 + Retry-After (all major
+// crawlers do); a runaway crawler can no longer burn the whole FOT quota.
+// The bucket is per edge instance — a hard distributed cap would need a
+// shared store (e.g. the Vercel Firewall), this is a best-effort ceiling.
+const HEAVY_CRAWLER_AGENTS = [
+	'GPTBot',
+	'OAI-SearchBot',
+	'ChatGPT-User',
+	'Bytespider',
+	'ClaudeBot',
+	'Claude-Web',
+	'Claude-SearchBot',
+	'PerplexityBot',
+	'Amazonbot',
+	'CCBot',
+	'Meta-ExternalAgent',
+	'cohere-ai',
+	'omgili',
+	'Diffbot',
+	'ImagesiftBot',
+]
+
+const CRAWLER_WINDOW_MS = 60_000
+const CRAWLER_MAX_REQUESTS_PER_WINDOW = 1
+
+interface CrawlerBucket {
+	count: number
+	windowStart: number
+}
+
+const crawlerBuckets = new Map<string, CrawlerBucket>()
+
+function throttleHeavyCrawlers(request: NextRequest): NextResponseType | null {
+	const userAgent = request.headers.get('user-agent') ?? ''
+	const agent = HEAVY_CRAWLER_AGENTS.find((name) => userAgent.includes(name))
+	if (!agent) return null
+
+	// Bucket per (agent, first path segment): /news, /en/news, /why-nano...
+	// share the same budget; every other path-group gets its own.
+	const firstSegment = request.nextUrl.pathname.split('/')[1] ?? ''
+	const bucketKey = `${agent}:${firstSegment}`
+	const now = Date.now()
+	const bucket = crawlerBuckets.get(bucketKey)
+
+	if (!bucket || now - bucket.windowStart >= CRAWLER_WINDOW_MS) {
+		crawlerBuckets.set(bucketKey, { count: 1, windowStart: now })
+		return null
+	}
+
+	bucket.count += 1
+	if (bucket.count > CRAWLER_MAX_REQUESTS_PER_WINDOW) {
+		const retryAfter = Math.ceil((bucket.windowStart + CRAWLER_WINDOW_MS - now) / 1000)
+		return new NextResponse(null, {
+			status: 429,
+			headers: { 'Retry-After': String(Math.max(retryAfter, 1)) },
+		})
+	}
+	return null
+}
+
 export default function proxy(request: NextRequest) {
 	const guarded = guardAccountPath(request)
 	if (guarded) return guarded
+
+	const throttled = throttleHeavyCrawlers(request)
+	if (throttled) return throttled
+
 	return createMiddleware(routing)(request)
 }
 

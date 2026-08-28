@@ -139,6 +139,15 @@ export async function GET(
 				)}
 			</div>
 		</div>,
-		{ ...size },
+		{
+			...size,
+			// Balance data refreshes on a 60s cadence, so the image is safe to
+			// cache at the edge for a minute with a long stale-while-revalidate;
+			// social crawlers (Discord/Telegram/X previews) then hit the CDN
+			// instead of regenerating the PNG on every share.
+			headers: {
+				'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=600',
+			},
+		},
 	)
 }
