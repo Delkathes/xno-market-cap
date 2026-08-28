@@ -27,29 +27,32 @@ const ACCOUNTS = [
 	},
 ] as const
 
+// Historical dates: pre-2020 blocks carry no on-chain timestamp, so these are
+// the documented network-history dates (genesis + first transactions: network
+// launch, 4 Nov 2015; Binance cold opens: after the March 2018 Binance listing).
 const BLOCKS = [
 	{
 		hash: '991cf190094c00f0b68e2e5f75f6bee95a2e0bd93ceaa4a6734db9f19b728948',
 		labelKey: 'genesisBlock',
-		meta: '2019-12-09 · ',
+		meta: '2015-11-04 · ',
 		amount: '340.28M XNO',
 	},
 	{
 		hash: 'a170d51b94e00371ace76e35ac81dc9405d5d04d4cebc399aeace07ae05dd293',
 		labelKey: 'firstSend',
-		meta: '2019-12-09 · ',
+		meta: '2015-11-04 · ',
 		amount: '3.27M XNO',
 	},
 	{
 		hash: '90d0c16ac92dd35814e84bfbcc739a039615d0a42a76ef44adaef1d99e9f8a35',
 		labelKey: 'firstReceive',
-		meta: '2019-12-09 · ',
+		meta: '2015-11-04 · ',
 		amount: '3.27M XNO',
 	},
 	{
 		hash: '0ef9b910283d2d72aca1e40c6363633e59e0405b60fd6b98f722d2fd60a9f73b',
 		labelKey: 'binanceColdOpens',
-		meta: '2019-12-09 · ',
+		meta: '2018-03 · ',
 		amount: '888 XNO',
 	},
 ] as const
