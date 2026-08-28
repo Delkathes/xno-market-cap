@@ -4,15 +4,19 @@ import { useSetAtom } from 'jotai'
 import {
 	ArrowRightLeft,
 	ChartPie,
+	Fingerprint,
 	Flag,
 	HelpCircle,
 	Lightbulb,
+	Link2,
 	Moon,
 	Network,
 	RefreshCw,
 	Scale,
+	ScanSearch,
 	Sun,
 	Wallet,
+	Wrench,
 	Zap,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -113,6 +117,230 @@ export function DesktopControls() {
 					{t('calculators')}
 				</Link>
 			</Button>
+
+			<NavigationMenu>
+				<NavigationMenuList>
+					<NavigationMenuItem>
+						<NavigationMenuTrigger
+							className={cn(
+								'px-4 py-2 rounded-md text-sm font-medium transition-colors bg-transparent',
+								pathname.startsWith('/tools')
+									? 'bg-secondary text-secondary-foreground'
+									: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+							)}
+						>
+							{t('tools')}
+						</NavigationMenuTrigger>
+						<NavigationMenuContent>
+							<ul className="w-fit gap-2 p-4">
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/tools"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/tools' && 'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Wrench
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/tools' && 'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('toolIndex')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/tools' && 'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolIndexDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/tools/unit-converter"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/tools/unit-converter' &&
+													'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<ArrowRightLeft
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/tools/unit-converter' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('toolUnitConverter')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/tools/unit-converter' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolUnitConverterDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/tools/payment-links"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/tools/payment-links' &&
+													'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Link2
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/tools/payment-links' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('toolPaymentLinks')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/tools/payment-links' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolPaymentLinksDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/tools/address-tools"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/tools/address-tools' &&
+													'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Fingerprint
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/tools/address-tools' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('toolAddressTools')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/tools/address-tools' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolAddressToolsDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/tools/account-inspector"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/tools/account-inspector' &&
+													'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<ScanSearch
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/tools/account-inspector' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">
+														{t('toolAccountInspector')}
+													</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/tools/account-inspector' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolAccountInspectorDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/tools/fee-comparison"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/tools/fee-comparison' &&
+													'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Zap
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/tools/fee-comparison' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('toolFeeComparison')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/tools/fee-comparison' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolFeeComparisonDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
+							</ul>
+						</NavigationMenuContent>
+					</NavigationMenuItem>
+				</NavigationMenuList>
+			</NavigationMenu>
 
 			<NavigationMenu>
 				<NavigationMenuList>

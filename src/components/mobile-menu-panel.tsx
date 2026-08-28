@@ -2,7 +2,22 @@
 
 import { useEffect } from 'react'
 import { atom, useAtom, useSetAtom } from 'jotai'
-import { ArrowRightLeft, ChartPie, Flag, HelpCircle, Lightbulb, Network, Scale, Wallet, X, Zap } from 'lucide-react'
+import {
+	ArrowRightLeft,
+	ChartPie,
+	Fingerprint,
+	Flag,
+	HelpCircle,
+	Lightbulb,
+	Link2,
+	Network,
+	Scale,
+	ScanSearch,
+	Wallet,
+	Wrench,
+	X,
+	Zap,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/navigation'
@@ -185,6 +200,115 @@ export function MobileMenuPanel() {
 									<div>{t('decentralization')}</div>
 									<p className="text-xs text-muted-foreground font-normal">
 										{t('decentralizationDescription')}
+									</p>
+								</div>
+							</Link>
+
+							<div className="my-2 border-t border-border" />
+
+							<div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+								{t('tools')}
+							</div>
+
+							<Link
+								href="/tools"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/tools'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Wrench className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolIndex')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolIndexDescription')}
+									</p>
+								</div>
+							</Link>
+							<Link
+								href="/tools/unit-converter"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/tools/unit-converter'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<ArrowRightLeft className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolUnitConverter')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolUnitConverterDescription')}
+									</p>
+								</div>
+							</Link>
+							<Link
+								href="/tools/payment-links"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/tools/payment-links'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Link2 className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolPaymentLinks')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolPaymentLinksDescription')}
+									</p>
+								</div>
+							</Link>
+							<Link
+								href="/tools/address-tools"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/tools/address-tools'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Fingerprint className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolAddressTools')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolAddressToolsDescription')}
+									</p>
+								</div>
+							</Link>
+							<Link
+								href="/tools/account-inspector"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/tools/account-inspector'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<ScanSearch className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolAccountInspector')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolAccountInspectorDescription')}
+									</p>
+								</div>
+							</Link>
+							<Link
+								href="/tools/fee-comparison"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/tools/fee-comparison'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Zap className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolFeeComparison')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolFeeComparisonDescription')}
 									</p>
 								</div>
 							</Link>

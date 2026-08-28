@@ -57,7 +57,6 @@ async function HomeContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('hours')
 
-
 	const t = await getTranslations({ locale, namespace: 'home' })
 
 	const recentNews = await getRecentNews(locale, 6)
@@ -96,8 +95,8 @@ async function HomeContent({ locale }: { locale: string }) {
 					}}
 				/>
 
-			<div className="space-y-8">
-				{/* Ticker tape */}
+				<div className="space-y-8">
+					{/* Ticker tape */}
 					<div className="animate-fade-in-up">
 						<Suspense fallback={<TickerSkeleton />}>
 							<NewsBanner articles={recentNews} />

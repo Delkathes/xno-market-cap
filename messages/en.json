@@ -97,6 +97,44 @@
 		"milestones": {
 			"title": "Milestones",
 			"description": "The full XNO market cap ladder in every fiat currency, with an interactive simulator."
+		},
+		"tools": {
+			"hub": {
+				"title": "Nano Tools & Utilities",
+				"description": "Free Nano (XNO) tools: unit converter, payment link generator, address tools, account inspector and a Nano vs Bitcoin fee comparison.",
+				"ogTitle": "Nano Tools & Utilities | NanoMarketCap",
+				"ogDescription": "Free Nano (XNO) tools: unit converter, payment link generator, address tools, account inspector and fee comparison."
+			},
+			"converter": {
+				"title": "Nano Unit Converter: XNO to Raw",
+				"description": "Convert Nano (XNO) between raw and XNO units with full precision, plus mXNO display. The definitive XNO unit converter.",
+				"ogTitle": "Nano Unit Converter: XNO to Raw | NanoMarketCap",
+				"ogDescription": "Convert Nano (XNO) between raw and XNO units with full precision."
+			},
+			"paymentLinks": {
+				"title": "Nano Payment Link Generator",
+				"description": "Create nano: payment links with QR codes, custom amounts, labels and messages. Share a payable Nano link in seconds.",
+				"ogTitle": "Nano Payment Link Generator | NanoMarketCap",
+				"ogDescription": "Create nano: payment links with QR codes, custom amounts and labels."
+			},
+			"addressTools": {
+				"title": "Nano Address Tools & Validator",
+				"description": "Validate any Nano address, convert between address and public key, and generate a seed with its derived address. All in your browser.",
+				"ogTitle": "Nano Address Tools & Validator | NanoMarketCap",
+				"ogDescription": "Validate Nano addresses, convert address and public key, generate seeds."
+			},
+			"accountInspector": {
+				"title": "Nano Account Inspector",
+				"description": "Look up any Nano account: balance, pending funds, representative, open block and live voting weight, straight from public Nano nodes.",
+				"ogTitle": "Nano Account Inspector | NanoMarketCap",
+				"ogDescription": "Look up any Nano account: balance, pending, representative and voting weight."
+			},
+			"feeComparison": {
+				"title": "Nano vs Bitcoin Fees",
+				"description": "Compare Nano's zero transaction fees with live Bitcoin fees from mempool.space. See what a payment really costs on each network.",
+				"ogTitle": "Nano vs Bitcoin Fees | NanoMarketCap",
+				"ogDescription": "Compare Nano's zero fees with live Bitcoin fees from mempool.space."
+			}
 		}
 	},
 	"common": {
@@ -141,7 +179,21 @@
 		"milestones": "Milestones",
 		"milestonesDescription": "Market cap ladder in every currency",
 		"decentralization": "Decentralization",
-		"decentralizationDescription": "Voting weight & live decentralization metrics"
+		"decentralizationDescription": "Voting weight & live decentralization metrics",
+		"tools": "Tools",
+		"toolsDescription": "Converters & utilities",
+		"toolIndex": "All Tools",
+		"toolIndexDescription": "Browse every instrument",
+		"toolUnitConverter": "Unit Converter",
+		"toolUnitConverterDescription": "XNO to raw & back",
+		"toolPaymentLinks": "Payment Links",
+		"toolPaymentLinksDescription": "QR payment requests",
+		"toolAddressTools": "Address Tools",
+		"toolAddressToolsDescription": "Validate & derive keys",
+		"toolAccountInspector": "Account Inspector",
+		"toolAccountInspectorDescription": "Balance & voting weight",
+		"toolFeeComparison": "Nano vs BTC Fees",
+		"toolFeeComparisonDescription": "Zero vs Bitcoin fees"
 	},
 	"home": {
 		"marketLedger": "Market Ledger",
@@ -1235,5 +1287,116 @@
 		"ladderFootnote": "of {weight} XNO online",
 		"onlineVsSupply": "{pct}% of total supply",
 		"breadth": "Across {count} online reps: the median representative controls {median} XNO, the mean is {mean} XNO, dragged upward by the largest representatives."
+	},
+	"tools": {
+		"hub": {
+			"kicker": "Instrument bench",
+			"h1": "Nano Tools",
+			"intro": "Everything a Nano user needs, in one room: unit conversions, payment links, address verification, account lookups and a live fee comparison. Free, client-side, no tracking.",
+			"openTool": "Open instrument"
+		},
+		"converter": {
+			"kicker": "Instrument 01 · units",
+			"h1": "Nano Unit Converter",
+			"sub": "Convert between XNO and raw with exact precision. One XNO is 10^30 raw.",
+			"copy": "Copy",
+			"copied": "Copied",
+			"note": "Conversions are string-based and lossless, so even the largest raw amounts round-trip exactly.",
+			"unit": "Unit",
+			"value": "Value"
+		},
+		"paymentLinks": {
+			"kicker": "Instrument 02 · payment links",
+			"h1": "Nano Payment Link Generator",
+			"sub": "Build a nano: URI with an amount, label and message, then share it as a link or QR code.",
+			"address": "Recipient address",
+			"addressPlaceholder": "nano_1... or xno_1...",
+			"amount": "Amount (XNO)",
+			"amountPlaceholder": "e.g. 1.5",
+			"label": "Label",
+			"labelPlaceholder": "e.g. Coffee",
+			"message": "Message",
+			"messagePlaceholder": "e.g. Thanks for the coffee",
+			"uriPreview": "Payment URI",
+			"qr": "QR code",
+			"shareable": "Shareable link",
+			"copyUri": "Copy URI",
+			"copyAddress": "Copy address",
+			"copied": "Copied",
+			"invalidAddress": "Enter a valid nano_ or xno_ address",
+			"invalidAmount": "Enter a positive amount",
+			"note": "QR codes render instantly in your browser. Nothing is sent anywhere."
+		},
+		"addressTools": {
+			"kicker": "Instrument 03 · keys",
+			"h1": "Nano Address Tools",
+			"sub": "Validate addresses, convert between address and public key, and generate a seed with its derived address.",
+			"address": "Address or public key",
+			"addressPlaceholder": "nano_1..., xno_1... or a 64-char hex public key",
+			"inspect": "Inspect",
+			"valid": "Valid address",
+			"invalid": "Invalid input",
+			"checksum": "Checksum verified",
+			"prefix": "Prefix",
+			"publicKey": "Public key",
+			"derivedAddress": "Derived address",
+			"seedSection": "Seed generator",
+			"seedLabel": "Generate a random seed and its first derived address",
+			"generate": "Generate seed",
+			"seedWarning": "Store this seed offline and never share it. Anyone with the seed controls the funds. This page never transmits it.",
+			"qr": "Address QR code",
+			"copy": "Copy",
+			"copied": "Copied"
+		},
+		"accountInspector": {
+			"kicker": "Instrument 04 · lookups",
+			"h1": "Nano Account Inspector",
+			"sub": "Look up any Nano account straight from public nodes: balance, pending, representative, open block and voting weight.",
+			"address": "Account address",
+			"addressPlaceholder": "nano_1... or xno_1...",
+			"inspect": "Inspect account",
+			"checking": "Querying public nodes...",
+			"balance": "Balance",
+			"pending": "Pending",
+			"votingWeight": "Voting weight",
+			"shareOfOnline": "of online voting weight",
+			"principal": "Principal representative",
+			"principalYes": "Yes, above 0.1%",
+			"principalNo": "No, below 0.1%",
+			"rank": "Rank by weight",
+			"representative": "Representative",
+			"frontier": "Frontier",
+			"openBlock": "Open block",
+			"notFound": "Account not found on the network",
+			"rpcError": "Public nodes could not be reached. Try again in a moment.",
+			"invalidAddress": "Enter a valid nano_ or xno_ address",
+			"copy": "Copy",
+			"copied": "Copied",
+			"note": "Results are cached for 60 seconds and fetched from public Nano RPC relays.",
+			"viewBlocklattice": "View on Blocklattice",
+			"viewNanexplorer": "View on Nanexplorer"
+		},
+		"feeComparison": {
+			"kicker": "Instrument 05 · fees",
+			"h1": "Nano vs Bitcoin Fees",
+			"sub": "Nano transfers cost nothing. Bitcoin fees move with the mempool. Here is what a payment actually costs on each network right now.",
+			"nanoFee": "Nano fee",
+			"nanoFeeValue": "$0.00",
+			"nanoFeeNote": "Always, forever",
+			"bitcoinFee": "Bitcoin fee",
+			"bitcoinFeeNote": "live from mempool.space",
+			"sendAmount": "Payment amount",
+			"feeAsPercent": "Fee as share of payment",
+			"perTx": "per standard send",
+			"tiers": {
+				"fastest": "Fastest",
+				"halfHour": "Half hour",
+				"hour": "One hour",
+				"economy": "Economy"
+			},
+			"vbytesNote": "Based on a typical 226 vB send (2 inputs, 2 outputs) and current sat/vB rates.",
+			"sourceNote": "Bitcoin fee rates from mempool.space, refreshed every few minutes.",
+			"updateNote": "Fee estimate, not a quote."
+		}
 	}
 }

@@ -79,7 +79,6 @@ async function ParityContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('hours')
 
-
 	const t = await getTranslations({ locale, namespace: 'parity' })
 	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })
 

@@ -149,12 +149,12 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		const fetchXno = async (): Promise<CryptoData | null> => {
 			if (hasXNO) return null
 			try {
-			const xnoJson = await cgGet('/coins/markets', {
-				vs_currency: 'usd',
-				ids: 'nano',
-				sparkline: false,
-				price_change_percentage: '1h,24h,7d',
-			})
+				const xnoJson = await cgGet('/coins/markets', {
+					vs_currency: 'usd',
+					ids: 'nano',
+					sparkline: false,
+					price_change_percentage: '1h,24h,7d',
+				})
 				const xnoResult = v.safeParse(CryptoDataArraySchema, xnoJson)
 				if (xnoResult.success && xnoResult.output[0]) {
 					return {
@@ -170,10 +170,10 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
 		const fetchRates = async () => {
 			try {
-			const ratesJson = await cgGet('/simple/price', {
-				ids: 'nano',
-				vs_currencies: 'usd,eur,gbp,jpy,chf,cad,aud',
-			})
+				const ratesJson = await cgGet('/simple/price', {
+					ids: 'nano',
+					vs_currencies: 'usd,eur,gbp,jpy,chf,cad,aud',
+				})
 				return ratesJson
 			} catch (error) {
 				mapSdkError(error, 'exchange rates')
@@ -182,14 +182,14 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 
 		const fetchXnoDetail = async () => {
 			try {
-			const xnoDetailJson = await cgGet('/coins/nano', {
-				localization: false,
-				tickers: false,
-				market_data: true,
-				community_data: false,
-				developer_data: false,
-				sparkline: false,
-			})
+				const xnoDetailJson = await cgGet('/coins/nano', {
+					localization: false,
+					tickers: false,
+					market_data: true,
+					community_data: false,
+					developer_data: false,
+					sparkline: false,
+				})
 				return xnoDetailJson
 			} catch (error) {
 				// Non-critical: log warning and return null

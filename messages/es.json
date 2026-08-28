@@ -97,6 +97,44 @@
 		"milestones": {
 			"title": "Hitos",
 			"description": "La escalera completa de capitalización de XNO en cada moneda, con un simulador interactivo."
+		},
+		"tools": {
+			"hub": {
+				"title": "Herramientas y utilidades Nano",
+				"description": "Herramientas gratuitas de Nano (XNO): conversor de unidades, generador de enlaces de pago, herramientas de dirección, inspector de cuentas y comparación de comisiones Nano vs Bitcoin.",
+				"ogTitle": "Herramientas y utilidades Nano | NanoMarketCap",
+				"ogDescription": "Herramientas gratuitas de Nano (XNO): conversor, enlaces de pago, direcciones, inspector de cuentas y comparación de comisiones."
+			},
+			"converter": {
+				"title": "Conversor de unidades Nano: XNO a Raw",
+				"description": "Convierte Nano (XNO) entre unidades raw y XNO con precisión total, además de la vista en mXNO. El conversor de unidades XNO definitivo.",
+				"ogTitle": "Conversor de unidades Nano: XNO a Raw | NanoMarketCap",
+				"ogDescription": "Convierte Nano (XNO) entre raw y XNO con precisión total."
+			},
+			"paymentLinks": {
+				"title": "Generador de enlaces de pago Nano",
+				"description": "Crea enlaces de pago nano: con códigos QR, importes personalizados, etiquetas y mensajes. Comparte un enlace de pago Nano en segundos.",
+				"ogTitle": "Generador de enlaces de pago Nano | NanoMarketCap",
+				"ogDescription": "Crea enlaces de pago nano: con códigos QR, importes y etiquetas."
+			},
+			"addressTools": {
+				"title": "Herramientas de dirección Nano y validador",
+				"description": "Valida cualquier dirección Nano, convierte entre dirección y clave pública, y genera una semilla con su dirección derivada. Todo en tu navegador.",
+				"ogTitle": "Herramientas de dirección Nano y validador | NanoMarketCap",
+				"ogDescription": "Valida direcciones Nano, convierte dirección y clave pública, genera semillas."
+			},
+			"accountInspector": {
+				"title": "Inspector de cuentas Nano",
+				"description": "Consulta cualquier cuenta Nano: saldo, fondos pendientes, representante, bloque de apertura y peso de voto en vivo, desde los nodos públicos de Nano.",
+				"ogTitle": "Inspector de cuentas Nano | NanoMarketCap",
+				"ogDescription": "Consulta cualquier cuenta Nano: saldo, pendiente, representante y peso de voto."
+			},
+			"feeComparison": {
+				"title": "Comisiones Nano vs Bitcoin",
+				"description": "Compara las comisiones de transacción nulas de Nano con las comisiones de Bitcoin en vivo desde mempool.space. Mira cuánto cuesta realmente un pago en cada red.",
+				"ogTitle": "Comisiones Nano vs Bitcoin | NanoMarketCap",
+				"ogDescription": "Compara las comisiones nulas de Nano con las de Bitcoin en vivo desde mempool.space."
+			}
 		}
 	},
 	"common": {
@@ -147,7 +185,21 @@
 		"milestones": "Hitos",
 		"milestonesDescription": "Escalera de capitalización en cada moneda",
 		"decentralization": "Descentralización",
-		"decentralizationDescription": "Peso de voto y métricas de descentralización en vivo"
+		"decentralizationDescription": "Peso de voto y métricas de descentralización en vivo",
+		"tools": "Herramientas",
+		"toolsDescription": "Conversores y utilidades",
+		"toolIndex": "Todas las herramientas",
+		"toolIndexDescription": "Explorar todos los instrumentos",
+		"toolUnitConverter": "Conversor de unidades",
+		"toolUnitConverterDescription": "XNO a raw y viceversa",
+		"toolPaymentLinks": "Enlaces de pago",
+		"toolPaymentLinksDescription": "Solicitudes de pago QR",
+		"toolAddressTools": "Herramientas de dirección",
+		"toolAddressToolsDescription": "Validar y derivar claves",
+		"toolAccountInspector": "Inspector de cuentas",
+		"toolAccountInspectorDescription": "Saldo y peso de voto",
+		"toolFeeComparison": "Comisiones Nano vs BTC",
+		"toolFeeComparisonDescription": "Cero contra comisiones de Bitcoin"
 	},
 	"home": {
 		"marketLedger": "Registro del mercado",
@@ -1241,5 +1293,116 @@
 		"ladderFootnote": "de {weight} XNO en línea",
 		"onlineVsSupply": "{pct}% del suministro total",
 		"breadth": "Entre {count} reps en línea: el representante mediano controla {median} XNO, la media es {mean} XNO, empujada hacia arriba por los representantes más grandes."
+	},
+	"tools": {
+		"hub": {
+			"kicker": "Banco de instrumentos",
+			"h1": "Herramientas Nano",
+			"intro": "Todo lo que un usuario de Nano necesita, en una sala: conversión de unidades, enlaces de pago, verificación de direcciones, consulta de cuentas y comparación de comisiones en vivo. Gratis, en el navegador, sin rastreo.",
+			"openTool": "Abrir instrumento"
+		},
+		"converter": {
+			"kicker": "Instrumento 01 · unidades",
+			"h1": "Conversor de unidades Nano",
+			"sub": "Convierte entre XNO y raw con precisión exacta. Un XNO equivale a 10^30 raw.",
+			"copy": "Copiar",
+			"copied": "Copiado",
+			"note": "Las conversiones se basan en cadenas y no tienen pérdida: incluso los importes raw más grandes se convierten con exactitud.",
+			"unit": "Unidad",
+			"value": "Valor"
+		},
+		"paymentLinks": {
+			"kicker": "Instrumento 02 · enlaces de pago",
+			"h1": "Generador de enlaces de pago Nano",
+			"sub": "Construye una URI nano: con importe, etiqueta y mensaje, y compártela como enlace o código QR.",
+			"address": "Dirección del destinatario",
+			"addressPlaceholder": "nano_1... o xno_1...",
+			"amount": "Importe (XNO)",
+			"amountPlaceholder": "p. ej. 1.5",
+			"label": "Etiqueta",
+			"labelPlaceholder": "p. ej. Café",
+			"message": "Mensaje",
+			"messagePlaceholder": "p. ej. Gracias por el café",
+			"uriPreview": "URI de pago",
+			"qr": "Código QR",
+			"shareable": "Enlace compartible",
+			"copyUri": "Copiar URI",
+			"copyAddress": "Copiar dirección",
+			"copied": "Copiado",
+			"invalidAddress": "Introduce una dirección nano_ o xno_ válida",
+			"invalidAmount": "Introduce un importe positivo",
+			"note": "Los códigos QR se generan al instante en tu navegador. No se envía nada."
+		},
+		"addressTools": {
+			"kicker": "Instrumento 03 · claves",
+			"h1": "Herramientas de dirección Nano",
+			"sub": "Valida direcciones, convierte entre dirección y clave pública, y genera una semilla con su dirección derivada.",
+			"address": "Dirección o clave pública",
+			"addressPlaceholder": "nano_1..., xno_1... o una clave pública hexadecimal de 64 caracteres",
+			"inspect": "Inspeccionar",
+			"valid": "Dirección válida",
+			"invalid": "Entrada no válida",
+			"checksum": "Suma de verificación comprobada",
+			"prefix": "Prefijo",
+			"publicKey": "Clave pública",
+			"derivedAddress": "Dirección derivada",
+			"seedSection": "Generador de semillas",
+			"seedLabel": "Genera una semilla aleatoria y su primera dirección derivada",
+			"generate": "Generar semilla",
+			"seedWarning": "Guarda esta semilla sin conexión y nunca la compartas. Quien tenga la semilla controla los fondos. Esta página nunca la transmite.",
+			"qr": "Código QR de la dirección",
+			"copy": "Copiar",
+			"copied": "Copiado"
+		},
+		"accountInspector": {
+			"kicker": "Instrumento 04 · consultas",
+			"h1": "Inspector de cuentas Nano",
+			"sub": "Consulta cualquier cuenta Nano desde los nodos públicos: saldo, pendiente, representante, bloque de apertura y peso de voto.",
+			"address": "Dirección de la cuenta",
+			"addressPlaceholder": "nano_1... o xno_1...",
+			"inspect": "Inspeccionar cuenta",
+			"checking": "Consultando nodos públicos...",
+			"balance": "Saldo",
+			"pending": "Pendiente",
+			"votingWeight": "Peso de voto",
+			"shareOfOnline": "del peso de voto en línea",
+			"principal": "Representante principal",
+			"principalYes": "Sí, por encima del 0,1%",
+			"principalNo": "No, por debajo del 0,1%",
+			"rank": "Puesto por peso",
+			"representative": "Representante",
+			"frontier": "Frontera",
+			"openBlock": "Bloque de apertura",
+			"notFound": "Cuenta no encontrada en la red",
+			"rpcError": "No se pudieron alcanzar los nodos públicos. Inténtalo de nuevo en un momento.",
+			"invalidAddress": "Introduce una dirección nano_ o xno_ válida",
+			"copy": "Copiar",
+			"copied": "Copiado",
+			"note": "Los resultados se almacenan en caché durante 60 segundos y se obtienen de retransmisiones RPC públicas de Nano.",
+			"viewBlocklattice": "Ver en Blocklattice",
+			"viewNanexplorer": "Ver en Nanexplorer"
+		},
+		"feeComparison": {
+			"kicker": "Instrumento 05 · comisiones",
+			"h1": "Comisiones Nano vs Bitcoin",
+			"sub": "Las transferencias de Nano no cuestan nada. Las comisiones de Bitcoin siguen al mempool. Esto es lo que cuesta realmente un pago en cada red ahora mismo.",
+			"nanoFee": "Comisión Nano",
+			"nanoFeeValue": "$0.00",
+			"nanoFeeNote": "Siempre, para siempre",
+			"bitcoinFee": "Comisión Bitcoin",
+			"bitcoinFeeNote": "en vivo desde mempool.space",
+			"sendAmount": "Importe del pago",
+			"feeAsPercent": "Comisión como parte del pago",
+			"perTx": "por envío estándar",
+			"tiers": {
+				"fastest": "Más rápido",
+				"halfHour": "Media hora",
+				"hour": "Una hora",
+				"economy": "Económico"
+			},
+			"vbytesNote": "Basado en un envío típico de 226 vB (2 entradas, 2 salidas) y las tasas actuales de sat/vB.",
+			"sourceNote": "Comisiones de Bitcoin desde mempool.space, actualizadas cada pocos minutos.",
+			"updateNote": "Estimación de comisión, no una cotización."
+		}
 	}
 }

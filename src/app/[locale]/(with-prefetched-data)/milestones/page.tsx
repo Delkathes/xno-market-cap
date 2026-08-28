@@ -52,7 +52,6 @@ async function MilestonesContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('hours')
 
-
 	const t = await getTranslations({ locale, namespace: 'milestones' })
 
 	// Editorial hook: only shown while the $1B story is published in this locale

@@ -304,7 +304,6 @@ async function CalculatorsContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('max')
 
-
 	const t = await getTranslations({ locale, namespace: 'navigation' })
 	const tMeta = await getTranslations({ locale, namespace: 'metadata.calculators' })
 	const tParity = await getTranslations({ locale, namespace: 'parity' })

@@ -97,6 +97,44 @@
 		"milestones": {
 			"title": "Mijlpalen",
 			"description": "De volledige XNO-marktkapitalisatieladder in elke valuta, met een interactieve simulator."
+		},
+		"tools": {
+			"hub": {
+				"title": "Nano-tools & hulpmiddelen",
+				"description": "Gratis Nano (XNO) tools: eenhedenconverter, betaallink-generator, adres-tools, account-inspecteur en een Nano-tegen-Bitcoin-kostenvergelijking.",
+				"ogTitle": "Nano-tools & hulpmiddelen | NanoMarketCap",
+				"ogDescription": "Gratis Nano (XNO) tools: converter, betaallinks, adressen, account-inspecteur en kostenvergelijking."
+			},
+			"converter": {
+				"title": "Nano-eenhedenconverter: XNO naar Raw",
+				"description": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO, plus mXNO-weergave. De definitieve XNO-eenhedenconverter.",
+				"ogTitle": "Nano-eenhedenconverter: XNO naar Raw | NanoMarketCap",
+				"ogDescription": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO."
+			},
+			"paymentLinks": {
+				"title": "Nano-betaallink-generator",
+				"description": "Maak nano: betaallinks met QR-codes, eigen bedragen, labels en berichten. Deel in seconden een betaalbare Nano-link.",
+				"ogTitle": "Nano-betaallink-generator | NanoMarketCap",
+				"ogDescription": "Maak nano: betaallinks met QR-codes, bedragen en labels."
+			},
+			"addressTools": {
+				"title": "Nano-adres-tools & validator",
+				"description": "Valideer elk Nano-adres, converteer tussen adres en publieke sleutel, en genereer een seed met het afgeleide adres. Alles in je browser.",
+				"ogTitle": "Nano-adres-tools & validator | NanoMarketCap",
+				"ogDescription": "Valideer Nano-adressen, converteer adres en publieke sleutel, genereer seeds."
+			},
+			"accountInspector": {
+				"title": "Nano-account-inspecteur",
+				"description": "Zoek elk Nano-account op: saldo, lopende bedragen, vertegenwoordiger, openingsblok en live stemgewicht, rechtstreeks van publieke Nano-nodes.",
+				"ogTitle": "Nano-account-inspecteur | NanoMarketCap",
+				"ogDescription": "Zoek elk Nano-account op: saldo, lopend, vertegenwoordiger en stemgewicht."
+			},
+			"feeComparison": {
+				"title": "Nano vs Bitcoin-kosten",
+				"description": "Vergelijk de nul transactiekosten van Nano met live Bitcoin-kosten van mempool.space. Zie wat een betaling op elk netwerk echt kost.",
+				"ogTitle": "Nano vs Bitcoin-kosten | NanoMarketCap",
+				"ogDescription": "Vergelijk de nul kosten van Nano met live Bitcoin-kosten van mempool.space."
+			}
 		}
 	},
 	"common": {
@@ -147,7 +185,21 @@
 		"milestones": "Mijlpalen",
 		"milestonesDescription": "Marktkapitalisatieladder in elke valuta",
 		"decentralization": "Decentralisatie",
-		"decentralizationDescription": "Stemgewicht & live decentralisatiemetrieken"
+		"decentralizationDescription": "Stemgewicht & live decentralisatiemetrieken",
+		"tools": "Tools",
+		"toolsDescription": "Converters & hulpmiddelen",
+		"toolIndex": "Alle tools",
+		"toolIndexDescription": "Alle instrumenten bekijken",
+		"toolUnitConverter": "Eenhedenconverter",
+		"toolUnitConverterDescription": "XNO naar raw en terug",
+		"toolPaymentLinks": "Betaallinks",
+		"toolPaymentLinksDescription": "QR-betaalverzoeken",
+		"toolAddressTools": "Adres-tools",
+		"toolAddressToolsDescription": "Valideer & leid sleutels af",
+		"toolAccountInspector": "Account-inspecteur",
+		"toolAccountInspectorDescription": "Saldo & stemgewicht",
+		"toolFeeComparison": "Nano vs BTC-kosten",
+		"toolFeeComparisonDescription": "Nul tegen Bitcoin-kosten"
 	},
 	"home": {
 		"marketLedger": "Marktregister",
@@ -1241,5 +1293,116 @@
 		"ladderFootnote": "van {weight} XNO online",
 		"onlineVsSupply": "{pct}% van de totale voorraad",
 		"breadth": "Bij {count} online reps: de mediane vertegenwoordiger controleert {median} XNO, het gemiddelde is {mean} XNO, omhoog getrokken door de grootste vertegenwoordigers."
+	},
+	"tools": {
+		"hub": {
+			"kicker": "Instrumentenbank",
+			"h1": "Nano-tools",
+			"intro": "Alles wat een Nano-gebruiker nodig heeft in één ruimte: eenhedenconversie, betaallinks, adresverificatie, account-opzoekingen en een live kostenvergelijking. Gratis, in de browser, zonder tracking.",
+			"openTool": "Instrument openen"
+		},
+		"converter": {
+			"kicker": "Instrument 01 · eenheden",
+			"h1": "Nano-eenhedenconverter",
+			"sub": "Converteer tussen XNO en raw met exacte precisie. Eén XNO is 10^30 raw.",
+			"copy": "Kopiëren",
+			"copied": "Gekopieerd",
+			"note": "Conversies zijn stringgebaseerd en verliesvrij: zelfs de grootste raw-bedragen converteren exact terug.",
+			"unit": "Eenheid",
+			"value": "Waarde"
+		},
+		"paymentLinks": {
+			"kicker": "Instrument 02 · betaallinks",
+			"h1": "Nano-betaallink-generator",
+			"sub": "Bouw een nano: URI met bedrag, label en bericht, en deel deze als link of QR-code.",
+			"address": "Ontvangeradres",
+			"addressPlaceholder": "nano_1... of xno_1...",
+			"amount": "Bedrag (XNO)",
+			"amountPlaceholder": "bijv. 1.5",
+			"label": "Label",
+			"labelPlaceholder": "bijv. Koffie",
+			"message": "Bericht",
+			"messagePlaceholder": "bijv. Bedankt voor de koffie",
+			"uriPreview": "Betaal-URI",
+			"qr": "QR-code",
+			"shareable": "Deelbare link",
+			"copyUri": "URI kopiëren",
+			"copyAddress": "Adres kopiëren",
+			"copied": "Gekopieerd",
+			"invalidAddress": "Voer een geldig nano_ of xno_ adres in",
+			"invalidAmount": "Voer een positief bedrag in",
+			"note": "QR-codes worden direct in je browser weergegeven. Er wordt niets verzonden."
+		},
+		"addressTools": {
+			"kicker": "Instrument 03 · sleutels",
+			"h1": "Nano-adres-tools",
+			"sub": "Valideer adressen, converteer tussen adres en publieke sleutel, en genereer een seed met het afgeleide adres.",
+			"address": "Adres of publieke sleutel",
+			"addressPlaceholder": "nano_1..., xno_1... of een hexadecimale publieke sleutel van 64 tekens",
+			"inspect": "Inspecteren",
+			"valid": "Geldig adres",
+			"invalid": "Ongeldige invoer",
+			"checksum": "Checksum geverifieerd",
+			"prefix": "Voorvoegsel",
+			"publicKey": "Publieke sleutel",
+			"derivedAddress": "Afgeleid adres",
+			"seedSection": "Seed-generator",
+			"seedLabel": "Genereer een willekeurige seed en het eerste afgeleide adres",
+			"generate": "Seed genereren",
+			"seedWarning": "Bewaar deze seed offline en deel hem nooit. Wie de seed heeft, controleert de fondsen. Deze pagina verzendt hem nooit.",
+			"qr": "QR-code van het adres",
+			"copy": "Kopiëren",
+			"copied": "Gekopieerd"
+		},
+		"accountInspector": {
+			"kicker": "Instrument 04 · opzoekingen",
+			"h1": "Nano-account-inspecteur",
+			"sub": "Zoek elk Nano-account op via publieke nodes: saldo, lopend, vertegenwoordiger, openingsblok en stemgewicht.",
+			"address": "Accountadres",
+			"addressPlaceholder": "nano_1... of xno_1...",
+			"inspect": "Account inspecteren",
+			"checking": "Publieke nodes worden opgevraagd...",
+			"balance": "Saldo",
+			"pending": "Lopend",
+			"votingWeight": "Stemgewicht",
+			"shareOfOnline": "van het online stemgewicht",
+			"principal": "Hoofdvertegenwoordiger",
+			"principalYes": "Ja, boven 0,1%",
+			"principalNo": "Nee, onder 0,1%",
+			"rank": "Rang op gewicht",
+			"representative": "Vertegenwoordiger",
+			"frontier": "Frontier",
+			"openBlock": "Openingsblok",
+			"notFound": "Account niet gevonden op het netwerk",
+			"rpcError": "Publieke nodes niet bereikbaar. Probeer het zo opnieuw.",
+			"invalidAddress": "Voer een geldig nano_ of xno_ adres in",
+			"copy": "Kopiëren",
+			"copied": "Gekopieerd",
+			"note": "Resultaten worden 60 seconden gecacht en komen van publieke Nano-RPC-relays.",
+			"viewBlocklattice": "Bekijk op Blocklattice",
+			"viewNanexplorer": "Bekijk op Nanexplorer"
+		},
+		"feeComparison": {
+			"kicker": "Instrument 05 · kosten",
+			"h1": "Nano vs Bitcoin-kosten",
+			"sub": "Nano-overboekingen kosten niets. Bitcoin-kosten volgen de mempool. Dit is wat een betaling op elk netwerk nu echt kost.",
+			"nanoFee": "Nano-kosten",
+			"nanoFeeValue": "$0.00",
+			"nanoFeeNote": "Altijd, voor altijd",
+			"bitcoinFee": "Bitcoin-kosten",
+			"bitcoinFeeNote": "live van mempool.space",
+			"sendAmount": "Betaalbedrag",
+			"feeAsPercent": "Kosten als deel van de betaling",
+			"perTx": "per standaardzending",
+			"tiers": {
+				"fastest": "Snelste",
+				"halfHour": "Half uur",
+				"hour": "Eén uur",
+				"economy": "Economisch"
+			},
+			"vbytesNote": "Gebaseerd op een typische zending van 226 vB (2 inputs, 2 outputs) en huidige sat/vB-tarieven.",
+			"sourceNote": "Bitcoin-kosten van mempool.space, om de paar minuten ververst.",
+			"updateNote": "Kostenschatting, geen offerte."
+		}
 	}
 }

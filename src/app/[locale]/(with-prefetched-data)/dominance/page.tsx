@@ -57,7 +57,6 @@ async function DominanceContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('hours')
 
-
 	const t = await getTranslations({ locale, namespace: 'dominance' })
 
 	return (

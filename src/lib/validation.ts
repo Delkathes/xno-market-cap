@@ -35,6 +35,21 @@ export const CryptoDataSchema = v.object({
 
 export const CryptoDataArraySchema = v.array(CryptoDataSchema)
 
+export const NanoBalanceSchema = v.object({
+	balance: v.string(),
+	pending: v.string(),
+})
+
+export const NanoAccountInfoSchema = v.object({
+	frontier: v.string(),
+	open_block: v.string(),
+	representative: v.string(),
+})
+
+export const NanoWeightSchema = v.object({
+	weight: v.string(),
+})
+
 export const ExchangeRatesSchema = v.object({
 	nano: v.optional(
 		v.object({

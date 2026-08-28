@@ -163,17 +163,15 @@ function computeDecentralization(reps: Array<{ address: string; weight: string }
 // largest first), the cumulative share of voting weight they hold. 21 points
 // from 0% to 100% of the rep population. A perfectly equal network follows the
 // diagonal; the gap between the curve and the diagonal is the Gini region.
-function computeLorenz(
-	entries: Array<{ weightXno: number }>,
-	onlineWeightXno: number,
-): LorenzPoint[] {
+function computeLorenz(entries: Array<{ weightXno: number }>, onlineWeightXno: number): LorenzPoint[] {
 	const points: LorenzPoint[] = []
 	const step = entries.length > 0 ? 1 / Math.min(20, entries.length) : 1
 
 	for (let i = 0; i <= 20; i++) {
-		const countPct = Math.round((i * step) * 1000) / 10
+		const countPct = Math.round(i * step * 1000) / 10
 		const count = Math.min(entries.length, Math.round((i / 20) * entries.length))
-		const weightPct = count <= 0 ? 0 : (entries.slice(0, count).reduce((s, r) => s + r.weightXno, 0) / onlineWeightXno) * 100
+		const weightPct =
+			count <= 0 ? 0 : (entries.slice(0, count).reduce((s, r) => s + r.weightXno, 0) / onlineWeightXno) * 100
 		points.push({ countPct: Math.min(100, countPct), weightPct: Math.min(100, weightPct) })
 	}
 

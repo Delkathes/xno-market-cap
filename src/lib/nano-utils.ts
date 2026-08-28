@@ -74,12 +74,30 @@ export function isValidWork(work: string): boolean {
  * Creates a nano: URI for QR code generation with validation
  * Returns null if address or amount is invalid
  */
-export function createNanoUri(address: string, rawAmount: string): string | null {
+export function createNanoUri(
+	address: string,
+	rawAmount: string,
+	options?: { label?: string; message?: string },
+): string | null {
 	if (!isValidNanoAddress(address)) {
 		return null
 	}
 	if (rawAmount !== '0' && !isValidRawAmount(rawAmount)) {
 		return null
 	}
-	return `nano:${address}?amount=${rawAmount}`
+	let uri = `nano:${address}`
+	const params: string[] = []
+	if (rawAmount !== '0') {
+		params.push(`amount=${rawAmount}`)
+	}
+	if (options?.label) {
+		params.push(`label=${encodeURIComponent(options.label)}`)
+	}
+	if (options?.message) {
+		params.push(`message=${encodeURIComponent(options.message)}`)
+	}
+	if (params.length > 0) {
+		uri += `?${params.join('&')}`
+	}
+	return uri
 }
