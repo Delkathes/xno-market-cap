@@ -1,10 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { ResponsiveContainer, Tooltip, Treemap } from 'recharts'
-
-import { useTheme } from '@/components/theme-provider'
 
 export interface TreemapDatum {
 	address: string | null
@@ -13,18 +10,22 @@ export interface TreemapDatum {
 	[key: string]: string | number | null
 }
 
-const TREEMAP_RAMP = {
-	light: ['#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1', '#075985'],
-	dark: ['#134e6f', '#1478a8', '#179fea', '#22b8ff', '#4ac9ff', '#7dd8ff', '#b8ecff'],
-	others: {
-		light: '#cbd5e1',
-		dark: '#334155',
-	},
-	text: {
-		light: '#0f172a',
-		dark: '#e2e8f0',
-	},
-} as const
+// Theme-aware ramp via CSS custom properties (see globals.css): the values
+// flip with the .dark class before first paint, so tiles never re-color after
+// mount (no light->dark flash).
+const TREEMAP_RAMP = [
+	'var(--treemap-1)',
+	'var(--treemap-2)',
+	'var(--treemap-3)',
+	'var(--treemap-4)',
+	'var(--treemap-5)',
+	'var(--treemap-6)',
+	'var(--treemap-7)',
+] as const
+
+const TREEMAP_OTHERS = 'var(--treemap-others)'
+const TREEMAP_TEXT = 'var(--treemap-text)'
+const TREEMAP_TEXT_FLIP = 'var(--treemap-text-flip)'
 
 type RepTreemapProps = {
 	data: TreemapDatum[]
@@ -33,20 +34,13 @@ type RepTreemapProps = {
 
 export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 	const t = useTranslations('decentralization')
-	const { resolvedTheme } = useTheme()
-	// Theme-aware palette only after mount (see lorenz-chart.tsx): the server
-	// renders the light ramp, and the first client render must match it.
-	const [mounted, setMounted] = useState(false)
-	useEffect(() => setMounted(true), [])
-	const isDark = mounted && resolvedTheme === 'dark'
 
 	const maxShare = data.reduce((max, item) => Math.max(max, item.share), 0)
 
 	const colorFor = (share: number): string => {
-		if (maxShare <= 0) return TREEMAP_RAMP.dark[0]
+		if (maxShare <= 0) return TREEMAP_RAMP[0]
 		const ratio = share / maxShare
-		const ramp = isDark ? TREEMAP_RAMP.dark : TREEMAP_RAMP.light
-		return ramp[Math.min(ramp.length - 1, Math.floor(ratio * ramp.length))]
+		return TREEMAP_RAMP[Math.min(TREEMAP_RAMP.length - 1, Math.floor(ratio * TREEMAP_RAMP.length))]
 	}
 
 	return (
@@ -68,12 +62,8 @@ export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 						return <g />
 					}
 					const isTop = item.address !== null && maxShare > 0 && item.share === maxShare
-					const fill =
-						item.address === null
-							? isDark
-								? TREEMAP_RAMP.others.dark
-								: TREEMAP_RAMP.others.light
-							: colorFor(item.share)
+					const fill = item.address === null ? TREEMAP_OTHERS : colorFor(item.share)
+					const labelFill = isTop ? TREEMAP_TEXT_FLIP : TREEMAP_TEXT
 					const showLabel = width > 88 && cellHeight > 30
 					return (
 						<g>
@@ -82,9 +72,8 @@ export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 								y={y + 1}
 								width={Math.max(0, width - 2)}
 								height={Math.max(0, cellHeight - 2)}
-								fill={fill}
+								style={{ fill }}
 								rx={3}
-								style={{ transition: 'fill 200ms ease' }}
 							/>
 							{showLabel && (
 								<text
@@ -94,15 +83,7 @@ export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 									dominantBaseline="middle"
 									fontFamily="var(--font-geist-mono), ui-monospace, monospace"
 									fontSize={11}
-									fill={
-										isTop
-											? isDark
-												? TREEMAP_RAMP.text.light
-												: TREEMAP_RAMP.text.dark
-											: isDark
-												? TREEMAP_RAMP.text.dark
-												: TREEMAP_RAMP.text.light
-									}
+									style={{ fill: labelFill }}
 									fillOpacity={0.9}
 								>
 									{item.address === null ? t('treemapOthers') : shortenAddress(item.address)}
@@ -111,8 +92,10 @@ export function RepTreemap({ data, height = 420 }: RepTreemapProps) {
 						</g>
 					)
 				}}
-				animationDuration={700}
-				animationEasing="ease-out"
+				// No layout animation: the tiles grow from nothing on every mount
+				// (replayed on each navigation), which reads as jank; the page's
+				// fade-in-up is the entrance.
+				isAnimationActive={false}
 			>
 				<Tooltip
 					content={({ active, payload }) => {

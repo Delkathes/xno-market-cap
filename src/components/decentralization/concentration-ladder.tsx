@@ -3,17 +3,14 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { useTheme } from '@/components/theme-provider'
-
 export interface LadderRow {
 	key: 'top1' | 'top5' | 'top10' | 'top25' | 'top50' | 'principals'
 	share: number
 }
 
-const LADDER_ACCENT = {
-	light: '#0ea5e9',
-	dark: '#22b8ff',
-} as const
+// Theme-aware accent via CSS custom property (see globals.css): resolves with
+// the .dark class before first paint, so no post-mount re-color.
+const ACCENT = 'var(--ladder-accent)'
 
 type ConcentrationLadderProps = {
 	rows: LadderRow[]
@@ -22,17 +19,14 @@ type ConcentrationLadderProps = {
 
 export function ConcentrationLadder({ rows, onlineWeightXno }: ConcentrationLadderProps) {
 	const t = useTranslations('decentralization')
-	const { resolvedTheme } = useTheme()
 
-	// Theme-aware accent only after mount (see lorenz-chart.tsx): the server
-	// renders the light accent, and the first client render must match it.
-	const [mounted, setMounted] = useState(false)
+	// Bars grow from 0 after mount for a one-shot entrance (color is already
+	// correct, so this is purely the width animation).
+	const [entered, setEntered] = useState(false)
 	useEffect(() => {
-		const raf = requestAnimationFrame(() => setMounted(true))
+		const raf = requestAnimationFrame(() => setEntered(true))
 		return () => cancelAnimationFrame(raf)
 	}, [])
-	const isDark = mounted && resolvedTheme === 'dark'
-	const accent = isDark ? LADDER_ACCENT.dark : LADDER_ACCENT.light
 
 	return (
 		<div className="space-y-4">
@@ -52,9 +46,9 @@ export function ConcentrationLadder({ rows, onlineWeightXno }: ConcentrationLadd
 						<div
 							className="h-full rounded-full"
 							style={{
-								width: mounted ? `${row.share * 100}%` : '0%',
+								width: entered ? `${row.share * 100}%` : '0%',
 								transition: `width 700ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 90}ms`,
-								background: `linear-gradient(90deg, ${accent}88, ${accent})`,
+								background: `linear-gradient(90deg, color-mix(in srgb, ${ACCENT} 53%, transparent), ${ACCENT})`,
 							}}
 						/>
 					</div>

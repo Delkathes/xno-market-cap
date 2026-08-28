@@ -1,32 +1,20 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import type { LorenzPoint } from '@/lib/decentralization-service'
 
-import { useTheme } from '@/components/theme-provider'
-
-const LORENZ_COLORS = {
-	light: {
-		grid: '#64748b',
-		curve: '#0b87c9',
-		curveGradientTop: '#22b8ff',
-		curveGradientBottom: '#22b8ff',
-		gini: '#f59e0b',
-		axis: '#64748b',
-		text: '#0f172a',
-	},
-	dark: {
-		grid: '#94a3b8',
-		curve: '#22b8ff',
-		curveGradientTop: '#22b8ff',
-		curveGradientBottom: '#0b87c9',
-		gini: '#fbbf24',
-		axis: '#94a3b8',
-		text: '#e2e8f0',
-	},
+// Theme-aware chart colors via CSS custom properties (see globals.css): the
+// values flip with the .dark class before first paint, so the chart never
+// re-colors after mount (no light->dark flash).
+const colors = {
+	grid: 'var(--chart-grid)',
+	curve: 'var(--chart-curve)',
+	gini: 'var(--chart-gini)',
+	axis: 'var(--chart-grid)',
+	text: 'var(--chart-axis-text)',
 } as const
 
 type LorenzChartProps = {
@@ -36,13 +24,6 @@ type LorenzChartProps = {
 
 export function LorenzChart({ data, height = 340 }: LorenzChartProps) {
 	const t = useTranslations('decentralization')
-	const { resolvedTheme } = useTheme()
-	// Theme colors only apply after mount: the server always renders the light
-	// palette, so gating on mount keeps the first client render identical to the
-	// SSR HTML (no hydration mismatch) before switching to the resolved theme.
-	const [mounted, setMounted] = useState(false)
-	useEffect(() => setMounted(true), [])
-	const colors = mounted && resolvedTheme === 'dark' ? LORENZ_COLORS.dark : LORENZ_COLORS.light
 
 	const rows = useMemo(
 		() =>
@@ -62,12 +43,12 @@ export function LorenzChart({ data, height = 340 }: LorenzChartProps) {
 			<AreaChart data={rows} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>
 				<defs>
 					<linearGradient id="lorenzGap" x1="0" y1="0" x2="0" y2="1">
-						<stop offset="0%" stopColor={colors.gini} stopOpacity={0.45} />
-						<stop offset="100%" stopColor={colors.gini} stopOpacity={0.08} />
+						<stop offset="0%" style={{ stopColor: colors.gini }} stopOpacity={0.45} />
+						<stop offset="100%" style={{ stopColor: colors.gini }} stopOpacity={0.08} />
 					</linearGradient>
 					<linearGradient id="lorenzUnder" x1="0" y1="0" x2="0" y2="1">
-						<stop offset="0%" stopColor={colors.curveGradientTop} stopOpacity={0.18} />
-						<stop offset="100%" stopColor={colors.curveGradientBottom} stopOpacity={0.02} />
+						<stop offset="0%" style={{ stopColor: colors.curve }} stopOpacity={0.18} />
+						<stop offset="100%" style={{ stopColor: colors.curve }} stopOpacity={0.02} />
 					</linearGradient>
 				</defs>
 				<CartesianGrid stroke={colors.grid} strokeOpacity={0.15} strokeDasharray="2 6" vertical={false} />
