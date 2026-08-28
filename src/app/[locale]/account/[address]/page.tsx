@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { connection } from 'next/server'
 import { getTranslations } from 'next-intl/server'
 
-import { getAccountData, getAccountHistory } from '@/lib/account-data-service'
+import { getAccountChainTimes, getAccountData, getAccountHistory } from '@/lib/account-data-service'
 import { getAccountLabels } from '@/lib/account-labels'
 import {
 	COMPARE_COIN_LIMIT,
@@ -12,7 +12,7 @@ import {
 	DEFAULT_COMPARE_SYMBOLS,
 	parseCompareCookie,
 } from '@/lib/compare-cookies'
-import { getCompareRates } from '@/lib/market-data-service'
+import { getCompareRates, getMarketData } from '@/lib/market-data-service'
 import { isValidNanoAddress } from '@/lib/nano-utils'
 import { localePath, ogLocale } from '@/lib/seo'
 
@@ -87,12 +87,22 @@ export default async function AccountPage({ params, searchParams }: Props) {
 		redirect(localePath('/tools/account-inspector', locale) as Route)
 	}
 
-	const [result, rates, historyPage, cookieStore] = await Promise.all([
+	const [result, rates, historyPage, cookieStore, market] = await Promise.all([
 		getAccountData(address),
 		getCompareRates().catch(() => null),
 		getAccountHistory(address, 25, 0),
 		cookies(),
+		getMarketData().catch(() => null),
 	])
+
+	const chainTimes = result.ok
+		? await getAccountChainTimes(result.data.openBlock, result.data.frontier).catch(() => ({
+				openedAt: null,
+				lastBlockAt: null,
+			}))
+		: { openedAt: null, lastBlockAt: null }
+
+	const circulatingSupplyXno = market?.xnoData?.circulating_supply ?? null
 
 	// Labels for every address shown on the page (own + rep + counterparties).
 	const labelCandidates = [address]
@@ -151,6 +161,8 @@ export default async function AccountPage({ params, searchParams }: Props) {
 					vsOverride={vsOverride}
 					historyPage={historyPage ?? undefined}
 					labels={labels}
+					chainTimes={chainTimes}
+					circulatingSupplyXno={circulatingSupplyXno}
 				/>
 			</div>
 		</main>

@@ -130,6 +130,58 @@ export async function getAccountData(address: string): Promise<AccountDataResult
 	return { ok: false, reason: 'rpcError' }
 }
 
+export interface AccountChainTimes {
+	/** Unix timestamp of the open block (account creation), or null. */
+	openedAt: number | null
+	/** Unix timestamp of the frontier block (last activity), or null. */
+	lastBlockAt: number | null
+}
+
+/**
+ * Chain landmarks for the balance band: when the account was opened and when
+ * it last moved. One block_info per landmark (a single-block account only
+ * needs one call). Cached 300s, best effort.
+ */
+export async function getAccountChainTimes(openBlock: string, frontier: string): Promise<AccountChainTimes> {
+	'use cache'
+	cacheLife({ revalidate: 300 })
+
+	if (!openBlock && !frontier) {
+		return { openedAt: null, lastBlockAt: null }
+	}
+
+	const hashes = [...new Set([openBlock, frontier].filter(Boolean))]
+
+	for (let attempt = 0; attempt < RPC_ENDPOINTS.length; attempt++) {
+		const endpoint = nextRpcEndpoint()
+
+		try {
+			const results = await Promise.all(
+				hashes.map(async (hash) => {
+					try {
+						const json = await rpcCall(endpoint, 'block_info', { hash })
+						if (isErrorJson(json)) return { hash, ts: null }
+						const parsed = v.safeParse(BlockInfoResponseSchema, json)
+						return { hash, ts: parsed.success ? toTimestamp(parsed.output.local_timestamp) : null }
+					} catch {
+						return { hash, ts: null }
+					}
+				}),
+			)
+
+			const byHash = new Map(results.map((result) => [result.hash, result.ts]))
+			return {
+				openedAt: openBlock ? (byHash.get(openBlock) ?? null) : null,
+				lastBlockAt: frontier ? (byHash.get(frontier) ?? null) : null,
+			}
+		} catch (error) {
+			console.error(`ENDPOINT: ${endpoint} - Chain times failed:`, error)
+		}
+	}
+
+	return { openedAt: null, lastBlockAt: null }
+}
+
 export interface AccountHistoryEntry {
 	hash: string
 	subtype: string

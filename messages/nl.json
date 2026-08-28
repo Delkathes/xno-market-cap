@@ -1458,7 +1458,10 @@
 		"toastSent": "{amount} XNO zojuist verzonden",
 		"toastChange": "Vertegenwoordiger gewijzigd",
 		"toastBalance": "Saldo bijgewerkt",
-		"viewFullBlock": "Volledig blok bekijken"
+		"viewFullBlock": "Volledig blok bekijken",
+		"opened": "Geopend",
+		"lastBlock": "Laatste blok",
+		"inCirculation": "van {supply} XNO in omloop"
 	},
 	"explore": {
 		"kicker": "VERKENNER",

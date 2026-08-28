@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
 
-import type { AccountData, AccountHistoryPage } from '@/lib/account-data-service'
+import type { AccountChainTimes, AccountData, AccountHistoryPage } from '@/lib/account-data-service'
 import type { CompareRates } from '@/lib/market-data-service'
 import { isValidNanoAddress } from '@/lib/nano-utils'
 
@@ -35,6 +35,8 @@ export interface AccountProfileProps {
 	vsOverride?: boolean
 	historyPage?: AccountHistoryPage
 	labels?: Record<string, string>
+	chainTimes: AccountChainTimes
+	circulatingSupplyXno: number | null
 }
 const CORNERS = [
 	'left-0 top-0 border-l-2 border-t-2',
@@ -42,6 +44,9 @@ const CORNERS = [
 	'bottom-0 left-0 border-b-2 border-l-2',
 	'bottom-0 right-0 border-b-2 border-r-2',
 ] as const
+
+// Supply donut: full circle length for r=15.5 (36-unit viewBox).
+const DONUT_CIRCUMFERENCE = 2 * Math.PI * 15.5
 
 function RegistrationMarks() {
 	return (
@@ -127,6 +132,8 @@ export function AccountProfile({
 	vsOverride,
 	historyPage,
 	labels,
+	chainTimes,
+	circulatingSupplyXno,
 }: AccountProfileProps) {
 	const t = useTranslations('account')
 	const router = useRouter()
@@ -222,6 +229,23 @@ export function AccountProfile({
 		}
 	}
 
+	const formatRelative = (timestamp: number): string => {
+		const diffMs = Date.now() - timestamp * 1000
+		if (diffMs < 0) return t('justNow')
+		const minutes = Math.floor(diffMs / 60_000)
+		if (minutes < 1) return t('justNow')
+		if (minutes < 60) return t('mAgo', { n: minutes })
+		const hours = Math.floor(minutes / 60)
+		if (hours < 24) return t('hAgo', { n: hours })
+		return t('dAgo', { n: Math.floor(hours / 24) })
+	}
+	const supplySharePct =
+		circulatingSupplyXno !== null && circulatingSupplyXno > 0 ? (displayBalance / circulatingSupplyXno) * 100 : 0
+
+	const supplyShareText =
+		supplySharePct > 0 && supplySharePct < 0.0001
+			? '<0.0001%'
+			: `${supplySharePct.toLocaleString(locale, { maximumFractionDigits: 4 })}%`
 	const openAccount = () => {
 		if (!addressValid) return
 		const prefix = locale === 'en' ? '' : `/${locale}`
@@ -323,34 +347,144 @@ export function AccountProfile({
 										className={`pointer-events-none absolute h-2.5 w-2.5 border-[#13bcff]/60 ${position}`}
 									/>
 								))}
-								<span
+								<div
 									aria-hidden="true"
-									className="pointer-events-none absolute -right-3 -bottom-8 select-none font-mono text-[11rem] leading-none font-bold text-white/10"
+									className="pointer-events-none absolute top-1/2 left-1/2 flex h-44 w-56 -translate-x-1/2 -translate-y-1/2 select-none items-center justify-center sm:h-32 sm:w-48 sm:left-[25%] sm:translate-x-0 max-sm:opacity-85"
 								>
-									Ӿ
-								</span>
+									<span className="x-core-glow" />
+									<span className="x-ring" />
+									<span className="x-ring x-ring-delay-1" />
+									<span className="x-ring x-ring-delay-2" />
+									<span className="x-core sm:relative sm:top-2.5">Ӿ</span>
+								</div>
 								<div
 									aria-hidden="true"
 									className="pointer-events-none absolute -top-12 -right-12 h-48 w-48 rounded-full bg-[#13bcff]/20 blur-3xl"
 								/>
 
-								<div className="relative font-mono text-[11px] uppercase tracking-[0.25em] text-[#13bcff]/90">
-									{t('balance')}
-								</div>
-								<div className="relative mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-									<span
-										className={`text-5xl font-bold tracking-tight tabular-nums text-[#f2f7fb] ${
-											glow ? 'animate-balance-glow' : ''
-										}`}
-									>
-										{formatBalance(displayBalance, locale)}
-									</span>
-									<span className="text-sm font-normal text-[#13bcff]">XNO</span>
-									{data.principal && (
-										<span className="inline-flex items-center rounded-sm border border-constructive/40 bg-constructive/15 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-constructive">
-											{t('principalYes')}
-										</span>
-									)}
+								<div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+									<div>
+										<div className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#13bcff]/90">
+											{t('balance')}
+										</div>
+										<div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+											<span
+												className={`text-5xl font-bold tracking-tight tabular-nums text-[#f2f7fb] ${
+													glow ? 'animate-balance-glow' : ''
+												}`}
+											>
+												{formatBalance(displayBalance, locale)}
+											</span>
+											<span className="text-sm font-normal text-[#13bcff]">XNO</span>
+											{data.principal && (
+												<span className="inline-flex items-center rounded-sm border border-constructive/40 bg-constructive/15 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-constructive">
+													{t('principalYes')}
+												</span>
+											)}
+										</div>
+									</div>
+
+									{/* Right side: supply donut + chain landmarks (desktop) */}
+									<div className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:w-auto sm:flex-nowrap sm:justify-end">
+										{circulatingSupplyXno !== null && circulatingSupplyXno > 0 && (
+											<div className="flex items-center gap-3">
+												<div className="relative h-14 w-14 flex-none">
+													<svg
+														viewBox="0 0 36 36"
+														className="h-full w-full -rotate-90"
+														aria-hidden="true"
+													>
+														<circle
+															cx="18"
+															cy="18"
+															r="15.5"
+															fill="none"
+															stroke="rgba(242, 247, 251, 0.12)"
+															strokeWidth="3"
+														/>
+														<circle
+															cx="18"
+															cy="18"
+															r="15.5"
+															fill="none"
+															stroke="#13bcff"
+															strokeWidth="3"
+															strokeLinecap="round"
+															strokeDasharray={`${DONUT_CIRCUMFERENCE} ${DONUT_CIRCUMFERENCE}`}
+															strokeDashoffset={
+																DONUT_CIRCUMFERENCE *
+																(1 - Math.min(supplySharePct, 100) / 100)
+															}
+														/>
+													</svg>
+													<span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-semibold text-[#f2f7fb]">
+														{supplyShareText}
+													</span>
+												</div>
+												<p className="max-w-[130px] font-mono text-[10px] uppercase tracking-[0.15em] leading-relaxed text-[#f2f7fb]/60">
+													{t('inCirculation', {
+														supply:
+															circulatingSupplyXno >= 1_000_000
+																? `${(circulatingSupplyXno / 1_000_000).toLocaleString(
+																		locale,
+																		{
+																			maximumFractionDigits: 2,
+																		},
+																	)}M`
+																: circulatingSupplyXno.toLocaleString(locale),
+													})}
+												</p>
+											</div>
+										)}
+
+										<div className="hidden flex-col items-end gap-2 border-l border-white/10 pl-6 font-mono sm:flex">
+											{data.principal && (
+												<>
+													<div className="text-right">
+														<div className="text-[10px] uppercase tracking-[0.2em] text-constructive/80">
+															{t('rank')}
+														</div>
+														<div className="text-sm font-semibold text-constructive">
+															#{data.rank ?? '·'}
+														</div>
+													</div>
+													<div className="text-right text-[11px] text-[#f2f7fb]/70">
+														{(data.shareOfOnline * 100).toLocaleString(locale, {
+															maximumFractionDigits: 2,
+														})}
+														% {t('ofOnline')}
+													</div>
+												</>
+											)}
+											{chainTimes.openedAt !== null && (
+												<div className="text-right">
+													<div className="text-[10px] uppercase tracking-[0.2em] text-[#f2f7fb]/50">
+														{t('opened')}
+													</div>
+													<div className="text-sm text-[#f2f7fb]">
+														{new Date(chainTimes.openedAt * 1000).toLocaleDateString(
+															locale,
+															{
+																year: 'numeric',
+																month: 'short',
+																day: 'numeric',
+															},
+														)}
+													</div>
+												</div>
+											)}
+											{chainTimes.lastBlockAt !== null && (
+												<div className="text-right">
+													<div className="text-[10px] uppercase tracking-[0.2em] text-[#f2f7fb]/50">
+														{t('lastBlock')}
+													</div>
+													<div className="text-sm text-[#f2f7fb]">
+														{formatRelative(chainTimes.lastBlockAt)}
+													</div>
+												</div>
+											)}
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

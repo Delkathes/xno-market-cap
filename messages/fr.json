@@ -1458,7 +1458,10 @@
 		"toastSent": "{amount} XNO viennent d'être envoyés",
 		"toastChange": "Changement de représentant",
 		"toastBalance": "Solde mis à jour",
-		"viewFullBlock": "Voir le bloc complet"
+		"viewFullBlock": "Voir le bloc complet",
+		"opened": "Ouvert",
+		"lastBlock": "Dernier bloc",
+		"inCirculation": "sur {supply} XNO en circulation"
 	},
 	"explore": {
 		"kicker": "EXPLORATEUR",

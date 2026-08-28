@@ -1452,7 +1452,10 @@
 		"toastSent": "{amount} XNO just sent",
 		"toastChange": "Representative changed",
 		"toastBalance": "Balance updated",
-		"viewFullBlock": "View full block"
+		"viewFullBlock": "View full block",
+		"opened": "Opened",
+		"lastBlock": "Last block",
+		"inCirculation": "of {supply} XNO in circulation"
 	},
 	"explore": {
 		"kicker": "EXPLORER",
