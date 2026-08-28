@@ -87,6 +87,38 @@ export const BlockInfoResponseSchema = v.object({
 	contents: v.optional(v.unknown()),
 })
 
+export const BlockContentsSchema = v.object({
+	type: v.string(),
+	account: v.optional(v.string()),
+	previous: v.optional(v.string()),
+	source: v.optional(v.string()),
+	representative: v.optional(v.string()),
+	link: v.optional(v.string()),
+	link_as_account: v.optional(v.string()),
+	/** Some relays name the recipient address "destination" on sends. */
+	destination: v.optional(v.string()),
+	balance: v.optional(v.string()),
+	work: v.optional(v.string()),
+	signature: v.optional(v.string()),
+})
+
+/** Full block_info response (json_block: true) for the block explorer page. */
+export const BlockDetailsResponseSchema = v.object({
+	block_account: v.optional(v.string()),
+	amount: v.optional(v.string()),
+	balance: v.optional(v.string()),
+	amount_nano: v.optional(v.string()),
+	balance_nano: v.optional(v.string()),
+	height: v.optional(v.string()),
+	local_timestamp: v.optional(TimestampValueSchema),
+	confirmed: v.optional(ConfirmedValueSchema),
+	subtype: v.optional(v.string()),
+	link: v.optional(v.string()),
+	/** Next block in the chain (absent for frontier blocks). */
+	successor: v.optional(v.string()),
+	contents: v.optional(BlockContentsSchema),
+})
+
 export const ExchangeRatesSchema = v.object({
 	nano: v.optional(
 		v.object({

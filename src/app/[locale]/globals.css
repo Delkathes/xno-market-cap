@@ -363,10 +363,46 @@
     animation: toast-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
 
+  /* New row in the live network feed */
+  @keyframes row-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-row-in {
+    animation: row-in 0.3s ease-out both;
+  }
+
+  /* Thin instrument-style scrollbar for the live feed */
+  .feed-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--foreground) 25%, transparent) transparent;
+  }
+
+  .feed-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .feed-scroll::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--foreground) 25%, transparent);
+  }
+
+  .feed-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-balance-glow,
     .animate-live-pulse,
-    .animate-toast-in {
+    .animate-toast-in,
+    .animate-row-in {
       animation: none;
     }
   }

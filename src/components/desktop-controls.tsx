@@ -3,7 +3,9 @@
 import { useSetAtom } from 'jotai'
 import {
 	ArrowRightLeft,
+	Calculator,
 	ChartPie,
+	Compass,
 	Fingerprint,
 	Flag,
 	HelpCircle,
@@ -16,7 +18,6 @@ import {
 	ScanSearch,
 	Sun,
 	Wallet,
-	Wrench,
 	Zap,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -114,7 +115,23 @@ export function DesktopControls() {
 							: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 					)}
 				>
+					<Calculator className="h-4 w-4 text-primary" />
 					{t('calculators')}
+				</Link>
+			</Button>
+
+			<Button variant="ghost" asChild>
+				<Link
+					href="/explore"
+					className={cn(
+						'px-4 py-2 rounded-md text-sm font-medium transition-colors',
+						pathname === '/explore' || pathname.startsWith('/account') || pathname.startsWith('/block')
+							? 'bg-secondary text-secondary-foreground'
+							: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+					)}
+				>
+					<Compass className="h-4 w-4 text-primary" />
+					{t('explorer')}
 				</Link>
 			</Button>
 

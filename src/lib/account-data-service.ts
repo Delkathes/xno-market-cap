@@ -4,8 +4,8 @@ import * as v from 'valibot'
 
 import { RPC_ENDPOINTS } from '@/lib/constants'
 import { getDecentralizationData } from '@/lib/decentralization-service'
-import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
 import { rawToXno } from '@/lib/nano-utils'
+import { isErrorJson, nextRpcEndpoint, rpcCall } from '@/lib/rpc'
 import {
 	AccountHistoryResponseSchema,
 	BlockInfoResponseSchema,
@@ -36,39 +36,6 @@ export interface AccountData {
 
 export type AccountDataResult = { ok: true; data: AccountData } | { ok: false; reason: 'notFound' | 'rpcError' }
 
-// Round-robin cursor so concurrent renders don't all hit the same relay
-let rpcEndpointCursor = 0
-
-async function rpcCall(
-	endpoint: string,
-	action: string,
-	account: string,
-	extra: Record<string, unknown> = {},
-): Promise<unknown> {
-	const response = await fetchWithTimeout(
-		endpoint,
-		{
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ action, account, ...extra }),
-		},
-		8000,
-	)
-	if (!response.ok) {
-		throw new Error(`RPC HTTP ${response.status}`)
-	}
-	return (await response.json()) as unknown
-}
-
-function isErrorJson(json: unknown): boolean {
-	return (
-		typeof json === 'object' &&
-		json !== null &&
-		'error' in json &&
-		typeof (json as { error: unknown }).error === 'string'
-	)
-}
-
 /**
  * Account profile from public Nano relays: balance, pending, representative,
  * open block, lifetime block count and voting weight. Cached 60s per address
@@ -80,14 +47,13 @@ export async function getAccountData(address: string): Promise<AccountDataResult
 	cacheLife({ revalidate: 60 })
 
 	for (let attempt = 0; attempt < RPC_ENDPOINTS.length; attempt++) {
-		const endpoint = RPC_ENDPOINTS[(rpcEndpointCursor + attempt) % RPC_ENDPOINTS.length]
-		rpcEndpointCursor = (rpcEndpointCursor + attempt + 1) % RPC_ENDPOINTS.length
+		const endpoint = nextRpcEndpoint()
 
 		try {
 			const [balanceJson, infoJson, weightJson] = await Promise.all([
-				rpcCall(endpoint, 'account_balance', address),
-				rpcCall(endpoint, 'account_info', address, { representative: true }),
-				rpcCall(endpoint, 'account_weight', address),
+				rpcCall(endpoint, 'account_balance', { account: address }),
+				rpcCall(endpoint, 'account_info', { account: address, representative: true }),
+				rpcCall(endpoint, 'account_weight', { account: address }),
 			])
 
 			if (isErrorJson(balanceJson)) {
@@ -218,11 +184,10 @@ export async function getAccountHistory(address: string, count = 25, offset = 0)
 	cacheLife({ revalidate: 60 })
 
 	for (let attempt = 0; attempt < RPC_ENDPOINTS.length; attempt++) {
-		const endpoint = RPC_ENDPOINTS[(rpcEndpointCursor + attempt) % RPC_ENDPOINTS.length]
-		rpcEndpointCursor = (rpcEndpointCursor + attempt + 1) % RPC_ENDPOINTS.length
+		const endpoint = nextRpcEndpoint()
 
 		try {
-			const json = await rpcCall(endpoint, 'account_history', address, { count, offset, raw: true })
+			const json = await rpcCall(endpoint, 'account_history', { account: address, count, offset, raw: true })
 			if (isErrorJson(json)) {
 				return null
 			}
@@ -270,8 +235,7 @@ export async function getAccountHistory(address: string, count = 25, offset = 0)
 			// Some relays answer a valid-but-sparse history (no counterparty
 			// fields at all); those are useless for the ledger, try the next one.
 			const missingCounterparty = entries.some(
-				(entry) =>
-					(entry.subtype === 'send' || entry.subtype === 'receive') && entry.counterparty === '',
+				(entry) => (entry.subtype === 'send' || entry.subtype === 'receive') && entry.counterparty === '',
 			)
 			if (missingCounterparty) {
 				continue
@@ -298,23 +262,10 @@ export async function getBlockInfo(hash: string): Promise<BlockInfo | null> {
 	cacheLife({ revalidate: 300 })
 
 	for (let attempt = 0; attempt < RPC_ENDPOINTS.length; attempt++) {
-		const endpoint = RPC_ENDPOINTS[(rpcEndpointCursor + attempt) % RPC_ENDPOINTS.length]
-		rpcEndpointCursor = (rpcEndpointCursor + attempt + 1) % RPC_ENDPOINTS.length
+		const endpoint = nextRpcEndpoint()
 
 		try {
-			const response = await fetchWithTimeout(
-				endpoint,
-				{
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ action: 'block_info', hash }),
-				},
-				8000,
-			)
-			if (!response.ok) {
-				throw new Error(`RPC HTTP ${response.status}`)
-			}
-			const json: unknown = await response.json()
+			const json = await rpcCall(endpoint, 'block_info', { hash })
 			if (isErrorJson(json)) {
 				return null
 			}
@@ -331,6 +282,10 @@ export async function getBlockInfo(hash: string): Promise<BlockInfo | null> {
 
 			let linkAsAccount = String(contents.link_as_account ?? '')
 			const subtype = out.subtype ?? String(contents.type ?? '')
+			if (!linkAsAccount && contents.destination) {
+				// Some relays name the recipient address "destination" on sends.
+				linkAsAccount = String(contents.destination)
+			}
 			if (!linkAsAccount && subtype === 'send' && out.link) {
 				// Relays that omit link_as_account still return the raw
 				// recipient public key as the link for sends.

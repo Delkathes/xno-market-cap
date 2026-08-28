@@ -133,6 +133,16 @@
 		"account": {
 			"title": "{address} · Saldo, transazioni e peso di voto",
 			"description": "Saldo in tempo reale, in sospeso, peso di voto e cronologia transazioni per {address}."
+		},
+		"explore": {
+			"title": "Esplora Nano · Account e blocchi",
+			"description": "Cerca nella rete Nano per indirizzo o hash di blocco.",
+			"ogTitle": "Esplora Nano",
+			"ogDescription": "Cerca nella rete Nano per indirizzo o hash di blocco."
+		},
+		"block": {
+			"title": "Blocco {hash} · Importo, saldo e catena",
+			"description": "Dettagli del blocco {hash}: tipo, importo, saldo, timestamp e posizione nella catena Nano."
 		}
 	},
 	"common": {
@@ -195,7 +205,9 @@
 		"toolAccountInspector": "Ispettore di account",
 		"toolAccountInspectorDescription": "Saldo e peso di voto",
 		"toolFeeComparison": "Commissioni Nano vs BTC",
-		"toolFeeComparisonDescription": "Zero contro le commissioni Bitcoin"
+		"toolFeeComparisonDescription": "Zero contro le commissioni Bitcoin",
+		"explorer": "Esploratore",
+		"explorerDescription": "Cerca account e blocchi"
 	},
 	"home": {
 		"marketLedger": "Registro di mercato",
@@ -1445,6 +1457,66 @@
 		"toastReceived": "+{amount} XNO appena arrivati",
 		"toastSent": "{amount} XNO appena inviati",
 		"toastChange": "Rappresentante cambiato",
-		"toastBalance": "Saldo aggiornato"
+		"toastBalance": "Saldo aggiornato",
+		"viewFullBlock": "Vedi blocco completo"
+	},
+	"explore": {
+		"kicker": "ESPLORATORE",
+		"h1": "Esplora la rete Nano",
+		"intro": "Cerca un indirizzo o un hash di blocco Nano per consultare saldo, cronologia e posizione nella catena.",
+		"placeholder": "indirizzo nano_ o hash di blocco di 64 caratteri",
+		"button": "Esplora",
+		"error": "Non sembra un indirizzo Nano né un hash di blocco",
+		"addressHint": "Gli indirizzi iniziano con nano_",
+		"hashHint": "Gli hash di blocco hanno 64 caratteri esadecimali",
+		"totalBlocks": "Blocchi totali",
+		"cementedBlocks": "Cementati",
+		"uncheckedBlocks": "Non controllati",
+		"onlineWeight": "Peso online",
+		"principalReps": "Rep principali",
+		"principalShare": "Quota principale",
+		"feedTitle": "Feed rete live",
+		"live": "Live",
+		"connecting": "Connessione…",
+		"offline": "Offline",
+		"waiting": "In attesa della prossima conferma…",
+		"justNow": "adesso",
+		"mAgo": "{n} min fa",
+		"hAgo": "{n} h fa",
+		"dAgo": "{n} giorni fa",
+		"popularAccounts": "Account popolari",
+		"networkArtifacts": "Manufatti della rete",
+		"moreTools": "Altri strumenti",
+		"genesisBlock": "Blocco di genesi",
+		"firstSend": "Primo invio",
+		"binanceCold": "Binance Cold Wallet",
+		"krakenCold": "Kraken Cold Wallet",
+		"bitvavoCold": "Bitvavo Cold Wallet",
+		"binanceUsHot": "Binance US Hot Wallet",
+		"firstReceive": "Prima ricezione",
+		"binanceColdOpens": "Binance apre il portafoglio freddo"
+	},
+	"block": {
+		"blockLabel": "Blocco",
+		"confirmed": "Confermato",
+		"unconfirmed": "Non confermato",
+		"copyHash": "Copia hash del blocco",
+		"copy": "Copia",
+		"account": "Account",
+		"counterparty": "Controparte",
+		"height": "Altezza",
+		"received": "Ricevuto",
+		"balance": "Saldo",
+		"representative": "Rappresentante",
+		"work": "Prova di lavoro",
+		"signature": "Firma",
+		"previous": "Precedente",
+		"successor": "Successivo",
+		"prevBlock": "Precedente {hash}",
+		"nextBlock": "Successivo {hash}",
+		"rawContents": "Contenuto grezzo del blocco",
+		"notFoundTitle": "Blocco non trovato",
+		"notFoundBody": "Questo hash di blocco non è ancora noto alla rete Nano. Potrebbe essere in attesa di conferma.",
+		"backToExplore": "Torna all'esploratore"
 	}
 }

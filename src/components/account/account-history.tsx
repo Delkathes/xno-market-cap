@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Check, ChevronDown, Copy, Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { Link } from '@/i18n/navigation'
+
 import type { AccountHistoryPage, BlockInfo } from '@/lib/account-data-service'
 
 import type { LiveTransaction } from '@/hooks/use-account-confirmations'
@@ -299,6 +301,16 @@ export function AccountHistory({
 													{info.previous && (
 														<DetailRow label={t('blockPrevious')} value={info.previous} />
 													)}
+													<div className="flex items-center gap-2 pt-1">
+														<span className="h-px flex-1 bg-border" />
+														<Link
+															href={`/block/${info.hash}`}
+															className="flex-none font-mono text-[10px] uppercase tracking-[0.2em] text-primary transition-colors hover:text-primary/70"
+														>
+															{t('viewFullBlock')}
+														</Link>
+														<span className="h-px flex-1 bg-border" />
+													</div>
 												</div>
 											)}
 										</div>

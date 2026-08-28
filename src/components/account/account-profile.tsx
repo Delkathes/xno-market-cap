@@ -7,6 +7,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, Copy, ExternalLink, Link2, ScanSearch } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { Link } from '@/i18n/navigation'
+
 import type { AccountData, AccountHistoryPage } from '@/lib/account-data-service'
 import type { CompareRates } from '@/lib/market-data-service'
 import { isValidNanoAddress } from '@/lib/nano-utils'
@@ -236,11 +238,11 @@ export function AccountProfile({
 				{/* Address + actions */}
 				<div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 					<div className="min-w-0">
-						<div className="flex flex-wrap items-center gap-2">
+						<div className="flex items-center justify-between gap-2">
 							<span className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
 								{t('address')}
 							</span>
-							<span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+							<span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
 								<span
 									className={`h-1.5 w-1.5 rounded-full ${
 										wsConnected ? 'animate-live-pulse bg-constructive' : 'bg-muted-foreground/40'
@@ -248,6 +250,18 @@ export function AccountProfile({
 								/>
 								{wsConnected ? t('live') : t('polling')}
 							</span>
+						</div>
+						<h1 className="mt-2 font-mono text-lg font-semibold tracking-tight text-balance break-all">
+							{address}
+						</h1>
+						{labels?.[address] && (
+							<span className="mt-1.5 inline-flex items-center rounded-sm border border-primary/30 bg-primary/10 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+								{labels[address]}
+							</span>
+						)}
+
+						{/* Copy actions: below the address, centered */}
+						<div className="mt-3 flex flex-wrap justify-center gap-2">
 							<Button
 								type="button"
 								variant="ghost"
@@ -277,19 +291,11 @@ export function AccountProfile({
 								{copied === 'link' ? t('linkCopied') : t('copyLink')}
 							</Button>
 						</div>
-						<h1 className="mt-2 font-mono text-lg font-semibold tracking-tight text-balance break-all">
-							{address}
-						</h1>
-						{labels?.[address] && (
-							<span className="mt-1.5 inline-flex items-center rounded-sm border border-primary/30 bg-primary/10 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
-								{labels[address]}
-							</span>
-						)}
 					</div>
 
 					{/* QR tile */}
 					<div className="flex-none self-center sm:self-start">
-						<div className="rounded-sm border border-border bg-white p-2 h-26 w-26">
+						<div className="h-26 w-26 rounded-sm border border-primary/30 bg-white p-2 shadow-[0_0_20px_hsl(var(--primary)/0.22)]">
 							{isClient ? (
 								<QRCodeSVG
 									value={address}
@@ -307,23 +313,45 @@ export function AccountProfile({
 
 				{state === 'ok' && data ? (
 					<>
-						{/* Balance hero */}
+						{/* Balance hero: signal band (matches the OG-card identity) */}
 						<div className="mt-6 border-t border-border pt-6">
-							<div className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-								{t('balance')}
-							</div>
-							<div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+							<div className="relative overflow-hidden rounded-sm border border-white/10 bg-linear-to-br from-[#0d2b45] via-[#134e6f] to-[#0a2338] p-5 sm:p-6">
+								{CORNERS.map((position) => (
+									<span
+										key={position}
+										aria-hidden="true"
+										className={`pointer-events-none absolute h-2.5 w-2.5 border-[#13bcff]/60 ${position}`}
+									/>
+								))}
 								<span
-									className={`text-5xl font-bold tracking-tight tabular-nums ${glow ? 'animate-balance-glow' : ''}`}
+									aria-hidden="true"
+									className="pointer-events-none absolute -right-3 -bottom-8 select-none font-mono text-[11rem] leading-none font-bold text-white/10"
 								>
-									{formatBalance(displayBalance, locale)}
+									Ӿ
 								</span>
-								<span className="text-sm font-normal text-muted-foreground">XNO</span>
-								{data.principal && (
-									<span className="inline-flex items-center rounded-sm border border-constructive/30 bg-constructive/10 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-constructive">
-										{t('principalYes')}
+								<div
+									aria-hidden="true"
+									className="pointer-events-none absolute -top-12 -right-12 h-48 w-48 rounded-full bg-[#13bcff]/20 blur-3xl"
+								/>
+
+								<div className="relative font-mono text-[11px] uppercase tracking-[0.25em] text-[#13bcff]/90">
+									{t('balance')}
+								</div>
+								<div className="relative mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+									<span
+										className={`text-5xl font-bold tracking-tight tabular-nums text-[#f2f7fb] ${
+											glow ? 'animate-balance-glow' : ''
+										}`}
+									>
+										{formatBalance(displayBalance, locale)}
 									</span>
-								)}
+									<span className="text-sm font-normal text-[#13bcff]">XNO</span>
+									{data.principal && (
+										<span className="inline-flex items-center rounded-sm border border-constructive/40 bg-constructive/15 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-constructive">
+											{t('principalYes')}
+										</span>
+									)}
+								</div>
 							</div>
 						</div>
 
@@ -368,18 +396,34 @@ export function AccountProfile({
 
 						{/* Stat strip */}
 						<div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-4">
-							<StatCell label={t('pending')} value={formatBalance(data.pendingXno, locale)} unit="XNO" />
+							<StatCell
+								label={t('pending')}
+								value={formatBalance(data.pendingXno, locale)}
+								unit="XNO"
+								led="bg-amber-500"
+								tint="text-amber-500"
+							/>
 							<StatCell
 								label={t('votingWeight')}
 								value={formatBalance(data.weightXno, locale)}
 								unit="XNO"
+								led="bg-constructive"
+								tint="text-constructive"
 							/>
-							<StatCell label={t('blocks')} value={data.blockCount.toLocaleString()} unit="" />
+							<StatCell
+								label={t('blocks')}
+								value={data.blockCount.toLocaleString()}
+								unit=""
+								led="bg-primary"
+								tint="text-primary"
+							/>
 							<StatCell
 								label={t('principal')}
 								value={data.principal ? t('principalYes') : t('principalNo')}
 								unit=""
 								badge={data.rank !== null ? `${t('rank')} · #${data.rank}` : undefined}
+								led={data.principal ? 'bg-constructive' : 'bg-destructive'}
+								tint={data.principal ? 'text-constructive' : 'text-destructive'}
 							/>
 						</div>
 
@@ -392,6 +436,7 @@ export function AccountProfile({
 								copied={copied}
 								onCopy={handleCopy}
 								tag={labels?.[data.representative] ?? undefined}
+								href={data.representative ? `/account/${data.representative}` : undefined}
 							/>
 							<LedgerRow
 								label={t('frontier')}
@@ -399,6 +444,7 @@ export function AccountProfile({
 								copyKey="frontier"
 								copied={copied}
 								onCopy={handleCopy}
+								href={data.frontier ? `/block/${data.frontier.toLowerCase()}` : undefined}
 							/>
 							<LedgerRow
 								label={t('openBlock')}
@@ -406,6 +452,7 @@ export function AccountProfile({
 								copyKey="open"
 								copied={copied}
 								onCopy={handleCopy}
+								href={data.openBlock ? `/block/${data.openBlock.toLowerCase()}` : undefined}
 							/>
 						</div>
 
@@ -564,11 +611,28 @@ export function AccountProfile({
 	)
 }
 
-function StatCell({ label, value, unit, badge }: { label: string; value: string; unit: string; badge?: string }) {
+function StatCell({
+	label,
+	value,
+	unit,
+	badge,
+	led,
+	tint,
+}: {
+	label: string
+	value: string
+	unit: string
+	badge?: string
+	led?: string
+	tint?: string
+}) {
 	return (
 		<div className="bg-card p-3.5">
-			<div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{label}</div>
-			<div className="mt-1.5 font-bold tracking-tight tabular-nums">
+			<div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+				{led && <span aria-hidden="true" className={`h-1.5 w-1.5 flex-none rounded-full ${led}`} />}
+				{label}
+			</div>
+			<div className={`mt-1.5 font-bold tracking-tight tabular-nums ${tint ?? ''}`}>
 				{value}
 				{unit && <span className="ml-1 text-xs font-normal text-muted-foreground">{unit}</span>}
 			</div>
@@ -584,6 +648,7 @@ function LedgerRow({
 	copied,
 	onCopy,
 	tag,
+	href,
 }: {
 	label: string
 	value: string
@@ -591,6 +656,7 @@ function LedgerRow({
 	copied: string | null
 	onCopy: (value: string, key: string) => void
 	tag?: string
+	href?: string
 }) {
 	return (
 		<div className="flex items-center justify-between gap-3">
@@ -601,7 +667,16 @@ function LedgerRow({
 						{tag}
 					</div>
 				)}
-				<div className="mt-0.5 font-mono text-sm break-all">{value || '·'}</div>
+				{href && value ? (
+					<Link
+						href={href}
+						className="mt-0.5 block font-mono text-sm break-all text-foreground transition-colors hover:text-primary"
+					>
+						{value}
+					</Link>
+				) : (
+					<div className="mt-0.5 font-mono text-sm break-all">{value || '·'}</div>
+				)}
 			</div>
 			<Button
 				type="button"

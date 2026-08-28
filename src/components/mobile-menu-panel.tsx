@@ -4,7 +4,9 @@ import { useEffect } from 'react'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import {
 	ArrowRightLeft,
+	Calculator,
 	ChartPie,
+	Compass,
 	Fingerprint,
 	Flag,
 	HelpCircle,
@@ -14,7 +16,6 @@ import {
 	Scale,
 	ScanSearch,
 	Wallet,
-	Wrench,
 	X,
 	Zap,
 } from 'lucide-react'
@@ -102,13 +103,34 @@ export function MobileMenuPanel() {
 							<Link
 								href="/calculators"
 								className={cn(
-									'px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
 									pathname === '/calculators'
 										? 'bg-secondary text-secondary-foreground'
 										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
 								)}
 							>
+								<Calculator className="h-4 w-4 text-primary" />
 								{t('calculators')}
+							</Link>
+
+							<Link
+								href="/explore"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/explore' ||
+										pathname.startsWith('/account') ||
+										pathname.startsWith('/block')
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Compass className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('explorer')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('explorerDescription')}
+									</p>
+								</div>
 							</Link>
 
 							<div className="my-2 border-t border-border" />

@@ -133,6 +133,16 @@
 		"account": {
 			"title": "{address} · Saldo, transacties en stemgewicht",
 			"description": "Live saldo, in behandeling, stemgewicht en transactiegeschiedenis voor {address}."
+		},
+		"explore": {
+			"title": "Nano verkennen · Accounts & blokken",
+			"description": "Doorzoek het Nano-netwerk op adres of block-hash.",
+			"ogTitle": "Nano verkennen",
+			"ogDescription": "Doorzoek het Nano-netwerk op adres of block-hash."
+		},
+		"block": {
+			"title": "Blok {hash} · Bedrag, saldo & keten",
+			"description": "Details van blok {hash}: type, bedrag, saldo, tijdstempel en positie in de Nano-keten."
 		}
 	},
 	"common": {
@@ -195,7 +205,9 @@
 		"toolAccountInspector": "Account-inspecteur",
 		"toolAccountInspectorDescription": "Saldo & stemgewicht",
 		"toolFeeComparison": "Nano vs BTC-kosten",
-		"toolFeeComparisonDescription": "Nul tegen Bitcoin-kosten"
+		"toolFeeComparisonDescription": "Nul tegen Bitcoin-kosten",
+		"explorer": "Verkenner",
+		"explorerDescription": "Accounts en blokken zoeken"
 	},
 	"home": {
 		"marketLedger": "Marktregister",
@@ -1445,6 +1457,66 @@
 		"toastReceived": "+{amount} XNO zojuist ontvangen",
 		"toastSent": "{amount} XNO zojuist verzonden",
 		"toastChange": "Vertegenwoordiger gewijzigd",
-		"toastBalance": "Saldo bijgewerkt"
+		"toastBalance": "Saldo bijgewerkt",
+		"viewFullBlock": "Volledig blok bekijken"
+	},
+	"explore": {
+		"kicker": "VERKENNER",
+		"h1": "Verken het Nano-netwerk",
+		"intro": "Zoek een Nano-adres of block-hash om saldo, geschiedenis en ketenpositie te bekijken.",
+		"placeholder": "nano_-adres of block-hash van 64 tekens",
+		"button": "Zoeken",
+		"error": "Dit lijkt geen Nano-adres of block-hash",
+		"addressHint": "Adressen beginnen met nano_",
+		"hashHint": "Block-hashes bestaan uit 64 hexadecimale tekens",
+		"totalBlocks": "Totaal blokken",
+		"cementedBlocks": "Gecementeerd",
+		"uncheckedBlocks": "Ongecontroleerd",
+		"onlineWeight": "Online-gewicht",
+		"principalReps": "Hoofd-reps",
+		"principalShare": "Aandeel hoofd-reps",
+		"feedTitle": "Live netwerkfeed",
+		"live": "Live",
+		"connecting": "Verbinden…",
+		"offline": "Offline",
+		"waiting": "Wachten op de volgende bevestiging…",
+		"justNow": "zojuist",
+		"mAgo": "{n} min geleden",
+		"hAgo": "{n} uur geleden",
+		"dAgo": "{n} dagen geleden",
+		"popularAccounts": "Populaire accounts",
+		"networkArtifacts": "Netwerk-artefacten",
+		"moreTools": "Meer tools",
+		"genesisBlock": "Genesis-blok",
+		"firstSend": "Eerste verzending",
+		"binanceCold": "Binance Cold Wallet",
+		"krakenCold": "Kraken Cold Wallet",
+		"bitvavoCold": "Bitvavo Cold Wallet",
+		"binanceUsHot": "Binance US Hot Wallet",
+		"firstReceive": "Eerste ontvangst",
+		"binanceColdOpens": "Binance opent cold wallet"
+	},
+	"block": {
+		"blockLabel": "Blok",
+		"confirmed": "Bevestigd",
+		"unconfirmed": "Onbevestigd",
+		"copyHash": "Block-hash kopiëren",
+		"copy": "Kopiëren",
+		"account": "Account",
+		"counterparty": "Tegenpartij",
+		"height": "Hoogte",
+		"received": "Ontvangen",
+		"balance": "Saldo",
+		"representative": "Vertegenwoordiger",
+		"work": "Bewijs van werk",
+		"signature": "Handtekening",
+		"previous": "Vorige",
+		"successor": "Volgende",
+		"prevBlock": "Vorige {hash}",
+		"nextBlock": "Volgende {hash}",
+		"rawContents": "Ruwe blokinhoud",
+		"notFoundTitle": "Blok niet gevonden",
+		"notFoundBody": "Dit block-hash is nog niet bekend bij het Nano-netwerk. Het wacht mogelijk op bevestiging.",
+		"backToExplore": "Terug naar verkenner"
 	}
 }

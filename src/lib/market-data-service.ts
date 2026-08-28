@@ -106,6 +106,8 @@ export interface CompareCoin {
 	symbol: string
 	name: string
 	marketCapRank: number
+	/** Coin logo URL (CoinGecko). */
+	image: string
 	/** Amount of this coin equivalent to 1 XNO (direct XNO rate, no fiat intermediate). */
 	xnoRate: number
 }
@@ -163,6 +165,7 @@ export async function getCompareRates(): Promise<CompareRates> {
 			symbol: crypto.symbol.toUpperCase(),
 			name: crypto.name,
 			marketCapRank: crypto.market_cap_rank,
+			image: crypto.image,
 			xnoRate: xnoUsd / crypto.current_price,
 		}))
 		.sort((a, b) => a.marketCapRank - b.marketCapRank)
