@@ -211,23 +211,6 @@ export function MobileMenuPanel() {
 							</div>
 
 							<Link
-								href="/tools"
-								className={cn(
-									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
-									pathname === '/tools'
-										? 'bg-secondary text-secondary-foreground'
-										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
-								)}
-							>
-								<Wrench className="h-4 w-4 text-primary" />
-								<div>
-									<div>{t('toolIndex')}</div>
-									<p className="text-xs text-muted-foreground font-normal">
-										{t('toolIndexDescription')}
-									</p>
-								</div>
-							</Link>
-							<Link
 								href="/tools/unit-converter"
 								className={cn(
 									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',

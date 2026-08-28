@@ -99,12 +99,6 @@
 			"description": "De volledige XNO-marktkapitalisatieladder in elke valuta, met een interactieve simulator."
 		},
 		"tools": {
-			"hub": {
-				"title": "Nano-tools & hulpmiddelen",
-				"description": "Gratis Nano (XNO) tools: eenhedenconverter, betaallink-generator, adres-tools, account-inspecteur en een Nano-tegen-Bitcoin-kostenvergelijking.",
-				"ogTitle": "Nano-tools & hulpmiddelen | NanoMarketCap",
-				"ogDescription": "Gratis Nano (XNO) tools: converter, betaallinks, adressen, account-inspecteur en kostenvergelijking."
-			},
 			"converter": {
 				"title": "Nano-eenhedenconverter: XNO naar Raw",
 				"description": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO, plus mXNO-weergave. De definitieve XNO-eenhedenconverter.",
@@ -192,8 +186,6 @@
 		"decentralizationDescription": "Stemgewicht & live decentralisatiemetrieken",
 		"tools": "Tools",
 		"toolsDescription": "Converters & hulpmiddelen",
-		"toolIndex": "Alle tools",
-		"toolIndexDescription": "Alle instrumenten bekijken",
 		"toolUnitConverter": "Eenhedenconverter",
 		"toolUnitConverterDescription": "XNO naar raw en terug",
 		"toolPaymentLinks": "Betaallinks",
@@ -1300,12 +1292,6 @@
 		"breadth": "Bij {count} online reps: de mediane vertegenwoordiger controleert {median} XNO, het gemiddelde is {mean} XNO, omhoog getrokken door de grootste vertegenwoordigers."
 	},
 	"tools": {
-		"hub": {
-			"kicker": "Instrumentenbank",
-			"h1": "Nano-tools",
-			"intro": "Alles wat een Nano-gebruiker nodig heeft in één ruimte: eenhedenconversie, betaallinks, adresverificatie, account-opzoekingen en een live kostenvergelijking. Gratis, in de browser, zonder tracking.",
-			"openTool": "Instrument openen"
-		},
 		"converter": {
 			"kicker": "Instrument 01 · eenheden",
 			"h1": "Nano-eenhedenconverter",

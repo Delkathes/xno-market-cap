@@ -136,37 +136,6 @@ export function DesktopControls() {
 								<li className="flex-none">
 									<NavigationMenuLink asChild>
 										<Link
-											href="/tools"
-											className={cn(
-												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-												pathname === '/tools' && 'bg-accent text-accent-foreground',
-											)}
-										>
-											<div className="flex">
-												<Wrench
-													className={cn(
-														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
-														pathname === '/tools' && 'bg-accent text-accent-foreground',
-													)}
-												/>
-												<div className="w-36">
-													<div className="text-sm font-medium">{t('toolIndex')}</div>
-													<p
-														className={cn(
-															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
-															pathname === '/tools' && 'bg-accent text-accent-foreground',
-														)}
-													>
-														{t('toolIndexDescription')}
-													</p>
-												</div>
-											</div>
-										</Link>
-									</NavigationMenuLink>
-								</li>
-								<li className="flex-none">
-									<NavigationMenuLink asChild>
-										<Link
 											href="/tools/unit-converter"
 											className={cn(
 												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',

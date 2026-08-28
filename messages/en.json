@@ -99,12 +99,6 @@
 			"description": "The full XNO market cap ladder in every fiat currency, with an interactive simulator."
 		},
 		"tools": {
-			"hub": {
-				"title": "Nano Tools & Utilities",
-				"description": "Free Nano (XNO) tools: unit converter, payment link generator, address tools, account inspector and a Nano vs Bitcoin fee comparison.",
-				"ogTitle": "Nano Tools & Utilities | NanoMarketCap",
-				"ogDescription": "Free Nano (XNO) tools: unit converter, payment link generator, address tools, account inspector and fee comparison."
-			},
 			"converter": {
 				"title": "Nano Unit Converter: XNO to Raw",
 				"description": "Convert Nano (XNO) between raw and XNO units with full precision, plus mXNO display. The definitive XNO unit converter.",
@@ -186,8 +180,6 @@
 		"decentralizationDescription": "Voting weight & live decentralization metrics",
 		"tools": "Tools",
 		"toolsDescription": "Converters & utilities",
-		"toolIndex": "All Tools",
-		"toolIndexDescription": "Browse every instrument",
 		"toolUnitConverter": "Unit Converter",
 		"toolUnitConverterDescription": "XNO to raw & back",
 		"toolPaymentLinks": "Payment Links",
@@ -1294,12 +1286,6 @@
 		"breadth": "Across {count} online reps: the median representative controls {median} XNO, the mean is {mean} XNO, dragged upward by the largest representatives."
 	},
 	"tools": {
-		"hub": {
-			"kicker": "Instrument bench",
-			"h1": "Nano Tools",
-			"intro": "Everything a Nano user needs, in one room: unit conversions, payment links, address verification, account lookups and a live fee comparison. Free, client-side, no tracking.",
-			"openTool": "Open instrument"
-		},
 		"converter": {
 			"kicker": "Instrument 01 · units",
 			"h1": "Nano Unit Converter",

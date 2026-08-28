@@ -99,12 +99,6 @@
 			"description": "La scala completa della capitalizzazione di XNO in ogni valuta, con un simulatore interattivo."
 		},
 		"tools": {
-			"hub": {
-				"title": "Strumenti e utilità Nano",
-				"description": "Strumenti gratuiti per Nano (XNO): convertitore di unità, generatore di link di pagamento, strumenti per indirizzi, ispettore di account e confronto commissioni Nano vs Bitcoin.",
-				"ogTitle": "Strumenti e utilità Nano | NanoMarketCap",
-				"ogDescription": "Strumenti gratuiti per Nano (XNO): convertitore, link di pagamento, indirizzi, ispettore di account e confronto commissioni."
-			},
 			"converter": {
 				"title": "Convertitore di unità Nano: XNO in Raw",
 				"description": "Converti Nano (XNO) tra unità raw e XNO con precisione totale, più la visualizzazione in mXNO. Il convertitore di unità XNO definitivo.",
@@ -192,8 +186,6 @@
 		"decentralizationDescription": "Peso di voto e metriche di decentralizzazione live",
 		"tools": "Strumenti",
 		"toolsDescription": "Convertitori e utilità",
-		"toolIndex": "Tutti gli strumenti",
-		"toolIndexDescription": "Sfoglia tutti gli strumenti",
 		"toolUnitConverter": "Convertitore di unità",
 		"toolUnitConverterDescription": "XNO in raw e viceversa",
 		"toolPaymentLinks": "Link di pagamento",
@@ -1300,12 +1292,6 @@
 		"breadth": "Su {count} rep online: il rappresentante mediano controlla {median} XNO, la media è {mean} XNO, trainata verso l'alto dai rappresentanti più grandi."
 	},
 	"tools": {
-		"hub": {
-			"kicker": "Banco strumenti",
-			"h1": "Strumenti Nano",
-			"intro": "Tutto ciò che serve a un utente Nano, in un'unica sala: conversioni di unità, link di pagamento, verifica indirizzi, consultazione account e confronto commissioni in tempo reale. Gratuito, lato browser, senza tracciamento.",
-			"openTool": "Apri lo strumento"
-		},
 		"converter": {
 			"kicker": "Strumento 01 · unità",
 			"h1": "Convertitore di unità Nano",

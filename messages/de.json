@@ -99,12 +99,6 @@
 			"description": "Die komplette XNO-Marktkapitalisierungs-Leiter in jeder Währung, mit interaktivem Simulator."
 		},
 		"tools": {
-			"hub": {
-				"title": "Nano-Werkzeuge & Hilfsprogramme",
-				"description": "Kostenlose Nano (XNO) Werkzeuge: Einheiten-Umrechner, Zahlungslink-Generator, Adress-Werkzeuge, Konto-Prüfer und ein Nano-gegen-Bitcoin-Gebührenvergleich.",
-				"ogTitle": "Nano-Werkzeuge & Hilfsprogramme | NanoMarketCap",
-				"ogDescription": "Kostenlose Nano (XNO) Werkzeuge: Umrechner, Zahlungslinks, Adressen, Konto-Prüfer und Gebührenvergleich."
-			},
 			"converter": {
 				"title": "Nano-Einheiten-Umrechner: XNO zu Raw",
 				"description": "Konvertieren Sie Nano (XNO) mit voller Präzision zwischen raw und XNO, plus mXNO-Anzeige. Der maßgebliche XNO-Einheiten-Umrechner.",
@@ -192,8 +186,6 @@
 		"decentralizationDescription": "Stimmgewicht & Live-Desentralisierungskennzahlen",
 		"tools": "Werkzeuge",
 		"toolsDescription": "Umrechner & Hilfsprogramme",
-		"toolIndex": "Alle Werkzeuge",
-		"toolIndexDescription": "Alle Instrumente ansehen",
 		"toolUnitConverter": "Einheiten-Umrechner",
 		"toolUnitConverterDescription": "XNO zu raw und zurück",
 		"toolPaymentLinks": "Zahlungslinks",
@@ -1300,12 +1292,6 @@
 		"breadth": "Unter {count} Online-Vertretern: Der mediane Vertreter kontrolliert {median} XNO, der Durchschnitt liegt bei {mean} XNO, nach oben gezogen von den größten Vertretern."
 	},
 	"tools": {
-		"hub": {
-			"kicker": "Instrumentenbank",
-			"h1": "Nano-Werkzeuge",
-			"intro": "Alles, was ein Nano-Nutzer braucht, in einem Raum: Einheitenumrechnung, Zahlungslinks, Adressprüfung, Kontonachschlage und ein live Gebührenvergleich. Kostenlos, im Browser, ohne Tracking.",
-			"openTool": "Instrument öffnen"
-		},
 		"converter": {
 			"kicker": "Instrument 01 · Einheiten",
 			"h1": "Nano-Einheiten-Umrechner",
