@@ -44,10 +44,47 @@ export const NanoAccountInfoSchema = v.object({
 	frontier: v.string(),
 	open_block: v.string(),
 	representative: v.string(),
+	block_count: v.optional(v.string()),
 })
 
 export const NanoWeightSchema = v.object({
 	weight: v.string(),
+})
+
+const TimestampValueSchema = v.union([v.number(), v.string()])
+const ConfirmedValueSchema = v.union([v.boolean(), v.literal('true'), v.literal('false')])
+
+export const AccountHistoryItemSchema = v.object({
+	hash: v.string(),
+	type: v.optional(v.string()),
+	subtype: v.optional(v.string()),
+	account: v.optional(v.string()),
+	link_as_account: v.optional(v.string()),
+	link: v.optional(v.string()),
+	amount: v.optional(v.string()),
+	balance: v.optional(v.string()),
+	timestamp: v.optional(v.number()),
+	local_timestamp: v.optional(TimestampValueSchema),
+	height: v.optional(v.string()),
+	confirmed: v.optional(ConfirmedValueSchema),
+})
+
+export const AccountHistoryResponseSchema = v.object({
+	account: v.string(),
+	history: v.array(AccountHistoryItemSchema),
+	next: v.optional(v.union([v.string(), v.number()])),
+})
+
+export const BlockInfoResponseSchema = v.object({
+	block_account: v.optional(v.string()),
+	amount: v.optional(v.string()),
+	balance: v.optional(v.string()),
+	height: v.optional(v.string()),
+	local_timestamp: v.optional(TimestampValueSchema),
+	confirmed: v.optional(ConfirmedValueSchema),
+	subtype: v.optional(v.string()),
+	link: v.optional(v.string()),
+	contents: v.optional(v.unknown()),
 })
 
 export const ExchangeRatesSchema = v.object({

@@ -89,6 +89,11 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 										{t('sections.dataCollected.cookies.items.theme')}
 									</code>
 								</li>
+								<li>
+									<code className="text-xs bg-muted px-1 py-0.5 rounded">
+										{t('sections.dataCollected.cookies.items.compareCoins')}
+									</code>
+								</li>
 							</ul>
 						</div>
 					</div>

@@ -6,7 +6,7 @@ import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
-import { AccountInspector } from '@/components/tools/account-inspector'
+import { AccountInspectorEntry } from '@/components/tools/account-inspector'
 import { ToolPanel } from '@/components/tools/tool-panel'
 
 type Props = {
@@ -58,7 +58,7 @@ export default async function AccountInspectorPage({ params }: Props) {
 
 			<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
 				<ToolPanel index="04" title={t('h1')} sub={t('sub')}>
-					<AccountInspector />
+					<AccountInspectorEntry locale={locale} />
 				</ToolPanel>
 			</div>
 		</main>

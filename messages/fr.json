@@ -135,6 +135,10 @@
 				"ogTitle": "Frais Nano vs Bitcoin | NanoMarketCap",
 				"ogDescription": "Comparez les frais nuls de Nano aux frais Bitcoin en direct depuis mempool.space."
 			}
+		},
+		"account": {
+			"title": "{address} · Solde, transactions et poids de vote",
+			"description": "Solde en direct, en attente, poids de vote et historique des transactions pour {address}."
 		}
 	},
 	"common": {
@@ -907,7 +911,8 @@
 						"description": "Nous ne déposons aucun cookie de suivi ou publicitaire. Les cookies fonctionnels suivants peuvent être définis automatiquement par notre pile technologique :",
 						"items": {
 							"locale": "NEXT_LOCALE — Stocke votre préférence linguistique pour le site",
-							"theme": "Préférence de thème — Mémorise votre sélection mode clair/sombre"
+							"theme": "Préférence de thème — Mémorise votre sélection mode clair/sombre",
+							"compareCoins": "xno_compare_coins · Enregistre vos cryptos épinglées sur la page explorateur de compte (6 max, expiration après 1 an). Purement fonctionnel, aucun suivi."
 						}
 					}
 				},
@@ -1357,30 +1362,12 @@
 		"accountInspector": {
 			"kicker": "Instrument 04 · consultations",
 			"h1": "Inspecteur de compte Nano",
-			"sub": "Consultez n'importe quel compte Nano depuis les nœuds publics : solde, en attente, représentant, bloc d'ouverture et poids de vote.",
+			"sub": "Saisissez une adresse Nano pour ouvrir son profil complet : solde, en attente, poids de vote, historique des transactions et mises à jour en direct.",
 			"address": "Adresse du compte",
 			"addressPlaceholder": "nano_1... ou xno_1...",
 			"inspect": "Inspecter le compte",
-			"checking": "Interrogation des nœuds publics...",
-			"balance": "Solde",
-			"pending": "En attente",
-			"votingWeight": "Poids de vote",
-			"shareOfOnline": "du poids de vote en ligne",
-			"principal": "Représentant principal",
-			"principalYes": "Oui, au-dessus de 0,1%",
-			"principalNo": "Non, en dessous de 0,1%",
-			"rank": "Rang par poids",
-			"representative": "Représentant",
-			"frontier": "Frontière",
-			"openBlock": "Bloc d'ouverture",
-			"notFound": "Compte introuvable sur le réseau",
-			"rpcError": "Nœuds publics injoignables. Réessayez dans un instant.",
 			"invalidAddress": "Saisissez une adresse nano_ ou xno_ valide",
-			"copy": "Copier",
-			"copied": "Copié",
-			"note": "Les résultats sont mis en cache pendant 60 secondes et proviennent de relais RPC publics Nano.",
-			"viewBlocklattice": "Voir sur Blocklattice",
-			"viewNanexplorer": "Voir sur Nanexplorer"
+			"note": "Les profils sont rendus côté serveur et mis en cache 60 secondes depuis les relais publics Nano."
 		},
 		"feeComparison": {
 			"kicker": "Instrument 05 · frais",
@@ -1404,5 +1391,74 @@
 			"sourceNote": "Frais Bitcoin depuis mempool.space, actualisés toutes les quelques minutes.",
 			"updateNote": "Estimation de frais, pas un devis."
 		}
+	},
+	"account": {
+		"notFoundTitle": "Compte introuvable",
+		"notFoundText": "Cette adresse ne possède aucun bloc sur le réseau Nano. Vérifiez qu'il n'y a pas de faute de frappe et réessayez.",
+		"rpcErrorTitle": "Réseau injoignable",
+		"rpcErrorText": "Les relais publics Nano sont injoignables. Réessayez dans un instant.",
+		"retry": "Réessayer",
+		"backToTool": "Retour à l'inspecteur",
+		"unopened": "Ce compte n'a pas encore reçu sa première transaction.",
+		"unopenedHint": "Il existe sur le réseau mais n'a aucun historique. Son solde restera à 0 XNO tant que personne ne lui envoie de fonds.",
+		"address": "Adresse du compte",
+		"balance": "Solde",
+		"pending": "En attente",
+		"votingWeight": "Poids de vote",
+		"ofOnline": "du poids de vote en ligne",
+		"principal": "Représentant principal",
+		"principalYes": "Oui, au-dessus de 0,1 %",
+		"principalNo": "Non, en dessous de 0,1 %",
+		"rank": "Rang par poids",
+		"blocks": "Blocs à vie",
+		"representedBy": "Représenté par",
+		"frontier": "Frontière",
+		"openBlock": "Bloc d'ouverture",
+		"copy": "Copier",
+		"copied": "Copié",
+		"copyLink": "Copier le lien",
+		"linkCopied": "Lien copié",
+		"jumpTo": "Aller à un autre compte",
+		"searchPlaceholder": "nano_1... ou xno_1...",
+		"open": "Ouvrir le compte",
+		"invalidAddress": "Saisissez une adresse nano_ ou xno_ valide",
+		"viewBlocklattice": "Voir sur Blocklattice",
+		"viewNanexplorer": "Voir sur Nanexplorer",
+		"addCoins": "Ajouter des cryptos",
+		"searchCoins": "Rechercher des cryptos...",
+		"remove": "Retirer",
+		"resetToDefault": "Réinitialiser",
+		"pinnedLimit": "Jusqu'à 6 cryptos",
+		"vsOverrideNote": "Sélection temporaire depuis un lien partagé. Vos cryptos enregistrées sont inchangées.",
+		"noMatch": "Aucune crypto correspondante",
+		"history": "Historique des transactions",
+		"loadMore": "Charger plus",
+		"loading": "Chargement...",
+		"change": "Changement de représentant",
+		"to": "Vers {address}",
+		"from": "Depuis {address}",
+		"justNow": "à l'instant",
+		"mAgo": "il y a {n} min",
+		"hAgo": "il y a {n} h",
+		"dAgo": "il y a {n} j",
+		"unconfirmed": "en attente",
+		"noHistory": "Aucune transaction pour le moment.",
+		"loadFailed": "Impossible de charger ce bloc.",
+		"blockHash": "Hash du bloc",
+		"blockType": "Type",
+		"blockHeight": "Hauteur",
+		"blockAmount": "Montant",
+		"blockBalance": "Solde après",
+		"blockTime": "Horodatage",
+		"blockAccount": "Compte",
+		"blockRepresentative": "Représentant",
+		"blockLink": "Lien vers",
+		"blockPrevious": "Bloc précédent",
+		"live": "Direct",
+		"polling": "Interrogation",
+		"toastReceived": "+{amount} XNO viennent d'arriver",
+		"toastSent": "{amount} XNO viennent d'être envoyés",
+		"toastChange": "Changement de représentant",
+		"toastBalance": "Solde mis à jour"
 	}
 }

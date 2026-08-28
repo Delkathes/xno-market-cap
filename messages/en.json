@@ -135,6 +135,10 @@
 				"ogTitle": "Nano vs Bitcoin Fees | NanoMarketCap",
 				"ogDescription": "Compare Nano's zero fees with live Bitcoin fees from mempool.space."
 			}
+		},
+		"account": {
+			"title": "{address} · Balance, Transactions & Voting Weight",
+			"description": "Live balance, pending, voting weight and transaction history for {address}."
 		}
 	},
 	"common": {
@@ -901,7 +905,8 @@
 						"description": "We do not set any tracking or advertising cookies. The following functional cookies may be set automatically by our technology stack:",
 						"items": {
 							"locale": "NEXT_LOCALE — Stores your language preference for the site",
-							"theme": "Theme preference — Remembers your light/dark mode selection"
+							"theme": "Theme preference — Remembers your light/dark mode selection",
+							"compareCoins": "xno_compare_coins · Stores your pinned comparison coins on the account explorer page (max 6, expires after 1 year). Purely functional, not used for tracking."
 						}
 					}
 				},
@@ -1351,30 +1356,12 @@
 		"accountInspector": {
 			"kicker": "Instrument 04 · lookups",
 			"h1": "Nano Account Inspector",
-			"sub": "Look up any Nano account straight from public nodes: balance, pending, representative, open block and voting weight.",
+			"sub": "Enter any Nano address to open its full profile: balance, pending, voting weight, transaction history and live updates.",
 			"address": "Account address",
 			"addressPlaceholder": "nano_1... or xno_1...",
 			"inspect": "Inspect account",
-			"checking": "Querying public nodes...",
-			"balance": "Balance",
-			"pending": "Pending",
-			"votingWeight": "Voting weight",
-			"shareOfOnline": "of online voting weight",
-			"principal": "Principal representative",
-			"principalYes": "Yes, above 0.1%",
-			"principalNo": "No, below 0.1%",
-			"rank": "Rank by weight",
-			"representative": "Representative",
-			"frontier": "Frontier",
-			"openBlock": "Open block",
-			"notFound": "Account not found on the network",
-			"rpcError": "Public nodes could not be reached. Try again in a moment.",
 			"invalidAddress": "Enter a valid nano_ or xno_ address",
-			"copy": "Copy",
-			"copied": "Copied",
-			"note": "Results are cached for 60 seconds and fetched from public Nano RPC relays.",
-			"viewBlocklattice": "View on Blocklattice",
-			"viewNanexplorer": "View on Nanexplorer"
+			"note": "Profiles are server-rendered and cached for 60 seconds from public Nano RPC relays."
 		},
 		"feeComparison": {
 			"kicker": "Instrument 05 · fees",
@@ -1398,5 +1385,74 @@
 			"sourceNote": "Bitcoin fee rates from mempool.space, refreshed every few minutes.",
 			"updateNote": "Fee estimate, not a quote."
 		}
+	},
+	"account": {
+		"notFoundTitle": "Account not found",
+		"notFoundText": "This address has no blocks on the Nano network. Check it for typos and try again.",
+		"rpcErrorTitle": "Network unreachable",
+		"rpcErrorText": "The public Nano relays could not be reached. Try again in a moment.",
+		"retry": "Try again",
+		"backToTool": "Back to the inspector",
+		"unopened": "This account hasn't received its first transaction yet.",
+		"unopenedHint": "It exists on the network but has no history. Its balance stays at 0 XNO until someone sends to it.",
+		"address": "Account address",
+		"balance": "Balance",
+		"pending": "Pending",
+		"votingWeight": "Voting weight",
+		"ofOnline": "of online voting weight",
+		"principal": "Principal representative",
+		"principalYes": "Yes, above 0.1%",
+		"principalNo": "No, below 0.1%",
+		"rank": "Rank by weight",
+		"blocks": "Lifetime blocks",
+		"representedBy": "Represented by",
+		"frontier": "Frontier",
+		"openBlock": "Open block",
+		"copy": "Copy",
+		"copied": "Copied",
+		"copyLink": "Copy link",
+		"linkCopied": "Link copied",
+		"jumpTo": "Jump to another account",
+		"searchPlaceholder": "nano_1... or xno_1...",
+		"open": "Open account",
+		"invalidAddress": "Enter a valid nano_ or xno_ address",
+		"viewBlocklattice": "View on Blocklattice",
+		"viewNanexplorer": "View on Nanexplorer",
+		"addCoins": "Add coins",
+		"searchCoins": "Search coins...",
+		"remove": "Remove",
+		"resetToDefault": "Reset",
+		"pinnedLimit": "Up to 6 coins",
+		"vsOverrideNote": "Temporary picks from a shared link. Your saved coins are unchanged.",
+		"noMatch": "No matching coins",
+		"history": "Transaction history",
+		"loadMore": "Load more",
+		"loading": "Loading...",
+		"change": "Changed representative",
+		"to": "To {address}",
+		"from": "From {address}",
+		"justNow": "just now",
+		"mAgo": "{n}m ago",
+		"hAgo": "{n}h ago",
+		"dAgo": "{n}d ago",
+		"unconfirmed": "pending",
+		"noHistory": "No transactions yet.",
+		"loadFailed": "Could not load this block.",
+		"blockHash": "Block hash",
+		"blockType": "Type",
+		"blockHeight": "Height",
+		"blockAmount": "Amount",
+		"blockBalance": "Balance after",
+		"blockTime": "Timestamp",
+		"blockAccount": "Account",
+		"blockRepresentative": "Representative",
+		"blockLink": "Link to",
+		"blockPrevious": "Previous block",
+		"live": "Live",
+		"polling": "Polling",
+		"toastReceived": "+{amount} XNO just landed",
+		"toastSent": "{amount} XNO just sent",
+		"toastChange": "Representative changed",
+		"toastBalance": "Balance updated"
 	}
 }

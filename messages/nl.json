@@ -135,6 +135,10 @@
 				"ogTitle": "Nano vs Bitcoin-kosten | NanoMarketCap",
 				"ogDescription": "Vergelijk de nul kosten van Nano met live Bitcoin-kosten van mempool.space."
 			}
+		},
+		"account": {
+			"title": "{address} · Saldo, transacties en stemgewicht",
+			"description": "Live saldo, in behandeling, stemgewicht en transactiegeschiedenis voor {address}."
 		}
 	},
 	"common": {
@@ -907,7 +911,8 @@
 						"description": "Wij plaatsen geen tracking- of advertentiecookies. De volgende functionele cookies kunnen automatisch door onze technologiestack worden geplaatst:",
 						"items": {
 							"locale": "NEXT_LOCALE — Slaat uw taalvoorkeur op voor de site",
-							"theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus"
+							"theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus",
+							"compareCoins": "xno_compare_coins · Bewaart je vastgezette vergelijkingsmunten op de account-explorerpagina (max 6, vervalt na 1 jaar). Puur functioneel, geen tracking."
 						}
 					}
 				},
@@ -1357,30 +1362,12 @@
 		"accountInspector": {
 			"kicker": "Instrument 04 · opzoekingen",
 			"h1": "Nano-account-inspecteur",
-			"sub": "Zoek elk Nano-account op via publieke nodes: saldo, lopend, vertegenwoordiger, openingsblok en stemgewicht.",
+			"sub": "Voer een Nano-adres in om het volledige profiel te openen: saldo, in behandeling, stemgewicht, transactiegeschiedenis en live-updates.",
 			"address": "Accountadres",
 			"addressPlaceholder": "nano_1... of xno_1...",
 			"inspect": "Account inspecteren",
-			"checking": "Publieke nodes worden opgevraagd...",
-			"balance": "Saldo",
-			"pending": "Lopend",
-			"votingWeight": "Stemgewicht",
-			"shareOfOnline": "van het online stemgewicht",
-			"principal": "Hoofdvertegenwoordiger",
-			"principalYes": "Ja, boven 0,1%",
-			"principalNo": "Nee, onder 0,1%",
-			"rank": "Rang op gewicht",
-			"representative": "Vertegenwoordiger",
-			"frontier": "Frontier",
-			"openBlock": "Openingsblok",
-			"notFound": "Account niet gevonden op het netwerk",
-			"rpcError": "Publieke nodes niet bereikbaar. Probeer het zo opnieuw.",
 			"invalidAddress": "Voer een geldig nano_ of xno_ adres in",
-			"copy": "Kopiëren",
-			"copied": "Gekopieerd",
-			"note": "Resultaten worden 60 seconden gecacht en komen van publieke Nano-RPC-relays.",
-			"viewBlocklattice": "Bekijk op Blocklattice",
-			"viewNanexplorer": "Bekijk op Nanexplorer"
+			"note": "Profielen worden server-side gerenderd en 60 seconden in de cache bewaard via openbare Nano-relays."
 		},
 		"feeComparison": {
 			"kicker": "Instrument 05 · kosten",
@@ -1404,5 +1391,74 @@
 			"sourceNote": "Bitcoin-kosten van mempool.space, om de paar minuten ververst.",
 			"updateNote": "Kostenschatting, geen offerte."
 		}
+	},
+	"account": {
+		"notFoundTitle": "Account niet gevonden",
+		"notFoundText": "Dit adres heeft geen blokken in het Nano-netwerk. Controleer het op tikfouten en probeer het opnieuw.",
+		"rpcErrorTitle": "Netwerk onbereikbaar",
+		"rpcErrorText": "De openbare Nano-relays zijn niet bereikbaar. Probeer het zo opnieuw.",
+		"retry": "Opnieuw proberen",
+		"backToTool": "Terug naar de inspecteur",
+		"unopened": "Dit account heeft nog geen eerste transactie ontvangen.",
+		"unopenedHint": "Het bestaat op het netwerk, maar heeft geen geschiedenis. Het saldo blijft op 0 XNO totdat iemand iets stuurt.",
+		"address": "Accountadres",
+		"balance": "Saldo",
+		"pending": "In behandeling",
+		"votingWeight": "Stemgewicht",
+		"ofOnline": "van het online stemgewicht",
+		"principal": "Hoofdvertegenwoordiger",
+		"principalYes": "Ja, boven 0,1 %",
+		"principalNo": "Nee, onder 0,1 %",
+		"rank": "Rang per gewicht",
+		"blocks": "Levenslang aantal blokken",
+		"representedBy": "Vertegenwoordigd door",
+		"frontier": "Frontier",
+		"openBlock": "Openingsblok",
+		"copy": "Kopiëren",
+		"copied": "Gekopieerd",
+		"copyLink": "Link kopiëren",
+		"linkCopied": "Link gekopieerd",
+		"jumpTo": "Naar een ander account",
+		"searchPlaceholder": "nano_1... of xno_1...",
+		"open": "Account openen",
+		"invalidAddress": "Voer een geldig nano_- of xno_-adres in",
+		"viewBlocklattice": "Bekijk op Blocklattice",
+		"viewNanexplorer": "Bekijk op Nanexplorer",
+		"addCoins": "Munten toevoegen",
+		"searchCoins": "Munten zoeken...",
+		"remove": "Verwijderen",
+		"resetToDefault": "Resetten",
+		"pinnedLimit": "Maximaal 6 munten",
+		"vsOverrideNote": "Tijdelijke selectie via een gedeelde link. Je opgeslagen munten blijven ongewijzigd.",
+		"noMatch": "Geen overeenkomende munten",
+		"history": "Transactiegeschiedenis",
+		"loadMore": "Meer laden",
+		"loading": "Laden...",
+		"change": "Vertegenwoordiger gewijzigd",
+		"to": "Naar {address}",
+		"from": "Van {address}",
+		"justNow": "zojuist",
+		"mAgo": "{n} min geleden",
+		"hAgo": "{n} uur geleden",
+		"dAgo": "{n} dagen geleden",
+		"unconfirmed": "in behandeling",
+		"noHistory": "Nog geen transacties.",
+		"loadFailed": "Dit blok kon niet worden geladen.",
+		"blockHash": "Blok-hash",
+		"blockType": "Type",
+		"blockHeight": "Hoogte",
+		"blockAmount": "Bedrag",
+		"blockBalance": "Saldo daarna",
+		"blockTime": "Tijdstempel",
+		"blockAccount": "Account",
+		"blockRepresentative": "Vertegenwoordiger",
+		"blockLink": "Link naar",
+		"blockPrevious": "Vorig blok",
+		"live": "Live",
+		"polling": "Polling",
+		"toastReceived": "+{amount} XNO zojuist ontvangen",
+		"toastSent": "{amount} XNO zojuist verzonden",
+		"toastChange": "Vertegenwoordiger gewijzigd",
+		"toastBalance": "Saldo bijgewerkt"
 	}
 }

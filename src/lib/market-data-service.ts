@@ -94,6 +94,82 @@ export class UpstreamError extends Error {
 	}
 }
 
+export interface FiatValue {
+	code: string
+	symbol: string
+	perXno: number
+	precision: number
+}
+
+export interface CompareCoin {
+	id: string
+	symbol: string
+	name: string
+	marketCapRank: number
+	/** Amount of this coin equivalent to 1 XNO (direct XNO rate, no fiat intermediate). */
+	xnoRate: number
+}
+
+export interface CompareRates {
+	coins: CompareCoin[]
+	fiats: FiatValue[]
+	fetchedAt: number
+}
+
+/**
+ * Derived comparison rates: the top-100 feed is priced in USD, so the direct
+ * XNO rate for each coin is coinUsd / xnoUsd (both from the same cached feed,
+ * no extra API calls). CoinGecko does not support vs_currency=xno, so the
+ * site's own derivation is used everywhere instead.
+ */
+export async function getCompareRates(): Promise<CompareRates> {
+	'use cache'
+	cacheLife('minutes')
+
+	const market = await getMarketData()
+	const xnoUsd = market.xnoData.current_price
+	if (!xnoUsd || xnoUsd <= 0) {
+		throw new UpstreamError('XNO price unavailable')
+	}
+
+	const usdRates: Record<string, number> = {
+		eur: market.eurRate,
+		gbp: market.gbpRate,
+		jpy: market.jpyRate,
+		chf: market.chfRate,
+		cad: market.cadRate,
+		aud: market.audRate,
+	}
+
+	const fiatMeta: { code: string; symbol: string; precision: number }[] = [
+		{ code: 'USD', symbol: '$', precision: 2 },
+		{ code: 'EUR', symbol: '€', precision: 2 },
+		{ code: 'GBP', symbol: '£', precision: 2 },
+		{ code: 'JPY', symbol: '¥', precision: 0 },
+		{ code: 'CHF', symbol: 'Fr', precision: 2 },
+		{ code: 'CAD', symbol: 'C$', precision: 2 },
+		{ code: 'AUD', symbol: 'A$', precision: 2 },
+	]
+
+	const fiats: FiatValue[] = fiatMeta.map(({ code, symbol, precision }) => {
+		const perXno = code === 'USD' ? xnoUsd : xnoUsd * (usdRates[code.toLowerCase()] ?? 0)
+		return { code, symbol, perXno, precision }
+	})
+
+	const coins: CompareCoin[] = market.data
+		.filter((crypto) => crypto.id !== CRYPTO_IDS.NANO && crypto.current_price > 0)
+		.map((crypto) => ({
+			id: crypto.id,
+			symbol: crypto.symbol.toUpperCase(),
+			name: crypto.name,
+			marketCapRank: crypto.market_cap_rank,
+			xnoRate: xnoUsd / crypto.current_price,
+		}))
+		.sort((a, b) => a.marketCapRank - b.marketCapRank)
+
+	return { coins, fiats, fetchedAt: Date.now() }
+}
+
 function mapSdkError(error: unknown, context: string): never {
 	if (error instanceof Error) {
 		if (error.name === 'RateLimitError' || error.message.includes('429')) {
