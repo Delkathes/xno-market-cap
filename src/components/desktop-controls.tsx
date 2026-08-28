@@ -325,11 +325,6 @@ export function DesktopControls() {
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
-				</NavigationMenuList>
-			</NavigationMenu>
-
-			<NavigationMenu>
-				<NavigationMenuList>
 					<NavigationMenuItem>
 						<NavigationMenuTrigger
 							className={cn(
