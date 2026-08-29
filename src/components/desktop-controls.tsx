@@ -13,6 +13,7 @@ import {
 	Link2,
 	Moon,
 	Network,
+	Newspaper,
 	RefreshCw,
 	Scale,
 	ScanSearch,
@@ -107,6 +108,21 @@ export function DesktopControls() {
 
 			<Button variant="ghost" asChild>
 				<Link
+					href="/news"
+					className={cn(
+						'px-4 py-2 rounded-md text-sm font-medium transition-colors',
+						pathname === '/news'
+							? 'bg-secondary text-secondary-foreground'
+							: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+					)}
+				>
+					<Newspaper className="h-4 w-4 text-primary" />
+					{t('news')}
+				</Link>
+			</Button>
+
+			{/* <Button variant="ghost" asChild>
+				<Link
 					href="/calculators"
 					className={cn(
 						'px-4 py-2 rounded-md text-sm font-medium transition-colors',
@@ -118,7 +134,7 @@ export function DesktopControls() {
 					<Calculator className="h-4 w-4 text-primary" />
 					{t('calculators')}
 				</Link>
-			</Button>
+			</Button> */}
 
 			<Button variant="ghost" asChild>
 				<Link
@@ -150,6 +166,39 @@ export function DesktopControls() {
 						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="w-fit gap-2 p-4">
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/calculators"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/calculators' && 'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Calculator
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/calculators' &&
+															'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('calculators')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/calculators' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('calculatorsDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
 								<li className="flex-none">
 									<NavigationMenuLink asChild>
 										<Link
