@@ -16,7 +16,7 @@ const contentSecurityPolicy = [
 	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com https://vercel.live https://vercel.com https://avatars.githubusercontent.com",
 	"font-src 'self' data: https://vercel.live https://assets.vercel.com",
 	"connect-src 'self' https: wss://ws.nano.to wss://nanoslo.0x.no wss://node.somenano.com wss://rainstorm.city wss://ws-us3.pusher.com",
-	"frame-src 'self' https://nanswap.com https://vercel.live",
+	"frame-src 'self' https://nanomarketcap.com https://www.nanomarketcap.com https://nanswap.com https://vercel.live",
 	"worker-src 'self' blob:",
 	// upgrade-insecure-requests would force every subresource to https on any
 	// plain-http origin that isn't a browser-trusted context (e.g. LAN/Tailscale

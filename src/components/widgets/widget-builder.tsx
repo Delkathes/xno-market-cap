@@ -141,6 +141,16 @@ export function WidgetBuilder({
 
 	const patch = (partial: Partial<WidgetParams>) => setParams((current) => ({ ...current, ...partial }))
 
+	// The live preview is relative: same-origin by construction, immune to
+	// www/non-www and preview-domain mismatches against NEXT_PUBLIC_SITE_URL.
+	// The snippet keeps the absolute canonical URL (it runs on external sites).
+	const embedPath = buildEmbedUrl(
+		'',
+		locale,
+		type,
+		params,
+		type === 'account' || type === 'donate' ? address : undefined,
+	)
 	const embedUrl = buildEmbedUrl(
 		siteUrl,
 		locale,
@@ -431,8 +441,8 @@ export function WidgetBuilder({
 								</span>
 							</div>
 							<iframe
-								key={embedUrl}
-								src={embedUrl}
+								key={embedPath}
+								src={embedPath}
 								width="100%"
 								height={height}
 								title={`${strings[TYPE_KEYS[type].label]} — NanoMarketCap`}
