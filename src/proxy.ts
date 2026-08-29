@@ -123,7 +123,9 @@ export default function proxy(request: NextRequest) {
 export const config = {
 	// Match all pathnames except for
 	// - API routes
+	// - Widget embeds (self-contained pages with an explicit locale segment;
+	//   locale detection would rewrite their URLs)
 	// - Static files (e.g. /favicon.ico, /og-image.png)
 	// - Next.js internals (_next)
-	matcher: ['/', `/(en|nl|es|it|de|fr)/:path*`, '/((?!api|_next|_vercel|.*\\..*).*)'],
+	matcher: ['/', `/(en|nl|es|it|de|fr)/((?!widgets/embed).*)`, '/((?!api|widgets/embed|_next|_vercel|.*\\..*).*)'],
 }

@@ -1,3 +1,17 @@
+/**
+ * Whether a fetch failure is a timeout/abort (the relay took too long and the
+ * caller moved on). Expected in relay failover loops: logging them as errors
+ * pollutes server logs and triggers Next's dev error overlay.
+ */
+export function isTimeoutError(error: unknown): boolean {
+	return (
+		typeof error === 'object' &&
+		error !== null &&
+		'name' in error &&
+		(error as { name: unknown }).name === 'AbortError'
+	)
+}
+
 export async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 10000): Promise<Response> {
 	const controller = new AbortController()
 	const timeoutId = setTimeout(() => controller.abort(), timeoutMs)

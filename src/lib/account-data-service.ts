@@ -4,6 +4,7 @@ import * as v from 'valibot'
 
 import { RPC_ENDPOINTS } from '@/lib/constants'
 import { getDecentralizationData } from '@/lib/decentralization-service'
+import { isTimeoutError } from '@/lib/fetch-with-timeout'
 import { rawToXno } from '@/lib/nano-utils'
 import { isErrorJson, nextRpcEndpoint, rpcCall } from '@/lib/rpc'
 import {
@@ -123,7 +124,7 @@ export async function getAccountData(address: string): Promise<AccountDataResult
 				},
 			}
 		} catch (error) {
-			console.error(`ENDPOINT: ${endpoint} - Account data failed:`, error)
+			if (!isTimeoutError(error)) console.error(`ENDPOINT: ${endpoint} - Account data failed:`, error)
 		}
 	}
 
@@ -175,7 +176,7 @@ export async function getAccountChainTimes(openBlock: string, frontier: string):
 				lastBlockAt: frontier ? (byHash.get(frontier) ?? null) : null,
 			}
 		} catch (error) {
-			console.error(`ENDPOINT: ${endpoint} - Chain times failed:`, error)
+			if (!isTimeoutError(error)) console.error(`ENDPOINT: ${endpoint} - Chain times failed:`, error)
 		}
 	}
 
@@ -301,7 +302,7 @@ export async function getAccountHistory(address: string, count = 25, offset = 0)
 				fetchedAt: Date.now(),
 			}
 		} catch (error) {
-			console.error(`ENDPOINT: ${endpoint} - Account history failed:`, error)
+			if (!isTimeoutError(error)) console.error(`ENDPOINT: ${endpoint} - Account history failed:`, error)
 		}
 	}
 
@@ -362,7 +363,7 @@ export async function getBlockInfo(hash: string): Promise<BlockInfo | null> {
 				confirmed: toConfirmed(out.confirmed),
 			}
 		} catch (error) {
-			console.error(`ENDPOINT: ${endpoint} - Block info failed:`, error)
+			if (!isTimeoutError(error)) console.error(`ENDPOINT: ${endpoint} - Block info failed:`, error)
 		}
 	}
 

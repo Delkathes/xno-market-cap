@@ -16,7 +16,7 @@ const contentSecurityPolicy = [
 	"img-src 'self' data: blob: https://assets.coingecko.com https://coin-images.coingecko.com https://nanswap.com https://bucket.nanwallet.com https://vercel.live https://vercel.com https://avatars.githubusercontent.com",
 	"font-src 'self' data: https://vercel.live https://assets.vercel.com",
 	"connect-src 'self' https: wss://ws.nano.to wss://nanoslo.0x.no wss://node.somenano.com wss://rainstorm.city wss://ws-us3.pusher.com",
-	"frame-src https://nanswap.com https://vercel.live",
+	"frame-src 'self' https://nanswap.com https://vercel.live",
 	"worker-src 'self' blob:",
 	// upgrade-insecure-requests would force every subresource to https on any
 	// plain-http origin that isn't a browser-trusted context (e.g. LAN/Tailscale
@@ -93,8 +93,23 @@ const nextConfig = {
 	},
 
 	headers: async () => [
+		// Widget embeds must be framable by ANY site, and should edge-cache
+		// (each searchParams combo is its own CDN entry, data is revalidated
+		// server-side): no X-Frame-Options, no frame-ancestors lock, COOP off.
 		{
-			source: '/:path*',
+			source: '/widgets/embed/:path*',
+			headers: [
+				{
+					key: 'Content-Security-Policy',
+					value: contentSecurityPolicy.replace("frame-ancestors 'none'", 'frame-ancestors *'),
+				},
+				{ key: 'X-Content-Type-Options', value: 'nosniff' },
+				{ key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+				{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
+			],
+		},
+		{
+			source: '/((?!widgets/embed).*)',
 			headers: [
 				// Security headers
 				{ key: 'Content-Security-Policy', value: contentSecurityPolicy },
@@ -117,9 +132,7 @@ const nextConfig = {
 		// Restrict cross-origin resource access for API routes only
 		{
 			source: '/api/:path*',
-			headers: [
-				{ key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
-			],
+			headers: [{ key: 'Cross-Origin-Resource-Policy', value: 'same-origin' }],
 		},
 		// Edge-cache the news listing: the page is searchParams-dynamic, so
 		// without explicit caching every request (incl. ?page/?tag/?q variants)
@@ -129,15 +142,11 @@ const nextConfig = {
 		// `Cache-Control: no-cache` bypass this — handled via robots.txt.
 		{
 			source: '/news/:path*',
-			headers: [
-				{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' },
-			],
+			headers: [{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' }],
 		},
 		{
 			source: '/(en|nl|es|it|de|fr)/news/:path*',
-			headers: [
-				{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' },
-			],
+			headers: [{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' }],
 		},
 	],
 }

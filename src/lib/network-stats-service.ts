@@ -3,6 +3,7 @@ import * as v from 'valibot'
 
 import { RPC_ENDPOINTS } from '@/lib/constants'
 import { getDecentralizationData } from '@/lib/decentralization-service'
+import { isTimeoutError } from '@/lib/fetch-with-timeout'
 import { isErrorJson, nextRpcEndpoint, rpcCall } from '@/lib/rpc'
 
 const BlockCountSchema = v.object({
@@ -57,7 +58,11 @@ export async function getNetworkStats(): Promise<NetworkStats | null> {
 				fetchedAt: Date.now(),
 			}
 		} catch (error) {
-			console.error(`ENDPOINT: ${endpoint} - Network stats failed:`, error)
+			// Relay timeouts are expected in the failover loop; only unexpected
+			// failures deserve a log line (and the dev error overlay).
+			if (!isTimeoutError(error)) {
+				console.error(`ENDPOINT: ${endpoint} - Network stats failed:`, error)
+			}
 		}
 	}
 

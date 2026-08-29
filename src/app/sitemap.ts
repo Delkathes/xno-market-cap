@@ -21,6 +21,7 @@ const routes: RouteConfig[] = [
 	{ path: '/speculation', changeFrequency: 'hourly', priority: 0.8 },
 	{ path: '/calculators', changeFrequency: 'weekly', priority: 0.8 },
 	{ path: '/explore', changeFrequency: 'weekly', priority: 0.9 },
+	{ path: '/widgets', changeFrequency: 'weekly', priority: 0.8 },
 	{ path: '/get-nano', changeFrequency: 'monthly', priority: 0.7 },
 	{ path: '/swap-nano', changeFrequency: 'weekly', priority: 0.8 },
 	{ path: '/news', changeFrequency: 'daily', priority: 0.8 },

@@ -119,14 +119,14 @@ export function formatPrice(value: number): string {
 }
 
 /**
- * Format a price value based on currency
+ * Format a price value based on currency. An explicit `locale` pins number
+ * formatting (embeds pass their language param so digits match the strings).
  */
-export function formatFiatPrice(value: number, currency: FiatCurrency): string {
+export function formatFiatPrice(value: number, currency: FiatCurrency, locale?: string): string {
 	const symbol = getFiatSymbol(currency)
 
-	if (isLargeNumberCurrency(currency))
-		return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-	return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+	if (isLargeNumberCurrency(currency)) return `${symbol}${value.toLocaleString(locale, { maximumFractionDigits: 0 })}`
+	return `${symbol}${value.toLocaleString(locale, { maximumFractionDigits: 2 })}`
 }
 
 /**
@@ -328,18 +328,17 @@ export function formatCryptoPrice(value: number, options: FormatCryptoPriceOptio
  * Format market cap expressed in cryptocurrency units
  * Uses fewer decimals than price since market caps are larger values
  */
-export function formatCryptoMarketCap(value: number, options: FormatCryptoPriceOptions): string {
+export function formatCryptoMarketCap(value: number, options: FormatCryptoPriceOptions, locale?: string): string {
 	const { symbol, asSatoshi = false, decimals } = options
 	const upperSymbol = symbol.toUpperCase()
 
 	if (upperSymbol === 'BTC') {
 		if (asSatoshi) {
-			return `${Math.round(value * 1e8).toLocaleString()} sats`
+			return `${Math.round(value * 1e8).toLocaleString(locale)} sats`
 		}
-		return `${value.toLocaleString(undefined, { minimumFractionDigits: decimals ?? 2, maximumFractionDigits: decimals ?? 2 })} BTC`
+		return `${value.toLocaleString(locale, { minimumFractionDigits: decimals ?? 2, maximumFractionDigits: decimals ?? 2 })} BTC`
 	}
-
-	return `${value.toLocaleString(undefined, { minimumFractionDigits: decimals ?? 2, maximumFractionDigits: decimals ?? 2 })} ${upperSymbol}`
+	return `${value.toLocaleString(locale, { minimumFractionDigits: decimals ?? 2, maximumFractionDigits: decimals ?? 2 })} ${upperSymbol}`
 }
 
 // =============================================================================
@@ -363,7 +362,7 @@ interface FormatSupplyOptions {
  * - Crypto: "19.5M" or "133,248,297" (millions or locale string)
  * - Commodity: "12.3M kg" (with unit)
  */
-export function formatSupply(value: number, options: FormatSupplyOptions): string {
+export function formatSupply(value: number, options: FormatSupplyOptions, locale?: string): string {
 	const { type, symbol = '', unit = '' } = options
 
 	if (type === 'fiat') {
@@ -379,7 +378,7 @@ export function formatSupply(value: number, options: FormatSupplyOptions): strin
 	if (value >= 1e6) {
 		return `${(value / 1e6).toFixed(1)}M`
 	}
-	return value.toLocaleString()
+	return value.toLocaleString(locale)
 }
 
 /**
