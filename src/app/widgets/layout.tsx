@@ -16,10 +16,16 @@ const geistMono = Geist_Mono({
 
 // Bare layout for embeddable widgets: html/body, fonts, theme and NOTHING
 // else — no site chrome, no next-intl (widgets are prop-driven), no analytics.
+// The body is transparent so any residual height mismatch shows the host
+// page's background instead of a dark band below the widget.
 export default function WidgetsLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				style={{ backgroundColor: 'transparent' }}
+				suppressHydrationWarning
+			>
 				<ThemeProvider defaultTheme="system" disableTransitionOnChange>
 					{children}
 					<EmbedAutoHeight />

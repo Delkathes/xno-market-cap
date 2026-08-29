@@ -45,7 +45,7 @@ export function WidgetFrame({
 	return (
 		<div className="widget-respond w-full">
 			<section
-				className="widget-body relative flex w-full flex-col overflow-hidden rounded-md border border-border bg-card"
+				className="widget-body relative flex w-full flex-col overflow-hidden border border-border bg-card"
 				style={
 					{
 						'--w-full': `${fullHeight}px`,
@@ -57,35 +57,35 @@ export function WidgetFrame({
 				{/* Corner registration marks */}
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute left-1 top-1 h-2.5 w-px bg-[#209CE9]/50"
+					className="pointer-events-none absolute left-0 top-0 h-2.5 w-px bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute left-1 top-1 h-px w-2.5 bg-[#209CE9]/50"
+					className="pointer-events-none absolute left-0 top-0 h-px w-2.5 bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute right-1 top-1 h-2.5 w-px bg-[#209CE9]/50"
+					className="pointer-events-none absolute right-0 top-0 h-2.5 w-px bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute right-1 top-1 h-px w-2.5 bg-[#209CE9]/50"
+					className="pointer-events-none absolute right-0 top-0 h-px w-2.5 bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute bottom-1 left-1 h-2.5 w-px bg-[#209CE9]/50"
+					className="pointer-events-none absolute bottom-0 left-0 h-2.5 w-px bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute bottom-1 left-1 h-px w-2.5 bg-[#209CE9]/50"
+					className="pointer-events-none absolute bottom-0 left-0 h-px w-2.5 bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute bottom-1 right-1 h-2.5 w-px bg-[#209CE9]/50"
+					className="pointer-events-none absolute bottom-0 right-0 h-2.5 w-px bg-[#209CE9]/50"
 				/>
 				<span
 					aria-hidden="true"
-					className="pointer-events-none absolute bottom-1 right-1 h-px w-2.5 bg-[#209CE9]/50"
+					className="pointer-events-none absolute bottom-0 right-0 h-px w-2.5 bg-[#209CE9]/50"
 				/>
 
 				{/* Header: micro label + LED */}
