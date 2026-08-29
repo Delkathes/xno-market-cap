@@ -30,6 +30,9 @@ const THEME_INIT_SCRIPT = `(function () {
     root.classList.remove('light', 'dark')
     root.classList.add(isDark ? 'dark' : 'light')
     root.style.colorScheme = isDark ? 'dark' : 'light'
+    if (localStorage.getItem('nmc.announcement.widgets.v1') === '1') {
+      root.setAttribute('data-announcement-dismissed', '1')
+    }
   } catch (e) {}
 })()`
 

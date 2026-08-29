@@ -3,6 +3,7 @@
 import { useSetAtom } from 'jotai'
 import {
 	ArrowRightLeft,
+	Blocks,
 	Calculator,
 	ChartPie,
 	Compass,
@@ -166,6 +167,38 @@ export function DesktopControls() {
 						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="w-fit gap-2 p-4">
+								<li className="flex-none">
+									<NavigationMenuLink asChild>
+										<Link
+											href="/widgets"
+											className={cn(
+												'group flex items-center gap-3 select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+												pathname === '/widgets' && 'bg-accent text-accent-foreground',
+											)}
+										>
+											<div className="flex">
+												<Blocks
+													className={cn(
+														'h-5 w-5 relative top-1 text-primary mr-4 flex-none group-hover:text-accent-foreground group-focus:text-accent-foreground',
+														pathname === '/widgets' && 'bg-accent text-accent-foreground',
+													)}
+												/>
+												<div className="w-36">
+													<div className="text-sm font-medium">{t('toolWidgets')}</div>
+													<p
+														className={cn(
+															'text-xs text-muted-foreground group-hover:text-accent-foreground group-focus:text-accent-foreground',
+															pathname === '/widgets' &&
+																'bg-accent text-accent-foreground',
+														)}
+													>
+														{t('toolWidgetsDescription')}
+													</p>
+												</div>
+											</div>
+										</Link>
+									</NavigationMenuLink>
+								</li>
 								<li className="flex-none">
 									<NavigationMenuLink asChild>
 										<Link

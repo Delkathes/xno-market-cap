@@ -30,8 +30,6 @@ export const CRYPTO_IDS = {
 	BITCOIN: 'bitcoin',
 	ETHEREUM: 'ethereum',
 } as const
-type CryptoId = (typeof CRYPTO_IDS)[keyof typeof CRYPTO_IDS]
-
 // Crypto tickers (uppercase, used for display)
 export enum CryptoTicker {
 	XNO = 'XNO',
@@ -113,12 +111,13 @@ export const DONATION_MILESTONES: DonationMilestoneConfig[] = [
 // Block explorer URL
 export const BLOCKLATTICE_URL = 'https://blocklattice.io' as const
 
-// WebSocket configuration for payment detection
+// WebSocket endpoints for confirmation feeds. Most robust relays first:
+// ws.nano.to is a community NodeJS proxy and is left as a last resort.
 export const WS_ENDPOINTS = [
-	'wss://ws.nano.to',
 	'wss://nanoslo.0x.no/websocket',
 	'wss://node.somenano.com/websocket',
 	'wss://rainstorm.city/websocket',
+	'wss://ws.nano.to',
 ] as const
 // RPC endpoints for balance checks
 export const RPC_ENDPOINTS = [

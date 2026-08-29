@@ -39,8 +39,9 @@ export function LiveWidget({
 	locale: string
 	compact: boolean
 }) {
-	const { confirmations, status } = useNetworkConfirmations()
+	const { confirmations, totalSeen, status } = useNetworkConfirmations()
 	const rows = confirmations.slice(0, compact ? 3 : 5)
+	const isLive = status === 'live'
 
 	const statusLed =
 		status === 'live'
@@ -63,10 +64,10 @@ export function LiveWidget({
 					{statusLed.label}
 				</span>
 				<span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
-					{confirmations.length} · {t.netLabel}
+					{totalSeen.toLocaleString(locale)} · {t.netLabel}
 				</span>
 			</div>
-			<div className="mt-2 flex flex-col gap-1">
+			<div className={cn('mt-2 flex flex-col gap-1 transition-opacity duration-500', !isLive && 'opacity-50')}>
 				{rows.length === 0 ? (
 					<div className="flex h-24 items-center justify-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/50">
 						{t.liveConnecting}…

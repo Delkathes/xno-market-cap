@@ -13,6 +13,7 @@ import { ogLocale } from '@/lib/seo'
 
 import { env } from '@/env'
 
+import { AnnouncementBanner } from '@/components/announcement-banner'
 import { Footer } from '@/components/footer'
 import { Navigation } from '@/components/navigation'
 import { Providers } from '@/components/providers'
@@ -139,6 +140,7 @@ export default async function RootLayout({ children, params }: Props) {
 							<Suspense fallback={<NavigationFallback />}>
 								<Navigation />
 							</Suspense>
+							<AnnouncementBanner />
 							<main className="flex-1 z-0 flex flex-col">{children}</main>
 							<Footer locale={locale} />
 						</div>

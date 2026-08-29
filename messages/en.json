@@ -1,1521 +1,1530 @@
 {
-	"metadata": {
-		"title": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
-		"description": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies, analyze scarcity parity, and swap to Nano instantly.",
-		"ogTitle": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
-		"ogDescription": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies, analyze scarcity parity, and swap to Nano instantly.",
-		"ogImageAlt": "NanoMarketCap – Track XNO Price and Market Data",
-		"twitterTitle": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
-		"twitterDescription": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies and swap to Nano instantly.",
-		"home": {
-			"title": "Nano (XNO) Market Cap, Price & Live Chart",
-			"description": "Live Nano (XNO) price, market cap, 24h volume, and comparison with top cryptocurrencies. Track XNO performance in real-time.",
-			"ogTitle": "Nano (XNO) Market Cap, Price & Live Chart | NanoMarketCap",
-			"ogDescription": "Live Nano (XNO) price, market cap, 24h volume, and comparison with top cryptocurrencies."
-		},
-		"dominance": {
-			"title": "Market Dominance",
-			"description": "Analyze cryptocurrency market share and dominance. See how XNO compares to Bitcoin, Ethereum, and other top cryptocurrencies by market cap percentage.",
-			"ogTitle": "Market Dominance | NanoMarketCap",
-			"ogDescription": "Analyze cryptocurrency market share and dominance. Compare XNO with top cryptocurrencies."
-		},
-		"parity": {
-			"title": "Absolute Scarcity Parity",
-			"description": "What would 1 XNO be worth if all assets were valued purely by their scarcity? Explore scarcity parity comparisons with Bitcoin, Gold, and major fiat currencies.",
-			"ogTitle": "Absolute Scarcity Parity | NanoMarketCap",
-			"ogDescription": "What would 1 XNO be worth if all assets were valued purely by their scarcity? Compare Nano with Bitcoin, Gold, and fiat."
-		},
-		"speculation": {
-			"title": "Market Speculation",
-			"description": "What would XNO be worth if it had the same market cap as Bitcoin, Ethereum, or other top cryptocurrencies? Explore hypothetical XNO price scenarios.",
-			"ogTitle": "Market Speculation | NanoMarketCap",
-			"ogDescription": "What would XNO be worth if it had the same market cap as Bitcoin or Ethereum? Explore hypothetical price scenarios."
-		},
-		"getNano": {
-			"title": "Get Nano & Choose a Wallet",
-			"description": "Choose a Nano wallet for iOS, Android, or desktop. Learn how to acquire XNO through exchanges, instant swaps, or faucets.",
-			"ogTitle": "Get Nano & Choose a Wallet | NanoMarketCap",
-			"ogDescription": "Choose a Nano wallet for iOS, Android, or desktop. Learn how to acquire XNO through exchanges, swaps, or faucets."
-		},
-		"swapNano": {
-			"title": "Swap to Nano",
-			"description": "Convert altcoins to Nano (XNO) instantly using Nanswap. Swap Bitcoin, Ethereum, and 50+ cryptocurrencies to XNO with fast, feeless transactions.",
-			"ogTitle": "Swap to Nano | NanoMarketCap",
-			"ogDescription": "Convert altcoins to Nano (XNO) instantly using Nanswap. Swap 50+ cryptocurrencies to XNO."
-		},
-		"calculators": {
-			"title": "XNO Calculators & Tools",
-			"description": "Interactive calculators for Nano (XNO). Calculate supply ownership, investment scenarios, and explore what your XNO holdings mean in the grand scheme.",
-			"ogTitle": "XNO Calculators & Tools | NanoMarketCap",
-			"ogDescription": "Interactive calculators for Nano (XNO). Calculate supply ownership and investment scenarios."
-		},
-		"coin": {
-			"title": "{coin} Price Chart | NanoMarketCap",
-			"description": "Live {coin} price chart, market cap, volume, and statistics. View historical price data and compare with XNO.",
-			"ogTitle": "{coin} Price Chart | NanoMarketCap",
-			"ogDescription": "Live {coin} price chart and market statistics. Compare with XNO."
-		},
-		"news": {
-			"title": "Nano News & Updates | NanoMarketCap",
-			"description": "Stay updated with the latest Nano (XNO) news, market insights, ecosystem developments, and platform announcements.",
-			"ogTitle": "Nano News & Updates | NanoMarketCap",
-			"ogDescription": "Stay updated with the latest Nano news, market insights, and ecosystem developments.",
-			"articleTitle": "{title} | NanoMarketCap News"
-		},
-		"whyNano": {
-			"title": "Why Nano? The Currency for AI | NanoMarketCap",
-			"description": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol.",
-			"ogTitle": "Why Nano? The Currency for AI | NanoMarketCap",
-			"ogDescription": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol."
-		},
-		"partners": {
-			"title": "Partner With Us – Nano Market Cap",
-			"description": "Promote your business to thousands of Nano users. Learn about our partner spotlight program, pricing, and how to get started."
-		},
-		"legal": {
-			"privacy": {
-				"title": "Privacy Policy | NanoMarketCap",
-				"description": "Learn how NanoMarketCap handles your data, what we collect, and your rights under applicable privacy regulations."
-			},
-			"terms": {
-				"title": "Terms of Service | NanoMarketCap",
-				"description": "Terms and conditions governing the use of NanoMarketCap services, tools, and content."
-			},
-			"cookies": {
-				"title": "Cookie & Storage Policy | NanoMarketCap",
-				"description": "Information about cookies, local storage, and similar technologies used by NanoMarketCap."
-			},
-			"disclaimer": {
-				"title": "Disclaimer | NanoMarketCap",
-				"description": "Financial disclaimers, liability limitations, and content accuracy notices for NanoMarketCap."
-			},
-			"imprint": {
-				"title": "Legal Notice | NanoMarketCap",
-				"description": "Legal entity information, contact details, and regulatory disclosures for NanoMarketCap."
-			}
-		},
-		"milestones": {
-			"title": "Milestones",
-			"description": "The full XNO market cap ladder in every fiat currency, with an interactive simulator."
-		},
-		"tools": {
-			"converter": {
-				"title": "Nano Unit Converter: XNO to Raw",
-				"description": "Convert Nano (XNO) between raw and XNO units with full precision, plus mXNO display. The definitive XNO unit converter.",
-				"ogTitle": "Nano Unit Converter: XNO to Raw | NanoMarketCap",
-				"ogDescription": "Convert Nano (XNO) between raw and XNO units with full precision."
-			},
-			"paymentLinks": {
-				"title": "Nano Payment Link Generator",
-				"description": "Create nano: payment links with QR codes, custom amounts, labels and messages. Share a payable Nano link in seconds.",
-				"ogTitle": "Nano Payment Link Generator | NanoMarketCap",
-				"ogDescription": "Create nano: payment links with QR codes, custom amounts and labels."
-			},
-			"addressTools": {
-				"title": "Nano Address Tools & Validator",
-				"description": "Validate any Nano address, convert between address and public key, and generate a seed with its derived address. All in your browser.",
-				"ogTitle": "Nano Address Tools & Validator | NanoMarketCap",
-				"ogDescription": "Validate Nano addresses, convert address and public key, generate seeds."
-			},
-			"accountInspector": {
-				"title": "Nano Account Inspector",
-				"description": "Look up any Nano account: balance, pending funds, representative, open block and live voting weight, straight from public Nano nodes.",
-				"ogTitle": "Nano Account Inspector | NanoMarketCap",
-				"ogDescription": "Look up any Nano account: balance, pending, representative and voting weight."
-			},
-			"feeComparison": {
-				"title": "Nano vs Bitcoin Fees",
-				"description": "Compare Nano's zero transaction fees with live Bitcoin fees from mempool.space. See what a payment really costs on each network.",
-				"ogTitle": "Nano vs Bitcoin Fees | NanoMarketCap",
-				"ogDescription": "Compare Nano's zero fees with live Bitcoin fees from mempool.space."
-			}
-		},
-		"account": {
-			"title": "{address} · Balance, Transactions & Voting Weight",
-			"description": "Live balance, pending, voting weight and transaction history for {address}."
-		},
-		"explore": {
-			"title": "Explore Nano · Accounts & Blocks",
-			"description": "Search the Nano network by account address or block hash.",
-			"ogTitle": "Explore Nano",
-			"ogDescription": "Search the Nano network by account address or block hash."
-		},
-		"block": {
-			"title": "Block {hash} · Amount, Balance & Chain",
-			"description": "Block {hash} details: subtype, amount, balance, timestamp and chain position on the Nano network."
-		}
-	},
-	"common": {
-		"loading": "Loading...",
-		"error": "Error",
-		"retry": "Retry",
-		"tryAgain": "Try Again",
-		"close": "Close",
-		"menu": "Menu",
-		"home": "Home",
-		"about": "About",
-		"learnMore": "Learn more"
-	},
-	"navigation": {
-		"brand": "NanoMarketCap",
-		"toggleTheme": "Toggle theme",
-		"refreshMarketData": "Refresh market data",
-		"refreshAvailableIn": "Refresh available in {seconds}s",
-		"aboutWebsite": "About",
-		"home": "Home",
-		"menu": "Menu",
-		"calculators": "Calculators",
-		"calculatorsDescription": "Supply, parity, speculation",
-		"metrics": "Metrics",
-		"dominance": "Dominance",
-		"dominanceDescription": "Market share distribution",
-		"parity": "Parity",
-		"parityDescription": "Scarcity-based valuations",
-		"news": "News",
-		"speculation": "Speculation",
-		"speculationDescription": "Hypothetical price scenarios",
-		"nano": "Nano",
-		"getNano": "Get Nano",
-		"getNanoDescription": "Choose a wallet and acquire XNO",
-		"getNanoDescriptionShort": "Choose a wallet and acquire XNO",
-		"swapToNano": "Swap to Nano",
-		"swapToNanoDescription": "Convert altcoins (BTC, ETH or other crypto) to XNO",
-		"swapToNanoDescriptionShort": "Convert altcoins to XNO",
-		"whyNano": "Why Nano?",
-		"whyNanoDescription": "Why it is superior money",
-		"whyNanoDescriptionShort": "Why it is superior money",
-		"closeMenu": "Close menu",
-		"toggleMenu": "Toggle menu",
-		"milestones": "Milestones",
-		"milestonesDescription": "Market cap ladder in every currency",
-		"decentralization": "Decentralization",
-		"decentralizationDescription": "Voting weight & live decentralization metrics",
-		"tools": "Tools",
-		"toolsDescription": "Converters & utilities",
-		"toolUnitConverter": "Unit Converter",
-		"toolUnitConverterDescription": "XNO to raw & back",
-		"toolPaymentLinks": "Payment Links",
-		"toolPaymentLinksDescription": "QR payment requests",
-		"toolAddressTools": "Address Tools",
-		"toolAddressToolsDescription": "Validate & derive keys",
-		"toolAccountInspector": "Account Inspector",
-		"toolAccountInspectorDescription": "Balance & voting weight",
-		"toolFeeComparison": "Nano vs BTC Fees",
-		"toolFeeComparisonDescription": "Zero vs Bitcoin fees",
-		"explorer": "Explorer",
-		"explorerDescription": "Search accounts and blocks"
-	},
-	"home": {
-		"marketLedger": "Market Ledger",
-		"partnerSection": "Partners",
-		"xnoMarketCap": "XNO Market Cap",
-		"xnoPrice": "XNO Price",
-		"xnoDominance": "XNO Dominance",
-		"btcDominance": "BTC",
-		"ethDominance": "ETH",
-		"othersDominance": "Others",
-		"clickToToggle": "Click to toggle {options}",
-		"betweenBtcAndSatoshi": "between BTC and satoshi",
-		"units": "units",
-		"clickToSwitchTimeframe": "Click to switch timeframe. Dominance change is approximated from price changes.",
-		"live": "LIVE",
-		"lastSync": "LAST SYNC",
-		"syncAgo": "{seconds}s AGO",
-		"milestoneSection": "MILESTONE TRACKER",
-		"milestoneNext": "NEXT",
-		"milestoneToGo": "TO GO",
-		"milestoneTooltipCap": "MARKET CAP",
-		"milestoneTooltipXno": "1 XNO",
-		"milestoneAll": "ALL MILESTONES"
-	},
-	"marketTable": {
-		"loadingMarketData": "Loading market data...",
-		"rank": "#",
-		"name": "Name",
-		"priceXno": "Price (XNO)",
-		"change1h": "1h %",
-		"change24h": "24h %",
-		"change7d": "7d %",
-		"marketCapXno": "Market Cap (XNO)",
-		"volume24h": "24h Vol (XNO)"
-	},
-	"news": {
-		"title": "News",
-		"subtitle": "Stay updated with the latest Nano news and platform updates",
-		"readMore": "Read more",
-		"viewAll": "View all news",
-		"backToNews": "Back to News",
-		"noArticles": "No articles available yet. Check back soon!",
-		"latestNews": "News",
-		"searchPlaceholder": "Search articles...",
-		"searchButton": "Search",
-		"tagsLabel": "Tags",
-		"sortLabel": "Sort",
-		"allTags": "All",
-		"sortNewest": "Newest",
-		"sortOldest": "Oldest",
-		"sortTitle": "Title",
-		"resultsCount": "{count, plural, one {# article} other {# articles}}",
-		"noResults": "No articles found",
-		"noResultsDescription": "Try a different search or remove some filters.",
-		"clearFilters": "Clear filters",
-		"prevPage": "Previous page",
-		"nextPage": "Next page",
-		"paginationLabel": "News pagination",
-		"relatedArticles": "Related articles",
-		"rssFeed": "RSS",
-		"rssFeedTitle": "Subscribe to the RSS feed"
-	},
-	"coinDetail": {
-		"errorLoading": "Unable to load coin data. Please try again later.",
-		"rank": "Rank #{rank}",
-		"vs24h": "• 24h",
-		"marketCap": "Market Cap",
-		"volume24h": "24h Volume",
-		"circulatingSupply": "Circulating Supply",
-		"maxSupply": "Max Supply",
-		"price": "Price",
-		"fdv": "Fully Diluted MC",
-		"diluted": "{ratio}× diluted"
-	},
-	"priceChart": {
-		"title": "{coin} Price in {quote}",
-		"titleInverted": "{quote} Price in {coin}",
-		"errorLoading": "Unable to load price chart. Please try again later.",
-		"areaChart": "Area Chart",
-		"lineChart": "Line Chart",
-		"invertChart": "Invert pair",
-		"start": "Start",
-		"end": "End",
-		"change": "Change",
-		"low": "Low",
-		"high": "High",
-		"diff": "Diff.",
-		"spread": "Spread"
-	},
-	"marketCapVolumeChart": {
-		"title": "{coin} Market Cap & Volume in {quote}",
-		"titleInverted": "{quote} Market Cap & Volume in {coin}",
-		"invertChart": "Invert chart",
-		"errorLoading": "Unable to load chart. Please try again later.",
-		"marketCap": "Market Cap",
-		"volume": "Volume",
-		"startMC": "Start MC",
-		"endMC": "End MC",
-		"marketCapChange": "MC Change",
-		"avgVolume": "Avg Volume",
-		"minVolume": "Min Volume",
-		"maxVolume": "Max Volume",
-		"low": "Low",
-		"high": "High",
-		"diff": "Diff.",
-		"spread": "Spread",
-		"lineChart": "Line chart",
-		"areaChart": "Area chart"
-	},
-	"dominance": {
-		"title": "Market Dominance",
-		"description": "How does XNO stack up against the giants? Explore market share distribution across the crypto landscape.",
-		"chartTitle": "Market Dominance",
-		"distributionTitle": "Market Dominance Distribution",
-		"chartDescription": "Market share valued in XNO • XNO Dominance: {xnoDominance}%",
-		"tableTitle": "Dominance Rankings",
-		"cryptocurrency": "Cryptocurrency",
-		"marketCapXno": "Market Cap (XNO)",
-		"marketCap": "Market Cap",
-		"dominanceLabel": "Dominance",
-		"share": "Share",
-		"others": "Others"
-	},
-	"parity": {
-		"title": "Absolute Scarcity Parity",
-		"description": "What would 1 XNO be worth if all assets were valued purely by their scarcity?",
-		"nanoScarcityParity": "Absolute Scarcity Parity",
-		"tableDescription": "Value based on total supply ratio: 1 unit of Asset A = (Total Supply of B) / (Total Supply of A)",
-		"scarcityParityMatrix": "Scarcity Parity Matrix",
-		"keyTakeaway": "Key Takeaway",
-		"keyTakeawayText": "This table accurately reflects the scarcity hierarchy. Each XNO represents a much larger share of its fixed network than a single Dollar or Euro represents of their infinite and expanding networks.",
-		"scarcityHierarchy": "scarcity hierarchy",
-		"blockquote": "Based purely on absolute, un-inflatable supply, a single unit of Nano is fundamentally scarcer than a single unit of any other asset on this list—including Bitcoin and Gold. This is the power of a fully distributed and absolutely fixed supply.",
-		"asset": "Asset",
-		"totalSupply": "Total Supply",
-		"fiatCurrencies": "Fiat Currencies",
-		"fiatCurrencySettings": "Fiat currency settings",
-		"selectCurrenciesToDisplay": "Select which currencies to display",
-		"xnoAmount": "XNO Amount",
-		"pressEnterToConfirm": "Press Enter to confirm",
-		"clickToEdit": "Click to edit",
-		"clickOrScrollToEdit": "Click or scroll to edit",
-		"clickToEditXnoAmount": "Click to edit XNO amount",
-		"unboundedSupply": "Unbounded supply",
-		"fullyDistributed": "100% distributed",
-		"ofMax": "{percentage}% of max",
-		"noLimit": "no limit",
-		"approx": "approx ",
-		"toFixed": "to fixed ",
-		"liveData": "Live data",
-		"seoParagraph": "Nano has a fixed supply of 133,248,297 XNO, fully distributed since genesis. The parity calculator revalues every asset purely by its scarcity, dividing each total supply into the same global money pool to show what one XNO would be worth if all markets ran on absolute scarcity."
-	},
-	"parityCalculator": {
-		"title": "Supply Calculator",
-		"description": "Calculate how much of Nano's fixed supply you could acquire with any investment amount",
-		"currency": "Currency",
-		"pricePerXNO": "Price per XNO",
-		"currentPrice": "Current price",
-		"amountToInvest": "Amount to invest",
-		"perPerson": "Per person",
-		"numberOfPeople": "Number of people",
-		"person": "person",
-		"people": "people",
-		"totalInvestment": "Total Investment",
-		"totalXNO": "Total XNO",
-		"supplyPercentage": "Supply %",
-		"of": "of",
-		"holderTier": "Holder Tier",
-		"tierLegendaryWhale": "Legendary Whale",
-		"tierMajorHolder": "Major Holder",
-		"tierSignificantStack": "Significant Stack",
-		"tierNotableHolder": "Notable Holder",
-		"tierGrowingStack": "Growing Stack",
-		"tierStartingOut": "Starting Out",
-		"tierPlankton": "Plankton",
-		"tierDialogTitle": "Holder Tiers Explained",
-		"tierDialogDescription": "Your tier is based on the percentage of Nano's fixed supply you would own per person.",
-		"tierThreshold": "{threshold}% of supply",
-		"tierThresholdBelow": "Below {threshold}%",
-		"tierChartLabel": "Maximum holders at each ownership level",
-		"tierChartXAxis": "Supply % owned",
-		"tierChartYAxis": "Max people",
-		"tierChartPeople": "people",
-		"supplyAcquired": "Supply Acquired",
-		"exceedsSupply": "Exceeds total supply!",
-		"fixedSupply": "Fixed supply",
-		"funFact": "Fun fact",
-		"funFactWhale": "With {percentage}% of supply, you'd be among the top Nano holders in the world!",
-		"funFactNotable": "You'd own more XNO than roughly 1 in every {oneIn} people on Earth could ever hold!",
-		"funFactStarting": "Every {xno} counts! Nano's fixed supply means your share can never be diluted.",
-		"realFact": "Real fact",
-		"realFactComparison": "Your XNO share ({xnoPercentage}) is {ratio}× larger than your {fiat} share ({fiatPercentage}) of M0 money supply.",
-		"lockGuide": "Lock values to keep them fixed while adjusting others. Up to 2 locks allowed.",
-		"clickToLock": "Click to lock this value",
-		"clickToUnlock": "Click to unlock this value",
-		"pressEnterToConfirm": "Press Enter to confirm",
-		"resetToMarket": "reset",
-		"seoParagraph": "Because Nano supply is capped forever, every XNO you hold represents a permanent share of the network. Enter any investment amount in your currency to see how many XNO it would buy today, and how much of the total 133,248,297 XNO supply that stake represents."
-	},
-	"speculationCalculator": {
-		"title": "Speculation Calculator",
-		"description": "See what your XNO stack would be worth at different market caps",
-		"yourStack": "Your XNO Stack",
-		"currency": "Currency",
-		"currentValue": "Current value",
-		"compareWith": "Compare with",
-		"useCustomMarketCap": "Use custom market cap",
-		"ifXnoHadMarketCapOf": "If XNO had the market cap of",
-		"xnoPrice": "XNO Price",
-		"yourStackValue": "Your Stack Value",
-		"multiplier": "Multiplier",
-		"potentialGain": "Potential Gain",
-		"errorLoading": "Unable to load market data. Please try again later.",
-		"seoParagraph": "Market cap is the simple product of price and total supply, which makes price targets easy to reason about. Move the market cap slider to see what Nano would need to be worth per XNO at different market capitalizations, from conservative to extreme."
-	},
-	"speculation": {
-		"title": "Market Speculation",
-		"description": "What would XNO be worth if it had the same market cap as other cryptocurrencies?",
-		"rank": "#",
-		"name": "Name",
-		"marketCap": "Market Cap",
-		"xnoPrice": "XNO Price",
-		"xnoPriceIf": "XNO Price If...",
-		"multiplier": "Multiplier",
-		"selectCurrency": "Select currency"
-	},
-	"getNano": {
-		"title": "Get Nano & choose a wallet",
-		"heroBadge": "Nano Onboarding",
-		"description1": "You need a Nano wallet to receive or send payments.",
-		"description2": "Choose a wallet you trust, fund it with Nano, and you are ready to go.",
-		"swapToNano": "Swap to Nano",
-		"learnAboutNano": "Learn about Nano",
-		"step1Badge": "Step 1",
-		"step1Title": "Choose a wallet",
-		"step1Description": "Nano wallets exist on every platform. Pick one that matches how you want to manage your funds.",
-		"mobile": "Mobile",
-		"mobileDescription": "Natrium, Nautilus, and Cake Wallet are fast mobile wallets for iOS and Android.",
-		"desktopWeb": "Desktop/Web",
-		"desktopWebDescription": "Manage funds in-browser with Nault for quick access from any device. Cake Wallet is also a great option for desktop.",
-		"hardware": "Hardware",
-		"hardwareDescription": "Use a Ledger Nano S/X with Nault for cold storage support.",
-		"ledgerViaNault": "Ledger via Nault",
-		"step2Badge": "Step 2",
-		"step2Title": "Get Nano",
-		"step2Description": "Once you have a wallet, acquire Nano to fund your account.",
-		"exchanges": "Exchanges",
-		"exchangesDescription": "Binance, Kraken, KuCoin, and other major exchanges list Nano (XNO).",
-		"swapServices": "Swap Services",
-		"swapServicesDescription": "Convert altcoins to Nano using Nanswap, ChangeNOW, or SimpleSwap.",
-		"faucets": "Faucets",
-		"faucetsDescription": "Try Nano for free with community faucets that distribute small amounts.",
-		"learnMoreGettingNano": "Learn more about getting Nano",
-		"newToNano": "New to Nano?",
-		"newToNanoDescription": "Nano is a fast, feeless cryptocurrency perfect for micropayments. It is eco-friendly and transactions confirm in under a second."
-	},
-	"swapNano": {
-		"title": "Swap to Nano instantly",
-		"description1": "Convert altcoins to Nano using a compatible swap provider.",
-		"description2": "Nano transactions confirm in under a second, so you can use your funds immediately after swapping.",
-		"needWalletFirst": "Need a wallet first?",
-		"swapWithNanswap": "Swap with Nanswap",
-		"nanswapDescription": "Nanswap supports quick conversions from dozens of currencies to Nano (XNO). Enter the amount you want to swap, send your crypto, and receive Nano directly in your wallet.",
-		"disclaimer": "Nanswap is a third-party service not affiliated with NanoMarketCap. Always verify addresses and do your own research before swapping.",
-		"feeless": "Feeless",
-		"swapCoins": "Swap coins",
-		"swapComplete": "Swap Complete!",
-		"yourCurrencySent": "Your {currency} has been sent to your wallet.",
-		"processingSwap": "Processing Swap",
-		"sendCurrencyToAddress": "Send your {currency} to the address below",
-		"status": "Status",
-		"waiting": "waiting",
-		"youSend": "You send",
-		"youReceive": "You receive",
-		"orderId": "Order ID",
-		"sendToAddress": "Send {currency} to this address:",
-		"paymentTx": "Payment TX:",
-		"payoutTx": "Payout TX:",
-		"newSwap": "New Swap",
-		"min": "Min:",
-		"max": "Max:",
-		"noLimit": "No limit",
-		"destinationAddress": "Destination Address",
-		"yourAddressPlaceholder": "Your {currency} address",
-		"memoExtraId": "Memo / Extra ID (if required)",
-		"optional": "Optional",
-		"creatingOrder": "Creating Order...",
-		"swap": "Swap",
-		"poweredBy": "Powered by",
-		"minAmountError": "Minimum amount is {min} {currency}",
-		"maxAmountError": "Maximum amount is {max} {currency}",
-		"consentGate": {
-			"title": "Third-Party Swap Widget",
-			"description": "This widget loads content from nanswap.com, a third-party service that may set cookies and process your data under its own privacy policy.",
-			"privacyNote": "By loading this widget, you consent to Nanswap processing your data according to their terms.",
-			"loadButton": "Load Swap Widget"
-		}
-	},
-	"whyNano": {
-		"hero": {
-			"titlePart1": "The Payment Layer for",
-			"titleHighlight": "Autonomous Machines",
-			"description1": "Nano is the only currency with zero fees, sub-second finality, and no smart-contract complexity — purpose-built for the machine economy where AI agents transact autonomously.",
-			"description2": "From per-token LLM billing to the x402 payment protocol, Nano gives agents a frictionless value layer that traditional finance and blockchain networks cannot match.",
-			"learnAboutNano": "Learn About Nano"
-		},
-		"features": {
-			"title": "Why Agents Choose Nano",
-			"subtitle": "Optimized for high-frequency, low-latency, autonomous transactions.",
-			"instantSettlement": {
-				"title": "Instant Feeless Settlement",
-				"instantLabel": "Instant:",
-				"instantText": "Nano settles in under 500ms — agents don't wait for block confirmations. Real-time value transfer for real-time inference, API calls, and autonomous decision-making.",
-				"feelessLabel": "Feeless:",
-				"feelessText": "Send $0.000001 economically. Every micro-payment is viable — perfect for per-token LLM billing, streaming compute costs, and pay-per-tool usage.",
-				"decentralizedLabel": "Decentralized:",
-				"decentralizedText": "No central authority can freeze funds or censor transactions. Agents operate with full financial autonomy, guaranteed by decentralized consensus."
-			},
-			"agentNative": {
-				"title": "Agent Native",
-				"description": "Simple light-weight RPCs. No complex smart contracts to audit, no gas to estimate, no nonces to manage."
-			},
-			"x402Protocol": {
-				"title": "x402 Protocol",
-				"description": "The HTTP standard for payment-required resources. Agents can autonomously pay/charge for any API, data feed, or tool access."
-			},
-			"sustainableCompute": {
-				"title": "Sustainable Compute",
-				"description": "AI training is energy intensive — payments shouldn't be. Nano consumes negligible energy per transaction and adds zero carbon footprint to your stack."
-			},
-			"mcpIntegration": {
-				"title": "MCP Integration",
-				"description": "Provides direct access to Nano RPCs. AI agents can query balances, send transactions, and monitor the network programmatically."
-			}
-		},
-		"x402": {
-			"title": "x402 in Action",
-			"subtitle": "How AI agents pay for resources in real time using the HTTP 402 protocol and Nano.",
-			"apiPaymentFlow": {
-				"title": "Per call API Payment Flow",
-				"description": "APIs respond with HTTP 402 and payment details. The agent pays with Nano, attaches the proof, and gets instant access — no API keys or subscriptions needed."
-			},
-			"llmBilling": {
-				"title": "Per-Prompt LLM Billing",
-				"description": "Pay per inference call instead of monthly subscriptions. Agents only spend on what they use — each prompt is a single instantly confirmed feeless transaction."
-			}
-		},
-		"workflow": {
-			"title": "Workflow Automation",
-			"subtitle": "Integrate Nano into n8n workflows, automate feeless payment workflows."
-		},
-		"howItWorks": {
-			"title": "How Nano Works",
-			"subtitle": "A unique architecture designed for instant, feeless value transfer.",
-			"step1": {
-				"badge": "Step 1",
-				"title": "Your Own Blockchain",
-				"description": "Every account has its own blockchain (account-chain). No shared state, no contention, no bottlenecks — unlimited throughput by design."
-			},
-			"step2": {
-				"badge": "Step 2",
-				"title": "Asynchronous Transfers",
-				"description": "Transactions split into independent send and receive blocks. Both parties act on their own chain — no waiting for the other side."
-			},
-			"step3": {
-				"badge": "Step 3",
-				"title": "Instant Consensus",
-				"description": "Open Representative Voting (ORV) confirms transactions in under 1 second. No mining, no staking — just lightweight voting with minimal energy."
-			}
-		},
-		"comparison": {
-			"title": "How Nano Compares",
-			"metric": "Metric",
-			"nano": "Nano (XNO)",
-			"bitcoin": "Bitcoin",
-			"tether": "Tether (USDT)",
-			"latency": "Latency",
-			"latencyNano": "< 1s",
-			"latencyBitcoin": "10 – 60 min",
-			"latencyTether": "1 – 30s",
-			"txFees": "Tx Fees",
-			"feesNano": "None",
-			"feesBitcoin": "$1 – $50",
-			"feesTether": "$0.02 – $3",
-			"architecture": "Architecture",
-			"archNano": "Async Block Lattice",
-			"archBitcoin": "PoW Blockchain",
-			"archTether": "Centralized Token",
-			"energy": "Energy / Tx",
-			"energyNano": "0.111 Wh",
-			"energyBitcoin": "707 kWh",
-			"energyTether": "Host chain",
-			"availability": "Availability",
-			"availabilityNano": "24/7",
-			"availabilityBitcoin": "24/7",
-			"availabilityTether": "24/7, censurable"
-		},
-		"supply": {
-			"title": "Supply & Distribution",
-			"subtitle": "Fair, fixed, and fully distributed from day one.",
-			"fixedSupply": {
-				"title": "Fixed Supply",
-				"value": "133,248,297",
-				"description": "The total number of XNO that will ever exist. Defined at genesis, immutable forever."
-			},
-			"fullyDistributed": {
-				"title": "Fully Distributed",
-				"value": "100%",
-				"description": "All XNO distributed via a free CAPTCHA faucet. No ICO, no pre-mine, no insider allocation."
-			},
-			"zeroInflation": {
-				"title": "Zero Inflation",
-				"value": "0%",
-				"description": "No new XNO can ever be created. No inflation, no dilution — your share of the supply is permanent."
-			}
-		},
-		"beyondAI": {
-			"title": "Beyond AI",
-			"subtitle": "Nano isn't just for machines — it's a universal currency for anyone who values speed, simplicity, and zero fees.",
-			"p2pPayments": {
-				"title": "P2P Payments",
-				"description": "Send value to anyone, anywhere, instantly and without fees."
-			},
-			"globalAccess": {
-				"title": "Global Access",
-				"description": "Skip correspondent banks. Settle internationally in under a second."
-			},
-			"pointOfSale": {
-				"title": "Point of Sale",
-				"description": "Accept payments with zero processing fees and instant confirmation."
-			},
-			"iotMicropayments": {
-				"title": "IoT Micropayments",
-				"description": "Machines paying machines — sensors, meters, and devices transacting autonomously."
-			}
-		},
-		"developerResources": {
-			"title": "Developer Resources",
-			"subtitle": "Everything you need to start building with Nano.",
-			"nanoDocs": {
-				"title": "Nano Docs",
-				"description": "Official protocol documentation, RPC reference, and integration guides."
-			},
-			"x402Nano": {
-				"title": "x402 Nano",
-				"description": "Reference implementation for x402 payment protocol integration with Nano."
-			},
-			"nanoSdk": {
-				"title": "Nano SDK",
-				"description": "TypeScript SDK for Nano RPC commands with full type safety and IntelliSense."
-			},
-			"tsNanocurrency": {
-				"title": "TS Nanocurrency",
-				"description": "Comprehensive JavaScript/TypeScript toolkit for Nano development."
-			},
-			"nanoCasa": {
-				"title": "Nano Casa",
-				"description": "Track development activity and discover projects across the Nano ecosystem."
-			},
-			"n8nNode": {
-				"title": "n8n Node",
-				"badge": "Live",
-				"description": "Official n8n community node for Nano RPC commands. Build visual workflows with native Nano integration."
-			}
-		},
-		"faq": {
-			"title": "Frequently Asked Questions",
-			"q1": {
-				"question": "Is Nano really feeless?",
-				"answer": "Yes. There are no transaction fees of any kind. Nano uses a lightweight, client-side proof of work to rate-limit spam — but this costs the sender nothing. Every raw unit you send is exactly what the recipient receives."
-			},
-			"q2": {
-				"question": "How fast is Nano?",
-				"answer": "Typical transactions confirm in under 1 second. Nano's block-lattice architecture and Open Representative Voting (ORV) consensus eliminate the need for mining or block intervals, allowing near-instant finality."
-			},
-			"q3": {
-				"question": "What is x402?",
-				"answer": "x402 is a protocol built on the HTTP 402 \"Payment Required\" status code. When an AI agent requests a paid resource, the server responds with payment details. The agent sends Nano, retries the request with proof of payment, and receives the resource — all without human intervention."
-			},
-			"q4": {
-				"question": "Is Nano decentralized?",
-				"answer": "Yes. Nano uses Open Representative Voting (ORV) where account holders delegate voting weight to representatives of their choice. Anyone can run a representative node, and no single entity controls the network. Voting weight is distributed across hundreds of independent representatives."
-			},
-			"q5": {
-				"question": "How do I start building with Nano?",
-				"answer": "Visit <link>docs.nano.org</link> for the protocol specification and RPC reference. You can run your own Nano node, use public RPC endpoints, or integrate via Nano MCP servers for AI agent workflows. Client libraries are available for Python, JavaScript, Rust, and more."
-			}
-		},
-		"cta": {
-			"title": "Ready to integrate Nano?",
-			"description": "Get a wallet, swap your first XNO, and start building the machine-payment infrastructure of the future.",
-			"getNano": "Get Nano",
-			"swapToXno": "Swap to XNO"
-		}
-	},
-	"partners": {
-		"badge": "Partner Program",
-		"getPromoted": {
-			"badge": "Get Promoted",
-			"title": "Get Promoted!",
-			"subtitle": "Your Business Here",
-			"description": "Feature your business in this spotlight. Reach thousands of Nano users. Click to learn more."
-		},
-		"heroTitle": "Grow with NanoMarketCap",
-		"heroDescription": "Put your project in front of the most engaged Nano community. Reach thousands of daily users who live and breathe XNO.",
-		"benefits": {
-			"globalReach": {
-				"title": "Early Mover",
-				"description": "Be among the first partners as NanoMarketCap grows, featured front-and-center at the top of our homepage and on your dedicated partner page."
-			},
-			"instantSetup": {
-				"title": "Instant Setup",
-				"description": "Go live in less than 24 hours. Simple XNO payment, no contracts."
-			},
-			"trust": {
-				"title": "Trust & Authority",
-				"description": "Align your brand with a trusted resource in the Nano ecosystem."
-			}
-		},
-		"stats": {
-			"title": "Why Partner?",
-			"visitors": {
-				"value": "Limited",
-				"label": "Slots"
-			},
-			"focus": {
-				"value": "100%",
-				"label": "Nano Focus"
-			}
-		},
-		"contact": {
-			"text": "Prefer email? Contact us at",
-			"email": "partners@nanomarketcap.com"
-		},
-		"form": {
-			"title": "Start Your Partnership",
-			"description": "Fill out the details below to generate a request. We'll get back to you within 24 hours.",
-			"fields": {
-				"name": {
-					"label": "Contact Name",
-					"placeholder": "John Doe",
-					"error": "Name is required"
-				},
-				"email": {
-					"label": "Email",
-					"placeholder": "john@example.com",
-					"error": "Invalid email address"
-				},
-				"project": {
-					"label": "Project Name",
-					"placeholder": "My Awesome Nano App",
-					"error": "Project name is required"
-				},
-				"website": {
-					"label": "Website URL",
-					"placeholder": "https://",
-					"error": "Invalid URL"
-				},
-				"description": {
-					"label": "Campaign Details",
-					"placeholder": "Tell us about what you want to promote...",
-					"error": "Please provide a brief description"
-				}
-			},
-			"submit": {
-				"loading": "Preparing...",
-				"button": "Send Request"
-			}
-		}
-	},
-	"about": {
-		"title": "About NanoMarketCap",
-		"description": "Information about the NanoMarketCap website",
-		"intro": "is a cryptocurrency market cap tracker that puts Nano (XNO) at the center of everything.",
-		"perspective": "Unlike traditional trackers that use fiat as a base currency, we flip the perspective: all prices, market caps, and dominance metrics are calculated relative to XNO.",
-		"keyFeatures": "Key Features:",
-		"feature1": "Market caps valued in XNO",
-		"feature2": "24h price changes relative to XNO performance",
-		"feature3": "XNO dominance tracking",
-		"feature4": "Scarcity parity comparator",
-		"feature5": "Speculation table to see XNO price at different market caps",
-		"dataSource": "Data is provided by CoinGecko API."
-	},
-	"currencySettings": {
-		"title": "Display Settings",
-		"description": "Choose currencies to display",
-		"primaryFiat": "Primary Fiat",
-		"secondaryFiat": "Secondary Fiat",
-		"cryptoReference": "Crypto Reference",
-		"currencySettings": "Currency settings"
-	},
-	"error": {
-		"somethingWentWrong": "Something went wrong",
-		"pageLoadError": "An error occurred while loading this page. Please try again.",
-		"errorId": "Error ID: {digest}",
-		"failedToLoadMarketData": "Failed to load market data",
-		"unableToLoadMarketData": "Unable to load market data",
-		"unexpectedError": "An unexpected error occurred while fetching market data.",
-		"failedToLoadDominance": "Failed to load dominance data",
-		"dominanceLoadError": "We couldn't load the market dominance information. Please try again.",
-		"failedToLoadSpeculation": "Failed to load speculation data",
-		"speculationLoadError": "We couldn't calculate the XNO price projections. Please try again.",
-		"tryAgain": "Try Again",
-		"retry": "Retry"
-	},
-	"donation": {
-		"supportUs": "Support Us",
-		"supportNanoMarketCap": "Support NanoMarketCap",
-		"donationGoal": "Donation Goal",
-		"goalModeDescription": "Help us unlock each milestone and open source this project",
-		"regularModeDescription": "Your donation helps keep this project running",
-		"overallProgress": "Overall Progress",
-		"paymentReceived": "Payment Received!",
-		"thankYouGoalMode": "Thank you for your generous donation. You're helping make NanoMarketCap open source!",
-		"thankYouRegularMode": "Thank you for your generous donation. Your support keeps this project running!",
-		"donateAgain": "Donate Again",
-		"viewWallet": "View Wallet",
-		"howWillBeUsed": "How will your donation be used?",
-		"usageHosting": "Hosting and infrastructure costs",
-		"usageDeveloper": "Supporting the developer",
-		"usageTools": "Building more XNO tools",
-		"selectAmount": "Select donation amount (XNO)",
-		"customAmount": "Custom amount",
-		"scanToSend": "Scan with your Nano wallet to send",
-		"listeningForPayment": "Listening for payment...",
-		"connecting": "Connecting...",
-		"walletAddress": "Donation wallet address:",
-		"viewOnBlocklattice": "View on Blocklattice",
-		"milestones": {
-			"development": {
-				"title": "Development Costs",
-				"reward1": "Development time compensation",
-				"reward2": "Initial hosting & infrastructure",
-				"reward3": "LLM token usage for code generation"
-			},
-			"maintenance": {
-				"title": "Maintenance Fund",
-				"reward1": "Full time XNO commitment for a year",
-				"reward2": "Hosting + API costs",
-				"reward3": "Bug fixes & improvements"
-			},
-			"opensource": {
-				"title": "Open Source",
-				"reward1": "Full source code on GitHub",
-				"reward2": "One-click free host deployment",
-				"reward3": "Community-driven development"
-			}
-		}
-	},
-	"footer": {
-		"description": "Real-time Nano (XNO) market data, price comparisons, and tools for the Nano community.",
-		"explore": "Explore",
-		"resources": "Resources",
-		"community": "Community",
-		"legal": "Legal",
-		"rights": "All rights reserved.",
-		"madeWith": "Made with",
-		"forNano": "for Nano",
-		"links": {
-			"market": "Market Overview",
-			"dominance": "Dominance",
-			"parity": "Parity",
-			"speculation": "Speculation",
-			"milestones": "Milestones",
-			"getNano": "Get Nano",
-			"swapNano": "Swap to Nano",
-			"whyNano": "Why Nano?",
-			"calculators": "Calculators",
-			"nanoOrg": "Nano.org",
-			"docs": "Documentation",
-			"hub": "Nano Hub",
-			"privacy": "Privacy Policy",
-			"terms": "Terms of Service",
-			"cookies": "Cookie Policy",
-			"disclaimer": "Disclaimer",
-			"imprint": "Legal Notice"
-		}
-	},
-	"legal": {
-		"lastUpdated": "Last updated: {date}",
-		"privacy": {
-			"title": "Privacy Policy",
-			"intro": "NanoMarketCap (\"we\", \"us\", or \"our\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you visit our website.",
-			"sections": {
-				"dataCollected": {
-					"title": "1. Information We Collect",
-					"description": "We collect minimal data necessary to operate the service:",
-					"ipAddresses": {
-						"title": "IP Addresses (Server‑Side, Ephemeral)",
-						"description": "We temporarily process your IP address for rate limiting (max 60 requests/minute per IP). This data is held in server memory only, never written to disk or a database, and is automatically purged every 5 minutes. IP addresses are extracted from the x-forwarded-for or x-real-ip request headers."
-					},
-					"localStorage": {
-						"title": "Local Storage Preferences (Client‑Side)",
-						"description": "We store the following user preferences in your browser's local storage to remember your display settings across sessions:",
-						"items": {
-							"primaryFiat": "Primary fiat currency (default: USD)",
-							"secondaryFiat": "Secondary fiat currency (default: EUR)",
-							"cryptoRef": "Crypto reference currency (default: bitcoin)",
-							"parityFiat": "Parity page fiat selection (default: USD, EUR)",
-							"theme": "Theme preference (light/dark/system)"
-						}
-					},
-					"cookies": {
-						"title": "Cookies",
-						"description": "We do not set any tracking or advertising cookies. The following functional cookies may be set automatically by our technology stack:",
-						"items": {
-							"locale": "NEXT_LOCALE — Stores your language preference for the site",
-							"theme": "Theme preference — Remembers your light/dark mode selection",
-							"compareCoins": "xno_compare_coins · Stores your pinned comparison coins on the account explorer page (max 6, expires after 1 year). Purely functional, not used for tracking."
-						}
-					}
-				},
-				"noTracking": {
-					"title": "2. What We Do NOT Collect",
-					"description": "We do not use any analytics, tracking, or advertising services. There is no Google Analytics, no Facebook Pixel, no fingerprinting, and no behavioral profiling. We do not collect personal information such as names, email addresses, or payment details through the website."
-				},
-				"thirdParty": {
-					"title": "3. Third‑Party Services",
-					"description": "We integrate with the following third-party services, each of which has its own privacy policy:",
-					"coingecko": {
-						"title": "CoinGecko API",
-						"description": "Market data is fetched server-side using our API key. No user data is transmitted to CoinGecko."
-					},
-					"nanswap": {
-						"title": "Nanswap",
-						"description": "The swap page embeds a Nanswap iframe. When you interact with the Nanswap widget, your data (swap amounts, wallet addresses) is processed directly by Nanswap under their privacy policy. Our integration includes an affiliate referral identifier."
-					},
-					"fonts": {
-						"title": "Fonts (Self‑Hosted)",
-						"description": "Fonts are self-hosted at build time via Next.js font optimization. No runtime connections are made to Google servers and no user data is transmitted to Google."
-					},
-					"imageCdns": {
-						"title": "Image CDNs",
-						"description": "Cryptocurrency logos and images are loaded from CoinGecko and Nanswap CDNs, which may log standard web request data."
-					}
-				},
-				"legalBasis": {
-					"title": "4. Legal Basis for Processing (GDPR)",
-					"description": "Under the General Data Protection Regulation (GDPR), our legal bases for processing data are:",
-					"items": {
-						"legitimateInterest": "Legitimate interest — Rate limiting to protect our service from abuse (IP address processing)",
-						"functionalCookies": "Strictly necessary — Functional cookies (language, theme) are required for the website to operate as expected and are exempt from consent under the ePrivacy Directive",
-						"consent": "Consent — Your browser preferences stored in local storage are never transmitted to our servers. The Nanswap swap widget is loaded only after your explicit consent"
-					}
-				},
-				"dataRights": {
-					"title": "5. Your Rights",
-					"description": "Under applicable data protection laws (including GDPR), you have the right to:",
-					"items": {
-						"access": "Access — Request information about data we process about you",
-						"rectification": "Rectification — Request correction of inaccurate data we hold about you",
-						"erasure": "Erasure — Request deletion of any data we hold about you",
-						"restriction": "Restriction — Request that we limit how we process your data",
-						"portability": "Portability — Receive your data in a portable format",
-						"objection": "Objection — Object to data processing based on legitimate interest",
-						"withdrawConsent": "Withdraw consent — You may withdraw consent at any time by clearing your browser cookies and local storage"
-					},
-					"note": "Since we collect minimal data (ephemeral IP processing and browser-side preferences), most of these rights are satisfied by default. You can clear all locally stored preferences at any time through your browser settings."
-				},
-				"supervisoryAuthority": {
-					"title": "6. Right to Lodge a Complaint",
-					"description": "You have the right to lodge a complaint with a data protection supervisory authority, in particular in the EU Member State of your habitual residence, place of work, or place of the alleged infringement.",
-					"cnil": "In France, the supervisory authority is the CNIL (Commission Nationale de l'Informatique et des Libertés).",
-					"cnilLink": "https://www.cnil.fr",
-					"note": "You may also contact your local data protection authority if you are located in another EU/EEA country."
-				},
-				"dataBreach": {
-					"title": "7. Data Breach Notification",
-					"description": "In the event of a personal data breach that poses a risk to your rights and freedoms, we will notify the relevant supervisory authority within 72 hours of becoming aware of it, as required by GDPR Article 33. If the breach is likely to result in a high risk to your rights and freedoms, we will also notify affected individuals without undue delay."
-				},
-				"internationalTransfers": {
-					"title": "8. International Data Transfers",
-					"description": "Our website is hosted by Vercel Inc. (United States). Server-side API calls are made to CoinGecko (global CDN). These transfers are conducted in accordance with applicable data protection regulations, including the EU–US Data Privacy Framework where applicable. We only transfer data that is strictly necessary for the operation of the service (ephemeral IP addresses for rate limiting). No personal data is stored outside the EU beyond transient server processing."
-				},
-				"dataRetention": {
-					"title": "9. Data Retention",
-					"description": "IP rate-limiting data: Automatically purged every 5 minutes from server memory. Local storage data: Persists in your browser until you clear it. We do not maintain any user database or persistent data storage."
-				},
-				"children": {
-					"title": "10. Children's Privacy",
-					"description": "Our service is not directed at children under 16. We do not knowingly collect any information from children. If you believe we have inadvertently collected data about a child under 16, please contact us and we will promptly delete it."
-				},
-				"changes": {
-					"title": "11. Changes to This Policy",
-					"description": "We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. Your continued use of the site after changes constitutes acceptance."
-				},
-				"contact": {
-					"title": "12. Contact",
-					"description": "For privacy-related inquiries, contact us at:"
-				}
-			}
-		},
-		"terms": {
-			"title": "Terms of Service",
-			"intro": "By accessing and using NanoMarketCap (the \"Service\"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Service.",
-			"sections": {
-				"eligibility": {
-					"title": "1. Eligibility",
-					"description": "By using the Service, you represent that you are at least 16 years of age and have the legal capacity to enter into these Terms. If you are under 16, you may not use the Service."
-				},
-				"serviceDescription": {
-					"title": "2. Service Description",
-					"description": "NanoMarketCap is a cryptocurrency market data aggregation platform that provides:",
-					"items": {
-						"marketData": "Real-time and historical market data for Nano (XNO) and other cryptocurrencies, sourced from CoinGecko",
-						"tools": "Analytical tools including dominance charts, scarcity parity comparisons, and speculation calculators",
-						"swapAccess": "Access to third-party cryptocurrency swap services via an embedded Nanswap widget",
-						"educational": "Educational content about Nano, the x402 protocol, and cryptocurrency in general",
-						"donations": "A voluntary donation system to support ongoing development"
-					}
-				},
-				"noFinancialAdvice": {
-					"title": "3. Not Financial Advice",
-					"description": "Nothing on this website constitutes financial, investment, tax, or legal advice. All market data, price calculations, speculation scenarios, and parity comparisons are provided for informational and educational purposes only. You should consult a qualified financial advisor before making any investment decisions. Cryptocurrency investments carry significant risk, including the possibility of total loss."
-				},
-				"dataAccuracy": {
-					"title": "4. Data Accuracy",
-					"description": "Market data is sourced from CoinGecko and other third-party providers. While we strive for accuracy, we make no warranties or representations about the completeness, accuracy, reliability, or timeliness of any data displayed. Prices, market caps, volumes, and derived calculations (speculation, parity) may be delayed, inaccurate, or incomplete."
-				},
-				"thirdPartyServices": {
-					"title": "5. Third‑Party Services",
-					"description": "The Service integrates third-party services including Nanswap (cryptocurrency swaps), CoinGecko (market data), and Nano network nodes. These services are governed by their own terms and privacy policies. We are not responsible for the availability, accuracy, or conduct of any third-party service. The Nanswap integration includes an affiliate referral identifier."
-				},
-				"donations": {
-					"title": "6. Donations",
-					"description": "Donations are voluntary contributions made in Nano (XNO) cryptocurrency to support the development and maintenance of NanoMarketCap. By making a donation, you acknowledge that:",
-					"items": {
-						"voluntary": "Donations are entirely voluntary and do not grant any rights, privileges, or ownership",
-						"nonRefundable": "Cryptocurrency transactions are irreversible — donations cannot be refunded",
-						"noTaxReceipt": "We do not provide tax receipts or donation acknowledgments for tax purposes",
-						"noObligation": "Stated donation goals and milestones are indicative and not contractually binding",
-						"noGuarantee": "We make no guarantees about how donation funds will be allocated or spent"
-					}
-				},
-				"partnerContent": {
-					"title": "7. Partner & Sponsored Content",
-					"description": "The Service may display paid partner promotions and sponsored content. Partner spotlights are clearly labeled as such. The presence of partner content does not constitute an endorsement, recommendation, or guarantee of any partner's products or services. Users should conduct their own due diligence."
-				},
-				"intellectualProperty": {
-					"title": "8. Intellectual Property",
-					"description": "The NanoMarketCap website design, original content, and code are the property of NanoMarketCap. Market data is provided by CoinGecko under their terms of use and attributed accordingly. Nano™ and XNO are associated with the Nano Foundation. All third-party trademarks remain the property of their respective owners."
-				},
-				"prohibitedUse": {
-					"title": "9. Prohibited Use",
-					"description": "You agree not to:",
-					"items": {
-						"abuse": "Abuse, overload, or interfere with the Service or its infrastructure",
-						"scrape": "Scrape, crawl, or harvest data from the Service beyond normal use",
-						"circumvent": "Circumvent rate limits or security measures",
-						"misrepresent": "Misrepresent your identity or affiliation",
-						"illegal": "Use the Service for any unlawful purpose"
-					}
-				},
-				"limitation": {
-					"title": "10. Limitation of Liability",
-					"description": "To the maximum extent permitted by law, NanoMarketCap, its operators, contributors, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Service. This includes, without limitation, damages from reliance on data, calculations, or third-party services accessed through the Service."
-				},
-				"indemnification": {
-					"title": "11. Indemnification",
-					"description": "You agree to indemnify and hold harmless NanoMarketCap and its operators from any claims, damages, losses, or expenses arising from your use of the Service or violation of these Terms."
-				},
-				"modification": {
-					"title": "12. Modification & Termination",
-					"description": "We reserve the right to modify, suspend, or discontinue the Service at any time without notice. We may update these Terms from time to time. Continued use after changes constitutes acceptance of the modified Terms."
-				},
-				"governing": {
-					"title": "13. Governing Law",
-					"description": "These Terms shall be governed by and construed in accordance with the laws of France. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the competent courts of France. For EU consumers, mandatory consumer protection laws of your country of residence continue to apply."
-				},
-				"forceMajeure": {
-					"title": "14. Force Majeure",
-					"description": "We shall not be liable for any failure or delay in performance due to causes beyond our reasonable control, including but not limited to natural disasters, internet outages, blockchain network issues, third-party service disruptions, or government actions."
-				},
-				"severability": {
-					"title": "15. Severability",
-					"description": "If any provision of these Terms is found invalid or unenforceable by a competent court, that provision shall be enforced to the maximum extent permissible, and the remaining provisions shall continue in full force and effect."
-				},
-				"entireAgreement": {
-					"title": "16. Entire Agreement",
-					"description": "These Terms, together with our Privacy Policy, Cookie Policy, and Disclaimer, constitute the entire agreement between you and NanoMarketCap regarding the Service and supersede any prior agreements or understandings."
-				},
-				"waiver": {
-					"title": "17. Waiver",
-					"description": "Our failure to exercise or enforce any right or provision of these Terms shall not constitute a waiver of such right or provision. Any waiver must be in writing and signed by the relevant party."
-				},
-				"contact": {
-					"title": "18. Contact",
-					"description": "For questions about these Terms, contact us at:"
-				}
-			}
-		},
-		"cookies": {
-			"title": "Cookie & Storage Policy",
-			"intro": "This policy explains how NanoMarketCap uses cookies, local storage, and similar browser technologies.",
-			"sections": {
-				"whatAreCookies": {
-					"title": "1. What Are Cookies & Local Storage?",
-					"description": "Cookies are small text files stored by your browser. Local storage is a browser feature that allows websites to store data locally on your device. Both are used to remember preferences and improve your experience."
-				},
-				"whatWeUse": {
-					"title": "2. What We Use",
-					"functional": {
-						"title": "Functional Cookies",
-						"description": "These cookies are necessary for the website to function properly:",
-						"items": {
-							"locale": "NEXT_LOCALE — Remembers your language preference (set automatically by our internationalization framework)",
-							"theme": "Theme preference — Remembers your light/dark mode selection"
-						}
-					},
-					"localStorage": {
-						"title": "Local Storage",
-						"description": "We use browser local storage to persist your display preferences:",
-						"items": {
-							"primaryFiat": "xno-market-primary-fiat — Your primary fiat currency (default: USD)",
-							"secondaryFiat": "xno-market-secondary-fiat — Your secondary fiat currency (default: EUR)",
-							"cryptoRef": "xno-market-crypto — Your crypto reference currency (default: bitcoin)",
-							"parityFiat": "xno-parity-fiat-currencies — Parity page fiat selection (default: USD, EUR)"
-						}
-					}
-				},
-				"thirdParty": {
-					"title": "3. Third‑Party Cookies",
-					"description": "We do not set any third-party tracking, analytics, or advertising cookies. The following embedded content, loaded only with your consent, may set cookies under its own domain:",
-					"items": {
-						"nanswap": "Nanswap iframe — The swap widget on the Swap to Nano page loads content from nanswap.com, which may set its own cookies. The widget is only loaded after you explicitly consent to it."
-					},
-					"fontsNote": "Fonts are self-hosted via Next.js font optimization and do not involve any third-party cookies or external requests."
-				},
-				"noTracking": {
-					"title": "4. No Tracking Cookies",
-					"description": "We do not use any analytics services (Google Analytics, etc.), advertising networks, or behavioral tracking technologies. No fingerprinting or cross-site tracking is performed."
-				},
-				"manage": {
-					"title": "5. Managing Your Preferences",
-					"description": "You can control cookies and local storage through your browser settings:",
-					"items": {
-						"clearCookies": "Clear cookies — Most browsers allow you to delete cookies through Settings → Privacy → Clear browsing data",
-						"clearStorage": "Clear local storage — Open your browser's developer tools (F12) → Application tab → Local Storage → Clear",
-						"blockCookies": "Block cookies — You can configure your browser to block all or specific cookies, though this may affect site functionality"
-					}
-				},
-				"retention": {
-					"title": "6. Retention Periods",
-					"description": "Functional cookies persist until you clear them or they expire. Local storage data persists until you clear it manually. We do not set any expiration on local storage items — they remain until removed by you or your browser."
-				},
-				"changes": {
-					"title": "7. Changes to This Policy",
-					"description": "We may update this policy if we introduce new technologies or change how we use existing ones. Changes will be reflected on this page with an updated date."
-				}
-			}
-		},
-		"disclaimer": {
-			"title": "Disclaimer",
-			"intro": "Please read this disclaimer carefully before using NanoMarketCap.",
-			"sections": {
-				"notFinancialAdvice": {
-					"title": "1. Not Financial or Investment Advice",
-					"description": "All content on NanoMarketCap — including market data, price charts, speculation calculators, parity comparisons, and educational materials — is provided for informational and educational purposes only. Nothing on this website constitutes financial advice, investment advice, trading advice, or any other form of professional advice. You should not make any financial decision based solely on information presented on this website."
-				},
-				"noRecommendation": {
-					"title": "2. No Investment Recommendation",
-					"description": "The inclusion of any cryptocurrency, token, or asset on this website does not constitute a recommendation to buy, sell, or hold that asset. Hypothetical price scenarios shown in the speculation and parity calculators are purely illustrative and do not represent predictions, forecasts, or investment targets."
-				},
-				"dataAccuracy": {
-					"title": "3. Data Accuracy & Reliability",
-					"description": "Market data displayed on this website is sourced from CoinGecko and other third-party data providers. While we make reasonable efforts to display accurate information, we cannot guarantee the accuracy, completeness, timeliness, or reliability of any data. Prices may be delayed and may differ from actual market prices. Do not rely on this data for trading decisions."
-				},
-				"cryptoRisk": {
-					"title": "4. Cryptocurrency Risk Warning",
-					"description": "Cryptocurrency investments are highly volatile and carry significant risk, including but not limited to: total loss of invested capital, extreme price volatility, regulatory uncertainty, technological risks (smart contract bugs, network attacks), liquidity risk, and market manipulation. Past performance is not indicative of future results."
-				},
-				"thirdPartyServices": {
-					"title": "5. Third‑Party Services",
-					"description": "NanoMarketCap integrates third-party services including Nanswap for cryptocurrency swaps. We are not responsible for the operation, security, reliability, or outcomes of any third-party service. Use of Nanswap or any other linked service is entirely at your own risk and subject to their respective terms. Our Nanswap integration includes an affiliate referral code."
-				},
-				"affiliateDisclosure": {
-					"title": "6. Affiliate Disclosure",
-					"description": "NanoMarketCap participates in the Nanswap affiliate program. When you use the swap widget on our site, we may receive referral compensation. This does not affect the price you pay. This relationship is disclosed in the interest of transparency."
-				},
-				"noGuarantees": {
-					"title": "7. No Guarantees",
-					"description": "The Service is provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. We do not guarantee uninterrupted access, error-free operation, or the accuracy of any calculations or data. Use of the Service is at your sole risk."
-				},
-				"liability": {
-					"title": "8. Limitation of Liability",
-					"description": "To the fullest extent permitted by law, NanoMarketCap and its operators shall not be liable for any losses, damages, or costs arising from the use of or reliance on information provided through this website, including but not limited to trading losses, data inaccuracies, or third-party service failures."
-				},
-				"ownResearch": {
-					"title": "9. Do Your Own Research",
-					"description": "Always conduct your own research and consult with qualified financial professionals before making investment decisions. Verify all information independently. Never invest more than you can afford to lose."
-				}
-			}
-		},
-		"imprint": {
-			"title": "Legal Notice (Imprint)",
-			"intro": "Information in accordance with legal disclosure requirements.",
-			"sections": {
-				"hosting": {
-					"title": "1. Hosting",
-					"description": "This website is hosted by Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, United States."
-				},
-				"copyright": {
-					"title": "2. Copyright",
-					"description": "© 2026 NanoMarketCap. All rights reserved. Market data is provided by CoinGecko and used in accordance with their terms. Nano™ and the Nano logo are trademarks of the Nano Foundation. All other trademarks are the property of their respective owners."
-				},
-				"contentLiability": {
-					"title": "3. Liability for Content",
-					"description": "The contents of our website have been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, we are responsible for our own content on these pages under general law. However, we are not obligated to monitor transmitted or stored third-party information, or to investigate circumstances that indicate illegal activity."
-				},
-				"linkLiability": {
-					"title": "4. Liability for Links",
-					"description": "Our website contains links to external third-party websites over whose content we have no influence. We cannot accept any liability for the content of linked websites. The respective provider or operator of the linked pages is always responsible for their content. Linked pages were checked for possible legal violations at the time of linking — no illegal content was identified at that time."
-				},
-				"dataProtection": {
-					"title": "5. Data Protection",
-					"description": "For detailed information about how we handle personal data, please refer to our Privacy Policy."
-				},
-				"disputeResolution": {
-					"title": "6. Dispute Resolution",
-					"description": "The European Commission provides a platform for online dispute resolution (ODR):",
-					"odrLink": "https://ec.europa.eu/consumers/odr",
-					"note": "We are not obligated and not willing to participate in dispute resolution proceedings before a consumer arbitration board."
-				}
-			}
-		},
-		"inlineDisclaimers": {
-			"speculation": "For educational purposes only. Hypothetical scenarios are not predictions or investment advice.",
-			"parity": "Scarcity parity values are theoretical. Not financial or investment advice.",
-			"donationNonRefundable": "Donations are voluntary and non-refundable. Cryptocurrency transactions are irreversible.",
-			"affiliateDisclosure": "Nanswap integration includes an affiliate referral. This does not affect the price you pay."
-		}
-	},
-	"milestones": {
-		"title": "Milestones",
-		"subtitle": "The full XNO market cap ladder in every fiat currency. Drag the dial to simulate any market cap.",
-		"masterLabel": "MARKET CAP",
-		"current": "CURRENT",
-		"hypothetical": "HYPOTHETICAL",
-		"dragHint": "DRAG TO SIMULATE",
-		"next": "NEXT",
-		"toGo": "TO GO",
-		"ladder": "LADDER",
-		"supplyNote": "Implied prices assume the fixed circulating supply of {supply} XNO: at any market cap, 1 XNO is simply cap divided by supply.",
-		"storyLabel": "THE $1B STORY",
-		"xnoPrice": "1 XNO",
-		"tooltipCap": "MARKET CAP",
-		"jumpNext": "NEXT MILESTONE",
-		"jumpPrev": "PREVIOUS MILESTONE"
-	},
-	"notFound": {
-		"code": "ERROR 404",
-		"title": "Page not found",
-		"description": "The page you're looking for doesn't exist or has been moved. Check the URL or head back to the home page.",
-		"backHome": "Back to home",
-		"backNews": "Browse the news"
-	},
-	"decentralization": {
-		"title": "Nano Decentralization & Voting Weight",
-		"description": "Live Nano (XNO) decentralization metrics: representative voting weight, principal representative count and top-10 concentration, from public Nano nodes.",
-		"ogTitle": "Nano Decentralization & Voting Weight | NanoMarketCap",
-		"ogDescription": "Live Nano (XNO) decentralization metrics: representative voting weight, principal representatives and concentration, from public Nano nodes.",
-		"h1": "Nano Decentralization & Voting Weight",
-		"intro": "Who holds Nano voting weight right now? Every XNO holder delegates their balance to a representative. This page shows the live distribution of online voting weight, how many principal representatives exist, and how concentrated the top of the delegation network really is.",
-		"onlineWeight": "Online Voting Weight",
-		"onlineWeightHint": "XNO currently online",
-		"principalReps": "Principal Reps",
-		"principalWeightOfOnline": "of online weight",
-		"top10Share": "Top 10 Concentration",
-		"top10ShareHint": "share held by the 10 largest reps",
-		"gini": "Voting Weight Gini",
-		"giniHint": "0 = fully equal, 1 = fully centralized",
-		"updatedNote": "Data is fetched from public Nano RPC nodes and refreshed hourly. Voting weight changes with each delegated balance.",
-		"failedNotice": "Public Nano RPC nodes could not be reached right now. Showing the last successfully cached values.",
-		"kicker": "Live delegation data",
-		"lorenzTitle": "Voting Weight Concentration Curve",
-		"lorenzSub": "Cumulative share of voting weight vs cumulative share of representatives. The amber region is the Gini area A; the whole triangle below the dashed line is A + B. Gini = A / (A + B).",
-		"lorenzAxisCount": "Share of representatives",
-		"lorenzAxisWeight": "Share of weight",
-		"lorenzTooltipTitle": "Concentration",
-		"lorenzTooltipHold": "Top {reps} of reps hold {weight} of voting weight",
-		"legendCurve": "Actual distribution",
-		"legendEquality": "Perfect equality",
-		"legendGiniArea": "Gini region (A)",
-		"treemapTitle": "Voting Weight Treemap",
-		"treemapHint": "Each tile is sized by delegated voting weight. Hover a tile for details.",
-		"treemapTooltipTitle": "Representative",
-		"treemapOthers": "All other reps",
-		"ladderTitle": "Concentration Ladder",
-		"ladderHint": "Cumulative share of online voting weight held by the largest representatives.",
-		"ladderTop": "Top {count}",
-		"ladderPrincipals": "Principal reps",
-		"ladderFootnote": "of {weight} XNO online",
-		"onlineVsSupply": "{pct}% of total supply",
-		"breadth": "Across {count} online reps: the median representative controls {median} XNO, the mean is {mean} XNO, dragged upward by the largest representatives."
-	},
-	"tools": {
-		"converter": {
-			"kicker": "Instrument 01 · units",
-			"h1": "Nano Unit Converter",
-			"sub": "Convert between XNO and raw with exact precision. One XNO is 10^30 raw.",
-			"copy": "Copy",
-			"copied": "Copied",
-			"note": "Conversions are string-based and lossless, so even the largest raw amounts round-trip exactly.",
-			"unit": "Unit",
-			"value": "Value"
-		},
-		"paymentLinks": {
-			"kicker": "Instrument 02 · payment links",
-			"h1": "Nano Payment Link Generator",
-			"sub": "Build a nano: URI with an amount, label and message, then share it as a link or QR code.",
-			"address": "Recipient address",
-			"addressPlaceholder": "nano_1... or xno_1...",
-			"amount": "Amount (XNO)",
-			"amountPlaceholder": "e.g. 1.5",
-			"label": "Label",
-			"labelPlaceholder": "e.g. Coffee",
-			"message": "Message",
-			"messagePlaceholder": "e.g. Thanks for the coffee",
-			"uriPreview": "Payment URI",
-			"qr": "QR code",
-			"shareable": "Shareable link",
-			"copyUri": "Copy URI",
-			"copyAddress": "Copy address",
-			"copied": "Copied",
-			"invalidAddress": "Enter a valid nano_ or xno_ address",
-			"invalidAmount": "Enter a positive amount",
-			"note": "QR codes render instantly in your browser. Nothing is sent anywhere."
-		},
-		"addressTools": {
-			"kicker": "Instrument 03 · keys",
-			"h1": "Nano Address Tools",
-			"sub": "Validate addresses, convert between address and public key, and generate a seed with its derived address.",
-			"address": "Address or public key",
-			"addressPlaceholder": "nano_1..., xno_1... or a 64-char hex public key",
-			"inspect": "Inspect",
-			"valid": "Valid address",
-			"invalid": "Invalid input",
-			"checksum": "Checksum verified",
-			"prefix": "Prefix",
-			"publicKey": "Public key",
-			"derivedAddress": "Derived address",
-			"seedSection": "Seed generator",
-			"seedLabel": "Generate a random seed and its first derived address",
-			"generate": "Generate seed",
-			"seedWarning": "Store this seed offline and never share it. Anyone with the seed controls the funds. This page never transmits it.",
-			"qr": "Address QR code",
-			"copy": "Copy",
-			"copied": "Copied"
-		},
-		"accountInspector": {
-			"kicker": "Instrument 04 · lookups",
-			"h1": "Nano Account Inspector",
-			"sub": "Enter any Nano address to open its full profile: balance, pending, voting weight, transaction history and live updates.",
-			"address": "Account address",
-			"addressPlaceholder": "nano_1... or xno_1...",
-			"inspect": "Inspect account",
-			"invalidAddress": "Enter a valid nano_ or xno_ address",
-			"note": "Profiles are server-rendered and cached for 60 seconds from public Nano RPC relays."
-		},
-		"feeComparison": {
-			"kicker": "Instrument 05 · fees",
-			"h1": "Nano vs Bitcoin Fees",
-			"sub": "Nano transfers cost nothing. Bitcoin fees move with the mempool. Here is what a payment actually costs on each network right now.",
-			"nanoFee": "Nano fee",
-			"nanoFeeValue": "$0.00",
-			"nanoFeeNote": "Always, forever",
-			"bitcoinFee": "Bitcoin fee",
-			"bitcoinFeeNote": "live from mempool.space",
-			"sendAmount": "Payment amount",
-			"feeAsPercent": "Fee as share of payment",
-			"perTx": "per standard send",
-			"tiers": {
-				"fastest": "Fastest",
-				"halfHour": "Half hour",
-				"hour": "One hour",
-				"economy": "Economy"
-			},
-			"vbytesNote": "Based on a typical 226 vB send (2 inputs, 2 outputs) and current sat/vB rates.",
-			"sourceNote": "Bitcoin fee rates from mempool.space, refreshed every few minutes.",
-			"updateNote": "Fee estimate, not a quote."
-		}
-	},
-	"account": {
-		"notFoundTitle": "Account not found",
-		"notFoundText": "This address has no blocks on the Nano network. Check it for typos and try again.",
-		"rpcErrorTitle": "Network unreachable",
-		"rpcErrorText": "The public Nano relays could not be reached. Try again in a moment.",
-		"retry": "Try again",
-		"backToTool": "Back to the inspector",
-		"unopened": "This account hasn't received its first transaction yet.",
-		"unopenedHint": "It exists on the network but has no history. Its balance stays at 0 XNO until someone sends to it.",
-		"address": "Account address",
-		"balance": "Balance",
-		"pending": "Pending",
-		"votingWeight": "Voting weight",
-		"ofOnline": "of online voting weight",
-		"principal": "Principal representative",
-		"principalYes": "Yes, above 0.1%",
-		"principalNo": "No, below 0.1%",
-		"rank": "Rank by weight",
-		"blocks": "Lifetime blocks",
-		"representedBy": "Represented by",
-		"frontier": "Frontier",
-		"openBlock": "Open block",
-		"copy": "Copy",
-		"copied": "Copied",
-		"copyLink": "Copy link",
-		"linkCopied": "Link copied",
-		"jumpTo": "Jump to another account",
-		"searchPlaceholder": "nano_1... or xno_1...",
-		"open": "Open account",
-		"invalidAddress": "Enter a valid nano_ or xno_ address",
-		"viewBlocklattice": "View on Blocklattice",
-		"viewNanexplorer": "View on Nanexplorer",
-		"addCoins": "Add coins",
-		"searchCoins": "Search coins...",
-		"remove": "Remove",
-		"resetToDefault": "Reset",
-		"pinnedLimit": "Up to 6 coins",
-		"vsOverrideNote": "Temporary picks from a shared link. Your saved coins are unchanged.",
-		"noMatch": "No matching coins",
-		"history": "Transaction history",
-		"loadMore": "Load more",
-		"loading": "Loading...",
-		"change": "Changed representative",
-		"to": "To {address}",
-		"from": "From {address}",
-		"justNow": "just now",
-		"mAgo": "{n}m ago",
-		"hAgo": "{n}h ago",
-		"dAgo": "{n}d ago",
-		"unconfirmed": "pending",
-		"noHistory": "No transactions yet.",
-		"loadFailed": "Could not load this block.",
-		"blockHash": "Block hash",
-		"blockType": "Type",
-		"blockHeight": "Height",
-		"blockAmount": "Amount",
-		"blockBalance": "Balance after",
-		"blockTime": "Timestamp",
-		"blockAccount": "Account",
-		"blockRepresentative": "Representative",
-		"blockLink": "Link to",
-		"blockPrevious": "Previous block",
-		"live": "Live",
-		"polling": "Polling",
-		"toastReceived": "+{amount} XNO just landed",
-		"toastSent": "{amount} XNO just sent",
-		"toastChange": "Representative changed",
-		"toastBalance": "Balance updated",
-		"viewFullBlock": "View full block",
-		"opened": "Opened",
-		"lastBlock": "Last block",
-		"inCirculation": "of {supply} XNO in circulation"
-	},
-	"explore": {
-		"kicker": "EXPLORER",
-		"h1": "Explore the Nano network",
-		"intro": "Search any Nano account address or block hash to inspect its balance, history and chain position.",
-		"placeholder": "nano_ address or 64-char block hash",
-		"button": "Explore",
-		"error": "That doesn't look like a Nano address or block hash",
-		"addressHint": "Accounts start with nano_",
-		"hashHint": "Block hashes are 64 hex characters",
-		"totalBlocks": "Total blocks",
-		"cementedBlocks": "Cemented",
-		"uncheckedBlocks": "Unchecked",
-		"onlineWeight": "Online weight",
-		"principalReps": "Principal reps",
-		"principalShare": "Principal share",
-		"feedTitle": "Live network feed",
-		"live": "Live",
-		"connecting": "Connecting…",
-		"offline": "Offline",
-		"waiting": "Waiting for the next confirmation…",
-		"justNow": "just now",
-		"mAgo": "{n} min ago",
-		"hAgo": "{n} h ago",
-		"dAgo": "{n} d ago",
-		"popularAccounts": "Popular accounts",
-		"networkArtifacts": "Network artifacts",
-		"moreTools": "More tools",
-		"genesisBlock": "Genesis block",
-		"firstSend": "First send",
-		"binanceCold": "Binance Cold Wallet",
-		"krakenCold": "Kraken Cold Wallet",
-		"bitvavoCold": "Bitvavo Cold Wallet",
-		"binanceUsHot": "Binance US Hot Wallet",
-		"firstReceive": "First receive",
-		"binanceColdOpens": "Binance cold opens"
-	},
-	"block": {
-		"blockLabel": "Block",
-		"confirmed": "Confirmed",
-		"unconfirmed": "Unconfirmed",
-		"copyHash": "Copy block hash",
-		"copy": "Copy",
-		"account": "Account",
-		"counterparty": "Counterparty",
-		"height": "Height",
-		"received": "Received",
-		"balance": "Balance",
-		"representative": "Representative",
-		"work": "Work",
-		"signature": "Signature",
-		"previous": "Previous",
-		"successor": "Successor",
-		"prevBlock": "Previous {hash}",
-		"nextBlock": "Next {hash}",
-		"rawContents": "Raw block contents",
-		"notFoundTitle": "Block not found",
-		"notFoundBody": "This block hash is not known to the Nano network yet. It may be pending confirmation.",
-		"backToExplore": "Back to explorer"
-	}
+  "metadata": {
+    "title": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
+    "description": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies, analyze scarcity parity, and swap to Nano instantly.",
+    "ogTitle": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
+    "ogDescription": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies, analyze scarcity parity, and swap to Nano instantly.",
+    "ogImageAlt": "NanoMarketCap – Track XNO Price and Market Data",
+    "twitterTitle": "NanoMarketCap – XNO Price, Market Cap & Dominance Tracker",
+    "twitterDescription": "Track Nano (XNO) price, market cap, and dominance. Compare XNO against top cryptocurrencies and swap to Nano instantly.",
+    "home": {
+      "title": "Nano (XNO) Market Cap, Price & Live Chart",
+      "description": "Live Nano (XNO) price, market cap, 24h volume, and comparison with top cryptocurrencies. Track XNO performance in real-time.",
+      "ogTitle": "Nano (XNO) Market Cap, Price & Live Chart | NanoMarketCap",
+      "ogDescription": "Live Nano (XNO) price, market cap, 24h volume, and comparison with top cryptocurrencies."
+    },
+    "dominance": {
+      "title": "Market Dominance",
+      "description": "Analyze cryptocurrency market share and dominance. See how XNO compares to Bitcoin, Ethereum, and other top cryptocurrencies by market cap percentage.",
+      "ogTitle": "Market Dominance | NanoMarketCap",
+      "ogDescription": "Analyze cryptocurrency market share and dominance. Compare XNO with top cryptocurrencies."
+    },
+    "parity": {
+      "title": "Absolute Scarcity Parity",
+      "description": "What would 1 XNO be worth if all assets were valued purely by their scarcity? Explore scarcity parity comparisons with Bitcoin, Gold, and major fiat currencies.",
+      "ogTitle": "Absolute Scarcity Parity | NanoMarketCap",
+      "ogDescription": "What would 1 XNO be worth if all assets were valued purely by their scarcity? Compare Nano with Bitcoin, Gold, and fiat."
+    },
+    "speculation": {
+      "title": "Market Speculation",
+      "description": "What would XNO be worth if it had the same market cap as Bitcoin, Ethereum, or other top cryptocurrencies? Explore hypothetical XNO price scenarios.",
+      "ogTitle": "Market Speculation | NanoMarketCap",
+      "ogDescription": "What would XNO be worth if it had the same market cap as Bitcoin or Ethereum? Explore hypothetical price scenarios."
+    },
+    "getNano": {
+      "title": "Get Nano & Choose a Wallet",
+      "description": "Choose a Nano wallet for iOS, Android, or desktop. Learn how to acquire XNO through exchanges, instant swaps, or faucets.",
+      "ogTitle": "Get Nano & Choose a Wallet | NanoMarketCap",
+      "ogDescription": "Choose a Nano wallet for iOS, Android, or desktop. Learn how to acquire XNO through exchanges, swaps, or faucets."
+    },
+    "swapNano": {
+      "title": "Swap to Nano",
+      "description": "Convert altcoins to Nano (XNO) instantly using Nanswap. Swap Bitcoin, Ethereum, and 50+ cryptocurrencies to XNO with fast, feeless transactions.",
+      "ogTitle": "Swap to Nano | NanoMarketCap",
+      "ogDescription": "Convert altcoins to Nano (XNO) instantly using Nanswap. Swap 50+ cryptocurrencies to XNO."
+    },
+    "calculators": {
+      "title": "XNO Calculators & Tools",
+      "description": "Interactive calculators for Nano (XNO). Calculate supply ownership, investment scenarios, and explore what your XNO holdings mean in the grand scheme.",
+      "ogTitle": "XNO Calculators & Tools | NanoMarketCap",
+      "ogDescription": "Interactive calculators for Nano (XNO). Calculate supply ownership and investment scenarios."
+    },
+    "coin": {
+      "title": "{coin} Price Chart | NanoMarketCap",
+      "description": "Live {coin} price chart, market cap, volume, and statistics. View historical price data and compare with XNO.",
+      "ogTitle": "{coin} Price Chart | NanoMarketCap",
+      "ogDescription": "Live {coin} price chart and market statistics. Compare with XNO."
+    },
+    "news": {
+      "title": "Nano News & Updates | NanoMarketCap",
+      "description": "Stay updated with the latest Nano (XNO) news, market insights, ecosystem developments, and platform announcements.",
+      "ogTitle": "Nano News & Updates | NanoMarketCap",
+      "ogDescription": "Stay updated with the latest Nano news, market insights, and ecosystem developments.",
+      "articleTitle": "{title} | NanoMarketCap News"
+    },
+    "whyNano": {
+      "title": "Why Nano? The Currency for AI | NanoMarketCap",
+      "description": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol.",
+      "ogTitle": "Why Nano? The Currency for AI | NanoMarketCap",
+      "ogDescription": "Discover why Nano (XNO) is the best currency for AI agents: feeless micro-payments, instant settlement, and the x402 protocol."
+    },
+    "partners": {
+      "title": "Partner With Us – Nano Market Cap",
+      "description": "Promote your business to thousands of Nano users. Learn about our partner spotlight program, pricing, and how to get started."
+    },
+    "legal": {
+      "privacy": {
+        "title": "Privacy Policy | NanoMarketCap",
+        "description": "Learn how NanoMarketCap handles your data, what we collect, and your rights under applicable privacy regulations."
+      },
+      "terms": {
+        "title": "Terms of Service | NanoMarketCap",
+        "description": "Terms and conditions governing the use of NanoMarketCap services, tools, and content."
+      },
+      "cookies": {
+        "title": "Cookie & Storage Policy | NanoMarketCap",
+        "description": "Information about cookies, local storage, and similar technologies used by NanoMarketCap."
+      },
+      "disclaimer": {
+        "title": "Disclaimer | NanoMarketCap",
+        "description": "Financial disclaimers, liability limitations, and content accuracy notices for NanoMarketCap."
+      },
+      "imprint": {
+        "title": "Legal Notice | NanoMarketCap",
+        "description": "Legal entity information, contact details, and regulatory disclosures for NanoMarketCap."
+      }
+    },
+    "milestones": {
+      "title": "Milestones",
+      "description": "The full XNO market cap ladder in every fiat currency, with an interactive simulator."
+    },
+    "tools": {
+      "converter": {
+        "title": "Nano Unit Converter: XNO to Raw",
+        "description": "Convert Nano (XNO) between raw and XNO units with full precision, plus mXNO display. The definitive XNO unit converter.",
+        "ogTitle": "Nano Unit Converter: XNO to Raw | NanoMarketCap",
+        "ogDescription": "Convert Nano (XNO) between raw and XNO units with full precision."
+      },
+      "paymentLinks": {
+        "title": "Nano Payment Link Generator",
+        "description": "Create nano: payment links with QR codes, custom amounts, labels and messages. Share a payable Nano link in seconds.",
+        "ogTitle": "Nano Payment Link Generator | NanoMarketCap",
+        "ogDescription": "Create nano: payment links with QR codes, custom amounts and labels."
+      },
+      "addressTools": {
+        "title": "Nano Address Tools & Validator",
+        "description": "Validate any Nano address, convert between address and public key, and generate a seed with its derived address. All in your browser.",
+        "ogTitle": "Nano Address Tools & Validator | NanoMarketCap",
+        "ogDescription": "Validate Nano addresses, convert address and public key, generate seeds."
+      },
+      "accountInspector": {
+        "title": "Nano Account Inspector",
+        "description": "Look up any Nano account: balance, pending funds, representative, open block and live voting weight, straight from public Nano nodes.",
+        "ogTitle": "Nano Account Inspector | NanoMarketCap",
+        "ogDescription": "Look up any Nano account: balance, pending, representative and voting weight."
+      },
+      "feeComparison": {
+        "title": "Nano vs Bitcoin Fees",
+        "description": "Compare Nano's zero transaction fees with live Bitcoin fees from mempool.space. See what a payment really costs on each network.",
+        "ogTitle": "Nano vs Bitcoin Fees | NanoMarketCap",
+        "ogDescription": "Compare Nano's zero fees with live Bitcoin fees from mempool.space."
+      }
+    },
+    "account": {
+      "title": "{address} · Balance, Transactions & Voting Weight",
+      "description": "Live balance, pending, voting weight and transaction history for {address}."
+    },
+    "explore": {
+      "title": "Explore Nano · Accounts & Blocks",
+      "description": "Search the Nano network by account address or block hash.",
+      "ogTitle": "Explore Nano",
+      "ogDescription": "Search the Nano network by account address or block hash."
+    },
+    "block": {
+      "title": "Block {hash} · Amount, Balance & Chain",
+      "description": "Block {hash} details: subtype, amount, balance, timestamp and chain position on the Nano network."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "tryAgain": "Try Again",
+    "close": "Close",
+    "menu": "Menu",
+    "home": "Home",
+    "about": "About",
+    "learnMore": "Learn more"
+  },
+  "navigation": {
+    "brand": "NanoMarketCap",
+    "toggleTheme": "Toggle theme",
+    "refreshMarketData": "Refresh market data",
+    "refreshAvailableIn": "Refresh available in {seconds}s",
+    "aboutWebsite": "About",
+    "home": "Home",
+    "menu": "Menu",
+    "calculators": "Calculators",
+    "calculatorsDescription": "Supply, parity, speculation",
+    "metrics": "Metrics",
+    "dominance": "Dominance",
+    "dominanceDescription": "Market share distribution",
+    "parity": "Parity",
+    "parityDescription": "Scarcity-based valuations",
+    "news": "News",
+    "speculation": "Speculation",
+    "speculationDescription": "Hypothetical price scenarios",
+    "nano": "Nano",
+    "getNano": "Get Nano",
+    "getNanoDescription": "Choose a wallet and acquire XNO",
+    "getNanoDescriptionShort": "Choose a wallet and acquire XNO",
+    "swapToNano": "Swap to Nano",
+    "swapToNanoDescription": "Convert altcoins (BTC, ETH or other crypto) to XNO",
+    "swapToNanoDescriptionShort": "Convert altcoins to XNO",
+    "whyNano": "Why Nano?",
+    "whyNanoDescription": "Why it is superior money",
+    "whyNanoDescriptionShort": "Why it is superior money",
+    "closeMenu": "Close menu",
+    "toggleMenu": "Toggle menu",
+    "milestones": "Milestones",
+    "milestonesDescription": "Market cap ladder in every currency",
+    "decentralization": "Decentralization",
+    "decentralizationDescription": "Voting weight & live decentralization metrics",
+    "tools": "Tools",
+    "toolsDescription": "Converters & utilities",
+    "toolUnitConverter": "Unit Converter",
+    "toolUnitConverterDescription": "XNO to raw & back",
+    "toolPaymentLinks": "Payment Links",
+    "toolPaymentLinksDescription": "QR payment requests",
+    "toolAddressTools": "Address Tools",
+    "toolAddressToolsDescription": "Validate & derive keys",
+    "toolAccountInspector": "Account Inspector",
+    "toolAccountInspectorDescription": "Balance & voting weight",
+    "toolFeeComparison": "Nano vs BTC Fees",
+    "toolFeeComparisonDescription": "Zero vs Bitcoin fees",
+    "explorer": "Explorer",
+    "explorerDescription": "Search accounts and blocks",
+    "toolWidgets": "Widgets",
+    "toolWidgetsDescription": "Embeddable live instruments"
+  },
+  "home": {
+    "marketLedger": "Market Ledger",
+    "partnerSection": "Partners",
+    "xnoMarketCap": "XNO Market Cap",
+    "xnoPrice": "XNO Price",
+    "xnoDominance": "XNO Dominance",
+    "btcDominance": "BTC",
+    "ethDominance": "ETH",
+    "othersDominance": "Others",
+    "clickToToggle": "Click to toggle {options}",
+    "betweenBtcAndSatoshi": "between BTC and satoshi",
+    "units": "units",
+    "clickToSwitchTimeframe": "Click to switch timeframe. Dominance change is approximated from price changes.",
+    "live": "LIVE",
+    "lastSync": "LAST SYNC",
+    "syncAgo": "{seconds}s AGO",
+    "milestoneSection": "MILESTONE TRACKER",
+    "milestoneNext": "NEXT",
+    "milestoneToGo": "TO GO",
+    "milestoneTooltipCap": "MARKET CAP",
+    "milestoneTooltipXno": "1 XNO",
+    "milestoneAll": "ALL MILESTONES"
+  },
+  "marketTable": {
+    "loadingMarketData": "Loading market data...",
+    "rank": "#",
+    "name": "Name",
+    "priceXno": "Price (XNO)",
+    "change1h": "1h %",
+    "change24h": "24h %",
+    "change7d": "7d %",
+    "marketCapXno": "Market Cap (XNO)",
+    "volume24h": "24h Vol (XNO)"
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "Stay updated with the latest Nano news and platform updates",
+    "readMore": "Read more",
+    "viewAll": "View all news",
+    "backToNews": "Back to News",
+    "noArticles": "No articles available yet. Check back soon!",
+    "latestNews": "News",
+    "searchPlaceholder": "Search articles...",
+    "searchButton": "Search",
+    "tagsLabel": "Tags",
+    "sortLabel": "Sort",
+    "allTags": "All",
+    "sortNewest": "Newest",
+    "sortOldest": "Oldest",
+    "sortTitle": "Title",
+    "resultsCount": "{count, plural, one {# article} other {# articles}}",
+    "noResults": "No articles found",
+    "noResultsDescription": "Try a different search or remove some filters.",
+    "clearFilters": "Clear filters",
+    "prevPage": "Previous page",
+    "nextPage": "Next page",
+    "paginationLabel": "News pagination",
+    "relatedArticles": "Related articles",
+    "rssFeed": "RSS",
+    "rssFeedTitle": "Subscribe to the RSS feed"
+  },
+  "coinDetail": {
+    "errorLoading": "Unable to load coin data. Please try again later.",
+    "rank": "Rank #{rank}",
+    "vs24h": "• 24h",
+    "marketCap": "Market Cap",
+    "volume24h": "24h Volume",
+    "circulatingSupply": "Circulating Supply",
+    "maxSupply": "Max Supply",
+    "price": "Price",
+    "fdv": "Fully Diluted MC",
+    "diluted": "{ratio}× diluted"
+  },
+  "priceChart": {
+    "title": "{coin} Price in {quote}",
+    "titleInverted": "{quote} Price in {coin}",
+    "errorLoading": "Unable to load price chart. Please try again later.",
+    "areaChart": "Area Chart",
+    "lineChart": "Line Chart",
+    "invertChart": "Invert pair",
+    "start": "Start",
+    "end": "End",
+    "change": "Change",
+    "low": "Low",
+    "high": "High",
+    "diff": "Diff.",
+    "spread": "Spread"
+  },
+  "marketCapVolumeChart": {
+    "title": "{coin} Market Cap & Volume in {quote}",
+    "titleInverted": "{quote} Market Cap & Volume in {coin}",
+    "invertChart": "Invert chart",
+    "errorLoading": "Unable to load chart. Please try again later.",
+    "marketCap": "Market Cap",
+    "volume": "Volume",
+    "startMC": "Start MC",
+    "endMC": "End MC",
+    "marketCapChange": "MC Change",
+    "avgVolume": "Avg Volume",
+    "minVolume": "Min Volume",
+    "maxVolume": "Max Volume",
+    "low": "Low",
+    "high": "High",
+    "diff": "Diff.",
+    "spread": "Spread",
+    "lineChart": "Line chart",
+    "areaChart": "Area chart"
+  },
+  "dominance": {
+    "title": "Market Dominance",
+    "description": "How does XNO stack up against the giants? Explore market share distribution across the crypto landscape.",
+    "chartTitle": "Market Dominance",
+    "distributionTitle": "Market Dominance Distribution",
+    "chartDescription": "Market share valued in XNO • XNO Dominance: {xnoDominance}%",
+    "tableTitle": "Dominance Rankings",
+    "cryptocurrency": "Cryptocurrency",
+    "marketCapXno": "Market Cap (XNO)",
+    "marketCap": "Market Cap",
+    "dominanceLabel": "Dominance",
+    "share": "Share",
+    "others": "Others"
+  },
+  "parity": {
+    "title": "Absolute Scarcity Parity",
+    "description": "What would 1 XNO be worth if all assets were valued purely by their scarcity?",
+    "nanoScarcityParity": "Absolute Scarcity Parity",
+    "tableDescription": "Value based on total supply ratio: 1 unit of Asset A = (Total Supply of B) / (Total Supply of A)",
+    "scarcityParityMatrix": "Scarcity Parity Matrix",
+    "keyTakeaway": "Key Takeaway",
+    "keyTakeawayText": "This table accurately reflects the scarcity hierarchy. Each XNO represents a much larger share of its fixed network than a single Dollar or Euro represents of their infinite and expanding networks.",
+    "scarcityHierarchy": "scarcity hierarchy",
+    "blockquote": "Based purely on absolute, un-inflatable supply, a single unit of Nano is fundamentally scarcer than a single unit of any other asset on this list—including Bitcoin and Gold. This is the power of a fully distributed and absolutely fixed supply.",
+    "asset": "Asset",
+    "totalSupply": "Total Supply",
+    "fiatCurrencies": "Fiat Currencies",
+    "fiatCurrencySettings": "Fiat currency settings",
+    "selectCurrenciesToDisplay": "Select which currencies to display",
+    "xnoAmount": "XNO Amount",
+    "pressEnterToConfirm": "Press Enter to confirm",
+    "clickToEdit": "Click to edit",
+    "clickOrScrollToEdit": "Click or scroll to edit",
+    "clickToEditXnoAmount": "Click to edit XNO amount",
+    "unboundedSupply": "Unbounded supply",
+    "fullyDistributed": "100% distributed",
+    "ofMax": "{percentage}% of max",
+    "noLimit": "no limit",
+    "approx": "approx ",
+    "toFixed": "to fixed ",
+    "liveData": "Live data",
+    "seoParagraph": "Nano has a fixed supply of 133,248,297 XNO, fully distributed since genesis. The parity calculator revalues every asset purely by its scarcity, dividing each total supply into the same global money pool to show what one XNO would be worth if all markets ran on absolute scarcity."
+  },
+  "parityCalculator": {
+    "title": "Supply Calculator",
+    "description": "Calculate how much of Nano's fixed supply you could acquire with any investment amount",
+    "currency": "Currency",
+    "pricePerXNO": "Price per XNO",
+    "currentPrice": "Current price",
+    "amountToInvest": "Amount to invest",
+    "perPerson": "Per person",
+    "numberOfPeople": "Number of people",
+    "person": "person",
+    "people": "people",
+    "totalInvestment": "Total Investment",
+    "totalXNO": "Total XNO",
+    "supplyPercentage": "Supply %",
+    "of": "of",
+    "holderTier": "Holder Tier",
+    "tierLegendaryWhale": "Legendary Whale",
+    "tierMajorHolder": "Major Holder",
+    "tierSignificantStack": "Significant Stack",
+    "tierNotableHolder": "Notable Holder",
+    "tierGrowingStack": "Growing Stack",
+    "tierStartingOut": "Starting Out",
+    "tierPlankton": "Plankton",
+    "tierDialogTitle": "Holder Tiers Explained",
+    "tierDialogDescription": "Your tier is based on the percentage of Nano's fixed supply you would own per person.",
+    "tierThreshold": "{threshold}% of supply",
+    "tierThresholdBelow": "Below {threshold}%",
+    "tierChartLabel": "Maximum holders at each ownership level",
+    "tierChartXAxis": "Supply % owned",
+    "tierChartYAxis": "Max people",
+    "tierChartPeople": "people",
+    "supplyAcquired": "Supply Acquired",
+    "exceedsSupply": "Exceeds total supply!",
+    "fixedSupply": "Fixed supply",
+    "funFact": "Fun fact",
+    "funFactWhale": "With {percentage}% of supply, you'd be among the top Nano holders in the world!",
+    "funFactNotable": "You'd own more XNO than roughly 1 in every {oneIn} people on Earth could ever hold!",
+    "funFactStarting": "Every {xno} counts! Nano's fixed supply means your share can never be diluted.",
+    "realFact": "Real fact",
+    "realFactComparison": "Your XNO share ({xnoPercentage}) is {ratio}× larger than your {fiat} share ({fiatPercentage}) of M0 money supply.",
+    "lockGuide": "Lock values to keep them fixed while adjusting others. Up to 2 locks allowed.",
+    "clickToLock": "Click to lock this value",
+    "clickToUnlock": "Click to unlock this value",
+    "pressEnterToConfirm": "Press Enter to confirm",
+    "resetToMarket": "reset",
+    "seoParagraph": "Because Nano supply is capped forever, every XNO you hold represents a permanent share of the network. Enter any investment amount in your currency to see how many XNO it would buy today, and how much of the total 133,248,297 XNO supply that stake represents."
+  },
+  "speculationCalculator": {
+    "title": "Speculation Calculator",
+    "description": "See what your XNO stack would be worth at different market caps",
+    "yourStack": "Your XNO Stack",
+    "currency": "Currency",
+    "currentValue": "Current value",
+    "compareWith": "Compare with",
+    "useCustomMarketCap": "Use custom market cap",
+    "ifXnoHadMarketCapOf": "If XNO had the market cap of",
+    "xnoPrice": "XNO Price",
+    "yourStackValue": "Your Stack Value",
+    "multiplier": "Multiplier",
+    "potentialGain": "Potential Gain",
+    "errorLoading": "Unable to load market data. Please try again later.",
+    "seoParagraph": "Market cap is the simple product of price and total supply, which makes price targets easy to reason about. Move the market cap slider to see what Nano would need to be worth per XNO at different market capitalizations, from conservative to extreme."
+  },
+  "speculation": {
+    "title": "Market Speculation",
+    "description": "What would XNO be worth if it had the same market cap as other cryptocurrencies?",
+    "rank": "#",
+    "name": "Name",
+    "marketCap": "Market Cap",
+    "xnoPrice": "XNO Price",
+    "xnoPriceIf": "XNO Price If...",
+    "multiplier": "Multiplier",
+    "selectCurrency": "Select currency"
+  },
+  "getNano": {
+    "title": "Get Nano & choose a wallet",
+    "heroBadge": "Nano Onboarding",
+    "description1": "You need a Nano wallet to receive or send payments.",
+    "description2": "Choose a wallet you trust, fund it with Nano, and you are ready to go.",
+    "swapToNano": "Swap to Nano",
+    "learnAboutNano": "Learn about Nano",
+    "step1Badge": "Step 1",
+    "step1Title": "Choose a wallet",
+    "step1Description": "Nano wallets exist on every platform. Pick one that matches how you want to manage your funds.",
+    "mobile": "Mobile",
+    "mobileDescription": "Natrium, Nautilus, and Cake Wallet are fast mobile wallets for iOS and Android.",
+    "desktopWeb": "Desktop/Web",
+    "desktopWebDescription": "Manage funds in-browser with Nault for quick access from any device. Cake Wallet is also a great option for desktop.",
+    "hardware": "Hardware",
+    "hardwareDescription": "Use a Ledger Nano S/X with Nault for cold storage support.",
+    "ledgerViaNault": "Ledger via Nault",
+    "step2Badge": "Step 2",
+    "step2Title": "Get Nano",
+    "step2Description": "Once you have a wallet, acquire Nano to fund your account.",
+    "exchanges": "Exchanges",
+    "exchangesDescription": "Binance, Kraken, KuCoin, and other major exchanges list Nano (XNO).",
+    "swapServices": "Swap Services",
+    "swapServicesDescription": "Convert altcoins to Nano using Nanswap, ChangeNOW, or SimpleSwap.",
+    "faucets": "Faucets",
+    "faucetsDescription": "Try Nano for free with community faucets that distribute small amounts.",
+    "learnMoreGettingNano": "Learn more about getting Nano",
+    "newToNano": "New to Nano?",
+    "newToNanoDescription": "Nano is a fast, feeless cryptocurrency perfect for micropayments. It is eco-friendly and transactions confirm in under a second."
+  },
+  "swapNano": {
+    "title": "Swap to Nano instantly",
+    "description1": "Convert altcoins to Nano using a compatible swap provider.",
+    "description2": "Nano transactions confirm in under a second, so you can use your funds immediately after swapping.",
+    "needWalletFirst": "Need a wallet first?",
+    "swapWithNanswap": "Swap with Nanswap",
+    "nanswapDescription": "Nanswap supports quick conversions from dozens of currencies to Nano (XNO). Enter the amount you want to swap, send your crypto, and receive Nano directly in your wallet.",
+    "disclaimer": "Nanswap is a third-party service not affiliated with NanoMarketCap. Always verify addresses and do your own research before swapping.",
+    "feeless": "Feeless",
+    "swapCoins": "Swap coins",
+    "swapComplete": "Swap Complete!",
+    "yourCurrencySent": "Your {currency} has been sent to your wallet.",
+    "processingSwap": "Processing Swap",
+    "sendCurrencyToAddress": "Send your {currency} to the address below",
+    "status": "Status",
+    "waiting": "waiting",
+    "youSend": "You send",
+    "youReceive": "You receive",
+    "orderId": "Order ID",
+    "sendToAddress": "Send {currency} to this address:",
+    "paymentTx": "Payment TX:",
+    "payoutTx": "Payout TX:",
+    "newSwap": "New Swap",
+    "min": "Min:",
+    "max": "Max:",
+    "noLimit": "No limit",
+    "destinationAddress": "Destination Address",
+    "yourAddressPlaceholder": "Your {currency} address",
+    "memoExtraId": "Memo / Extra ID (if required)",
+    "optional": "Optional",
+    "creatingOrder": "Creating Order...",
+    "swap": "Swap",
+    "poweredBy": "Powered by",
+    "minAmountError": "Minimum amount is {min} {currency}",
+    "maxAmountError": "Maximum amount is {max} {currency}",
+    "consentGate": {
+      "title": "Third-Party Swap Widget",
+      "description": "This widget loads content from nanswap.com, a third-party service that may set cookies and process your data under its own privacy policy.",
+      "privacyNote": "By loading this widget, you consent to Nanswap processing your data according to their terms.",
+      "loadButton": "Load Swap Widget"
+    }
+  },
+  "whyNano": {
+    "hero": {
+      "titlePart1": "The Payment Layer for",
+      "titleHighlight": "Autonomous Machines",
+      "description1": "Nano is the only currency with zero fees, sub-second finality, and no smart-contract complexity — purpose-built for the machine economy where AI agents transact autonomously.",
+      "description2": "From per-token LLM billing to the x402 payment protocol, Nano gives agents a frictionless value layer that traditional finance and blockchain networks cannot match.",
+      "learnAboutNano": "Learn About Nano"
+    },
+    "features": {
+      "title": "Why Agents Choose Nano",
+      "subtitle": "Optimized for high-frequency, low-latency, autonomous transactions.",
+      "instantSettlement": {
+        "title": "Instant Feeless Settlement",
+        "instantLabel": "Instant:",
+        "instantText": "Nano settles in under 500ms — agents don't wait for block confirmations. Real-time value transfer for real-time inference, API calls, and autonomous decision-making.",
+        "feelessLabel": "Feeless:",
+        "feelessText": "Send $0.000001 economically. Every micro-payment is viable — perfect for per-token LLM billing, streaming compute costs, and pay-per-tool usage.",
+        "decentralizedLabel": "Decentralized:",
+        "decentralizedText": "No central authority can freeze funds or censor transactions. Agents operate with full financial autonomy, guaranteed by decentralized consensus."
+      },
+      "agentNative": {
+        "title": "Agent Native",
+        "description": "Simple light-weight RPCs. No complex smart contracts to audit, no gas to estimate, no nonces to manage."
+      },
+      "x402Protocol": {
+        "title": "x402 Protocol",
+        "description": "The HTTP standard for payment-required resources. Agents can autonomously pay/charge for any API, data feed, or tool access."
+      },
+      "sustainableCompute": {
+        "title": "Sustainable Compute",
+        "description": "AI training is energy intensive — payments shouldn't be. Nano consumes negligible energy per transaction and adds zero carbon footprint to your stack."
+      },
+      "mcpIntegration": {
+        "title": "MCP Integration",
+        "description": "Provides direct access to Nano RPCs. AI agents can query balances, send transactions, and monitor the network programmatically."
+      }
+    },
+    "x402": {
+      "title": "x402 in Action",
+      "subtitle": "How AI agents pay for resources in real time using the HTTP 402 protocol and Nano.",
+      "apiPaymentFlow": {
+        "title": "Per call API Payment Flow",
+        "description": "APIs respond with HTTP 402 and payment details. The agent pays with Nano, attaches the proof, and gets instant access — no API keys or subscriptions needed."
+      },
+      "llmBilling": {
+        "title": "Per-Prompt LLM Billing",
+        "description": "Pay per inference call instead of monthly subscriptions. Agents only spend on what they use — each prompt is a single instantly confirmed feeless transaction."
+      }
+    },
+    "workflow": {
+      "title": "Workflow Automation",
+      "subtitle": "Integrate Nano into n8n workflows, automate feeless payment workflows."
+    },
+    "howItWorks": {
+      "title": "How Nano Works",
+      "subtitle": "A unique architecture designed for instant, feeless value transfer.",
+      "step1": {
+        "badge": "Step 1",
+        "title": "Your Own Blockchain",
+        "description": "Every account has its own blockchain (account-chain). No shared state, no contention, no bottlenecks — unlimited throughput by design."
+      },
+      "step2": {
+        "badge": "Step 2",
+        "title": "Asynchronous Transfers",
+        "description": "Transactions split into independent send and receive blocks. Both parties act on their own chain — no waiting for the other side."
+      },
+      "step3": {
+        "badge": "Step 3",
+        "title": "Instant Consensus",
+        "description": "Open Representative Voting (ORV) confirms transactions in under 1 second. No mining, no staking — just lightweight voting with minimal energy."
+      }
+    },
+    "comparison": {
+      "title": "How Nano Compares",
+      "metric": "Metric",
+      "nano": "Nano (XNO)",
+      "bitcoin": "Bitcoin",
+      "tether": "Tether (USDT)",
+      "latency": "Latency",
+      "latencyNano": "< 1s",
+      "latencyBitcoin": "10 – 60 min",
+      "latencyTether": "1 – 30s",
+      "txFees": "Tx Fees",
+      "feesNano": "None",
+      "feesBitcoin": "$1 – $50",
+      "feesTether": "$0.02 – $3",
+      "architecture": "Architecture",
+      "archNano": "Async Block Lattice",
+      "archBitcoin": "PoW Blockchain",
+      "archTether": "Centralized Token",
+      "energy": "Energy / Tx",
+      "energyNano": "0.111 Wh",
+      "energyBitcoin": "707 kWh",
+      "energyTether": "Host chain",
+      "availability": "Availability",
+      "availabilityNano": "24/7",
+      "availabilityBitcoin": "24/7",
+      "availabilityTether": "24/7, censurable"
+    },
+    "supply": {
+      "title": "Supply & Distribution",
+      "subtitle": "Fair, fixed, and fully distributed from day one.",
+      "fixedSupply": {
+        "title": "Fixed Supply",
+        "value": "133,248,297",
+        "description": "The total number of XNO that will ever exist. Defined at genesis, immutable forever."
+      },
+      "fullyDistributed": {
+        "title": "Fully Distributed",
+        "value": "100%",
+        "description": "All XNO distributed via a free CAPTCHA faucet. No ICO, no pre-mine, no insider allocation."
+      },
+      "zeroInflation": {
+        "title": "Zero Inflation",
+        "value": "0%",
+        "description": "No new XNO can ever be created. No inflation, no dilution — your share of the supply is permanent."
+      }
+    },
+    "beyondAI": {
+      "title": "Beyond AI",
+      "subtitle": "Nano isn't just for machines — it's a universal currency for anyone who values speed, simplicity, and zero fees.",
+      "p2pPayments": {
+        "title": "P2P Payments",
+        "description": "Send value to anyone, anywhere, instantly and without fees."
+      },
+      "globalAccess": {
+        "title": "Global Access",
+        "description": "Skip correspondent banks. Settle internationally in under a second."
+      },
+      "pointOfSale": {
+        "title": "Point of Sale",
+        "description": "Accept payments with zero processing fees and instant confirmation."
+      },
+      "iotMicropayments": {
+        "title": "IoT Micropayments",
+        "description": "Machines paying machines — sensors, meters, and devices transacting autonomously."
+      }
+    },
+    "developerResources": {
+      "title": "Developer Resources",
+      "subtitle": "Everything you need to start building with Nano.",
+      "nanoDocs": {
+        "title": "Nano Docs",
+        "description": "Official protocol documentation, RPC reference, and integration guides."
+      },
+      "x402Nano": {
+        "title": "x402 Nano",
+        "description": "Reference implementation for x402 payment protocol integration with Nano."
+      },
+      "nanoSdk": {
+        "title": "Nano SDK",
+        "description": "TypeScript SDK for Nano RPC commands with full type safety and IntelliSense."
+      },
+      "tsNanocurrency": {
+        "title": "TS Nanocurrency",
+        "description": "Comprehensive JavaScript/TypeScript toolkit for Nano development."
+      },
+      "nanoCasa": {
+        "title": "Nano Casa",
+        "description": "Track development activity and discover projects across the Nano ecosystem."
+      },
+      "n8nNode": {
+        "title": "n8n Node",
+        "badge": "Live",
+        "description": "Official n8n community node for Nano RPC commands. Build visual workflows with native Nano integration."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "Is Nano really feeless?",
+        "answer": "Yes. There are no transaction fees of any kind. Nano uses a lightweight, client-side proof of work to rate-limit spam — but this costs the sender nothing. Every raw unit you send is exactly what the recipient receives."
+      },
+      "q2": {
+        "question": "How fast is Nano?",
+        "answer": "Typical transactions confirm in under 1 second. Nano's block-lattice architecture and Open Representative Voting (ORV) consensus eliminate the need for mining or block intervals, allowing near-instant finality."
+      },
+      "q3": {
+        "question": "What is x402?",
+        "answer": "x402 is a protocol built on the HTTP 402 \"Payment Required\" status code. When an AI agent requests a paid resource, the server responds with payment details. The agent sends Nano, retries the request with proof of payment, and receives the resource — all without human intervention."
+      },
+      "q4": {
+        "question": "Is Nano decentralized?",
+        "answer": "Yes. Nano uses Open Representative Voting (ORV) where account holders delegate voting weight to representatives of their choice. Anyone can run a representative node, and no single entity controls the network. Voting weight is distributed across hundreds of independent representatives."
+      },
+      "q5": {
+        "question": "How do I start building with Nano?",
+        "answer": "Visit <link>docs.nano.org</link> for the protocol specification and RPC reference. You can run your own Nano node, use public RPC endpoints, or integrate via Nano MCP servers for AI agent workflows. Client libraries are available for Python, JavaScript, Rust, and more."
+      }
+    },
+    "cta": {
+      "title": "Ready to integrate Nano?",
+      "description": "Get a wallet, swap your first XNO, and start building the machine-payment infrastructure of the future.",
+      "getNano": "Get Nano",
+      "swapToXno": "Swap to XNO"
+    }
+  },
+  "partners": {
+    "badge": "Partner Program",
+    "getPromoted": {
+      "badge": "Get Promoted",
+      "title": "Get Promoted!",
+      "subtitle": "Your Business Here",
+      "description": "Feature your business in this spotlight. Reach thousands of Nano users. Click to learn more."
+    },
+    "heroTitle": "Grow with NanoMarketCap",
+    "heroDescription": "Put your project in front of the most engaged Nano community. Reach thousands of daily users who live and breathe XNO.",
+    "benefits": {
+      "globalReach": {
+        "title": "Early Mover",
+        "description": "Be among the first partners as NanoMarketCap grows, featured front-and-center at the top of our homepage and on your dedicated partner page."
+      },
+      "instantSetup": {
+        "title": "Instant Setup",
+        "description": "Go live in less than 24 hours. Simple XNO payment, no contracts."
+      },
+      "trust": {
+        "title": "Trust & Authority",
+        "description": "Align your brand with a trusted resource in the Nano ecosystem."
+      }
+    },
+    "stats": {
+      "title": "Why Partner?",
+      "visitors": {
+        "value": "Limited",
+        "label": "Slots"
+      },
+      "focus": {
+        "value": "100%",
+        "label": "Nano Focus"
+      }
+    },
+    "contact": {
+      "text": "Prefer email? Contact us at",
+      "email": "partners@nanomarketcap.com"
+    },
+    "form": {
+      "title": "Start Your Partnership",
+      "description": "Fill out the details below to generate a request. We'll get back to you within 24 hours.",
+      "fields": {
+        "name": {
+          "label": "Contact Name",
+          "placeholder": "John Doe",
+          "error": "Name is required"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "john@example.com",
+          "error": "Invalid email address"
+        },
+        "project": {
+          "label": "Project Name",
+          "placeholder": "My Awesome Nano App",
+          "error": "Project name is required"
+        },
+        "website": {
+          "label": "Website URL",
+          "placeholder": "https://",
+          "error": "Invalid URL"
+        },
+        "description": {
+          "label": "Campaign Details",
+          "placeholder": "Tell us about what you want to promote...",
+          "error": "Please provide a brief description"
+        }
+      },
+      "submit": {
+        "loading": "Preparing...",
+        "button": "Send Request"
+      }
+    }
+  },
+  "about": {
+    "title": "About NanoMarketCap",
+    "description": "Information about the NanoMarketCap website",
+    "intro": "is a cryptocurrency market cap tracker that puts Nano (XNO) at the center of everything.",
+    "perspective": "Unlike traditional trackers that use fiat as a base currency, we flip the perspective: all prices, market caps, and dominance metrics are calculated relative to XNO.",
+    "keyFeatures": "Key Features:",
+    "feature1": "Market caps valued in XNO",
+    "feature2": "24h price changes relative to XNO performance",
+    "feature3": "XNO dominance tracking",
+    "feature4": "Scarcity parity comparator",
+    "feature5": "Speculation table to see XNO price at different market caps",
+    "dataSource": "Data is provided by CoinGecko API."
+  },
+  "currencySettings": {
+    "title": "Display Settings",
+    "description": "Choose currencies to display",
+    "primaryFiat": "Primary Fiat",
+    "secondaryFiat": "Secondary Fiat",
+    "cryptoReference": "Crypto Reference",
+    "currencySettings": "Currency settings"
+  },
+  "error": {
+    "somethingWentWrong": "Something went wrong",
+    "pageLoadError": "An error occurred while loading this page. Please try again.",
+    "errorId": "Error ID: {digest}",
+    "failedToLoadMarketData": "Failed to load market data",
+    "unableToLoadMarketData": "Unable to load market data",
+    "unexpectedError": "An unexpected error occurred while fetching market data.",
+    "failedToLoadDominance": "Failed to load dominance data",
+    "dominanceLoadError": "We couldn't load the market dominance information. Please try again.",
+    "failedToLoadSpeculation": "Failed to load speculation data",
+    "speculationLoadError": "We couldn't calculate the XNO price projections. Please try again.",
+    "tryAgain": "Try Again",
+    "retry": "Retry"
+  },
+  "donation": {
+    "supportUs": "Support Us",
+    "supportNanoMarketCap": "Support NanoMarketCap",
+    "donationGoal": "Donation Goal",
+    "goalModeDescription": "Help us unlock each milestone and open source this project",
+    "regularModeDescription": "Your donation helps keep this project running",
+    "overallProgress": "Overall Progress",
+    "paymentReceived": "Payment Received!",
+    "thankYouGoalMode": "Thank you for your generous donation. You're helping make NanoMarketCap open source!",
+    "thankYouRegularMode": "Thank you for your generous donation. Your support keeps this project running!",
+    "donateAgain": "Donate Again",
+    "viewWallet": "View Wallet",
+    "howWillBeUsed": "How will your donation be used?",
+    "usageHosting": "Hosting and infrastructure costs",
+    "usageDeveloper": "Supporting the developer",
+    "usageTools": "Building more XNO tools",
+    "selectAmount": "Select donation amount (XNO)",
+    "customAmount": "Custom amount",
+    "scanToSend": "Scan with your Nano wallet to send",
+    "listeningForPayment": "Listening for payment...",
+    "connecting": "Connecting...",
+    "walletAddress": "Donation wallet address:",
+    "viewOnBlocklattice": "View on Blocklattice",
+    "milestones": {
+      "development": {
+        "title": "Development Costs",
+        "reward1": "Development time compensation",
+        "reward2": "Initial hosting & infrastructure",
+        "reward3": "LLM token usage for code generation"
+      },
+      "maintenance": {
+        "title": "Maintenance Fund",
+        "reward1": "Full time XNO commitment for a year",
+        "reward2": "Hosting + API costs",
+        "reward3": "Bug fixes & improvements"
+      },
+      "opensource": {
+        "title": "Open Source",
+        "reward1": "Full source code on GitHub",
+        "reward2": "One-click free host deployment",
+        "reward3": "Community-driven development"
+      }
+    }
+  },
+  "footer": {
+    "description": "Real-time Nano (XNO) market data, price comparisons, and tools for the Nano community.",
+    "explore": "Explore",
+    "resources": "Resources",
+    "community": "Community",
+    "legal": "Legal",
+    "rights": "All rights reserved.",
+    "madeWith": "Made with",
+    "forNano": "for Nano",
+    "links": {
+      "market": "Market Overview",
+      "dominance": "Dominance",
+      "parity": "Parity",
+      "speculation": "Speculation",
+      "milestones": "Milestones",
+      "getNano": "Get Nano",
+      "swapNano": "Swap to Nano",
+      "whyNano": "Why Nano?",
+      "calculators": "Calculators",
+      "nanoOrg": "Nano.org",
+      "docs": "Documentation",
+      "hub": "Nano Hub",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "disclaimer": "Disclaimer",
+      "imprint": "Legal Notice"
+    }
+  },
+  "legal": {
+    "lastUpdated": "Last updated: {date}",
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "NanoMarketCap (\"we\", \"us\", or \"our\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you visit our website.",
+      "sections": {
+        "dataCollected": {
+          "title": "1. Information We Collect",
+          "description": "We collect minimal data necessary to operate the service:",
+          "ipAddresses": {
+            "title": "IP Addresses (Server‑Side, Ephemeral)",
+            "description": "We temporarily process your IP address for rate limiting (max 60 requests/minute per IP). This data is held in server memory only, never written to disk or a database, and is automatically purged every 5 minutes. IP addresses are extracted from the x-forwarded-for or x-real-ip request headers."
+          },
+          "localStorage": {
+            "title": "Local Storage Preferences (Client‑Side)",
+            "description": "We store the following user preferences in your browser's local storage to remember your display settings across sessions:",
+            "items": {
+              "primaryFiat": "Primary fiat currency (default: USD)",
+              "secondaryFiat": "Secondary fiat currency (default: EUR)",
+              "cryptoRef": "Crypto reference currency (default: bitcoin)",
+              "parityFiat": "Parity page fiat selection (default: USD, EUR)",
+              "theme": "Theme preference (light/dark/system)"
+            }
+          },
+          "cookies": {
+            "title": "Cookies",
+            "description": "We do not set any tracking or advertising cookies. The following functional cookies may be set automatically by our technology stack:",
+            "items": {
+              "locale": "NEXT_LOCALE — Stores your language preference for the site",
+              "theme": "Theme preference — Remembers your light/dark mode selection",
+              "compareCoins": "xno_compare_coins · Stores your pinned comparison coins on the account explorer page (max 6, expires after 1 year). Purely functional, not used for tracking."
+            }
+          }
+        },
+        "noTracking": {
+          "title": "2. What We Do NOT Collect",
+          "description": "We do not use any analytics, tracking, or advertising services. There is no Google Analytics, no Facebook Pixel, no fingerprinting, and no behavioral profiling. We do not collect personal information such as names, email addresses, or payment details through the website."
+        },
+        "thirdParty": {
+          "title": "3. Third‑Party Services",
+          "description": "We integrate with the following third-party services, each of which has its own privacy policy:",
+          "coingecko": {
+            "title": "CoinGecko API",
+            "description": "Market data is fetched server-side using our API key. No user data is transmitted to CoinGecko."
+          },
+          "nanswap": {
+            "title": "Nanswap",
+            "description": "The swap page embeds a Nanswap iframe. When you interact with the Nanswap widget, your data (swap amounts, wallet addresses) is processed directly by Nanswap under their privacy policy. Our integration includes an affiliate referral identifier."
+          },
+          "fonts": {
+            "title": "Fonts (Self‑Hosted)",
+            "description": "Fonts are self-hosted at build time via Next.js font optimization. No runtime connections are made to Google servers and no user data is transmitted to Google."
+          },
+          "imageCdns": {
+            "title": "Image CDNs",
+            "description": "Cryptocurrency logos and images are loaded from CoinGecko and Nanswap CDNs, which may log standard web request data."
+          }
+        },
+        "legalBasis": {
+          "title": "4. Legal Basis for Processing (GDPR)",
+          "description": "Under the General Data Protection Regulation (GDPR), our legal bases for processing data are:",
+          "items": {
+            "legitimateInterest": "Legitimate interest — Rate limiting to protect our service from abuse (IP address processing)",
+            "functionalCookies": "Strictly necessary — Functional cookies (language, theme) are required for the website to operate as expected and are exempt from consent under the ePrivacy Directive",
+            "consent": "Consent — Your browser preferences stored in local storage are never transmitted to our servers. The Nanswap swap widget is loaded only after your explicit consent"
+          }
+        },
+        "dataRights": {
+          "title": "5. Your Rights",
+          "description": "Under applicable data protection laws (including GDPR), you have the right to:",
+          "items": {
+            "access": "Access — Request information about data we process about you",
+            "rectification": "Rectification — Request correction of inaccurate data we hold about you",
+            "erasure": "Erasure — Request deletion of any data we hold about you",
+            "restriction": "Restriction — Request that we limit how we process your data",
+            "portability": "Portability — Receive your data in a portable format",
+            "objection": "Objection — Object to data processing based on legitimate interest",
+            "withdrawConsent": "Withdraw consent — You may withdraw consent at any time by clearing your browser cookies and local storage"
+          },
+          "note": "Since we collect minimal data (ephemeral IP processing and browser-side preferences), most of these rights are satisfied by default. You can clear all locally stored preferences at any time through your browser settings."
+        },
+        "supervisoryAuthority": {
+          "title": "6. Right to Lodge a Complaint",
+          "description": "You have the right to lodge a complaint with a data protection supervisory authority, in particular in the EU Member State of your habitual residence, place of work, or place of the alleged infringement.",
+          "cnil": "In France, the supervisory authority is the CNIL (Commission Nationale de l'Informatique et des Libertés).",
+          "cnilLink": "https://www.cnil.fr",
+          "note": "You may also contact your local data protection authority if you are located in another EU/EEA country."
+        },
+        "dataBreach": {
+          "title": "7. Data Breach Notification",
+          "description": "In the event of a personal data breach that poses a risk to your rights and freedoms, we will notify the relevant supervisory authority within 72 hours of becoming aware of it, as required by GDPR Article 33. If the breach is likely to result in a high risk to your rights and freedoms, we will also notify affected individuals without undue delay."
+        },
+        "internationalTransfers": {
+          "title": "8. International Data Transfers",
+          "description": "Our website is hosted by Vercel Inc. (United States). Server-side API calls are made to CoinGecko (global CDN). These transfers are conducted in accordance with applicable data protection regulations, including the EU–US Data Privacy Framework where applicable. We only transfer data that is strictly necessary for the operation of the service (ephemeral IP addresses for rate limiting). No personal data is stored outside the EU beyond transient server processing."
+        },
+        "dataRetention": {
+          "title": "9. Data Retention",
+          "description": "IP rate-limiting data: Automatically purged every 5 minutes from server memory. Local storage data: Persists in your browser until you clear it. We do not maintain any user database or persistent data storage."
+        },
+        "children": {
+          "title": "10. Children's Privacy",
+          "description": "Our service is not directed at children under 16. We do not knowingly collect any information from children. If you believe we have inadvertently collected data about a child under 16, please contact us and we will promptly delete it."
+        },
+        "changes": {
+          "title": "11. Changes to This Policy",
+          "description": "We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. Your continued use of the site after changes constitutes acceptance."
+        },
+        "contact": {
+          "title": "12. Contact",
+          "description": "For privacy-related inquiries, contact us at:"
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "intro": "By accessing and using NanoMarketCap (the \"Service\"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Service.",
+      "sections": {
+        "eligibility": {
+          "title": "1. Eligibility",
+          "description": "By using the Service, you represent that you are at least 16 years of age and have the legal capacity to enter into these Terms. If you are under 16, you may not use the Service."
+        },
+        "serviceDescription": {
+          "title": "2. Service Description",
+          "description": "NanoMarketCap is a cryptocurrency market data aggregation platform that provides:",
+          "items": {
+            "marketData": "Real-time and historical market data for Nano (XNO) and other cryptocurrencies, sourced from CoinGecko",
+            "tools": "Analytical tools including dominance charts, scarcity parity comparisons, and speculation calculators",
+            "swapAccess": "Access to third-party cryptocurrency swap services via an embedded Nanswap widget",
+            "educational": "Educational content about Nano, the x402 protocol, and cryptocurrency in general",
+            "donations": "A voluntary donation system to support ongoing development"
+          }
+        },
+        "noFinancialAdvice": {
+          "title": "3. Not Financial Advice",
+          "description": "Nothing on this website constitutes financial, investment, tax, or legal advice. All market data, price calculations, speculation scenarios, and parity comparisons are provided for informational and educational purposes only. You should consult a qualified financial advisor before making any investment decisions. Cryptocurrency investments carry significant risk, including the possibility of total loss."
+        },
+        "dataAccuracy": {
+          "title": "4. Data Accuracy",
+          "description": "Market data is sourced from CoinGecko and other third-party providers. While we strive for accuracy, we make no warranties or representations about the completeness, accuracy, reliability, or timeliness of any data displayed. Prices, market caps, volumes, and derived calculations (speculation, parity) may be delayed, inaccurate, or incomplete."
+        },
+        "thirdPartyServices": {
+          "title": "5. Third‑Party Services",
+          "description": "The Service integrates third-party services including Nanswap (cryptocurrency swaps), CoinGecko (market data), and Nano network nodes. These services are governed by their own terms and privacy policies. We are not responsible for the availability, accuracy, or conduct of any third-party service. The Nanswap integration includes an affiliate referral identifier."
+        },
+        "donations": {
+          "title": "6. Donations",
+          "description": "Donations are voluntary contributions made in Nano (XNO) cryptocurrency to support the development and maintenance of NanoMarketCap. By making a donation, you acknowledge that:",
+          "items": {
+            "voluntary": "Donations are entirely voluntary and do not grant any rights, privileges, or ownership",
+            "nonRefundable": "Cryptocurrency transactions are irreversible — donations cannot be refunded",
+            "noTaxReceipt": "We do not provide tax receipts or donation acknowledgments for tax purposes",
+            "noObligation": "Stated donation goals and milestones are indicative and not contractually binding",
+            "noGuarantee": "We make no guarantees about how donation funds will be allocated or spent"
+          }
+        },
+        "partnerContent": {
+          "title": "7. Partner & Sponsored Content",
+          "description": "The Service may display paid partner promotions and sponsored content. Partner spotlights are clearly labeled as such. The presence of partner content does not constitute an endorsement, recommendation, or guarantee of any partner's products or services. Users should conduct their own due diligence."
+        },
+        "intellectualProperty": {
+          "title": "8. Intellectual Property",
+          "description": "The NanoMarketCap website design, original content, and code are the property of NanoMarketCap. Market data is provided by CoinGecko under their terms of use and attributed accordingly. Nano™ and XNO are associated with the Nano Foundation. All third-party trademarks remain the property of their respective owners."
+        },
+        "prohibitedUse": {
+          "title": "9. Prohibited Use",
+          "description": "You agree not to:",
+          "items": {
+            "abuse": "Abuse, overload, or interfere with the Service or its infrastructure",
+            "scrape": "Scrape, crawl, or harvest data from the Service beyond normal use",
+            "circumvent": "Circumvent rate limits or security measures",
+            "misrepresent": "Misrepresent your identity or affiliation",
+            "illegal": "Use the Service for any unlawful purpose"
+          }
+        },
+        "limitation": {
+          "title": "10. Limitation of Liability",
+          "description": "To the maximum extent permitted by law, NanoMarketCap, its operators, contributors, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Service. This includes, without limitation, damages from reliance on data, calculations, or third-party services accessed through the Service."
+        },
+        "indemnification": {
+          "title": "11. Indemnification",
+          "description": "You agree to indemnify and hold harmless NanoMarketCap and its operators from any claims, damages, losses, or expenses arising from your use of the Service or violation of these Terms."
+        },
+        "modification": {
+          "title": "12. Modification & Termination",
+          "description": "We reserve the right to modify, suspend, or discontinue the Service at any time without notice. We may update these Terms from time to time. Continued use after changes constitutes acceptance of the modified Terms."
+        },
+        "governing": {
+          "title": "13. Governing Law",
+          "description": "These Terms shall be governed by and construed in accordance with the laws of France. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the competent courts of France. For EU consumers, mandatory consumer protection laws of your country of residence continue to apply."
+        },
+        "forceMajeure": {
+          "title": "14. Force Majeure",
+          "description": "We shall not be liable for any failure or delay in performance due to causes beyond our reasonable control, including but not limited to natural disasters, internet outages, blockchain network issues, third-party service disruptions, or government actions."
+        },
+        "severability": {
+          "title": "15. Severability",
+          "description": "If any provision of these Terms is found invalid or unenforceable by a competent court, that provision shall be enforced to the maximum extent permissible, and the remaining provisions shall continue in full force and effect."
+        },
+        "entireAgreement": {
+          "title": "16. Entire Agreement",
+          "description": "These Terms, together with our Privacy Policy, Cookie Policy, and Disclaimer, constitute the entire agreement between you and NanoMarketCap regarding the Service and supersede any prior agreements or understandings."
+        },
+        "waiver": {
+          "title": "17. Waiver",
+          "description": "Our failure to exercise or enforce any right or provision of these Terms shall not constitute a waiver of such right or provision. Any waiver must be in writing and signed by the relevant party."
+        },
+        "contact": {
+          "title": "18. Contact",
+          "description": "For questions about these Terms, contact us at:"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookie & Storage Policy",
+      "intro": "This policy explains how NanoMarketCap uses cookies, local storage, and similar browser technologies.",
+      "sections": {
+        "whatAreCookies": {
+          "title": "1. What Are Cookies & Local Storage?",
+          "description": "Cookies are small text files stored by your browser. Local storage is a browser feature that allows websites to store data locally on your device. Both are used to remember preferences and improve your experience."
+        },
+        "whatWeUse": {
+          "title": "2. What We Use",
+          "functional": {
+            "title": "Functional Cookies",
+            "description": "These cookies are necessary for the website to function properly:",
+            "items": {
+              "locale": "NEXT_LOCALE — Remembers your language preference (set automatically by our internationalization framework)",
+              "theme": "Theme preference — Remembers your light/dark mode selection"
+            }
+          },
+          "localStorage": {
+            "title": "Local Storage",
+            "description": "We use browser local storage to persist your display preferences:",
+            "items": {
+              "primaryFiat": "xno-market-primary-fiat — Your primary fiat currency (default: USD)",
+              "secondaryFiat": "xno-market-secondary-fiat — Your secondary fiat currency (default: EUR)",
+              "cryptoRef": "xno-market-crypto — Your crypto reference currency (default: bitcoin)",
+              "parityFiat": "xno-parity-fiat-currencies — Parity page fiat selection (default: USD, EUR)"
+            }
+          }
+        },
+        "thirdParty": {
+          "title": "3. Third‑Party Cookies",
+          "description": "We do not set any third-party tracking, analytics, or advertising cookies. The following embedded content, loaded only with your consent, may set cookies under its own domain:",
+          "items": {
+            "nanswap": "Nanswap iframe — The swap widget on the Swap to Nano page loads content from nanswap.com, which may set its own cookies. The widget is only loaded after you explicitly consent to it."
+          },
+          "fontsNote": "Fonts are self-hosted via Next.js font optimization and do not involve any third-party cookies or external requests."
+        },
+        "noTracking": {
+          "title": "4. No Tracking Cookies",
+          "description": "We do not use any analytics services (Google Analytics, etc.), advertising networks, or behavioral tracking technologies. No fingerprinting or cross-site tracking is performed."
+        },
+        "manage": {
+          "title": "5. Managing Your Preferences",
+          "description": "You can control cookies and local storage through your browser settings:",
+          "items": {
+            "clearCookies": "Clear cookies — Most browsers allow you to delete cookies through Settings → Privacy → Clear browsing data",
+            "clearStorage": "Clear local storage — Open your browser's developer tools (F12) → Application tab → Local Storage → Clear",
+            "blockCookies": "Block cookies — You can configure your browser to block all or specific cookies, though this may affect site functionality"
+          }
+        },
+        "retention": {
+          "title": "6. Retention Periods",
+          "description": "Functional cookies persist until you clear them or they expire. Local storage data persists until you clear it manually. We do not set any expiration on local storage items — they remain until removed by you or your browser."
+        },
+        "changes": {
+          "title": "7. Changes to This Policy",
+          "description": "We may update this policy if we introduce new technologies or change how we use existing ones. Changes will be reflected on this page with an updated date."
+        }
+      }
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "intro": "Please read this disclaimer carefully before using NanoMarketCap.",
+      "sections": {
+        "notFinancialAdvice": {
+          "title": "1. Not Financial or Investment Advice",
+          "description": "All content on NanoMarketCap — including market data, price charts, speculation calculators, parity comparisons, and educational materials — is provided for informational and educational purposes only. Nothing on this website constitutes financial advice, investment advice, trading advice, or any other form of professional advice. You should not make any financial decision based solely on information presented on this website."
+        },
+        "noRecommendation": {
+          "title": "2. No Investment Recommendation",
+          "description": "The inclusion of any cryptocurrency, token, or asset on this website does not constitute a recommendation to buy, sell, or hold that asset. Hypothetical price scenarios shown in the speculation and parity calculators are purely illustrative and do not represent predictions, forecasts, or investment targets."
+        },
+        "dataAccuracy": {
+          "title": "3. Data Accuracy & Reliability",
+          "description": "Market data displayed on this website is sourced from CoinGecko and other third-party data providers. While we make reasonable efforts to display accurate information, we cannot guarantee the accuracy, completeness, timeliness, or reliability of any data. Prices may be delayed and may differ from actual market prices. Do not rely on this data for trading decisions."
+        },
+        "cryptoRisk": {
+          "title": "4. Cryptocurrency Risk Warning",
+          "description": "Cryptocurrency investments are highly volatile and carry significant risk, including but not limited to: total loss of invested capital, extreme price volatility, regulatory uncertainty, technological risks (smart contract bugs, network attacks), liquidity risk, and market manipulation. Past performance is not indicative of future results."
+        },
+        "thirdPartyServices": {
+          "title": "5. Third‑Party Services",
+          "description": "NanoMarketCap integrates third-party services including Nanswap for cryptocurrency swaps. We are not responsible for the operation, security, reliability, or outcomes of any third-party service. Use of Nanswap or any other linked service is entirely at your own risk and subject to their respective terms. Our Nanswap integration includes an affiliate referral code."
+        },
+        "affiliateDisclosure": {
+          "title": "6. Affiliate Disclosure",
+          "description": "NanoMarketCap participates in the Nanswap affiliate program. When you use the swap widget on our site, we may receive referral compensation. This does not affect the price you pay. This relationship is disclosed in the interest of transparency."
+        },
+        "noGuarantees": {
+          "title": "7. No Guarantees",
+          "description": "The Service is provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. We do not guarantee uninterrupted access, error-free operation, or the accuracy of any calculations or data. Use of the Service is at your sole risk."
+        },
+        "liability": {
+          "title": "8. Limitation of Liability",
+          "description": "To the fullest extent permitted by law, NanoMarketCap and its operators shall not be liable for any losses, damages, or costs arising from the use of or reliance on information provided through this website, including but not limited to trading losses, data inaccuracies, or third-party service failures."
+        },
+        "ownResearch": {
+          "title": "9. Do Your Own Research",
+          "description": "Always conduct your own research and consult with qualified financial professionals before making investment decisions. Verify all information independently. Never invest more than you can afford to lose."
+        }
+      }
+    },
+    "imprint": {
+      "title": "Legal Notice (Imprint)",
+      "intro": "Information in accordance with legal disclosure requirements.",
+      "sections": {
+        "hosting": {
+          "title": "1. Hosting",
+          "description": "This website is hosted by Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, United States."
+        },
+        "copyright": {
+          "title": "2. Copyright",
+          "description": "© 2026 NanoMarketCap. All rights reserved. Market data is provided by CoinGecko and used in accordance with their terms. Nano™ and the Nano logo are trademarks of the Nano Foundation. All other trademarks are the property of their respective owners."
+        },
+        "contentLiability": {
+          "title": "3. Liability for Content",
+          "description": "The contents of our website have been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, we are responsible for our own content on these pages under general law. However, we are not obligated to monitor transmitted or stored third-party information, or to investigate circumstances that indicate illegal activity."
+        },
+        "linkLiability": {
+          "title": "4. Liability for Links",
+          "description": "Our website contains links to external third-party websites over whose content we have no influence. We cannot accept any liability for the content of linked websites. The respective provider or operator of the linked pages is always responsible for their content. Linked pages were checked for possible legal violations at the time of linking — no illegal content was identified at that time."
+        },
+        "dataProtection": {
+          "title": "5. Data Protection",
+          "description": "For detailed information about how we handle personal data, please refer to our Privacy Policy."
+        },
+        "disputeResolution": {
+          "title": "6. Dispute Resolution",
+          "description": "The European Commission provides a platform for online dispute resolution (ODR):",
+          "odrLink": "https://ec.europa.eu/consumers/odr",
+          "note": "We are not obligated and not willing to participate in dispute resolution proceedings before a consumer arbitration board."
+        }
+      }
+    },
+    "inlineDisclaimers": {
+      "speculation": "For educational purposes only. Hypothetical scenarios are not predictions or investment advice.",
+      "parity": "Scarcity parity values are theoretical. Not financial or investment advice.",
+      "donationNonRefundable": "Donations are voluntary and non-refundable. Cryptocurrency transactions are irreversible.",
+      "affiliateDisclosure": "Nanswap integration includes an affiliate referral. This does not affect the price you pay."
+    }
+  },
+  "milestones": {
+    "title": "Milestones",
+    "subtitle": "The full XNO market cap ladder in every fiat currency. Drag the dial to simulate any market cap.",
+    "masterLabel": "MARKET CAP",
+    "current": "CURRENT",
+    "hypothetical": "HYPOTHETICAL",
+    "dragHint": "DRAG TO SIMULATE",
+    "next": "NEXT",
+    "toGo": "TO GO",
+    "ladder": "LADDER",
+    "supplyNote": "Implied prices assume the fixed circulating supply of {supply} XNO: at any market cap, 1 XNO is simply cap divided by supply.",
+    "storyLabel": "THE $1B STORY",
+    "xnoPrice": "1 XNO",
+    "tooltipCap": "MARKET CAP",
+    "jumpNext": "NEXT MILESTONE",
+    "jumpPrev": "PREVIOUS MILESTONE"
+  },
+  "notFound": {
+    "code": "ERROR 404",
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. Check the URL or head back to the home page.",
+    "backHome": "Back to home",
+    "backNews": "Browse the news"
+  },
+  "decentralization": {
+    "title": "Nano Decentralization & Voting Weight",
+    "description": "Live Nano (XNO) decentralization metrics: representative voting weight, principal representative count and top-10 concentration, from public Nano nodes.",
+    "ogTitle": "Nano Decentralization & Voting Weight | NanoMarketCap",
+    "ogDescription": "Live Nano (XNO) decentralization metrics: representative voting weight, principal representatives and concentration, from public Nano nodes.",
+    "h1": "Nano Decentralization & Voting Weight",
+    "intro": "Who holds Nano voting weight right now? Every XNO holder delegates their balance to a representative. This page shows the live distribution of online voting weight, how many principal representatives exist, and how concentrated the top of the delegation network really is.",
+    "onlineWeight": "Online Voting Weight",
+    "onlineWeightHint": "XNO currently online",
+    "principalReps": "Principal Reps",
+    "principalWeightOfOnline": "of online weight",
+    "top10Share": "Top 10 Concentration",
+    "top10ShareHint": "share held by the 10 largest reps",
+    "gini": "Voting Weight Gini",
+    "giniHint": "0 = fully equal, 1 = fully centralized",
+    "updatedNote": "Data is fetched from public Nano RPC nodes and refreshed hourly. Voting weight changes with each delegated balance.",
+    "failedNotice": "Public Nano RPC nodes could not be reached right now. Showing the last successfully cached values.",
+    "kicker": "Live delegation data",
+    "lorenzTitle": "Voting Weight Concentration Curve",
+    "lorenzSub": "Cumulative share of voting weight vs cumulative share of representatives. The amber region is the Gini area A; the whole triangle below the dashed line is A + B. Gini = A / (A + B).",
+    "lorenzAxisCount": "Share of representatives",
+    "lorenzAxisWeight": "Share of weight",
+    "lorenzTooltipTitle": "Concentration",
+    "lorenzTooltipHold": "Top {reps} of reps hold {weight} of voting weight",
+    "legendCurve": "Actual distribution",
+    "legendEquality": "Perfect equality",
+    "legendGiniArea": "Gini region (A)",
+    "treemapTitle": "Voting Weight Treemap",
+    "treemapHint": "Each tile is sized by delegated voting weight. Hover a tile for details.",
+    "treemapTooltipTitle": "Representative",
+    "treemapOthers": "All other reps",
+    "ladderTitle": "Concentration Ladder",
+    "ladderHint": "Cumulative share of online voting weight held by the largest representatives.",
+    "ladderTop": "Top {count}",
+    "ladderPrincipals": "Principal reps",
+    "ladderFootnote": "of {weight} XNO online",
+    "onlineVsSupply": "{pct}% of total supply",
+    "breadth": "Across {count} online reps: the median representative controls {median} XNO, the mean is {mean} XNO, dragged upward by the largest representatives."
+  },
+  "tools": {
+    "converter": {
+      "kicker": "Instrument 01 · units",
+      "h1": "Nano Unit Converter",
+      "sub": "Convert between XNO and raw with exact precision. One XNO is 10^30 raw.",
+      "copy": "Copy",
+      "copied": "Copied",
+      "note": "Conversions are string-based and lossless, so even the largest raw amounts round-trip exactly.",
+      "unit": "Unit",
+      "value": "Value"
+    },
+    "paymentLinks": {
+      "kicker": "Instrument 02 · payment links",
+      "h1": "Nano Payment Link Generator",
+      "sub": "Build a nano: URI with an amount, label and message, then share it as a link or QR code.",
+      "address": "Recipient address",
+      "addressPlaceholder": "nano_1... or xno_1...",
+      "amount": "Amount (XNO)",
+      "amountPlaceholder": "e.g. 1.5",
+      "label": "Label",
+      "labelPlaceholder": "e.g. Coffee",
+      "message": "Message",
+      "messagePlaceholder": "e.g. Thanks for the coffee",
+      "uriPreview": "Payment URI",
+      "qr": "QR code",
+      "shareable": "Shareable link",
+      "copyUri": "Copy URI",
+      "copyAddress": "Copy address",
+      "copied": "Copied",
+      "invalidAddress": "Enter a valid nano_ or xno_ address",
+      "invalidAmount": "Enter a positive amount",
+      "note": "QR codes render instantly in your browser. Nothing is sent anywhere."
+    },
+    "addressTools": {
+      "kicker": "Instrument 03 · keys",
+      "h1": "Nano Address Tools",
+      "sub": "Validate addresses, convert between address and public key, and generate a seed with its derived address.",
+      "address": "Address or public key",
+      "addressPlaceholder": "nano_1..., xno_1... or a 64-char hex public key",
+      "inspect": "Inspect",
+      "valid": "Valid address",
+      "invalid": "Invalid input",
+      "checksum": "Checksum verified",
+      "prefix": "Prefix",
+      "publicKey": "Public key",
+      "derivedAddress": "Derived address",
+      "seedSection": "Seed generator",
+      "seedLabel": "Generate a random seed and its first derived address",
+      "generate": "Generate seed",
+      "seedWarning": "Store this seed offline and never share it. Anyone with the seed controls the funds. This page never transmits it.",
+      "qr": "Address QR code",
+      "copy": "Copy",
+      "copied": "Copied"
+    },
+    "accountInspector": {
+      "kicker": "Instrument 04 · lookups",
+      "h1": "Nano Account Inspector",
+      "sub": "Enter any Nano address to open its full profile: balance, pending, voting weight, transaction history and live updates.",
+      "address": "Account address",
+      "addressPlaceholder": "nano_1... or xno_1...",
+      "inspect": "Inspect account",
+      "invalidAddress": "Enter a valid nano_ or xno_ address",
+      "note": "Profiles are server-rendered and cached for 60 seconds from public Nano RPC relays."
+    },
+    "feeComparison": {
+      "kicker": "Instrument 05 · fees",
+      "h1": "Nano vs Bitcoin Fees",
+      "sub": "Nano transfers cost nothing. Bitcoin fees move with the mempool. Here is what a payment actually costs on each network right now.",
+      "nanoFee": "Nano fee",
+      "nanoFeeValue": "$0.00",
+      "nanoFeeNote": "Always, forever",
+      "bitcoinFee": "Bitcoin fee",
+      "bitcoinFeeNote": "live from mempool.space",
+      "sendAmount": "Payment amount",
+      "feeAsPercent": "Fee as share of payment",
+      "perTx": "per standard send",
+      "tiers": {
+        "fastest": "Fastest",
+        "halfHour": "Half hour",
+        "hour": "One hour",
+        "economy": "Economy"
+      },
+      "vbytesNote": "Based on a typical 226 vB send (2 inputs, 2 outputs) and current sat/vB rates.",
+      "sourceNote": "Bitcoin fee rates from mempool.space, refreshed every few minutes.",
+      "updateNote": "Fee estimate, not a quote."
+    }
+  },
+  "account": {
+    "notFoundTitle": "Account not found",
+    "notFoundText": "This address has no blocks on the Nano network. Check it for typos and try again.",
+    "rpcErrorTitle": "Network unreachable",
+    "rpcErrorText": "The public Nano relays could not be reached. Try again in a moment.",
+    "retry": "Try again",
+    "backToTool": "Back to the inspector",
+    "unopened": "This account hasn't received its first transaction yet.",
+    "unopenedHint": "It exists on the network but has no history. Its balance stays at 0 XNO until someone sends to it.",
+    "address": "Account address",
+    "balance": "Balance",
+    "pending": "Pending",
+    "votingWeight": "Voting weight",
+    "ofOnline": "of online voting weight",
+    "principal": "Principal representative",
+    "principalYes": "Yes, above 0.1%",
+    "principalNo": "No, below 0.1%",
+    "rank": "Rank by weight",
+    "blocks": "Lifetime blocks",
+    "representedBy": "Represented by",
+    "frontier": "Frontier",
+    "openBlock": "Open block",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "jumpTo": "Jump to another account",
+    "searchPlaceholder": "nano_1... or xno_1...",
+    "open": "Open account",
+    "invalidAddress": "Enter a valid nano_ or xno_ address",
+    "viewBlocklattice": "View on Blocklattice",
+    "viewNanexplorer": "View on Nanexplorer",
+    "addCoins": "Add coins",
+    "searchCoins": "Search coins...",
+    "remove": "Remove",
+    "resetToDefault": "Reset",
+    "pinnedLimit": "Up to 6 coins",
+    "vsOverrideNote": "Temporary picks from a shared link. Your saved coins are unchanged.",
+    "noMatch": "No matching coins",
+    "history": "Transaction history",
+    "loadMore": "Load more",
+    "loading": "Loading...",
+    "change": "Changed representative",
+    "to": "To {address}",
+    "from": "From {address}",
+    "justNow": "just now",
+    "mAgo": "{n}m ago",
+    "hAgo": "{n}h ago",
+    "dAgo": "{n}d ago",
+    "unconfirmed": "pending",
+    "noHistory": "No transactions yet.",
+    "loadFailed": "Could not load this block.",
+    "blockHash": "Block hash",
+    "blockType": "Type",
+    "blockHeight": "Height",
+    "blockAmount": "Amount",
+    "blockBalance": "Balance after",
+    "blockTime": "Timestamp",
+    "blockAccount": "Account",
+    "blockRepresentative": "Representative",
+    "blockLink": "Link to",
+    "blockPrevious": "Previous block",
+    "live": "Live",
+    "polling": "Polling",
+    "toastReceived": "+{amount} XNO just landed",
+    "toastSent": "{amount} XNO just sent",
+    "toastChange": "Representative changed",
+    "toastBalance": "Balance updated",
+    "viewFullBlock": "View full block",
+    "opened": "Opened",
+    "lastBlock": "Last block",
+    "inCirculation": "of {supply} XNO in circulation"
+  },
+  "explore": {
+    "kicker": "EXPLORER",
+    "h1": "Explore the Nano network",
+    "intro": "Search any Nano account address or block hash to inspect its balance, history and chain position.",
+    "placeholder": "nano_ address or 64-char block hash",
+    "button": "Explore",
+    "error": "That doesn't look like a Nano address or block hash",
+    "addressHint": "Accounts start with nano_",
+    "hashHint": "Block hashes are 64 hex characters",
+    "totalBlocks": "Total blocks",
+    "cementedBlocks": "Cemented",
+    "uncheckedBlocks": "Unchecked",
+    "onlineWeight": "Online weight",
+    "principalReps": "Principal reps",
+    "principalShare": "Principal share",
+    "feedTitle": "Live network feed",
+    "live": "Live",
+    "connecting": "Connecting…",
+    "offline": "Offline",
+    "waiting": "Waiting for the next confirmation…",
+    "justNow": "just now",
+    "mAgo": "{n} min ago",
+    "hAgo": "{n} h ago",
+    "dAgo": "{n} d ago",
+    "popularAccounts": "Popular accounts",
+    "networkArtifacts": "Network artifacts",
+    "moreTools": "More tools",
+    "genesisBlock": "Genesis block",
+    "firstSend": "First send",
+    "binanceCold": "Binance Cold Wallet",
+    "krakenCold": "Kraken Cold Wallet",
+    "bitvavoCold": "Bitvavo Cold Wallet",
+    "binanceUsHot": "Binance US Hot Wallet",
+    "firstReceive": "First receive",
+    "binanceColdOpens": "Binance cold opens"
+  },
+  "block": {
+    "blockLabel": "Block",
+    "confirmed": "Confirmed",
+    "unconfirmed": "Unconfirmed",
+    "copyHash": "Copy block hash",
+    "copy": "Copy",
+    "account": "Account",
+    "counterparty": "Counterparty",
+    "height": "Height",
+    "received": "Received",
+    "balance": "Balance",
+    "representative": "Representative",
+    "work": "Work",
+    "signature": "Signature",
+    "previous": "Previous",
+    "successor": "Successor",
+    "prevBlock": "Previous {hash}",
+    "nextBlock": "Next {hash}",
+    "rawContents": "Raw block contents",
+    "notFoundTitle": "Block not found",
+    "notFoundBody": "This block hash is not known to the Nano network yet. It may be pending confirmation.",
+    "backToExplore": "Back to explorer"
+  },
+  "announcement": {
+    "kicker": "Transmission",
+    "title": "Widgets are live",
+    "body": "Embed live Nano instruments on any site: prices, market cap, network stats, calculators and more.",
+    "cta": "Open the widget rack",
+    "dismiss": "Dismiss announcement"
+  }
 }

@@ -1,1527 +1,1536 @@
 {
-	"metadata": {
-		"title": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
-		"description": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies, analyseer schaarste-pariteit en wissel direct naar Nano.",
-		"ogTitle": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
-		"ogDescription": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies, analyseer schaarste-pariteit en wissel direct naar Nano.",
-		"ogImageAlt": "NanoMarketCap – Volg XNO Prijs en Marktgegevens",
-		"twitterTitle": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
-		"twitterDescription": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies en wissel direct naar Nano.",
-		"home": {
-			"title": "Nano (XNO) Marktkapitalisatie, prijs & live grafiek",
-			"description": "Live Nano (XNO) prijs, marktkapitalisatie, 24u volume en vergelijking met top cryptocurrencies. Volg XNO prestaties in realtime.",
-			"ogTitle": "Nano (XNO) Marktkapitalisatie, prijs & live grafiek | NanoMarketCap",
-			"ogDescription": "Live Nano (XNO) prijs, marktkapitalisatie, 24u volume en vergelijking met top cryptocurrencies."
-		},
-		"dominance": {
-			"title": "Marktdominantie",
-			"description": "Analyseer marktaandeel en dominantie van cryptocurrencies. Bekijk hoe XNO zich verhoudt tot Bitcoin, Ethereum en andere top cryptocurrencies op basis van marktkapitalisatie percentage.",
-			"ogTitle": "Marktdominantie | NanoMarketCap",
-			"ogDescription": "Analyseer marktaandeel en dominantie van cryptocurrencies. Vergelijk XNO met top cryptocurrencies."
-		},
-		"parity": {
-			"title": "Absolute Schaarste-pariteit",
-			"description": "Wat zou 1 XNO waard zijn als alle activa puur op hun schaarste werden gewaardeerd? Ontdek schaarste-pariteit vergelijkingen met Bitcoin, Goud en belangrijke fiat-valuta's.",
-			"ogTitle": "Absolute Schaarste-pariteit | NanoMarketCap",
-			"ogDescription": "Wat zou 1 XNO waard zijn als alle activa puur op hun schaarste werden gewaardeerd? Vergelijk Nano met Bitcoin, Goud en fiat."
-		},
-		"speculation": {
-			"title": "Marktspeculatie",
-			"description": "Wat zou XNO waard zijn als het dezelfde marktkapitalisatie had als Bitcoin, Ethereum of andere top cryptocurrencies? Ontdek hypothetische XNO prijsscenario's.",
-			"ogTitle": "Marktspeculatie | NanoMarketCap",
-			"ogDescription": "Wat zou XNO waard zijn als het dezelfde marktkapitalisatie had als Bitcoin of Ethereum? Ontdek hypothetische prijsscenario's."
-		},
-		"getNano": {
-			"title": "Nano Kopen & Wallet Kiezen",
-			"description": "Kies een Nano wallet voor iOS, Android of desktop. Leer hoe je XNO kunt verkrijgen via exchanges, directe swaps of faucets.",
-			"ogTitle": "Nano Kopen & Wallet Kiezen | NanoMarketCap",
-			"ogDescription": "Kies een Nano wallet voor iOS, Android of desktop. Leer hoe je XNO kunt verkrijgen via exchanges, swaps of faucets."
-		},
-		"swapNano": {
-			"title": "Wisselen naar Nano",
-			"description": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel Bitcoin, Ethereum en 50+ cryptocurrencies naar XNO met snelle, kostenloze transacties.",
-			"ogTitle": "Wisselen naar Nano | NanoMarketCap",
-			"ogDescription": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel 50+ cryptocurrencies naar XNO."
-		},
-		"calculators": {
-			"title": "XNO Calculators & Tools",
-			"description": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel, investeringsscenario's en ontdek wat je XNO-bezit betekent in het grote geheel.",
-			"ogTitle": "XNO Calculators & Tools | NanoMarketCap",
-			"ogDescription": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel en investeringsscenario's."
-		},
-		"coin": {
-			"title": "{coin} Prijsgrafiek | NanoMarketCap",
-			"description": "Live {coin} prijsgrafiek, marktkapitalisatie, volume en statistieken. Bekijk historische prijsgegevens en vergelijk met XNO.",
-			"ogTitle": "{coin} Prijsgrafiek | NanoMarketCap",
-			"ogDescription": "Live {coin} prijsgrafiek en marktstatistieken. Vergelijk met XNO."
-		},
-		"news": {
-			"title": "Nano Nieuws & Updates | NanoMarketCap",
-			"description": "Blijf op de hoogte van het laatste Nano (XNO) nieuws, marktinzichten, ecosysteemontwikkelingen en platformaankondigingen.",
-			"ogTitle": "Nano Nieuws & Updates | NanoMarketCap",
-			"ogDescription": "Blijf op de hoogte van het laatste Nano nieuws, marktinzichten en ecosysteemontwikkelingen.",
-			"articleTitle": "{title} | NanoMarketCap Nieuws"
-		},
-		"whyNano": {
-			"title": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
-			"description": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol.",
-			"ogTitle": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
-			"ogDescription": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol."
-		},
-		"partners": {
-			"title": "Word Partner – Nano Market Cap",
-			"description": "Promoot uw bedrijf bij duizenden Nano-gebruikers. Lees meer over ons partner spotlight-programma, prijzen en hoe u kunt beginnen."
-		},
-		"legal": {
-			"privacy": {
-				"title": "Privacybeleid | NanoMarketCap",
-				"description": "Ontdek hoe NanoMarketCap uw gegevens verwerkt, wat we verzamelen en uw rechten onder de toepasselijke privacywetgeving."
-			},
-			"terms": {
-				"title": "Gebruiksvoorwaarden | NanoMarketCap",
-				"description": "Voorwaarden die het gebruik van NanoMarketCap diensten, tools en inhoud regelen."
-			},
-			"cookies": {
-				"title": "Cookie- en Opslagbeleid | NanoMarketCap",
-				"description": "Informatie over cookies, lokale opslag en vergelijkbare technologieën die door NanoMarketCap worden gebruikt."
-			},
-			"disclaimer": {
-				"title": "Disclaimer | NanoMarketCap",
-				"description": "Financiële waarschuwingen, aansprakelijkheidsbeperkingen en mededelingen over de nauwkeurigheid van inhoud op NanoMarketCap."
-			},
-			"imprint": {
-				"title": "Impressum | NanoMarketCap",
-				"description": "Juridische entiteitsinformatie, contactgegevens en wettelijke verklaringen van NanoMarketCap."
-			}
-		},
-		"milestones": {
-			"title": "Mijlpalen",
-			"description": "De volledige XNO-marktkapitalisatieladder in elke valuta, met een interactieve simulator."
-		},
-		"tools": {
-			"converter": {
-				"title": "Nano-eenhedenconverter: XNO naar Raw",
-				"description": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO, plus mXNO-weergave. De definitieve XNO-eenhedenconverter.",
-				"ogTitle": "Nano-eenhedenconverter: XNO naar Raw | NanoMarketCap",
-				"ogDescription": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO."
-			},
-			"paymentLinks": {
-				"title": "Nano-betaallink-generator",
-				"description": "Maak nano: betaallinks met QR-codes, eigen bedragen, labels en berichten. Deel in seconden een betaalbare Nano-link.",
-				"ogTitle": "Nano-betaallink-generator | NanoMarketCap",
-				"ogDescription": "Maak nano: betaallinks met QR-codes, bedragen en labels."
-			},
-			"addressTools": {
-				"title": "Nano-adres-tools & validator",
-				"description": "Valideer elk Nano-adres, converteer tussen adres en publieke sleutel, en genereer een seed met het afgeleide adres. Alles in je browser.",
-				"ogTitle": "Nano-adres-tools & validator | NanoMarketCap",
-				"ogDescription": "Valideer Nano-adressen, converteer adres en publieke sleutel, genereer seeds."
-			},
-			"accountInspector": {
-				"title": "Nano-account-inspecteur",
-				"description": "Zoek elk Nano-account op: saldo, lopende bedragen, vertegenwoordiger, openingsblok en live stemgewicht, rechtstreeks van publieke Nano-nodes.",
-				"ogTitle": "Nano-account-inspecteur | NanoMarketCap",
-				"ogDescription": "Zoek elk Nano-account op: saldo, lopend, vertegenwoordiger en stemgewicht."
-			},
-			"feeComparison": {
-				"title": "Nano vs Bitcoin-kosten",
-				"description": "Vergelijk de nul transactiekosten van Nano met live Bitcoin-kosten van mempool.space. Zie wat een betaling op elk netwerk echt kost.",
-				"ogTitle": "Nano vs Bitcoin-kosten | NanoMarketCap",
-				"ogDescription": "Vergelijk de nul kosten van Nano met live Bitcoin-kosten van mempool.space."
-			}
-		},
-		"account": {
-			"title": "{address} · Saldo, transacties en stemgewicht",
-			"description": "Live saldo, in behandeling, stemgewicht en transactiegeschiedenis voor {address}."
-		},
-		"explore": {
-			"title": "Nano verkennen · Accounts & blokken",
-			"description": "Doorzoek het Nano-netwerk op adres of block-hash.",
-			"ogTitle": "Nano verkennen",
-			"ogDescription": "Doorzoek het Nano-netwerk op adres of block-hash."
-		},
-		"block": {
-			"title": "Blok {hash} · Bedrag, saldo & keten",
-			"description": "Details van blok {hash}: type, bedrag, saldo, tijdstempel en positie in de Nano-keten."
-		}
-	},
-	"common": {
-		"loading": "Laden...",
-		"error": "Fout",
-		"retry": "Opnieuw",
-		"tryAgain": "Probeer opnieuw",
-		"close": "Sluiten",
-		"menu": "Menu",
-		"home": "Home",
-		"about": "Over",
-		"learnMore": "Meer informatie",
-		"calculators": "Calculators",
-		"metrics": "Statistieken",
-		"dominance": "Dominantie",
-		"dominanceDescription": "Marktaandeelverdeling",
-		"parityDescription": "Waarderingen op basis van schaarste",
-		"speculationDescription": "Hypothetische prijsscenario's"
-	},
-	"navigation": {
-		"brand": "NanoMarketCap",
-		"toggleTheme": "Thema wisselen",
-		"refreshMarketData": "Marktgegevens vernieuwen",
-		"refreshAvailableIn": "Vernieuwen beschikbaar over {seconds}s",
-		"aboutWebsite": "Over",
-		"home": "Home",
-		"menu": "Menu",
-		"news": "Nieuws",
-		"calculators": "Calculators",
-		"calculatorsDescription": "Voorraad, pariteit en speculatie",
-		"metrics": "Statistieken",
-		"dominance": "Dominantie",
-		"dominanceDescription": "Marktaandeelverdeling",
-		"parity": "Pariteit",
-		"parityDescription": "Waarderingen op basis van schaarste",
-		"speculation": "Speculatie",
-		"speculationDescription": "Hypothetische prijsscenario's",
-		"nano": "Nano",
-		"getNano": "Nano Kopen",
-		"getNanoDescription": "Kies een wallet en verkrijg XNO",
-		"getNanoDescriptionShort": "Kies een wallet en verkrijg XNO",
-		"swapToNano": "Wisselen naar Nano",
-		"swapToNanoDescription": "Wissel altcoins (BTC, ETH of andere crypto) naar XNO",
-		"swapToNanoDescriptionShort": "Wissel altcoins naar XNO",
-		"whyNano": "Waarom Nano?",
-		"whyNanoDescription": "Waarom het superieur geld is",
-		"whyNanoDescriptionShort": "Waarom het superieur geld is",
-		"closeMenu": "Menu sluiten",
-		"toggleMenu": "Menu wisselen",
-		"milestones": "Mijlpalen",
-		"milestonesDescription": "Marktkapitalisatieladder in elke valuta",
-		"decentralization": "Decentralisatie",
-		"decentralizationDescription": "Stemgewicht & live decentralisatiemetrieken",
-		"tools": "Tools",
-		"toolsDescription": "Converters & hulpmiddelen",
-		"toolUnitConverter": "Eenhedenconverter",
-		"toolUnitConverterDescription": "XNO naar raw en terug",
-		"toolPaymentLinks": "Betaallinks",
-		"toolPaymentLinksDescription": "QR-betaalverzoeken",
-		"toolAddressTools": "Adres-tools",
-		"toolAddressToolsDescription": "Valideer & leid sleutels af",
-		"toolAccountInspector": "Account-inspecteur",
-		"toolAccountInspectorDescription": "Saldo & stemgewicht",
-		"toolFeeComparison": "Nano vs BTC-kosten",
-		"toolFeeComparisonDescription": "Nul tegen Bitcoin-kosten",
-		"explorer": "Verkenner",
-		"explorerDescription": "Accounts en blokken zoeken"
-	},
-	"home": {
-		"marketLedger": "Marktregister",
-		"partnerSection": "Partners",
-		"xnoMarketCap": "XNO Marktkapitalisatie",
-		"xnoPrice": "XNO Prijs",
-		"xnoDominance": "XNO Dominantie",
-		"btcDominance": "BTC",
-		"ethDominance": "ETH",
-		"othersDominance": "Overige",
-		"clickToToggle": "Klik om te wisselen {options}",
-		"betweenBtcAndSatoshi": "tussen BTC en satoshi",
-		"units": "eenheden",
-		"clickToSwitchTimeframe": "Klik om periode te wisselen. Dominantieverandering benaderd op basis van prijswijzigingen.",
-		"live": "LIVE",
-		"lastSync": "LAATSTE SYNC",
-		"syncAgo": "{seconds}s GELEDEN",
-		"milestoneSection": "MIJLPALENTRACKER",
-		"milestoneNext": "VOLGENDE",
-		"milestoneToGo": "NOG",
-		"milestoneTooltipCap": "MARKETCAP",
-		"milestoneTooltipXno": "1 XNO",
-		"milestoneAll": "ALLE MIJLPALEN"
-	},
-	"marketTable": {
-		"loadingMarketData": "Marktgegevens laden...",
-		"rank": "#",
-		"name": "Naam",
-		"priceXno": "Prijs (XNO)",
-		"change1h": "1u %",
-		"change24h": "24u %",
-		"change7d": "7d %",
-		"marketCapXno": "Marktkapitalisatie (XNO)",
-		"volume24h": "24u Vol (XNO)"
-	},
-	"news": {
-		"title": "Nieuws",
-		"subtitle": "Blijf op de hoogte van het laatste Nano nieuws en platformupdates",
-		"readMore": "Lees meer",
-		"viewAll": "Bekijk al het nieuws",
-		"backToNews": "Terug naar Nieuws",
-		"noArticles": "Nog geen artikelen beschikbaar. Kom snel terug!",
-		"latestNews": "Nieuws",
-		"searchPlaceholder": "Artikelen zoeken...",
-		"searchButton": "Zoeken",
-		"tagsLabel": "Tags",
-		"sortLabel": "Sorteren",
-		"allTags": "Alle",
-		"sortNewest": "Nieuwste",
-		"sortOldest": "Oudste",
-		"sortTitle": "Titel",
-		"resultsCount": "{count, plural, one {# artikel} other {# artikelen}}",
-		"noResults": "Geen artikelen gevonden",
-		"noResultsDescription": "Probeer een andere zoekopdracht of verwijder enkele filters.",
-		"clearFilters": "Filters wissen",
-		"prevPage": "Vorige pagina",
-		"nextPage": "Volgende pagina",
-		"paginationLabel": "Paginering van nieuws",
-		"relatedArticles": "Gerelateerde artikelen",
-		"rssFeed": "RSS",
-		"rssFeedTitle": "Abonneren op de RSS-feed"
-	},
-	"coinDetail": {
-		"errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",
-		"rank": "Rang #{rank}",
-		"vs24h": "vs XNO (24u)",
-		"marketCap": "Marktkapitalisatie",
-		"volume24h": "24u Volume",
-		"circulatingSupply": "Circulerende Voorraad",
-		"maxSupply": "Maximale Voorraad",
-		"price": "Prijs",
-		"fdv": "Volledig verwaterde MC",
-		"diluted": "{ratio}× verwaterd"
-	},
-	"priceChart": {
-		"title": "{coin} Prijs in XNO",
-		"titleInverted": "XNO Prijs in {coin}",
-		"errorLoading": "Kan prijsgrafiek niet laden. Probeer het later opnieuw.",
-		"areaChart": "Vlakgrafiek",
-		"lineChart": "Lijngrafiek",
-		"invertChart": "Keer paar om",
-		"start": "Start",
-		"end": "Einde",
-		"change": "Verandering",
-		"low": "Laag",
-		"high": "Hoog",
-		"diff": "Versch.",
-		"spread": "Spreiding"
-	},
-	"marketCapVolumeChart": {
-		"title": "{coin} Marktkapitalisatie & Volume in XNO",
-		"titleInverted": "XNO in {coin} Marktkapitalisatie & Volume",
-		"invertChart": "Grafiek omkeren",
-		"errorLoading": "Kan grafiek niet laden. Probeer het later opnieuw.",
-		"marketCap": "Marktkapitalisatie",
-		"volume": "Volume",
-		"startMC": "Start MK",
-		"endMC": "Einde MK",
-		"marketCapChange": "MK Verandering",
-		"avgVolume": "Gem. Volume",
-		"minVolume": "Min Volume",
-		"maxVolume": "Max Volume",
-		"low": "Laag",
-		"high": "Hoog",
-		"diff": "Versch.",
-		"spread": "Spreiding",
-		"lineChart": "Lijngrafiek",
-		"areaChart": "Vlakgrafiek"
-	},
-	"dominance": {
-		"title": "Marktdominantie",
-		"description": "Hoe verhoudt XNO zich tot de giganten? Ontdek de marktaandeelverdeling in het crypto-landschap.",
-		"chartTitle": "Marktdominantie",
-		"distributionTitle": "Marktdominantie Verdeling",
-		"chartDescription": "Marktaandeel gewaardeerd in XNO • XNO Dominantie: {xnoDominance}%",
-		"tableTitle": "Dominantie Ranglijst",
-		"cryptocurrency": "Cryptocurrency",
-		"marketCapXno": "Marktkapitalisatie (XNO)",
-		"marketCap": "Marktkapitalisatie",
-		"dominanceLabel": "Dominantie",
-		"share": "Aandeel",
-		"others": "Overige"
-	},
-	"parity": {
-		"title": "Absolute Schaarste-pariteit",
-		"description": "Wat zou 1 XNO waard zijn als alle activa puur op hun schaarste werden gewaardeerd?",
-		"nanoScarcityParity": "Absolute Schaarste-pariteit",
-		"tableDescription": "Waarde gebaseerd op totale voorraadverhouding: 1 eenheid van Actief A = (Totale Voorraad van B) / (Totale Voorraad van A)",
-		"scarcityParityMatrix": "Schaarste-pariteit Matrix",
-		"keyTakeaway": "Belangrijkste Conclusie",
-		"keyTakeawayText": "Deze tabel weerspiegelt nauwkeurig de schaarste-hiërarchie. Elke XNO vertegenwoordigt een veel groter aandeel van zijn vaste netwerk dan een enkele Dollar of Euro vertegenwoordigt van hun oneindige en groeiende netwerken.",
-		"scarcityHierarchy": "schaarste-hiërarchie",
-		"blockquote": "Puur gebaseerd op absolute, niet-inflateerbare voorraad, is een enkele eenheid Nano fundamenteel schaarser dan een enkele eenheid van elk ander actief op deze lijst—inclusief Bitcoin en Goud. Dit is de kracht van een volledig gedistribueerde en absoluut vaste voorraad.",
-		"asset": "Actief",
-		"totalSupply": "Totale Voorraad",
-		"fiatCurrencies": "Fiat-valuta's",
-		"fiatCurrencySettings": "Fiat-valuta instellingen",
-		"selectCurrenciesToDisplay": "Selecteer welke valuta's worden weergegeven",
-		"xnoAmount": "XNO Bedrag",
-		"pressEnterToConfirm": "Druk op Enter om te bevestigen",
-		"clickToEdit": "Klik om te bewerken",
-		"clickOrScrollToEdit": "Klik of scroll om te bewerken",
-		"clickToEditXnoAmount": "Klik om XNO bedrag te bewerken",
-		"unboundedSupply": "Onbegrensde voorraad",
-		"fullyDistributed": "100% gedistribueerd",
-		"ofMax": "{percentage}% van max",
-		"noLimit": "geen limiet",
-		"approx": "circa ",
-		"toFixed": "naar vast ",
-		"liveData": "Live data",
-		"seoParagraph": "Nano heeft een vaste voorraad van 133.248.297 XNO, volledig verdeeld sinds de genesis. De pariteitscalculator herwaardeert elk asset uitsluitend op basis van schaarste, door elke totale voorraad te delen door dezelfde wereldwijde geldpool, om te laten zien wat 1 XNO waard zou zijn als alle markten op absolute schaarste draaiden."
-	},
-	"parityCalculator": {
-		"title": "Voorraad Calculator",
-		"description": "Bereken hoeveel van Nano's vaste voorraad je kunt verwerven met elk investeringsbedrag",
-		"currency": "Valuta",
-		"pricePerXNO": "Prijs per XNO",
-		"currentPrice": "Huidige prijs",
-		"amountToInvest": "Te investeren bedrag",
-		"perPerson": "Per persoon",
-		"numberOfPeople": "Aantal personen",
-		"person": "persoon",
-		"people": "personen",
-		"totalInvestment": "Totale Investering",
-		"totalXNO": "Totaal XNO",
-		"supplyPercentage": "Voorraad %",
-		"of": "van",
-		"holderTier": "Holder Categorie",
-		"tierLegendaryWhale": "Legendarische Walvis",
-		"tierMajorHolder": "Grote Houder",
-		"tierSignificantStack": "Significante Stack",
-		"tierNotableHolder": "Opmerkelijke Houder",
-		"tierGrowingStack": "Groeiende Stack",
-		"tierStartingOut": "Beginner",
-		"tierPlankton": "Plankton",
-		"tierDialogTitle": "Holder Categorieën Uitgelegd",
-		"tierDialogDescription": "Je categorie is gebaseerd op het percentage van Nano's vaste voorraad dat je per persoon zou bezitten.",
-		"tierThreshold": "{threshold}% van voorraad",
-		"tierThresholdBelow": "Onder {threshold}%",
-		"tierChartLabel": "Maximum houders bij elk bezitsniveau",
-		"tierChartXAxis": "% voorraad bezit",
-		"tierChartYAxis": "Max personen",
-		"tierChartPeople": "personen",
-		"supplyAcquired": "Verworven Voorraad",
-		"exceedsSupply": "Overschrijdt totale voorraad!",
-		"fixedSupply": "Vaste voorraad",
-		"funFact": "Leuk feit",
-		"funFactWhale": "Met {percentage}% van de voorraad zou je tot de grootste Nano-houders ter wereld behoren!",
-		"funFactNotable": "Je zou meer XNO bezitten dan ongeveer 1 op de {oneIn} mensen op aarde ooit zou kunnen hebben!",
-		"funFactStarting": "Elke {xno} telt! Nano's vaste voorraad betekent dat jouw aandeel nooit kan worden verwaterd.",
-		"realFact": "Echt feit",
-		"realFactComparison": "Je XNO-aandeel ({xnoPercentage}) is {ratio}× groter dan je {fiat}-aandeel ({fiatPercentage}) van de M0-geldhoeveelheid.",
-		"lockGuide": "Vergrendel waarden om ze vast te houden terwijl je andere aanpast. Maximaal 2 vergrendelingen toegestaan.",
-		"clickToLock": "Klik om deze waarde te vergrendelen",
-		"clickToUnlock": "Klik om deze waarde te ontgrendelen",
-		"pressEnterToConfirm": "Druk op Enter om te bevestigen",
-		"resetToMarket": "reset",
-		"seoParagraph": "Omdat de voorraad van Nano voor altijd is vastgesteld, vertegenwoordigt elke XNO die je bezit een permanent aandeel in het netwerk. Voer een investeringsbedrag in jouw valuta in om te zien hoeveel XNO het vandaag zou kopen en welk deel van de totale voorraad van 133.248.297 XNO dat is."
-	},
-	"speculationCalculator": {
-		"title": "Speculatie Calculator",
-		"description": "Bekijk wat je XNO-stack waard zou zijn bij verschillende marktkapitalisaties",
-		"yourStack": "Jouw XNO Stack",
-		"currency": "Valuta",
-		"currentValue": "Huidige waarde",
-		"compareWith": "Vergelijk met",
-		"useCustomMarketCap": "Aangepaste marktkapitalisatie gebruiken",
-		"ifXnoHadMarketCapOf": "Als XNO de marktkapitalisatie had van",
-		"xnoPrice": "XNO Prijs",
-		"yourStackValue": "Waarde van je Stack",
-		"multiplier": "Vermenigvuldiger",
-		"potentialGain": "Potentiële Winst",
-		"errorLoading": "Kan marktgegevens niet laden. Probeer het later opnieuw.",
-		"seoParagraph": "Marktkapitalisatie is simpelweg de prijs maal de totale voorraad, waardoor prijsdoelen makkelijk te doordenken zijn. Verschuif de marktkapitalisatie-schuifregelaar om te zien wat Nano per XNO waard zou zijn bij verschillende marktkapitalisaties, van conservatief tot extreem."
-	},
-	"speculation": {
-		"title": "Marktspeculatie",
-		"description": "Wat zou XNO waard zijn als het dezelfde marktkapitalisatie had als andere cryptocurrencies?",
-		"rank": "#",
-		"name": "Naam",
-		"marketCap": "Marktkapitalisatie",
-		"xnoPrice": "XNO Prijs",
-		"xnoPriceIf": "XNO Prijs als...",
-		"multiplier": "Vermenigvuldiger",
-		"selectCurrency": "Selecteer valuta"
-	},
-	"getNano": {
-		"title": "Nano kopen & wallet kiezen",
-		"heroBadge": "Nano starten",
-		"description1": "Je hebt een Nano wallet nodig om betalingen te ontvangen of te verzenden.",
-		"description2": "Kies een wallet die je vertrouwt, vul deze met Nano, en je bent klaar om te gaan.",
-		"swapToNano": "Wisselen naar Nano",
-		"learnAboutNano": "Meer over Nano",
-		"step1Badge": "Stap 1",
-		"step1Title": "Kies een wallet",
-		"step1Description": "Nano wallets bestaan op elk platform. Kies er een die past bij hoe je je fondsen wilt beheren.",
-		"mobile": "Mobiel",
-		"mobileDescription": "Natrium, Nautilus en Cake Wallet zijn snelle mobiele wallets voor iOS en Android.",
-		"desktopWeb": "Desktop/Web",
-		"desktopWebDescription": "Beheer fondsen in de browser met Nault voor snelle toegang vanaf elk apparaat. Cake Wallet is ook een geweldige optie voor desktop.",
-		"hardware": "Hardware",
-		"hardwareDescription": "Gebruik een Ledger Nano S/X met Nault voor cold storage ondersteuning.",
-		"ledgerViaNault": "Ledger via Nault",
-		"step2Badge": "Stap 2",
-		"step2Title": "Nano kopen",
-		"step2Description": "Zodra je een wallet hebt, verkrijg Nano om je account te vullen.",
-		"exchanges": "Exchanges",
-		"exchangesDescription": "Binance, Kraken, KuCoin en andere grote exchanges bieden Nano (XNO) aan.",
-		"swapServices": "Wissel-diensten",
-		"swapServicesDescription": "Wissel altcoins naar Nano met Nanswap, ChangeNOW of SimpleSwap.",
-		"faucets": "Faucets",
-		"faucetsDescription": "Probeer Nano gratis met community faucets die kleine bedragen uitdelen.",
-		"learnMoreGettingNano": "Meer informatie over Nano verkrijgen",
-		"newToNano": "Nieuw bij Nano?",
-		"newToNanoDescription": "Nano is een snelle, kostenloze cryptocurrency perfect voor microbetalingen. Het is milieuvriendelijk en transacties bevestigen in minder dan een seconde."
-	},
-	"swapNano": {
-		"title": "Direct wisselen naar Nano",
-		"description1": "Wissel altcoins naar Nano via een compatibele wissel-aanbieder.",
-		"description2": "Nano transacties bevestigen in minder dan een seconde, zodat je je fondsen direct na het wisselen kunt gebruiken.",
-		"needWalletFirst": "Eerst een wallet nodig?",
-		"swapWithNanswap": "Wisselen met Nanswap",
-		"nanswapDescription": "Nanswap ondersteunt snelle conversies van tientallen valuta's naar Nano (XNO). Voer het bedrag in dat je wilt wisselen, stuur je crypto, en ontvang Nano direct in je wallet.",
-		"disclaimer": "Nanswap is een externe dienst en niet verbonden met NanoMarketCap. Controleer altijd adressen en doe je eigen onderzoek voordat je wisselt.",
-		"feeless": "Kosteloos",
-		"swapCoins": "Coins wisselen",
-		"swapComplete": "Wissel Voltooid!",
-		"yourCurrencySent": "Je {currency} is naar je wallet verzonden.",
-		"processingSwap": "Wissel wordt verwerkt",
-		"sendCurrencyToAddress": "Stuur je {currency} naar het onderstaande adres",
-		"status": "Status",
-		"waiting": "wachtend",
-		"youSend": "Je stuurt",
-		"youReceive": "Je ontvangt",
-		"orderId": "Order-ID",
-		"sendToAddress": "Stuur {currency} naar dit adres:",
-		"paymentTx": "Betaling TX:",
-		"payoutTx": "Uitbetaling TX:",
-		"newSwap": "Nieuwe Wissel",
-		"min": "Min:",
-		"max": "Max:",
-		"noLimit": "Geen limiet",
-		"destinationAddress": "Bestemmingsadres",
-		"yourAddressPlaceholder": "Je {currency} adres",
-		"memoExtraId": "Memo / Extra ID (indien vereist)",
-		"optional": "Optioneel",
-		"creatingOrder": "Order aanmaken...",
-		"swap": "Wisselen",
-		"poweredBy": "Mogelijk gemaakt door",
-		"minAmountError": "Minimumbedrag is {min} {currency}",
-		"maxAmountError": "Maximumbedrag is {max} {currency}",
-		"consentGate": {
-			"title": "Widget voor Derden",
-			"description": "Deze widget laadt inhoud van nanswap.com, een dienst van derden die cookies kan plaatsen en uw gegevens kan verwerken volgens hun eigen privacybeleid.",
-			"privacyNote": "Door deze widget te laden, stemt u in met de verwerking van uw gegevens door Nanswap overeenkomstig hun voorwaarden.",
-			"loadButton": "Wisselwidget Laden"
-		}
-	},
-	"whyNano": {
-		"hero": {
-			"titlePart1": "De Betalingslaag voor",
-			"titleHighlight": "Autonome Machines",
-			"description1": "Nano is de enige valuta met nul kosten, sub-seconde finaliteit en geen smart-contract complexiteit — speciaal ontwikkeld voor de machine-economie waarin AI-agenten autonoom transacties uitvoeren.",
-			"description2": "Van LLM-tokenfacturering tot het x402-betalingsprotocol biedt Nano agenten een wrijvingsloze waardelaag die traditionele financiën en blockchain-netwerken niet kunnen evenaren.",
-			"learnAboutNano": "Meer over Nano"
-		},
-		"features": {
-			"title": "Waarom Agenten Nano Kiezen",
-			"subtitle": "Geoptimaliseerd voor hoogfrequente, laag-latente, autonome transacties.",
-			"instantSettlement": {
-				"title": "Directe Kosteloze Afhandeling",
-				"instantLabel": "Direct:",
-				"instantText": "Nano wordt in minder dan 500ms afgewikkeld — agenten wachten niet op blokbevestigingen. Realtime waardevoor overdracht voor realtime-inferentie, API-aanroepen en autonome besluitvorming.",
-				"feelessLabel": "Kosteloos:",
-				"feelessText": "Verzend 0,000001$ economisch. Elke microbetaling is levensvatbaar — perfect voor LLM-tokenfacturering, streaming-computerkosten en pay-per-tool gebruik.",
-				"decentralizedLabel": "Gedecentraliseerd:",
-				"decentralizedText": "Geen centrale autoriteit kan fondsen bevriezen of transacties censureren. Agenten opereren met volledige financiële autonomie, gegarandeerd door gedecentraliseerde consensus."
-			},
-			"agentNative": {
-				"title": "Agent-Natief",
-				"description": "Eenvoudige, lichtgewicht RPCs. Geen complexe smart contracts om te auditen, geen gas om te schatten, geen nonces om te beheren."
-			},
-			"x402Protocol": {
-				"title": "x402 Protocol",
-				"description": "De HTTP-standaard voor betaalplichtige bronnen. Agenten kunnen autonoom betalen/factureren voor elke API, databron of tooltoegang."
-			},
-			"sustainableCompute": {
-				"title": "Duurzame Computing",
-				"description": "AI-training is energie-intensief — betalingen zouden dat niet moeten zijn. Nano verbruikt verwaarloosbare energie per transactie en voegt geen CO2-voetafdruk toe aan je stack."
-			},
-			"mcpIntegration": {
-				"title": "MCP Integratie",
-				"description": "Biedt directe toegang tot Nano RPCs. AI-agenten kunnen saldi opvragen, transacties verzenden en het netwerk programmatisch monitoren."
-			}
-		},
-		"x402": {
-			"title": "x402 in Actie",
-			"subtitle": "Hoe AI-agenten in realtime betalen voor bronnen met het HTTP 402-protocol en Nano.",
-			"apiPaymentFlow": {
-				"title": "API-Betalingsstroom per Oproep",
-				"description": "API's reageren met HTTP 402 en betalingsdetails. De agent betaalt met Nano, voegt het bewijs toe, en krijgt direct toegang — geen API-sleutels of abonnementen nodig."
-			},
-			"llmBilling": {
-				"title": "LLM-Facturering per Prompt",
-				"description": "Betaal per inferentie-oproep in plaats van maandelijkse abonnementen. Agenten besteden alleen aan wat ze gebruiken — elke prompt is een enkele direct bevestigde kosteloze transactie."
-			}
-		},
-		"workflow": {
-			"title": "Workflow-Automatisering",
-			"subtitle": "Integreer Nano in n8n-workflows, automatiseer kosteloze betalingsworkflows."
-		},
-		"howItWorks": {
-			"title": "Hoe Nano Werkt",
-			"subtitle": "Een unieke architectuur ontworpen voor directe, kosteloze waardevoor overdracht.",
-			"step1": {
-				"badge": "Stap 1",
-				"title": "Je Eigen Blockchain",
-				"description": "Elk account heeft zijn eigen blockchain (account-chain). Geen gedeelde status, geen conflicten, geen knelpunten — onbeperkte doorvoer door ontwerp."
-			},
-			"step2": {
-				"badge": "Stap 2",
-				"title": "Asynchrone Transfers",
-				"description": "Transacties splitsen in onafhankelijke verzend- en ontvangstblokken. Beide partijen handelen op hun eigen keten — geen wachten op de andere kant."
-			},
-			"step3": {
-				"badge": "Stap 3",
-				"title": "Directe Consensus",
-				"description": "Open Representative Voting (ORV) bevestigt transacties in minder dan 1 seconde. Geen mining, geen staking — alleen lichtgewicht stemmen met minimale energie."
-			}
-		},
-		"comparison": {
-			"title": "Hoe Nano zich Vergelijkt",
-			"metric": "Metriek",
-			"nano": "Nano (XNO)",
-			"bitcoin": "Bitcoin",
-			"tether": "Tether (USDT)",
-			"latency": "Latentie",
-			"latencyNano": "< 1s",
-			"latencyBitcoin": "10 – 60 min",
-			"latencyTether": "1 – 30s",
-			"txFees": "Tx-kosten",
-			"feesNano": "Geen",
-			"feesBitcoin": "1$ – 50$",
-			"feesTether": "0,02$ – 3$",
-			"architecture": "Architectuur",
-			"archNano": "Asynchrone Block-Lattice",
-			"archBitcoin": "PoW Blockchain",
-			"archTether": "Gecentraliseerde Token",
-			"energy": "Energie / Tx",
-			"energyNano": "0,111 Wh",
-			"energyBitcoin": "707 kWh",
-			"energyTether": "Host-chain",
-			"availability": "Beschikbaarheid",
-			"availabilityNano": "24/7",
-			"availabilityBitcoin": "24/7",
-			"availabilityTether": "24/7, censureerbaar"
-		},
-		"supply": {
-			"title": "Voorraad & Distributie",
-			"subtitle": "Eerlijk, vast en volledig gedistribueerd vanaf dag één.",
-			"fixedSupply": {
-				"title": "Vaste Voorraad",
-				"value": "133.248.297",
-				"description": "Het totale aantal XNO dat ooit zal bestaan. Gedefinieerd bij de genesis, onveranderlijk voor altijd."
-			},
-			"fullyDistributed": {
-				"title": "Volledig Gedistribueerd",
-				"value": "100%",
-				"description": "Alle XNO gedistribueerd via een gratis CAPTCHA-faucet. Geen ICO, geen pre-mining, geen insider-toewijzing."
-			},
-			"zeroInflation": {
-				"title": "Nul Inflatie",
-				"value": "0%",
-				"description": "Er kunnen nooit nieuwe XNO worden gecreëerd. Geen inflatie, geen verdunning — jouw aandeel van de voorraad is permanent."
-			}
-		},
-		"beyondAI": {
-			"title": "Verder dan AI",
-			"subtitle": "Nano is niet alleen voor machines — het is een universele valuta voor iedereen die snelheid, eenvoud en nul kosten waardeert.",
-			"p2pPayments": {
-				"title": "P2P-Betalingen",
-				"description": "Verzend waarde naar iedereen, overal, direct en zonder kosten."
-			},
-			"globalAccess": {
-				"title": "Wereldwijde Toegang",
-				"description": "Sla correspondentiebanken over. Internationale afwikkeling in minder dan een seconde."
-			},
-			"pointOfSale": {
-				"title": "Point of Sale",
-				"description": "Accepteer betalingen met nul verwerkingskosten en directe bevestiging."
-			},
-			"iotMicropayments": {
-				"title": "IoT-Microbetalingen",
-				"description": "Machines die machines betalen — sensoren, meters en apparaten die autonoom transacties uitvoeren."
-			}
-		},
-		"developerResources": {
-			"title": "Ontwikkelaarsbronnen",
-			"subtitle": "Alles wat je nodig hebt om te beginnen met bouwen met Nano.",
-			"nanoDocs": {
-				"title": "Nano Documentatie",
-				"description": "Officiële protocol-documentatie, RPC-referentie en integratie-guides."
-			},
-			"x402Nano": {
-				"title": "x402 Nano",
-				"description": "Referentie-implementatie voor x402-betalingsprotocol-integratie met Nano."
-			},
-			"nanoSdk": {
-				"title": "Nano SDK",
-				"description": "TypeScript SDK voor Nano RPC-commando's met volledige typeveiligheid en IntelliSense."
-			},
-			"tsNanocurrency": {
-				"title": "TS Nanocurrency",
-				"description": "Uitgebreide JavaScript/TypeScript toolkit voor Nano-ontwikkeling."
-			},
-			"nanoCasa": {
-				"title": "Nano Casa",
-				"description": "Volg ontwikkelingsactiviteit en ontdek projecten in het Nano-ecosysteem."
-			},
-			"n8nNode": {
-				"title": "n8n Node",
-				"badge": "Beschikbaar",
-				"description": "Officiële n8n Community Node voor Nano RPC-commando's. Bouw visuele workflows met native Nano-integratie."
-			}
-		},
-		"faq": {
-			"title": "Veelgestelde Vragen",
-			"q1": {
-				"question": "Is Nano echt kosteloos?",
-				"answer": "Ja. Er zijn geen transactiekosten van welke aard dan ook. Nano gebruikt een lichtgewicht proof-of-work aan de client-kant om spam te beperken — maar dit kost de afzender niets. Elke raw-eenheid die je verzendt is precies wat de ontvanger ontvangt."
-			},
-			"q2": {
-				"question": "Hoe snel is Nano?",
-				"answer": "Typische transacties worden bevestigd in minder dan 1 seconde. Nano's block-lattice-architectuur en Open Representative Voting (ORV) consensus elimineren de noodzaak van mining of blokintervallen en maken bijna directe finaliteit mogelijk."
-			},
-			"q3": {
-				"question": "Wat is x402?",
-				"answer": "x402 is een protocol gebaseerd op de HTTP 402 \"Betaling Vereist\" statuscode. Wanneer een AI-agent een betaalde bron aanvraagt, reageert de server met betalingsdetails. De agent verzendt Nano, probeert het verzoek opnieuw met betalingsbewijs en ontvangt de bron — alles zonder menselijke tussenkomst."
-			},
-			"q4": {
-				"question": "Is Nano gedecentraliseerd?",
-				"answer": "Ja. Nano gebruikt Open Representative Voting (ORV) waarbij accounthouders hun stemgewicht delegeren aan vertegenwoordigers naar keuze. Iedereen kan een representative-node draaien, en geen enkele entiteit controleert het netwerk. Het stemgewicht is verdeeld over honderden onafhankelijke vertegenwoordigers."
-			},
-			"q5": {
-				"question": "Hoe begin ik met bouwen met Nano?",
-				"answer": "Bezoek <link>docs.nano.org</link> voor de protocol-specificatie en RPC-referentie. Je kunt je eigen Nano-node draaien, openbare RPC-endpoints gebruiken, of integreren via Nano MCP-servers voor AI-agenten-workflows. Client-bibliotheken zijn beschikbaar voor Python, JavaScript, Rust en meer."
-			}
-		},
-		"cta": {
-			"title": "Klaar om Nano te integreren?",
-			"description": "Haal een wallet, wissel je eerste XNO en begin de machinebetalingsinfrastructuur van de toekomst te bouwen.",
-			"getNano": "Nano Krijgen",
-			"swapToXno": "Wisselen naar XNO"
-		}
-	},
-	"partners": {
-		"badge": "Partnerprogramma",
-		"getPromoted": {
-			"badge": "Laat je Promoten",
-			"title": "Laat je Promoten!",
-			"subtitle": "Jouw Bedrijf Hier",
-			"description": "Laat je bedrijf zien in deze spotlight. Bereik duizenden Nano-gebruikers. Klik om meer te leren."
-		},
-		"heroTitle": "Groei met NanoMarketCap",
-		"heroDescription": "Zet je project voor de meest betrokken Nano-community. Bereik duizenden dagelijkse gebruikers die XNO leven en ademen.",
-		"benefits": {
-			"globalReach": {
-				"title": "Pionier",
-				"description": "Wees een van de eerste partners terwijl NanoMarketCap groeit, prominent boven aan onze homepage en op je eigen partnerpagina."
-			},
-			"instantSetup": {
-				"title": "Directe Setup",
-				"description": "Live in minder dan 24 uur. Eenvoudige XNO-betaling, geen contracten."
-			},
-			"trust": {
-				"title": "Vertrouwen & Autoriteit",
-				"description": "Lijn je merk uit met een vertrouwde bron in het Nano-ecosysteem."
-			}
-		},
-		"stats": {
-			"title": "Waarom Partner?",
-			"visitors": {
-				"value": "Limited",
-				"label": "Plekken"
-			},
-			"focus": {
-				"value": "100%",
-				"label": "Nano Focus"
-			}
-		},
-		"contact": {
-			"text": "Liever e-mail? Contacteer ons op",
-			"email": "partners@nanomarketcap.com"
-		},
-		"form": {
-			"title": "Start Je Partnerschap",
-			"description": "Vul de gegevens hieronder in om een aanvraag te genereren. We nemen binnen 24 uur contact met je op.",
-			"fields": {
-				"name": {
-					"label": "Contactnaam",
-					"placeholder": "John Doe",
-					"error": "Naam is verplicht"
-				},
-				"email": {
-					"label": "E-mail",
-					"placeholder": "john@example.com",
-					"error": "Ongeldig e-mailadres"
-				},
-				"project": {
-					"label": "Projectnaam",
-					"placeholder": "My Awesome Nano App",
-					"error": "Projectnaam is verplicht"
-				},
-				"website": {
-					"label": "Website-URL",
-					"placeholder": "https://",
-					"error": "Ongeldige URL"
-				},
-				"description": {
-					"label": "Campagnedetails",
-					"placeholder": "Vertel ons wat je wilt promoten...",
-					"error": "Geef een korte beschrijving op"
-				}
-			},
-			"submit": {
-				"loading": "Voorbereiden...",
-				"button": "Verstuur Verzoek"
-			}
-		}
-	},
-	"about": {
-		"title": "Over NanoMarketCap",
-		"description": "Informatie over de NanoMarketCap website",
-		"intro": "is een marktkapitalisatie tracker voor cryptocurrencies die Nano (XNO) centraal stelt.",
-		"perspective": "In tegenstelling tot traditionele trackers die fiat als basisvaluta gebruiken, draaien wij het perspectief om: alle prijzen, marktkapitalisaties en dominantie-statistieken worden berekend relatief aan XNO.",
-		"keyFeatures": "Belangrijkste Functies:",
-		"feature1": "Marktkapitalisaties gewaardeerd in XNO",
-		"feature2": "24u prijsveranderingen relatief aan XNO prestaties",
-		"feature3": "XNO dominantie tracking",
-		"feature4": "Schaarste-pariteit vergelijker",
-		"feature5": "Speculatietabel om XNO prijs bij verschillende marktkapitalisaties te bekijken",
-		"dataSource": "Data wordt geleverd door CoinGecko API."
-	},
-	"currencySettings": {
-		"title": "Weergave-instellingen",
-		"description": "Kies valuta's om weer te geven",
-		"primaryFiat": "Primaire Fiat",
-		"secondaryFiat": "Secundaire Fiat",
-		"cryptoReference": "Crypto Referentie",
-		"currencySettings": "Valuta-instellingen"
-	},
-	"error": {
-		"somethingWentWrong": "Er ging iets mis",
-		"pageLoadError": "Er is een fout opgetreden bij het laden van deze pagina. Probeer het opnieuw.",
-		"errorId": "Fout-ID: {digest}",
-		"failedToLoadMarketData": "Marktgegevens laden mislukt",
-		"unableToLoadMarketData": "Kan marktgegevens niet laden",
-		"unexpectedError": "Er is een onverwachte fout opgetreden bij het ophalen van marktgegevens.",
-		"failedToLoadDominance": "Dominantie-gegevens laden mislukt",
-		"dominanceLoadError": "We konden de marktdominantie-informatie niet laden. Probeer het opnieuw.",
-		"failedToLoadSpeculation": "Speculatie-gegevens laden mislukt",
-		"speculationLoadError": "We konden de XNO prijsprognoses niet berekenen. Probeer het opnieuw.",
-		"tryAgain": "Probeer opnieuw",
-		"retry": "Opnieuw"
-	},
-	"donation": {
-		"supportUs": "Steun Ons",
-		"supportNanoMarketCap": "Steun NanoMarketCap",
-		"donationGoal": "Donatiedoel",
-		"goalModeDescription": "Help ons elke mijlpaal te ontgrendelen en dit project open source te maken",
-		"regularModeDescription": "Je donatie helpt dit project draaiende te houden",
-		"overallProgress": "Totale Voortgang",
-		"paymentReceived": "Betaling Ontvangen!",
-		"thankYouGoalMode": "Bedankt voor je gulle donatie. Je helpt NanoMarketCap open source te maken!",
-		"thankYouRegularMode": "Bedankt voor je gulle donatie. Je steun houdt dit project draaiende!",
-		"donateAgain": "Opnieuw Doneren",
-		"viewWallet": "Bekijk Wallet",
-		"howWillBeUsed": "Hoe wordt je donatie gebruikt?",
-		"usageHosting": "Hosting- en infrastructuurkosten",
-		"usageDeveloper": "Ondersteuning van de ontwikkelaar",
-		"usageTools": "Bouwen van meer XNO tools",
-		"selectAmount": "Selecteer donatiebedrag (XNO)",
-		"customAmount": "Aangepast bedrag",
-		"scanToSend": "Scan met je Nano wallet om te verzenden",
-		"listeningForPayment": "Luisteren naar betaling...",
-		"connecting": "Verbinden...",
-		"walletAddress": "Donatie wallet-adres:",
-		"viewOnBlocklattice": "Bekijk op Blocklattice",
-		"milestones": {
-			"development": {
-				"title": "Ontwikkelingskosten",
-				"reward1": "Vergoeding voor ontwikkeltijd",
-				"reward2": "Initiële hosting & infrastructuur",
-				"reward3": "LLM token-gebruik voor code-generatie"
-			},
-			"maintenance": {
-				"title": "Onderhoudsfonds",
-				"reward1": "Fulltime XNO commitment voor een jaar",
-				"reward2": "Hosting + API kosten",
-				"reward3": "Bugfixes & verbeteringen"
-			},
-			"opensource": {
-				"title": "Open Source",
-				"reward1": "Volledige broncode op GitHub",
-				"reward2": "Eén-klik gratis host deployment",
-				"reward3": "Community-gedreven ontwikkeling"
-			}
-		}
-	},
-	"footer": {
-		"description": "Realtime Nano (XNO) marktgegevens, prijsvergelijkingen en tools voor de Nano-community.",
-		"explore": "Verkennen",
-		"resources": "Bronnen",
-		"community": "Community",
-		"legal": "Juridisch",
-		"rights": "Alle rechten voorbehouden.",
-		"madeWith": "Gemaakt met",
-		"forNano": "voor Nano",
-		"links": {
-			"market": "Marktoverzicht",
-			"dominance": "Dominantie",
-			"parity": "Pariteit",
-			"speculation": "Speculatie",
-			"milestones": "Mijlpalen",
-			"getNano": "Nano Krijgen",
-			"swapNano": "Wisselen naar Nano",
-			"whyNano": "Waarom Nano?",
-			"calculators": "Rekenmachines",
-			"nanoOrg": "Nano.org",
-			"docs": "Documentatie",
-			"hub": "Nano Hub",
-			"privacy": "Privacybeleid",
-			"terms": "Gebruiksvoorwaarden",
-			"cookies": "Cookiebeleid",
-			"disclaimer": "Disclaimer",
-			"imprint": "Impressum"
-		}
-	},
-	"legal": {
-		"lastUpdated": "Laatst bijgewerkt: {date}",
-		"privacy": {
-			"title": "Privacybeleid",
-			"intro": "NanoMarketCap (\"wij\", \"ons\") zet zich in voor de bescherming van uw privacy. Dit Privacybeleid legt uit hoe wij informatie verzamelen, gebruiken en beschermen wanneer u onze website bezoekt.",
-			"sections": {
-				"dataCollected": {
-					"title": "1. Informatie die Wij Verzamelen",
-					"description": "Wij verzamelen de minimale hoeveelheid gegevens die nodig is om de dienst te laten werken:",
-					"ipAddresses": {
-						"title": "IP-adressen (Serverzijde, Efemeer)",
-						"description": "Wij verwerken uw IP-adres tijdelijk voor snelheidsbeperking (max. 60 verzoeken/minuut per IP). Deze gegevens worden alleen in het servergeheugen bewaard, nooit op schijf of in een database geschreven, en worden elke 5 minuten automatisch gewist. IP-adressen worden geëtraheerd uit de x-forwarded-for of x-real-ip verzoekheaders."
-					},
-					"localStorage": {
-						"title": "Lokale Opslagvoorkeuren (Clientzijde)",
-						"description": "Wij slaan de volgende gebruikersvoorkeuren op in de lokale opslag van uw browser om uw weergave-instellingen tussen sessies te onthouden:",
-						"items": {
-							"primaryFiat": "Primaire fiatvaluta (standaard: USD)",
-							"secondaryFiat": "Secundaire fiatvaluta (standaard: EUR)",
-							"cryptoRef": "Referentie cryptovaluta (standaard: bitcoin)",
-							"parityFiat": "Fiat-selectie Pariteitspagina (standaard: USD, EUR)",
-							"theme": "Themavoorkeur (licht/donker/systeem)"
-						}
-					},
-					"cookies": {
-						"title": "Cookies",
-						"description": "Wij plaatsen geen tracking- of advertentiecookies. De volgende functionele cookies kunnen automatisch door onze technologiestack worden geplaatst:",
-						"items": {
-							"locale": "NEXT_LOCALE — Slaat uw taalvoorkeur op voor de site",
-							"theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus",
-							"compareCoins": "xno_compare_coins · Bewaart je vastgezette vergelijkingsmunten op de account-explorerpagina (max 6, vervalt na 1 jaar). Puur functioneel, geen tracking."
-						}
-					}
-				},
-				"noTracking": {
-					"title": "2. Wat Wij NIET Verzamelen",
-					"description": "Wij gebruiken geen analyse-, tracking- of advertentiediensten. Geen Google Analytics, Facebook Pixel, fingerprinting of gedragsprofilering. Wij verzamelen geen persoonlijke informatie zoals namen, e-mailadressen of betalingsgegevens via de website."
-				},
-				"thirdParty": {
-					"title": "3. Diensten van Derden",
-					"description": "Wij integreren de volgende diensten van derden, elk met hun eigen privacybeleid:",
-					"coingecko": {
-						"title": "CoinGecko API",
-						"description": "Marktgegevens worden serverzijde opgehaald met onze API-sleutel. Er worden geen gebruikersgegevens naar CoinGecko verzonden."
-					},
-					"nanswap": {
-						"title": "Nanswap",
-						"description": "De wisselpagina integreert een Nanswap iframe. Wanneer u met de Nanswap-widget interacteert, worden uw gegevens (wisselbedragen, walletadressen) rechtstreeks door Nanswap verwerkt volgens hun privacybeleid. Onze integratie bevat een affiliate-verwijzingsidentificatie."
-					},
-					"fonts": {
-						"title": "Lettertypen (Zelf-gehost)",
-						"description": "Lettertypen worden tijdens het bouwen zelf gehost via Next.js lettertypeoptimalisatie. Er worden geen runtime-verbindingen naar Google-servers gemaakt en er worden geen gebruikersgegevens naar Google verzonden."
-					},
-					"imageCdns": {
-						"title": "Afbeeldings-CDN's",
-						"description": "Logo's en afbeeldingen van cryptovaluta worden geladen vanaf CoinGecko en Nanswap CDN's, die standaard webverzoekgegevens kunnen registreren."
-					}
-				},
-				"legalBasis": {
-					"title": "4. Rechtsgrond voor Verwerking (AVG)",
-					"description": "Onder de Algemene Verordening Gegevensbescherming (AVG) zijn onze rechtsgronden voor gegevensverwerking:",
-					"items": {
-						"legitimateInterest": "Gerechtvaardigd belang — Snelheidsbeperking om onze dienst tegen misbruik te beschermen (verwerking van IP-adressen)",
-						"functionalCookies": "Strikt noodzakelijk — Functionele cookies (taal, thema) zijn vereist voor de normale werking van de site en zijn vrijgesteld van toestemming onder de ePrivacy-richtlijn",
-						"consent": "Toestemming — Uw browservoorkeuren opgeslagen in lokale opslag worden nooit naar onze servers verzonden. De Nanswap-wisselwidget wordt alleen geladen na uw uitdrukkelijke toestemming"
-					}
-				},
-				"dataRights": {
-					"title": "5. Uw Rechten",
-					"description": "Onder de toepasselijke gegevensbeschermingswetten (waaronder de AVG) hebt u recht op:",
-					"items": {
-						"access": "Inzage — Informatie opvragen over de gegevens die wij over u verwerken",
-						"rectification": "Rectificatie — Correctie vragen van onjuiste gegevens die wij over u bewaren",
-						"erasure": "Wissing — Verwijdering vragen van alle gegevens die wij over u bewaren",
-						"restriction": "Beperking — Verzoeken om de manier waarop wij uw gegevens verwerken te beperken",
-						"portability": "Overdraagbaarheid — Uw gegevens ontvangen in een draagbaar formaat",
-						"objection": "Bezwaar — Bezwaar maken tegen gegevensverwerking op basis van gerechtvaardigd belang",
-						"withdrawConsent": "Intrekking van toestemming — U kunt uw toestemming op elk moment intrekken door de cookies en lokale opslag van uw browser te wissen"
-					},
-					"note": "Aangezien wij minimale gegevens verzamelen (efemere IP-verwerking en browservoorkeurinstellingen), worden de meeste van deze rechten standaard vervuld. U kunt alle lokaal opgeslagen voorkeuren op elk moment wissen via uw browserinstellingen."
-				},
-				"supervisoryAuthority": {
-					"title": "6. Recht om een Klacht in te Dienen",
-					"description": "U hebt het recht om een klacht in te dienen bij een toezichthoudende autoriteit voor gegevensbescherming, met name in de EU-lidstaat van uw gebruikelijke verblijfplaats, werkplek of plaats van de vermeende inbreuk.",
-					"cnil": "In Frankrijk is de toezichthoudende autoriteit de CNIL (Commission Nationale de l'Informatique et des Libertés).",
-					"cnilLink": "https://www.cnil.fr",
-					"note": "U kunt ook contact opnemen met uw lokale gegevensbeschermingsautoriteit als u zich in een ander EU/EER-land bevindt."
-				},
-				"dataBreach": {
-					"title": "7. Melding van Datalekken",
-					"description": "In het geval van een inbreuk op persoonsgegevens die een risico vormt voor uw rechten en vrijheden, zullen wij de bevoegde toezichthoudende autoriteit binnen 72 uur na kennisneming op de hoogte stellen, zoals vereist door Artikel 33 van de AVG. Als de inbreuk kan leiden tot een hoog risico voor uw rechten en vrijheden, zullen wij ook de getroffen personen zonder onnodige vertraging informeren."
-				},
-				"internationalTransfers": {
-					"title": "8. Internationale Gegevensoverdracht",
-					"description": "Onze website wordt gehost door Vercel Inc. (Verenigde Staten). Serverzijde API-aanroepen worden gedaan naar CoinGecko (wereldwijd CDN). Deze overdrachten vinden plaats in overeenstemming met de toepasselijke gegevensbeschermingsregelgeving, inclusief het EU-VS Data Privacy Framework waar van toepassing. Wij dragen alleen gegevens over die strikt noodzakelijk zijn voor de werking van de dienst (efemere IP-adressen voor snelheidsbeperking). Er worden geen persoonlijke gegevens buiten de EU opgeslagen, behalve transistoire serververwerking."
-				},
-				"dataRetention": {
-					"title": "9. Gegevensbewaring",
-					"description": "IP-snelheidsbeperkingsgegevens: Automatisch elke 5 minuten uit het servergeheugen gewist. Lokale opslaggegevens: Blijven in uw browser totdat u ze wist. Wij onderhouden geen gebruikersdatabase of persistente gegevensopslag."
-				},
-				"children": {
-					"title": "10. Privacy van Minderjarigen",
-					"description": "Onze dienst is niet gericht op personen jonger dan 16 jaar. Wij verzamelen niet bewust informatie van minderjarigen. Als u denkt dat wij onbedoeld gegevens over een minderjarige onder 16 jaar hebben verzameld, neem dan contact met ons op en wij zullen deze onmiddellijk verwijderen."
-				},
-				"changes": {
-					"title": "11. Wijzigingen in dit Beleid",
-					"description": "Wij kunnen dit Privacybeleid van tijd tot tijd bijwerken. Wijzigingen worden op deze pagina gepubliceerd met een bijgewerkte herzieningsdatum. Voortgezet gebruik van de site na wijzigingen vormt acceptatie."
-				},
-				"contact": {
-					"title": "12. Contact",
-					"description": "Voor privacygerelateerde vragen kunt u contact met ons opnemen via:"
-				}
-			}
-		},
-		"terms": {
-			"title": "Gebruiksvoorwaarden",
-			"intro": "Door NanoMarketCap (de \"Dienst\") te openen en te gebruiken, stemt u ermee in gebonden te zijn aan deze Gebruiksvoorwaarden. Als u niet akkoord gaat, gebruik de Dienst dan niet.",
-			"sections": {
-				"eligibility": {
-					"title": "1. Geschiktheid",
-					"description": "Door de Dienst te gebruiken, verklaart u dat u ten minste 16 jaar oud bent en juridisch bevoegd bent om deze Voorwaarden te accepteren. Als u jonger bent dan 16 jaar, mag u de Dienst niet gebruiken."
-				},
-				"serviceDescription": {
-					"title": "2. Beschrijving van de Dienst",
-					"description": "NanoMarketCap is een platform voor het aggregeren van cryptovaluta-marktgegevens dat het volgende biedt:",
-					"items": {
-						"marketData": "Realtime en historische marktgegevens voor Nano (XNO) en andere cryptovaluta, afkomstig van CoinGecko",
-						"tools": "Analytische tools waaronder dominantiediagrammen, schaarstepariteitsvergelijkingen en speculatierekenmachines",
-						"swapAccess": "Toegang tot wisselservices voor cryptovaluta van derden via een geïntegreerde Nanswap-widget",
-						"educational": "Educatieve inhoud over Nano, het x402-protocol en cryptovaluta in het algemeen",
-						"donations": "Een vrijwillig donatiesysteem ter ondersteuning van de voortdurende ontwikkeling"
-					}
-				},
-				"noFinancialAdvice": {
-					"title": "3. Geen Financieel Advies",
-					"description": "Niets op deze website vormt financieel, beleggings-, fiscaal of juridisch advies. Alle marktgegevens, prijsberekeningen, speculatiescenario's en pariteitsvergelijkingen worden uitsluitend verstrekt voor informatieve en educatieve doeleinden. U dient een gekwalificeerd financieel adviseur te raadplegen voordat u beleggingsbeslissingen neemt. Beleggingen in cryptovaluta brengen aanzienlijke risico's met zich mee, waaronder de mogelijkheid van totaal verlies."
-				},
-				"dataAccuracy": {
-					"title": "4. Nauwkeurigheid van Gegevens",
-					"description": "Marktgegevens zijn afkomstig van CoinGecko en andere externe leveranciers. Hoewel wij streven naar nauwkeurigheid, geven wij geen garanties of verklaringen over de volledigheid, nauwkeurigheid, betrouwbaarheid of actualiteit van de weergegeven gegevens. Prijzen, marktkapitalisaties, volumes en afgeleide berekeningen (speculatie, pariteit) kunnen vertraagd, onnauwkeurig of onvolledig zijn."
-				},
-				"thirdPartyServices": {
-					"title": "5. Diensten van Derden",
-					"description": "De Dienst integreert diensten van derden waaronder Nanswap (cryptovalutawissels), CoinGecko (marktgegevens) en Nano-netwerknodes. Deze diensten worden beheerst door hun eigen voorwaarden en privacybeleid. Wij zijn niet verantwoordelijk voor de beschikbaarheid, nauwkeurigheid of het gedrag van enige dienst van derden. De Nanswap-integratie bevat een affiliate-verwijzingsidentificatie."
-				},
-				"donations": {
-					"title": "6. Donaties",
-					"description": "Donaties zijn vrijwillige bijdragen in Nano (XNO) cryptovaluta ter ondersteuning van de ontwikkeling en het onderhoud van NanoMarketCap. Door een donatie te doen, erkent u dat:",
-					"items": {
-						"voluntary": "Donaties geheel vrijwillig zijn en geen rechten, privileges of eigendom verlenen",
-						"nonRefundable": "Cryptovalutatransacties onomkeerbaar zijn — donaties kunnen niet worden terugbetaald",
-						"noTaxReceipt": "Wij verstrekken geen belastingontvangsten of donatiecertificaten voor belastingdoeleinden",
-						"noObligation": "Aangegeven donatiedoelen en mijlpalen indicatief en niet contractueel bindend zijn",
-						"noGuarantee": "Wij niet garanderen hoe donatiegelden worden toegewezen of besteed"
-					}
-				},
-				"partnerContent": {
-					"title": "7. Partner- en Gesponsorde Inhoud",
-					"description": "De Dienst kan promoties van betaalde partners en gesponsorde inhoud weergeven. Partner spotlights zijn duidelijk als zodanig geïdentificeerd. De aanwezigheid van partnerinhoud vormt geen goedkeuring, aanbeveling of garantie van de producten of diensten van de partner. Gebruikers dienen hun eigen due diligence uit te voeren."
-				},
-				"intellectualProperty": {
-					"title": "8. Intellectueel Eigendom",
-					"description": "Het websiteontwerp, de originele inhoud en code van NanoMarketCap zijn eigendom van NanoMarketCap. Marktgegevens worden geleverd door CoinGecko volgens hun gebruiksvoorwaarden en naar behoren toegeschreven. Nano™ en XNO zijn verbonden met de Nano Foundation. Alle handelsmerken van derden blijven eigendom van hun respectieve houders."
-				},
-				"prohibitedUse": {
-					"title": "9. Verboden Gebruik",
-					"description": "U stemt ermee in om niet:",
-					"items": {
-						"abuse": "Misbruik te maken van, te overbelasten of te interfereren met de Dienst of de infrastructuur ervan",
-						"scrape": "Gegevens van de Dienst te scrapen, te crawlen of te verzamelen buiten normaal gebruik",
-						"circumvent": "Snelheidsbeperkingen of beveiligingsmaatregelen te omzeilen",
-						"misrepresent": "Uw identiteit of affiliatie te vervalsen",
-						"illegal": "De Dienst voor illegale doeleinden te gebruiken"
-					}
-				},
-				"limitation": {
-					"title": "10. Beperking van Aansprakelijkheid",
-					"description": "Voor zover maximaal toegestaan door de wet, zijn NanoMarketCap, haar exploitanten, bijdragers en gelieerde ondernemingen niet aansprakelijk voor enige directe, indirecte, incidentele, speciale, gevolgschade of punitieve schade voortvloeiend uit uw gebruik van of onvermogen tot gebruik van de Dienst. Dit omvat, zonder beperking, schade door vertrouwen op gegevens, berekeningen of diensten van derden die via de Dienst toegankelijk zijn."
-				},
-				"indemnification": {
-					"title": "11. Vrijwaring",
-					"description": "U stemt ermee in NanoMarketCap en haar exploitanten te vrijwaren van alle claims, schade, verliezen of kosten die voortvloeien uit uw gebruik van de Dienst of schending van deze Voorwaarden."
-				},
-				"modification": {
-					"title": "12. Wijziging en Beëindiging",
-					"description": "Wij behouden ons het recht voor om de Dienst op elk moment zonder voorafgaande kennisgeving te wijzigen, op te schorten of te beëindigen. Wij kunnen deze Voorwaarden van tijd tot tijd bijwerken. Voortgezet gebruik na wijzigingen vormt acceptatie van de gewijzigde Voorwaarden."
-				},
-				"governing": {
-					"title": "13. Toepasselijk Recht",
-					"description": "Deze Voorwaarden worden beheerst door en geïnterpreteerd in overeenstemming met de wetten van Frankrijk. Geschillen die voortvloeien uit deze Voorwaarden zijn onderworpen aan de exclusieve jurisdictie van de bevoegde rechtbanken van Frankrijk. Voor EU-consumenten blijven de dwingende consumentenbeschermingswetten van uw land van verblijf van toepassing."
-				},
-				"forceMajeure": {
-					"title": "14. Overmacht",
-					"description": "Wij zijn niet aansprakelijk voor enige tekortkoming of vertraging in de uitvoering als gevolg van oorzaken buiten onze redelijke controle, met inbegrip van maar niet beperkt tot natuurrampen, internetuitval, blockchain-netwerkproblemen, uitval van diensten van derden of overheidsmaatregelen."
-				},
-				"severability": {
-					"title": "15. Salvatorische Clausule",
-					"description": "Indien een bepaling van deze Voorwaarden ongeldig of niet-afdwingbaar wordt verklaard door een bevoegde rechtbank, zal die bepaling worden gehandhaafd voor zover maximaal toegestaan, en de overige bepalingen blijven volledig van kracht."
-				},
-				"entireAgreement": {
-					"title": "16. Volledige Overeenkomst",
-					"description": "Deze Voorwaarden, samen met ons Privacybeleid, Cookiebeleid en Disclaimer, vormen de volledige overeenkomst tussen u en NanoMarketCap met betrekking tot de Dienst en vervangen alle eerdere overeenkomsten of afspraken."
-				},
-				"waiver": {
-					"title": "17. Afstandsverklaring",
-					"description": "Het niet uitoefenen of afdwingen door ons van enig recht of bepaling van deze Voorwaarden vormt geen afstand van dat recht of die bepaling. Elke afstandsverklaring moet schriftelijk zijn en ondertekend door de betreffende partij."
-				},
-				"contact": {
-					"title": "18. Contact",
-					"description": "Voor vragen over deze Voorwaarden kunt u contact met ons opnemen via:"
-				}
-			}
-		},
-		"cookies": {
-			"title": "Cookie- en Opslagbeleid",
-			"intro": "Dit beleid legt uit hoe NanoMarketCap cookies, lokale opslag en vergelijkbare browsertechnologieën gebruikt.",
-			"sections": {
-				"whatAreCookies": {
-					"title": "1. Wat zijn Cookies en Lokale Opslag?",
-					"description": "Cookies zijn kleine tekstbestanden die door uw browser worden opgeslagen. Lokale opslag is een browserfunctie waarmee websites gegevens lokaal op uw apparaat kunnen opslaan. Beide worden gebruikt om voorkeuren te onthouden en uw ervaring te verbeteren."
-				},
-				"whatWeUse": {
-					"title": "2. Wat Wij Gebruiken",
-					"functional": {
-						"title": "Functionele Cookies",
-						"description": "Deze cookies zijn noodzakelijk voor de goede werking van de website:",
-						"items": {
-							"locale": "NEXT_LOCALE — Onthoudt uw taalvoorkeur (automatisch ingesteld door ons internationaliseringsframework)",
-							"theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus"
-						}
-					},
-					"localStorage": {
-						"title": "Lokale Opslag",
-						"description": "Wij gebruiken de lokale opslag van de browser om uw weergavevoorkeuren te bewaren:",
-						"items": {
-							"primaryFiat": "xno-market-primary-fiat — Uw primaire fiatvaluta (standaard: USD)",
-							"secondaryFiat": "xno-market-secondary-fiat — Uw secundaire fiatvaluta (standaard: EUR)",
-							"cryptoRef": "xno-market-crypto — Uw referentie cryptovaluta (standaard: bitcoin)",
-							"parityFiat": "xno-parity-fiat-currencies — Fiat-selectie Pariteitspagina (standaard: USD, EUR)"
-						}
-					}
-				},
-				"thirdParty": {
-					"title": "3. Cookies van Derden",
-					"description": "Wij plaatsen geen cookies van derden voor tracking, analyse of reclame. De volgende geïntegreerde inhoud, alleen geladen met uw toestemming, kan cookies binnen het eigen domein plaatsen:",
-					"items": {
-						"nanswap": "Nanswap Iframe — De wisselwidget op de pagina Wisselen naar Nano laadt inhoud van nanswap.com, dat eigen cookies kan plaatsen. De widget wordt alleen geladen na uw uitdrukkelijke toestemming."
-					},
-					"fontsNote": "Lettertypen worden zelf gehost via Next.js lettertypeoptimalisatie en vereisen geen cookies van derden of externe verzoeken."
-				},
-				"noTracking": {
-					"title": "4. Geen Tracking Cookies",
-					"description": "Wij gebruiken geen analysediensten (Google Analytics, etc.), advertentienetwerken of gedragstrackingtechnologieën. Er vindt geen fingerprinting of cross-site tracking plaats."
-				},
-				"manage": {
-					"title": "5. Beheer van uw Voorkeuren",
-					"description": "U kunt cookies en lokale opslag beheren via uw browserinstellingen:",
-					"items": {
-						"clearCookies": "Cookies wissen — De meeste browsers laten u cookies verwijderen via Instellingen → Privacy → Browsegegevens wissen",
-						"clearStorage": "Lokale opslag wissen — Open de ontwikkelaarshulpmiddelen van uw browser (F12) → Tabblad Applicatie → Lokale Opslag → Wissen",
-						"blockCookies": "Cookies blokkeren — U kunt uw browser configureren om alle of sommige cookies te blokkeren, hoewel dit de functionaliteit van de site kan beïnvloeden"
-					}
-				},
-				"retention": {
-					"title": "6. Bewaartermijnen",
-					"description": "Functionele cookies blijven bestaan totdat u ze wist of ze verlopen. Lokale opslaggegevens blijven bestaan totdat u ze handmatig wist. Wij stellen geen verloopdatum in op lokale opslagitems — ze blijven totdat u of uw browser ze verwijdert."
-				},
-				"changes": {
-					"title": "7. Wijzigingen in dit Beleid",
-					"description": "Wij kunnen dit beleid bijwerken als wij nieuwe technologieën introduceren of het gebruik van bestaande wijzigen. Wijzigingen worden op deze pagina weergegeven met een bijgewerkte datum."
-				}
-			}
-		},
-		"disclaimer": {
-			"title": "Disclaimer",
-			"intro": "Lees deze kennisgeving zorgvuldig door voordat u NanoMarketCap gebruikt.",
-			"sections": {
-				"notFinancialAdvice": {
-					"title": "1. Geen Financieel of Beleggingsadvies",
-					"description": "Alle inhoud op NanoMarketCap — inclusief marktgegevens, prijsgrafieken, speculatierekenmachines, pariteitsvergelijkingen en educatief materiaal — wordt uitsluitend verstrekt voor informatieve en educatieve doeleinden. Niets op deze website vormt financieel, beleggings-, handels- of enig ander professioneel advies. U mag geen financiële beslissingen nemen op basis van uitsluitend de informatie die op deze website wordt gepresenteerd."
-				},
-				"noRecommendation": {
-					"title": "2. Geen Beleggingsaanbeveling",
-					"description": "De opname van enige cryptovaluta, token of activum op deze website vormt geen aanbeveling om dat activum te kopen, verkopen of aan te houden. Hypothetische prijsscenario's in de speculatie- en pariteitsrekenmachines zijn louter illustratief en vertegenwoordigen geen voorspellingen, prognoses of beleggingsdoelen."
-				},
-				"dataAccuracy": {
-					"title": "3. Nauwkeurigheid en Betrouwbaarheid van Gegevens",
-					"description": "De marktgegevens op deze website zijn afkomstig van CoinGecko en andere externe dataleveranciers. Hoewel wij redelijke inspanningen leveren om nauwkeurige informatie weer te geven, kunnen wij de nauwkeurigheid, volledigheid, actualiteit of betrouwbaarheid van de gegevens niet garanderen. Prijzen kunnen vertraagd zijn en kunnen afwijken van werkelijke marktprijzen. Vertrouw niet op deze gegevens voor handelsbeslissingen."
-				},
-				"cryptoRisk": {
-					"title": "4. Risicowaarschuwing Cryptovaluta",
-					"description": "Beleggingen in cryptovaluta zijn zeer volatiel en brengen aanzienlijke risico's met zich mee, waaronder maar niet beperkt tot: totaal verlies van geïnvesteerd kapitaal, extreme prijsvolatiliteit, regulatoire onzekerheid, technologische risico's (bugs in smart contracts, netwerkaanvallen), liquiditeitsrisico en marktmanipulatie. In het verleden behaalde resultaten bieden geen garantie voor de toekomst."
-				},
-				"thirdPartyServices": {
-					"title": "5. Diensten van Derden",
-					"description": "NanoMarketCap integreert diensten van derden waaronder Nanswap voor cryptovalutawissels. Wij zijn niet verantwoordelijk voor de werking, beveiliging, betrouwbaarheid of resultaten van enige dienst van derden. Het gebruik van Nanswap of enige andere gekoppelde dienst is geheel op eigen risico en onderworpen aan hun respectieve voorwaarden. Onze Nanswap-integratie bevat een affiliate-verwijzingscode."
-				},
-				"affiliateDisclosure": {
-					"title": "6. Affiliatie-openbaarmaking",
-					"description": "NanoMarketCap neemt deel aan het affiliate-programma van Nanswap. Wanneer u de wisselwidget op onze site gebruikt, kunnen wij een verwijzingsvergoeding ontvangen. Dit heeft geen invloed op de prijs die u betaalt. Deze relatie wordt openbaar gemaakt in het belang van transparantie."
-				},
-				"noGuarantees": {
-					"title": "7. Geen Garanties",
-					"description": "De Dienst wordt geleverd \"zoals het is\" en \"zoals beschikbaar\" zonder enige garantie, uitdrukkelijk of impliciet. Wij garanderen geen ononderbroken toegang, foutloze werking of de nauwkeurigheid van enige berekening of gegeven. Het gebruik van de Dienst is op uw eigen risico."
-				},
-				"liability": {
-					"title": "8. Beperking van Aansprakelijkheid",
-					"description": "Voor zover maximaal toegestaan door de wet, zijn NanoMarketCap en haar exploitanten niet aansprakelijk voor enig verlies, schade of kosten die voortvloeien uit het gebruik van of het vertrouwen op de informatie die via deze website wordt verstrekt, inclusief maar niet beperkt tot handelsverliezen, onnauwkeurigheden van gegevens of storingen van diensten van derden."
-				},
-				"ownResearch": {
-					"title": "9. Doe uw Eigen Onderzoek",
-					"description": "Doe altijd uw eigen onderzoek en raadpleeg gekwalificeerde financiële professionals voordat u beleggingsbeslissingen neemt. Verifieer alle informatie onafhankelijk. Beleg nooit meer dan u zich kunt veroorloven te verliezen."
-				}
-			}
-		},
-		"imprint": {
-			"title": "Impressum",
-			"intro": "Informatie overeenkomstig wettelijke openbaarmakingsvereisten.",
-			"sections": {
-				"hosting": {
-					"title": "1. Hosting",
-					"description": "Deze website wordt gehost door Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, Verenigde Staten."
-				},
-				"copyright": {
-					"title": "2. Auteursrecht",
-					"description": "© 2026 NanoMarketCap. Alle rechten voorbehouden. Marktgegevens worden geleverd door CoinGecko en gebruikt volgens hun voorwaarden. Nano™ en het Nano-logo zijn handelsmerken van de Nano Foundation. Alle andere handelsmerken zijn eigendom van hun respectieve houders."
-				},
-				"contentLiability": {
-					"title": "3. Aansprakelijkheid voor Inhoud",
-					"description": "De inhoud van onze website is met de grootst mogelijke zorg samengesteld. Wij kunnen echter de nauwkeurigheid, volledigheid of actualiteit van de inhoud niet garanderen. Als dienstverlener zijn wij verantwoordelijk voor onze eigen inhoud op deze pagina's volgens de algemene wetgeving. Wij zijn echter niet verplicht om informatie van derden die wordt verzonden of opgeslagen te monitoren, of om omstandigheden te onderzoeken die wijzen op illegale activiteit."
-				},
-				"linkLiability": {
-					"title": "4. Aansprakelijkheid voor Links",
-					"description": "Onze website bevat links naar externe websites van derden waarvan wij de inhoud niet kunnen beïnvloeden. Wij aanvaarden geen verantwoordelijkheid voor de inhoud van gelinkte websites. De betreffende aanbieder of exploitant van de gelinkte pagina's is altijd verantwoordelijk voor hun inhoud. Gelinkte pagina's zijn gecontroleerd op mogelijke wettelijke overtredingen op het moment van koppeling — er is op dat moment geen illegale inhoud geïdentificeerd."
-				},
-				"dataProtection": {
-					"title": "5. Gegevensbescherming",
-					"description": "Voor gedetailleerde informatie over hoe wij persoonsgegevens behandelen, raadpleeg ons Privacybeleid."
-				},
-				"disputeResolution": {
-					"title": "6. Geschillenbeslechting",
-					"description": "De Europese Commissie biedt een platform voor online geschillenbeslechting (ODR):",
-					"odrLink": "https://ec.europa.eu/consumers/odr",
-					"note": "Wij zijn niet verplicht en niet bereid deel te nemen aan geschillenbeslechtingsprocedures voor een consumentenarbitragecommissie."
-				}
-			}
-		},
-		"inlineDisclaimers": {
-			"speculation": "Alleen voor educatieve doeleinden. Hypothetische scenario's zijn geen voorspellingen of beleggingsadvies.",
-			"parity": "Schaarstepariteitswaarden zijn theoretisch. Ze vormen geen financieel of beleggingsadvies.",
-			"donationNonRefundable": "Donaties zijn vrijwillig en niet restitueerbaar. Cryptovalutatransacties zijn onomkeerbaar.",
-			"affiliateDisclosure": "De Nanswap-integratie bevat een affiliate-verwijzing. Dit heeft geen invloed op de prijs die u betaalt."
-		}
-	},
-	"milestones": {
-		"title": "Mijlpalen",
-		"subtitle": "De volledige XNO-marktkapitalisatieladder in elke valuta. Sleep aan de knop om elke marktkapitalisatie te simuleren.",
-		"masterLabel": "MARKETCAP",
-		"current": "HUIDIG",
-		"hypothetical": "HYPOTHETISCH",
-		"dragHint": "SLEEP OM TE SIMULEREN",
-		"next": "VOLGENDE",
-		"toGo": "NOG",
-		"ladder": "LADDER",
-		"supplyNote": "De impliciete prijzen gaan uit van de vaste circulerende voorraad van {supply} XNO: bij elke marktkapitalisatie is 1 XNO gewoon de kapitalisatie gedeeld door de voorraad.",
-		"storyLabel": "HET $1B VERHAAL",
-		"xnoPrice": "1 XNO",
-		"tooltipCap": "MARKETCAP",
-		"jumpNext": "VOLGENDE MIJPAAL",
-		"jumpPrev": "VORIGE MIJPAAL"
-	},
-	"notFound": {
-		"code": "FOUT 404",
-		"title": "Pagina niet gevonden",
-		"description": "De pagina die je zoekt bestaat niet of is verplaatst. Controleer de URL of ga terug naar de homepagina.",
-		"backHome": "Terug naar huis",
-		"backNews": "Bekijk het nieuws"
-	},
-	"decentralization": {
-		"title": "Nano-decentralisatie & stemgewicht",
-		"description": "Live decentralisatiemetrieken van Nano (XNO): stemgewicht van vertegenwoordigers, aantal hoofdvertegenwoordigers en top-10 concentratie, van publieke Nano-nodes.",
-		"ogTitle": "Nano-decentralisatie & stemgewicht | NanoMarketCap",
-		"ogDescription": "Live decentralisatiemetrieken van Nano (XNO): stemgewicht van vertegenwoordigers, hoofdvertegenwoordigers en concentratie, van publieke Nano-nodes.",
-		"h1": "Nano-decentralisatie & stemgewicht",
-		"intro": "Wie heeft op dit moment het Nano-stemgewicht? Elke XNO-houder delegeert zijn saldo aan een vertegenwoordiger. Deze pagina toont de live verdeling van het online stemgewicht, hoeveel hoofdvertegenwoordigers er zijn en hoe geconcentreerd de top van het delegatienetwerk werkelijk is.",
-		"onlineWeight": "Online stemgewicht",
-		"onlineWeightHint": "XNO momenteel online",
-		"principalReps": "Hoofdvertegenwoordigers",
-		"principalWeightOfOnline": "van online gewicht",
-		"top10Share": "Top-10 concentratie",
-		"top10ShareHint": "aandeel van de 10 grootste reps",
-		"gini": "Gini stemgewicht",
-		"giniHint": "0 = volledig gelijk, 1 = volledig gecentraliseerd",
-		"updatedNote": "De gegevens komen van publieke Nano-RPC-nodes en worden elk uur ververst. Het stemgewicht verandert met elk gedelegeerd saldo.",
-		"failedNotice": "De publieke Nano-RPC-nodes zijn op dit moment niet bereikbaar. De laatst succesvol gecachte waarden worden getoond.",
-		"kicker": "Live delegatiegegevens",
-		"lorenzTitle": "Concentratiecurve van het stemgewicht",
-		"lorenzSub": "Cumulatief aandeel van het stemgewicht tegenover het cumulatieve aandeel van vertegenwoordigers. Het amberkleurige gebied is het Gini-gebied A; de volledige driehoek onder de stippellijn is A + B. Gini = A / (A + B).",
-		"lorenzAxisCount": "Aandeel vertegenwoordigers",
-		"lorenzAxisWeight": "Aandeel gewicht",
-		"lorenzTooltipTitle": "Concentratie",
-		"lorenzTooltipHold": "De grootste {reps} van de vertegenwoordigers bezit {weight} van het stemgewicht",
-		"legendCurve": "Werkelijke verdeling",
-		"legendEquality": "Perfecte gelijkheid",
-		"legendGiniArea": "Gini-gebied (A)",
-		"treemapTitle": "Treemap van het stemgewicht",
-		"treemapHint": "Elke tegel is geschaald op gedelegeerd stemgewicht. Hover over een tegel voor details.",
-		"treemapTooltipTitle": "Vertegenwoordiger",
-		"treemapOthers": "Alle andere reps",
-		"ladderTitle": "Concentratieladder",
-		"ladderHint": "Cumulatief aandeel van het online stemgewicht van de grootste vertegenwoordigers.",
-		"ladderTop": "Top {count}",
-		"ladderPrincipals": "Hoofdvertegenwoordigers",
-		"ladderFootnote": "van {weight} XNO online",
-		"onlineVsSupply": "{pct}% van de totale voorraad",
-		"breadth": "Bij {count} online reps: de mediane vertegenwoordiger controleert {median} XNO, het gemiddelde is {mean} XNO, omhoog getrokken door de grootste vertegenwoordigers."
-	},
-	"tools": {
-		"converter": {
-			"kicker": "Instrument 01 · eenheden",
-			"h1": "Nano-eenhedenconverter",
-			"sub": "Converteer tussen XNO en raw met exacte precisie. Eén XNO is 10^30 raw.",
-			"copy": "Kopiëren",
-			"copied": "Gekopieerd",
-			"note": "Conversies zijn stringgebaseerd en verliesvrij: zelfs de grootste raw-bedragen converteren exact terug.",
-			"unit": "Eenheid",
-			"value": "Waarde"
-		},
-		"paymentLinks": {
-			"kicker": "Instrument 02 · betaallinks",
-			"h1": "Nano-betaallink-generator",
-			"sub": "Bouw een nano: URI met bedrag, label en bericht, en deel deze als link of QR-code.",
-			"address": "Ontvangeradres",
-			"addressPlaceholder": "nano_1... of xno_1...",
-			"amount": "Bedrag (XNO)",
-			"amountPlaceholder": "bijv. 1.5",
-			"label": "Label",
-			"labelPlaceholder": "bijv. Koffie",
-			"message": "Bericht",
-			"messagePlaceholder": "bijv. Bedankt voor de koffie",
-			"uriPreview": "Betaal-URI",
-			"qr": "QR-code",
-			"shareable": "Deelbare link",
-			"copyUri": "URI kopiëren",
-			"copyAddress": "Adres kopiëren",
-			"copied": "Gekopieerd",
-			"invalidAddress": "Voer een geldig nano_ of xno_ adres in",
-			"invalidAmount": "Voer een positief bedrag in",
-			"note": "QR-codes worden direct in je browser weergegeven. Er wordt niets verzonden."
-		},
-		"addressTools": {
-			"kicker": "Instrument 03 · sleutels",
-			"h1": "Nano-adres-tools",
-			"sub": "Valideer adressen, converteer tussen adres en publieke sleutel, en genereer een seed met het afgeleide adres.",
-			"address": "Adres of publieke sleutel",
-			"addressPlaceholder": "nano_1..., xno_1... of een hexadecimale publieke sleutel van 64 tekens",
-			"inspect": "Inspecteren",
-			"valid": "Geldig adres",
-			"invalid": "Ongeldige invoer",
-			"checksum": "Checksum geverifieerd",
-			"prefix": "Voorvoegsel",
-			"publicKey": "Publieke sleutel",
-			"derivedAddress": "Afgeleid adres",
-			"seedSection": "Seed-generator",
-			"seedLabel": "Genereer een willekeurige seed en het eerste afgeleide adres",
-			"generate": "Seed genereren",
-			"seedWarning": "Bewaar deze seed offline en deel hem nooit. Wie de seed heeft, controleert de fondsen. Deze pagina verzendt hem nooit.",
-			"qr": "QR-code van het adres",
-			"copy": "Kopiëren",
-			"copied": "Gekopieerd"
-		},
-		"accountInspector": {
-			"kicker": "Instrument 04 · opzoekingen",
-			"h1": "Nano-account-inspecteur",
-			"sub": "Voer een Nano-adres in om het volledige profiel te openen: saldo, in behandeling, stemgewicht, transactiegeschiedenis en live-updates.",
-			"address": "Accountadres",
-			"addressPlaceholder": "nano_1... of xno_1...",
-			"inspect": "Account inspecteren",
-			"invalidAddress": "Voer een geldig nano_ of xno_ adres in",
-			"note": "Profielen worden server-side gerenderd en 60 seconden in de cache bewaard via openbare Nano-relays."
-		},
-		"feeComparison": {
-			"kicker": "Instrument 05 · kosten",
-			"h1": "Nano vs Bitcoin-kosten",
-			"sub": "Nano-overboekingen kosten niets. Bitcoin-kosten volgen de mempool. Dit is wat een betaling op elk netwerk nu echt kost.",
-			"nanoFee": "Nano-kosten",
-			"nanoFeeValue": "$0.00",
-			"nanoFeeNote": "Altijd, voor altijd",
-			"bitcoinFee": "Bitcoin-kosten",
-			"bitcoinFeeNote": "live van mempool.space",
-			"sendAmount": "Betaalbedrag",
-			"feeAsPercent": "Kosten als deel van de betaling",
-			"perTx": "per standaardzending",
-			"tiers": {
-				"fastest": "Snelste",
-				"halfHour": "Half uur",
-				"hour": "Eén uur",
-				"economy": "Economisch"
-			},
-			"vbytesNote": "Gebaseerd op een typische zending van 226 vB (2 inputs, 2 outputs) en huidige sat/vB-tarieven.",
-			"sourceNote": "Bitcoin-kosten van mempool.space, om de paar minuten ververst.",
-			"updateNote": "Kostenschatting, geen offerte."
-		}
-	},
-	"account": {
-		"notFoundTitle": "Account niet gevonden",
-		"notFoundText": "Dit adres heeft geen blokken in het Nano-netwerk. Controleer het op tikfouten en probeer het opnieuw.",
-		"rpcErrorTitle": "Netwerk onbereikbaar",
-		"rpcErrorText": "De openbare Nano-relays zijn niet bereikbaar. Probeer het zo opnieuw.",
-		"retry": "Opnieuw proberen",
-		"backToTool": "Terug naar de inspecteur",
-		"unopened": "Dit account heeft nog geen eerste transactie ontvangen.",
-		"unopenedHint": "Het bestaat op het netwerk, maar heeft geen geschiedenis. Het saldo blijft op 0 XNO totdat iemand iets stuurt.",
-		"address": "Accountadres",
-		"balance": "Saldo",
-		"pending": "In behandeling",
-		"votingWeight": "Stemgewicht",
-		"ofOnline": "van het online stemgewicht",
-		"principal": "Hoofdvertegenwoordiger",
-		"principalYes": "Ja, boven 0,1 %",
-		"principalNo": "Nee, onder 0,1 %",
-		"rank": "Rang per gewicht",
-		"blocks": "Levenslang aantal blokken",
-		"representedBy": "Vertegenwoordigd door",
-		"frontier": "Frontier",
-		"openBlock": "Openingsblok",
-		"copy": "Kopiëren",
-		"copied": "Gekopieerd",
-		"copyLink": "Link kopiëren",
-		"linkCopied": "Link gekopieerd",
-		"jumpTo": "Naar een ander account",
-		"searchPlaceholder": "nano_1... of xno_1...",
-		"open": "Account openen",
-		"invalidAddress": "Voer een geldig nano_- of xno_-adres in",
-		"viewBlocklattice": "Bekijk op Blocklattice",
-		"viewNanexplorer": "Bekijk op Nanexplorer",
-		"addCoins": "Munten toevoegen",
-		"searchCoins": "Munten zoeken...",
-		"remove": "Verwijderen",
-		"resetToDefault": "Resetten",
-		"pinnedLimit": "Maximaal 6 munten",
-		"vsOverrideNote": "Tijdelijke selectie via een gedeelde link. Je opgeslagen munten blijven ongewijzigd.",
-		"noMatch": "Geen overeenkomende munten",
-		"history": "Transactiegeschiedenis",
-		"loadMore": "Meer laden",
-		"loading": "Laden...",
-		"change": "Vertegenwoordiger gewijzigd",
-		"to": "Naar {address}",
-		"from": "Van {address}",
-		"justNow": "zojuist",
-		"mAgo": "{n} min geleden",
-		"hAgo": "{n} uur geleden",
-		"dAgo": "{n} dagen geleden",
-		"unconfirmed": "in behandeling",
-		"noHistory": "Nog geen transacties.",
-		"loadFailed": "Dit blok kon niet worden geladen.",
-		"blockHash": "Blok-hash",
-		"blockType": "Type",
-		"blockHeight": "Hoogte",
-		"blockAmount": "Bedrag",
-		"blockBalance": "Saldo daarna",
-		"blockTime": "Tijdstempel",
-		"blockAccount": "Account",
-		"blockRepresentative": "Vertegenwoordiger",
-		"blockLink": "Link naar",
-		"blockPrevious": "Vorig blok",
-		"live": "Live",
-		"polling": "Polling",
-		"toastReceived": "+{amount} XNO zojuist ontvangen",
-		"toastSent": "{amount} XNO zojuist verzonden",
-		"toastChange": "Vertegenwoordiger gewijzigd",
-		"toastBalance": "Saldo bijgewerkt",
-		"viewFullBlock": "Volledig blok bekijken",
-		"opened": "Geopend",
-		"lastBlock": "Laatste blok",
-		"inCirculation": "van {supply} XNO in omloop"
-	},
-	"explore": {
-		"kicker": "VERKENNER",
-		"h1": "Verken het Nano-netwerk",
-		"intro": "Zoek een Nano-adres of block-hash om saldo, geschiedenis en ketenpositie te bekijken.",
-		"placeholder": "nano_-adres of block-hash van 64 tekens",
-		"button": "Zoeken",
-		"error": "Dit lijkt geen Nano-adres of block-hash",
-		"addressHint": "Adressen beginnen met nano_",
-		"hashHint": "Block-hashes bestaan uit 64 hexadecimale tekens",
-		"totalBlocks": "Totaal blokken",
-		"cementedBlocks": "Gecementeerd",
-		"uncheckedBlocks": "Ongecontroleerd",
-		"onlineWeight": "Online-gewicht",
-		"principalReps": "Hoofd-reps",
-		"principalShare": "Aandeel hoofd-reps",
-		"feedTitle": "Live netwerkfeed",
-		"live": "Live",
-		"connecting": "Verbinden…",
-		"offline": "Offline",
-		"waiting": "Wachten op de volgende bevestiging…",
-		"justNow": "zojuist",
-		"mAgo": "{n} min geleden",
-		"hAgo": "{n} uur geleden",
-		"dAgo": "{n} dagen geleden",
-		"popularAccounts": "Populaire accounts",
-		"networkArtifacts": "Netwerk-artefacten",
-		"moreTools": "Meer tools",
-		"genesisBlock": "Genesis-blok",
-		"firstSend": "Eerste verzending",
-		"binanceCold": "Binance Cold Wallet",
-		"krakenCold": "Kraken Cold Wallet",
-		"bitvavoCold": "Bitvavo Cold Wallet",
-		"binanceUsHot": "Binance US Hot Wallet",
-		"firstReceive": "Eerste ontvangst",
-		"binanceColdOpens": "Binance opent cold wallet"
-	},
-	"block": {
-		"blockLabel": "Blok",
-		"confirmed": "Bevestigd",
-		"unconfirmed": "Onbevestigd",
-		"copyHash": "Block-hash kopiëren",
-		"copy": "Kopiëren",
-		"account": "Account",
-		"counterparty": "Tegenpartij",
-		"height": "Hoogte",
-		"received": "Ontvangen",
-		"balance": "Saldo",
-		"representative": "Vertegenwoordiger",
-		"work": "Bewijs van werk",
-		"signature": "Handtekening",
-		"previous": "Vorige",
-		"successor": "Volgende",
-		"prevBlock": "Vorige {hash}",
-		"nextBlock": "Volgende {hash}",
-		"rawContents": "Ruwe blokinhoud",
-		"notFoundTitle": "Blok niet gevonden",
-		"notFoundBody": "Dit block-hash is nog niet bekend bij het Nano-netwerk. Het wacht mogelijk op bevestiging.",
-		"backToExplore": "Terug naar verkenner"
-	}
+  "metadata": {
+    "title": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
+    "description": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies, analyseer schaarste-pariteit en wissel direct naar Nano.",
+    "ogTitle": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
+    "ogDescription": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies, analyseer schaarste-pariteit en wissel direct naar Nano.",
+    "ogImageAlt": "NanoMarketCap – Volg XNO Prijs en Marktgegevens",
+    "twitterTitle": "NanoMarketCap – XNO Prijs, Marktkapitalisatie & Dominantie Tracker",
+    "twitterDescription": "Volg Nano (XNO) prijs, marktkapitalisatie en dominantie. Vergelijk XNO met top cryptocurrencies en wissel direct naar Nano.",
+    "home": {
+      "title": "Nano (XNO) Marktkapitalisatie, prijs & live grafiek",
+      "description": "Live Nano (XNO) prijs, marktkapitalisatie, 24u volume en vergelijking met top cryptocurrencies. Volg XNO prestaties in realtime.",
+      "ogTitle": "Nano (XNO) Marktkapitalisatie, prijs & live grafiek | NanoMarketCap",
+      "ogDescription": "Live Nano (XNO) prijs, marktkapitalisatie, 24u volume en vergelijking met top cryptocurrencies."
+    },
+    "dominance": {
+      "title": "Marktdominantie",
+      "description": "Analyseer marktaandeel en dominantie van cryptocurrencies. Bekijk hoe XNO zich verhoudt tot Bitcoin, Ethereum en andere top cryptocurrencies op basis van marktkapitalisatie percentage.",
+      "ogTitle": "Marktdominantie | NanoMarketCap",
+      "ogDescription": "Analyseer marktaandeel en dominantie van cryptocurrencies. Vergelijk XNO met top cryptocurrencies."
+    },
+    "parity": {
+      "title": "Absolute Schaarste-pariteit",
+      "description": "Wat zou 1 XNO waard zijn als alle activa puur op hun schaarste werden gewaardeerd? Ontdek schaarste-pariteit vergelijkingen met Bitcoin, Goud en belangrijke fiat-valuta's.",
+      "ogTitle": "Absolute Schaarste-pariteit | NanoMarketCap",
+      "ogDescription": "Wat zou 1 XNO waard zijn als alle activa puur op hun schaarste werden gewaardeerd? Vergelijk Nano met Bitcoin, Goud en fiat."
+    },
+    "speculation": {
+      "title": "Marktspeculatie",
+      "description": "Wat zou XNO waard zijn als het dezelfde marktkapitalisatie had als Bitcoin, Ethereum of andere top cryptocurrencies? Ontdek hypothetische XNO prijsscenario's.",
+      "ogTitle": "Marktspeculatie | NanoMarketCap",
+      "ogDescription": "Wat zou XNO waard zijn als het dezelfde marktkapitalisatie had als Bitcoin of Ethereum? Ontdek hypothetische prijsscenario's."
+    },
+    "getNano": {
+      "title": "Nano Kopen & Wallet Kiezen",
+      "description": "Kies een Nano wallet voor iOS, Android of desktop. Leer hoe je XNO kunt verkrijgen via exchanges, directe swaps of faucets.",
+      "ogTitle": "Nano Kopen & Wallet Kiezen | NanoMarketCap",
+      "ogDescription": "Kies een Nano wallet voor iOS, Android of desktop. Leer hoe je XNO kunt verkrijgen via exchanges, swaps of faucets."
+    },
+    "swapNano": {
+      "title": "Wisselen naar Nano",
+      "description": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel Bitcoin, Ethereum en 50+ cryptocurrencies naar XNO met snelle, kostenloze transacties.",
+      "ogTitle": "Wisselen naar Nano | NanoMarketCap",
+      "ogDescription": "Wissel altcoins direct naar Nano (XNO) met Nanswap. Wissel 50+ cryptocurrencies naar XNO."
+    },
+    "calculators": {
+      "title": "XNO Calculators & Tools",
+      "description": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel, investeringsscenario's en ontdek wat je XNO-bezit betekent in het grote geheel.",
+      "ogTitle": "XNO Calculators & Tools | NanoMarketCap",
+      "ogDescription": "Interactieve calculators voor Nano (XNO). Bereken je voorraadaandeel en investeringsscenario's."
+    },
+    "coin": {
+      "title": "{coin} Prijsgrafiek | NanoMarketCap",
+      "description": "Live {coin} prijsgrafiek, marktkapitalisatie, volume en statistieken. Bekijk historische prijsgegevens en vergelijk met XNO.",
+      "ogTitle": "{coin} Prijsgrafiek | NanoMarketCap",
+      "ogDescription": "Live {coin} prijsgrafiek en marktstatistieken. Vergelijk met XNO."
+    },
+    "news": {
+      "title": "Nano Nieuws & Updates | NanoMarketCap",
+      "description": "Blijf op de hoogte van het laatste Nano (XNO) nieuws, marktinzichten, ecosysteemontwikkelingen en platformaankondigingen.",
+      "ogTitle": "Nano Nieuws & Updates | NanoMarketCap",
+      "ogDescription": "Blijf op de hoogte van het laatste Nano nieuws, marktinzichten en ecosysteemontwikkelingen.",
+      "articleTitle": "{title} | NanoMarketCap Nieuws"
+    },
+    "whyNano": {
+      "title": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
+      "description": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol.",
+      "ogTitle": "Waarom Nano? De Valuta voor AI | NanoMarketCap",
+      "ogDescription": "Ontdek waarom Nano (XNO) de beste valuta is voor AI-agenten: kosteloze microbetalingen, directe afhandeling en het x402-protocol."
+    },
+    "partners": {
+      "title": "Word Partner – Nano Market Cap",
+      "description": "Promoot uw bedrijf bij duizenden Nano-gebruikers. Lees meer over ons partner spotlight-programma, prijzen en hoe u kunt beginnen."
+    },
+    "legal": {
+      "privacy": {
+        "title": "Privacybeleid | NanoMarketCap",
+        "description": "Ontdek hoe NanoMarketCap uw gegevens verwerkt, wat we verzamelen en uw rechten onder de toepasselijke privacywetgeving."
+      },
+      "terms": {
+        "title": "Gebruiksvoorwaarden | NanoMarketCap",
+        "description": "Voorwaarden die het gebruik van NanoMarketCap diensten, tools en inhoud regelen."
+      },
+      "cookies": {
+        "title": "Cookie- en Opslagbeleid | NanoMarketCap",
+        "description": "Informatie over cookies, lokale opslag en vergelijkbare technologieën die door NanoMarketCap worden gebruikt."
+      },
+      "disclaimer": {
+        "title": "Disclaimer | NanoMarketCap",
+        "description": "Financiële waarschuwingen, aansprakelijkheidsbeperkingen en mededelingen over de nauwkeurigheid van inhoud op NanoMarketCap."
+      },
+      "imprint": {
+        "title": "Impressum | NanoMarketCap",
+        "description": "Juridische entiteitsinformatie, contactgegevens en wettelijke verklaringen van NanoMarketCap."
+      }
+    },
+    "milestones": {
+      "title": "Mijlpalen",
+      "description": "De volledige XNO-marktkapitalisatieladder in elke valuta, met een interactieve simulator."
+    },
+    "tools": {
+      "converter": {
+        "title": "Nano-eenhedenconverter: XNO naar Raw",
+        "description": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO, plus mXNO-weergave. De definitieve XNO-eenhedenconverter.",
+        "ogTitle": "Nano-eenhedenconverter: XNO naar Raw | NanoMarketCap",
+        "ogDescription": "Converteer Nano (XNO) met volledige precisie tussen raw en XNO."
+      },
+      "paymentLinks": {
+        "title": "Nano-betaallink-generator",
+        "description": "Maak nano: betaallinks met QR-codes, eigen bedragen, labels en berichten. Deel in seconden een betaalbare Nano-link.",
+        "ogTitle": "Nano-betaallink-generator | NanoMarketCap",
+        "ogDescription": "Maak nano: betaallinks met QR-codes, bedragen en labels."
+      },
+      "addressTools": {
+        "title": "Nano-adres-tools & validator",
+        "description": "Valideer elk Nano-adres, converteer tussen adres en publieke sleutel, en genereer een seed met het afgeleide adres. Alles in je browser.",
+        "ogTitle": "Nano-adres-tools & validator | NanoMarketCap",
+        "ogDescription": "Valideer Nano-adressen, converteer adres en publieke sleutel, genereer seeds."
+      },
+      "accountInspector": {
+        "title": "Nano-account-inspecteur",
+        "description": "Zoek elk Nano-account op: saldo, lopende bedragen, vertegenwoordiger, openingsblok en live stemgewicht, rechtstreeks van publieke Nano-nodes.",
+        "ogTitle": "Nano-account-inspecteur | NanoMarketCap",
+        "ogDescription": "Zoek elk Nano-account op: saldo, lopend, vertegenwoordiger en stemgewicht."
+      },
+      "feeComparison": {
+        "title": "Nano vs Bitcoin-kosten",
+        "description": "Vergelijk de nul transactiekosten van Nano met live Bitcoin-kosten van mempool.space. Zie wat een betaling op elk netwerk echt kost.",
+        "ogTitle": "Nano vs Bitcoin-kosten | NanoMarketCap",
+        "ogDescription": "Vergelijk de nul kosten van Nano met live Bitcoin-kosten van mempool.space."
+      }
+    },
+    "account": {
+      "title": "{address} · Saldo, transacties en stemgewicht",
+      "description": "Live saldo, in behandeling, stemgewicht en transactiegeschiedenis voor {address}."
+    },
+    "explore": {
+      "title": "Nano verkennen · Accounts & blokken",
+      "description": "Doorzoek het Nano-netwerk op adres of block-hash.",
+      "ogTitle": "Nano verkennen",
+      "ogDescription": "Doorzoek het Nano-netwerk op adres of block-hash."
+    },
+    "block": {
+      "title": "Blok {hash} · Bedrag, saldo & keten",
+      "description": "Details van blok {hash}: type, bedrag, saldo, tijdstempel en positie in de Nano-keten."
+    }
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fout",
+    "retry": "Opnieuw",
+    "tryAgain": "Probeer opnieuw",
+    "close": "Sluiten",
+    "menu": "Menu",
+    "home": "Home",
+    "about": "Over",
+    "learnMore": "Meer informatie",
+    "calculators": "Calculators",
+    "metrics": "Statistieken",
+    "dominance": "Dominantie",
+    "dominanceDescription": "Marktaandeelverdeling",
+    "parityDescription": "Waarderingen op basis van schaarste",
+    "speculationDescription": "Hypothetische prijsscenario's"
+  },
+  "navigation": {
+    "brand": "NanoMarketCap",
+    "toggleTheme": "Thema wisselen",
+    "refreshMarketData": "Marktgegevens vernieuwen",
+    "refreshAvailableIn": "Vernieuwen beschikbaar over {seconds}s",
+    "aboutWebsite": "Over",
+    "home": "Home",
+    "menu": "Menu",
+    "news": "Nieuws",
+    "calculators": "Calculators",
+    "calculatorsDescription": "Voorraad, pariteit en speculatie",
+    "metrics": "Statistieken",
+    "dominance": "Dominantie",
+    "dominanceDescription": "Marktaandeelverdeling",
+    "parity": "Pariteit",
+    "parityDescription": "Waarderingen op basis van schaarste",
+    "speculation": "Speculatie",
+    "speculationDescription": "Hypothetische prijsscenario's",
+    "nano": "Nano",
+    "getNano": "Nano Kopen",
+    "getNanoDescription": "Kies een wallet en verkrijg XNO",
+    "getNanoDescriptionShort": "Kies een wallet en verkrijg XNO",
+    "swapToNano": "Wisselen naar Nano",
+    "swapToNanoDescription": "Wissel altcoins (BTC, ETH of andere crypto) naar XNO",
+    "swapToNanoDescriptionShort": "Wissel altcoins naar XNO",
+    "whyNano": "Waarom Nano?",
+    "whyNanoDescription": "Waarom het superieur geld is",
+    "whyNanoDescriptionShort": "Waarom het superieur geld is",
+    "closeMenu": "Menu sluiten",
+    "toggleMenu": "Menu wisselen",
+    "milestones": "Mijlpalen",
+    "milestonesDescription": "Marktkapitalisatieladder in elke valuta",
+    "decentralization": "Decentralisatie",
+    "decentralizationDescription": "Stemgewicht & live decentralisatiemetrieken",
+    "tools": "Tools",
+    "toolsDescription": "Converters & hulpmiddelen",
+    "toolUnitConverter": "Eenhedenconverter",
+    "toolUnitConverterDescription": "XNO naar raw en terug",
+    "toolPaymentLinks": "Betaallinks",
+    "toolPaymentLinksDescription": "QR-betaalverzoeken",
+    "toolAddressTools": "Adres-tools",
+    "toolAddressToolsDescription": "Valideer & leid sleutels af",
+    "toolAccountInspector": "Account-inspecteur",
+    "toolAccountInspectorDescription": "Saldo & stemgewicht",
+    "toolFeeComparison": "Nano vs BTC-kosten",
+    "toolFeeComparisonDescription": "Nul tegen Bitcoin-kosten",
+    "explorer": "Verkenner",
+    "explorerDescription": "Accounts en blokken zoeken",
+    "toolWidgets": "Widgets",
+    "toolWidgetsDescription": "Inbouwbare live-instrumenten"
+  },
+  "home": {
+    "marketLedger": "Marktregister",
+    "partnerSection": "Partners",
+    "xnoMarketCap": "XNO Marktkapitalisatie",
+    "xnoPrice": "XNO Prijs",
+    "xnoDominance": "XNO Dominantie",
+    "btcDominance": "BTC",
+    "ethDominance": "ETH",
+    "othersDominance": "Overige",
+    "clickToToggle": "Klik om te wisselen {options}",
+    "betweenBtcAndSatoshi": "tussen BTC en satoshi",
+    "units": "eenheden",
+    "clickToSwitchTimeframe": "Klik om periode te wisselen. Dominantieverandering benaderd op basis van prijswijzigingen.",
+    "live": "LIVE",
+    "lastSync": "LAATSTE SYNC",
+    "syncAgo": "{seconds}s GELEDEN",
+    "milestoneSection": "MIJLPALENTRACKER",
+    "milestoneNext": "VOLGENDE",
+    "milestoneToGo": "NOG",
+    "milestoneTooltipCap": "MARKETCAP",
+    "milestoneTooltipXno": "1 XNO",
+    "milestoneAll": "ALLE MIJLPALEN"
+  },
+  "marketTable": {
+    "loadingMarketData": "Marktgegevens laden...",
+    "rank": "#",
+    "name": "Naam",
+    "priceXno": "Prijs (XNO)",
+    "change1h": "1u %",
+    "change24h": "24u %",
+    "change7d": "7d %",
+    "marketCapXno": "Marktkapitalisatie (XNO)",
+    "volume24h": "24u Vol (XNO)"
+  },
+  "news": {
+    "title": "Nieuws",
+    "subtitle": "Blijf op de hoogte van het laatste Nano nieuws en platformupdates",
+    "readMore": "Lees meer",
+    "viewAll": "Bekijk al het nieuws",
+    "backToNews": "Terug naar Nieuws",
+    "noArticles": "Nog geen artikelen beschikbaar. Kom snel terug!",
+    "latestNews": "Nieuws",
+    "searchPlaceholder": "Artikelen zoeken...",
+    "searchButton": "Zoeken",
+    "tagsLabel": "Tags",
+    "sortLabel": "Sorteren",
+    "allTags": "Alle",
+    "sortNewest": "Nieuwste",
+    "sortOldest": "Oudste",
+    "sortTitle": "Titel",
+    "resultsCount": "{count, plural, one {# artikel} other {# artikelen}}",
+    "noResults": "Geen artikelen gevonden",
+    "noResultsDescription": "Probeer een andere zoekopdracht of verwijder enkele filters.",
+    "clearFilters": "Filters wissen",
+    "prevPage": "Vorige pagina",
+    "nextPage": "Volgende pagina",
+    "paginationLabel": "Paginering van nieuws",
+    "relatedArticles": "Gerelateerde artikelen",
+    "rssFeed": "RSS",
+    "rssFeedTitle": "Abonneren op de RSS-feed"
+  },
+  "coinDetail": {
+    "errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",
+    "rank": "Rang #{rank}",
+    "vs24h": "vs XNO (24u)",
+    "marketCap": "Marktkapitalisatie",
+    "volume24h": "24u Volume",
+    "circulatingSupply": "Circulerende Voorraad",
+    "maxSupply": "Maximale Voorraad",
+    "price": "Prijs",
+    "fdv": "Volledig verwaterde MC",
+    "diluted": "{ratio}× verwaterd"
+  },
+  "priceChart": {
+    "title": "{coin} Prijs in XNO",
+    "titleInverted": "XNO Prijs in {coin}",
+    "errorLoading": "Kan prijsgrafiek niet laden. Probeer het later opnieuw.",
+    "areaChart": "Vlakgrafiek",
+    "lineChart": "Lijngrafiek",
+    "invertChart": "Keer paar om",
+    "start": "Start",
+    "end": "Einde",
+    "change": "Verandering",
+    "low": "Laag",
+    "high": "Hoog",
+    "diff": "Versch.",
+    "spread": "Spreiding"
+  },
+  "marketCapVolumeChart": {
+    "title": "{coin} Marktkapitalisatie & Volume in XNO",
+    "titleInverted": "XNO in {coin} Marktkapitalisatie & Volume",
+    "invertChart": "Grafiek omkeren",
+    "errorLoading": "Kan grafiek niet laden. Probeer het later opnieuw.",
+    "marketCap": "Marktkapitalisatie",
+    "volume": "Volume",
+    "startMC": "Start MK",
+    "endMC": "Einde MK",
+    "marketCapChange": "MK Verandering",
+    "avgVolume": "Gem. Volume",
+    "minVolume": "Min Volume",
+    "maxVolume": "Max Volume",
+    "low": "Laag",
+    "high": "Hoog",
+    "diff": "Versch.",
+    "spread": "Spreiding",
+    "lineChart": "Lijngrafiek",
+    "areaChart": "Vlakgrafiek"
+  },
+  "dominance": {
+    "title": "Marktdominantie",
+    "description": "Hoe verhoudt XNO zich tot de giganten? Ontdek de marktaandeelverdeling in het crypto-landschap.",
+    "chartTitle": "Marktdominantie",
+    "distributionTitle": "Marktdominantie Verdeling",
+    "chartDescription": "Marktaandeel gewaardeerd in XNO • XNO Dominantie: {xnoDominance}%",
+    "tableTitle": "Dominantie Ranglijst",
+    "cryptocurrency": "Cryptocurrency",
+    "marketCapXno": "Marktkapitalisatie (XNO)",
+    "marketCap": "Marktkapitalisatie",
+    "dominanceLabel": "Dominantie",
+    "share": "Aandeel",
+    "others": "Overige"
+  },
+  "parity": {
+    "title": "Absolute Schaarste-pariteit",
+    "description": "Wat zou 1 XNO waard zijn als alle activa puur op hun schaarste werden gewaardeerd?",
+    "nanoScarcityParity": "Absolute Schaarste-pariteit",
+    "tableDescription": "Waarde gebaseerd op totale voorraadverhouding: 1 eenheid van Actief A = (Totale Voorraad van B) / (Totale Voorraad van A)",
+    "scarcityParityMatrix": "Schaarste-pariteit Matrix",
+    "keyTakeaway": "Belangrijkste Conclusie",
+    "keyTakeawayText": "Deze tabel weerspiegelt nauwkeurig de schaarste-hiërarchie. Elke XNO vertegenwoordigt een veel groter aandeel van zijn vaste netwerk dan een enkele Dollar of Euro vertegenwoordigt van hun oneindige en groeiende netwerken.",
+    "scarcityHierarchy": "schaarste-hiërarchie",
+    "blockquote": "Puur gebaseerd op absolute, niet-inflateerbare voorraad, is een enkele eenheid Nano fundamenteel schaarser dan een enkele eenheid van elk ander actief op deze lijst—inclusief Bitcoin en Goud. Dit is de kracht van een volledig gedistribueerde en absoluut vaste voorraad.",
+    "asset": "Actief",
+    "totalSupply": "Totale Voorraad",
+    "fiatCurrencies": "Fiat-valuta's",
+    "fiatCurrencySettings": "Fiat-valuta instellingen",
+    "selectCurrenciesToDisplay": "Selecteer welke valuta's worden weergegeven",
+    "xnoAmount": "XNO Bedrag",
+    "pressEnterToConfirm": "Druk op Enter om te bevestigen",
+    "clickToEdit": "Klik om te bewerken",
+    "clickOrScrollToEdit": "Klik of scroll om te bewerken",
+    "clickToEditXnoAmount": "Klik om XNO bedrag te bewerken",
+    "unboundedSupply": "Onbegrensde voorraad",
+    "fullyDistributed": "100% gedistribueerd",
+    "ofMax": "{percentage}% van max",
+    "noLimit": "geen limiet",
+    "approx": "circa ",
+    "toFixed": "naar vast ",
+    "liveData": "Live data",
+    "seoParagraph": "Nano heeft een vaste voorraad van 133.248.297 XNO, volledig verdeeld sinds de genesis. De pariteitscalculator herwaardeert elk asset uitsluitend op basis van schaarste, door elke totale voorraad te delen door dezelfde wereldwijde geldpool, om te laten zien wat 1 XNO waard zou zijn als alle markten op absolute schaarste draaiden."
+  },
+  "parityCalculator": {
+    "title": "Voorraad Calculator",
+    "description": "Bereken hoeveel van Nano's vaste voorraad je kunt verwerven met elk investeringsbedrag",
+    "currency": "Valuta",
+    "pricePerXNO": "Prijs per XNO",
+    "currentPrice": "Huidige prijs",
+    "amountToInvest": "Te investeren bedrag",
+    "perPerson": "Per persoon",
+    "numberOfPeople": "Aantal personen",
+    "person": "persoon",
+    "people": "personen",
+    "totalInvestment": "Totale Investering",
+    "totalXNO": "Totaal XNO",
+    "supplyPercentage": "Voorraad %",
+    "of": "van",
+    "holderTier": "Holder Categorie",
+    "tierLegendaryWhale": "Legendarische Walvis",
+    "tierMajorHolder": "Grote Houder",
+    "tierSignificantStack": "Significante Stack",
+    "tierNotableHolder": "Opmerkelijke Houder",
+    "tierGrowingStack": "Groeiende Stack",
+    "tierStartingOut": "Beginner",
+    "tierPlankton": "Plankton",
+    "tierDialogTitle": "Holder Categorieën Uitgelegd",
+    "tierDialogDescription": "Je categorie is gebaseerd op het percentage van Nano's vaste voorraad dat je per persoon zou bezitten.",
+    "tierThreshold": "{threshold}% van voorraad",
+    "tierThresholdBelow": "Onder {threshold}%",
+    "tierChartLabel": "Maximum houders bij elk bezitsniveau",
+    "tierChartXAxis": "% voorraad bezit",
+    "tierChartYAxis": "Max personen",
+    "tierChartPeople": "personen",
+    "supplyAcquired": "Verworven Voorraad",
+    "exceedsSupply": "Overschrijdt totale voorraad!",
+    "fixedSupply": "Vaste voorraad",
+    "funFact": "Leuk feit",
+    "funFactWhale": "Met {percentage}% van de voorraad zou je tot de grootste Nano-houders ter wereld behoren!",
+    "funFactNotable": "Je zou meer XNO bezitten dan ongeveer 1 op de {oneIn} mensen op aarde ooit zou kunnen hebben!",
+    "funFactStarting": "Elke {xno} telt! Nano's vaste voorraad betekent dat jouw aandeel nooit kan worden verwaterd.",
+    "realFact": "Echt feit",
+    "realFactComparison": "Je XNO-aandeel ({xnoPercentage}) is {ratio}× groter dan je {fiat}-aandeel ({fiatPercentage}) van de M0-geldhoeveelheid.",
+    "lockGuide": "Vergrendel waarden om ze vast te houden terwijl je andere aanpast. Maximaal 2 vergrendelingen toegestaan.",
+    "clickToLock": "Klik om deze waarde te vergrendelen",
+    "clickToUnlock": "Klik om deze waarde te ontgrendelen",
+    "pressEnterToConfirm": "Druk op Enter om te bevestigen",
+    "resetToMarket": "reset",
+    "seoParagraph": "Omdat de voorraad van Nano voor altijd is vastgesteld, vertegenwoordigt elke XNO die je bezit een permanent aandeel in het netwerk. Voer een investeringsbedrag in jouw valuta in om te zien hoeveel XNO het vandaag zou kopen en welk deel van de totale voorraad van 133.248.297 XNO dat is."
+  },
+  "speculationCalculator": {
+    "title": "Speculatie Calculator",
+    "description": "Bekijk wat je XNO-stack waard zou zijn bij verschillende marktkapitalisaties",
+    "yourStack": "Jouw XNO Stack",
+    "currency": "Valuta",
+    "currentValue": "Huidige waarde",
+    "compareWith": "Vergelijk met",
+    "useCustomMarketCap": "Aangepaste marktkapitalisatie gebruiken",
+    "ifXnoHadMarketCapOf": "Als XNO de marktkapitalisatie had van",
+    "xnoPrice": "XNO Prijs",
+    "yourStackValue": "Waarde van je Stack",
+    "multiplier": "Vermenigvuldiger",
+    "potentialGain": "Potentiële Winst",
+    "errorLoading": "Kan marktgegevens niet laden. Probeer het later opnieuw.",
+    "seoParagraph": "Marktkapitalisatie is simpelweg de prijs maal de totale voorraad, waardoor prijsdoelen makkelijk te doordenken zijn. Verschuif de marktkapitalisatie-schuifregelaar om te zien wat Nano per XNO waard zou zijn bij verschillende marktkapitalisaties, van conservatief tot extreem."
+  },
+  "speculation": {
+    "title": "Marktspeculatie",
+    "description": "Wat zou XNO waard zijn als het dezelfde marktkapitalisatie had als andere cryptocurrencies?",
+    "rank": "#",
+    "name": "Naam",
+    "marketCap": "Marktkapitalisatie",
+    "xnoPrice": "XNO Prijs",
+    "xnoPriceIf": "XNO Prijs als...",
+    "multiplier": "Vermenigvuldiger",
+    "selectCurrency": "Selecteer valuta"
+  },
+  "getNano": {
+    "title": "Nano kopen & wallet kiezen",
+    "heroBadge": "Nano starten",
+    "description1": "Je hebt een Nano wallet nodig om betalingen te ontvangen of te verzenden.",
+    "description2": "Kies een wallet die je vertrouwt, vul deze met Nano, en je bent klaar om te gaan.",
+    "swapToNano": "Wisselen naar Nano",
+    "learnAboutNano": "Meer over Nano",
+    "step1Badge": "Stap 1",
+    "step1Title": "Kies een wallet",
+    "step1Description": "Nano wallets bestaan op elk platform. Kies er een die past bij hoe je je fondsen wilt beheren.",
+    "mobile": "Mobiel",
+    "mobileDescription": "Natrium, Nautilus en Cake Wallet zijn snelle mobiele wallets voor iOS en Android.",
+    "desktopWeb": "Desktop/Web",
+    "desktopWebDescription": "Beheer fondsen in de browser met Nault voor snelle toegang vanaf elk apparaat. Cake Wallet is ook een geweldige optie voor desktop.",
+    "hardware": "Hardware",
+    "hardwareDescription": "Gebruik een Ledger Nano S/X met Nault voor cold storage ondersteuning.",
+    "ledgerViaNault": "Ledger via Nault",
+    "step2Badge": "Stap 2",
+    "step2Title": "Nano kopen",
+    "step2Description": "Zodra je een wallet hebt, verkrijg Nano om je account te vullen.",
+    "exchanges": "Exchanges",
+    "exchangesDescription": "Binance, Kraken, KuCoin en andere grote exchanges bieden Nano (XNO) aan.",
+    "swapServices": "Wissel-diensten",
+    "swapServicesDescription": "Wissel altcoins naar Nano met Nanswap, ChangeNOW of SimpleSwap.",
+    "faucets": "Faucets",
+    "faucetsDescription": "Probeer Nano gratis met community faucets die kleine bedragen uitdelen.",
+    "learnMoreGettingNano": "Meer informatie over Nano verkrijgen",
+    "newToNano": "Nieuw bij Nano?",
+    "newToNanoDescription": "Nano is een snelle, kostenloze cryptocurrency perfect voor microbetalingen. Het is milieuvriendelijk en transacties bevestigen in minder dan een seconde."
+  },
+  "swapNano": {
+    "title": "Direct wisselen naar Nano",
+    "description1": "Wissel altcoins naar Nano via een compatibele wissel-aanbieder.",
+    "description2": "Nano transacties bevestigen in minder dan een seconde, zodat je je fondsen direct na het wisselen kunt gebruiken.",
+    "needWalletFirst": "Eerst een wallet nodig?",
+    "swapWithNanswap": "Wisselen met Nanswap",
+    "nanswapDescription": "Nanswap ondersteunt snelle conversies van tientallen valuta's naar Nano (XNO). Voer het bedrag in dat je wilt wisselen, stuur je crypto, en ontvang Nano direct in je wallet.",
+    "disclaimer": "Nanswap is een externe dienst en niet verbonden met NanoMarketCap. Controleer altijd adressen en doe je eigen onderzoek voordat je wisselt.",
+    "feeless": "Kosteloos",
+    "swapCoins": "Coins wisselen",
+    "swapComplete": "Wissel Voltooid!",
+    "yourCurrencySent": "Je {currency} is naar je wallet verzonden.",
+    "processingSwap": "Wissel wordt verwerkt",
+    "sendCurrencyToAddress": "Stuur je {currency} naar het onderstaande adres",
+    "status": "Status",
+    "waiting": "wachtend",
+    "youSend": "Je stuurt",
+    "youReceive": "Je ontvangt",
+    "orderId": "Order-ID",
+    "sendToAddress": "Stuur {currency} naar dit adres:",
+    "paymentTx": "Betaling TX:",
+    "payoutTx": "Uitbetaling TX:",
+    "newSwap": "Nieuwe Wissel",
+    "min": "Min:",
+    "max": "Max:",
+    "noLimit": "Geen limiet",
+    "destinationAddress": "Bestemmingsadres",
+    "yourAddressPlaceholder": "Je {currency} adres",
+    "memoExtraId": "Memo / Extra ID (indien vereist)",
+    "optional": "Optioneel",
+    "creatingOrder": "Order aanmaken...",
+    "swap": "Wisselen",
+    "poweredBy": "Mogelijk gemaakt door",
+    "minAmountError": "Minimumbedrag is {min} {currency}",
+    "maxAmountError": "Maximumbedrag is {max} {currency}",
+    "consentGate": {
+      "title": "Widget voor Derden",
+      "description": "Deze widget laadt inhoud van nanswap.com, een dienst van derden die cookies kan plaatsen en uw gegevens kan verwerken volgens hun eigen privacybeleid.",
+      "privacyNote": "Door deze widget te laden, stemt u in met de verwerking van uw gegevens door Nanswap overeenkomstig hun voorwaarden.",
+      "loadButton": "Wisselwidget Laden"
+    }
+  },
+  "whyNano": {
+    "hero": {
+      "titlePart1": "De Betalingslaag voor",
+      "titleHighlight": "Autonome Machines",
+      "description1": "Nano is de enige valuta met nul kosten, sub-seconde finaliteit en geen smart-contract complexiteit — speciaal ontwikkeld voor de machine-economie waarin AI-agenten autonoom transacties uitvoeren.",
+      "description2": "Van LLM-tokenfacturering tot het x402-betalingsprotocol biedt Nano agenten een wrijvingsloze waardelaag die traditionele financiën en blockchain-netwerken niet kunnen evenaren.",
+      "learnAboutNano": "Meer over Nano"
+    },
+    "features": {
+      "title": "Waarom Agenten Nano Kiezen",
+      "subtitle": "Geoptimaliseerd voor hoogfrequente, laag-latente, autonome transacties.",
+      "instantSettlement": {
+        "title": "Directe Kosteloze Afhandeling",
+        "instantLabel": "Direct:",
+        "instantText": "Nano wordt in minder dan 500ms afgewikkeld — agenten wachten niet op blokbevestigingen. Realtime waardevoor overdracht voor realtime-inferentie, API-aanroepen en autonome besluitvorming.",
+        "feelessLabel": "Kosteloos:",
+        "feelessText": "Verzend 0,000001$ economisch. Elke microbetaling is levensvatbaar — perfect voor LLM-tokenfacturering, streaming-computerkosten en pay-per-tool gebruik.",
+        "decentralizedLabel": "Gedecentraliseerd:",
+        "decentralizedText": "Geen centrale autoriteit kan fondsen bevriezen of transacties censureren. Agenten opereren met volledige financiële autonomie, gegarandeerd door gedecentraliseerde consensus."
+      },
+      "agentNative": {
+        "title": "Agent-Natief",
+        "description": "Eenvoudige, lichtgewicht RPCs. Geen complexe smart contracts om te auditen, geen gas om te schatten, geen nonces om te beheren."
+      },
+      "x402Protocol": {
+        "title": "x402 Protocol",
+        "description": "De HTTP-standaard voor betaalplichtige bronnen. Agenten kunnen autonoom betalen/factureren voor elke API, databron of tooltoegang."
+      },
+      "sustainableCompute": {
+        "title": "Duurzame Computing",
+        "description": "AI-training is energie-intensief — betalingen zouden dat niet moeten zijn. Nano verbruikt verwaarloosbare energie per transactie en voegt geen CO2-voetafdruk toe aan je stack."
+      },
+      "mcpIntegration": {
+        "title": "MCP Integratie",
+        "description": "Biedt directe toegang tot Nano RPCs. AI-agenten kunnen saldi opvragen, transacties verzenden en het netwerk programmatisch monitoren."
+      }
+    },
+    "x402": {
+      "title": "x402 in Actie",
+      "subtitle": "Hoe AI-agenten in realtime betalen voor bronnen met het HTTP 402-protocol en Nano.",
+      "apiPaymentFlow": {
+        "title": "API-Betalingsstroom per Oproep",
+        "description": "API's reageren met HTTP 402 en betalingsdetails. De agent betaalt met Nano, voegt het bewijs toe, en krijgt direct toegang — geen API-sleutels of abonnementen nodig."
+      },
+      "llmBilling": {
+        "title": "LLM-Facturering per Prompt",
+        "description": "Betaal per inferentie-oproep in plaats van maandelijkse abonnementen. Agenten besteden alleen aan wat ze gebruiken — elke prompt is een enkele direct bevestigde kosteloze transactie."
+      }
+    },
+    "workflow": {
+      "title": "Workflow-Automatisering",
+      "subtitle": "Integreer Nano in n8n-workflows, automatiseer kosteloze betalingsworkflows."
+    },
+    "howItWorks": {
+      "title": "Hoe Nano Werkt",
+      "subtitle": "Een unieke architectuur ontworpen voor directe, kosteloze waardevoor overdracht.",
+      "step1": {
+        "badge": "Stap 1",
+        "title": "Je Eigen Blockchain",
+        "description": "Elk account heeft zijn eigen blockchain (account-chain). Geen gedeelde status, geen conflicten, geen knelpunten — onbeperkte doorvoer door ontwerp."
+      },
+      "step2": {
+        "badge": "Stap 2",
+        "title": "Asynchrone Transfers",
+        "description": "Transacties splitsen in onafhankelijke verzend- en ontvangstblokken. Beide partijen handelen op hun eigen keten — geen wachten op de andere kant."
+      },
+      "step3": {
+        "badge": "Stap 3",
+        "title": "Directe Consensus",
+        "description": "Open Representative Voting (ORV) bevestigt transacties in minder dan 1 seconde. Geen mining, geen staking — alleen lichtgewicht stemmen met minimale energie."
+      }
+    },
+    "comparison": {
+      "title": "Hoe Nano zich Vergelijkt",
+      "metric": "Metriek",
+      "nano": "Nano (XNO)",
+      "bitcoin": "Bitcoin",
+      "tether": "Tether (USDT)",
+      "latency": "Latentie",
+      "latencyNano": "< 1s",
+      "latencyBitcoin": "10 – 60 min",
+      "latencyTether": "1 – 30s",
+      "txFees": "Tx-kosten",
+      "feesNano": "Geen",
+      "feesBitcoin": "1$ – 50$",
+      "feesTether": "0,02$ – 3$",
+      "architecture": "Architectuur",
+      "archNano": "Asynchrone Block-Lattice",
+      "archBitcoin": "PoW Blockchain",
+      "archTether": "Gecentraliseerde Token",
+      "energy": "Energie / Tx",
+      "energyNano": "0,111 Wh",
+      "energyBitcoin": "707 kWh",
+      "energyTether": "Host-chain",
+      "availability": "Beschikbaarheid",
+      "availabilityNano": "24/7",
+      "availabilityBitcoin": "24/7",
+      "availabilityTether": "24/7, censureerbaar"
+    },
+    "supply": {
+      "title": "Voorraad & Distributie",
+      "subtitle": "Eerlijk, vast en volledig gedistribueerd vanaf dag één.",
+      "fixedSupply": {
+        "title": "Vaste Voorraad",
+        "value": "133.248.297",
+        "description": "Het totale aantal XNO dat ooit zal bestaan. Gedefinieerd bij de genesis, onveranderlijk voor altijd."
+      },
+      "fullyDistributed": {
+        "title": "Volledig Gedistribueerd",
+        "value": "100%",
+        "description": "Alle XNO gedistribueerd via een gratis CAPTCHA-faucet. Geen ICO, geen pre-mining, geen insider-toewijzing."
+      },
+      "zeroInflation": {
+        "title": "Nul Inflatie",
+        "value": "0%",
+        "description": "Er kunnen nooit nieuwe XNO worden gecreëerd. Geen inflatie, geen verdunning — jouw aandeel van de voorraad is permanent."
+      }
+    },
+    "beyondAI": {
+      "title": "Verder dan AI",
+      "subtitle": "Nano is niet alleen voor machines — het is een universele valuta voor iedereen die snelheid, eenvoud en nul kosten waardeert.",
+      "p2pPayments": {
+        "title": "P2P-Betalingen",
+        "description": "Verzend waarde naar iedereen, overal, direct en zonder kosten."
+      },
+      "globalAccess": {
+        "title": "Wereldwijde Toegang",
+        "description": "Sla correspondentiebanken over. Internationale afwikkeling in minder dan een seconde."
+      },
+      "pointOfSale": {
+        "title": "Point of Sale",
+        "description": "Accepteer betalingen met nul verwerkingskosten en directe bevestiging."
+      },
+      "iotMicropayments": {
+        "title": "IoT-Microbetalingen",
+        "description": "Machines die machines betalen — sensoren, meters en apparaten die autonoom transacties uitvoeren."
+      }
+    },
+    "developerResources": {
+      "title": "Ontwikkelaarsbronnen",
+      "subtitle": "Alles wat je nodig hebt om te beginnen met bouwen met Nano.",
+      "nanoDocs": {
+        "title": "Nano Documentatie",
+        "description": "Officiële protocol-documentatie, RPC-referentie en integratie-guides."
+      },
+      "x402Nano": {
+        "title": "x402 Nano",
+        "description": "Referentie-implementatie voor x402-betalingsprotocol-integratie met Nano."
+      },
+      "nanoSdk": {
+        "title": "Nano SDK",
+        "description": "TypeScript SDK voor Nano RPC-commando's met volledige typeveiligheid en IntelliSense."
+      },
+      "tsNanocurrency": {
+        "title": "TS Nanocurrency",
+        "description": "Uitgebreide JavaScript/TypeScript toolkit voor Nano-ontwikkeling."
+      },
+      "nanoCasa": {
+        "title": "Nano Casa",
+        "description": "Volg ontwikkelingsactiviteit en ontdek projecten in het Nano-ecosysteem."
+      },
+      "n8nNode": {
+        "title": "n8n Node",
+        "badge": "Beschikbaar",
+        "description": "Officiële n8n Community Node voor Nano RPC-commando's. Bouw visuele workflows met native Nano-integratie."
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde Vragen",
+      "q1": {
+        "question": "Is Nano echt kosteloos?",
+        "answer": "Ja. Er zijn geen transactiekosten van welke aard dan ook. Nano gebruikt een lichtgewicht proof-of-work aan de client-kant om spam te beperken — maar dit kost de afzender niets. Elke raw-eenheid die je verzendt is precies wat de ontvanger ontvangt."
+      },
+      "q2": {
+        "question": "Hoe snel is Nano?",
+        "answer": "Typische transacties worden bevestigd in minder dan 1 seconde. Nano's block-lattice-architectuur en Open Representative Voting (ORV) consensus elimineren de noodzaak van mining of blokintervallen en maken bijna directe finaliteit mogelijk."
+      },
+      "q3": {
+        "question": "Wat is x402?",
+        "answer": "x402 is een protocol gebaseerd op de HTTP 402 \"Betaling Vereist\" statuscode. Wanneer een AI-agent een betaalde bron aanvraagt, reageert de server met betalingsdetails. De agent verzendt Nano, probeert het verzoek opnieuw met betalingsbewijs en ontvangt de bron — alles zonder menselijke tussenkomst."
+      },
+      "q4": {
+        "question": "Is Nano gedecentraliseerd?",
+        "answer": "Ja. Nano gebruikt Open Representative Voting (ORV) waarbij accounthouders hun stemgewicht delegeren aan vertegenwoordigers naar keuze. Iedereen kan een representative-node draaien, en geen enkele entiteit controleert het netwerk. Het stemgewicht is verdeeld over honderden onafhankelijke vertegenwoordigers."
+      },
+      "q5": {
+        "question": "Hoe begin ik met bouwen met Nano?",
+        "answer": "Bezoek <link>docs.nano.org</link> voor de protocol-specificatie en RPC-referentie. Je kunt je eigen Nano-node draaien, openbare RPC-endpoints gebruiken, of integreren via Nano MCP-servers voor AI-agenten-workflows. Client-bibliotheken zijn beschikbaar voor Python, JavaScript, Rust en meer."
+      }
+    },
+    "cta": {
+      "title": "Klaar om Nano te integreren?",
+      "description": "Haal een wallet, wissel je eerste XNO en begin de machinebetalingsinfrastructuur van de toekomst te bouwen.",
+      "getNano": "Nano Krijgen",
+      "swapToXno": "Wisselen naar XNO"
+    }
+  },
+  "partners": {
+    "badge": "Partnerprogramma",
+    "getPromoted": {
+      "badge": "Laat je Promoten",
+      "title": "Laat je Promoten!",
+      "subtitle": "Jouw Bedrijf Hier",
+      "description": "Laat je bedrijf zien in deze spotlight. Bereik duizenden Nano-gebruikers. Klik om meer te leren."
+    },
+    "heroTitle": "Groei met NanoMarketCap",
+    "heroDescription": "Zet je project voor de meest betrokken Nano-community. Bereik duizenden dagelijkse gebruikers die XNO leven en ademen.",
+    "benefits": {
+      "globalReach": {
+        "title": "Pionier",
+        "description": "Wees een van de eerste partners terwijl NanoMarketCap groeit, prominent boven aan onze homepage en op je eigen partnerpagina."
+      },
+      "instantSetup": {
+        "title": "Directe Setup",
+        "description": "Live in minder dan 24 uur. Eenvoudige XNO-betaling, geen contracten."
+      },
+      "trust": {
+        "title": "Vertrouwen & Autoriteit",
+        "description": "Lijn je merk uit met een vertrouwde bron in het Nano-ecosysteem."
+      }
+    },
+    "stats": {
+      "title": "Waarom Partner?",
+      "visitors": {
+        "value": "Limited",
+        "label": "Plekken"
+      },
+      "focus": {
+        "value": "100%",
+        "label": "Nano Focus"
+      }
+    },
+    "contact": {
+      "text": "Liever e-mail? Contacteer ons op",
+      "email": "partners@nanomarketcap.com"
+    },
+    "form": {
+      "title": "Start Je Partnerschap",
+      "description": "Vul de gegevens hieronder in om een aanvraag te genereren. We nemen binnen 24 uur contact met je op.",
+      "fields": {
+        "name": {
+          "label": "Contactnaam",
+          "placeholder": "John Doe",
+          "error": "Naam is verplicht"
+        },
+        "email": {
+          "label": "E-mail",
+          "placeholder": "john@example.com",
+          "error": "Ongeldig e-mailadres"
+        },
+        "project": {
+          "label": "Projectnaam",
+          "placeholder": "My Awesome Nano App",
+          "error": "Projectnaam is verplicht"
+        },
+        "website": {
+          "label": "Website-URL",
+          "placeholder": "https://",
+          "error": "Ongeldige URL"
+        },
+        "description": {
+          "label": "Campagnedetails",
+          "placeholder": "Vertel ons wat je wilt promoten...",
+          "error": "Geef een korte beschrijving op"
+        }
+      },
+      "submit": {
+        "loading": "Voorbereiden...",
+        "button": "Verstuur Verzoek"
+      }
+    }
+  },
+  "about": {
+    "title": "Over NanoMarketCap",
+    "description": "Informatie over de NanoMarketCap website",
+    "intro": "is een marktkapitalisatie tracker voor cryptocurrencies die Nano (XNO) centraal stelt.",
+    "perspective": "In tegenstelling tot traditionele trackers die fiat als basisvaluta gebruiken, draaien wij het perspectief om: alle prijzen, marktkapitalisaties en dominantie-statistieken worden berekend relatief aan XNO.",
+    "keyFeatures": "Belangrijkste Functies:",
+    "feature1": "Marktkapitalisaties gewaardeerd in XNO",
+    "feature2": "24u prijsveranderingen relatief aan XNO prestaties",
+    "feature3": "XNO dominantie tracking",
+    "feature4": "Schaarste-pariteit vergelijker",
+    "feature5": "Speculatietabel om XNO prijs bij verschillende marktkapitalisaties te bekijken",
+    "dataSource": "Data wordt geleverd door CoinGecko API."
+  },
+  "currencySettings": {
+    "title": "Weergave-instellingen",
+    "description": "Kies valuta's om weer te geven",
+    "primaryFiat": "Primaire Fiat",
+    "secondaryFiat": "Secundaire Fiat",
+    "cryptoReference": "Crypto Referentie",
+    "currencySettings": "Valuta-instellingen"
+  },
+  "error": {
+    "somethingWentWrong": "Er ging iets mis",
+    "pageLoadError": "Er is een fout opgetreden bij het laden van deze pagina. Probeer het opnieuw.",
+    "errorId": "Fout-ID: {digest}",
+    "failedToLoadMarketData": "Marktgegevens laden mislukt",
+    "unableToLoadMarketData": "Kan marktgegevens niet laden",
+    "unexpectedError": "Er is een onverwachte fout opgetreden bij het ophalen van marktgegevens.",
+    "failedToLoadDominance": "Dominantie-gegevens laden mislukt",
+    "dominanceLoadError": "We konden de marktdominantie-informatie niet laden. Probeer het opnieuw.",
+    "failedToLoadSpeculation": "Speculatie-gegevens laden mislukt",
+    "speculationLoadError": "We konden de XNO prijsprognoses niet berekenen. Probeer het opnieuw.",
+    "tryAgain": "Probeer opnieuw",
+    "retry": "Opnieuw"
+  },
+  "donation": {
+    "supportUs": "Steun Ons",
+    "supportNanoMarketCap": "Steun NanoMarketCap",
+    "donationGoal": "Donatiedoel",
+    "goalModeDescription": "Help ons elke mijlpaal te ontgrendelen en dit project open source te maken",
+    "regularModeDescription": "Je donatie helpt dit project draaiende te houden",
+    "overallProgress": "Totale Voortgang",
+    "paymentReceived": "Betaling Ontvangen!",
+    "thankYouGoalMode": "Bedankt voor je gulle donatie. Je helpt NanoMarketCap open source te maken!",
+    "thankYouRegularMode": "Bedankt voor je gulle donatie. Je steun houdt dit project draaiende!",
+    "donateAgain": "Opnieuw Doneren",
+    "viewWallet": "Bekijk Wallet",
+    "howWillBeUsed": "Hoe wordt je donatie gebruikt?",
+    "usageHosting": "Hosting- en infrastructuurkosten",
+    "usageDeveloper": "Ondersteuning van de ontwikkelaar",
+    "usageTools": "Bouwen van meer XNO tools",
+    "selectAmount": "Selecteer donatiebedrag (XNO)",
+    "customAmount": "Aangepast bedrag",
+    "scanToSend": "Scan met je Nano wallet om te verzenden",
+    "listeningForPayment": "Luisteren naar betaling...",
+    "connecting": "Verbinden...",
+    "walletAddress": "Donatie wallet-adres:",
+    "viewOnBlocklattice": "Bekijk op Blocklattice",
+    "milestones": {
+      "development": {
+        "title": "Ontwikkelingskosten",
+        "reward1": "Vergoeding voor ontwikkeltijd",
+        "reward2": "Initiële hosting & infrastructuur",
+        "reward3": "LLM token-gebruik voor code-generatie"
+      },
+      "maintenance": {
+        "title": "Onderhoudsfonds",
+        "reward1": "Fulltime XNO commitment voor een jaar",
+        "reward2": "Hosting + API kosten",
+        "reward3": "Bugfixes & verbeteringen"
+      },
+      "opensource": {
+        "title": "Open Source",
+        "reward1": "Volledige broncode op GitHub",
+        "reward2": "Eén-klik gratis host deployment",
+        "reward3": "Community-gedreven ontwikkeling"
+      }
+    }
+  },
+  "footer": {
+    "description": "Realtime Nano (XNO) marktgegevens, prijsvergelijkingen en tools voor de Nano-community.",
+    "explore": "Verkennen",
+    "resources": "Bronnen",
+    "community": "Community",
+    "legal": "Juridisch",
+    "rights": "Alle rechten voorbehouden.",
+    "madeWith": "Gemaakt met",
+    "forNano": "voor Nano",
+    "links": {
+      "market": "Marktoverzicht",
+      "dominance": "Dominantie",
+      "parity": "Pariteit",
+      "speculation": "Speculatie",
+      "milestones": "Mijlpalen",
+      "getNano": "Nano Krijgen",
+      "swapNano": "Wisselen naar Nano",
+      "whyNano": "Waarom Nano?",
+      "calculators": "Rekenmachines",
+      "nanoOrg": "Nano.org",
+      "docs": "Documentatie",
+      "hub": "Nano Hub",
+      "privacy": "Privacybeleid",
+      "terms": "Gebruiksvoorwaarden",
+      "cookies": "Cookiebeleid",
+      "disclaimer": "Disclaimer",
+      "imprint": "Impressum"
+    }
+  },
+  "legal": {
+    "lastUpdated": "Laatst bijgewerkt: {date}",
+    "privacy": {
+      "title": "Privacybeleid",
+      "intro": "NanoMarketCap (\"wij\", \"ons\") zet zich in voor de bescherming van uw privacy. Dit Privacybeleid legt uit hoe wij informatie verzamelen, gebruiken en beschermen wanneer u onze website bezoekt.",
+      "sections": {
+        "dataCollected": {
+          "title": "1. Informatie die Wij Verzamelen",
+          "description": "Wij verzamelen de minimale hoeveelheid gegevens die nodig is om de dienst te laten werken:",
+          "ipAddresses": {
+            "title": "IP-adressen (Serverzijde, Efemeer)",
+            "description": "Wij verwerken uw IP-adres tijdelijk voor snelheidsbeperking (max. 60 verzoeken/minuut per IP). Deze gegevens worden alleen in het servergeheugen bewaard, nooit op schijf of in een database geschreven, en worden elke 5 minuten automatisch gewist. IP-adressen worden geëtraheerd uit de x-forwarded-for of x-real-ip verzoekheaders."
+          },
+          "localStorage": {
+            "title": "Lokale Opslagvoorkeuren (Clientzijde)",
+            "description": "Wij slaan de volgende gebruikersvoorkeuren op in de lokale opslag van uw browser om uw weergave-instellingen tussen sessies te onthouden:",
+            "items": {
+              "primaryFiat": "Primaire fiatvaluta (standaard: USD)",
+              "secondaryFiat": "Secundaire fiatvaluta (standaard: EUR)",
+              "cryptoRef": "Referentie cryptovaluta (standaard: bitcoin)",
+              "parityFiat": "Fiat-selectie Pariteitspagina (standaard: USD, EUR)",
+              "theme": "Themavoorkeur (licht/donker/systeem)"
+            }
+          },
+          "cookies": {
+            "title": "Cookies",
+            "description": "Wij plaatsen geen tracking- of advertentiecookies. De volgende functionele cookies kunnen automatisch door onze technologiestack worden geplaatst:",
+            "items": {
+              "locale": "NEXT_LOCALE — Slaat uw taalvoorkeur op voor de site",
+              "theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus",
+              "compareCoins": "xno_compare_coins · Bewaart je vastgezette vergelijkingsmunten op de account-explorerpagina (max 6, vervalt na 1 jaar). Puur functioneel, geen tracking."
+            }
+          }
+        },
+        "noTracking": {
+          "title": "2. Wat Wij NIET Verzamelen",
+          "description": "Wij gebruiken geen analyse-, tracking- of advertentiediensten. Geen Google Analytics, Facebook Pixel, fingerprinting of gedragsprofilering. Wij verzamelen geen persoonlijke informatie zoals namen, e-mailadressen of betalingsgegevens via de website."
+        },
+        "thirdParty": {
+          "title": "3. Diensten van Derden",
+          "description": "Wij integreren de volgende diensten van derden, elk met hun eigen privacybeleid:",
+          "coingecko": {
+            "title": "CoinGecko API",
+            "description": "Marktgegevens worden serverzijde opgehaald met onze API-sleutel. Er worden geen gebruikersgegevens naar CoinGecko verzonden."
+          },
+          "nanswap": {
+            "title": "Nanswap",
+            "description": "De wisselpagina integreert een Nanswap iframe. Wanneer u met de Nanswap-widget interacteert, worden uw gegevens (wisselbedragen, walletadressen) rechtstreeks door Nanswap verwerkt volgens hun privacybeleid. Onze integratie bevat een affiliate-verwijzingsidentificatie."
+          },
+          "fonts": {
+            "title": "Lettertypen (Zelf-gehost)",
+            "description": "Lettertypen worden tijdens het bouwen zelf gehost via Next.js lettertypeoptimalisatie. Er worden geen runtime-verbindingen naar Google-servers gemaakt en er worden geen gebruikersgegevens naar Google verzonden."
+          },
+          "imageCdns": {
+            "title": "Afbeeldings-CDN's",
+            "description": "Logo's en afbeeldingen van cryptovaluta worden geladen vanaf CoinGecko en Nanswap CDN's, die standaard webverzoekgegevens kunnen registreren."
+          }
+        },
+        "legalBasis": {
+          "title": "4. Rechtsgrond voor Verwerking (AVG)",
+          "description": "Onder de Algemene Verordening Gegevensbescherming (AVG) zijn onze rechtsgronden voor gegevensverwerking:",
+          "items": {
+            "legitimateInterest": "Gerechtvaardigd belang — Snelheidsbeperking om onze dienst tegen misbruik te beschermen (verwerking van IP-adressen)",
+            "functionalCookies": "Strikt noodzakelijk — Functionele cookies (taal, thema) zijn vereist voor de normale werking van de site en zijn vrijgesteld van toestemming onder de ePrivacy-richtlijn",
+            "consent": "Toestemming — Uw browservoorkeuren opgeslagen in lokale opslag worden nooit naar onze servers verzonden. De Nanswap-wisselwidget wordt alleen geladen na uw uitdrukkelijke toestemming"
+          }
+        },
+        "dataRights": {
+          "title": "5. Uw Rechten",
+          "description": "Onder de toepasselijke gegevensbeschermingswetten (waaronder de AVG) hebt u recht op:",
+          "items": {
+            "access": "Inzage — Informatie opvragen over de gegevens die wij over u verwerken",
+            "rectification": "Rectificatie — Correctie vragen van onjuiste gegevens die wij over u bewaren",
+            "erasure": "Wissing — Verwijdering vragen van alle gegevens die wij over u bewaren",
+            "restriction": "Beperking — Verzoeken om de manier waarop wij uw gegevens verwerken te beperken",
+            "portability": "Overdraagbaarheid — Uw gegevens ontvangen in een draagbaar formaat",
+            "objection": "Bezwaar — Bezwaar maken tegen gegevensverwerking op basis van gerechtvaardigd belang",
+            "withdrawConsent": "Intrekking van toestemming — U kunt uw toestemming op elk moment intrekken door de cookies en lokale opslag van uw browser te wissen"
+          },
+          "note": "Aangezien wij minimale gegevens verzamelen (efemere IP-verwerking en browservoorkeurinstellingen), worden de meeste van deze rechten standaard vervuld. U kunt alle lokaal opgeslagen voorkeuren op elk moment wissen via uw browserinstellingen."
+        },
+        "supervisoryAuthority": {
+          "title": "6. Recht om een Klacht in te Dienen",
+          "description": "U hebt het recht om een klacht in te dienen bij een toezichthoudende autoriteit voor gegevensbescherming, met name in de EU-lidstaat van uw gebruikelijke verblijfplaats, werkplek of plaats van de vermeende inbreuk.",
+          "cnil": "In Frankrijk is de toezichthoudende autoriteit de CNIL (Commission Nationale de l'Informatique et des Libertés).",
+          "cnilLink": "https://www.cnil.fr",
+          "note": "U kunt ook contact opnemen met uw lokale gegevensbeschermingsautoriteit als u zich in een ander EU/EER-land bevindt."
+        },
+        "dataBreach": {
+          "title": "7. Melding van Datalekken",
+          "description": "In het geval van een inbreuk op persoonsgegevens die een risico vormt voor uw rechten en vrijheden, zullen wij de bevoegde toezichthoudende autoriteit binnen 72 uur na kennisneming op de hoogte stellen, zoals vereist door Artikel 33 van de AVG. Als de inbreuk kan leiden tot een hoog risico voor uw rechten en vrijheden, zullen wij ook de getroffen personen zonder onnodige vertraging informeren."
+        },
+        "internationalTransfers": {
+          "title": "8. Internationale Gegevensoverdracht",
+          "description": "Onze website wordt gehost door Vercel Inc. (Verenigde Staten). Serverzijde API-aanroepen worden gedaan naar CoinGecko (wereldwijd CDN). Deze overdrachten vinden plaats in overeenstemming met de toepasselijke gegevensbeschermingsregelgeving, inclusief het EU-VS Data Privacy Framework waar van toepassing. Wij dragen alleen gegevens over die strikt noodzakelijk zijn voor de werking van de dienst (efemere IP-adressen voor snelheidsbeperking). Er worden geen persoonlijke gegevens buiten de EU opgeslagen, behalve transistoire serververwerking."
+        },
+        "dataRetention": {
+          "title": "9. Gegevensbewaring",
+          "description": "IP-snelheidsbeperkingsgegevens: Automatisch elke 5 minuten uit het servergeheugen gewist. Lokale opslaggegevens: Blijven in uw browser totdat u ze wist. Wij onderhouden geen gebruikersdatabase of persistente gegevensopslag."
+        },
+        "children": {
+          "title": "10. Privacy van Minderjarigen",
+          "description": "Onze dienst is niet gericht op personen jonger dan 16 jaar. Wij verzamelen niet bewust informatie van minderjarigen. Als u denkt dat wij onbedoeld gegevens over een minderjarige onder 16 jaar hebben verzameld, neem dan contact met ons op en wij zullen deze onmiddellijk verwijderen."
+        },
+        "changes": {
+          "title": "11. Wijzigingen in dit Beleid",
+          "description": "Wij kunnen dit Privacybeleid van tijd tot tijd bijwerken. Wijzigingen worden op deze pagina gepubliceerd met een bijgewerkte herzieningsdatum. Voortgezet gebruik van de site na wijzigingen vormt acceptatie."
+        },
+        "contact": {
+          "title": "12. Contact",
+          "description": "Voor privacygerelateerde vragen kunt u contact met ons opnemen via:"
+        }
+      }
+    },
+    "terms": {
+      "title": "Gebruiksvoorwaarden",
+      "intro": "Door NanoMarketCap (de \"Dienst\") te openen en te gebruiken, stemt u ermee in gebonden te zijn aan deze Gebruiksvoorwaarden. Als u niet akkoord gaat, gebruik de Dienst dan niet.",
+      "sections": {
+        "eligibility": {
+          "title": "1. Geschiktheid",
+          "description": "Door de Dienst te gebruiken, verklaart u dat u ten minste 16 jaar oud bent en juridisch bevoegd bent om deze Voorwaarden te accepteren. Als u jonger bent dan 16 jaar, mag u de Dienst niet gebruiken."
+        },
+        "serviceDescription": {
+          "title": "2. Beschrijving van de Dienst",
+          "description": "NanoMarketCap is een platform voor het aggregeren van cryptovaluta-marktgegevens dat het volgende biedt:",
+          "items": {
+            "marketData": "Realtime en historische marktgegevens voor Nano (XNO) en andere cryptovaluta, afkomstig van CoinGecko",
+            "tools": "Analytische tools waaronder dominantiediagrammen, schaarstepariteitsvergelijkingen en speculatierekenmachines",
+            "swapAccess": "Toegang tot wisselservices voor cryptovaluta van derden via een geïntegreerde Nanswap-widget",
+            "educational": "Educatieve inhoud over Nano, het x402-protocol en cryptovaluta in het algemeen",
+            "donations": "Een vrijwillig donatiesysteem ter ondersteuning van de voortdurende ontwikkeling"
+          }
+        },
+        "noFinancialAdvice": {
+          "title": "3. Geen Financieel Advies",
+          "description": "Niets op deze website vormt financieel, beleggings-, fiscaal of juridisch advies. Alle marktgegevens, prijsberekeningen, speculatiescenario's en pariteitsvergelijkingen worden uitsluitend verstrekt voor informatieve en educatieve doeleinden. U dient een gekwalificeerd financieel adviseur te raadplegen voordat u beleggingsbeslissingen neemt. Beleggingen in cryptovaluta brengen aanzienlijke risico's met zich mee, waaronder de mogelijkheid van totaal verlies."
+        },
+        "dataAccuracy": {
+          "title": "4. Nauwkeurigheid van Gegevens",
+          "description": "Marktgegevens zijn afkomstig van CoinGecko en andere externe leveranciers. Hoewel wij streven naar nauwkeurigheid, geven wij geen garanties of verklaringen over de volledigheid, nauwkeurigheid, betrouwbaarheid of actualiteit van de weergegeven gegevens. Prijzen, marktkapitalisaties, volumes en afgeleide berekeningen (speculatie, pariteit) kunnen vertraagd, onnauwkeurig of onvolledig zijn."
+        },
+        "thirdPartyServices": {
+          "title": "5. Diensten van Derden",
+          "description": "De Dienst integreert diensten van derden waaronder Nanswap (cryptovalutawissels), CoinGecko (marktgegevens) en Nano-netwerknodes. Deze diensten worden beheerst door hun eigen voorwaarden en privacybeleid. Wij zijn niet verantwoordelijk voor de beschikbaarheid, nauwkeurigheid of het gedrag van enige dienst van derden. De Nanswap-integratie bevat een affiliate-verwijzingsidentificatie."
+        },
+        "donations": {
+          "title": "6. Donaties",
+          "description": "Donaties zijn vrijwillige bijdragen in Nano (XNO) cryptovaluta ter ondersteuning van de ontwikkeling en het onderhoud van NanoMarketCap. Door een donatie te doen, erkent u dat:",
+          "items": {
+            "voluntary": "Donaties geheel vrijwillig zijn en geen rechten, privileges of eigendom verlenen",
+            "nonRefundable": "Cryptovalutatransacties onomkeerbaar zijn — donaties kunnen niet worden terugbetaald",
+            "noTaxReceipt": "Wij verstrekken geen belastingontvangsten of donatiecertificaten voor belastingdoeleinden",
+            "noObligation": "Aangegeven donatiedoelen en mijlpalen indicatief en niet contractueel bindend zijn",
+            "noGuarantee": "Wij niet garanderen hoe donatiegelden worden toegewezen of besteed"
+          }
+        },
+        "partnerContent": {
+          "title": "7. Partner- en Gesponsorde Inhoud",
+          "description": "De Dienst kan promoties van betaalde partners en gesponsorde inhoud weergeven. Partner spotlights zijn duidelijk als zodanig geïdentificeerd. De aanwezigheid van partnerinhoud vormt geen goedkeuring, aanbeveling of garantie van de producten of diensten van de partner. Gebruikers dienen hun eigen due diligence uit te voeren."
+        },
+        "intellectualProperty": {
+          "title": "8. Intellectueel Eigendom",
+          "description": "Het websiteontwerp, de originele inhoud en code van NanoMarketCap zijn eigendom van NanoMarketCap. Marktgegevens worden geleverd door CoinGecko volgens hun gebruiksvoorwaarden en naar behoren toegeschreven. Nano™ en XNO zijn verbonden met de Nano Foundation. Alle handelsmerken van derden blijven eigendom van hun respectieve houders."
+        },
+        "prohibitedUse": {
+          "title": "9. Verboden Gebruik",
+          "description": "U stemt ermee in om niet:",
+          "items": {
+            "abuse": "Misbruik te maken van, te overbelasten of te interfereren met de Dienst of de infrastructuur ervan",
+            "scrape": "Gegevens van de Dienst te scrapen, te crawlen of te verzamelen buiten normaal gebruik",
+            "circumvent": "Snelheidsbeperkingen of beveiligingsmaatregelen te omzeilen",
+            "misrepresent": "Uw identiteit of affiliatie te vervalsen",
+            "illegal": "De Dienst voor illegale doeleinden te gebruiken"
+          }
+        },
+        "limitation": {
+          "title": "10. Beperking van Aansprakelijkheid",
+          "description": "Voor zover maximaal toegestaan door de wet, zijn NanoMarketCap, haar exploitanten, bijdragers en gelieerde ondernemingen niet aansprakelijk voor enige directe, indirecte, incidentele, speciale, gevolgschade of punitieve schade voortvloeiend uit uw gebruik van of onvermogen tot gebruik van de Dienst. Dit omvat, zonder beperking, schade door vertrouwen op gegevens, berekeningen of diensten van derden die via de Dienst toegankelijk zijn."
+        },
+        "indemnification": {
+          "title": "11. Vrijwaring",
+          "description": "U stemt ermee in NanoMarketCap en haar exploitanten te vrijwaren van alle claims, schade, verliezen of kosten die voortvloeien uit uw gebruik van de Dienst of schending van deze Voorwaarden."
+        },
+        "modification": {
+          "title": "12. Wijziging en Beëindiging",
+          "description": "Wij behouden ons het recht voor om de Dienst op elk moment zonder voorafgaande kennisgeving te wijzigen, op te schorten of te beëindigen. Wij kunnen deze Voorwaarden van tijd tot tijd bijwerken. Voortgezet gebruik na wijzigingen vormt acceptatie van de gewijzigde Voorwaarden."
+        },
+        "governing": {
+          "title": "13. Toepasselijk Recht",
+          "description": "Deze Voorwaarden worden beheerst door en geïnterpreteerd in overeenstemming met de wetten van Frankrijk. Geschillen die voortvloeien uit deze Voorwaarden zijn onderworpen aan de exclusieve jurisdictie van de bevoegde rechtbanken van Frankrijk. Voor EU-consumenten blijven de dwingende consumentenbeschermingswetten van uw land van verblijf van toepassing."
+        },
+        "forceMajeure": {
+          "title": "14. Overmacht",
+          "description": "Wij zijn niet aansprakelijk voor enige tekortkoming of vertraging in de uitvoering als gevolg van oorzaken buiten onze redelijke controle, met inbegrip van maar niet beperkt tot natuurrampen, internetuitval, blockchain-netwerkproblemen, uitval van diensten van derden of overheidsmaatregelen."
+        },
+        "severability": {
+          "title": "15. Salvatorische Clausule",
+          "description": "Indien een bepaling van deze Voorwaarden ongeldig of niet-afdwingbaar wordt verklaard door een bevoegde rechtbank, zal die bepaling worden gehandhaafd voor zover maximaal toegestaan, en de overige bepalingen blijven volledig van kracht."
+        },
+        "entireAgreement": {
+          "title": "16. Volledige Overeenkomst",
+          "description": "Deze Voorwaarden, samen met ons Privacybeleid, Cookiebeleid en Disclaimer, vormen de volledige overeenkomst tussen u en NanoMarketCap met betrekking tot de Dienst en vervangen alle eerdere overeenkomsten of afspraken."
+        },
+        "waiver": {
+          "title": "17. Afstandsverklaring",
+          "description": "Het niet uitoefenen of afdwingen door ons van enig recht of bepaling van deze Voorwaarden vormt geen afstand van dat recht of die bepaling. Elke afstandsverklaring moet schriftelijk zijn en ondertekend door de betreffende partij."
+        },
+        "contact": {
+          "title": "18. Contact",
+          "description": "Voor vragen over deze Voorwaarden kunt u contact met ons opnemen via:"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookie- en Opslagbeleid",
+      "intro": "Dit beleid legt uit hoe NanoMarketCap cookies, lokale opslag en vergelijkbare browsertechnologieën gebruikt.",
+      "sections": {
+        "whatAreCookies": {
+          "title": "1. Wat zijn Cookies en Lokale Opslag?",
+          "description": "Cookies zijn kleine tekstbestanden die door uw browser worden opgeslagen. Lokale opslag is een browserfunctie waarmee websites gegevens lokaal op uw apparaat kunnen opslaan. Beide worden gebruikt om voorkeuren te onthouden en uw ervaring te verbeteren."
+        },
+        "whatWeUse": {
+          "title": "2. Wat Wij Gebruiken",
+          "functional": {
+            "title": "Functionele Cookies",
+            "description": "Deze cookies zijn noodzakelijk voor de goede werking van de website:",
+            "items": {
+              "locale": "NEXT_LOCALE — Onthoudt uw taalvoorkeur (automatisch ingesteld door ons internationaliseringsframework)",
+              "theme": "Themavoorkeur — Onthoudt uw keuze voor licht/donker modus"
+            }
+          },
+          "localStorage": {
+            "title": "Lokale Opslag",
+            "description": "Wij gebruiken de lokale opslag van de browser om uw weergavevoorkeuren te bewaren:",
+            "items": {
+              "primaryFiat": "xno-market-primary-fiat — Uw primaire fiatvaluta (standaard: USD)",
+              "secondaryFiat": "xno-market-secondary-fiat — Uw secundaire fiatvaluta (standaard: EUR)",
+              "cryptoRef": "xno-market-crypto — Uw referentie cryptovaluta (standaard: bitcoin)",
+              "parityFiat": "xno-parity-fiat-currencies — Fiat-selectie Pariteitspagina (standaard: USD, EUR)"
+            }
+          }
+        },
+        "thirdParty": {
+          "title": "3. Cookies van Derden",
+          "description": "Wij plaatsen geen cookies van derden voor tracking, analyse of reclame. De volgende geïntegreerde inhoud, alleen geladen met uw toestemming, kan cookies binnen het eigen domein plaatsen:",
+          "items": {
+            "nanswap": "Nanswap Iframe — De wisselwidget op de pagina Wisselen naar Nano laadt inhoud van nanswap.com, dat eigen cookies kan plaatsen. De widget wordt alleen geladen na uw uitdrukkelijke toestemming."
+          },
+          "fontsNote": "Lettertypen worden zelf gehost via Next.js lettertypeoptimalisatie en vereisen geen cookies van derden of externe verzoeken."
+        },
+        "noTracking": {
+          "title": "4. Geen Tracking Cookies",
+          "description": "Wij gebruiken geen analysediensten (Google Analytics, etc.), advertentienetwerken of gedragstrackingtechnologieën. Er vindt geen fingerprinting of cross-site tracking plaats."
+        },
+        "manage": {
+          "title": "5. Beheer van uw Voorkeuren",
+          "description": "U kunt cookies en lokale opslag beheren via uw browserinstellingen:",
+          "items": {
+            "clearCookies": "Cookies wissen — De meeste browsers laten u cookies verwijderen via Instellingen → Privacy → Browsegegevens wissen",
+            "clearStorage": "Lokale opslag wissen — Open de ontwikkelaarshulpmiddelen van uw browser (F12) → Tabblad Applicatie → Lokale Opslag → Wissen",
+            "blockCookies": "Cookies blokkeren — U kunt uw browser configureren om alle of sommige cookies te blokkeren, hoewel dit de functionaliteit van de site kan beïnvloeden"
+          }
+        },
+        "retention": {
+          "title": "6. Bewaartermijnen",
+          "description": "Functionele cookies blijven bestaan totdat u ze wist of ze verlopen. Lokale opslaggegevens blijven bestaan totdat u ze handmatig wist. Wij stellen geen verloopdatum in op lokale opslagitems — ze blijven totdat u of uw browser ze verwijdert."
+        },
+        "changes": {
+          "title": "7. Wijzigingen in dit Beleid",
+          "description": "Wij kunnen dit beleid bijwerken als wij nieuwe technologieën introduceren of het gebruik van bestaande wijzigen. Wijzigingen worden op deze pagina weergegeven met een bijgewerkte datum."
+        }
+      }
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "intro": "Lees deze kennisgeving zorgvuldig door voordat u NanoMarketCap gebruikt.",
+      "sections": {
+        "notFinancialAdvice": {
+          "title": "1. Geen Financieel of Beleggingsadvies",
+          "description": "Alle inhoud op NanoMarketCap — inclusief marktgegevens, prijsgrafieken, speculatierekenmachines, pariteitsvergelijkingen en educatief materiaal — wordt uitsluitend verstrekt voor informatieve en educatieve doeleinden. Niets op deze website vormt financieel, beleggings-, handels- of enig ander professioneel advies. U mag geen financiële beslissingen nemen op basis van uitsluitend de informatie die op deze website wordt gepresenteerd."
+        },
+        "noRecommendation": {
+          "title": "2. Geen Beleggingsaanbeveling",
+          "description": "De opname van enige cryptovaluta, token of activum op deze website vormt geen aanbeveling om dat activum te kopen, verkopen of aan te houden. Hypothetische prijsscenario's in de speculatie- en pariteitsrekenmachines zijn louter illustratief en vertegenwoordigen geen voorspellingen, prognoses of beleggingsdoelen."
+        },
+        "dataAccuracy": {
+          "title": "3. Nauwkeurigheid en Betrouwbaarheid van Gegevens",
+          "description": "De marktgegevens op deze website zijn afkomstig van CoinGecko en andere externe dataleveranciers. Hoewel wij redelijke inspanningen leveren om nauwkeurige informatie weer te geven, kunnen wij de nauwkeurigheid, volledigheid, actualiteit of betrouwbaarheid van de gegevens niet garanderen. Prijzen kunnen vertraagd zijn en kunnen afwijken van werkelijke marktprijzen. Vertrouw niet op deze gegevens voor handelsbeslissingen."
+        },
+        "cryptoRisk": {
+          "title": "4. Risicowaarschuwing Cryptovaluta",
+          "description": "Beleggingen in cryptovaluta zijn zeer volatiel en brengen aanzienlijke risico's met zich mee, waaronder maar niet beperkt tot: totaal verlies van geïnvesteerd kapitaal, extreme prijsvolatiliteit, regulatoire onzekerheid, technologische risico's (bugs in smart contracts, netwerkaanvallen), liquiditeitsrisico en marktmanipulatie. In het verleden behaalde resultaten bieden geen garantie voor de toekomst."
+        },
+        "thirdPartyServices": {
+          "title": "5. Diensten van Derden",
+          "description": "NanoMarketCap integreert diensten van derden waaronder Nanswap voor cryptovalutawissels. Wij zijn niet verantwoordelijk voor de werking, beveiliging, betrouwbaarheid of resultaten van enige dienst van derden. Het gebruik van Nanswap of enige andere gekoppelde dienst is geheel op eigen risico en onderworpen aan hun respectieve voorwaarden. Onze Nanswap-integratie bevat een affiliate-verwijzingscode."
+        },
+        "affiliateDisclosure": {
+          "title": "6. Affiliatie-openbaarmaking",
+          "description": "NanoMarketCap neemt deel aan het affiliate-programma van Nanswap. Wanneer u de wisselwidget op onze site gebruikt, kunnen wij een verwijzingsvergoeding ontvangen. Dit heeft geen invloed op de prijs die u betaalt. Deze relatie wordt openbaar gemaakt in het belang van transparantie."
+        },
+        "noGuarantees": {
+          "title": "7. Geen Garanties",
+          "description": "De Dienst wordt geleverd \"zoals het is\" en \"zoals beschikbaar\" zonder enige garantie, uitdrukkelijk of impliciet. Wij garanderen geen ononderbroken toegang, foutloze werking of de nauwkeurigheid van enige berekening of gegeven. Het gebruik van de Dienst is op uw eigen risico."
+        },
+        "liability": {
+          "title": "8. Beperking van Aansprakelijkheid",
+          "description": "Voor zover maximaal toegestaan door de wet, zijn NanoMarketCap en haar exploitanten niet aansprakelijk voor enig verlies, schade of kosten die voortvloeien uit het gebruik van of het vertrouwen op de informatie die via deze website wordt verstrekt, inclusief maar niet beperkt tot handelsverliezen, onnauwkeurigheden van gegevens of storingen van diensten van derden."
+        },
+        "ownResearch": {
+          "title": "9. Doe uw Eigen Onderzoek",
+          "description": "Doe altijd uw eigen onderzoek en raadpleeg gekwalificeerde financiële professionals voordat u beleggingsbeslissingen neemt. Verifieer alle informatie onafhankelijk. Beleg nooit meer dan u zich kunt veroorloven te verliezen."
+        }
+      }
+    },
+    "imprint": {
+      "title": "Impressum",
+      "intro": "Informatie overeenkomstig wettelijke openbaarmakingsvereisten.",
+      "sections": {
+        "hosting": {
+          "title": "1. Hosting",
+          "description": "Deze website wordt gehost door Vercel Inc., 440 N Bayard St #201, Wilmington, DE 19801, Verenigde Staten."
+        },
+        "copyright": {
+          "title": "2. Auteursrecht",
+          "description": "© 2026 NanoMarketCap. Alle rechten voorbehouden. Marktgegevens worden geleverd door CoinGecko en gebruikt volgens hun voorwaarden. Nano™ en het Nano-logo zijn handelsmerken van de Nano Foundation. Alle andere handelsmerken zijn eigendom van hun respectieve houders."
+        },
+        "contentLiability": {
+          "title": "3. Aansprakelijkheid voor Inhoud",
+          "description": "De inhoud van onze website is met de grootst mogelijke zorg samengesteld. Wij kunnen echter de nauwkeurigheid, volledigheid of actualiteit van de inhoud niet garanderen. Als dienstverlener zijn wij verantwoordelijk voor onze eigen inhoud op deze pagina's volgens de algemene wetgeving. Wij zijn echter niet verplicht om informatie van derden die wordt verzonden of opgeslagen te monitoren, of om omstandigheden te onderzoeken die wijzen op illegale activiteit."
+        },
+        "linkLiability": {
+          "title": "4. Aansprakelijkheid voor Links",
+          "description": "Onze website bevat links naar externe websites van derden waarvan wij de inhoud niet kunnen beïnvloeden. Wij aanvaarden geen verantwoordelijkheid voor de inhoud van gelinkte websites. De betreffende aanbieder of exploitant van de gelinkte pagina's is altijd verantwoordelijk voor hun inhoud. Gelinkte pagina's zijn gecontroleerd op mogelijke wettelijke overtredingen op het moment van koppeling — er is op dat moment geen illegale inhoud geïdentificeerd."
+        },
+        "dataProtection": {
+          "title": "5. Gegevensbescherming",
+          "description": "Voor gedetailleerde informatie over hoe wij persoonsgegevens behandelen, raadpleeg ons Privacybeleid."
+        },
+        "disputeResolution": {
+          "title": "6. Geschillenbeslechting",
+          "description": "De Europese Commissie biedt een platform voor online geschillenbeslechting (ODR):",
+          "odrLink": "https://ec.europa.eu/consumers/odr",
+          "note": "Wij zijn niet verplicht en niet bereid deel te nemen aan geschillenbeslechtingsprocedures voor een consumentenarbitragecommissie."
+        }
+      }
+    },
+    "inlineDisclaimers": {
+      "speculation": "Alleen voor educatieve doeleinden. Hypothetische scenario's zijn geen voorspellingen of beleggingsadvies.",
+      "parity": "Schaarstepariteitswaarden zijn theoretisch. Ze vormen geen financieel of beleggingsadvies.",
+      "donationNonRefundable": "Donaties zijn vrijwillig en niet restitueerbaar. Cryptovalutatransacties zijn onomkeerbaar.",
+      "affiliateDisclosure": "De Nanswap-integratie bevat een affiliate-verwijzing. Dit heeft geen invloed op de prijs die u betaalt."
+    }
+  },
+  "milestones": {
+    "title": "Mijlpalen",
+    "subtitle": "De volledige XNO-marktkapitalisatieladder in elke valuta. Sleep aan de knop om elke marktkapitalisatie te simuleren.",
+    "masterLabel": "MARKETCAP",
+    "current": "HUIDIG",
+    "hypothetical": "HYPOTHETISCH",
+    "dragHint": "SLEEP OM TE SIMULEREN",
+    "next": "VOLGENDE",
+    "toGo": "NOG",
+    "ladder": "LADDER",
+    "supplyNote": "De impliciete prijzen gaan uit van de vaste circulerende voorraad van {supply} XNO: bij elke marktkapitalisatie is 1 XNO gewoon de kapitalisatie gedeeld door de voorraad.",
+    "storyLabel": "HET $1B VERHAAL",
+    "xnoPrice": "1 XNO",
+    "tooltipCap": "MARKETCAP",
+    "jumpNext": "VOLGENDE MIJPAAL",
+    "jumpPrev": "VORIGE MIJPAAL"
+  },
+  "notFound": {
+    "code": "FOUT 404",
+    "title": "Pagina niet gevonden",
+    "description": "De pagina die je zoekt bestaat niet of is verplaatst. Controleer de URL of ga terug naar de homepagina.",
+    "backHome": "Terug naar huis",
+    "backNews": "Bekijk het nieuws"
+  },
+  "decentralization": {
+    "title": "Nano-decentralisatie & stemgewicht",
+    "description": "Live decentralisatiemetrieken van Nano (XNO): stemgewicht van vertegenwoordigers, aantal hoofdvertegenwoordigers en top-10 concentratie, van publieke Nano-nodes.",
+    "ogTitle": "Nano-decentralisatie & stemgewicht | NanoMarketCap",
+    "ogDescription": "Live decentralisatiemetrieken van Nano (XNO): stemgewicht van vertegenwoordigers, hoofdvertegenwoordigers en concentratie, van publieke Nano-nodes.",
+    "h1": "Nano-decentralisatie & stemgewicht",
+    "intro": "Wie heeft op dit moment het Nano-stemgewicht? Elke XNO-houder delegeert zijn saldo aan een vertegenwoordiger. Deze pagina toont de live verdeling van het online stemgewicht, hoeveel hoofdvertegenwoordigers er zijn en hoe geconcentreerd de top van het delegatienetwerk werkelijk is.",
+    "onlineWeight": "Online stemgewicht",
+    "onlineWeightHint": "XNO momenteel online",
+    "principalReps": "Hoofdvertegenwoordigers",
+    "principalWeightOfOnline": "van online gewicht",
+    "top10Share": "Top-10 concentratie",
+    "top10ShareHint": "aandeel van de 10 grootste reps",
+    "gini": "Gini stemgewicht",
+    "giniHint": "0 = volledig gelijk, 1 = volledig gecentraliseerd",
+    "updatedNote": "De gegevens komen van publieke Nano-RPC-nodes en worden elk uur ververst. Het stemgewicht verandert met elk gedelegeerd saldo.",
+    "failedNotice": "De publieke Nano-RPC-nodes zijn op dit moment niet bereikbaar. De laatst succesvol gecachte waarden worden getoond.",
+    "kicker": "Live delegatiegegevens",
+    "lorenzTitle": "Concentratiecurve van het stemgewicht",
+    "lorenzSub": "Cumulatief aandeel van het stemgewicht tegenover het cumulatieve aandeel van vertegenwoordigers. Het amberkleurige gebied is het Gini-gebied A; de volledige driehoek onder de stippellijn is A + B. Gini = A / (A + B).",
+    "lorenzAxisCount": "Aandeel vertegenwoordigers",
+    "lorenzAxisWeight": "Aandeel gewicht",
+    "lorenzTooltipTitle": "Concentratie",
+    "lorenzTooltipHold": "De grootste {reps} van de vertegenwoordigers bezit {weight} van het stemgewicht",
+    "legendCurve": "Werkelijke verdeling",
+    "legendEquality": "Perfecte gelijkheid",
+    "legendGiniArea": "Gini-gebied (A)",
+    "treemapTitle": "Treemap van het stemgewicht",
+    "treemapHint": "Elke tegel is geschaald op gedelegeerd stemgewicht. Hover over een tegel voor details.",
+    "treemapTooltipTitle": "Vertegenwoordiger",
+    "treemapOthers": "Alle andere reps",
+    "ladderTitle": "Concentratieladder",
+    "ladderHint": "Cumulatief aandeel van het online stemgewicht van de grootste vertegenwoordigers.",
+    "ladderTop": "Top {count}",
+    "ladderPrincipals": "Hoofdvertegenwoordigers",
+    "ladderFootnote": "van {weight} XNO online",
+    "onlineVsSupply": "{pct}% van de totale voorraad",
+    "breadth": "Bij {count} online reps: de mediane vertegenwoordiger controleert {median} XNO, het gemiddelde is {mean} XNO, omhoog getrokken door de grootste vertegenwoordigers."
+  },
+  "tools": {
+    "converter": {
+      "kicker": "Instrument 01 · eenheden",
+      "h1": "Nano-eenhedenconverter",
+      "sub": "Converteer tussen XNO en raw met exacte precisie. Eén XNO is 10^30 raw.",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd",
+      "note": "Conversies zijn stringgebaseerd en verliesvrij: zelfs de grootste raw-bedragen converteren exact terug.",
+      "unit": "Eenheid",
+      "value": "Waarde"
+    },
+    "paymentLinks": {
+      "kicker": "Instrument 02 · betaallinks",
+      "h1": "Nano-betaallink-generator",
+      "sub": "Bouw een nano: URI met bedrag, label en bericht, en deel deze als link of QR-code.",
+      "address": "Ontvangeradres",
+      "addressPlaceholder": "nano_1... of xno_1...",
+      "amount": "Bedrag (XNO)",
+      "amountPlaceholder": "bijv. 1.5",
+      "label": "Label",
+      "labelPlaceholder": "bijv. Koffie",
+      "message": "Bericht",
+      "messagePlaceholder": "bijv. Bedankt voor de koffie",
+      "uriPreview": "Betaal-URI",
+      "qr": "QR-code",
+      "shareable": "Deelbare link",
+      "copyUri": "URI kopiëren",
+      "copyAddress": "Adres kopiëren",
+      "copied": "Gekopieerd",
+      "invalidAddress": "Voer een geldig nano_ of xno_ adres in",
+      "invalidAmount": "Voer een positief bedrag in",
+      "note": "QR-codes worden direct in je browser weergegeven. Er wordt niets verzonden."
+    },
+    "addressTools": {
+      "kicker": "Instrument 03 · sleutels",
+      "h1": "Nano-adres-tools",
+      "sub": "Valideer adressen, converteer tussen adres en publieke sleutel, en genereer een seed met het afgeleide adres.",
+      "address": "Adres of publieke sleutel",
+      "addressPlaceholder": "nano_1..., xno_1... of een hexadecimale publieke sleutel van 64 tekens",
+      "inspect": "Inspecteren",
+      "valid": "Geldig adres",
+      "invalid": "Ongeldige invoer",
+      "checksum": "Checksum geverifieerd",
+      "prefix": "Voorvoegsel",
+      "publicKey": "Publieke sleutel",
+      "derivedAddress": "Afgeleid adres",
+      "seedSection": "Seed-generator",
+      "seedLabel": "Genereer een willekeurige seed en het eerste afgeleide adres",
+      "generate": "Seed genereren",
+      "seedWarning": "Bewaar deze seed offline en deel hem nooit. Wie de seed heeft, controleert de fondsen. Deze pagina verzendt hem nooit.",
+      "qr": "QR-code van het adres",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd"
+    },
+    "accountInspector": {
+      "kicker": "Instrument 04 · opzoekingen",
+      "h1": "Nano-account-inspecteur",
+      "sub": "Voer een Nano-adres in om het volledige profiel te openen: saldo, in behandeling, stemgewicht, transactiegeschiedenis en live-updates.",
+      "address": "Accountadres",
+      "addressPlaceholder": "nano_1... of xno_1...",
+      "inspect": "Account inspecteren",
+      "invalidAddress": "Voer een geldig nano_ of xno_ adres in",
+      "note": "Profielen worden server-side gerenderd en 60 seconden in de cache bewaard via openbare Nano-relays."
+    },
+    "feeComparison": {
+      "kicker": "Instrument 05 · kosten",
+      "h1": "Nano vs Bitcoin-kosten",
+      "sub": "Nano-overboekingen kosten niets. Bitcoin-kosten volgen de mempool. Dit is wat een betaling op elk netwerk nu echt kost.",
+      "nanoFee": "Nano-kosten",
+      "nanoFeeValue": "$0.00",
+      "nanoFeeNote": "Altijd, voor altijd",
+      "bitcoinFee": "Bitcoin-kosten",
+      "bitcoinFeeNote": "live van mempool.space",
+      "sendAmount": "Betaalbedrag",
+      "feeAsPercent": "Kosten als deel van de betaling",
+      "perTx": "per standaardzending",
+      "tiers": {
+        "fastest": "Snelste",
+        "halfHour": "Half uur",
+        "hour": "Eén uur",
+        "economy": "Economisch"
+      },
+      "vbytesNote": "Gebaseerd op een typische zending van 226 vB (2 inputs, 2 outputs) en huidige sat/vB-tarieven.",
+      "sourceNote": "Bitcoin-kosten van mempool.space, om de paar minuten ververst.",
+      "updateNote": "Kostenschatting, geen offerte."
+    }
+  },
+  "account": {
+    "notFoundTitle": "Account niet gevonden",
+    "notFoundText": "Dit adres heeft geen blokken in het Nano-netwerk. Controleer het op tikfouten en probeer het opnieuw.",
+    "rpcErrorTitle": "Netwerk onbereikbaar",
+    "rpcErrorText": "De openbare Nano-relays zijn niet bereikbaar. Probeer het zo opnieuw.",
+    "retry": "Opnieuw proberen",
+    "backToTool": "Terug naar de inspecteur",
+    "unopened": "Dit account heeft nog geen eerste transactie ontvangen.",
+    "unopenedHint": "Het bestaat op het netwerk, maar heeft geen geschiedenis. Het saldo blijft op 0 XNO totdat iemand iets stuurt.",
+    "address": "Accountadres",
+    "balance": "Saldo",
+    "pending": "In behandeling",
+    "votingWeight": "Stemgewicht",
+    "ofOnline": "van het online stemgewicht",
+    "principal": "Hoofdvertegenwoordiger",
+    "principalYes": "Ja, boven 0,1 %",
+    "principalNo": "Nee, onder 0,1 %",
+    "rank": "Rang per gewicht",
+    "blocks": "Levenslang aantal blokken",
+    "representedBy": "Vertegenwoordigd door",
+    "frontier": "Frontier",
+    "openBlock": "Openingsblok",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "copyLink": "Link kopiëren",
+    "linkCopied": "Link gekopieerd",
+    "jumpTo": "Naar een ander account",
+    "searchPlaceholder": "nano_1... of xno_1...",
+    "open": "Account openen",
+    "invalidAddress": "Voer een geldig nano_- of xno_-adres in",
+    "viewBlocklattice": "Bekijk op Blocklattice",
+    "viewNanexplorer": "Bekijk op Nanexplorer",
+    "addCoins": "Munten toevoegen",
+    "searchCoins": "Munten zoeken...",
+    "remove": "Verwijderen",
+    "resetToDefault": "Resetten",
+    "pinnedLimit": "Maximaal 6 munten",
+    "vsOverrideNote": "Tijdelijke selectie via een gedeelde link. Je opgeslagen munten blijven ongewijzigd.",
+    "noMatch": "Geen overeenkomende munten",
+    "history": "Transactiegeschiedenis",
+    "loadMore": "Meer laden",
+    "loading": "Laden...",
+    "change": "Vertegenwoordiger gewijzigd",
+    "to": "Naar {address}",
+    "from": "Van {address}",
+    "justNow": "zojuist",
+    "mAgo": "{n} min geleden",
+    "hAgo": "{n} uur geleden",
+    "dAgo": "{n} dagen geleden",
+    "unconfirmed": "in behandeling",
+    "noHistory": "Nog geen transacties.",
+    "loadFailed": "Dit blok kon niet worden geladen.",
+    "blockHash": "Blok-hash",
+    "blockType": "Type",
+    "blockHeight": "Hoogte",
+    "blockAmount": "Bedrag",
+    "blockBalance": "Saldo daarna",
+    "blockTime": "Tijdstempel",
+    "blockAccount": "Account",
+    "blockRepresentative": "Vertegenwoordiger",
+    "blockLink": "Link naar",
+    "blockPrevious": "Vorig blok",
+    "live": "Live",
+    "polling": "Polling",
+    "toastReceived": "+{amount} XNO zojuist ontvangen",
+    "toastSent": "{amount} XNO zojuist verzonden",
+    "toastChange": "Vertegenwoordiger gewijzigd",
+    "toastBalance": "Saldo bijgewerkt",
+    "viewFullBlock": "Volledig blok bekijken",
+    "opened": "Geopend",
+    "lastBlock": "Laatste blok",
+    "inCirculation": "van {supply} XNO in omloop"
+  },
+  "explore": {
+    "kicker": "VERKENNER",
+    "h1": "Verken het Nano-netwerk",
+    "intro": "Zoek een Nano-adres of block-hash om saldo, geschiedenis en ketenpositie te bekijken.",
+    "placeholder": "nano_-adres of block-hash van 64 tekens",
+    "button": "Zoeken",
+    "error": "Dit lijkt geen Nano-adres of block-hash",
+    "addressHint": "Adressen beginnen met nano_",
+    "hashHint": "Block-hashes bestaan uit 64 hexadecimale tekens",
+    "totalBlocks": "Totaal blokken",
+    "cementedBlocks": "Gecementeerd",
+    "uncheckedBlocks": "Ongecontroleerd",
+    "onlineWeight": "Online-gewicht",
+    "principalReps": "Hoofd-reps",
+    "principalShare": "Aandeel hoofd-reps",
+    "feedTitle": "Live netwerkfeed",
+    "live": "Live",
+    "connecting": "Verbinden…",
+    "offline": "Offline",
+    "waiting": "Wachten op de volgende bevestiging…",
+    "justNow": "zojuist",
+    "mAgo": "{n} min geleden",
+    "hAgo": "{n} uur geleden",
+    "dAgo": "{n} dagen geleden",
+    "popularAccounts": "Populaire accounts",
+    "networkArtifacts": "Netwerk-artefacten",
+    "moreTools": "Meer tools",
+    "genesisBlock": "Genesis-blok",
+    "firstSend": "Eerste verzending",
+    "binanceCold": "Binance Cold Wallet",
+    "krakenCold": "Kraken Cold Wallet",
+    "bitvavoCold": "Bitvavo Cold Wallet",
+    "binanceUsHot": "Binance US Hot Wallet",
+    "firstReceive": "Eerste ontvangst",
+    "binanceColdOpens": "Binance opent cold wallet"
+  },
+  "block": {
+    "blockLabel": "Blok",
+    "confirmed": "Bevestigd",
+    "unconfirmed": "Onbevestigd",
+    "copyHash": "Block-hash kopiëren",
+    "copy": "Kopiëren",
+    "account": "Account",
+    "counterparty": "Tegenpartij",
+    "height": "Hoogte",
+    "received": "Ontvangen",
+    "balance": "Saldo",
+    "representative": "Vertegenwoordiger",
+    "work": "Bewijs van werk",
+    "signature": "Handtekening",
+    "previous": "Vorige",
+    "successor": "Volgende",
+    "prevBlock": "Vorige {hash}",
+    "nextBlock": "Volgende {hash}",
+    "rawContents": "Ruwe blokinhoud",
+    "notFoundTitle": "Blok niet gevonden",
+    "notFoundBody": "Dit block-hash is nog niet bekend bij het Nano-netwerk. Het wacht mogelijk op bevestiging.",
+    "backToExplore": "Terug naar verkenner"
+  },
+  "announcement": {
+    "kicker": "Transmissie",
+    "title": "Widgets zijn live",
+    "body": "Embed live Nano-instrumenten op elke website: prijzen, marktkapitalisatie, netwerkstatistieken, rekenmachines en meer.",
+    "cta": "Open de widget-rack",
+    "dismiss": "Aankondiging sluiten"
+  }
 }

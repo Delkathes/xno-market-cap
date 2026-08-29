@@ -102,3 +102,4 @@ Shared: `currency=usd|eur|gbp|jpy|chf|cad|aud`, `compact=1`. Theme: none in v1 �
 ## Log
 
 - 2026-08-29 — Plan created. Decisions: 6-locale localization; attribution non-removable; SSR+cache-only data (cross-origin API blocked by design); iframe-first; donation widget = trust-framed v1; payments/API/Pro deferred.
+- 2026-08-29 — Widgets shipped: price, market-cap, calculator, network, account, live, donate (all 7), builder page with live preview + snippet, top-10 crypto picker (searchable, no stablecoins), multi-select secondary fiats, currency-hierarchy strips, locale-consistent formatting, frame-safe headers, proxy/matcher exclusions, launch announcement banner (teletype strip, localStorage-dismissed, `announcement` namespace ×6).

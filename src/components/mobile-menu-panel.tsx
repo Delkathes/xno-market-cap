@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { atom, useAtom, useSetAtom } from 'jotai'
 import {
 	ArrowRightLeft,
+	Blocks,
 	Calculator,
 	ChartPie,
 	Compass,
@@ -99,6 +100,23 @@ export function MobileMenuPanel() {
 								)}
 							>
 								{t('home')}
+							</Link>
+							<Link
+								href="/widgets"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/widgets' || pathname.startsWith('/widgets/')
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Blocks className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('toolWidgets')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('toolWidgetsDescription')}
+									</p>
+								</div>
 							</Link>
 							<Link
 								href="/calculators"

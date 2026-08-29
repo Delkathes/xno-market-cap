@@ -168,6 +168,12 @@
   }
 }
 
+/* Returning users who dismissed the launch banner are hidden pre-paint: the
+   theme init script sets this attribute on <html> before anything renders. */
+html[data-announcement-dismissed='1'] .announcement-banner {
+  display: none;
+}
+
 @layer utilities {
   /* Register custom properties to enable gradient animation */  @property --gradient-from {
     syntax: '<color>';
