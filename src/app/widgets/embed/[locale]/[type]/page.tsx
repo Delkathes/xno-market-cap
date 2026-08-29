@@ -193,7 +193,7 @@ async function WidgetContent({
 
 function Unavailable({ strings }: { strings: WidgetStrings }) {
 	return (
-		<div className="flex h-full min-h-[120px] w-full items-center justify-center rounded-md border border-dashed border-border bg-card px-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+		<div className="flex h-full min-h-30 w-full items-center justify-center rounded-md border border-dashed border-border bg-card px-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
 			{strings.unavailable}
 		</div>
 	)

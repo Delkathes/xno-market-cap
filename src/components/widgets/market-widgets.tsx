@@ -87,43 +87,45 @@ export function PriceWidget({
 	const supply = xnoData.circulating_supply ?? 0
 
 	return (
-		<WidgetFrame label={t.priceLabel} led="cyan" ledPulse height={params.compact ? 178 : 228}>
+		<WidgetFrame label={t.priceLabel} led="cyan" ledPulse fullHeight={228} compactHeight={178}>
 			<div className="flex items-baseline justify-between gap-3">
-				<span className="font-mono text-[28px] font-bold leading-none tracking-tight tabular-nums">
+				<span className="min-w-0 whitespace-nowrap font-mono text-[28px] font-bold leading-none tracking-tight tabular-nums @max-[380px]:text-[22px]">
 					{formatFiatPrice(price, params.currency, locale)}
 				</span>
 				<Delta label={params.range === '7d' ? t.delta7d : t.delta24h} value={rangeDelta} emphasized />
 			</div>
-			{!params.compact && (
-				<>
-					<div className="mt-2 flex items-center gap-3">
-						<Delta label={t.delta1h} value={delta1h} />
-						<span aria-hidden="true" className="h-3 w-px bg-border" />
-						<Delta label={t.delta24h} value={delta24h} />
-						<span aria-hidden="true" className="h-3 w-px bg-border" />
-						<Delta label={t.delta7d} value={delta7d} />
-					</div>
-					<div className="mt-2">
-						<SecondaryFiatStrip
-							usdValue={xnoData.current_price}
-							rates={marketData as ExchangeRates}
-							locale={locale}
-							fiats={fiats}
-							cryptos={cryptos}
-						/>
-					</div>
-					<WidgetDivider />
-					<div className="flex gap-3">
-						<StatCell
-							label={t.capLabel}
-							value={formatFiatMarketCap(xnoData.current_price * supply, params.currency)}
-							accent
-						/>
-						<StatCell label={t.supplyLabel} value={`${formatSupply(supply, locale)} XNO`} />
-						<StatCell label={t.rankLabel} value={`#${xnoData.market_cap_rank ?? '—'}`} />
-					</div>
-				</>
-			)}
+			<div className="@max-[380px]:hidden">
+				{!params.compact && (
+					<>
+						<div className="mt-2 flex items-center gap-3">
+							<Delta label={t.delta1h} value={delta1h} />
+							<span aria-hidden="true" className="h-3 w-px bg-border" />
+							<Delta label={t.delta24h} value={delta24h} />
+							<span aria-hidden="true" className="h-3 w-px bg-border" />
+							<Delta label={t.delta7d} value={delta7d} />
+						</div>
+						<div className="mt-2">
+							<SecondaryFiatStrip
+								usdValue={xnoData.current_price}
+								rates={marketData as ExchangeRates}
+								locale={locale}
+								fiats={fiats}
+								cryptos={cryptos}
+							/>
+						</div>
+						<WidgetDivider />
+						<div className="flex gap-3">
+							<StatCell
+								label={t.capLabel}
+								value={formatFiatMarketCap(xnoData.current_price * supply, params.currency)}
+								accent
+							/>
+							<StatCell label={t.supplyLabel} value={`${formatSupply(supply, locale)} XNO`} />
+							<StatCell label={t.rankLabel} value={`#${xnoData.market_cap_rank ?? '—'}`} />
+						</div>
+					</>
+				)}
+			</div>
 		</WidgetFrame>
 	)
 }
@@ -154,27 +156,29 @@ export function MarketCapWidget({
 		const btcCap = (bitcoinMarketCap ?? 0) * rate
 		const impliedPrice = btcCap > 0 && supply > 0 ? btcCap / supply : null
 		return (
-			<WidgetFrame label={t.btcTitle} led="amber" height={params.compact ? 164 : 200}>
+			<WidgetFrame label={t.btcTitle} led="amber" fullHeight={200} compactHeight={164}>
 				<div className="flex items-baseline justify-between gap-3">
-					<span className="font-mono text-[26px] font-bold leading-none tracking-tight tabular-nums">
+					<span className="min-w-0 whitespace-nowrap font-mono text-[26px] font-bold leading-none tracking-tight tabular-nums @max-[380px]:text-[19px]">
 						{impliedPrice !== null
 							? `1 XNO = ${formatFiatPrice(impliedPrice, params.currency, locale)}`
 							: '—'}
 					</span>
 				</div>
-				{!params.compact && (
-					<>
-						<WidgetDivider />
-						<div className="flex gap-3">
-							<StatCell
-								label={t.btcCapLabel}
-								value={formatFiatMarketCap(btcCap, params.currency)}
-								accent
-							/>
-							<StatCell label={t.btcSupplyLabel} value={`${formatSupply(supply, locale)} XNO`} />
-						</div>
-					</>
-				)}
+				<div className="@max-[380px]:hidden">
+					{!params.compact && (
+						<>
+							<WidgetDivider />
+							<div className="flex gap-3">
+								<StatCell
+									label={t.btcCapLabel}
+									value={formatFiatMarketCap(btcCap, params.currency)}
+									accent
+								/>
+								<StatCell label={t.btcSupplyLabel} value={`${formatSupply(supply, locale)} XNO`} />
+							</div>
+						</>
+					)}
+				</div>
 			</WidgetFrame>
 		)
 	}
@@ -182,37 +186,39 @@ export function MarketCapWidget({
 	const key = params.currency.toLowerCase() as 'usd' | 'eur' | 'gbp' | 'jpy' | 'chf' | 'cad' | 'aud'
 	const delta24h = marketData.xnoPriceChange24h?.[key] ?? null
 	return (
-		<WidgetFrame label={t.capLabel} led="cyan" height={params.compact ? 164 : 214}>
+		<WidgetFrame label={t.capLabel} led="cyan" fullHeight={214} compactHeight={164}>
 			<div className="flex items-baseline justify-between gap-3">
-				<span className="font-mono text-[28px] font-bold leading-none tracking-tight tabular-nums">
+				<span className="min-w-0 whitespace-nowrap font-mono text-[28px] font-bold leading-none tracking-tight tabular-nums @max-[380px]:text-[22px]">
 					{formatFiatMarketCap(cap, params.currency)}
 				</span>
 				<Delta label={t.delta24h} value={delta24h} emphasized />
 			</div>
-			{!params.compact && (
-				<>
-					<div className="mt-2">
-						<SecondaryFiatStrip
-							usdValue={xnoData.current_price * supply}
-							rates={marketData as ExchangeRates}
-							locale={locale}
-							variant="cap"
-							fiats={fiats}
-							cryptos={cryptos}
-						/>
-					</div>
-					<WidgetDivider />
-					<div className="flex gap-3">
-						<StatCell
-							label={t.priceLabel}
-							value={formatFiatPrice(xnoData.current_price * rate, params.currency, locale)}
-							accent
-						/>
-						<StatCell label={t.supplyLabel} value={`${formatSupply(supply, locale)} XNO`} />
-						<StatCell label={t.rankLabel} value={`#${xnoData.market_cap_rank ?? '—'}`} />
-					</div>
-				</>
-			)}
+			<div className="@max-[380px]:hidden">
+				{!params.compact && (
+					<>
+						<div className="mt-2">
+							<SecondaryFiatStrip
+								usdValue={xnoData.current_price * supply}
+								rates={marketData as ExchangeRates}
+								locale={locale}
+								variant="cap"
+								fiats={fiats}
+								cryptos={cryptos}
+							/>
+						</div>
+						<WidgetDivider />
+						<div className="flex gap-3">
+							<StatCell
+								label={t.priceLabel}
+								value={formatFiatPrice(xnoData.current_price * rate, params.currency, locale)}
+								accent
+							/>
+							<StatCell label={t.supplyLabel} value={`${formatSupply(supply, locale)} XNO`} />
+							<StatCell label={t.rankLabel} value={`#${xnoData.market_cap_rank ?? '—'}`} />
+						</div>
+					</>
+				)}
+			</div>
 		</WidgetFrame>
 	)
 }

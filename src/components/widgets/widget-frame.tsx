@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -15,84 +15,109 @@ const LED_COLOR: Record<LedState, string> = {
  * micro-label header with an LED status dot, a dashed hairline and the
  * permanent "Data by NanoMarketCap" attribution plate. Every embed uses this
  * frame — the branding is not removable.
+ *
+ * The frame is width-responsive: the wrapper is a container query context,
+ * and the card height drops from `fullHeight` to `compactHeight` below
+ * 380px. Auto-fit embeds then report the real height to the host page. The
+ * body also scrolls (instead of clipping) if content still doesn't fit.
  */
 export function WidgetFrame({
 	label,
 	led,
 	ledPulse = false,
 	children,
-	height,
+	fullHeight,
+	compactHeight,
 	bodyAlign = 'center',
 }: {
 	label: string
 	led: LedState
 	ledPulse?: boolean
 	children: ReactNode
-	height: number
+	/** Height at ≥380px width. */
+	fullHeight: number
+	/** Height below the 380px compact breakpoint. */
+	compactHeight: number
 	/** Vertical placement of the body content: 'center' for stat cards,
 	 * 'start' for growing lists (live feed) anchored to the top. */
 	bodyAlign?: 'center' | 'start'
 }) {
 	return (
-		<section
-			className="relative flex w-full flex-col overflow-hidden rounded-md border border-border bg-card"
-			style={{ height }}
-			aria-label={label}
-		>
-			{/* Corner registration marks */}
-			<span aria-hidden="true" className="pointer-events-none absolute left-1 top-1 h-2.5 w-px bg-[#209CE9]/50" />
-			<span aria-hidden="true" className="pointer-events-none absolute left-1 top-1 h-px w-2.5 bg-[#209CE9]/50" />
-			<span
-				aria-hidden="true"
-				className="pointer-events-none absolute right-1 top-1 h-2.5 w-px bg-[#209CE9]/50"
-			/>
-			<span
-				aria-hidden="true"
-				className="pointer-events-none absolute right-1 top-1 h-px w-2.5 bg-[#209CE9]/50"
-			/>
-			<span
-				aria-hidden="true"
-				className="pointer-events-none absolute bottom-1 left-1 h-2.5 w-px bg-[#209CE9]/50"
-			/>
-			<span
-				aria-hidden="true"
-				className="pointer-events-none absolute bottom-1 left-1 h-px w-2.5 bg-[#209CE9]/50"
-			/>
-			<span
-				aria-hidden="true"
-				className="pointer-events-none absolute bottom-1 right-1 h-2.5 w-px bg-[#209CE9]/50"
-			/>
-			<span
-				aria-hidden="true"
-				className="pointer-events-none absolute bottom-1 right-1 h-px w-2.5 bg-[#209CE9]/50"
-			/>
-
-			{/* Header: micro label + LED */}
-			<div className="flex items-center justify-between gap-3 border-b border-dashed border-border/70 px-4 pb-2 pt-3">
-				<span className="font-mono text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground">
-					{label}
-				</span>
+		<div className="widget-respond w-full">
+			<section
+				className="widget-body relative flex w-full flex-col overflow-hidden rounded-md border border-border bg-card"
+				style={
+					{
+						'--w-full': `${fullHeight}px`,
+						'--w-compact': `${compactHeight}px`,
+					} as CSSProperties
+				}
+				aria-label={label}
+			>
+				{/* Corner registration marks */}
 				<span
 					aria-hidden="true"
-					className={cn(
-						'h-1.5 w-1.5 shrink-0 rounded-full',
-						LED_COLOR[led],
-						ledPulse && 'animate-live-pulse',
-					)}
+					className="pointer-events-none absolute left-1 top-1 h-2.5 w-px bg-[#209CE9]/50"
 				/>
-			</div>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute left-1 top-1 h-px w-2.5 bg-[#209CE9]/50"
+				/>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute right-1 top-1 h-2.5 w-px bg-[#209CE9]/50"
+				/>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute right-1 top-1 h-px w-2.5 bg-[#209CE9]/50"
+				/>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute bottom-1 left-1 h-2.5 w-px bg-[#209CE9]/50"
+				/>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute bottom-1 left-1 h-px w-2.5 bg-[#209CE9]/50"
+				/>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute bottom-1 right-1 h-2.5 w-px bg-[#209CE9]/50"
+				/>
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute bottom-1 right-1 h-px w-2.5 bg-[#209CE9]/50"
+				/>
 
-			<div
-				className={cn(
-					'flex min-h-0 flex-1 flex-col px-4 py-3',
-					bodyAlign === 'center' ? 'justify-center' : 'justify-start',
-				)}
-			>
-				{children}
-			</div>
+				{/* Header: micro label + LED */}
+				<div className="flex items-center justify-between gap-3 border-b border-dashed border-border/70 px-4 pb-2 pt-3">
+					<span className="font-mono text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground">
+						{label}
+					</span>
+					<span
+						aria-hidden="true"
+						className={cn(
+							'h-1.5 w-1.5 shrink-0 rounded-full',
+							LED_COLOR[led],
+							ledPulse && 'animate-live-pulse',
+						)}
+					/>
+				</div>
 
-			<WidgetAttribution />
-		</section>
+				{/* Body: centered stats or top-anchored lists; scrolls rather than
+				    clipping if the fixed-height content overflows (e.g. extreme
+				    narrow widths or oversized locales). */}
+				<div
+					className={cn(
+						'flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 py-3',
+						bodyAlign === 'center' ? 'justify-center' : 'justify-start',
+					)}
+				>
+					{children}
+				</div>
+
+				<WidgetAttribution />
+			</section>
+		</div>
 	)
 }
 

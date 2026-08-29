@@ -55,7 +55,7 @@ export function LiveWidget({
 				: { label: t.liveOffline, cls: 'bg-[#ea3943] shadow-[0_0_6px_1px_rgba(234,57,67,0.5)]', pulse: false }
 
 	return (
-		<WidgetFrame label={t.typeLive} led="cyan" bodyAlign="start" height={compact ? 208 : 240}>
+		<WidgetFrame label={t.typeLive} led="cyan" bodyAlign="start" fullHeight={240} compactHeight={208}>
 			<div className="flex items-center justify-between gap-3">
 				<span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
 					<span
@@ -73,13 +73,18 @@ export function LiveWidget({
 						{t.liveConnecting}…
 					</div>
 				) : (
-					rows.map((row) => (
+					rows.map((row, index) => (
 						<a
 							key={row.hash}
 							href={`${siteUrl}/${locale}/block/${row.hash}`}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="flex items-center gap-2 rounded-sm border border-transparent px-1.5 py-1 font-mono text-[10px] transition-colors hover:border-border hover:bg-accent/40"
+							className={cn(
+								'flex items-center gap-2 rounded-sm border border-transparent px-1.5 py-1 font-mono text-[10px] transition-colors hover:border-border hover:bg-accent/40',
+								// Below the compact breakpoint the frame is 208px:
+								// drop to the 3-row compact feed.
+								index >= 3 && '@max-[380px]:hidden',
+							)}
 						>
 							<span
 								aria-hidden="true"

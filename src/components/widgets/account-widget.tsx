@@ -59,7 +59,7 @@ export function AccountWidget({
 	const fiatPrimary = usdValue * getFiatRate(currency, rates)
 
 	return (
-		<WidgetFrame label={t.typeAccount} led="cyan" height={compact ? 196 : 246}>
+		<WidgetFrame label={t.typeAccount} led="cyan" fullHeight={246} compactHeight={196}>
 			<div className="flex items-start justify-between gap-3">
 				<span className="min-w-0 break-all font-mono text-[10px] leading-snug tracking-tight text-foreground">
 					{data.address}
@@ -69,36 +69,45 @@ export function AccountWidget({
 				</span>
 			</div>
 			<div className="mt-1 flex items-baseline justify-between gap-3">
-				<span className="font-mono text-[24px] font-bold leading-none tracking-tight tabular-nums">
+				<span className="min-w-0 whitespace-nowrap font-mono text-[24px] font-bold leading-none tracking-tight tabular-nums @max-[380px]:text-[18px]">
 					{formatXno(data.balanceXno, locale)}{' '}
 					<span className="text-[13px] font-semibold text-[#209CE9]">XNO</span>
 				</span>
 				{priceUsd > 0 && (
-					<span className="font-mono text-[10px] tabular-nums text-muted-foreground">
+					<span className="flex-none font-mono text-[10px] tabular-nums text-muted-foreground">
 						≈ {formatFiatPrice(fiatPrimary, currency, locale)}
 					</span>
 				)}
 			</div>
-			{!compact && (
-				<>
-					<div className="mt-2">
-						<SecondaryFiatStrip
-							usdValue={usdValue}
-							rates={rates}
-							locale={locale}
-							fiats={fiats}
-							cryptos={cryptos}
-						/>
-					</div>
-					<WidgetDivider />
-					<div className="flex flex-col gap-1.5">
-						<Row label={t.representativeLabel} value={data.representative ? data.representative : '—'} />
-						{data.pendingXno > 0 && (
-							<Row label={t.pendingLabel} value={`${formatXno(data.pendingXno, locale)} XNO`} accent />
-						)}
-					</div>
-				</>
-			)}
+			<div className="@max-[380px]:hidden">
+				{!compact && (
+					<>
+						<div className="mt-2">
+							<SecondaryFiatStrip
+								usdValue={usdValue}
+								rates={rates}
+								locale={locale}
+								fiats={fiats}
+								cryptos={cryptos}
+							/>
+						</div>
+						<WidgetDivider />
+						<div className="flex flex-col gap-1.5">
+							<Row
+								label={t.representativeLabel}
+								value={data.representative ? data.representative : '—'}
+							/>
+							{data.pendingXno > 0 && (
+								<Row
+									label={t.pendingLabel}
+									value={`${formatXno(data.pendingXno, locale)} XNO`}
+									accent
+								/>
+							)}
+						</div>
+					</>
+				)}
+			</div>
 		</WidgetFrame>
 	)
 }

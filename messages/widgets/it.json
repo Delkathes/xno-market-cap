@@ -6,7 +6,7 @@
   "embedLabel": "Codice di integrazione",
   "copy": "Copia",
   "copied": "Copiato",
-  "embedHint": "Incolla questo frammento ovunque sia accettato HTML. Il widget segue automaticamente il tema dei tuoi visitatori.",
+  "embedHint": "Incolla questo frammento ovunque sia accettato HTML: una scheda centrata, larga al massimo 400px e mai più larga dello schermo. Il widget segue automaticamente il tema dei tuoi visitatori.",
   "minWidth": "larghezza minima consigliata 320px",
   "typePrice": "Prezzo XNO",
   "typeMarketCap": "Capitalizzazione",

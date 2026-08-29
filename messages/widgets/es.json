@@ -6,7 +6,7 @@
   "embedLabel": "Código de inserción",
   "copy": "Copiar",
   "copied": "Copiado",
-  "embedHint": "Pega este fragmento en cualquier sitio que acepte HTML. El widget sigue automáticamente el tema de tus visitantes.",
+  "embedHint": "Pega este fragmento en cualquier sitio que acepte HTML: una tarjeta centrada, de como máximo 400px de ancho y nunca más ancha que la pantalla. El widget sigue automáticamente el tema de tus visitantes.",
   "minWidth": "ancho mínimo recomendado 320px",
   "typePrice": "Precio XNO",
   "typeMarketCap": "Capitalización",

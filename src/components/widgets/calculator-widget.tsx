@@ -66,7 +66,7 @@ export function CalculatorWidget({
 	}
 
 	return (
-		<WidgetFrame label={t.typeCalculator} led="cyan" height={compact ? 178 : 214}>
+		<WidgetFrame label={t.typeCalculator} led="cyan" fullHeight={214} compactHeight={178}>
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center gap-2">
 					<span className="font-mono text-[8.5px] uppercase tracking-[0.2em] text-muted-foreground/60">
@@ -94,10 +94,10 @@ export function CalculatorWidget({
 					</button>
 				</div>
 				<div className="flex items-baseline justify-between gap-3 border-t border-dashed border-border/70 pt-2">
-					<span className="font-mono text-[8.5px] uppercase tracking-[0.2em] text-muted-foreground/60">
+					<span className="flex-none font-mono text-[8.5px] uppercase tracking-[0.2em] text-muted-foreground/60">
 						{mode === 'xno' ? currency : 'XNO'}
 					</span>
-					<span className="font-mono text-[22px] font-bold leading-none tracking-tight tabular-nums text-[#209CE9]">
+					<span className="min-w-0 whitespace-nowrap text-right font-mono text-[22px] font-bold leading-none tracking-tight tabular-nums text-[#209CE9] @max-[380px]:text-[17px]">
 						{result === null
 							? '—'
 							: mode === 'xno'
@@ -106,7 +106,7 @@ export function CalculatorWidget({
 					</span>
 				</div>
 				{!compact && result !== null && (
-					<div className="border-t border-dashed border-border/70 pt-1.5">
+					<div className="@max-[380px]:hidden border-t border-dashed border-border/70 pt-1.5">
 						<SecondaryFiatStrip
 							usdValue={usdValue}
 							rates={rates}

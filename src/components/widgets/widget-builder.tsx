@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
 	Calculator,
 	Check,
@@ -18,6 +18,7 @@ import { isValidNanoAddress } from '@/lib/nano-utils'
 import { cn } from '@/lib/utils'
 
 import { CoinPickerDropdown } from '@/components/widgets/coin-picker'
+import { HighlightedSnippet } from '@/components/widgets/snippet-highlight'
 import {
 	AVAILABLE_WIDGETS,
 	buildEmbedUrl,
@@ -62,25 +63,25 @@ const TYPE_KEYS: Record<WidgetType, { label: keyof WidgetStrings; desc: keyof Wi
 function CornerTicks() {
 	return (
 		<>
-			<span aria-hidden="true" className="pointer-events-none absolute left-2 top-2 h-3 w-px bg-[#209CE9]/40" />
-			<span aria-hidden="true" className="pointer-events-none absolute left-2 top-2 h-px w-3 bg-[#209CE9]/40" />
-			<span aria-hidden="true" className="pointer-events-none absolute right-2 top-2 h-3 w-px bg-[#209CE9]/40" />
-			<span aria-hidden="true" className="pointer-events-none absolute right-2 top-2 h-px w-3 bg-[#209CE9]/40" />
+			<span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-3 w-px bg-[#209CE9]/40" />
+			<span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-px w-3 bg-[#209CE9]/40" />
+			<span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-3 w-px bg-[#209CE9]/40" />
+			<span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-px w-3 bg-[#209CE9]/40" />
 			<span
 				aria-hidden="true"
-				className="pointer-events-none absolute bottom-2 left-2 h-3 w-px bg-[#209CE9]/40"
+				className="pointer-events-none absolute bottom-0 left-0 h-3 w-px bg-[#209CE9]/40"
 			/>
 			<span
 				aria-hidden="true"
-				className="pointer-events-none absolute bottom-2 left-2 h-px w-3 bg-[#209CE9]/40"
+				className="pointer-events-none absolute bottom-0 left-0 h-px w-3 bg-[#209CE9]/40"
 			/>
 			<span
 				aria-hidden="true"
-				className="pointer-events-none absolute bottom-2 right-2 h-3 w-px bg-[#209CE9]/40"
+				className="pointer-events-none absolute bottom-0 right-0 h-3 w-px bg-[#209CE9]/40"
 			/>
 			<span
 				aria-hidden="true"
-				className="pointer-events-none absolute bottom-2 right-2 h-px w-3 bg-[#209CE9]/40"
+				className="pointer-events-none absolute bottom-0 right-0 h-px w-3 bg-[#209CE9]/40"
 			/>
 		</>
 	)
@@ -138,6 +139,21 @@ export function WidgetBuilder({
 	const [params, setParams] = useState<WidgetParams>(DEFAULT_WIDGET_PARAMS)
 	const [locale, setLocale] = useState<WidgetLocale>('en')
 	const [copied, setCopied] = useState(false)
+	// Auto-fit: the preview embed reports its real (width-dependent) height.
+	const [previewHeight, setPreviewHeight] = useState<number | null>(null)
+
+	useEffect(() => {
+		const onMessage = (event: MessageEvent) => {
+			const data = event.data as { type?: unknown; height?: unknown } | null | undefined
+			if (data?.type !== 'nmc-widget-resize') return
+			const { height } = data
+			if (typeof height === 'number' && height >= 100 && height <= 800) {
+				setPreviewHeight(height)
+			}
+		}
+		window.addEventListener('message', onMessage)
+		return () => window.removeEventListener('message', onMessage)
+	}, [])
 
 	const patch = (partial: Partial<WidgetParams>) => setParams((current) => ({ ...current, ...partial }))
 
@@ -162,8 +178,8 @@ export function WidgetBuilder({
 
 	const snippet = useMemo(
 		() =>
-			`<iframe\n  src="${embedUrl}"\n  loading="lazy"\n  width="100%"\n  height="${height}"\n  title="${strings[TYPE_KEYS[type].label]} · NanoMarketCap"\n  style="border:0;border-radius:8px;overflow:hidden"\n></iframe>`,
-		[embedUrl, height, strings, type],
+			`<iframe\n  src="${embedUrl}"\n  loading="lazy"\n  width="100%"\n  height="${height}"\n  title="${strings[TYPE_KEYS[type].label]} · NanoMarketCap"\n  style="border:0;border-radius:8px;overflow:hidden;max-width:min(400px,100vw);margin-inline:auto;display:block"\n></iframe>\n<script src="${siteUrl}/widgets/embed.js" defer></script>`,
+		[embedUrl, height, siteUrl, strings, type],
 	)
 
 	const copySnippet = async () => {
@@ -200,7 +216,7 @@ export function WidgetBuilder({
 				style={{ animationDelay: '80ms' }}
 			>
 				{/* ---- Signal source ---- */}
-				<section className="relative rounded-md border border-border bg-card p-4 sm:p-5">
+				<section className="relative min-w-0 rounded-md border border-border bg-card p-4 sm:p-5">
 					<CornerTicks />
 					<PanelLabel>{strings.rackLabel}</PanelLabel>
 
@@ -424,7 +440,7 @@ export function WidgetBuilder({
 				</section>
 
 				{/* ---- Live output ---- */}
-				<section className="relative flex flex-col rounded-md border border-border bg-card p-4 sm:p-5">
+				<section className="relative flex min-w-0 flex-col rounded-md border border-border bg-card p-4 sm:p-5">
 					<CornerTicks />
 					<div className="flex flex-wrap items-center justify-between gap-2">
 						<PanelLabel>{strings.outputLabel}</PanelLabel>
@@ -433,8 +449,8 @@ export function WidgetBuilder({
 						</span>
 					</div>
 
-					<div className="flex min-h-0 flex-1 flex-col gap-3">
-						<div className="rounded-sm border border-border bg-muted/20 p-3">
+					<div className="flex min-h-0 min-w-0 flex-1 flex-col gap-3">
+						<div className="min-w-0 rounded-sm border border-border bg-muted/20 p-3">
 							<div className="mb-2 flex items-center justify-between gap-2">
 								<span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
 									/ widget / embed / {locale} / {type}
@@ -444,13 +460,13 @@ export function WidgetBuilder({
 								key={embedPath}
 								src={embedPath}
 								width="100%"
-								height={height}
+								height={previewHeight ?? height}
 								title={`${strings[TYPE_KEYS[type].label]} — NanoMarketCap`}
 								className="overflow-hidden"
 							/>
 						</div>
 
-						<div className="relative flex min-h-0 flex-1 flex-col">
+						<div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
 							<div className="mb-2 flex items-center justify-between gap-2">
 								<span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
 									{strings.embedLabel}
@@ -469,8 +485,10 @@ export function WidgetBuilder({
 									{copied ? strings.copied : strings.copy}
 								</button>
 							</div>
-							<pre className="min-h-0 flex-1 overflow-auto rounded-sm border border-border bg-muted/30 p-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
-								<code>{snippet}</code>
+							<pre className="code-scroll min-h-0 min-w-0 max-w-full flex-1 overflow-x-auto whitespace-pre rounded-sm border border-border bg-muted/30 p-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
+								<code>
+									<HighlightedSnippet code={snippet} />
+								</code>
 							</pre>
 							<p className="mt-2 font-mono text-[9px] uppercase tracking-widest text-muted-foreground/60">
 								{strings.embedHint}

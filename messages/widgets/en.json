@@ -6,7 +6,7 @@
   "embedLabel": "Embed code",
   "copy": "Copy",
   "copied": "Copied",
-  "embedHint": "Paste this snippet anywhere HTML is accepted. The widget follows your visitors' theme automatically.",
+  "embedHint": "Paste this snippet anywhere HTML is accepted: a centered card, at most 400px wide and never wider than the screen. The widget follows your visitors' theme automatically.",
   "minWidth": "recommended min-width 320px",
   "typePrice": "XNO Price",
   "typeMarketCap": "Market Cap",

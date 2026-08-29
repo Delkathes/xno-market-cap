@@ -6,7 +6,7 @@
   "embedLabel": "Embed-code",
   "copy": "Kopiëren",
   "copied": "Gekopieerd",
-  "embedHint": "Plak dit fragment overal waar HTML wordt geaccepteerd. Het widget volgt automatisch het thema van je bezoekers.",
+  "embedHint": "Plak dit fragment overal waar HTML wordt geaccepteerd: een gecentreerde kaart, maximaal 400px breed en nooit breder dan het scherm. Het widget volgt automatisch het thema van je bezoekers.",
   "minWidth": "aanbevolen minimale breedte 320px",
   "typePrice": "XNO-prijs",
   "typeMarketCap": "Marktkapitalisatie",

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/theme-provider'
+import { EmbedAutoHeight } from '@/components/widgets/embed-auto-height'
 
 import '../[locale]/globals.css'
 
@@ -21,6 +22,7 @@ export default function WidgetsLayout({ children }: { children: React.ReactNode 
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
 				<ThemeProvider defaultTheme="system" disableTransitionOnChange>
 					{children}
+					<EmbedAutoHeight />
 				</ThemeProvider>
 			</body>
 		</html>

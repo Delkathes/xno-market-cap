@@ -29,9 +29,9 @@ export function DonateWidget({ t, address, compact }: { t: WidgetStrings; addres
 	const uri = useMemo(() => createNanoUri(address, raw), [address, raw])
 
 	return (
-		<WidgetFrame label={t.typeDonate} led="amber" height={compact ? 200 : 236}>
+		<WidgetFrame label={t.typeDonate} led="amber" fullHeight={236} compactHeight={200}>
 			<div className="flex items-start gap-3">
-				<div className="rounded-sm border border-border bg-white p-1">
+				<div className="flex-none rounded-sm border border-border bg-white p-1 [&_svg]:size-24 @max-[380px]:[&_svg]:size-[72px]">
 					{uri ? <QRCodeSVG value={uri} size={compact ? 72 : 96} level="M" marginSize={0} /> : null}
 				</div>
 				<div className="flex min-w-0 flex-1 flex-col gap-1.5">
@@ -73,11 +73,13 @@ export function DonateWidget({ t, address, compact }: { t: WidgetStrings; addres
 					<span className="truncate font-mono text-[9px] tracking-tight text-muted-foreground/70">
 						{shorten(address)}
 					</span>
-					{!compact && (
-						<span className="font-mono text-[8.5px] uppercase tracking-[0.15em] text-muted-foreground/50">
-							{t.donateTrust}
-						</span>
-					)}
+					<div className="@max-[380px]:hidden">
+						{!compact && (
+							<span className="font-mono text-[8.5px] uppercase tracking-[0.15em] text-muted-foreground/50">
+								{t.donateTrust}
+							</span>
+						)}
+					</div>
 				</div>
 			</div>
 		</WidgetFrame>

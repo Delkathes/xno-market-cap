@@ -38,7 +38,7 @@ export function SecondaryFiatStrip({
 	return (
 		<div
 			aria-hidden="true"
-			className="overflow-hidden whitespace-nowrap font-mono text-[9px] tabular-nums text-muted-foreground/80"
+			className="widget-strip overflow-x-auto whitespace-nowrap font-mono text-[9px] tabular-nums text-muted-foreground/80"
 		>
 			{fiats.map((currency, index) => (
 				<Fragment key={currency}>

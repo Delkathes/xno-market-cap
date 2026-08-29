@@ -14,6 +14,7 @@ import {
 	Lightbulb,
 	Link2,
 	Network,
+	Newspaper,
 	Scale,
 	ScanSearch,
 	Wallet,
@@ -102,6 +103,18 @@ export function MobileMenuPanel() {
 								{t('home')}
 							</Link>
 							<Link
+								href="/news"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/news' || pathname.startsWith('/news/')
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Newspaper className="h-4 w-4 text-primary" />
+								{t('news')}
+							</Link>
+							<Link
 								href="/widgets"
 								className={cn(
 									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
@@ -118,19 +131,6 @@ export function MobileMenuPanel() {
 									</p>
 								</div>
 							</Link>
-							<Link
-								href="/calculators"
-								className={cn(
-									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
-									pathname === '/calculators'
-										? 'bg-secondary text-secondary-foreground'
-										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
-								)}
-							>
-								<Calculator className="h-4 w-4 text-primary" />
-								{t('calculators')}
-							</Link>
-
 							<Link
 								href="/explore"
 								className={cn(
@@ -250,6 +250,23 @@ export function MobileMenuPanel() {
 								{t('tools')}
 							</div>
 
+							<Link
+								href="/calculators"
+								className={cn(
+									'flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors',
+									pathname === '/calculators'
+										? 'bg-secondary text-secondary-foreground'
+										: 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+								)}
+							>
+								<Calculator className="h-4 w-4 text-primary" />
+								<div>
+									<div>{t('calculators')}</div>
+									<p className="text-xs text-muted-foreground font-normal">
+										{t('calculatorsDescription')}
+									</p>
+								</div>
+							</Link>
 							<Link
 								href="/tools/unit-converter"
 								className={cn(

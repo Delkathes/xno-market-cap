@@ -44,23 +44,27 @@ export function NetworkWidget({
 	const principalSharePct = `${(data.principalShare * 100).toLocaleString(undefined, { maximumFractionDigits: 1 })}%`
 
 	return (
-		<WidgetFrame label={t.netLabel} led="green" ledPulse height={compact ? 190 : 230}>
+		<WidgetFrame label={t.netLabel} led="green" ledPulse fullHeight={230} compactHeight={190}>
 			<div className="flex items-baseline justify-between gap-3">
-				<span className="font-mono text-[24px] font-bold leading-none tracking-tight tabular-nums">
+				<span className="min-w-0 whitespace-nowrap font-mono text-[24px] font-bold leading-none tracking-tight tabular-nums @max-[380px]:text-[19px]">
 					{formatCount(data.totalBlocks, locale)}
 				</span>
-				<span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-[#04b16e]">
+				<span className="flex-none items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-[#04b16e]">
 					<span className="h-1 w-1 rounded-full bg-[#04b16e] shadow-[0_0_6px_1px_rgba(4,177,110,0.6)]" />
 					{t.netHealthy}
 				</span>
 			</div>
-			{!compact && <WidgetDivider />}
+			<div className="@max-[380px]:hidden">{!compact && <WidgetDivider />}</div>
 			<div className="flex flex-col gap-1.5">
 				<Row label={t.netCemented} value={`${cementedPct}%`} accent />
-				{!compact && <Row label={t.netUnchecked} value={formatCount(data.uncheckedBlocks, locale)} />}
+				<div className="@max-[380px]:hidden">
+					{!compact && <Row label={t.netUnchecked} value={formatCount(data.uncheckedBlocks, locale)} />}
+				</div>
 				<Row label={t.netOnlineWeight} value={formatWeight(data.onlineWeightXno, locale)} />
 				<Row label={t.netPrincipalReps} value={`${formatCount(data.principalReps, locale)}`} />
-				{!compact && <Row label={t.netPrincipalShare} value={principalSharePct} />}
+				<div className="@max-[380px]:hidden">
+					{!compact && <Row label={t.netPrincipalShare} value={principalSharePct} />}
+				</div>
 			</div>
 		</WidgetFrame>
 	)

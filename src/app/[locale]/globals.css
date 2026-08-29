@@ -174,6 +174,33 @@ html[data-announcement-dismissed='1'] .announcement-banner {
   display: none;
 }
 
+/* Widget secondary-currency strip: horizontally swipeable instead of clipped
+   on narrow embeds, with a right-edge fade as the "more" affordance. */
+.widget-strip {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, black 0 86%, transparent 100%);
+  mask-image: linear-gradient(to right, black 0 86%, transparent 100%);
+}
+.widget-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* Widget frames are width-responsive: the wrapper is the container, and the
+   body height drops to the compact variant below 380px (auto-fit embeds then
+   report the real height to the host via postMessage). */
+.widget-respond {
+  container-type: inline-size;
+}
+.widget-body {
+  height: var(--w-full, 228px);
+}
+@container (max-width: 380px) {
+  .widget-body {
+    height: var(--w-compact, var(--w-full, 228px));
+  }
+}
+
 @layer utilities {
   /* Register custom properties to enable gradient animation */  @property --gradient-from {
     syntax: '<color>';
@@ -427,6 +454,31 @@ html[data-announcement-dismissed='1'] .announcement-banner {
   }
 
   .feed-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Explicit cyan scrollbar for the widget embed code panel: always visible
+     so the snippet's horizontal scroll is discoverable at a glance. */
+  .code-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--primary) 45%, transparent) transparent;
+  }
+
+  .code-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .code-scroll::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--primary) 45%, transparent);
+  }
+
+  .code-scroll::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--primary) 70%, transparent);
+  }
+
+  .code-scroll::-webkit-scrollbar-track {
     background: transparent;
   }
 

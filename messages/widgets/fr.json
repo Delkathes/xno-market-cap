@@ -6,7 +6,7 @@
   "embedLabel": "Code d'intégration",
   "copy": "Copier",
   "copied": "Copié",
-  "embedHint": "Collez cet extrait partout où le HTML est accepté. Le widget suit automatiquement le thème de vos visiteurs.",
+  "embedHint": "Collez cet extrait partout où le HTML est accepté : une carte centrée, au plus 400px de large et jamais plus large que l'écran. Le widget suit automatiquement le thème de vos visiteurs.",
   "minWidth": "largeur minimale conseillée 320px",
   "typePrice": "Prix XNO",
   "typeMarketCap": "Capitalisation",

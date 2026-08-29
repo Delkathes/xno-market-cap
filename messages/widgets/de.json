@@ -6,7 +6,7 @@
   "embedLabel": "Einbettungscode",
   "copy": "Kopieren",
   "copied": "Kopiert",
-  "embedHint": "Fügen Sie diesen Code überall ein, wo HTML akzeptiert wird. Das Widget folgt automatisch dem Theme Ihrer Besucher.",
+  "embedHint": "Fügen Sie diesen Code überall ein, wo HTML akzeptiert wird: eine zentrierte Karte, höchstens 400px breit und nie breiter als der Bildschirm. Das Widget folgt automatisch dem Theme Ihrer Besucher.",
   "minWidth": "empfohlene Mindestbreite 320px",
   "typePrice": "XNO-Preis",
   "typeMarketCap": "Marktkapitalisierung",
