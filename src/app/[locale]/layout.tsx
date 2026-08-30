@@ -141,7 +141,7 @@ export default async function RootLayout({ children, params }: Props) {
 								<Navigation />
 							</Suspense>
 							<AnnouncementBanner />
-							<main className="flex-1 z-0 flex flex-col">{children}</main>
+							<div className="flex-1 z-0 flex flex-col relative">{children}</div>
 							<Footer locale={locale} />
 						</div>
 						<Analytics />

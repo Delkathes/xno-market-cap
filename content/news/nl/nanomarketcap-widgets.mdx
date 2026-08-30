@@ -1,0 +1,86 @@
+export const metadata = {
+	emoji: '🧩',
+	title: 'NanoMarketCap-widgets: live Nano-instrumenten voor elke website',
+	description:
+		'Het widgetrack van NanoMarketCap is live: zeven configureerbare instrumenten (prijs, marktkapitalisatie, rekenmachine, netwerkstatistieken, accountsaldo, live transacties, donaties) die met een kopieer-en-plak-iframe op elke pagina staan.',
+	date: '2026-08-30',
+	author: 'NanoMarketCap Team',
+	tags: ['aankondiging', 'tools', 'ecosysteem'],
+	published: true,
+}
+
+# NanoMarketCap-widgets: live Nano-instrumenten voor elke website
+
+De live polsslag van Nano laat zich nu overal op het web inbedden. [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets) is live: een widgetrack, een bouwpagina waarop iedereen een live Nano-instrument in elkaar zet en het met één kopieer-en-plak-actie op een website plaatst. Zeven instrumenten gaan vandaag van start: prijs, marktkapitalisatie, rekenmachine, netwerkstatistieken, accountsaldo, live transacties en donaties, in alle zes talen van de site. Geen account nodig, en elk getal blijft vanzelf actueel.
+
+## Wat het rack bevat
+
+De builder is een configurator. Kies links een widget, pas de instellingen aan, bekijk de preview en kopieer het fragment. De integratie is een gewone iframe plus een klein gehost script (`widgets/embed.js`) dat de echte hoogte van de widget meet en het frame daaraan aanpast. Geen dode ruimte door vaste hoogtes, geen afgeknipte inhoud.
+
+<Figure src="/news/nanomarketcap-widgets/01-builder-rack.png" alt="De widgetrack-builder van NanoMarketCap met de zeven instrumenten, een live preview en de embedcode" caption="Het rack: zeven instrumenten, live preview, één te kopiëren fragment" />
+
+De zeven instrumenten:
+
+- **Prijs.** Live XNO-prijs met 1U-, 24U- en 7D-verschillen, plus marktkapitalisatie, circulatie en rang.
+- **Marktkapitalisatie.** Dezelfde kaart met een hypothetische variant: Nano tegen de kapitalisatie van Bitcoin.
+- **Rekenmachine.** Een interactieve XNO-naar-fiat-omzetter, vooraf geladen met de live prijs.
+- **Netwerkstatistieken.** Totaal aantal blokken, gecementeerde verhouding, online gewicht en hoofdrepresentanten.
+- **Accountsaldo.** Een saldokaart voor elk `nano_`-adres.
+- **Live transacties.** Een WebSocket-feed van netwerkbrede bevestigingen op het moment dat ze binnenkomen.
+- **Donatie.** Een QR-donatiekaart voor je eigen adres.
+
+Alle zeven spreken alle zes talen (en, fr, de, es, it, nl). Dat is belangrijker dan het klinkt: een widget op een Franse blog toont Franse labels aan de bezoekers van die blog, zonder enig extra werk.
+
+## Alle zeven, live, hier in dit artikel
+
+Beschrijvingen zijn prima, maar deze dingen moet je aan het werk zien. Hier zijn alle zeven widgets ingebed in dit artikel, precies zoals je ze zelf zou inbedden.
+
+De prijswidget is het standaardinstrument en de meest voorkomende embed:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/price" height={228} title="XNO-prijs · NanoMarketCap" />
+
+De marktkapitalisatiekaart heeft een tweede modus, en dat is degene waar iedereen als eerste om vraagt: wat als Nano de kapitalisatie van Bitcoin zou halen? Hij toont de impliciete XNO-prijs bij die kapitalisatie, vergelijking inbegrepen:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/market-cap" height={214} title="Marktkapitalisatie · NanoMarketCap" />
+
+De rekenmachine rekent beide kanten op, XNO naar fiat en fiat naar XNO, tegen de live prijs:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/calculator" height={214} title="Rekenmachine · NanoMarketCap" />
+
+Netwerkstatistieken zijn een momentopname van de polsslag van de ledger, server-side gerenderd en voor elke bezoeker gecacht:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/network" height={240} title="Netwerkstatistieken · NanoMarketCap" />
+
+De accountsaldowidget is een saldokaart voor elk `nano_`-adres, met transactietelling, vertegenwoordiger en actuele waarde. Deze wijst naar het genesisaccount van het netwerk, het standaardadres van de builder:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/account?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={246} title="Accountsaldo · NanoMarketCap" />
+
+En de live feed is degene waar je naar blijft kijken. Hij maakt verbinding met publieke Nano-WebSocket-relays met automatische failover en reconnect. De teller naast het Live-label is een doorlopend totaal van bevestigde blokken sinds het openen van de pagina:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/live" height={248} title="Live transacties · NanoMarketCap" />
+
+De donatiekaart sluit het rack af: een QR-donatieknop die voor de demo naar hetzelfde genesisaccount wijst. Zet hem op je eigen adres en hij wordt een echte donatieknop, met vaste bedragen en deep links:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/nl/donate?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={236} title="Donatie · NanoMarketCap" />
+
+Wil je alle zeven tegelijk op één pagina? Hier is een live demo op CodeSandbox: [codesandbox.io/p/sandbox/hvjls8](https://codesandbox.io/p/sandbox/hvjls8).
+
+## De details die ertoe doen
+
+**Valutahiërarchie.** Elke widget heeft een primaire fiatvaluta (het grote getal), een rij secundaire fiatvaluta's en tot 8 crypto-activa waarin de waarde ook wordt getoond. Stablecoins zijn bewust uitgesloten van de cryptokiezer: «1 XNO = 1,3 USDT» is ruis, geen informatie.
+
+**Geen client-side API-aanroepen.** Prijzen, kapitalisaties en circulatie worden bij het renderen aan serverzijde ingevoegd en gecacht. De widget doet dus nul API-aanroepen vanuit de browser van de bezoeker, dus inbeddingen werken vanuit elke origin, op elke site die HTML accepteert, zonder CORS-headers te hoeven instellen. De live feed is de uitzondering: die heeft een WebSocket-verbinding vanuit de browser nodig, en is het enige deel van de widget dat dat doet.
+
+**Thema- en breedtebewust.** De widgets volgen het thema van de bezoeker, licht of donker, en schakelen onder 380px over naar een compacte layout, zodat ze zich goed gedragen op telefoons en in smalle zijbalken. Het embed-script past de iframe-hoogte automatisch aan, compact of volledig: geen verspilde ruimte.
+
+**De naamsvermelding blijft.** Elke widget draagt een permanente plaat «Data by NanoMarketCap». Die is niet verwijderbaar, en dat is bewust: gratis live data, met de creditline eraan vast.
+
+## Voor wie
+
+Eerst de voor de hand liggende toepassingen: een communitysite met de prijs in de header, een exchange-pagina die live netwerkstatistieken wil naast de stortingsinstructies, een wallet-aanbieder die een saldokaart in zijn dashboard inbedt.
+
+En dan is er de donatiewidget, stilletjes het meest community-gedreven instrument van het rack. Iedereen die een project op Nano draait, kan in ongeveer een minuut een QR-donatiekaart voor zijn eigen adres genereren. Geen backend, geen aanmelding, geen kosten: een QR-code en deep links die elke Nano-wallet begrijpt.
+
+Het rack bestaat om live Nano-data te brengen naar waar de Nano-mensen al zijn, in plaats van ze naar ons te laten komen. Bouw de jouwe op [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets). Het is gratis, er is geen account nodig en de donatiekaarten worden al door de community gebruikt.
+
+<script src="/widgets/embed.js" defer></script>

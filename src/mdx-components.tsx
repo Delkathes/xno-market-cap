@@ -203,6 +203,44 @@ function Step({ index, title, children }: { index: string; title?: string; child
 	)
 }
 
+/**
+ * Embeddable NanoMarketCap widget (the /widgets/embed/* pages). Mirrors the
+ * builder's generated snippet: a centered iframe at most 460px wide, with
+ * the fixed height as a no-JS fallback (widgets/embed.js auto-fits it).
+ * MDX compiles attributes to JSX props, so the style must be an object, not
+ * the snippet's string form.
+ */
+function WidgetEmbed({
+	src,
+	height = 228,
+	title = 'NanoMarketCap widget',
+	className,
+}: {
+	src: string
+	height?: number
+	title?: string
+	className?: string
+}) {
+	return (
+		<div className={cn('my-6', className)}>
+			<iframe
+				src={src}
+				loading="lazy"
+				width="100%"
+				height={height}
+				title={title}
+				style={{
+					border: 0,
+					overflow: 'hidden',
+					maxWidth: 'min(460px, 100vw)',
+					marginInline: 'auto',
+					display: 'block',
+				}}
+			/>
+		</div>
+	)
+}
+
 function Figure({
 	src,
 	alt,
@@ -412,6 +450,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		Step,
 		Figure,
 		BarChart,
+		WidgetEmbed,
 		Ticker: ArticleTicker,
 		Chart: ArticleChart,
 		GitHubRepo: GitHubRepoCard,

@@ -178,7 +178,7 @@ export function WidgetBuilder({
 
 	const snippet = useMemo(
 		() =>
-			`<iframe\n  src="${embedUrl}"\n  loading="lazy"\n  width="100%"\n  height="${height}"\n  title="${strings[TYPE_KEYS[type].label]} · NanoMarketCap"\n  style="border:0;border-radius:8px;overflow:hidden;max-width:min(400px,100vw);margin-inline:auto;display:block"\n></iframe>\n<script src="${siteUrl}/widgets/embed.js" defer></script>`,
+			`<iframe\n  src="${embedUrl}"\n  loading="lazy"\n  width="100%"\n  height="${height}"\n  title="${strings[TYPE_KEYS[type].label]} · NanoMarketCap"\n  style="border:0;overflow:hidden;max-width:min(460px,100vw);margin-inline:auto;display:block"\n></iframe>\n<script src="${siteUrl}/widgets/embed.js" defer></script>`,
 		[embedUrl, height, siteUrl, strings, type],
 	)
 

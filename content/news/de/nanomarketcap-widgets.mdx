@@ -1,0 +1,86 @@
+export const metadata = {
+	emoji: '🧩',
+	title: 'NanoMarketCap-Widgets: Live-Nano-Instrumente für jede Website',
+	description:
+		'Das NanoMarketCap-Widget-Rack ist live: sieben konfigurierbare Instrumente (Preis, Marktkapitalisierung, Rechner, Netzwerkstatistik, Kontostand, Live-Transaktionen, Spenden), die per Copy-Paste-Iframe auf jeder Seite landen.',
+	date: '2026-08-30',
+	author: 'NanoMarketCap Team',
+	tags: ['ankündigung', 'tools', 'ökosystem'],
+	published: true,
+}
+
+# NanoMarketCap-Widgets: Live-Nano-Instrumente für jede Website
+
+Der Live-Puls von Nano lässt sich ab sofort überall ins Web einbetten. [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets) ist live: ein Widget-Rack, eine Builder-Seite, auf der jeder ein Live-Nano-Instrument zusammenstellt und mit einem Copy-Paste auf eine Website bringt. Sieben Instrumente starten heute: Preis, Marktkapitalisierung, Rechner, Netzwerkstatistik, Kontostand, Live-Transaktionen und Spenden, in allen sechs Sprachen der Seite. Kein Konto nötig, und jede Zahl bleibt von selbst aktuell.
+
+## Was das Rack bietet
+
+Der Builder ist ein Konfigurator. Links ein Widget wählen, Einstellungen anpassen, die Vorschau beobachten, den Code kopieren. Das Einbetten ist ein einfaches iframe plus ein kleines gehostetes Skript (`widgets/embed.js`), das die echte Höhe des Widgets misst und den Rahmen entsprechend anpasst. Kein toter Raum durch feste Höhen, kein Abschneiden von Inhalt.
+
+<Figure src="/news/nanomarketcap-widgets/01-builder-rack.png" alt="Der NanoMarketCap-Widget-Builder mit den sieben Instrumenten, einer Live-Vorschau und dem Einbettungscode" caption="Das Rack: sieben Instrumente, Live-Vorschau, ein Copy-Paste-Code" />
+
+Die sieben Instrumente:
+
+- **Preis.** Live-XNO-Preis mit 1H-, 24H- und 7T-Änderungen, dazu Marktkapitalisierung, Umlauf und Rang.
+- **Marktkapitalisierung.** Dieselbe Karte mit einer hypothetischen Variante: Nano bei Bitcoins Marktkapitalisierung.
+- **Rechner.** Ein interaktiver XNO-zu-Fiat-Umrechner, vorbeladen mit dem Live-Preis.
+- **Netzwerkstatistik.** Blockanzahl, zementiertes Verhältnis, Online-Gewicht und Hauptrepräsentanten.
+- **Kontostand.** Eine Saldo-Karte für jede `nano_`-Adresse.
+- **Live-Transaktionen.** Ein WebSocket-Feed bestätigter Netzwerk-Transaktionen in Echtzeit.
+- **Spende.** Eine QR-Spendenkarte für die eigene Adresse.
+
+Alle sieben sprechen alle sechs Sprachen (en, fr, de, es, it, nl). Das ist wichtiger, als es klingt: Ein Widget auf einem französischen Blog zeigt den Besuchern dieses Blogs französische Beschriftungen, ohne jede Zusatzarbeit.
+
+## Alle sieben, live, direkt hier
+
+Beschreibungen sind gut, aber diese Dinge will man laufen sehen. Hier sind alle sieben Widgets in diesen Artikel eingebettet, genau so, wie man sie selbst einbetten würde.
+
+Das Preis-Widget ist das Standard-Instrument und der häufigste Embed:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/price" height={228} title="XNO-Preis · NanoMarketCap" />
+
+Die Marktkapitalisierungskarte hat einen zweiten Modus, und das ist der, nach dem zuerst gefragt wird: was wäre, wenn Nano bei Bitcoins Marktkapitalisierung läge? Sie zeigt den impliziten XNO-Preis bei dieser Kapitalisierung, Vergleich inklusive:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/market-cap" height={214} title="Marktkapitalisierung · NanoMarketCap" />
+
+Der Rechner rechnet in beide Richtungen, XNO zu Fiat und Fiat zu XNO, zum Live-Preis:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/calculator" height={214} title="Rechner · NanoMarketCap" />
+
+Die Netzwerkstatistik ist eine Momentaufnahme des Ledgers, serverseitig gerendert und für jeden Besucher gecacht:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/network" height={240} title="Netzwerkstatistik · NanoMarketCap" />
+
+Das Kontostand-Widget ist eine Saldo-Karte für jede `nano_`-Adresse, mit Transaktionszahl, Repräsentant und aktuellem Wert. Dieses hier zeigt das Genesis-Konto des Netzwerks, die Standardadresse des Builders:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/account?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={246} title="Kontostand · NanoMarketCap" />
+
+Und der Live-Feed ist der, bei dem man hängen bleibt. Er verbindet sich mit öffentlichen Nano-WebSocket-Relays mit automatischem Failover und Reconnect. Der Zähler neben dem Live-Label ist eine laufende Summe der bestätigten Blöcke, die seit dem Öffnen der Seite gesehen wurden:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/live" height={248} title="Live-Transaktionen · NanoMarketCap" />
+
+Die Spendenkarte schließt das Rack ab: ein QR-Spendenbutton, der für die Demo auf dasselbe Genesis-Konto zeigt. Stellen Sie ihn auf Ihre eigene Adresse um, und er wird zu einem echten Spendenbutton mit voreingestellten Beträgen und Deep Links:
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/de/donate?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={236} title="Spende · NanoMarketCap" />
+
+Sie wollen alle sieben auf einer Seite sehen? Hier ist eine Live-Demo auf CodeSandbox: [codesandbox.io/p/sandbox/hvjls8](https://codesandbox.io/p/sandbox/hvjls8).
+
+## Die Details, die zählen
+
+**Währungshierarchie.** Jedes Widget hat eine primäre Fiat-Währung (die große Zahl), eine Leiste mit sekundären Fiats und bis zu 8 Krypto-Assets, in denen der Wert ebenfalls angezeigt wird. Stablecoins sind bewusst aus der Krypto-Auswahl ausgeschlossen: „1 XNO = 1,3 USDT“ ist Rauschen, keine Information.
+
+**Keine Client-seitigen API-Aufrufe.** Preise, Kapitalisierungen und Umlauf werden beim Rendern serverseitig eingefügt und gecacht. Das Widget macht also null API-Aufrufe aus dem Browser des Besuchers, daher funktionieren Einbettungen von jeder Origin aus, auf jeder Seite, die HTML akzeptiert, ohne CORS-Header konfigurieren zu müssen. Der Live-Feed ist die Ausnahme: Er braucht eine WebSocket-Verbindung aus dem Browser, und er ist der einzige Teil des Widgets, der das tut.
+
+**Theme- und breitenbewusst.** Die Widgets folgen dem Theme des Besuchers, hell oder dunkel, und wechseln unter 380px in ein kompaktes Layout, damit sie auf Smartphones und in schmalen Sidebars funktionieren. Das Embed-Skript passt die iframe-Höhe automatisch an, ob nun kompakt oder voll: kein verschwendeter Platz.
+
+**Die Attribution bleibt.** Jedes Widget trägt eine dauerhafte Plakette „Daten von NanoMarketCap“. Sie ist nicht entfernbar, und das ist Absicht: kostenlose Live-Daten, mit der Quellenangabe dran.
+
+## Für wen
+
+Zuerst die offensichtlichen Fälle: eine Community-Website mit dem Preis im Header, eine Börsen-Seite, die Live-Netzwerkstatistik neben den Einzahlungsanweisungen will, ein Wallet-Anbieter, der eine Saldo-Karte in sein Dashboard einbettet.
+
+Und dann ist da das Spenden-Widget, das still der gemeinschaftlichste Teil des Racks ist. Jeder, der ein Projekt auf Nano betreibt, kann in etwa einer Minute eine QR-Spendenkarte für die eigene Adresse erzeugen. Kein Backend, keine Anmeldung, keine Gebühr: ein QR-Code und Deep Links, die jedes Nano-Wallet versteht.
+
+Das Rack existiert, um Live-Nano-Daten dorthin zu bringen, wo die Nano-Leute bereits sind, statt sie zu uns zu holen. Bauen Sie Ihres auf [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets). Es ist kostenlos, es braucht kein Konto, und die Spendenkarten werden bereits von der Community genutzt.
+
+<script src="/widgets/embed.js" defer></script>

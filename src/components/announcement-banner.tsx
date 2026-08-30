@@ -31,13 +31,13 @@ export function AnnouncementBanner() {
 	if (dismissed) return null
 
 	return (
-		<div className="announcement-banner animate-fade-in-up border-b border-dashed border-border bg-card/70 backdrop-blur-lg">
+		<div className="announcement-banner animate-fade-in-up border-b border-dashed border-border bg-card backdrop-blur-xl">
 			<div className="container mx-auto flex items-center gap-3 px-4 py-2">
 				<span aria-hidden="true" className="relative flex h-2 w-2 flex-none">
 					<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#209CE9] opacity-60" />
 					<span className="relative inline-flex h-2 w-2 rounded-full bg-[#209CE9]" />
 				</span>
-				<span className="hidden font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground/70 sm:inline">
+				<span className="hidden font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground/90 sm:inline">
 					&lt; {t('kicker')} &gt;
 				</span>
 				<p className="min-w-0 flex-1 truncate text-xs text-foreground/90">

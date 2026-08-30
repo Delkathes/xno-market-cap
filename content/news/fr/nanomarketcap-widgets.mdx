@@ -1,0 +1,86 @@
+export const metadata = {
+	emoji: '🧩',
+	title: 'Widgets NanoMarketCap : des instruments Nano en direct pour n’importe quel site',
+	description:
+		'Le rack de widgets NanoMarketCap est en ligne : sept instruments configurables (prix, capitalisation, calculateur, statistiques réseau, solde de compte, transactions en direct, dons) à intégrer sur n’importe quelle page avec un simple copier-coller d’iframe.',
+	date: '2026-08-30',
+	author: 'Équipe NanoMarketCap',
+	tags: ['annonce', 'outils', 'écosystème'],
+	published: true,
+}
+
+# Widgets NanoMarketCap : des instruments Nano en direct pour n’importe quel site
+
+Le pouls de Nano s’affiche désormais partout sur le web. [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets) est en ligne : un rack de widgets, une page de configuration où chacun assemble un instrument Nano en direct et l’intègre sur un site en un seul copier-coller. Sept instruments sont disponibles dès aujourd’hui : prix, capitalisation, calculateur, statistiques réseau, solde de compte, transactions en direct et dons, dans les six langues du site. Aucun compte requis, et chaque chiffre se met à jour tout seul.
+
+## Ce que contient le rack
+
+Le constructeur est un configurateur. Choisissez un widget à gauche, ajustez les réglages, regardez l’aperçu se mettre à jour, copiez l’extrait. L’intégration est un simple iframe plus un petit script hébergé (`widgets/embed.js`) qui mesure la hauteur réelle du widget et redimensionne le cadre en conséquence. Pas d’espace vide à hauteur fixe, pas de contenu coupé.
+
+<Figure src="/news/nanomarketcap-widgets/01-builder-rack.png" alt="Le rack de widgets NanoMarketCap avec les sept instruments, l’aperçu en direct et le code d’intégration" caption="Le rack : sept instruments, aperçu en direct, un extrait à copier-coller" />
+
+Les sept instruments :
+
+- **Prix.** Prix XNO en direct avec variations 1H, 24H et 7J, plus capitalisation, offre et rang.
+- **Capitalisation.** La même carte avec une variante hypothétique : Nano à la capitalisation de Bitcoin.
+- **Calculateur.** Un convertisseur interactif XNO vers devise, préchargé avec le prix en direct.
+- **Statistiques réseau.** Nombre de blocs, ratio cimenté, poids en ligne et représentants principaux.
+- **Solde de compte.** Une carte de solde pour n’importe quelle adresse `nano_`.
+- **Transactions en direct.** Un flux WebSocket des confirmations réseau au moment où elles arrivent.
+- **Don.** Une carte de don QR pour votre propre adresse.
+
+Les sept parlent les six langues (en, fr, de, es, it, nl). C’est plus important qu’il n’y paraît : un widget intégré sur un blog français affiche des libellés français aux visiteurs de ce blog, sans aucun travail supplémentaire.
+
+## Les sept, en direct, ici même
+
+Les descriptions, c’est bien, mais ces objets sont faits pour être vus en fonctionnement. Voici les sept widgets intégrés dans cet article, exactement comme vous les intégreriez vous-même.
+
+Le widget de prix est l’instrument par défaut et l’intégration la plus courante :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/price" height={228} title="Prix XNO · NanoMarketCap" />
+
+La carte capitalisation a un deuxième mode, et c’est celui qu’on demande en premier : et si Nano atteignait la capitalisation de Bitcoin ? Elle affiche le prix XNO implicite à cette capitalisation, comparaison incluse :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/market-cap" height={214} title="Capitalisation · NanoMarketCap" />
+
+Le calculateur convertit dans les deux sens, XNO vers devise et devise vers XNO, au prix en direct :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/calculator" height={214} title="Calculateur · NanoMarketCap" />
+
+Les statistiques réseau sont un instantané du pouls du registre, rendues côté serveur et mises en cache pour chaque visiteur :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/network" height={240} title="Statistiques réseau · NanoMarketCap" />
+
+Le widget solde de compte est une carte de solde pour n’importe quelle adresse `nano_`, avec nombre de transactions, représentant et valeur actuelle. Celui-ci pointe vers le compte de genèse du réseau, l’adresse par défaut du constructeur :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/account?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={246} title="Solde de compte · NanoMarketCap" />
+
+Et le flux en direct est celui sur lequel on s’attarde. Il se connecte aux relais WebSocket publics de Nano avec bascule et reconnexion automatiques. Le compteur à côté du libellé Live est un total cumulé des blocs confirmés observés depuis l’ouverture de la page :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/live" height={248} title="Transactions en direct · NanoMarketCap" />
+
+La carte de don ferme le rack : un bouton de don QR pointant vers le même compte de genèse, pour la démonstration seulement. Pointez-la vers votre propre adresse et elle devient un véritable bouton de don, avec montants prédéfinis et liens profonds :
+
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/fr/donate?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={236} title="Don · NanoMarketCap" />
+
+Vous voulez les sept sur une seule page d’un coup ? Voici une démo CodeSandbox en direct : [codesandbox.io/p/sandbox/hvjls8](https://codesandbox.io/p/sandbox/hvjls8).
+
+## Les détails qui comptent
+
+**Hiérarchie des devises.** Chaque widget a une devise fiduciaire principale (le grand nombre), une bande de devises secondaires, et jusqu’à 8 actifs crypto dans lesquels la valeur est aussi affichée. Les stablecoins sont exclus du sélecteur crypto, volontairement : « 1 XNO = 1,3 USDT », c’est du bruit, pas de l’information.
+
+**Aucun appel API côté client.** Les prix, capitalisations et offres sont injectés au moment du rendu, côté serveur, puis mis en cache. Le widget ne fait aucun appel API depuis le navigateur du visiteur, donc les intégrations fonctionnent depuis n’importe quelle origine, sur n’importe quel site qui accepte le HTML, sans en-têtes CORS à configurer. Le flux en direct est l’exception : il a besoin d’une connexion WebSocket depuis le navigateur, et c’est la seule partie du widget qui en fait.
+
+**Conscient du thème et de la largeur.** Les widgets suivent le thème du visiteur, clair ou sombre, et passent en disposition compacte sous 380px, pour se comporter correctement sur mobile et dans les colonnes étroites. Le script d’intégration ajuste automatiquement la hauteur de l’iframe, qu’elle soit compacte ou complète : aucun espace perdu.
+
+**L’attribution reste.** Chaque widget porte une plaque permanente « Données par NanoMarketCap ». Elle n’est pas amovible, et c’est voulu : des données en direct gratuites, avec la ligne de crédit attachée.
+
+## Pour qui
+
+Les usages évidents d’abord : un site communautaire qui met le prix dans son en-tête, une page d’échange qui veut des statistiques réseau en direct à côté des instructions de dépôt, un fournisseur de portefeuille qui intègre une carte de solde dans son tableau de bord.
+
+Et puis il y a le widget de don, discrètement l’instrument le plus communautaire du rack. Quiconque mène un projet sur Nano peut générer une carte de don QR pour sa propre adresse en une minute environ. Pas de backend, pas d’inscription, pas de frais : un QR code et des liens profonds que tous les portefeuilles Nano comprennent.
+
+Le rack existe pour mettre les données Nano en direct là où les gens de Nano sont déjà, plutôt que de les faire venir vers nous. Construisez le vôtre sur [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets). C’est gratuit, aucun compte n’est nécessaire, et les cartes de don sont déjà utilisées par la communauté.
+
+<script src="/widgets/embed.js" defer></script>

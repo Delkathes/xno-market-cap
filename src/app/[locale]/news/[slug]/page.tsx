@@ -15,7 +15,6 @@ import { env } from '@/env'
 import { Button } from '@/components/ui/button'
 import { ArticleCover } from '@/components/article-cover'
 import { HreflangLinks } from '@/components/hreflang-links'
-import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsCard } from '@/components/news-card'
 
 type Props = {
@@ -103,7 +102,7 @@ export default async function NewsArticlePage({ params }: Props) {
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<HreflangLinks path={`/news/${slug}`} />
-			<ModernPageBackground />
+			{/* <ModernPageBackground /> */}
 
 			<script
 				type="application/ld+json"
