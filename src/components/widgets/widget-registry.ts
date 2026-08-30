@@ -19,8 +19,8 @@ export const AVAILABLE_WIDGETS: WidgetType[] = [
 	'donate',
 ]
 
-/** Default address for account/donation widgets (the network genesis account). */
-export const DEFAULT_ACCOUNT_ADDRESS = 'nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3'
+/** Default address for account/donation widgets (community demo address). */
+export const DEFAULT_ACCOUNT_ADDRESS = 'nano_335o96s1kje9jzwukjkqt74iatrfqz4uoue7ocxpce95eukmicpyjmj1ke81'
 
 export const WIDGET_LOCALES = ['en', 'fr', 'de', 'es', 'it', 'nl'] as const
 export type WidgetLocale = (typeof WIDGET_LOCALES)[number]

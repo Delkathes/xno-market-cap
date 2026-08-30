@@ -1,3 +1,8 @@
+'use client'
+
+import { useState } from 'react'
+import { Check, Copy } from 'lucide-react'
+
 import type { AccountData } from '@/lib/account-data-service'
 import type { FiatCurrency } from '@/lib/constants'
 import { type ExchangeRates, formatFiatPrice, getFiatRate } from '@/lib/currency-helpers'
@@ -13,19 +18,62 @@ function formatXno(xno: number, locale: string): string {
 	return xno.toLocaleString(locale, { maximumFractionDigits: 6 })
 }
 
-function Row({ label, value, accent = false }: { label: string; value: string; accent?: boolean }) {
+/** Tiny clipboard button: copies on click, shows a transient check state. */
+function CopyButton({ value, label }: { value: string; label: string }) {
+	const [copied, setCopied] = useState(false)
+
+	const copy = async () => {
+		try {
+			await navigator.clipboard.writeText(value)
+			setCopied(true)
+			window.setTimeout(() => setCopied(false), 1500)
+		} catch {
+			// clipboard unavailable
+		}
+	}
+
+	return (
+		<button
+			type="button"
+			onClick={copy}
+			aria-label={label}
+			title={label}
+			className="flex flex-none cursor-pointer items-center justify-center rounded-sm p-0.5 text-muted-foreground/50 transition-colors hover:bg-accent hover:text-foreground"
+		>
+			{copied ? <Check className="h-3 w-3 text-[#04b16e]" /> : <Copy className="h-3 w-3" />}
+		</button>
+	)
+}
+
+function Row({
+	label,
+	value,
+	accent = false,
+	copyValue,
+	copyLabel,
+}: {
+	label: string
+	value: string
+	accent?: boolean
+	/** When set, a copy button appears next to the value. */
+	copyValue?: string
+	copyLabel?: string
+}) {
 	return (
 		<div className="flex items-baseline justify-between gap-4">
 			<span className="flex-none font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
 				{label}
 			</span>
-			<span
-				className={cn(
-					'min-w-0 break-all text-right font-mono text-[12px] font-semibold leading-tight tabular-nums',
-					accent ? 'text-[#209CE9]' : 'text-foreground',
-				)}
-			>
-				{value}
+			<span className="flex min-w-0 items-center justify-end gap-1">
+				<span
+					className={cn(
+						'min-w-0 line-clamp-1 text-right font-mono text-[12px] font-semibold leading-tight tabular-nums',
+						accent ? 'text-[#209CE9]' : 'text-foreground',
+					)}
+				>
+					{value}
+				</span>
+				{copyValue && <CopyButton value={copyValue} label={copyLabel ?? label} />}
 			</span>
 		</div>
 	)
@@ -60,10 +108,14 @@ export function AccountWidget({
 
 	return (
 		<WidgetFrame label={t.typeAccount} led="cyan" fullHeight={246} compactHeight={196}>
-			<div className="flex items-start justify-between gap-3">
-				<span className="min-w-0 break-all font-mono text-[10px] leading-snug tracking-tight text-foreground">
+			<div className="flex items-start justify-between gap-2">
+				<span
+					className="min-w-0 flex-1 line-clamp-1 font-mono text-[10px] leading-snug tracking-tight text-foreground"
+					title={data.address}
+				>
 					{data.address}
 				</span>
+				<CopyButton value={data.address} label={t.copy} />
 				<span className="flex-none font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
 					{data.hasActivity ? `${data.blockCount.toLocaleString(locale)} ${t.transactionsLabel}` : '—'}
 				</span>
@@ -96,6 +148,8 @@ export function AccountWidget({
 							<Row
 								label={t.representativeLabel}
 								value={data.representative ? data.representative : '—'}
+								copyValue={data.representative ?? undefined}
+								copyLabel={t.copy}
 							/>
 							{data.pendingXno > 0 && (
 								<Row

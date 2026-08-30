@@ -51,15 +51,15 @@ Network stats are a snapshot of the ledger's pulse, server-rendered and cached f
 
 <WidgetEmbed src="https://nanomarketcap.com/widgets/embed/en/network" height={240} title="Network Stats · NanoMarketCap" />
 
-The account widget is a balance card for any `nano_` address, with the transaction count, representative and current worth. This one is pointed at the network genesis account, the builder's default:
+The account widget is a balance card for any `nano_` address, with the transaction count, representative and current worth. This one is the builder's default demo address:
 
-<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/en/account?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={246} title="Account Balance · NanoMarketCap" />
+<WidgetEmbed src="https://nanomarketcap.com/widgets/embed/en/account?address=nano_335o96s1kje9jzwukjkqt74iatrfqz4uoue7ocxpce95eukmicpyjmj1ke81" height={246} title="Account Balance · NanoMarketCap" />
 
 And the live feed is the one worth staring at. It connects to public Nano WebSocket relays with automatic failover and reconnect. The count next to the Live label is a running total of confirmed blocks seen since the page opened:
 
 <WidgetEmbed src="https://nanomarketcap.com/widgets/embed/en/live" height={248} title="Live Transactions · NanoMarketCap" />
 
-The donate card closes the rack: a QR donation button pointed at the same genesis address, demo only. Point it at your own address and it becomes a real donation button, with preset amounts and deep links:
+The donate card closes the rack: a QR donation button pointed at the network genesis account, demo only. Point it at your own address and it becomes a real donation button, with preset amounts and deep links:
 
 <WidgetEmbed src="https://nanomarketcap.com/widgets/embed/en/donate?address=nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3" height={236} title="Donate · NanoMarketCap" />
 
