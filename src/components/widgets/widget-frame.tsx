@@ -103,12 +103,12 @@ export function WidgetFrame({
 					/>
 				</div>
 
-				{/* Body: centered stats or top-anchored lists; scrolls rather than
-				    clipping if the fixed-height content overflows (e.g. extreme
-				    narrow widths or oversized locales). */}
+				{/* Body: centered stats or top-anchored lists. Clipped, never
+				    scrollable: heights are sized so content always fits, and a
+				    mini scrollbar inside an iframe makes no sense. */}
 				<div
 					className={cn(
-						'flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 py-3',
+						'flex min-h-0 flex-1 flex-col overflow-hidden px-4 py-3',
 						bodyAlign === 'center' ? 'justify-center' : 'justify-start',
 					)}
 				>

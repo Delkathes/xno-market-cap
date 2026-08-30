@@ -90,9 +90,9 @@ export const WIDGET_HEIGHTS: Record<WidgetType, { full: number; compact: number 
 	price: { full: 228, compact: 178 },
 	'market-cap': { full: 214, compact: 164 },
 	calculator: { full: 214, compact: 178 },
-	network: { full: 230, compact: 190 },
+	network: { full: 240, compact: 190 },
 	account: { full: 246, compact: 196 },
-	live: { full: 240, compact: 208 },
+	live: { full: 248, compact: 208 },
 	donate: { full: 236, compact: 200 },
 }
 

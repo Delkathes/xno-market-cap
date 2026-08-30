@@ -21,7 +21,7 @@ function Row({ label, value, accent = false }: { label: string; value: string; a
 			</span>
 			<span
 				className={cn(
-					'min-w-0 break-all text-right font-mono text-[12px] font-semibold tabular-nums',
+					'min-w-0 break-all text-right font-mono text-[12px] font-semibold leading-tight tabular-nums',
 					accent ? 'text-[#209CE9]' : 'text-foreground',
 				)}
 			>

@@ -10,7 +10,7 @@ function Row({ label, value, accent = false }: { label: string; value: string; a
 			<span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">{label}</span>
 			<span
 				className={cn(
-					'font-mono text-[12px] font-semibold tabular-nums',
+					'font-mono text-[12px] font-semibold leading-tight tabular-nums',
 					accent ? 'text-[#209CE9]' : 'text-foreground',
 				)}
 			>
@@ -44,7 +44,7 @@ export function NetworkWidget({
 	const principalSharePct = `${(data.principalShare * 100).toLocaleString(undefined, { maximumFractionDigits: 1 })}%`
 
 	return (
-		<WidgetFrame label={t.netLabel} led="green" ledPulse fullHeight={230} compactHeight={190}>
+		<WidgetFrame label={t.netLabel} led="green" ledPulse fullHeight={240} compactHeight={190}>
 			<div className="flex items-baseline justify-between gap-3">
 				<span className="min-w-0 whitespace-nowrap font-mono text-[24px] font-bold leading-none tracking-tight tabular-nums @max-[380px]:text-[19px]">
 					{formatCount(data.totalBlocks, locale)}
