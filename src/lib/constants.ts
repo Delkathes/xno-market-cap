@@ -119,6 +119,13 @@ export const WS_ENDPOINTS = [
 	'wss://rainstorm.city/websocket',
 	'wss://ws.nano.to',
 ] as const
+
+// Network-wide feed (confirmation topic with NO account filter): only relays
+// verified to actually stream network-wide confirmations. rainstorm.city
+// rejects "subscribe to ALL" and node.somenano.com opens without ever
+// delivering a frame, so both are excluded from this list (they stay in
+// WS_ENDPOINTS for account-scoped feeds, which they serve).
+export const WS_NETWORK_ENDPOINTS = ['wss://nanoslo.0x.no/websocket', 'wss://ws.nano.to'] as const
 // RPC endpoints for balance checks
 export const RPC_ENDPOINTS = [
 	'https://rpc.nano.to',

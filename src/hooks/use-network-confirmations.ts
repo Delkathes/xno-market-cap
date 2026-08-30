@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import * as v from 'valibot'
 
-import { WS_ENDPOINTS } from '@/lib/constants'
+import { WS_NETWORK_ENDPOINTS } from '@/lib/constants'
 import { rawToXno } from '@/lib/nano-utils'
 
 const WS_INITIAL_RECONNECT_DELAY = 3000
@@ -17,6 +17,11 @@ const WS_RETRY_FOREVER_DELAY = 30000
 // considered hung (some relays black-hole connections): force-close so the
 // reconnect path cycles to the next endpoint instead of sitting in limbo.
 const WS_CONNECT_WATCHDOG_MS = 10000
+// If no VALID confirmation frame arrives within this window after OPEN the
+// relay is considered dead-but-open (node.somenano.com behaves exactly like
+// this): force one reconnect cycle to the next endpoint. Network-wide
+// confirmations never pause this long, so healthy relays are unaffected.
+const WS_FIRST_FRAME_MS = 12000
 // If no confirmation frame arrives for this long while the socket is OPEN it
 // is likely a zombie (TCP alive, relay silently stopped forwarding). Force
 // one reconnect cycle; the window restarts on open, so a genuinely quiet
@@ -44,20 +49,21 @@ let globalWsEndpointIndex = 0
 
 function getNextWsEndpointIndex(): number {
 	const index = globalWsEndpointIndex
-	globalWsEndpointIndex = (globalWsEndpointIndex + 1) % WS_ENDPOINTS.length
+	globalWsEndpointIndex = (globalWsEndpointIndex + 1) % WS_NETWORK_ENDPOINTS.length
 	return index
 }
 
-// The last relay that opened successfully in this browser: fresh page loads
-// start there instead of always landing on WS_ENDPOINTS[0], so visitors whose
-// network can't reach one relay don't eat a failed attempt on every load.
-// Consumed once per connect; subsequent failures fall back to the rotation.
+// The last relay that actually delivered a confirmation in this browser:
+// fresh page loads start there instead of always landing on the first
+// endpoint. Written only on delivery (not on open), so a dead-but-open relay
+// can never be remembered as the preferred one. Consumed once per connect;
+// subsequent failures fall back to the rotation.
 const WS_PREFERRED_KEY = 'nmc.ws.preferred'
 let preferredWsIndex: number | null = null
 if (typeof window !== 'undefined') {
 	try {
 		const stored = Number(localStorage.getItem(WS_PREFERRED_KEY))
-		if (Number.isInteger(stored) && stored >= 0 && stored < WS_ENDPOINTS.length) {
+		if (Number.isInteger(stored) && stored >= 0 && stored < WS_NETWORK_ENDPOINTS.length) {
 			preferredWsIndex = stored
 		}
 	} catch {
@@ -79,16 +85,19 @@ export type FeedStatus = 'live' | 'connecting' | 'offline'
 /**
  * Network-wide confirmation feed: subscribes to the `confirmation` topic
  * without an account filter, so every confirmed block on the network streams
- * in. Round-robin endpoints with exponential backoff, and three resilience
- * layers for long-lived embeds: a hung-handshake watchdog, a stale-socket
- * reconnect (no data for 2 minutes while OPEN), and a fixed 30s retry loop
- * that never gives up after the backoff budget is spent (there is no RPC
- * fallback: confirmation_history is unsupported on public relays). Also
- * recovers immediately when the tab/iframe becomes visible again, since
- * backgrounded tabs throttle the reconnect timers. Fresh page loads start on
- * the last relay that opened in this browser (localStorage), so a relay that
- * one visitor's network can't reach only costs one failed attempt, never a
- * broken first paint.
+ * in. Round-robin across WS_NETWORK_ENDPOINTS (relays verified to actually
+ * deliver network-wide confirmations; rainstorm and somenano don't) with
+ * exponential backoff, and four resilience layers for long-lived embeds: a
+ * hung-handshake watchdog, a dead-but-open failover (no valid frame within
+ * 12s of OPEN), a stale-socket reconnect (no data for 2 minutes while OPEN),
+ * and a fixed 30s retry loop that never gives up after the backoff budget is
+ * spent (there is no RPC fallback: confirmation_history is unsupported on
+ * public relays). Also recovers immediately when the tab/iframe becomes
+ * visible again, since backgrounded tabs throttle the reconnect timers.
+ * Fresh page loads start on the last relay that actually delivered a
+ * confirmation in this browser (localStorage), so a relay that one visitor's
+ * network can't reach only costs one failed attempt, never a broken first
+ * paint.
  */
 export function useNetworkConfirmations(): {
 	confirmations: NetworkConfirmation[]
@@ -102,6 +111,7 @@ export function useNetworkConfirmations(): {
 	const wsRef = useRef<WebSocket | null>(null)
 	const reconnectAttemptRef = useRef(0)
 	const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+	const firstFrameTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 	const lastMessageAtRef = useRef(0)
 	// Dedup window for the cumulative counter (bounded; the display buffer has
 	// its own dedup). The network feed broadcasts each block once, so clearing
@@ -110,6 +120,10 @@ export function useNetworkConfirmations(): {
 	const [totalSeen, setTotalSeen] = useState(0)
 
 	const cleanupConnection = useCallback(() => {
+		if (firstFrameTimeoutRef.current) {
+			clearTimeout(firstFrameTimeoutRef.current)
+			firstFrameTimeoutRef.current = null
+		}
 		if (reconnectTimeoutRef.current) {
 			clearTimeout(reconnectTimeoutRef.current)
 			reconnectTimeoutRef.current = null
@@ -156,7 +170,7 @@ export function useNetworkConfirmations(): {
 			const preferred = preferredWsIndex
 			preferredWsIndex = null
 			const endpointIndex = preferred ?? getNextWsEndpointIndex()
-			const endpoint = WS_ENDPOINTS[endpointIndex]
+			const endpoint = WS_NETWORK_ENDPOINTS[endpointIndex]
 			const ws = new WebSocket(endpoint)
 
 			const watchdog = setTimeout(() => {
@@ -181,22 +195,40 @@ export function useNetworkConfirmations(): {
 				setStatus('live')
 				reconnectAttemptRef.current = 0
 				lastMessageAtRef.current = Date.now()
-				try {
-					localStorage.setItem(WS_PREFERRED_KEY, String(endpointIndex))
-				} catch {
-					// ignore
-				}
+				// Dead-but-open relays (they open, then deliver nothing) would
+				// otherwise sit on a green LED forever: fail over fast if no
+				// valid confirmation arrives shortly after subscribing.
+				firstFrameTimeoutRef.current = setTimeout(() => {
+					if (wsRef.current !== ws || ws.readyState !== WebSocket.OPEN) return
+					try {
+						ws.close()
+					} catch {
+						// ignore
+					}
+				}, WS_FIRST_FRAME_MS)
 				ws.send(JSON.stringify({ action: 'subscribe', topic: 'confirmation' }))
 			}
 
 			ws.onmessage = async (event) => {
 				if (!isMounted || wsRef.current !== ws) return
-				lastMessageAtRef.current = Date.now()
 				try {
 					const text = event.data instanceof Blob ? await event.data.text() : (event.data as string)
 					const data: unknown = JSON.parse(text)
 					const validation = v.safeParse(NetworkConfirmationSchema, data)
 					if (!validation.success) return
+
+					if (firstFrameTimeoutRef.current) {
+						clearTimeout(firstFrameTimeoutRef.current)
+						firstFrameTimeoutRef.current = null
+					}
+					lastMessageAtRef.current = Date.now()
+					// Delivery-verified warm start: only remember relays that
+					// actually streamed a confirmation, never dead-open ones.
+					try {
+						localStorage.setItem(WS_PREFERRED_KEY, String(endpointIndex))
+					} catch {
+						// ignore
+					}
 
 					const { message: msg } = validation.output
 					const subtype = msg.block.subtype ?? 'confirmed'
@@ -236,6 +268,10 @@ export function useNetworkConfirmations(): {
 			ws.onclose = () => {
 				if (!isMounted || wsRef.current !== ws) return
 				wsRef.current = null
+				if (firstFrameTimeoutRef.current) {
+					clearTimeout(firstFrameTimeoutRef.current)
+					firstFrameTimeoutRef.current = null
+				}
 				scheduleReconnect()
 			}
 
