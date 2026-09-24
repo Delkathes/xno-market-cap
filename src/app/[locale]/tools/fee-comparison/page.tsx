@@ -50,18 +50,18 @@ export default async function FeeComparisonPage({ params }: Props) {
 	let fees: Awaited<ReturnType<typeof getBtcFees>> | null = null
 	let xnoUsd = 0
 	let btcUsd = 0
-	try {
-		fees = await getBtcFees()
-	} catch (error) {
-		console.error('Failed to fetch BTC fees:', error)
+	const [feesResult, marketResult] = await Promise.allSettled([getBtcFees(), getMarketData()])
+	if (feesResult.status === 'fulfilled') {
+		fees = feesResult.value
+	} else {
+		console.error('Failed to fetch BTC fees:', feesResult.reason)
 	}
-	try {
-		const market = await getMarketData()
-		xnoUsd = market.xnoData?.current_price ?? 0
-		const btc = market.data.find((coin) => coin.id === CRYPTO_IDS.BITCOIN)
+	if (marketResult.status === 'fulfilled') {
+		xnoUsd = marketResult.value.xnoData?.current_price ?? 0
+		const btc = marketResult.value.data.find((coin) => coin.id === CRYPTO_IDS.BITCOIN)
 		btcUsd = btc?.current_price ?? 0
-	} catch (error) {
-		console.error('Failed to fetch market data for fee comparison:', error)
+	} else {
+		console.error('Failed to fetch market data for fee comparison:', marketResult.reason)
 	}
 
 	return (

@@ -195,10 +195,10 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 	}
 
 	try {
-		// Fetch top 25 cryptocurrencies
-		let top25Json: unknown
+		// Top 100 by market cap: the table renders every row it receives.
+		let marketsJson: unknown
 		try {
-			top25Json = await cgGet('/coins/markets', {
+			marketsJson = await cgGet('/coins/markets', {
 				vs_currency: 'usd',
 				order: 'market_cap_desc',
 				per_page: 100,
@@ -210,19 +210,19 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 			mapSdkError(error, 'top 25 cryptocurrencies')
 		}
 
-		const top25Result = v.safeParse(CryptoDataArraySchema, top25Json)
-		if (!top25Result.success) {
-			console.error('Invalid API response structure for top 25:', top25Result.issues)
+		const marketsResult = v.safeParse(CryptoDataArraySchema, marketsJson)
+		if (!marketsResult.success) {
+			console.error('Invalid API response structure for top 25:', marketsResult.issues)
 			throw new ValidationError('Invalid API response structure for top 25 cryptocurrencies')
 		}
 
-		const top25Data: CryptoData[] = top25Result.output.map((item) => ({
+		const marketsData: CryptoData[] = marketsResult.output.map((item) => ({
 			...item,
 			price_change_percentage_24h: item.price_change_percentage_24h ?? 0,
 		}))
 
 		// Check if XNO (Nano) is already in top 25
-		const hasXNO = top25Data.some((crypto) => crypto.id === CRYPTO_IDS.NANO)
+		const hasXNO = marketsData.some((crypto) => crypto.id === CRYPTO_IDS.NANO)
 
 		// Build parallel fetch promises
 		const fetchXno = async (): Promise<CryptoData | null> => {
@@ -375,14 +375,14 @@ export async function getMarketData(): Promise<MarketDataResponse> {
 		}
 
 		// Get XNO data from either fetched result or from top25
-		const finalXnoData = xnoData ?? top25Data.find((crypto) => crypto.id === CRYPTO_IDS.NANO) ?? null
+		const finalXnoData = xnoData ?? marketsData.find((crypto) => crypto.id === CRYPTO_IDS.NANO) ?? null
 
 		if (!finalXnoData) {
 			throw new UpstreamError('Failed to get XNO data')
 		}
 
 		// Combine data: top 25 + XNO if not already included
-		const combinedData = hasXNO ? top25Data : [...top25Data, ...(xnoData ? [xnoData] : [])]
+		const combinedData = hasXNO ? marketsData : [...marketsData, ...(xnoData ? [xnoData] : [])]
 
 		// Sort by market cap rank
 		combinedData.sort((a, b) => a.market_cap_rank - b.market_cap_rank)

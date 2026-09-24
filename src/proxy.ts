@@ -49,6 +49,11 @@ function guardBlockPath(request: NextRequest): NextResponseType | null {
 // discoverable and citable), but heavy ones are throttled to one request per
 // window per path-group. They must back off on 429 + Retry-After (all major
 // crawlers do); a runaway crawler can no longer burn the whole FOT quota.
+// Deliberately absent: search-engine indexers (Googlebot, Bingbot,
+// YandexBot, Baiduspider, PetalBot) and link-preview fetchers
+// (facebookexternalhit, Twitterbot, Slackbot...). Both can send visitors,
+// and throttling the latter breaks share previews. Their cost belongs to
+// page caching, not to throttling.
 // The bucket is per edge instance — a hard distributed cap would need a
 // shared store (e.g. the Vercel Firewall), this is a best-effort ceiling.
 const HEAVY_CRAWLER_AGENTS = [
@@ -67,7 +72,29 @@ const HEAVY_CRAWLER_AGENTS = [
 	'omgili',
 	'Diffbot',
 	'ImagesiftBot',
+	'AhrefsBot',
+	'SemrushBot',
+	'MJ12bot',
+	'DotBot',
+	'DataForSeoBot',
+	'BLEXBot',
+	'serpstatbot',
+	'ZoominfoBot',
+	'AI2Bot',
+	'YouBot',
+	'Timpibot',
+	'Webzio-Extended',
+	'PanguBot',
+	'MistralAI-User',
+	'GoogleOther',
 ]
+
+// User agents are matched case-insensitively: Meta advertises itself as
+// `meta-externalagent`, so a case-sensitive includes() silently never fires.
+const HEAVY_CRAWLER_MATCHERS = HEAVY_CRAWLER_AGENTS.map((agent) => ({
+	agent,
+	pattern: agent.toLowerCase(),
+}))
 
 const CRAWLER_WINDOW_MS = 60_000
 const CRAWLER_MAX_REQUESTS_PER_WINDOW = 1
@@ -80,9 +107,10 @@ interface CrawlerBucket {
 const crawlerBuckets = new Map<string, CrawlerBucket>()
 
 function throttleHeavyCrawlers(request: NextRequest): NextResponseType | null {
-	const userAgent = request.headers.get('user-agent') ?? ''
-	const agent = HEAVY_CRAWLER_AGENTS.find((name) => userAgent.includes(name))
-	if (!agent) return null
+	const userAgent = (request.headers.get('user-agent') ?? '').toLowerCase()
+	const match = HEAVY_CRAWLER_MATCHERS.find(({ pattern }) => userAgent.includes(pattern))
+	if (!match) return null
+	const agent = match.agent
 
 	// Bucket per (agent, first path segment): /news, /en/news, /why-nano...
 	// share the same budget; every other path-group gets its own.

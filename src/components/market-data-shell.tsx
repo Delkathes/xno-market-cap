@@ -14,10 +14,12 @@ import { getMarketData } from '@/lib/market-data-service'
 export default async function MarketDataShell({ children }: { children: React.ReactNode }) {
 	const queryClient = getQueryClient()
 
-	await queryClient.prefetchQuery({
-		queryKey: ['market-data'],
-		queryFn: getMarketData,
-	})
+	await queryClient
+		.query({
+			queryKey: ['market-data'],
+			queryFn: getMarketData,
+		})
+		.catch(() => {})
 
 	return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>
 }

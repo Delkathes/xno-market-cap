@@ -1,15 +1,24 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
+import dynamic from 'next/dynamic'
 import { getTranslations } from 'next-intl/server'
 
 import { type DecentralizationData, getDecentralizationData } from '@/lib/decentralization-service'
 import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import { ConcentrationLadder } from '@/components/decentralization/concentration-ladder'
-import { LorenzChart } from '@/components/decentralization/lorenz-chart'
-import { RepTreemap, type TreemapDatum } from '@/components/decentralization/rep-treemap'
+import type { TreemapDatum } from '@/components/decentralization/rep-treemap'
 import { HreflangLinks } from '@/components/hreflang-links'
 import { ModernPageBackground } from '@/components/modern-page-background'
+
+const LorenzChart = dynamic(() => import('@/components/decentralization/lorenz-chart').then((m) => m.LorenzChart), {
+	loading: () => <Skeleton className="h-85 w-full" />,
+})
+
+const RepTreemap = dynamic(() => import('@/components/decentralization/rep-treemap').then((m) => m.RepTreemap), {
+	loading: () => <Skeleton className="h-105 w-full" />,
+})
 
 type Props = {
 	params: Promise<{ locale: string }>
@@ -271,10 +280,6 @@ function LegendSwatch({ color, dashed, label }: { color: string; dashed: boolean
 			<span className="text-xs text-muted-foreground">{label}</span>
 		</div>
 	)
-}
-
-function polyline({ points, className, strokeWidth }: { points: string; className: string; strokeWidth: number }) {
-	return <polyline points={points} className={className} strokeWidth={strokeWidth} />
 }
 
 function buildTreemapData(data: DecentralizationData): TreemapDatum[] {

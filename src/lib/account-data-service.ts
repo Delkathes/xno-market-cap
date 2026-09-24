@@ -49,6 +49,8 @@ export async function getAccountData(address: string): Promise<AccountDataResult
 
 	for (let attempt = 0; attempt < RPC_ENDPOINTS.length; attempt++) {
 		const endpoint = nextRpcEndpoint()
+		// Started before the relay calls and awaited after: the two are independent.
+		const decPromise = getDecentralizationData().catch(() => null)
 
 		try {
 			const [balanceJson, infoJson, weightJson] = await Promise.all([
@@ -93,15 +95,13 @@ export async function getAccountData(address: string): Promise<AccountDataResult
 			let shareOfOnline = 0
 			let principal = false
 			let rank: number | null = null
-			try {
-				const dec = await getDecentralizationData()
+			const dec = await decPromise
+			if (dec) {
 				onlineWeightXno = dec.onlineWeightXno
 				shareOfOnline = onlineWeightXno > 0 ? weightXno / onlineWeightXno : 0
 				principal = shareOfOnline >= PRINCIPAL_THRESHOLD
 				const rankIndex = dec.topReps.findIndex((rep) => rep.address === address)
 				rank = rankIndex >= 0 ? rankIndex + 1 : null
-			} catch {
-				// Voting-weight context is best effort; the core profile still renders.
 			}
 
 			return {

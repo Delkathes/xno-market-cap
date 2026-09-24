@@ -27,6 +27,33 @@ const contentSecurityPolicy = [
 	...(isDev ? [] : ['upgrade-insecure-requests']),
 ].join('; ')
 
+// Routes in the (with-prefetched-data) group render on every request because
+// React Query's Date.now() bookkeeping cannot run during prerender validation.
+// They read no cookies and no headers, so the HTML is identical for every
+// visitor of a given locale and can be edge-cached. Requests sending
+// Cache-Control: no-cache (most crawlers) bypass this and still render at
+// origin, so it only removes origin work for cache-respecting clients.
+const EDGE_CACHED_GROUP_ROUTES = [
+	'/',
+	'/calculators',
+	'/coin/:path*',
+	'/dominance',
+	'/milestones',
+	'/parity',
+	'/speculation',
+]
+
+const LOCALE_PREFIX_GROUP = '(en|nl|es|it|de|fr)'
+
+const EDGE_CACHED_GROUP_SOURCES = [
+	...EDGE_CACHED_GROUP_ROUTES,
+	...EDGE_CACHED_GROUP_ROUTES.map((route) =>
+		route === '/' ? `/${LOCALE_PREFIX_GROUP}` : `/${LOCALE_PREFIX_GROUP}${route}`,
+	),
+]
+
+const GROUP_EDGE_CACHE_CONTROL = 'public, s-maxage=300, stale-while-revalidate=3600'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	poweredByHeader: false,
@@ -156,6 +183,10 @@ const nextConfig = {
 			source: '/(en|nl|es|it|de|fr)/news/:path*',
 			headers: [{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' }],
 		},
+		...EDGE_CACHED_GROUP_SOURCES.map((source) => ({
+			source,
+			headers: [{ key: 'Cache-Control', value: GROUP_EDGE_CACHE_CONTROL }],
+		})),
 	],
 }
 

@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
+import { useEffect, useRef, useState } from 'react'
 
 type UseAppearAnimationOptions = {
 	delay?: number
@@ -12,6 +11,10 @@ type UseAppearAnimationOptions = {
 	rootMargin?: string
 }
 
+// Local IntersectionObserver replacement for react-intersection-observer. Kept
+// behaviour-identical on purpose: a CSS view() timeline cannot express the
+// time-based `delay` cascade and, being bidirectional, would re-fade content on
+// scroll-back instead of firing once.
 export function useAppearAnimation(options: UseAppearAnimationOptions = {}) {
 	const {
 		delay = 0,
@@ -22,22 +25,42 @@ export function useAppearAnimation(options: UseAppearAnimationOptions = {}) {
 		rootMargin = '0px 0px -50px 0px',
 	} = options
 
+	const ref = useRef<HTMLDivElement | null>(null)
 	const [isVisible, setIsVisible] = useState(false)
 
-	const { ref, inView } = useInView({
-		threshold,
-		triggerOnce,
-		rootMargin,
-	})
-
 	useEffect(() => {
-		if (inView) {
-			const timer = setTimeout(() => {
-				setIsVisible(true)
-			}, delay)
-			return () => clearTimeout(timer)
+		const element = ref.current
+		if (!element) return
+
+		if (typeof IntersectionObserver === 'undefined') {
+			setIsVisible(true)
+			return
 		}
-	}, [inView, delay])
+
+		let timer: ReturnType<typeof setTimeout> | undefined
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue
+					if (delay > 0) {
+						timer = setTimeout(() => setIsVisible(true), delay)
+					} else {
+						setIsVisible(true)
+					}
+					if (triggerOnce) observer.disconnect()
+				}
+			},
+			{ threshold, rootMargin },
+		)
+
+		observer.observe(element)
+
+		return () => {
+			observer.disconnect()
+			if (timer) clearTimeout(timer)
+		}
+	}, [threshold, rootMargin, triggerOnce, delay])
 
 	const style: React.CSSProperties = {
 		opacity: isVisible ? 1 : 0,

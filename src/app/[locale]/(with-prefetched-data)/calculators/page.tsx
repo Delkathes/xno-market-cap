@@ -304,12 +304,14 @@ async function CalculatorsContent({ locale }: { locale: string }) {
 	'use cache'
 	cacheLife('max')
 
-	const t = await getTranslations({ locale, namespace: 'navigation' })
-	const tMeta = await getTranslations({ locale, namespace: 'metadata.calculators' })
-	const tParity = await getTranslations({ locale, namespace: 'parity' })
-	const tParityCalculator = await getTranslations({ locale, namespace: 'parityCalculator' })
-	const tSpeculation = await getTranslations({ locale, namespace: 'speculationCalculator' })
-	const tDisclaimer = await getTranslations({ locale, namespace: 'legal.inlineDisclaimers' })
+	const [t, tMeta, tParity, tParityCalculator, tSpeculation, tDisclaimer] = await Promise.all([
+		getTranslations({ locale, namespace: 'navigation' }),
+		getTranslations({ locale, namespace: 'metadata.calculators' }),
+		getTranslations({ locale, namespace: 'parity' }),
+		getTranslations({ locale, namespace: 'parityCalculator' }),
+		getTranslations({ locale, namespace: 'speculationCalculator' }),
+		getTranslations({ locale, namespace: 'legal.inlineDisclaimers' }),
+	])
 
 	return (
 		<MarketDataShell>

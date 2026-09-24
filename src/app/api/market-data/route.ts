@@ -8,8 +8,11 @@ import { getSecurityHeaders } from '@/lib/security-headers'
 import { env } from '@/env'
 
 export async function GET(request: NextRequest) {
-	const baseHeaders = {
-		...getSecurityHeaders(),
+	const baseHeaders = getSecurityHeaders()
+	// Only 200s are cacheable: a cached 403/429/5xx would pin a failure at
+	// the edge for a minute, per URL variant.
+	const cacheableHeaders = {
+		...baseHeaders,
 		'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
 	}
 
@@ -46,7 +49,7 @@ export async function GET(request: NextRequest) {
 		const data = await getMarketData()
 		return NextResponse.json(data, {
 			headers: {
-				...baseHeaders,
+				...cacheableHeaders,
 				...(rateLimitResult ? getRateLimitHeaders(rateLimitResult) : {}),
 			},
 		})

@@ -35,6 +35,9 @@ export async function getNetworkStats(): Promise<NetworkStats | null> {
 
 	for (let attempt = 0; attempt < RPC_ENDPOINTS.length; attempt++) {
 		const endpoint = nextRpcEndpoint()
+		// Started before the relay call and awaited after: the two are
+		// independent, so this overlaps them instead of serialising.
+		const decPromise = getDecentralizationData().catch(() => null)
 
 		try {
 			const json = await rpcCall(endpoint, 'block_count')
@@ -46,7 +49,7 @@ export async function getNetworkStats(): Promise<NetworkStats | null> {
 				continue
 			}
 
-			const dec = await getDecentralizationData().catch(() => null)
+			const dec = await decPromise
 
 			return {
 				totalBlocks: Number(parsed.output.count),

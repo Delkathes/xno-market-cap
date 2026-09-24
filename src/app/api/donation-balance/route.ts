@@ -1,6 +1,8 @@
+import { cacheLife } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { DONATION_MILESTONES, RPC_ENDPOINTS } from '@/lib/constants'
+import { fetchWithTimeout } from '@/lib/fetch-with-timeout'
 import { isValidNanoAddress, rawToXno } from '@/lib/nano-utils'
 import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limiter'
 import { getClientIdentifier, isAllowedApiRequest } from '@/lib/request-security'
@@ -40,15 +42,19 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 	const endpoint = getNextRpcEndpoint()
 
 	try {
-		const response = await fetch(endpoint, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				action: 'account_balance',
-				account: walletAddress,
-			}),
-			cache: 'no-store',
-		})
+		const response = await fetchWithTimeout(
+			endpoint,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					action: 'account_balance',
+					account: walletAddress,
+				}),
+				cache: 'no-store',
+			},
+			8000,
+		)
 
 		if (response.ok) {
 			const data = await response.json()
@@ -64,9 +70,30 @@ async function fetchWalletBalance(walletAddress: string): Promise<number> {
 	return 0
 }
 
+// Balances are read once per cache window rather than once per visitor:
+// the client polls this route every 2 minutes.
+async function getMilestoneBalances(): Promise<Record<string, number>> {
+	'use cache'
+	cacheLife({ revalidate: 60 })
+
+	const results = await Promise.all(
+		DONATION_MILESTONES.map(async (milestone): Promise<MilestoneBalance> => {
+			const balance = await fetchWalletBalance(milestone.walletAddress)
+			return { id: milestone.id, balance }
+		}),
+	)
+
+	const balances: Record<string, number> = {}
+	for (const { id, balance } of results) {
+		balances[id] = balance
+	}
+	return balances
+}
+
 export async function GET(request: NextRequest): Promise<NextResponse<DonationBalanceResponse | { error: string }>> {
-	const baseHeaders = {
-		...getSecurityHeaders(),
+	const baseHeaders = getSecurityHeaders()
+	const cacheableHeaders = {
+		...baseHeaders,
 		'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
 	}
 
@@ -97,18 +124,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<DonationBa
 		)
 	}
 
-	// Fetch all milestone balances in parallel
-	const results = await Promise.all(
-		DONATION_MILESTONES.map(async (milestone): Promise<MilestoneBalance> => {
-			const balance = await fetchWalletBalance(milestone.walletAddress)
-			return { id: milestone.id, balance }
-		}),
-	)
-
-	const milestoneBalances: Record<string, number> = {}
-	for (const { id, balance } of results) {
-		milestoneBalances[id] = balance
-	}
+	const milestoneBalances = await getMilestoneBalances()
 
 	// Calculate totals
 	const totalDonations = Object.values(milestoneBalances).reduce((sum, balance) => sum + balance, 0)
@@ -140,7 +156,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<DonationBa
 
 	return NextResponse.json(response, {
 		headers: {
-			...baseHeaders,
+			...cacheableHeaders,
 			...getRateLimitHeaders(rateLimitResult),
 		},
 	})
