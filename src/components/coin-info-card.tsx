@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS } from '@/lib/constants'
@@ -10,6 +9,7 @@ import { cn } from '@/lib/utils'
 import { useMarketData } from '@/hooks/use-market-data'
 
 import { Card, CardContent } from '@/components/ui/card'
+import { CoinIcon } from '@/components/coin-icon'
 
 interface CoinInfoCardProps {
 	coinId: string
@@ -92,13 +92,13 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 				<div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
 					{/* Identity */}
 					<div className="flex items-center gap-4">
-						<Image
-							src={coin.image || '/placeholder.svg'}
+						<CoinIcon
+							id={coin.id}
+							image={coin.image}
 							alt={coin.name}
 							width={48}
 							height={48}
 							className="rounded-full ring-1 ring-border"
-							unoptimized
 						/>
 						<div>
 							<div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">

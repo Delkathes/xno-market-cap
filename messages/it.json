@@ -944,8 +944,8 @@
             "description": "I font sono ospitati localmente in fase di compilazione tramite l'ottimizzazione font di Next.js. Non vengono effettuate connessioni a runtime verso i server di Google e nessun dato utente viene trasmesso a Google."
           },
           "imageCdns": {
-            "title": "CDN Immagini",
-            "description": "I loghi e le immagini delle criptovalute vengono caricati dai CDN di CoinGecko e Nanswap, che possono registrare dati standard delle richieste web."
+            "title": "Immagini (Self-hosted)",
+            "description": "I loghi delle criptovalute sono ospitati localmente e serviti dal nostro dominio. I loghi Nanswap vengono caricati dal CDN di Nanswap, e i loghi delle valute non ancora replicate possono ancora essere caricati dal CDN di CoinGecko. Questi servizi possono registrare dati standard delle richieste web."
           }
         },
         "legalBasis": {

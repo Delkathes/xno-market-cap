@@ -938,8 +938,8 @@
             "description": "Fonts are self-hosted at build time via Next.js font optimization. No runtime connections are made to Google servers and no user data is transmitted to Google."
           },
           "imageCdns": {
-            "title": "Image CDNs",
-            "description": "Cryptocurrency logos and images are loaded from CoinGecko and Nanswap CDNs, which may log standard web request data."
+            "title": "Images (Self‑Hosted)",
+            "description": "Cryptocurrency logos are self-hosted and served from our own domain. Nanswap logos are loaded from the Nanswap CDN, and logos for currencies not yet mirrored may still load from the CoinGecko CDN. These services may log standard web request data."
           }
         },
         "legalBasis": {

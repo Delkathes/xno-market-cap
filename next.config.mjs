@@ -110,6 +110,12 @@ const nextConfig = {
 				{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
 			],
 		},
+		// Mirrored coin icons: filenames embed a hash of the upstream URL, so a
+		// logo change yields a new filename while existing files stay immutable.
+		{
+			source: '/coins/:path*',
+			headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+		},
 		{
 			source: '/((?!widgets/embed).*)',
 			headers: [

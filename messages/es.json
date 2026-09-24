@@ -944,8 +944,8 @@
             "description": "Las fuentes se auto-alojan en tiempo de compilación mediante la optimización de fuentes de Next.js. No se realizan conexiones en tiempo de ejecución a servidores de Google y no se transmiten datos de usuario a Google."
           },
           "imageCdns": {
-            "title": "CDN de Imágenes",
-            "description": "Los logos e imágenes de criptomonedas se cargan desde los CDN de CoinGecko y Nanswap, que pueden registrar datos estándar de solicitudes web."
+            "title": "Imágenes (Auto-alojadas)",
+            "description": "Los logos de criptomonedas se auto-alojan y se sirven desde nuestro propio dominio. Los logos de Nanswap se cargan desde el CDN de Nanswap, y los logos de monedas aún no replicadas pueden seguir cargándose desde el CDN de CoinGecko. Estos servicios pueden registrar datos estándar de solicitudes web."
           }
         },
         "legalBasis": {

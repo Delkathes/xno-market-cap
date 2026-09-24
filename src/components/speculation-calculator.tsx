@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { useAtom } from 'jotai'
 import { Coins } from 'lucide-react'
@@ -17,6 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
+import { CoinIcon } from '@/components/coin-icon'
 
 export function SpeculationCalculator() {
 	const t = useTranslations('speculationCalculator')
@@ -144,13 +144,13 @@ export function SpeculationCalculator() {
 								{topCryptos.map((crypto) => (
 									<SelectItem key={crypto.id} value={crypto.id}>
 										<div className="flex items-center gap-2">
-											<Image
-												src={crypto.image || '/placeholder.svg'}
+											<CoinIcon
+												id={crypto.id}
+												image={crypto.image}
 												alt={crypto.name}
 												width={20}
 												height={20}
 												className="w-5 h-5 rounded-full"
-												unoptimized
 											/>
 											<span>{crypto.name}</span>
 											<span className="text-muted-foreground text-xs ml-auto">
@@ -225,13 +225,13 @@ export function SpeculationCalculator() {
 					{/* Target header */}
 					<div className="flex items-center gap-3 mb-6">
 						{!useCustomMarketCap && selectedCrypto && (
-							<Image
-								src={selectedCrypto.image || '/placeholder.svg'}
+							<CoinIcon
+								id={selectedCrypto.id}
+								image={selectedCrypto.image}
 								alt={selectedCrypto.name}
 								width={40}
 								height={40}
 								className="w-10 h-10 rounded-full ring-1 ring-border"
-								unoptimized
 							/>
 						)}
 						<div>

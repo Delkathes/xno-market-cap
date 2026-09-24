@@ -98,7 +98,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			description: t('ogDescription'),
 			images: [
 				{
-					url: '/og-image.png',
+					url: '/og-image.jpg',
 					width: 1200,
 					height: 630,
 					alt: t('ogImageAlt'),
@@ -109,7 +109,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			card: 'summary_large_image',
 			title: t('twitterTitle'),
 			description: t('twitterDescription'),
-			images: ['/og-image.png'],
+			images: ['/og-image.jpg'],
 		},
 		alternates: {
 			canonical: SITE_URL,

@@ -944,8 +944,8 @@
             "description": "Lettertypen worden tijdens het bouwen zelf gehost via Next.js lettertypeoptimalisatie. Er worden geen runtime-verbindingen naar Google-servers gemaakt en er worden geen gebruikersgegevens naar Google verzonden."
           },
           "imageCdns": {
-            "title": "Afbeeldings-CDN's",
-            "description": "Logo's en afbeeldingen van cryptovaluta worden geladen vanaf CoinGecko en Nanswap CDN's, die standaard webverzoekgegevens kunnen registreren."
+            "title": "Afbeeldingen (Zelf-gehost)",
+            "description": "Logo's van cryptovaluta worden zelf gehost en vanaf ons eigen domein geleverd. Nanswap-logo's worden geladen vanaf het Nanswap-CDN, en logo's van valuta's die nog niet gespiegeld zijn kunnen nog steeds vanaf het CoinGecko-CDN worden geladen. Deze diensten kunnen standaard webverzoekgegevens registreren."
           }
         },
         "legalBasis": {

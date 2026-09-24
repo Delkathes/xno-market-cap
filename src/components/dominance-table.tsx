@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 
@@ -10,6 +9,7 @@ import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
 
+import { CoinIcon } from '@/components/coin-icon'
 import { MarketDataError } from '@/components/market-data-error'
 
 interface DominanceRowProps {
@@ -39,13 +39,13 @@ const DominanceRow = memo(function DominanceRow({ crypto, index, isXNO, marketCa
 			</td>
 			<td className="px-3 py-1.5 pl-0 sm:pl-4">
 				<div className="flex items-center gap-3">
-					<Image
-						src={crypto.image || '/placeholder.svg'}
+					<CoinIcon
+						id={crypto.id}
+						image={crypto.image}
 						alt={crypto.name}
 						width={32}
 						height={32}
 						className="w-6 h-6 sm:w-7 sm:h-7"
-						unoptimized
 					/>
 					<div>
 						<p className="font-semibold text-sm sm:text-base line-clamp-1">{crypto.name}</p>

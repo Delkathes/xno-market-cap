@@ -125,7 +125,7 @@ export const config = {
 	// - API routes
 	// - Widget embeds (self-contained pages with an explicit locale segment;
 	//   locale detection would rewrite their URLs)
-	// - Static files (e.g. /favicon.ico, /og-image.png)
+	// - Static files (e.g. /favicon.ico, /og-image.jpg)
 	// - Next.js internals (_next)
 	matcher: ['/', `/(en|nl|es|it|de|fr)/((?!widgets/embed).*)`, '/((?!api|widgets/embed|_next|_vercel|.*\\..*).*)'],
 }

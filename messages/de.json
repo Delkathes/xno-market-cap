@@ -944,8 +944,8 @@
             "description": "Schriftarten werden zur Build-Zeit selbst gehostet über Next.js Schriftartenoptimierung. Es werden keine Laufzeit-Verbindungen zu Google-Servern hergestellt und keine Benutzerdaten an Google übermittelt."
           },
           "imageCdns": {
-            "title": "Bild-CDNs",
-            "description": "Kryptowährungs-Logos und -Bilder werden von CoinGecko- und Nanswap-CDNs geladen, die Standard-Webanfragedaten protokollieren können."
+            "title": "Bilder (Selbst-gehostet)",
+            "description": "Kryptowährungs-Logos werden selbst gehostet und von unserer eigenen Domain ausgeliefert. Nanswap-Logos werden vom Nanswap-CDN geladen, und Logos von noch nicht gespiegelten Währungen können weiterhin vom CoinGecko-CDN geladen werden. Diese Dienste können Standard-Webanfragedaten protokollieren."
           }
         },
         "legalBasis": {

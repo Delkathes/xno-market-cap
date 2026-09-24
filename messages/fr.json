@@ -944,8 +944,8 @@
             "description": "Les polices sont auto-hébergées lors de la compilation via l'optimisation des polices Next.js. Aucune connexion n'est établie avec les serveurs Google et aucune donnée utilisateur n'est transmise à Google."
           },
           "imageCdns": {
-            "title": "CDN d'Images",
-            "description": "Les logos et images de cryptomonnaies sont chargés depuis les CDN de CoinGecko et Nanswap, qui peuvent enregistrer les données standard de requête web."
+            "title": "Images (Auto-hébergées)",
+            "description": "Les logos de cryptomonnaies sont auto-hébergés et servis depuis notre propre domaine. Les logos Nanswap sont chargés depuis le CDN de Nanswap, et les logos des monnaies pas encore répliquées peuvent toujours être chargés depuis le CDN de CoinGecko. Ces services peuvent enregistrer les données standard de requête web."
           }
         },
         "legalBasis": {
