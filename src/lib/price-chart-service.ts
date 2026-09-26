@@ -1,22 +1,26 @@
+import { cacheLife } from 'next/cache'
 import * as v from 'valibot'
 
-import { getCoingeckoClient } from '@/lib/coingecko'
 import { CRYPTO_IDS } from '@/lib/constants'
-import { RateLimitError, UpstreamError, ValidationError } from '@/lib/market-data-service'
+import { cgGet, UpstreamError, ValidationError } from '@/lib/market-data-service'
 import type { ChartTimeRange, PriceChartPoint, PriceChartResponse } from '@/lib/types'
 import { ChartTimeRangeSchema } from '@/lib/validation'
+
+interface CoinChartResponse {
+	prices?: number[][]
+	market_caps?: number[][]
+	total_volumes?: number[][]
+}
 
 async function fetchCoinChart(
 	coinId: string,
 	days: ChartTimeRange,
 	vsCurrency: string = 'usd',
 ): Promise<{ prices: number[][]; market_caps: number[][]; total_volumes: number[][] }> {
-	const client = getCoingeckoClient()
-
 	try {
-		const response = await client.coins.marketChart.get(coinId, {
+		const response = await cgGet<CoinChartResponse>(`/coins/${coinId}/market_chart`, {
 			vs_currency: vsCurrency,
-			days: String(days),
+			days,
 		})
 
 		return {
@@ -25,19 +29,13 @@ async function fetchCoinChart(
 			total_volumes: response.total_volumes ?? [],
 		}
 	} catch (error) {
-		if (error instanceof Error) {
-			// Handle SDK error types
-			if (error.name === 'RateLimitError' || error.message.includes('429')) {
-				throw new RateLimitError('CoinGecko API rate limit exceeded')
-			}
-			if (error.name === 'NotFoundError' || error.message.includes('404')) {
-				throw new ValidationError(`Coin not found: ${coinId}`)
-			}
-			if (error.name === 'APIConnectionTimeoutError') {
-				throw new UpstreamError(`Request timeout fetching ${coinId} chart data`)
-			}
+		// cgGet reports every non-ok response as UpstreamError. The route maps
+		// ValidationError to 400 and UpstreamError to 502, so keep an unknown coin
+		// distinguishable from an upstream outage.
+		if (error instanceof UpstreamError && error.message.includes('HTTP 404')) {
+			throw new ValidationError(`Coin not found: ${coinId}`)
 		}
-		throw new UpstreamError(`Failed to fetch ${coinId} chart data`)
+		throw error
 	}
 }
 
@@ -102,11 +100,25 @@ function findClosestIndex(timestamp: number, data: number[][]): number {
 	return left
 }
 
+// Historical chart data is immutable except for its trailing point, so the XNO
+// series can be cached well past the CDN window. It depends only on `days`, so
+// caching it here collapses one identical CoinGecko fetch per coin into a
+// single fetch shared by every non-XNO chart.
+async function getXnoChartSeries(days: ChartTimeRange) {
+	'use cache'
+	cacheLife({ revalidate: 3600 })
+
+	return fetchCoinChart(CRYPTO_IDS.NANO, days)
+}
+
 export async function getPriceChart(
 	coinId: string,
 	days: ChartTimeRange,
 	vsCurrency?: string,
 ): Promise<PriceChartResponse> {
+	'use cache'
+	cacheLife({ revalidate: 900 })
+
 	// Validate inputs
 	const daysResult = v.safeParse(ChartTimeRangeSchema, days)
 	if (!daysResult.success) {
@@ -153,7 +165,7 @@ export async function getPriceChart(
 	}
 
 	// Fetch both coin data and XNO data in parallel for accurate historical conversion
-	const [coinData, xnoData] = await Promise.all([fetchCoinChart(coinId, days), fetchCoinChart(CRYPTO_IDS.NANO, days)])
+	const [coinData, xnoData] = await Promise.all([fetchCoinChart(coinId, days), getXnoChartSeries(days)])
 
 	// Transform raw data, using historical XNO prices for each timestamp
 	const chartPoints: PriceChartPoint[] = coinData.prices

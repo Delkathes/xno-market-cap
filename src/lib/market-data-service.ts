@@ -16,7 +16,7 @@ import { env } from '@/env'
 // fetchWithRetry; rate limiting is handled by the cache layers around this.
 const COINGECKO_BASE_URL = 'https://api.coingecko.com/api/v3'
 
-async function cgGet<T>(path: string, params: Record<string, string | number | boolean>): Promise<T> {
+export async function cgGet<T>(path: string, params: Record<string, string | number | boolean>): Promise<T> {
 	const url = new URL(COINGECKO_BASE_URL + path)
 	for (const [key, value] of Object.entries(params)) {
 		url.searchParams.set(key, String(value))
