@@ -10,6 +10,10 @@ export default function robots(): MetadataRoute.Robots {
 				allow: '/',
 				disallow: ['/api/'],
 			},
+			{
+				userAgent: 'GoogleOther',
+				disallow: '/',
+			},
 		],
 		sitemap: `${env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,
 	}
