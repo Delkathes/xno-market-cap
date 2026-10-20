@@ -90,6 +90,7 @@ const nextConfig = {
 
 	reactCompiler: true,
 	cacheComponents: true,
+	partialPrefetching: true,
 
 	// LAN/Tailscale dev testing: the dev server blocks dev resources (HMR
 	// websocket) from origins other than localhost unless explicitly allowed.
