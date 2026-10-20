@@ -34,9 +34,9 @@ export async function NewsCard({ article, locale, index = 0 }: NewsCardProps) {
 						Ӿ
 					</span>
 				</div>
-				<h3 className="mt-3 line-clamp-2 text-lg font-bold leading-snug tracking-tight transition-colors group-hover:text-primary">
+				<h2 className="mt-3 line-clamp-2 text-lg font-bold leading-snug tracking-tight transition-colors group-hover:text-primary">
 					{article.title}
-				</h3>
+				</h2>
 				<p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">{article.description}</p>
 				<div className="mt-4 flex items-center justify-between gap-2 border-t border-dashed border-border pt-3">
 					{article.tags && article.tags.length > 0 && (
@@ -51,7 +51,7 @@ export async function NewsCard({ article, locale, index = 0 }: NewsCardProps) {
 							))}
 						</div>
 					)}
-					<span className="ml-auto flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-[#209CE9]">
+					<span className="ml-auto flex items-center gap-1 font-mono text-[11px] uppercase tracking-widest text-primary">
 						{t('readMore')}
 						<ChevronRight className="h-3 w-3" />
 					</span>

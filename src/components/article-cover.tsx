@@ -10,7 +10,7 @@ const COVER_GRID_STYLE = {
 // Terminal-styled cover banner rendered from article metadata — no image files needed.
 export function ArticleCover({ article, locale }: { article: NewsMetadata; locale: string }) {
 	return (
-		<div className="relative mb-8 overflow-hidden rounded-xl border border-border">
+		<div className="relative mb-8 overflow-hidden rounded-xl border border-border bg-[#0a1f35]">
 			<div className="absolute inset-0 bg-linear-to-br from-[#0d2b45] via-[#0a1f35] to-[#134e6f]" />
 			<div aria-hidden="true" className="absolute inset-0 opacity-15" style={COVER_GRID_STYLE} />
 			<span
@@ -31,6 +31,20 @@ export function ArticleCover({ article, locale }: { article: NewsMetadata; local
 							{'//'}
 						</span>
 						<time dateTime={article.date}>{formatNewsDate(article.date, locale)}</time>
+						{article.updated && article.updated !== article.date && (
+							<>
+								<span aria-hidden="true" className="text-cyan-200/40">
+									{'//'}
+								</span>
+								<span>
+									{article.updated && (
+										<time dateTime={article.updated}>
+											{formatNewsDate(article.updated, locale)}
+										</time>
+									)}
+								</span>
+							</>
+						)}
 						{article.tags && article.tags.length > 0 && (
 							<>
 								<span aria-hidden="true" className="text-cyan-200/40">
@@ -40,9 +54,9 @@ export function ArticleCover({ article, locale }: { article: NewsMetadata; local
 							</>
 						)}
 					</div>
-					<h1 className="mt-2 text-2xl font-bold tracking-tight text-balance text-white sm:text-3xl">
+					<p className="mt-2 text-2xl font-bold tracking-tight text-balance text-white sm:text-3xl">
 						{article.title}
-					</h1>
+					</p>
 				</div>
 			</div>
 		</div>

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			title: strings.title,
 			description: strings.sub,
-			url: '/widgets',
+			url: localePath('/widgets', locale),
 			type: 'website',
 			locale: ogLocale(locale),
 			images: ogImage(),

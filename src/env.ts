@@ -8,6 +8,21 @@ enum NodeEnv {
 	test = 'test',
 }
 
+function normalizeSiteUrl(value: string | undefined): string {
+	const fallback = 'http://localhost:3000'
+	try {
+		const url = new URL(value ?? fallback)
+		if (url.hostname === 'nanomarketcap.com') {
+			url.hostname = 'www.nanomarketcap.com'
+		}
+		return url.origin
+	} catch {
+		return fallback
+	}
+}
+
+const siteUrl = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
+
 export const env = createEnv({
 	extends: [/* authEnv(), */ vercel(), netlify()],
 	shared: {
@@ -38,7 +53,7 @@ export const env = createEnv({
 		NODE_ENV: process.env.NODE_ENV,
 
 		// Site
-		NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+		NEXT_PUBLIC_SITE_URL: siteUrl,
 
 		// Donation
 		NEXT_PUBLIC_DONATION_WALLET_FINAL: process.env.NEXT_PUBLIC_DONATION_WALLET_FINAL,

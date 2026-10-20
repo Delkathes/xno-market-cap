@@ -1,6 +1,7 @@
-import type { Metadata } from 'next'
+import type { Metadata, Route } from 'next'
 import { cacheLife } from 'next/cache'
 import dynamic from 'next/dynamic'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { Suspense } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getTranslations } from 'next-intl/server'
@@ -10,10 +11,19 @@ import getQueryClient from '@/lib/get-query-client'
 import { getMarketData } from '@/lib/market-data-service'
 import { getPriceChart } from '@/lib/price-chart-service'
 import { localePath, ogImage, ogLocale } from '@/lib/seo'
+import {
+	breadcrumbNode,
+	ORGANIZATION_ID,
+	organizationNode,
+	SITE,
+	webPageNode,
+	websiteNode,
+} from '@/lib/structured-data'
 import type { ChartTimeRange } from '@/lib/types'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { CoinInfoCard } from '@/components/coin-info-card'
+import { CoinSummary } from '@/components/coin-summary'
 import { HreflangLinks } from '@/components/hreflang-links'
 import { LoadingArea } from '@/components/loading-area'
 import MarketDataShell from '@/components/market-data-shell'
@@ -43,26 +53,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { locale, id } = await params
 	const t = await getTranslations({ locale, namespace: 'metadata.coin' })
 
-	// Get market data to find the coin name
+	if (id === 'xno') {
+		permanentRedirect(localePath('/coin/nano', locale) as Route)
+	}
+
 	let coinName = id.charAt(0).toUpperCase() + id.slice(1)
+	let coinFound: boolean | null = null
 
 	try {
 		const marketData = await getMarketData()
 		const coin = marketData.data.find((c) => c.id === id)
 		if (coin) {
 			coinName = coin.name
+			coinFound = true
+		} else {
+			coinFound = false
 		}
 	} catch {
 		// Use default name if market data fails
 	}
 
+	if (coinFound === false) {
+		notFound()
+	}
+
 	return {
-		title: t('title', { coin: coinName }),
+		title: { absolute: t('title', { coin: coinName }) },
 		description: t('description', { coin: coinName }),
 		openGraph: {
 			title: t('ogTitle', { coin: coinName }),
 			description: t('ogDescription', { coin: coinName }),
-			url: `/coin/${id}`,
+			url: localePath(`/coin/${id}`, locale),
 			type: 'website',
 			locale: ogLocale(locale),
 			images: ogImage(),
@@ -89,14 +110,27 @@ export function generateStaticParams() {
 }
 
 export default async function CoinDetailPage({ params }: Props) {
-	const { id: coinIdParam } = await params
+	const { locale, id: coinIdParam } = await params
 
-	return <CoinDetailContent coinIdParam={coinIdParam} />
+	if (coinIdParam === 'xno') {
+		permanentRedirect(localePath('/coin/nano', locale) as Route)
+	}
+
+	return <CoinDetailContent coinIdParam={coinIdParam} locale={locale} />
 }
 
-async function CoinDetailContent({ coinIdParam }: { coinIdParam: string }) {
+async function CoinDetailContent({ coinIdParam, locale }: { coinIdParam: string; locale: string }) {
 	'use cache'
 	cacheLife('hours')
+
+	const market = await getMarketData().catch(() => null)
+	const coin = market?.data.find((item) => item.id === coinIdParam)
+
+	if (market && !coin) {
+		notFound()
+	}
+
+	const pageUrl = `${SITE}${localePath(`/coin/${coinIdParam}`, locale)}`
 
 	const queryClient = getQueryClient()
 
@@ -122,7 +156,43 @@ async function CoinDetailContent({ coinIdParam }: { coinIdParam: string }) {
 				<HreflangLinks path={`/coin/${coinIdParam}`} />
 				<ModernPageBackground />
 
+				{coin ? (
+					<script
+						type="application/ld+json"
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
+						dangerouslySetInnerHTML={{
+							__html: JSON.stringify({
+								'@context': 'https://schema.org',
+								'@graph': [
+									organizationNode(),
+									websiteNode(),
+									webPageNode({
+										url: pageUrl,
+										name: `${coin.name} (${coin.symbol.toUpperCase()}) price`,
+										locale,
+									}),
+									breadcrumbNode(pageUrl, [
+										{ name: 'Home', url: `${SITE}${localePath('/', locale)}` },
+										{ name: 'Coins' },
+										{ name: coin.name },
+									]),
+									{
+										'@type': 'FinancialProduct',
+										name: coin.name,
+										alternateName: [coin.symbol.toUpperCase()],
+										category: 'Cryptocurrency',
+										url: pageUrl,
+										provider: { '@id': ORGANIZATION_ID },
+									},
+								],
+							}),
+						}}
+					/>
+				) : null}
+
 				<div className="space-y-8">
+					<CoinSummary locale={locale} coinId={coinIdParam} />
+
 					<div className="animate-fade-in-up">
 						<Suspense fallback={<CoinInfoCardSkeleton />}>
 							<CoinInfoCard coinId={coinIdParam} />

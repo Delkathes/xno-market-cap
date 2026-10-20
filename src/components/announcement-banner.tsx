@@ -45,11 +45,11 @@ export function AnnouncementBanner() {
 					<span aria-hidden="true" className="mx-1.5 text-muted-foreground/40">
 						·
 					</span>
-					<span className="text-muted-foreground">{t('body')}</span>
+					<span className="hidden text-muted-foreground sm:inline">{t('body')}</span>
 				</p>
 				<Link
 					href="/widgets"
-					className="group flex flex-none cursor-pointer items-center gap-1 rounded-sm border border-[#209CE9]/40 bg-[#209CE9]/10 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-[#209CE9] transition-colors hover:bg-[#209CE9]/20"
+					className="group flex flex-none cursor-pointer items-center gap-1 rounded-sm border border-primary/40 bg-primary/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-primary transition-colors hover:bg-primary/20"
 				>
 					{t('cta')}
 					<span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
@@ -60,7 +60,7 @@ export function AnnouncementBanner() {
 					type="button"
 					onClick={dismiss}
 					aria-label={t('dismiss')}
-					className="flex h-6 w-6 flex-none cursor-pointer items-center justify-center rounded-sm text-muted-foreground/60 transition-colors hover:bg-accent hover:text-foreground"
+					className="flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-sm text-muted-foreground/60 transition-colors hover:bg-accent hover:text-foreground"
 				>
 					<X className="h-3.5 w-3.5" />
 				</button>

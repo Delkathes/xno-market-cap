@@ -142,6 +142,8 @@ function SortableHeader({
 
 	return (
 		<th
+			scope="col"
+			aria-sort={isActive ? (currentDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
 			className={cn(
 				'px-3 py-2 font-mono text-[10px] uppercase tracking-widest cursor-pointer select-none hover:bg-muted/50 transition-colors',
 				align === 'right' ? 'text-right' : 'text-left',
@@ -251,10 +253,13 @@ export function MarketCapTable() {
 			<table className="w-full">
 				<thead className="sticky top-0 z-10 border-b border-border bg-card">
 					<tr className="text-foreground text-sm">
-						<th className="text-left px-3 py-2 font-mono text-[10px] uppercase tracking-widest">
+						<th scope="col" className="text-left px-3 py-2 font-mono text-[10px] uppercase tracking-widest">
 							{t('rank')}
 						</th>
-						<th className="text-left px-3 py-2 pl-0 sm:pl-4 font-mono text-[10px] uppercase tracking-widest">
+						<th
+							scope="col"
+							className="text-left px-3 py-2 pl-0 sm:pl-4 font-mono text-[10px] uppercase tracking-widest"
+						>
 							{t('name')}
 						</th>
 						<SortableHeader

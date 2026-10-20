@@ -9,6 +9,14 @@ import { routing } from '@/i18n/routing'
 
 import { getAllNews, getArticleLocale, getNewsMetadata, getRelatedNews } from '@/lib/news'
 import { localePath, ogLocale } from '@/lib/seo'
+import {
+	breadcrumbNode,
+	ORGANIZATION_ID,
+	organizationNode,
+	SITE,
+	webPageNode,
+	websiteNode,
+} from '@/lib/structured-data'
 
 import { env } from '@/env'
 
@@ -43,11 +51,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		return {}
 	}
 
-	const t = await getTranslations({ locale, namespace: 'metadata.news' })
 	const ogImage = `${env.NEXT_PUBLIC_SITE_URL}/api/og?slug=${slug}`
 
 	return {
-		title: t('articleTitle', { title: article.title }),
+		title: { absolute: article.title },
 		description: article.description,
 		openGraph: {
 			title: article.title,
@@ -56,6 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			type: 'article',
 			locale: ogLocale(locale),
 			publishedTime: article.date,
+			modifiedTime: article.updated ?? article.date,
 			authors: article.author ? [article.author] : undefined,
 			images: [
 				{
@@ -93,6 +101,15 @@ export default async function NewsArticlePage({ params }: Props) {
 	const effectiveLocale = getArticleLocale(slug, locale)
 
 	const ogImage = `${env.NEXT_PUBLIC_SITE_URL}/api/og?slug=${slug}`
+	const canonicalUrl = `${env.NEXT_PUBLIC_SITE_URL}${localePath(`/news/${slug}`, effectiveLocale)}`
+	const authorNode =
+		!article.author || /team/i.test(article.author)
+			? { '@id': ORGANIZATION_ID }
+			: {
+					'@type': 'Person',
+					name: article.author,
+					url: `${env.NEXT_PUBLIC_SITE_URL}${localePath('/authors', effectiveLocale)}`,
+				}
 
 	// Dynamically import the MDX content
 	const { default: Content } = await import(`@content/news/${effectiveLocale}/${slug}.mdx`)
@@ -110,22 +127,36 @@ export default async function NewsArticlePage({ params }: Props) {
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify({
 						'@context': 'https://schema.org',
-						'@type': 'NewsArticle',
-						headline: article.title,
-						description: article.description,
-						datePublished: article.date,
-						author: article.author ? { '@type': 'Person', name: article.author } : undefined,
-						image: ogImage ? `${env.NEXT_PUBLIC_SITE_URL}${ogImage}` : undefined,
-						publisher: {
-							'@type': 'Organization',
-							name: 'NanoMarketCap',
-							logo: {
-								'@type': 'ImageObject',
-								url: `${env.NEXT_PUBLIC_SITE_URL}/X_abstract.svg`,
+						'@graph': [
+							organizationNode(),
+							websiteNode(),
+							webPageNode({
+								url: canonicalUrl,
+								name: article.title,
+								locale: effectiveLocale,
+								description: article.description,
+							}),
+							breadcrumbNode(canonicalUrl, [
+								{ name: 'Home', url: `${SITE}${localePath('/', effectiveLocale)}` },
+								{ name: 'News', url: `${SITE}${localePath('/news', effectiveLocale)}` },
+								{ name: article.title },
+							]),
+							{
+								'@type': 'NewsArticle',
+								'@id': `${canonicalUrl}#article`,
+								headline: article.title,
+								description: article.description,
+								datePublished: article.date,
+								dateModified: article.updated ?? article.date,
+								author: authorNode,
+								image: [ogImage],
+								publisher: { '@id': ORGANIZATION_ID },
+								mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+								isPartOf: { '@id': `${SITE}/#website` },
+								inLanguage: effectiveLocale,
+								articleSection: article.tags?.[0],
 							},
-						},
-						mainEntityOfPage: `${env.NEXT_PUBLIC_SITE_URL}/news/${slug}`,
-						inLanguage: effectiveLocale,
+						],
 					}),
 				}}
 			/>
@@ -151,6 +182,13 @@ export default async function NewsArticlePage({ params }: Props) {
 				<article className="article-prose">
 					<Content />
 				</article>
+
+				<p className="mt-8 rounded-md border border-dashed border-border bg-muted/30 px-4 py-3 text-xs leading-6 text-muted-foreground">
+					{t('articleDisclaimer')}{' '}
+					<Link href="/legal/disclaimer" className="text-primary underline underline-offset-4">
+						{t('readDisclaimer')}
+					</Link>
+				</p>
 
 				{/* Related articles */}
 				{relatedArticles.length > 0 && (

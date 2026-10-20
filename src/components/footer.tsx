@@ -16,6 +16,10 @@ const footerLinks = {
 		{ href: '/get-nano', labelKey: 'getNano' },
 		{ href: '/swap-nano', labelKey: 'swapNano' },
 		{ href: '/calculators', labelKey: 'calculators' },
+		{ href: '/about', labelKey: 'about' },
+		{ href: '/contact', labelKey: 'contact' },
+		{ href: '/authors', labelKey: 'authors' },
+		{ href: '/editorial-policy', labelKey: 'editorialPolicy' },
 	],
 	external: [
 		{ href: 'https://nano.org', labelKey: 'nanoOrg', external: true },

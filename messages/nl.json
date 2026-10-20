@@ -214,6 +214,19 @@
     "toolWidgetsDescription": "Inbouwbare live-instrumenten"
   },
   "home": {
+    "seoTitle": "Nano (XNO) marktkapitalisatie, prijs en live data",
+    "seoDescription": "Live XNO-prijs, marktkapitalisatie, 24-uursvolume, dominantie en on-chain data van Nano (XNO), gewaardeerd in XNO.",
+    "summary": {
+      "title": "Nano (XNO) marktkapitalisatie, prijs en live data",
+      "answer": "Nano (XNO) wordt verhandeld op {price}, {change} in de afgelopen 24 uur, met een marktkapitalisatie van {cap} en een rang van #{rank}.",
+      "p1": "NanoMarketCap volgt de live XNO-prijs, marktkapitalisatie, circulerend aanbod en 24-uursvolume via CoinGecko. Het marktregister hieronder waardeert de top 100 cryptocurrencies in XNO in plaats van dollars, waardoor het marktaandeel van Nano direct afleesbaar is.",
+      "p2": "Nano gebruikt een block-lattice-ledger en Open Representative Voting. Transacties worden in minder dan een seconde bevestigd zonder netwerkkosten, en het volledige aanbod is via captcha-faucets verdeeld in plaats van via een tokenverkoop. Nano (XNO) is niet Nano Labs (NA) of Nano One Materials (TSX:NANO).",
+      "p3": "Marktkapitalisatie wordt berekend door het circulerende aanbod te vermenigvuldigen met de huidige prijs. Nano heeft geen mining en geen inflatie; het volledige aanbod is bij de lancering verdeeld, dus de maatstaf weerspiegelt een betaalasset met vast aanbod in plaats van een netwerk dat kosten genereert.",
+      "fact1": "Live prijs, marktkapitalisatie en 24-uursvolume",
+      "fact2": "Top 100 activa gewaardeerd in XNO",
+      "fact3": "Nano-ecosysteemniews in zes talen",
+      "more": "Over deze data"
+    },
     "marketLedger": "Marktregister",
     "partnerSection": "Partners",
     "xnoMarketCap": "XNO Marktkapitalisatie",
@@ -250,6 +263,8 @@
   "news": {
     "title": "Nieuws",
     "subtitle": "Blijf op de hoogte van het laatste Nano nieuws en platformupdates",
+    "intro": "Nieuws en analyse uit het Nano-ecosysteem: protocolreleases, wallet- en toolupdates, x402- en machinebetalingsexperimenten, en marktcontext. Elk artikel is gedateerd, voorzien van bronnen bij feitelijke claims en gepubliceerd in zes talen. Filter op tag om ontwikkeling, betalingen of ecosysteemonderwerpen te volgen.",
+    "aboutFeed": "Over deze feed",
     "readMore": "Lees meer",
     "viewAll": "Bekijk al het nieuws",
     "backToNews": "Terug naar Nieuws",
@@ -272,7 +287,9 @@
     "paginationLabel": "Paginering van nieuws",
     "relatedArticles": "Gerelateerde artikelen",
     "rssFeed": "RSS",
-    "rssFeedTitle": "Abonneren op de RSS-feed"
+    "rssFeedTitle": "Abonneren op de RSS-feed",
+    "articleDisclaimer": "Dit artikel is alleen bedoeld ter informatie en is geen beleggingsadvies.",
+    "readDisclaimer": "Lees de disclaimer"
   },
   "coinDetail": {
     "errorLoading": "Kan muntgegevens niet laden. Probeer het later opnieuw.",
@@ -880,6 +897,10 @@
       "swapNano": "Wisselen naar Nano",
       "whyNano": "Waarom Nano?",
       "calculators": "Rekenmachines",
+      "about": "Over ons",
+      "contact": "Contact",
+      "authors": "Auteurs",
+      "editorialPolicy": "Redactiebeleid",
       "nanoOrg": "Nano.org",
       "docs": "Documentatie",
       "hub": "Nano Hub",

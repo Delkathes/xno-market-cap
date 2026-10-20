@@ -1,6 +1,7 @@
 'use client'
 
 import { useAtom } from 'jotai'
+import { useTranslations } from 'next-intl'
 
 import { FIAT_CURRENCY_CONFIG, type FiatCurrency } from '@/lib/constants'
 import { primaryFiatAtom } from '@/lib/currency-atoms'
@@ -14,11 +15,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
  */
 export function PrimaryCurrencySelect() {
 	const [primaryFiat, setPrimaryFiat] = useAtom(primaryFiatAtom)
+	const t = useTranslations('currencySettings')
 
 	return (
 		<Select value={primaryFiat} onValueChange={(value) => setPrimaryFiat(value as FiatCurrency)}>
 			<SelectTrigger
 				size="sm"
+				aria-label={t('primaryFiat')}
 				className="border-dashed border-border bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground data-[size=sm]:h-auto [&_svg]:size-3"
 			>
 				<SelectValue />

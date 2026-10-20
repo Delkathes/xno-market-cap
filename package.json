@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "icons": "node scripts/generate-coin-icons.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "start": "next start",
     "check": "biome check ./src",
     "check:messages": "node scripts/check-client-messages.mjs",

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useAtom } from 'jotai'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { CRYPTO_IDS, type FiatCurrency } from '@/lib/constants'
 import { cryptoCurrencyAtom, primaryFiatAtom, secondaryFiatAtom } from '@/lib/currency-atoms'
@@ -46,6 +46,7 @@ export function MarketOverview() {
 	} = useMarketData()
 
 	const t = useTranslations('home')
+	const locale = useLocale()
 
 	// Client-side clock for the sync strip. Rendered only after mount to avoid
 	// hydration mismatches; ticks every second.
@@ -217,12 +218,12 @@ export function MarketOverview() {
 								<div className="mt-3 grid grid-cols-3 gap-2">
 									<PriceCell
 										code={primaryFiat}
-										value={formatFiatPrice(xnoPricePrimary, primaryFiat)}
+										value={formatFiatPrice(xnoPricePrimary, primaryFiat, locale)}
 										changes={changesPrimary}
 									/>
 									<PriceCell
 										code={secondaryFiat}
-										value={formatFiatPrice(xnoPriceSecondary, secondaryFiat)}
+										value={formatFiatPrice(xnoPriceSecondary, secondaryFiat, locale)}
 										changes={changesSecondary}
 									/>
 									<PriceCell

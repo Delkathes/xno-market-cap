@@ -42,6 +42,10 @@ export function getClientIdentifier(request: NextRequest): string {
 }
 
 export function isAllowedApiRequest(request: NextRequest): boolean {
+	if (request.method === 'GET' || request.method === 'HEAD') {
+		return true
+	}
+
 	const origin = request.headers.get('origin')
 	const referer = request.headers.get('referer')
 	const host = request.headers.get('host')

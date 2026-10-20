@@ -102,17 +102,17 @@ export function formatFiatMarketCap(value: number, currency: FiatCurrency): stri
  */
 export function formatPrice(value: number): string {
 	if (value >= 1) {
-		return value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+		return value.toLocaleString('en-US', { maximumFractionDigits: 2 })
 	}
 
 	if (value <= 0) {
-		return value.toLocaleString()
+		return value.toLocaleString('en-US')
 	}
 
 	// For small values: decimals = -log10(value) + 3
 	// e.g., 0.1 → 4 decimals, 0.01 → 5, 0.001 → 6, etc.
 	const decimals = Math.min(11, -Math.floor(Math.log10(value)) + 3)
-	return value.toLocaleString(undefined, {
+	return value.toLocaleString('en-US', {
 		minimumFractionDigits: decimals,
 		maximumFractionDigits: decimals,
 	})
@@ -122,7 +122,7 @@ export function formatPrice(value: number): string {
  * Format a price value based on currency. An explicit `locale` pins number
  * formatting (embeds pass their language param so digits match the strings).
  */
-export function formatFiatPrice(value: number, currency: FiatCurrency, locale?: string): string {
+export function formatFiatPrice(value: number, currency: FiatCurrency, locale = 'en-US'): string {
 	const symbol = getFiatSymbol(currency)
 
 	if (isLargeNumberCurrency(currency)) return `${symbol}${value.toLocaleString(locale, { maximumFractionDigits: 0 })}`
@@ -139,11 +139,11 @@ export function formatSmartFiatPrice(value: number, currency: FiatCurrency): str
 		return value >= 1000000
 			? `${symbol}${(value / 1000000).toFixed(2)}M`
 			: value >= 1000
-				? `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+				? `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`
 				: `${symbol}${value.toFixed(0)}`
 	}
 	return value >= 1000
-		? `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+		? `${symbol}${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 		: value >= 1
 			? `${symbol}${value.toFixed(2)}`
 			: `${symbol}${value.toFixed(4)}`
@@ -176,7 +176,7 @@ export function formatLargeNumber(value: number, options: FormatLargeNumberOptio
 
 	const formatNum = (num: number, dec: number) =>
 		useLocale
-			? num.toLocaleString(undefined, { minimumFractionDigits: dec, maximumFractionDigits: dec })
+			? num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })
 			: num.toFixed(dec)
 
 	if (value >= 1e12) {
@@ -220,19 +220,19 @@ export function formatXNOAmount(value: number, options: FormatXNOAmountOptions =
 
 	if (compact) {
 		if (value >= 1e6) {
-			return `${prefix}${(value / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 })}M${suffix}`
+			return `${prefix}${(value / 1e6).toLocaleString('en-US', { maximumFractionDigits: 1 })}M${suffix}`
 		}
 		if (value >= 1e3) {
-			return `${prefix}${(value / 1e3).toLocaleString(undefined, { maximumFractionDigits: 2 })}K${suffix}`
+			return `${prefix}${(value / 1e3).toLocaleString('en-US', { maximumFractionDigits: 2 })}K${suffix}`
 		}
 	} else if (value >= 1e5) {
-		return `${prefix}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}${suffix}`
+		return `${prefix}${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}${suffix}`
 	} else if (value >= 1e3) {
-		return `${prefix}${value.toLocaleString(undefined, { maximumFractionDigits: 1 })}${suffix}`
+		return `${prefix}${value.toLocaleString('en-US', { maximumFractionDigits: 1 })}${suffix}`
 	}
 
 	if (value >= 1) {
-		return `${prefix}${value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}${suffix}`
+		return `${prefix}${value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}${suffix}`
 	} else if (value >= 0.1) {
 		return `${prefix}${value.toFixed(1)}${suffix}`
 	} else if (value >= 0.01) {
@@ -418,24 +418,22 @@ export function formatParityValue(value: number, options: FormatParityValueOptio
 	if (type === 'fiat') {
 		if (currency && isLargeNumberCurrency(currency)) {
 			if (value >= 1e15)
-				return `${symbol}${(value / 1e12).toLocaleString(undefined, { maximumFractionDigits: 2 })}T`
-			if (value >= 1e9)
-				return `${symbol}${(value / 1e9).toLocaleString(undefined, { maximumFractionDigits: 2 })}B`
-			if (value >= 1e6)
-				return `${symbol}${(value / 1e6).toLocaleString(undefined, { maximumFractionDigits: 2 })}M`
-			if (value >= 1e3) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-			return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+				return `${symbol}${(value / 1e12).toLocaleString('en-US', { maximumFractionDigits: 2 })}T`
+			if (value >= 1e9) return `${symbol}${(value / 1e9).toLocaleString('en-US', { maximumFractionDigits: 2 })}B`
+			if (value >= 1e6) return `${symbol}${(value / 1e6).toLocaleString('en-US', { maximumFractionDigits: 2 })}M`
+			if (value >= 1e3) return `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`
+			return `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`
 		}
 
-		if (value >= 1e15) return `${symbol}${(value / 1e12).toLocaleString(undefined, { maximumFractionDigits: 2 })}T`
-		if (value >= 1e9) return `${symbol}${(value / 1e9).toLocaleString(undefined, { maximumFractionDigits: 2 })}B`
-		if (value >= 1e6) return `${symbol}${(value / 1e6).toLocaleString(undefined, { maximumFractionDigits: 2 })}M`
-		if (value >= 1e3) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
-		if (value >= 1) return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-		return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: decimals })}`
+		if (value >= 1e15) return `${symbol}${(value / 1e12).toLocaleString('en-US', { maximumFractionDigits: 2 })}T`
+		if (value >= 1e9) return `${symbol}${(value / 1e9).toLocaleString('en-US', { maximumFractionDigits: 2 })}B`
+		if (value >= 1e6) return `${symbol}${(value / 1e6).toLocaleString('en-US', { maximumFractionDigits: 2 })}M`
+		if (value >= 1e3) return `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`
+		if (value >= 1) return `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: 2 })}`
+		return `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: decimals })}`
 	}
 
-	return `${value.toLocaleString(undefined, { maximumFractionDigits: decimals })} ${unit}`.trim()
+	return `${value.toLocaleString('en-US', { maximumFractionDigits: decimals })} ${unit}`.trim()
 }
 
 /**
@@ -445,9 +443,9 @@ export function formatParityHighlight(value: number, options: FormatParityValueO
 	const { symbol = '', unit = '', type } = options
 
 	if (type === 'fiat') {
-		return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+		return `${symbol}${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`
 	}
 
 	const decimals = type === 'commodity' ? 3 : 4
-	return `${value.toLocaleString(undefined, { maximumFractionDigits: decimals })} ${unit}`.trim()
+	return `${value.toLocaleString('en-US', { maximumFractionDigits: decimals })} ${unit}`.trim()
 }

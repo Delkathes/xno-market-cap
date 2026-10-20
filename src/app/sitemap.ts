@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-import { DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
+import { CRYPTO_IDS, DEFAULT_LOCALE, LOCALES } from '@/lib/constants'
 import { getAllNews } from '@/lib/news'
 import { getPartnersWithPages } from '@/lib/partner-config'
 
@@ -8,29 +8,36 @@ import { env } from '@/env'
 
 const SITE_URL = env.NEXT_PUBLIC_SITE_URL
 
-type RouteConfig = {
-	path: string
-	changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']
-	priority: number
-}
-
-const routes: RouteConfig[] = [
-	{ path: '', changeFrequency: 'hourly', priority: 1 },
-	{ path: '/dominance', changeFrequency: 'hourly', priority: 0.9 },
-	{ path: '/parity', changeFrequency: 'hourly', priority: 0.9 },
-	{ path: '/speculation', changeFrequency: 'hourly', priority: 0.8 },
-	{ path: '/calculators', changeFrequency: 'weekly', priority: 0.8 },
-	{ path: '/explore', changeFrequency: 'weekly', priority: 0.9 },
-	{ path: '/widgets', changeFrequency: 'weekly', priority: 0.8 },
-	{ path: '/get-nano', changeFrequency: 'monthly', priority: 0.7 },
-	{ path: '/swap-nano', changeFrequency: 'weekly', priority: 0.8 },
-	{ path: '/news', changeFrequency: 'daily', priority: 0.8 },
-	{ path: '/legal/privacy', changeFrequency: 'monthly', priority: 0.3 },
-	{ path: '/legal/terms', changeFrequency: 'monthly', priority: 0.3 },
-	{ path: '/legal/cookies', changeFrequency: 'monthly', priority: 0.3 },
-	{ path: '/legal/disclaimer', changeFrequency: 'monthly', priority: 0.3 },
-	{ path: '/legal/imprint', changeFrequency: 'monthly', priority: 0.3 },
-]
+const routes = [
+	'',
+	'/dominance',
+	'/parity',
+	'/speculation',
+	'/calculators',
+	'/explore',
+	'/widgets',
+	'/get-nano',
+	'/swap-nano',
+	'/news',
+	'/why-nano',
+	'/decentralization',
+	'/milestones',
+	'/tools/unit-converter',
+	'/tools/payment-links',
+	'/tools/address-tools',
+	'/tools/account-inspector',
+	'/tools/fee-comparison',
+	'/partners/info',
+	'/about',
+	'/contact',
+	'/authors',
+	'/editorial-policy',
+	'/legal/privacy',
+	'/legal/terms',
+	'/legal/cookies',
+	'/legal/disclaimer',
+	'/legal/imprint',
+] as const
 
 function buildAlternates(path: string): Record<string, string> {
 	const alternates: Record<string, string> = {}
@@ -38,47 +45,35 @@ function buildAlternates(path: string): Record<string, string> {
 		const localePath = locale === DEFAULT_LOCALE ? path : `/${locale}${path}`
 		alternates[locale] = `${SITE_URL}${localePath || '/'}`
 	}
+	alternates['x-default'] = `${SITE_URL}${path || '/'}`
 	return alternates
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const lastModified = new Date()
-
-	// Static routes
-	const staticRoutes = routes.map(({ path, changeFrequency, priority }) => ({
+function routeEntry(path: string): MetadataRoute.Sitemap[number] {
+	return {
 		url: `${SITE_URL}${path || '/'}`,
-		lastModified,
-		changeFrequency,
-		priority,
 		alternates: {
 			languages: buildAlternates(path),
 		},
-	}))
+	}
+}
 
-	// News article routes — PUBLISHED articles only (drafts 404 and must not
-	// pollute the sitemap; getAllNews filters on the `published` flag).
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+	const staticRoutes = routes.map(routeEntry)
+
+	const coinRoutes = Object.values(CRYPTO_IDS).map((id) => routeEntry(`/coin/${id}`))
+
 	const newsArticles = await getAllNews()
 	const newsRoutes = newsArticles.map((article) => ({
 		url: `${SITE_URL}/news/${article.slug}`,
-		lastModified: article.date ? new Date(article.date) : lastModified,
-		changeFrequency: 'weekly' as const,
-		priority: 0.6,
+		lastModified: new Date(article.updated ?? article.date),
 		alternates: {
 			languages: buildAlternates(`/news/${article.slug}`),
 		},
 	}))
 
-	// Partners page routes
 	const partners = getPartnersWithPages()
-	const partnersRoutes = partners.map((partner) => ({
-		url: `${SITE_URL}/partners/${partner.id}`,
-		lastModified,
-		changeFrequency: 'monthly' as const,
-		priority: 0.5,
-		alternates: {
-			languages: buildAlternates(`/partners/${partner.id}`),
-		},
-	}))
+	const partnersRoutes = partners.map((partner) => routeEntry(`/partners/${partner.id}`))
 
-	return [...staticRoutes, ...newsRoutes, ...partnersRoutes]
+	return [...staticRoutes, ...coinRoutes, ...newsRoutes, ...partnersRoutes]
 }

@@ -54,8 +54,8 @@
   --sidebar-accent-foreground: oklch(0.15 0 0);
   --sidebar-border: oklch(0.92 0.005 260);
   --sidebar-ring: oklch(0.48 0.18 260);
-  --trendup: #04b16e;
-  --trenddown: #ea3943;
+  --trendup: #0a7d52;
+  --trenddown: #c62828;
   --xno-value: oklch(58.901% 0.15214 246.529);
 }
 
@@ -354,7 +354,7 @@ html[data-announcement-dismissed='1'] .announcement-banner {
   }
 
   .animate-marquee {
-    animation: marquee 40s linear infinite;
+    animation: marquee 80s linear infinite;
   }
 
   .ticker-tape:hover .animate-marquee {

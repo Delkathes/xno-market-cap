@@ -50,7 +50,7 @@ export function NewsBanner({ articles }: NewsBannerProps) {
 			<div className="relative flex-1 overflow-hidden motion-reduce:overflow-x-auto">
 				<div className="flex w-max animate-marquee">
 					<ul className="flex items-center">{renderItems()}</ul>
-					<ul aria-hidden="true" className="flex items-center motion-reduce:hidden">
+					<ul aria-hidden="true" inert className="flex items-center motion-reduce:hidden">
 						{renderItems()}
 					</ul>
 				</div>

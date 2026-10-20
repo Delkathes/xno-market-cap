@@ -97,7 +97,7 @@ const HEAVY_CRAWLER_MATCHERS = HEAVY_CRAWLER_AGENTS.map((agent) => ({
 }))
 
 const CRAWLER_WINDOW_MS = 60_000
-const CRAWLER_MAX_REQUESTS_PER_WINDOW = 1
+const CRAWLER_MAX_REQUESTS_PER_WINDOW = 30
 
 interface CrawlerBucket {
 	count: number
@@ -112,10 +112,7 @@ function throttleHeavyCrawlers(request: NextRequest): NextResponseType | null {
 	if (!match) return null
 	const agent = match.agent
 
-	// Bucket per (agent, first path segment): /news, /en/news, /why-nano...
-	// share the same budget; every other path-group gets its own.
-	const firstSegment = request.nextUrl.pathname.split('/')[1] ?? ''
-	const bucketKey = `${agent}:${firstSegment}`
+	const bucketKey = agent
 	const now = Date.now()
 	const bucket = crawlerBuckets.get(bucketKey)
 
@@ -135,7 +132,33 @@ function throttleHeavyCrawlers(request: NextRequest): NextResponseType | null {
 	return null
 }
 
+function guardNewsPagination(request: NextRequest): NextResponseType | null {
+	const { pathname, searchParams } = request.nextUrl
+	if (!/^\/(?:(?:en|nl|es|it|de|fr)\/)?news$/.test(pathname)) return null
+	const pageParam = searchParams.get('page')
+	if (pageParam === null) return null
+	const page = Number.parseInt(pageParam, 10)
+	if (Number.isFinite(page) && page >= 1 && page <= 50) return null
+	const url = request.nextUrl.clone()
+	url.search = ''
+	return NextResponse.redirect(url, 308)
+}
+
+function guardUppercasePath(request: NextRequest): NextResponseType | null {
+	const { pathname } = request.nextUrl
+	if (pathname === pathname.toLowerCase()) return null
+	const url = request.nextUrl.clone()
+	url.pathname = pathname.toLowerCase()
+	return NextResponse.redirect(url, 308)
+}
+
 export default function proxy(request: NextRequest) {
+	const guardedCase = guardUppercasePath(request)
+	if (guardedCase) return guardedCase
+
+	const guardedNews = guardNewsPagination(request)
+	if (guardedNews) return guardedNews
+
 	const guardedAccount = guardAccountPath(request)
 	if (guardedAccount) return guardedAccount
 
@@ -145,7 +168,21 @@ export default function proxy(request: NextRequest) {
 	const throttled = throttleHeavyCrawlers(request)
 	if (throttled) return throttled
 
-	return createMiddleware(routing)(request)
+	const response = createMiddleware(routing)(request)
+	const localeCookie = response.cookies.get('NEXT_LOCALE')
+	if (localeCookie) {
+		response.cookies.set('NEXT_LOCALE', localeCookie.value, {
+			path: '/',
+			sameSite: 'lax',
+			secure: process.env.NODE_ENV === 'production',
+			maxAge: 60 * 60 * 24 * 365,
+		})
+	}
+	if (response.status === 307 || response.status === 308) {
+		response.headers.set('Vary', 'Accept-Language')
+		response.headers.set('Cache-Control', 'private, no-store')
+	}
+	return response
 }
 
 export const config = {

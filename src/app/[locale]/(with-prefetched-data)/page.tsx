@@ -5,14 +5,14 @@ import { getTranslations } from 'next-intl/server'
 
 import { getRecentNews } from '@/lib/news'
 import { localePath, ogImage, ogLocale } from '@/lib/seo'
-
-import { env } from '@/env'
+import { organizationNode, SITE, webPageNode, websiteNode } from '@/lib/structured-data'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { HreflangLinks } from '@/components/hreflang-links'
 import { MarketCapTable } from '@/components/market-cap-table'
 import MarketDataShell from '@/components/market-data-shell'
 import { MarketOverview } from '@/components/market-overview'
+import { MarketSummary } from '@/components/market-summary'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsBanner } from '@/components/news-banner'
 import { PartnerSpotlight } from '@/components/partner-spotlight'
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
-			url: '/',
+			url: localePath('/', locale),
 			type: 'website',
 			locale: ogLocale(locale),
 			images: ogImage(),
@@ -75,27 +75,22 @@ async function HomeContent({ locale }: { locale: string }) {
 						__html: JSON.stringify({
 							'@context': 'https://schema.org',
 							'@graph': [
-								{
-									'@type': 'Organization',
-									'@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization`,
-									name: 'NanoMarketCap',
-									url: env.NEXT_PUBLIC_SITE_URL,
-									logo: `${env.NEXT_PUBLIC_SITE_URL}/X_abstract.svg`,
-								},
-								{
-									'@type': 'WebSite',
-									'@id': `${env.NEXT_PUBLIC_SITE_URL}/#website`,
-									url: env.NEXT_PUBLIC_SITE_URL,
-									name: 'NanoMarketCap',
-									publisher: { '@id': `${env.NEXT_PUBLIC_SITE_URL}/#organization` },
-									inLanguage: ['en', 'nl', 'es', 'it', 'de', 'fr'],
-								},
+								organizationNode(),
+								websiteNode(),
+								webPageNode({
+									url: `${SITE}${localePath('/', locale)}`,
+									name: t('seoTitle'),
+									locale,
+									description: t('seoDescription'),
+								}),
 							],
 						}),
 					}}
 				/>
 
 				<div className="space-y-8">
+					<MarketSummary locale={locale} />
+
 					{/* Ticker tape */}
 					<div className="animate-fade-in-up">
 						<Suspense fallback={<TickerSkeleton />}>

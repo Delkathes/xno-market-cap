@@ -11,6 +11,7 @@ export interface NewsMetadata {
 	title: string
 	description: string
 	date: string
+	updated?: string
 	author?: string
 	image?: string
 	ogImage?: string

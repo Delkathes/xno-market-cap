@@ -102,7 +102,7 @@ export function CoinInfoCard({ coinId }: CoinInfoCardProps) {
 						/>
 						<div>
 							<div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-								<h1 className="text-xl font-bold tracking-tight">{coin.name}</h1>
+								<h2 className="text-xl font-bold tracking-tight">{coin.name}</h2>
 								<span className="font-mono text-[11px] uppercase tracking-widest text-[#209CE9]">
 									{coin.symbol}
 								</span>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { cacheLife } from 'next/cache'
+import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { Rss } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
@@ -16,6 +16,7 @@ import {
 	queryNews,
 } from '@/lib/news'
 import { localePath, ogImage, ogLocale } from '@/lib/seo'
+import { breadcrumbNode, SITE, webPageNode, websiteNode } from '@/lib/structured-data'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { HreflangLinks } from '@/components/hreflang-links'
@@ -29,6 +30,8 @@ type Props = {
 	searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
+export const instant = false
+
 const NEWS_SORTS: NewsSort[] = ['newest', 'oldest', 'title']
 
 function getParam(searchParams: Record<string, string | string[] | undefined>, key: string): string {
@@ -37,26 +40,36 @@ function getParam(searchParams: Record<string, string | string[] | undefined>, k
 	return value ?? ''
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	'use cache'
-	cacheLife('max')
-
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
 	const { locale } = await params
+	const resolvedSearchParams = await searchParams
+	const rawPageParam = getParam(resolvedSearchParams, 'page')
+	const rawPage = Number.parseInt(rawPageParam, 10)
+	const page = Number.isFinite(rawPage) && rawPage > 1 ? rawPage : 1
+	const suffix = page > 1 ? `?page=${page}` : ''
 	const t = await getTranslations({ locale, namespace: 'metadata.news' })
 
+	if (rawPageParam && (!Number.isFinite(rawPage) || rawPage < 1)) {
+		notFound()
+	}
+	const articles = await getAllNews(locale)
+	if (page > Math.max(1, Math.ceil(articles.length / NEWS_PAGE_SIZE))) {
+		notFound()
+	}
+
 	return {
-		title: t('title'),
+		title: { absolute: t('title') },
 		description: t('description'),
 		openGraph: {
 			title: t('ogTitle'),
 			description: t('ogDescription'),
-			url: '/news',
+			url: `${localePath('/news', locale)}${suffix}`,
 			type: 'website',
 			locale: ogLocale(locale),
 			images: ogImage(),
 		},
 		alternates: {
-			canonical: localePath('/news', locale),
+			canonical: `${localePath('/news', locale)}${suffix}`,
 			types: {
 				'application/rss+xml': '/rss.xml',
 			},
@@ -67,11 +80,58 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NewsPage({ params, searchParams }: Props) {
 	const { locale } = await params
 	const t = await getTranslations({ locale, namespace: 'news' })
+	const articles = await getAllNews(locale)
+	const resolvedSearchParams = await searchParams
+	const rawPageParam = getParam(resolvedSearchParams, 'page')
+	const requestedPage = Number.parseInt(rawPageParam, 10)
+	const maxPage = Math.max(1, Math.ceil(articles.length / NEWS_PAGE_SIZE))
+
+	if (rawPageParam && (!Number.isFinite(requestedPage) || requestedPage < 1)) {
+		notFound()
+	}
+	if (requestedPage > 1 && requestedPage > maxPage) {
+		notFound()
+	}
+
+	const url = `${SITE}${localePath('/news', locale)}`
 
 	return (
 		<main className="relative isolate container mx-auto px-4 py-8">
 			<HreflangLinks path="/news" />
 			<ModernPageBackground />
+
+			<script
+				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@graph': [
+							websiteNode(),
+							webPageNode({ url, name: t('title'), locale, description: t('subtitle') }),
+							breadcrumbNode(url, [
+								{ name: 'Home', url: `${SITE}${localePath('/', locale)}` },
+								{ name: 'News' },
+							]),
+							{
+								'@type': 'CollectionPage',
+								'@id': `${url}#collection`,
+								url,
+								name: t('title'),
+								isPartOf: { '@id': `${SITE}/#website` },
+								mainEntity: {
+									'@type': 'ItemList',
+									itemListElement: articles.slice(0, 20).map((article, index) => ({
+										'@type': 'ListItem',
+										position: index + 1,
+										url: `${SITE}${localePath(`/news/${article.slug}`, locale)}`,
+									})),
+								},
+							},
+						],
+					}),
+				}}
+			/>
 
 			<header className="mb-8 animate-fade-in-up sm:mb-10">
 				<div className="flex flex-wrap items-end justify-between gap-4">
@@ -127,6 +187,13 @@ async function NewsBrowse({ locale, searchParams }: { locale: string; searchPara
 	const [articles, bodies] = await Promise.all([getAllNews(locale), getNewsBodies(locale)])
 	const filtered = queryNews(articles, bodies, { q, tags, sort }, locale)
 	const { items, currentPage, totalPages, total } = paginateNews(filtered, page, NEWS_PAGE_SIZE)
+
+	if (getParam(searchParamsResolved, 'page') && (!Number.isFinite(rawPage) || rawPage < 1)) {
+		notFound()
+	}
+	if (page > 1 && totalPages > 0 && page > totalPages) {
+		notFound()
+	}
 
 	const hasActiveFilters = q.length > 0 || tags.length > 0
 	const empty = items.length === 0

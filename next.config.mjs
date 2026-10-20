@@ -104,7 +104,8 @@ const nextConfig = {
 		// CSS
 		cssChunking: true,
 		useLightningcss: true,
-		inlineCss: true,
+		inlineCss: false,
+		optimizePackageImports: ['recharts', 'lucide-react'],
 
 		// Build correctness
 		caseSensitiveRoutes: true,
@@ -121,6 +122,37 @@ const nextConfig = {
 		// turbopackRemoveUnusedImports: true,
 		// turbopackRemoveUnusedExports: true,
 	},
+
+	redirects: async () => [
+		{
+			source: '/coin/xno',
+			destination: '/coin/nano',
+			permanent: true,
+		},
+		{
+			source: '/:locale(en|nl|es|it|de|fr)/coin/xno',
+			destination: '/:locale/coin/nano',
+			permanent: true,
+		},
+		{
+			source: '/:path*',
+			has: [{ type: 'host', value: 'nanomarketcap.com' }],
+			destination: 'https://www.nanomarketcap.com/:path*',
+			permanent: true,
+		},
+		{
+			source: '/:path*',
+			has: [{ type: 'host', value: 'xnomarketcap.com' }],
+			destination: 'https://www.nanomarketcap.com/:path*',
+			permanent: true,
+		},
+		{
+			source: '/:path*',
+			has: [{ type: 'host', value: 'www.xnomarketcap.com' }],
+			destination: 'https://www.nanomarketcap.com/:path*',
+			permanent: true,
+		},
+	],
 
 	headers: async () => [
 		// Widget embeds must be framable by ANY site, and should edge-cache
@@ -168,7 +200,12 @@ const nextConfig = {
 		// Restrict cross-origin resource access for API routes only
 		{
 			source: '/api/:path*',
-			headers: [{ key: 'Cross-Origin-Resource-Policy', value: 'same-origin' }],
+			headers: [
+				{ key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
+				{ key: 'Access-Control-Allow-Origin', value: '*' },
+				{ key: 'Access-Control-Allow-Methods', value: 'GET, HEAD, OPTIONS' },
+				{ key: 'Vary', value: 'Origin' },
+			],
 		},
 		// Edge-cache the news listing: the page is searchParams-dynamic, so
 		// without explicit caching every request (incl. ?page/?tag/?q variants)
@@ -183,6 +220,26 @@ const nextConfig = {
 		{
 			source: '/(en|nl|es|it|de|fr)/news/:path*',
 			headers: [{ key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' }],
+		},
+		{
+			source: '/news/:path*.jpg',
+			headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+		},
+		{
+			source: '/news/:path*.jpeg',
+			headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+		},
+		{
+			source: '/news/:path*.png',
+			headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+		},
+		{
+			source: '/news/:path*.webp',
+			headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+		},
+		{
+			source: '/news/:path*.avif',
+			headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
 		},
 		...EDGE_CACHED_GROUP_SOURCES.map((source) => ({
 			source,

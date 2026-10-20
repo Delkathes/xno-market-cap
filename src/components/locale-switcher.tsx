@@ -50,7 +50,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
 					size="icon"
 					aria-label="Switch language"
 					className={cn(
-						'h-9 w-9 cursor-pointer justify-center bg-transparent p-0 hover:bg-accent',
+						'h-11 w-11 cursor-pointer justify-center bg-transparent p-0 hover:bg-accent',
 						className,
 					)}
 				>

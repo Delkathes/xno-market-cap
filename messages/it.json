@@ -214,6 +214,19 @@
     "toolWidgetsDescription": "Strumenti live integrabili"
   },
   "home": {
+    "seoTitle": "Capitalizzazione, prezzo e dati live di Nano (XNO)",
+    "seoDescription": "Prezzo, capitalizzazione, volume a 24 ore, dominanza e dati on-chain di Nano (XNO) in tempo reale, valutati in XNO.",
+    "summary": {
+      "title": "Capitalizzazione, prezzo e dati live di Nano (XNO)",
+      "answer": "Nano (XNO) viene scambiato a {price}, {change} nelle ultime 24 ore, con una capitalizzazione di mercato di {cap} e un rank #{rank}.",
+      "p1": "NanoMarketCap monitora il prezzo di XNO, la capitalizzazione, l'offerta in circolazione e il volume a 24 ore da CoinGecko. Il registro di mercato sottostante valuta le prime 100 criptovalute in XNO invece che in dollari, rendendo immediatamente leggibile la quota di mercato di Nano.",
+      "p2": "Nano utilizza un registro a reticolo di blocchi e il voto aperto dei rappresentanti. Le transazioni si confermano in meno di un secondo senza commissioni di rete e l'intera offerta è stata distribuita tramite faucet con captcha, non con una vendita di token. Nano (XNO) non è Nano Labs (NA) né Nano One Materials (TSX:NANO).",
+      "p3": "La capitalizzazione si calcola moltiplicando l'offerta circolante per il prezzo corrente. Nano non ha mining né inflazione; l'intera offerta è stata distribuita al lancio, quindi la metrica riflette un asset di pagamento a offerta fissa, non una rete che genera commissioni.",
+      "fact1": "Prezzo, capitalizzazione e volume 24 h in tempo reale",
+      "fact2": "Primi 100 asset valutati in XNO",
+      "fact3": "Notizie sull'ecosistema Nano in sei lingue",
+      "more": "Informazioni sui dati"
+    },
     "marketLedger": "Registro di mercato",
     "partnerSection": "Partner",
     "xnoMarketCap": "Capitalizzazione XNO",
@@ -250,6 +263,8 @@
   "news": {
     "title": "Notizie",
     "subtitle": "Rimani aggiornato con le ultime notizie su Nano e aggiornamenti della piattaforma",
+    "intro": "Notizie e analisi dall'ecosistema Nano: release del protocollo, aggiornamenti di wallet e strumenti, esperimenti x402 e pagamenti tra macchine, e contesto di mercato. Ogni articolo è datato, cita le fonti quando afferma un fatto ed è pubblicato in sei lingue. Filtra per tag per seguire sviluppo, pagamenti o ecosistema.",
+    "aboutFeed": "Informazioni su questo feed",
     "readMore": "Leggi di più",
     "viewAll": "Vedi tutte le notizie",
     "backToNews": "Torna alle Notizie",
@@ -272,7 +287,9 @@
     "paginationLabel": "Paginazione delle notizie",
     "relatedArticles": "Articoli correlati",
     "rssFeed": "RSS",
-    "rssFeedTitle": "Iscriviti al feed RSS"
+    "rssFeedTitle": "Iscriviti al feed RSS",
+    "articleDisclaimer": "Questo articolo è solo a scopo informativo e non costituisce consulenza finanziaria.",
+    "readDisclaimer": "Leggi il disclaimer"
   },
   "coinDetail": {
     "errorLoading": "Impossibile caricare i dati della moneta. Riprova più tardi.",
@@ -880,6 +897,10 @@
       "swapNano": "Scambia in Nano",
       "whyNano": "Perché Nano?",
       "calculators": "Calcolatori",
+      "about": "Chi siamo",
+      "contact": "Contatti",
+      "authors": "Autori",
+      "editorialPolicy": "Politica editoriale",
       "nanoOrg": "Nano.org",
       "docs": "Documentazione",
       "hub": "Nano Hub",
