@@ -17,7 +17,7 @@ import {
 	getPriceChange,
 	type PriceChange24h,
 } from '@/lib/currency-helpers'
-import type { CryptoData } from '@/lib/types'
+import type { CryptoData, MarketDataResponse } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 import { useMarketData } from '@/hooks/use-market-data'
@@ -27,7 +27,7 @@ import { CurrencySettingsPopover } from '@/components/currency-settings-popover'
 import { MarketDataError } from '@/components/market-data-error'
 import { MilestoneTracker } from '@/components/milestone-tracker'
 
-export function MarketOverview() {
+export function MarketOverview({ initialData }: { initialData?: MarketDataResponse }) {
 	const {
 		data,
 		xnoCirculatingSupply,
@@ -43,7 +43,7 @@ export function MarketOverview() {
 		xnoPriceChange7d,
 		error,
 		fetchedAt,
-	} = useMarketData()
+	} = useMarketData(initialData)
 
 	const t = useTranslations('home')
 	const locale = useLocale()

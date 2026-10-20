@@ -210,17 +210,7 @@
   "home": {
     "seoTitle": "Nano (XNO) Market Cap, Price & Live Data",
     "seoDescription": "Live Nano (XNO) price, market cap, 24h volume, dominance and on-chain data, valued in XNO.",
-    "summary": {
-      "title": "Nano (XNO) Market Cap, Price & Live Data",
-      "answer": "Nano (XNO) trades at {price}, {change} over the last 24 hours, with a market cap of {cap} and a rank of #{rank}.",
-      "p1": "NanoMarketCap tracks the live XNO price, market cap, circulating supply and 24-hour volume from CoinGecko. The market ledger below values the top 100 cryptocurrencies in XNO rather than dollars, so Nano's share of the market is directly readable.",
-      "p2": "Nano uses a block-lattice ledger and Open Representative Voting. Transactions settle in under a second with no network fees, and the full supply was distributed through captcha faucets rather than a token sale. Nano (XNO) is not Nano Labs (NA) or Nano One Materials (TSX:NANO).",
-      "p3": "Market cap is calculated as circulating supply multiplied by the current price. Nano has no mining and no inflation; the full supply was distributed at launch, so the metric reflects a fixed-supply payment asset rather than a fee-generating network.",
-      "fact1": "Live price, market cap and 24h volume",
-      "fact2": "Top 100 assets valued in XNO",
-      "fact3": "Nano ecosystem news in six languages",
-      "more": "About this data"
-    },
+    "marketDataTitle": "Nano (XNO) market data",
     "marketLedger": "Market Ledger",
     "partnerSection": "Partners",
     "xnoMarketCap": "XNO Market Cap",
@@ -257,8 +247,6 @@
   "news": {
     "title": "News",
     "subtitle": "Stay updated with the latest Nano news and platform updates",
-    "intro": "News and analysis from the Nano ecosystem: protocol releases, wallet and tooling updates, x402 and machine-payment experiments, and market context. Every article is dated, sourced where it makes a factual claim, and published in six languages. Filter by tag to follow development, payments, or ecosystem topics.",
-    "aboutFeed": "About this feed",
     "readMore": "Read more",
     "viewAll": "View all news",
     "backToNews": "Back to News",

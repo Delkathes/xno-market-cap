@@ -216,17 +216,7 @@
   "home": {
     "seoTitle": "Capitalisation, prix et données en direct du Nano (XNO)",
     "seoDescription": "Prix, capitalisation, volume 24 h, dominance et données on-chain du Nano (XNO) en direct, valorisés en XNO.",
-    "summary": {
-      "title": "Capitalisation, prix et données en direct du Nano (XNO)",
-      "answer": "Le Nano (XNO) s'échange à {price}, {change} sur les dernières 24 heures, avec une capitalisation de {cap} et un rang de #{rank}.",
-      "p1": "NanoMarketCap suit le prix du XNO, sa capitalisation, son offre en circulation et son volume sur 24 heures à partir de CoinGecko. Le registre ci-dessous valorise les 100 principales cryptomonnaies en XNO plutôt qu'en dollars, ce qui rend directement lisible la part de Nano sur le marché.",
-      "p2": "Nano utilise un registre en treillis de blocs et le vote ouvert des représentants. Les transactions sont confirmées en moins d'une seconde sans frais de réseau, et l'offre totale a été distribuée via des faucets avec captcha, sans vente de jetons. Nano (XNO) n'est pas Nano Labs (NA) ni Nano One Materials (TSX:NANO).",
-      "p3": "La capitalisation est calculée en multipliant l'offre en circulation par le prix actuel. Nano n'a ni minage ni inflation ; l'offre totale a été distribuée au lancement, la mesure reflète donc un actif de paiement à offre fixe plutôt qu'un réseau générant des frais.",
-      "fact1": "Prix, capitalisation et volume 24 h en direct",
-      "fact2": "100 principaux actifs valorisés en XNO",
-      "fact3": "Actualités de l'écosystème Nano en six langues",
-      "more": "À propos de ces données"
-    },
+    "marketDataTitle": "Données de marché Nano (XNO)",
     "marketLedger": "Grand livre du marché",
     "partnerSection": "Partenaires",
     "xnoMarketCap": "Capitalisation XNO",
@@ -263,8 +253,6 @@
   "news": {
     "title": "Actualités",
     "subtitle": "Restez informé des dernières actualités Nano et mises à jour de la plateforme",
-    "intro": "Actualités et analyses de l'écosystème Nano : versions du protocole, mises à jour des portefeuilles et outils, expérimentations x402 et paiements machine, et contexte de marché. Chaque article est daté, sourcé lorsqu'il avance un fait, et publié en six langues. Filtrez par tag pour suivre le développement, les paiements ou l'écosystème.",
-    "aboutFeed": "À propos de ce fil",
     "readMore": "Lire la suite",
     "viewAll": "Voir toutes les actualités",
     "backToNews": "Retour aux Actualités",

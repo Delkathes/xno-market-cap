@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
-import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -32,7 +31,6 @@ export default async function AboutPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
-	const tn = await getTranslations({ locale, namespace: 'news' })
 	const url = `${SITE}${localePath('/about', locale)}`
 
 	return (
@@ -95,8 +93,13 @@ export default async function AboutPage({ params }: Props) {
 			</section>
 
 			<section className="mt-10 border-t border-border pt-8">
-				<h2 className="text-xl font-semibold">{tn('title')}</h2>
-				<p className="mt-3 text-sm leading-7 text-muted-foreground">{tn('intro')}</p>
+				<h2 className="text-xl font-semibold">News</h2>
+				<p className="mt-3 text-sm leading-7 text-muted-foreground">
+					News and analysis from the Nano ecosystem: protocol releases, wallet and tooling updates, x402 and
+					machine-payment experiments, and market context. Every article is dated, sourced where it makes a
+					factual claim, and published in six languages. Filter by tag to follow development, payments, or
+					ecosystem topics.
+				</p>
 			</section>
 
 			<section className="mt-10 border-t border-border pt-8">

@@ -216,17 +216,7 @@
   "home": {
     "seoTitle": "Nano (XNO) Marktkapitalisierung, Kurs und Live-Daten",
     "seoDescription": "Live-Kurs, Marktkapitalisierung, 24-Stunden-Volumen, Dominanz und On-Chain-Daten von Nano (XNO), bewertet in XNO.",
-    "summary": {
-      "title": "Nano (XNO) Marktkapitalisierung, Kurs und Live-Daten",
-      "answer": "Nano (XNO) wird bei {price} gehandelt, {change} in den letzten 24 Stunden, mit einer Marktkapitalisierung von {cap} und Rang #{rank}.",
-      "p1": "NanoMarketCap verfolgt den XNO-Kurs, die Marktkapitalisierung, den Umlauf und das 24-Stunden-Volumen von CoinGecko. Das Marktprotokoll unten bewertet die 100 größten Kryptowährungen in XNO statt in Dollar, wodurch Nanos Marktanteil direkt ablesbar wird.",
-      "p2": "Nano nutzt ein Block-Lattice-Ledger und Open Representative Voting. Transaktionen werden in unter einer Sekunde ohne Netzwerkgebühren bestätigt, und die gesamte Versorgung wurde über Captcha-Faucets statt über einen Token-Verkauf verteilt. Nano (XNO) ist nicht Nano Labs (NA) oder Nano One Materials (TSX:NANO).",
-      "p3": "Die Marktkapitalisierung ergibt sich aus Umlaufmenge mal aktuellem Kurs. Nano hat weder Mining noch Inflation; die gesamte Versorgung wurde beim Start verteilt, daher beschreibt die Kennzahl einen Zahlungsasset mit fester Versorgung statt ein gebührenfinanziertes Netzwerk.",
-      "fact1": "Live-Kurs, Marktkapitalisierung und 24-Stunden-Volumen",
-      "fact2": "Top-100-Assets in XNO bewertet",
-      "fact3": "Nano-Ökosystem-Nachrichten in sechs Sprachen",
-      "more": "Über diese Daten"
-    },
+    "marketDataTitle": "Nano (XNO) Marktdaten",
     "marketLedger": "Marktübersicht",
     "partnerSection": "Partner",
     "xnoMarketCap": "XNO Marktkapitalisierung",
@@ -263,8 +253,6 @@
   "news": {
     "title": "Nachrichten",
     "subtitle": "Bleiben Sie auf dem Laufenden mit den neuesten Nano Nachrichten und Plattform-Updates",
-    "intro": "Nachrichten und Analysen aus dem Nano-Ökosystem: Protokoll-Releases, Wallet- und Tool-Updates, x402- und Maschinenzahlungsexperimente sowie Marktkontext. Jeder Artikel ist datiert, bei Faktenbehauptungen mit Quellen versehen und in sechs Sprachen verfügbar. Filtern Sie nach Tag, um Entwicklung, Zahlungen oder Ökosystemthemen zu verfolgen.",
-    "aboutFeed": "Über diesen Feed",
     "readMore": "Mehr lesen",
     "viewAll": "Alle Nachrichten anzeigen",
     "backToNews": "Zurück zu Nachrichten",

@@ -27,10 +27,11 @@ export const fetchMarketData = async (): Promise<MarketDataResponse> => {
 	return response.json()
 }
 
-export function useMarketData() {
+export function useMarketData(initialData?: MarketDataResponse) {
 	const { data, error, isLoading, dataUpdatedAt } = useSuspenseQuery<MarketDataResponse>({
 		queryKey: ['market-data'],
 		queryFn: fetchMarketData,
+		initialData,
 		refetchInterval: 60000, // Refresh every 1:00min
 		refetchOnWindowFocus: false,
 		// Don't retry rate-limited requests (429 own API, 503 upstream) — retrying

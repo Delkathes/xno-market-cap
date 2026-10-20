@@ -3,6 +3,7 @@ import { cacheLife } from 'next/cache'
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
+import { getMarketData } from '@/lib/market-data-service'
 import { getRecentNews } from '@/lib/news'
 import { localePath, ogImage, ogLocale } from '@/lib/seo'
 import { organizationNode, SITE, webPageNode, websiteNode } from '@/lib/structured-data'
@@ -12,7 +13,6 @@ import { HreflangLinks } from '@/components/hreflang-links'
 import { MarketCapTable } from '@/components/market-cap-table'
 import MarketDataShell from '@/components/market-data-shell'
 import { MarketOverview } from '@/components/market-overview'
-import { MarketSummary } from '@/components/market-summary'
 import { ModernPageBackground } from '@/components/modern-page-background'
 import { NewsBanner } from '@/components/news-banner'
 import { PartnerSpotlight } from '@/components/partner-spotlight'
@@ -59,7 +59,10 @@ async function HomeContent({ locale }: { locale: string }) {
 
 	const t = await getTranslations({ locale, namespace: 'home' })
 
-	const recentNews = await getRecentNews(locale, 6)
+	const [recentNews, initialMarketData] = await Promise.all([
+		getRecentNews(locale, 6),
+		getMarketData().catch(() => undefined),
+	])
 
 	return (
 		<MarketDataShell>
@@ -89,8 +92,6 @@ async function HomeContent({ locale }: { locale: string }) {
 				/>
 
 				<div className="space-y-8">
-					<MarketSummary locale={locale} />
-
 					{/* Ticker tape */}
 					<div className="animate-fade-in-up">
 						<Suspense fallback={<TickerSkeleton />}>
@@ -99,9 +100,10 @@ async function HomeContent({ locale }: { locale: string }) {
 					</div>
 
 					{/* Market overview */}
-					<div className="animate-fade-in-up" style={{ animationDelay: '80ms' }}>
+					<div className="animate-fade-in-up space-y-4" style={{ animationDelay: '80ms' }}>
+						<h1 className="sr-only">{t('marketDataTitle')}</h1>
 						<Suspense fallback={<MarketOverviewSkeleton />}>
-							<MarketOverview />
+							<MarketOverview initialData={initialMarketData} />
 						</Suspense>
 					</div>
 

@@ -216,17 +216,7 @@
   "home": {
     "seoTitle": "Capitalización, precio y datos en vivo de Nano (XNO)",
     "seoDescription": "Precio, capitalización, volumen de 24 h, dominio y datos on-chain de Nano (XNO) en vivo, valorados en XNO.",
-    "summary": {
-      "title": "Capitalización, precio y datos en vivo de Nano (XNO)",
-      "answer": "Nano (XNO) cotiza a {price}, {change} en las últimas 24 horas, con una capitalización de mercado de {cap} y un puesto #{rank}.",
-      "p1": "NanoMarketCap sigue el precio de XNO, la capitalización, el suministro circulante y el volumen de 24 horas de CoinGecko. El registro de mercado siguiente valora las 100 principales criptomonedas en XNO en lugar de dólares, por lo que la cuota de mercado de Nano se lee directamente.",
-      "p2": "Nano utiliza un libro de bloques en celosía y votación abierta de representantes. Las transacciones se confirman en menos de un segundo sin comisiones de red, y todo el suministro se distribuyó mediante grifos con captcha, no mediante una venta de tokens. Nano (XNO) no es Nano Labs (NA) ni Nano One Materials (TSX:NANO).",
-      "p3": "La capitalización se calcula multiplicando el suministro circulante por el precio actual. Nano no tiene minería ni inflación; todo el suministro se distribuyó en el lanzamiento, por lo que la métrica refleja un activo de pago de suministro fijo y no una red que genera comisiones.",
-      "fact1": "Precio, capitalización y volumen 24 h en vivo",
-      "fact2": "100 principales activos valorados en XNO",
-      "fact3": "Noticias del ecosistema Nano en seis idiomas",
-      "more": "Sobre estos datos"
-    },
+    "marketDataTitle": "Datos de mercado de Nano (XNO)",
     "marketLedger": "Registro del mercado",
     "partnerSection": "Socios",
     "xnoMarketCap": "Capitalización XNO",
@@ -263,8 +253,6 @@
   "news": {
     "title": "Noticias",
     "subtitle": "Mantente al día con las últimas noticias de Nano y actualizaciones de la plataforma",
-    "intro": "Noticias y análisis del ecosistema Nano: lanzamientos del protocolo, actualizaciones de carteras y herramientas, experimentos con x402 y pagos entre máquinas, y contexto de mercado. Cada artículo está fechado, cita fuentes cuando afirma un hecho y se publica en seis idiomas. Filtra por etiqueta para seguir desarrollo, pagos o ecosistema.",
-    "aboutFeed": "Sobre este feed",
     "readMore": "Leer más",
     "viewAll": "Ver todas las noticias",
     "backToNews": "Volver a Noticias",
