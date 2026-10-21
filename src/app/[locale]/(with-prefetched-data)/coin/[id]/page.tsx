@@ -44,6 +44,8 @@ type Props = {
 	params: Promise<{ locale: string; id: string }>
 }
 
+const INDEXABLE_COIN_IDS = new Set<string>(Object.values(CRYPTO_IDS))
+
 export const instant = false
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -80,6 +82,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	return {
 		title: { absolute: t('title', { coin: coinName }) },
 		description: t('description', { coin: coinName }),
+		robots: {
+			index: INDEXABLE_COIN_IDS.has(id),
+			follow: true,
+		},
 		openGraph: {
 			title: t('ogTitle', { coin: coinName }),
 			description: t('ogDescription', { coin: coinName }),
@@ -103,7 +109,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // CoinGecko's rate limit and fail the build. An empty result is also fatal
 // under Cache Components. The route is request-time (instant = false), so
 // these are prerender hints only.
-const PRERENDER_COIN_IDS = ['bitcoin', 'ethereum', 'nano', 'monero', 'solana']
+const PRERENDER_COIN_IDS = ['bitcoin', 'ethereum', 'nano']
 
 export function generateStaticParams() {
 	return PRERENDER_COIN_IDS.map((id) => ({ id }))
