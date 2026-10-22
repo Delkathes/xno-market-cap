@@ -14,7 +14,7 @@ import { QueryClientProvider } from './query-client-provider'
 //
 // If a client component ever starts calling useTranslations for one of these,
 // add the exception here or NextIntlClientProvider throws MISSING_MESSAGE.
-const SERVER_ONLY_NAMESPACES = ['metadata', 'getNano', 'notFound', 'common', 'footer'] as const
+const SERVER_ONLY_NAMESPACES = ['metadata', 'getNano', 'notFound', 'common', 'footer', 'trustPages'] as const
 
 // Namespaces that are mostly server-only but have one client consumer each.
 const PARTIAL_CLIENT_NEEDS: Record<string, readonly string[]> = {

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { cacheLife } from 'next/cache'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
@@ -17,10 +18,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	cacheLife('max')
 
 	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'trustPages.authors' })
 
 	return {
-		title: { absolute: 'Authors — NanoMarketCap' },
-		description: 'The NanoMarketCap editorial team and how bylines work.',
+		title: { absolute: t('metaTitle') },
+		description: t('metaDescription'),
 		alternates: { canonical: localePath('/authors', locale) },
 	}
 }
@@ -30,6 +32,8 @@ export default async function AuthorsPage({ params }: Props) {
 	cacheLife('max')
 
 	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'trustPages.authors' })
+	const tc = await getTranslations({ locale, namespace: 'common' })
 	const url = `${SITE}${localePath('/authors', locale)}`
 
 	return (
@@ -44,30 +48,28 @@ export default async function AuthorsPage({ params }: Props) {
 						'@graph': [
 							organizationNode(),
 							websiteNode(),
-							webPageNode({ url, name: 'Authors — NanoMarketCap', locale }),
+							webPageNode({ url, name: t('title'), locale }),
 							breadcrumbNode(url, [
-								{ name: 'Home', url: `${SITE}${localePath('/', locale)}` },
-								{ name: 'Authors' },
+								{ name: tc('home'), url: `${SITE}${localePath('/', locale)}` },
+								{ name: t('breadcrumb') },
 							]),
 						],
 					}),
 				}}
 			/>
 
-			<h1 className="text-3xl font-bold tracking-tight md:text-4xl">Authors</h1>
+			<h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('title')}</h1>
 			<section className="mt-8 rounded-md border bg-card p-6">
-				<h2 className="text-xl font-semibold">NanoMarketCap Team</h2>
-				<p className="mt-2 text-sm leading-7 text-muted-foreground">
-					The NanoMarketCap Team writes and edits the news, development updates, and market analysis published
-					on this site. The team byline is used for collaborative work; individual authors are credited when a
-					piece is written by one person.
-				</p>
+				<h2 className="text-xl font-semibold">{t('teamName')}</h2>
+				<p className="mt-2 text-sm leading-7 text-muted-foreground">{t('body')}</p>
 				<p className="mt-3 text-sm leading-7 text-muted-foreground">
-					Sourcing, corrections, and update practices are described in the{' '}
-					<Link href="/editorial-policy" className="text-primary underline underline-offset-4">
-						editorial policy
-					</Link>
-					.
+					{t.rich('policyBody', {
+						link: (chunks) => (
+							<Link href="/editorial-policy" className="text-primary underline underline-offset-4">
+								{chunks}
+							</Link>
+						),
+					})}
 				</p>
 			</section>
 		</main>
