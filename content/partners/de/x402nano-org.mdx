@@ -1,31 +1,29 @@
-# x402nano.org: Gebührenfreier x402-Facilitator für Nano
+x402nano.org ist ein Facilitator für das [x402-Protokoll](https://www.x402.org/) auf Nano. Er prüft und wickelt HTTP-402-Zahlungen für Entwickler und KI-fähige Apps ab, ohne dass ein Konto nötig ist.
 
-x402nano.org ist ein Facilitator für das [x402-Protokoll](https://www.x402.org/) auf Nano. Er hilft Entwicklern und AI-fähigen Apps, HTTP-402-Zahlungen ohne Konto zu verifizieren und on-chain abzuwickeln.
+## Was der Dienst macht
 
-## Was der Service macht
+Der Dienst sitzt zwischen deiner App und dem Nano-Netzwerk:
 
-Der Dienst sitzt zwischen Ihrer App und dem Nano-Netzwerk:
-
-- **Verifiziert Zahlungssignaturen** aus `PAYMENT-SIGNATURE`
-- **Wickelt Zahlungen on-chain ab** nach erfolgreicher Prüfung
-- Gibt eine Zahlungsantwort zurück, damit geschützte Inhalte ausgeliefert werden können
+- **Prüft Zahlungssignaturen** aus `PAYMENT-SIGNATURE`
+- **Wickelt Zahlungen on-chain ab**, nachdem sie geprüft wurden
+- Gibt eine Zahlungsantwort zurück, damit deine App geschützte Inhalte ausliefern kann
 
 ## Warum Entwickler ihn nutzen
 
-- **Kein Signup erforderlich** für den Start
-- **Gebührenfreie Nano-Zahlungen** für internet-native Payment-Flows
-- Geeignet für **AI-Agent-Payment-Flows** und Machine-to-Machine-APIs
-- Unterstützt **Next.js** sowie manuelle Server-Integrationen
+- **Keine Registrierung nötig** für den Einstieg
+- **Gebührenfreie Nano-Zahlungen** für Zahlungsflüsse im Netz
+- **Passt zu Zahlungsmustern von KI-Agenten** und Machine-to-Machine-APIs
+- Unterstützt **Next.js** und manuelle Server-Integrationen
 
 ## Schnellstart
 
-1. Setzen Sie die Facilitator-URL auf `https://x402nano.org/facilitator`
-2. Integrieren Sie `@x402/next` (Middleware + Route-Handler) oder `@x402/core`
-3. Schützen Sie Endpunkte per HTTP 402 und wickeln Sie erfolgreiche Zahlungen ab
+1. Trag die Facilitator-URL `https://x402nano.org/facilitator` ein
+2. Integriere `@x402/next` (Middleware und Route-Handler) oder `@x402/core`
+3. Schütze Endpunkte mit HTTP 402 und wickle erfolgreiche Zahlungen ab
 
-## Für x402-Builder gebaut
+## Für x402-Entwickler
 
-Laut Dokumentation bietet x402nano.org einen permissionless Ansatz für x402-Zahlungsabläufe auf Nano, inklusive Verify-/Settle-Endpunkten und optionalen API-Key-Analysen.
+Laut Dokumentation bietet x402nano.org einen permissionless Weg für x402-Zahlungsabläufe auf Nano, inklusive Verify- und Settle-Endpunkten und optionaler Auswertung per API-Key.
 
 - Docs: [x402nano.org/docs](https://x402nano.org/docs)
 - Website: [x402nano.org](https://x402nano.org/)

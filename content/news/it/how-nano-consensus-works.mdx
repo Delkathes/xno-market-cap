@@ -1,39 +1,39 @@
 export const metadata = {
 	emoji: '⚙️',
 	title: 'Come funziona davvero il consenso di Nano',
-	description: 'Uno sguardo pratico al meccanismo di consenso di Nano, il voto aperto per rappresentanti, e perché permette transazioni istantanee e senza commissioni.',
+	description: 'Uno sguardo pratico al meccanismo di consenso di Nano, l\'Open Representative Voting, e perché permette transazioni istantanee e senza commissioni.',
 	date: '2026-05-20',
-	author: 'Team NanoMarketCap',
+	author: 'NanoMarketCap Team',
 	tags: ['tecnologia', 'spiegazione'],
 	published: true,
 }
 
 # Come funziona davvero il consenso di Nano
 
-Nano viene spesso descritta come «la criptovaluta senza commissioni e istantanea», ma la parte interessante non è quello che promette, è come ci arriva. La maggior parte delle criptovalute si affida al mining o allo staking, il che significa consumo energetico, commissioni e tempi di attesa. Nano usa qualcosa di completamente diverso: il voto aperto per rappresentanti, di solito abbreviato in ORV.
+Nano viene spesso descritta come «la criptovaluta senza commissioni e istantanea». Come ci arriva è la parte interessante. La maggior parte delle criptovalute si affida al mining o allo staking, con il loro carico di consumo energetico, commissioni e tempi di attesa. Nano usa un meccanismo diverso: l'Open Representative Voting, di solito abbreviato in ORV.
 
 ## Niente minatori, solo rappresentanti
 
 Nano non ha minatori. La rete non paga nessuno per metterla in sicurezza, perché non ne ha bisogno. Invece, ogni account può votare con il proprio saldo per un rappresentante. I rappresentanti con più peso delegato sono quelli che confermano le transazioni per conto della rete.
 
-È qui che sta la chiave. Delegando non perdi mai il controllo dei tuoi fondi, il saldo resta sul tuo account, semplicemente funziona anche come voto. La maggior parte delle persone lascia che il proprio wallet scelga un rappresentante predefinito, ed è perfettamente corretto.
+La delega è tutto il meccanismo. Non perdi mai il controllo dei tuoi fondi, il saldo resta sul tuo account e funziona anche come voto. La maggior parte delle persone lascia che il proprio portafoglio scelga un rappresentante predefinito, ed è perfettamente corretto.
 
 ## Cos'è davvero una conferma
 
 Quando invii una transazione Nano, quattro cose accadono in rapida successione:
 
-<Steps title="Dall’invio alla conferma">
+<Steps title="Dall'invio alla conferma">
 	<Step index="01" title="Trasmissione">Il tuo blocco viene inviato alla rete.</Step>
 	<Step index="02" title="Verifica">I rappresentanti lo verificano contro il loro registro locale.</Step>
 	<Step index="03" title="Voto">Se è valido, esprimono un voto a favore.</Step>
-	<Step index="04" title="Conferma">Quando abbastanza peso di voto è d’accordo, la transazione è confermata.</Step>
+	<Step index="04" title="Conferma">Quando abbastanza peso di voto è d'accordo, la transazione è confermata.</Step>
 </Steps>
 
-Poiché la rete è strutturata come un grafo aciclico diretto e non come una catena, non c’è un blocco da aspettare né una ricompensa per cui combattere. Le conferme si regolano in meno di un secondo, di solito molto meno.
+Poiché la rete è strutturata come un grafo aciclico diretto e non come una catena, non c'è un blocco da aspettare né una ricompensa per cui combattere. Le conferme arrivano in meno di un secondo, di solito molto meno.
 
 ## Perché conta nella pratica
 
-Le conseguenze non sono solo tecniche. Una rete senza minatori non ha corsa all'energia, né mercato delle commissioni, né congestione legata allo spazio dei blocchi. Inviare 0,000001 XNO costa quanto inviare 1.000 XNO: nulla. È questo che rende Nano interessante per i micropagamenti, le mance e i pagamenti macchina a macchina, quel tipo di casi d'uso in cui le commissioni divorerebbero l'intero valore del pagamento.
+Le conseguenze vanno oltre la tecnica. Una rete senza minatori non ha corsa all'energia, né mercato delle commissioni, né congestione legata allo spazio dei blocchi. Inviare 0,000001 XNO costa quanto inviare 1.000 XNO: nulla. È questo che rende Nano interessante per i micropagamenti, le mance e i pagamenti macchina a macchina, quel tipo di casi d'uso in cui le commissioni divorerebbero l'intero valore del pagamento.
 
 <StatGrid>
 	<Stat label="Inviare 0,000001 XNO" value="costo: zero" />
@@ -42,7 +42,7 @@ Le conseguenze non sono solo tecniche. Una rete senza minatori non ha corsa all'
 </StatGrid>
 
 <Callout type="warning" title="Il compromesso">
-	La sicurezza dipende da rappresentanti onesti e da una base di elettori distribuita. È per questo che la comunità spinge verso la decentralizzazione: il sistema funziona solo se il peso resta distribuito.
+	La sicurezza dipende da rappresentanti onesti e da una base di votanti distribuita. È per questo che la comunità spinge verso la decentralizzazione: il sistema funziona solo se il peso resta distribuito.
 </Callout>
 
 Niente di tutto questo è teoria da prendere per fede. Puoi verificare tu stesso lo stato della rete con qualsiasi nodo pubblico e, se possiedi XNO, puoi persino scegliere il tuo rappresentante. Gli strumenti per farlo esistono da anni. Semplicemente non se ne parla quanto meriterebbero.

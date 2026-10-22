@@ -4,8 +4,8 @@ export const metadata = {
 	description:
 		'Ӿ402Nano est un facilitateur x402 sans frais et sans permission pour Nano. Tout serveur compatible x402 peut pointer vers https://x402nano.org/facilitator et accepter des XNO de la part d\'agents IA : pas de compte, pas de clé API, règlement uniquement en cas de succès.',
 	date: '2026-08-20',
-	author: 'NanoMarketCap Team',
-	tags: ['payments', 'development', 'tools'],
+	author: 'Équipe NanoMarketCap',
+	tags: ['paiements', 'développement', 'outils'],
 	published: true,
 }
 
@@ -13,11 +13,11 @@ export const metadata = {
 
 Nano a désormais une porte sans frais vers x402, le protocole de paiement HTTP conçu pour les agents IA. Ӿ402Nano est un facilitateur pour Nano : tout serveur de ressources compatible x402 peut pointer vers `https://x402nano.org/facilitator` et commencer à accepter des XNO, sans compte, sans clé API et sans autre configuration qu'une ligne. La bannière de la page d'accueil le confirme : « facilitator live ».
 
-<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="La page d'accueil d'Ӿ402Nano : la bannière « facilitator live », le hero présentant le facilitateur x402 sans frais pour Nano, l'extrait FACILITATOR_URL, la rangée de statistiques live et le tableau des transactions récentes" caption="Page d'accueil : hero avec l'URL du facilitateur, statistiques live et transactions récentes" />
+<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="La page d'accueil d'Ӿ402Nano : la bannière « facilitator live », le visuel principal présentant le facilitateur x402 sans frais pour Nano, l'extrait FACILITATOR_URL, la rangée de statistiques en direct et le tableau des transactions récentes" caption="Page d'accueil : visuel principal avec l'URL du facilitateur, statistiques en direct et transactions récentes" />
 
 ## Ce qu'est x402
 
-Le statut HTTP 402 Payment Required existe vraiment, défini dans la spec mais presque jamais utilisé. x402 lui donne un rôle. Un endpoint protégé répond à une requête non payée par un 402 accompagné d'un en-tête `PAYMENT-REQUIRED` encodé en Base64 qui énonce les conditions : scheme accepté, réseau, prix, adresse du destinataire. Le client signe un paiement et réessaie avec un en-tête `PAYMENT-SIGNATURE` ; le serveur vérifie, règle, puis sert le contenu.
+Le statut HTTP 402 Payment Required existe vraiment, défini dans la spécification mais presque jamais utilisé. x402 lui donne un rôle. Un point de terminaison protégé répond à une requête non payée par un 402 accompagné d'un en-tête `PAYMENT-REQUIRED` encodé en Base64 qui énonce les conditions : schéma accepté, réseau, prix, adresse du destinataire. Le client signe un paiement et réessaie avec un en-tête `PAYMENT-SIGNATURE` ; le serveur vérifie, règle, puis sert le contenu.
 
 Le protocole est agnostique à la chaîne, et désormais géré par la x402 Foundation, dont la Linux Foundation a annoncé le lancement opérationnel. Ce facilitateur implémente le versant Nano.
 
@@ -33,19 +33,19 @@ Le tableau en direct montre exactement cette forme : des lignes à Ӿ0.0001 et �
 	<Stat label="Payeurs uniques" value="6" />
 </StatGrid>
 
-Une note honnête avant que le détecteur de hype ne s'affole : le volume est dominé par de petits paiements répétés entre les deux mêmes adresses, ce qui ressemble à des tests. Six payeurs uniques, ce n'est pas une adoption, c'est la preuve précoce que la plomberie fonctionne. Le [scanner](https://www.x402nano.org/scanner) montre tout l'historique, chaque transaction pointant vers son bloc sur nanexplorer.
+Une note honnête, avant de s'emballer : le volume est dominé par de petits paiements répétés entre les deux mêmes adresses, ce qui ressemble à des tests. Six payeurs uniques, ce n'est pas une adoption, c'est la preuve précoce que la plomberie fonctionne. Le [scanner](https://www.x402nano.org/scanner) montre tout l'historique, chaque transaction pointant vers son bloc sur nanexplorer.
 
 ## Comment un paiement circule
 
 La documentation décrit le flux en cinq étapes :
 
 1. Un client demande une ressource protégée.
-2. Le serveur répond 402, avec `PAYMENT-REQUIRED` qui transporte les schemes acceptés, le prix, le réseau et l'adresse Nano du destinataire.
+2. Le serveur répond 402, avec `PAYMENT-REQUIRED` qui transporte les schémas acceptés, le prix, le réseau et l'adresse Nano du destinataire.
 3. Le client construit un bloc d'envoi Nano, le signe et génère la preuve de travail.
-4. Le client réessaie avec le payload de paiement encodé en Base64 dans `PAYMENT-SIGNATURE`.
-5. Votre serveur transmet le payload au facilitateur, qui valide la signature du bloc et le diffuse sur le réseau Nano. Le résultat revient dans `PAYMENT-RESPONSE` ; une fois confirmé, le serveur sert le contenu.
+4. Le client réessaie avec les données de paiement encodées en Base64 dans `PAYMENT-SIGNATURE`.
+5. Votre serveur transmet les données au facilitateur, qui valide la signature du bloc et le diffuse sur le réseau Nano. Le résultat revient dans `PAYMENT-RESPONSE` ; une fois confirmé, le serveur sert le contenu.
 
-<Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="La page de documentation d'Ӿ402Nano montrant la section Quick Start et le flux de paiement en cinq étapes, du 402 Payment Required au règlement par le facilitateur" caption="Documentation : Quick Start et le flux de paiement en cinq étapes" />
+<Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="La page de documentation d'Ӿ402Nano montrant la section Démarrage rapide et le flux de paiement en cinq étapes, du 402 Payment Required au règlement par le facilitateur" caption="Documentation : Démarrage rapide et le flux de paiement en cinq étapes" />
 
 <Callout type="insight" title="Règlement uniquement en cas de succès">
 	Un détail de conception compte pour les machines : le règlement n'a lieu qu'après une réponse réussie, donc les clients ne sont jamais facturés pour des requêtes échouées. Les agents réessayent sans cesse ; c'est ce qui distingue un protocole fiable d'un protocole qui facture les impasses.
@@ -53,18 +53,18 @@ La documentation décrit le flux en cinq étapes :
 
 ## Pas de compte, pas de clé API
 
-Sans permission est le mot juste. Pas d'inscription, pas de clé, pas de dashboard : pointez votre serveur vers l'URL et c'est parti. Un en-tête `x-api-key` ou Bearer optionnel ne sert qu'à activer les statistiques d'usage dans un dashboard. Les erreurs reviennent dans un format JSON cohérent (400 corps invalide, 401 clé invalide, 429 limite de débit, 500 erreur serveur), et les limites sont de 200 requêtes par minute et par IP pour `/facilitator/verify` et `/facilitator/settle`.
+Sans permission : c'est le mot juste. Pas d'inscription, pas de clé, pas de tableau de bord : pointez votre serveur vers l'URL et c'est parti. Un en-tête `x-api-key` ou Bearer optionnel ne sert qu'à activer les statistiques d'usage dans un tableau de bord. Les erreurs reviennent dans un format JSON cohérent (400 corps invalide, 401 clé invalide, 429 limite de débit, 500 erreur serveur), et les limites sont de 200 requêtes par minute et par IP pour `/facilitator/verify` et `/facilitator/settle`.
 
 ## Le point de vue développeur
 
-Deux SDK couvrent l'intégration. `@x402/next` donne aux développeurs Next.js `paymentProxy` (middleware qui protège les routes de pages) et `withX402` (enveloppe les handlers de routes API). `@x402/core` expose `HTTPFacilitatorClient` avec verify/settle manuels pour Express, Hono ou n'importe quel framework. Les deux pointent vers la même URL :
+Deux SDK couvrent l'intégration. `@x402/next` donne aux développeurs Next.js `paymentProxy` (intergiciel qui protège les routes de pages) et `withX402` (enveloppe les gestionnaires de routes API). `@x402/core` expose `HTTPFacilitatorClient` avec vérification et règlement manuels pour Express, Hono ou n'importe quelle infrastructure. Les deux pointent vers la même URL :
 
-<Terminal title="config du facilitateur">
+<Terminal title="configuration du facilitateur">
 FACILITATOR_URL=https://x402nano.org/facilitator
 </Terminal>
 
 ## Débuts timides, lecture honnête
 
-La section agents IA de la documentation est ce qui rend le projet intéressant. Un agent peut découvrir de façon autonome un endpoint protégé, lire les conditions de paiement, signer un bloc Nano, calculer la preuve de travail et réessayer : pas d'humain, pas de compte, pas de carte. C'est exactement le flux pour lequel Nano a été conçu.
+La section agents IA de la documentation est ce qui rend le projet intéressant. Un agent peut découvrir de façon autonome un point de terminaison protégé, lire les conditions de paiement, signer un bloc Nano, calculer la preuve de travail et réessayer : pas d'humain, pas de compte, pas de carte. C'est exactement le flux pour lequel Nano a été conçu.
 
 Alors Ӿ402Nano est une pièce prometteuse du puzzle des paiements IA pour Nano, rien de plus pour l'instant. Les rails sont en ligne sur [x402nano.org](https://www.x402nano.org/), la documentation sur [/docs](https://www.x402nano.org/docs), le protocole documenté sur [x402.org](https://www.x402.org). Le chiffre à surveiller est de savoir si les premiers vrais serveurs s'enregistrent.

@@ -5,22 +5,22 @@ export const metadata = {
 		'OWS PR #109 voegt Nano toe als ondersteunde keten: wallets en tools op de standaard kunnen nu nano:mainnet-adressen afleiden en Nano-state-blokken ondertekenen met Ed25519 en externe proof of work.',
 	date: '2026-04-08',
 	author: 'NanoMarketCap Team',
-	tags: ['development', 'ecosystem', 'tools'],
+	tags: ['ontwikkeling', 'ecosysteem', 'tools'],
 	published: true,
 }
 
 # Nano sluit zich aan bij de Open Wallet Standard
 
-Op 8 april 2026 werd [pull request #109](https://github.com/open-wallet-standard/core/pull/109) gemerged in de kernrepository van de Open Wallet Standard, en Nano werd een ondersteunde keten. De PR is geschreven door cbrunnkvist en gemerged door maintainer njdawn. Het praktische effect is simpel: de `ows`-CLI en de bibliotheken eromheen kunnen nu Nano-adressen afleiden en Nano-state-blokken ondertekenen, precies zoals ze dat voor Solana, Sui of TON doen.
+Op 8 april 2026 werd [pull request #109](https://github.com/open-wallet-standard/core/pull/109) gemerged in de hoofdrepository van de Open Wallet Standard, en Nano werd een ondersteunde keten. De PR is geschreven door cbrunnkvist en gemerged door beheerder njdawn. Het praktische effect is simpel: de `ows`-CLI en de bibliotheken eromheen kunnen nu Nano-adressen afleiden en Nano-state-blokken ondertekenen, precies zoals ze dat voor Solana, Sui of TON doen.
 
-<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="Pull request #109 van de Open Wallet Standard op GitHub: titel 'feat: add Nano (XNO) chain support' en het begin van de PR-beschrijving waarin het block lattice en de ondertekeningsdetails worden uitgelegd" caption="De gemergde PR #109: de titel, de merge-status en een beschrijving die begint met het block lattice van Nano" />
+<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="Pull request #109 van de Open Wallet Standard op GitHub: titel 'feat: add Nano (XNO) chain support' en het begin van de PR-beschrijving waarin het block lattice en de ondertekeningsdetails worden uitgelegd" caption="De gemergde PR #109: de titel, de status van de pull request en een beschrijving die begint met het block lattice van Nano" />
 
 ## Wat de Open Wallet Standard is
 
 De Open Wallet Standard is een gedeelde laag voor wallet-interoperabiliteit. In plaats van dat elke wallet en elke app sleutelafleiding en ondertekening voor elke keten opnieuw implementeert, definieert OWS één flow: een wallet aanmaken, sleutels afleiden uit een mnemonic, transacties ondertekenen. Ketens pluggen in als signers. Vóór deze PR bestond de lijst uit Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin en Tron. Nano maakt er tien.
 
 <Callout type="insight" title="Waarom dit ertoe doet">
-	Wallets en tools die op OWS zijn gebouwd, kunnen Nano nu precies zo behandelen als Solana of Sui. Dat is een stap richting Nano als eersteklas burger in algemene wallet-tooling, niet alleen in Nano-specifieke apps.
+	Wallets en tools die op OWS zijn gebouwd, kunnen Nano nu precies zo behandelen als Solana of Sui. Dat is een stap naar Nano als volwaardige keten in algemene wallet-tools, niet alleen in Nano-specifieke apps.
 </Callout>
 
 ## Wat de PR verandert
@@ -42,9 +42,9 @@ Een state-blok is 176 bytes groot (account, previous, representative, balance, l
 
 ## De mainnet-test, ingekort
 
-De auteur bewees het op mainnet, niet alleen in tests. Hij bouwde de blokken met de [xno-skills-CLI](https://github.com/CasualSecurityInc/xno-skills), ondertekende ze met OWS en verplaatste 0.1 XNO; beide blokken zijn bevestigd en zichtbaar op blocklattice.io.
+De auteur bewees het op mainnet, niet alleen in tests. Hij bouwde de blokken met de [xno-skills-CLI](https://github.com/CasualSecurityInc/xno-skills), ondertekende ze met OWS en verplaatste 0,1 XNO; beide blokken zijn bevestigd en zichtbaar op blocklattice.io.
 
-<Terminal title="mainnet-test: 0.1 XNO">
+<Terminal title="mainnet-test: 0,1 XNO">
 	ows wallet create --wallet test
 	# -> nano:mainnet-adres, gefinancierd vanaf een extern account
 
@@ -56,12 +56,12 @@ De auteur bewees het op mainnet, niet alleen in tests. Hij bouwde de blokken met
 	ows sign send-tx --chain nano --wallet test --tx "$S_TXN"
 </Terminal>
 
-## Wat er eerlijk gezegd niet in zit
+## Wat er eerlijk gezegd niet in deze PR zit
 
-Drie dingen, helder benoemd in de PR zelf. Ten eerste message signing: `sign message` bestaat voor andere ketens, maar de Nano-variant is bewust niet geïmplementeerd, gemarkeerd als #TBDL, tot er een de facto standaard is voor wat een «ondertekend bericht» op Nano is ([tracking issue #183](https://github.com/open-wallet-standard/core/issues/183), zelfde aanpak als XRPL). Ten tweede geen hogere commando's: er is geen `ows send --to ... --amount ...` en geen `ows balance`, want OWS is op alle ketens consequent «breng je eigen ongetekende transactie». cbrunnkvist merkt op dat een state-blok met de hand bouwen pijnlijk is, en dat Nano een goede kandidaat zou zijn om een generieke send/balance-laag te piloten als de maintainers dat willen. Ten derde is proof of work alleen extern: geen CPU- of GPU-PoW, alles loopt via RPC-endpoints.
+Drie dingen, helder benoemd in de PR zelf. Ten eerste message signing: `sign message` bestaat voor andere ketens, maar de Nano-variant is bewust niet geïmplementeerd, gemarkeerd als #TBDL, tot er een de facto standaard is voor wat een “ondertekend bericht” op Nano is ([tracking issue #183](https://github.com/open-wallet-standard/core/issues/183), zelfde aanpak als XRPL). Ten tweede geen hogere commando's: er is geen `ows send --to ... --amount ...` en geen `ows balance`, want OWS is op alle ketens consequent “breng je eigen ongetekende transactie”. cbrunnkvist merkt op dat een state-blok met de hand bouwen pijnlijk is, en dat Nano een goede kandidaat zou zijn om een generieke send/balance-laag te piloten als de beheerders dat willen. Ten derde is proof of work alleen extern: geen CPU- of GPU-PoW, alles loopt via RPC-endpoints.
 
 De tests zijn solide: 20 unit tests in de Nano-signer (adrescodering, afleidingsvectoren voor 12- en 24-woorden-mnemonics, ondertekenen, verifiëren, hashing van state-blokken), alle 458 workspace-tests slagen, clippy is schoon. De thread kreeg ook reacties van Exxenoz en xnoforge.
 
-Dit is een infrastructuur-PR, geen lancering voor gebruikers. Geen nieuwe app, geen nieuw token. Wat het doet is stilletjes belangrijk: Nano spreekt nu dezelfde ondertekenings-taal als de rest van het wallet-ecosysteem, en de volgende wallet met OWS-ondersteuning kan Nano zonder extra werk opnemen. De crate voor ontwikkelaars is [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+Dit is een infrastructuur-PR, geen lancering voor gebruikers. Geen nieuwe app, geen nieuw token. De verandering is klein en relevant: Nano spreekt nu dezelfde ondertekeningstaal als de rest van het wallet-ecosysteem, en de volgende wallet met OWS-ondersteuning kan Nano zonder extra werk opnemen. De crate voor ontwikkelaars is [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
 
 <GitHubRepo repo="open-wallet-standard/core" />

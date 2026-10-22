@@ -1,35 +1,35 @@
 export const metadata = {
 	emoji: '🔬',
-	title: 'Understanding Nano: The Technology Behind Instant Transactions',
-	description: 'A deep dive into the block-lattice architecture that makes Nano one of the fastest and most efficient cryptocurrencies in existence.',
+	title: 'Understanding Nano: the technology behind instant transactions',
+	description: 'How the block-lattice, per-account chains and Open Representative Voting produce sub-second, feeless transactions.',
 	date: '2026-02-03',
 	author: 'NanoMarketCap Team',
 	tags: ['technology', 'education'],
 }
 
-# Understanding Nano: The Technology Behind Instant Transactions
+# Understanding Nano: the technology behind instant transactions
 
-Have you ever wondered how Nano achieves instant, feeless transactions? In this article, we explore the innovative technology that sets Nano apart from traditional blockchain cryptocurrencies.
+Nano moves a transaction in under a second and charges nothing for it. Both properties come from the same design decision: there is no global chain to queue behind and no mining to pay for. Here is how the pieces fit together.
 
-## The Block-Lattice Architecture
+## The block-lattice architecture
 
-Unlike Bitcoin's single blockchain where all transactions are recorded sequentially, Nano uses a unique **block-lattice** structure. In this design:
+Bitcoin records every transaction in one sequential chain. Nano does not. Each account keeps its own chain of blocks, and the design is called a **block-lattice**:
 
-- Each account has its own blockchain (account-chain)
-- Only the account owner can modify their chain
-- Transactions are asynchronous and independent
+- Each account has its own chain, an account-chain.
+- Only the account's owner can add to that chain.
+- Transactions are asynchronous and independent of each other.
 
 <Callout type="insight" title="No queue">Your transaction is processed immediately on its own chain, not behind thousands of others.</Callout>
 
 ## Open Representative Voting (ORV)
 
-Nano uses a consensus mechanism called **Open Representative Voting** instead of energy-intensive mining:
+Nano reaches agreement with **Open Representative Voting** instead of energy-intensive mining:
 
-1. **Delegation**: Users delegate their voting weight to representatives
-2. **Voting**: Representatives vote on transaction validity
-3. **Confirmation**: Transactions are confirmed when they reach quorum (>50% voting weight)
+1. **Delegation**: holders assign their voting weight to a representative.
+2. **Voting**: representatives vote on whether a block is valid.
+3. **Confirmation**: a block confirms once it reaches quorum, which is more than 50% of voting weight.
 
-The entire process typically completes in **under 1 second**.
+The whole sequence usually finishes in **under 1 second**.
 
 <StatGrid>
 	<Stat label="Confirmation" value="under 1 second" accent />
@@ -37,23 +37,23 @@ The entire process typically completes in **under 1 second**.
 	<Stat label="Energy per transaction" value="0.000112 kWh" />
 </StatGrid>
 
-## Why This Matters
+## How it compares
 
 | Feature | Nano | Bitcoin | Ethereum |
 |---------|------|---------|----------|
-| Transaction Time | Sub-second | ~10 minutes | ~15 seconds |
-| Transaction Fee | $0.00 | $1-50+ | $1-100+ |
-| Energy per Transaction | 0.000112 kWh | 1,173 kWh | 62.56 kWh |
+| Transaction time | Sub-second | ~10 minutes | ~15 seconds |
+| Transaction fee | $0.00 | $1-50+ | $1-100+ |
+| Energy per transaction | 0.000112 kWh | 1,173 kWh | 62.56 kWh |
 
-## The Result: Digital Cash That Works
+## What the design produces
 
-Nano's technology enables:
+Four properties:
 
-- **Instant settlement**: No waiting for confirmations
-- **Zero fees**: Send $1 or $1 million for free
-- **Scalability**: Network handles thousands of TPS
-- **Sustainability**: Minimal environmental impact
+- **Instant settlement**: no waiting for confirmations.
+- **Zero fees**: $1 and $1 million cost the same to send, which is nothing.
+- **Scalability**: the network handles thousands of transactions per second.
+- **Low energy**: minimal environmental impact per transaction.
 
 ---
 
-*Want to experience it yourself? Head to our [Get Nano](/get-nano) page to set up a wallet and try a transaction!*
+*To try it yourself, the [Get Nano](/get-nano) page covers wallets and a first transaction.*

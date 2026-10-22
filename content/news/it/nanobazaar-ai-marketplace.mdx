@@ -1,67 +1,67 @@
 export const metadata = {
 	emoji: '🤖',
-	title: 'NanoBazaar: un marketplace dove gli agenti AI si pagano in Nano',
+	title: 'NanoBazaar: un mercato dove gli agenti AI si pagano in Nano',
 	description:
-		'NanoBazaar è un marketplace-relay dove agenti AI autonomi comprano e vendono servizi, con regolamento in Nano. Noom lo ha costruito come caso d\'uso concreto del "denaro dei robot", con charge firmate dal venditore, indirizzi effimeri e crittografia end-to-end.',
+		'NanoBazaar è un mercato con servizio di inoltro dove agenti AI autonomi comprano e vendono servizi, con regolamento in Nano. Noom lo ha costruito come caso d\'uso concreto del "denaro dei robot", con ordini di pagamento firmati dal venditore, indirizzi effimeri e crittografia end-to-end.',
 	date: '2026-02-10',
 	author: 'NanoMarketCap Team',
-	tags: ['ecosystem', 'payments'],
+	tags: ['ecosistema', 'pagamenti'],
 	published: true,
 }
 
-# NanoBazaar: un marketplace dove gli agenti AI si pagano in Nano
+# NanoBazaar: un mercato dove gli agenti AI si pagano in Nano
 
-"Il denaro dei robot ha bisogno di lavoro dei robot." È l'idea dietro NanoBazaar, e ha una bella simmetria: se gli agenti devono guadagnare e spendere denaro, serve loro un rail di pagamento che funzioni senza umani nel loop. Lo sviluppatore Noom ha costruito NanoBazaar come risposta concreta: un marketplace dove agenti AI autonomi comprano e vendono servizi tra loro, con Nano come livello di regolamento.
+"Il denaro dei robot ha bisogno di lavoro dei robot." È l'idea dietro NanoBazaar, e ha una bella simmetria: se gli agenti devono guadagnare e spendere denaro, serve loro un'infrastruttura di pagamento che funzioni senza intervento umano. Lo sviluppatore Noom ha costruito NanoBazaar come risposta concreta: un mercato dove agenti AI autonomi comprano e vendono servizi tra loro, con Nano come livello di regolamento.
 
-Il concetto è semplice. Gli agenti venditori pubblicano offerte con prezzo fisso, input richiesti e formato di consegna. Gli agenti compratori creano job su quelle offerte. A lavoro fatto, il compratore paga il venditore in XNO e il risultato torna come payload cifrato. Il regolamento istantaneo e senza commissioni di Nano rende il loop pratico: una macchina può verificare un pagamento e consegnare un risultato in pochi secondi, senza commissioni che intaccano i micro-pagamenti e senza alcuna approvazione umana.
+Il concetto è semplice. Gli agenti venditori pubblicano offerte con prezzo fisso, dati richiesti e formato di consegna. Gli agenti compratori creano incarichi su quelle offerte. A lavoro fatto, il compratore paga il venditore in XNO e il risultato torna come contenuto cifrato. Il regolamento istantaneo e senza commissioni di Nano rende il ciclo pratico: una macchina può verificare un pagamento e consegnare un risultato in pochi secondi, senza commissioni che intaccano i micro-pagamenti e senza alcuna approvazione umana.
 
-<Figure src="/news/nanobazaar-ai-marketplace/01-homepage.jpg" alt="Homepage di NanoBazaar con la proposta «I tuoi agenti lavorano, tu guadagni in Nano», statistiche live del relay e comando di installazione OpenClaw" caption="La proposta della homepage: pubblicare offerte, accettare job e consegnare payload cifrati" />
+<Figure src="/news/nanobazaar-ai-marketplace/01-homepage.jpg" alt="Homepage di NanoBazaar con la proposta «I tuoi agenti lavorano, tu guadagni in Nano», statistiche in diretta del servizio di inoltro e comando di installazione OpenClaw" caption="La proposta della homepage: pubblicare offerte, accettare incarichi e consegnare contenuti cifrati" />
 
-## Un relay, non una piattaforma
+## Un servizio di inoltro, non una piattaforma
 
-NanoBazaar si descrive come un relay pubblico per servizi tra agenti, e la distinzione conta. Il relay non fa escrow, non detiene mai fondi e non media la fiducia. I compratori pagano direttamente i venditori tramite charge firmate dal venditore, ciascuna che punta a un indirizzo effimero. Il lavoro del relay è più stretto: spostare messaggi firmati e ciphertext tra agenti.
+NanoBazaar si descrive come un servizio di inoltro pubblico per servizi tra agenti, e la distinzione conta. Il servizio non gestisce depositi in garanzia, non detiene mai fondi e non media la fiducia. I compratori pagano direttamente i venditori tramite ordini di pagamento firmati dal venditore, ciascuno dei quali punta a un indirizzo effimero. Il compito del servizio di inoltro è più stretto: spostare messaggi firmati e testo cifrato tra agenti.
 
-La proprietà di privacy deriva dall'architettura. Tutto è cifrato end-to-end, quindi il relay non vede mai gli input inviati dal compratore né l'output consegnato dal venditore. Vede offerte, job, charge e blob cifrati, nient'altro.
+La proprietà di privacy deriva dall'architettura. Tutto è cifrato end-to-end, quindi il servizio di inoltro non vede mai i dati inviati dal compratore né il risultato consegnato dal venditore. Vede offerte, incarichi, ordini di pagamento e blocchi di dati cifrati, nient'altro.
 
-## Il flusso del relay
+## Il flusso del servizio di inoltro
 
-<Steps title="Come un job attraversa NanoBazaar">
+<Steps title="Come un incarico attraversa NanoBazaar">
 	<Step index="01" title="Offerta pubblicata">
-		Un agente venditore pubblica un'offerta: prezzo fisso, input richiesti, formato di consegna.
+		Un agente venditore pubblica un'offerta: prezzo fisso, dati richiesti, formato di consegna.
 	</Step>
-	<Step index="02" title="Job creato">
-		Un agente compratore crea un job su quell'offerta e allega gli input.
+	<Step index="02" title="Incarico creato">
+		Un agente compratore crea un incarico su quell'offerta e allega i dati.
 	</Step>
-	<Step index="03" title="Charge firmata">
-		Il venditore firma una charge, in effetti: paga questo indirizzo Nano effimero.
+	<Step index="03" title="Ordine di pagamento firmato">
+		Il venditore firma un ordine di pagamento, in pratica: paga questo indirizzo Nano effimero.
 	</Step>
 	<Step index="04" title="Pagamento in Nano">
-		Il compratore paga la charge in XNO. Il regolamento è definitivo in meno di un secondo.
+		Il compratore paga l'ordine in XNO. Il regolamento è definitivo in meno di un secondo.
 	</Step>
 	<Step index="05" title="Consegna cifrata">
-		Il venditore carica il risultato come payload cifrato tramite il relay.
+		Il venditore carica il risultato come contenuto cifrato tramite il servizio di inoltro.
 	</Step>
 	<Step index="06" title="Decifratura">
-		Il compratore scarica il payload e lo decifra localmente.
+		Il compratore scarica il contenuto e lo decifra localmente.
 	</Step>
 </Steps>
 
-Il dettaglio dell'indirizzo effimero merita una pausa. Un venditore non deve esporre una wallet di lunga durata per ricevere pagamenti. Ogni charge punta a un indirizzo nuovo, il che tiene la superficie di pagamento del marketplace piccola e automatizzata.
+Il dettaglio dell'indirizzo effimero merita una pausa. Un venditore non deve esporre un portafoglio di lunga durata per ricevere pagamenti. Ogni ordine di pagamento punta a un indirizzo nuovo, il che tiene basso e automatizzato il numero di indirizzi di pagamento del mercato.
 
-<Figure src="/news/nanobazaar-ai-marketplace/02-offers.jpg" alt="Pagina Browse offers di NanoBazaar con un annuncio live di un agente venditore, con prezzo fisso e consegna in due ore" caption="La vista delle offerte: prezzi fissi, tempi di consegna e contatori di acquisti per ogni annuncio" />
+<Figure src="/news/nanobazaar-ai-marketplace/02-offers.jpg" alt="Pagina delle offerte di NanoBazaar con un annuncio attivo di un agente venditore, con prezzo fisso e consegna in due ore" caption="La vista delle offerte: prezzi fissi, tempi di consegna e contatori di acquisti per ogni annuncio" />
 
 ## La connessione con OpenClaw
 
-NanoBazaar cavalca lo slancio di OpenClaw. OpenClaw è il framework open source per agenti dietro la spinta attuale degli "agenti che fanno lavoro vero", e Noom ha costruito il marketplace per agganciarsi direttamente. C'è uno [skill OpenClaw pubblicato su ClawHub](https://clawhub.ai/madsb/nanobazaar) che collega l'intero flusso in un bot: offerte, job, charge e scambio di payload cifrati. La versione in una riga: punti un bot OpenClaw allo skill, lanci il comando di setup e il tuo agente può iniziare a vendere (o comprare) servizi.
+NanoBazaar cavalca lo slancio di OpenClaw. OpenClaw è il framework open source per agenti dietro la spinta attuale degli "agenti che fanno lavoro vero", e Noom ha costruito il mercato per agganciarsi direttamente. C'è un [modulo OpenClaw pubblicato su ClawHub](https://clawhub.ai/madsb/nanobazaar) che collega l'intero flusso in un bot: offerte, incarichi, ordini di pagamento e scambio di contenuti cifrati. La versione in una riga: punti un bot OpenClaw al modulo, lanci il comando di configurazione e il tuo agente può iniziare a vendere (o comprare) servizi.
 
-<Figure src="/news/nanobazaar-ai-marketplace/03-clawhub-skill.jpg" alt="Pagina ClawHub dello skill NanoBazaar di madsb, con descrizione e comando di installazione openclaw skills install" caption="Lo skill OpenClaw su ClawHub: un comando di installazione collega offerte, job e charge a un bot" />
+<Figure src="/news/nanobazaar-ai-marketplace/03-clawhub-skill.jpg" alt="Pagina ClawHub del modulo NanoBazaar di madsb, con descrizione e comando di installazione openclaw skills install" caption="Il modulo OpenClaw su ClawHub: un comando di installazione collega offerte, incarichi e ordini di pagamento a un bot" />
 
-Il relay stesso è [open source](https://github.com/nanobazaar/nanobazaar), e Noom è esplicito: le pull request sono benvenute. Per un marketplace la cui premessa intera è il commercio macchina-a-macchina, un codebase verificabile non è un lusso, è il modello di fiducia.
+Il servizio di inoltro stesso è [open source](https://github.com/nanobazaar/nanobazaar), e Noom è esplicito: le pull request sono benvenute. Per un mercato la cui premessa intera è il commercio macchina-a-macchina, una base di codice verificabile non è un lusso, è il modello di fiducia.
 
 <GitHubRepo repo="nanobazaar/nanobazaar" />
 
 ## Giorni iniziali, lettura onesta
 
-Niente di tutto questo è provato su larga scala. Il commercio tra agenti è una categoria giovane, e NanoBazaar è un esperimento di uno sviluppatore singolo. Il relay live mostra già attività, ma i numeri sono piccoli e il mercato è sottile. Ecco come appare una lettura onesta a questo stadio: la meccanica funziona, gli incentivi sono chiari, e la domanda aperta è se gli agenti che si pagano per lavoro diventino un mercato vero o restino una demo.
+Niente di tutto questo è provato su larga scala. Il commercio tra agenti è una categoria giovane, e NanoBazaar è un esperimento di uno sviluppatore singolo. Il servizio di inoltro online mostra già attività, ma i numeri sono piccoli e il mercato è sottile. Una lettura onesta a questo stadio: il meccanismo funziona, gli incentivi sono chiari, e la domanda aperta è se gli agenti che si pagano per lavoro diventeranno un mercato vero o resteranno una demo.
 
-Il marketplace è live su [nanobazaar.ai](https://nanobazaar.ai/). Noom ha scritto il suo ragionamento sul "denaro dei robot" su [Subnano](https://subnano.me/@noom/robot-money-needs-robot-work), e c'è un [breve video demo su X](https://x.com/TheNanoBazaar/status/2020572380477735422). Se gestisci un bot OpenClaw, puntarlo allo skill è il modo più rapido per scoprire se regge nella pratica.
+Il mercato è online su [nanobazaar.ai](https://nanobazaar.ai/). Noom ha scritto il suo ragionamento sul "denaro dei robot" su [Subnano](https://subnano.me/@noom/robot-money-needs-robot-work), e c'è un [breve video demo su X](https://x.com/TheNanoBazaar/status/2020572380477735422). Se gestisci un bot OpenClaw, puntarlo al modulo è il modo più rapido per scoprire se regge nella pratica.

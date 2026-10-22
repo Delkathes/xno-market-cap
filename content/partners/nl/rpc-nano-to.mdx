@@ -1,129 +1,124 @@
-# RPC.Nano.To: Ontwikkelaarsinfrastructuur voor Nano
+RPC.Nano.To is een gehoste RPC- en betaallaag voor Nano: 65 nodes in 20 regio's, proof of work op GPU's en REST-API's met SDK's voor de talen die ontwikkelaars echt gebruiken. Bedoeld voor teams die een werkende Nano-integratie willen zonder zelf een node te draaien.
 
-RPC.Nano.To is de complete betalingsinfrastructuur voor het Nano cryptocurrency-netwerk. Bouw productie-klare Nano-applicaties met wereldwijd gedistribueerde RPC-nodes, GPU-aangedreven proof of work en ontwikkelaar-eerst APIs — van je eerste RPC-oproep tot je miljardste transactie.
+## Waarom RPC.Nano.To
 
-## Waarom kiezen voor RPC.Nano.To?
+### Nodes in 20 regio's
 
-### Bliksemsnelle wereldwijde infrastructuur
+65+ Nano-nodes verdeeld over 20 regio's in Noord-Amerika, Europa, Azië, Afrika en het Caribisch gebied. Verzoeken komen binnen een seconde terug, waardoor een betaalflow direct aanvoelt.
 
-Toegang tot meer dan 65 Nano-nodes verdeeld over 20 regio's die Noord-Amerika, Europa, Azië, Afrika en het Caribisch gebied omvatten. Responstijden onder een seconde zorgen ervoor dat je applicatie overal ter wereld directe Nano-transacties levert.
+### Proof of work, buiten je server
 
-### GPU proof of work generatie
+Eigen GPU-clusters genereren proof of work voor je transacties, zodat de applicatie licht en responsief blijft in plaats van het rekenwerk zelf te dragen.
 
-Stop met je zorgen maken over computationele overhead. RPC.Nano.To biedt toegewijde GPU-clusters die proof of work voor je transacties genereren, zodat je applicatie lichtgewicht en responsief blijft.
+### API's en SDK's
 
-### Ontwikkelaar-eerst APIs
-
-Schone, goed gedocumenteerde REST APIs met ondersteuning voor meerdere talen. Of je nu bouwt in Node.js, browser JavaScript, Python, PHP of cURL gebruikt, het platform biedt SDKs en duidelijke voorbeelden om binnen enkele minuten te starten.
+REST-endpoints met documentatie en voorbeelden in Node.js, browser-JavaScript, Python, PHP en cURL. De voorbeelden zijn kort genoeg om binnen enkele minuten te beginnen.
 
 ## Kernfuncties
 
-- **Wereldwijd nodenetwerk**: 65 nodes over 20 regio's die maximale uptime en minimale latentie garanderen
-- **Onbeperkte RPC-oproepen**: Schaal van gratis niveau tot onbeperkte verzoeken naarmate je app groeit
-- **Directe proof of work**: GPU-clusters behandelen computationeel werk zodat je app dat niet hoeft te doen
-- **Betalingssysteem**: Genereer Nano-betalingsstromen met webhooks, metadata en bevestigingstracking
-- **WebSocket-ondersteuning**: Real-time transactiemonitoring en blokbevestigingen
-- **CLI-tools**: Beheer portemonnees en transacties direct vanaf je terminal
-- **Gratis faucet**: Krijg 0,001 NANO direct voor testen en ontwikkeling
+- **Wereldwijd nodenetwerk**: 65 nodes in 20 regio's, voor uptime en lage latentie
+- **RPC-oproepen**: een gratis niveau dat kan doorgroeien naar onbeperkte verzoeken naarmate de app groeit
+- **Proof of work**: GPU-clusters doen het rekenwerk, je app niet
+- **Checkout**: betaalflows met webhooks, metadata en bevestigingstracking
+- **WebSockets**: transacties en blokbevestigingen volgen zodra ze gebeuren
+- **CLI**: wallet- en transactiebeheer vanaf een terminal
+- **Faucet**: 0,001 NANO voor testen en ontwikkeling
 
-## Waarom Nano dit mogelijk maakt
+## Waarom Nano
 
-- **Nul transactiekosten**: Bouw microbetalingsapplicaties zonder je zorgen te maken over kosteneconomie
-- **Finaliteit onder een seconde**: Transacties bevestigen in minder dan een seconde, wat real-time betalingsstromen mogelijk maakt
-- **Kosteloze infrastructuur**: Betaal alleen voor API-toegang en proof of work, geen kosten per transactie
-- **Wereldwijde toegankelijkheid**: Accepteer betalingen van iedereen, overal, zonder poortwachters
+- **Geen transactiekosten**: microbetalingsapplicaties zonder kosteneconomie
+- **Finaliteit onder een seconde**: transacties bevestigen in minder dan een seconde, precies wat realtime betaalflows nodig hebben
+- **Kosteloze infrastructuur**: je betaalt voor API-toegang en proof of work, niet per transactie
+- **Open toegang**: betalingen van iedereen, overal, zonder poortwachters
 
-## RPC.Nano.To vs Het bouwen van je eigen node
+## RPC.Nano.To vs je eigen node bouwen
 
-| Functie | RPC.Nano.To | Self-hosted node |
-|---------|-------------|------------------|
+| Functie | RPC.Nano.To | Eigen node |
+|---------|-------------|------------|
 | Installatietijd | < 5 minuten | Uren tot dagen |
-| Wereldwijde distributie | 65 nodes, 20 regio's | Enkele locatie |
-| Proof of work | GPU-clusters inbegrepen | DIY of derde partij |
-| Onderhoud | Nul | Continue updates, monitoring |
-| Schaalbaarheid | Auto-schalen | Handmatige hardware-upgrades |
+| Wereldwijde spreiding | 65 nodes, 20 regio's | Eén locatie |
+| Proof of work | GPU-clusters inbegrepen | Zelf doen of uitbesteden |
+| Onderhoud | Geen | Doorlopende updates en monitoring |
+| Schaalbaarheid | Schaalt automatisch | Handmatige hardware-upgrades |
 | Gratis niveau | 50K oproepen/dag | Serverkosten vanaf dag 1 |
-| Ontwikkelaarstools | CLI, SDKs, webhooks | Zelf bouwen |
-| Ondersteuning | Ticket + prioriteitsniveaus | Community forums |
+| Ontwikkelaarstools | CLI, SDK's, webhooks | Zelf bouwen |
+| Ondersteuning | Ticket en prioriteitsniveaus | Communityforums |
 
-## Wie gebruikt RPC.Nano.To?
+## Wie het gebruikt
 
-**App-ontwikkelaars**: Integreer betalingsfuncties in mobiele apps, webservices en SaaS-platforms zonder blockchain-infrastructuur te beheren.
+- **App-ontwikkelaars**: betaalfuncties in mobiele apps, webservices en SaaS-platforms, zonder blockchain-infrastructuur te beheren
+- **E-commerceplatforms**: directe, kosteloze checkoutflows via de betaal-API en webhookbevestigingen
+- **Crypto-wallets**: betrouwbare RPC-endpoints en directe transactie-uitzending
+- **Betaalverwerkers**: Nano-betalingen op schaal, met onbeperkte RPC-oproepen en SLA-garanties
+- **Onderzoekers en docenten**: het gratis niveau en de faucet, zonder infrastructuurkosten
 
-**E-commerce platforms**: Integreer directe, kosteloze checkout-stromen met behulp van de betaling-API met webhook-bevestigingen.
+## Aan de slag
 
-**Crypto-portemonnees**: Voer wallet-applicaties aan met betrouwbare RPC-endpoints en directe transactie-uitzending.
+1. **Haal een gratis API-sleutel**: meld je aan op rpc.nano.to voor 50.000 RPC-oproepen per dag plus 100 proof of work-generaties
+2. **Installeer de CLI**: voer `npm install -g @nano/wallet` uit om wallets en transacties vanaf je terminal te beheren
+3. **Genereer een wallet**: maak lokaal een versleutelde wallet met `nano-wallet generate --secret yourpassword`
+4. **Claim test-Nano**: gebruik de faucet om 0,001 NANO te ontvangen voor ontwikkeling en testen
+5. **Begin met bouwen**: doe een eerste RPC-oproep, of voeg de Node.js- of browser-SDK toe aan je applicatie
 
-**Betalingsverwerkers**: Schaal Nano-betalingsverwerking met onbeperkte RPC-oproepen en enterprise-grade SLA-garanties.
+## Prijzen
 
-**Onderzoekers en docenten**: Gebruik het gratis niveau en de faucet om te experimenteren met Nano zonder infrastructuurkosten.
+**Gratis niveau**: $0, voor altijd.
 
-## Aan de slag met RPC.Nano.To
-
-1. **Krijg je gratis API-sleutel**: Meld je aan op rpc.nano.to en ontvang 50.000 RPC-oproepen per dag plus 100 proof of work generaties
-2. **Installeer de CLI**: Voer `npm install -g @nano/wallet` uit om portemonnees en transacties vanaf je terminal te beheren
-3. **Genereer een portemonnee**: Maak een versleutelde portemonnee lokaal met `nano-wallet generate --secret jouwwachtwoord`
-4. **Claim test-Nano**: Gebruik de faucet om 0,001 NANO direct te ontvangen voor ontwikkeling en testen
-5. **Begin met bouwen**: Doe je eerste RPC-oproep of integreer de Node.js/Browser SDK in je applicatie
-
-## Echte prijsvoorbeelden
-
-**Gratis niveau** — $0/voor altijd
 - 50.000 RPC-oproepen per dag
-- 100 proof of work generaties per dag
-- Alle RPC-endpoints inbegrepen
-- Ticket ondersteuning
-- Perfect voor ontwikkeling en kleine projecten
+- 100 proof of work-generaties per dag
+- alle RPC-endpoints inbegrepen
+- ondersteuning per ticket
+- genoeg voor ontwikkeling en kleine projecten
 
-**Starter** — $10/maand
-- Onbeperkte RPC-verzoeken
+**Starter**: $10 per maand.
+
+- onbeperkte RPC-verzoeken
 - 100.000 PoW per maand
-- Prioritaire RPC-toegang
-- 7 dagen gratis proefperiode
-- Aanbevolen voor productie-apps
+- prioritaire RPC-toegang
+- 7 dagen gratis proberen
+- het niveau dat wordt aanbevolen voor productie-apps
 
-**Enterprise** — $100/maand
-- Onbeperkt RPC + onbeperkt PoW
-- Toegewijde hardwarebronnen
-- Gegarandeerde SLA met 99,9% uptime
-- Prioritaire ondersteuning met SSO & RBAC
-- Gebouwd voor mission-critical schaal
+**Enterprise**: $100 per maand.
 
-## Codevoorbeeld: Nano verzenden in 5 commando's
+- onbeperkt RPC en onbeperkt PoW
+- speciale hardware
+- gegarandeerde SLA met 99,9% uptime
+- prioriteitsondersteuning met SSO en RBAC
+- gebouwd voor implementaties met veel verkeer
+
+## Codevoorbeeld: Nano versturen in 5 commando's
 
 ```bash
 # CLI wereldwijd installeren
 npm install -g @nano/wallet
 
 # Stel je API-sleutel in
-export NANO_RPC_KEY=JOUW_API_SLEUTEL
+export NANO_RPC_KEY=YOUR_API_KEY
 
 # Genereer portemonnee
-nano-wallet generate --secret mijnwachtwoord
+nano-wallet generate --secret mypassword
 
 # Claim test-Nano van faucet
-nano-wallet faucet --secret mijnwachtwoord
+nano-wallet faucet --secret mypassword
 
 # Ontvang wachtende blokken
-nano-wallet receive --secret mijnwachtwoord
+nano-wallet receive --secret mypassword
 
 # Controleer saldo
-nano-wallet balance --secret mijnwachtwoord
+nano-wallet balance --secret mypassword
 
 # Verzend Nano
-nano-wallet send nano_3ontvanger... 0.1 --secret mijnwachtwoord
+nano-wallet send nano_3recipient... 0.1 --secret mypassword
 ```
 
-## De toekomst van betalingsinfrastructuur
+## Waar het platform voor is
 
-Bouwen op blockchain zou niet moeten betekenen het beheren van nodes, het synchroniseren van databases of het zelf genereren van proof of work. Moderne ontwikkelaars hebben infrastructuur nodig die direct schaalt, wereldwijd reageert en uit de weg blijft.
+Bouwen op een blockchain zou niet moeten betekenen dat je nodes draait, databases synchroniseert en zelf proof of work genereert. RPC.Nano.To is de laag die die taken wegneemt: dezelfde API voor de eerste en de miljoenste transactie, met de kosteloze, directe eigenschappen van Nano erachter.
 
-RPC.Nano.To levert die visie: een ontwikkelaarsplatform waar je code schrijft, geen DevOps-scripts. Waar je eerste transactie en je miljoenste transactie dezelfde eenvoudige API gebruiken. Waar de kosteloze, directe eigenschappen van Nano toegankelijk worden via schone, voorspelbare infrastructuur.
+## Begin met bouwen
 
-## Begin vandaag met bouwen
-
-Bezoek **[rpc.nano.to](https://rpc.nano.to)** om je gratis API-sleutel te krijgen en binnen een minuut te beginnen met RPC-oproepen. Sluit je aan bij de ontwikkelaars die de volgende generatie directe, kosteloze betalingsapplicaties op Nano bouwen.
+Gratis API-sleutels staan op **[rpc.nano.to](https://rpc.nano.to)**. De documentatie en het gratis niveau zijn genoeg om binnen een minuut een eerste RPC-oproep te doen.
 
 ---
 
-*Dit is een gesponsorde partnerpagina. RPC.Nano.To ondersteunt het Nano-ecosysteem door productie-grade infrastructuur te bieden die bouwen met Nano toegankelijk maakt voor ontwikkelaars wereldwijd.*
+*Dit is een gesponsorde partnerpagina. RPC.Nano.To levert gehoste infrastructuur om op Nano te bouwen.*

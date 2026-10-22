@@ -779,7 +779,9 @@
         "loading": "Préparation…",
         "button": "Envoyer la demande"
       }
-    }
+    },
+    "partnerLabel": "Partenaire",
+    "visitPartner": "Visiter {name}"
   },
   "about": {
     "title": "À propos de NanoMarketCap",

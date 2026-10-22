@@ -5,7 +5,7 @@ export const metadata = {
 		'Gigaion houdt de nanoNodeMonitor-fork in leven: modern thema, PHP 8.5-ondersteuning, lokale QR-codes, GHCR-images, config-migratie en v1.10.0 met een correcte RsNano-versiebanner.',
 	date: '2026-06-23',
 	author: 'NanoMarketCap Team',
-	tags: ['development', 'tools'],
+	tags: ['ontwikkeling', 'tools'],
 	published: true,
 }
 
@@ -23,19 +23,19 @@ Het moderniseringspakket dekt de basis die een self-hosted tool bruikbaar houdt:
 
 - Een nieuw modern thema, naast de bestaande light-, dark- en Banano-thema's.
 - Compatibiliteit met PHP 8.5.
-- QR-codegeneratie draait nu lokaal, zonder third-party dependency en de externe aanroepen die daarbij hoorden.
+- QR-codegeneratie draait nu lokaal, zonder externe afhankelijkheid en zonder de aanroepen naar buiten die daarbij hoorden.
 - GitHub Container Registry (GHCR) als voorkeursbron voor images, met Docker Hub als alternatief.
 - Migratielogica voor config.php om upgrades te vereenvoudigen. Docker-containers migreren de config bij het opstarten; handmatige installaties draaien een script dat een back-up van de oude config maakt, instellingen overneemt en een schoon bestand met versiemarkering schrijft.
 
 ## v1.10.0: de RsNano-bannerfix
 
-De release van 23 juni is klein maar nuttig. De versiecontrole van nanoNodeMonitor begreep alleen de C++-node, dus operators op RsNano, de Rust-herschrijving die we hier in juni behandelden, zagen de waarschuwing "verouderde serverversie", zelfs op de nieuwste release. v1.10.0 controleert RsNano-versies correct: geen vals alarm meer op actuele builds, en de banner stelt nu een upgrade voor wanneer er een nieuwe RsNano-versie verschijnt.
+De release van 23 juni is klein maar nuttig. De versiecontrole van nanoNodeMonitor begreep alleen de C++-node, dus operators op RsNano, de Rust-herschrijving die we hier in juni behandelden, zagen de waarschuwing “verouderde serverversie”, zelfs op de nieuwste release. v1.10.0 controleert RsNano-versies correct: geen vals alarm meer op actuele builds, en de banner raadt nu een upgrade aan zodra er een nieuwere RsNano-versie is.
 
 Gigaion bedankt badsyntax_ voor de voorgestelde fix.
 
-## De transparantienoot
+## De notitie over AI
 
-Zowel de aankondiging als het README zegt ronduit dat er AI-ondersteunde ontwikkeling is gebruikt in deze cyclus, en nodigt uit tot security reviews en community-onderzoek. Voor een tool die op de RPC-poort van jouw node zit, is dat de juiste houding: lees de code, meld problemen, oordeel zelf. Het doel is de fork actief onderhouden te houden in plaats van te laten verstoffen.
+De aankondiging en de README zeggen allebei ronduit dat er in deze cyclus AI-ondersteunde ontwikkeling is gebruikt, en nodigen uit tot beveiligingsreviews en community-onderzoek. Voor een tool die op de RPC-poort van jouw node zit, is dat de juiste houding: lees de code, meld problemen, oordeel zelf. Het doel is de fork actief onderhouden te houden in plaats van te laten verstoffen.
 
 ## Probeer het
 
@@ -45,8 +45,8 @@ Deployment is Docker-first en het GHCR-image is de aanbevolen bron:
 docker pull ghcr.io/gigaionllc/nanonodemonitor:latest
 </Terminal>
 
-Handmatige installaties blijven mogelijk: kloon de repo, kopieer config.sample.php naar config.php en wijs naar je node. Het README behandelt ook het migratiescript voor bestaande installaties; configs met eigen PHP-logica worden gedetecteerd en nooit herschreven.
+Handmatige installaties blijven mogelijk: kloon de repo, kopieer config.sample.php naar config.php en wijs naar je node. De README behandelt ook het migratiescript voor bestaande installaties; configs met eigen PHP-logica worden gedetecteerd en nooit herschreven.
 
-Als je een Nano- of Banano-node draait, is dit dashboard echt nuttig. De fork van het gearchiveerde [NanoTools/nanoNodeMonitor](https://github.com/NanoTools/nanoNodeMonitor) leeft, wordt onderhouden en is een blik waard.
+Als je een Nano- of Banano-node draait, is dit een nuttig dashboard. De fork van het gearchiveerde [NanoTools/nanoNodeMonitor](https://github.com/NanoTools/nanoNodeMonitor) leeft, wordt onderhouden en is een blik waard.
 
 <GitHubRepo repo="GigaionLLC/nanoNodeMonitor" />

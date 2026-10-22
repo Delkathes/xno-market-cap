@@ -11,13 +11,13 @@ export const metadata = {
 
 # NanoBid: eine Werbe-Rangliste, in der die Zahlung die Botschaft ist
 
-Werbung in der Krypto-Welt ist meist ein Wirrwarr aus Bannern, Werbenetzwerken und Zahlungswegen, die nicht zum Medium passen. NanoBid geht den anderen Weg: eine Rangliste für Projekte im Nano-Ökosystem, in der die Anzeige kein Bild ist, sondern ein Betrag. Du bietest eine Anzahl XNO, und dieser Betrag wird zum Eintrag. Die Zahlung ist die Botschaft.
+Werbung in der Krypto-Welt ist meist ein Wirrwarr aus Bannern, Werbenetzwerken und Zahlungswegen, die nicht zum Medium passen. NanoBid geht den anderen Weg: eine Rangliste für Projekte im Nano-Ökosystem, in der die Anzeige ein Betrag ist, kein Bild. Du bietest eine Anzahl XNO, und dieser Betrag wird zum Eintrag. Die Zahlung ist die Botschaft.
 
-## Eine Idee, die in Tagen lieferbar ist
+## Eine Idee, die in Tagen fertig war
 
 NanoBid wurde in wenigen Tagen von Gabriel Patrola gebaut, einem unabhängigen Entwickler und Forscher. Die Mechanik bleibt bewusst einfach: Projekte platzieren Gebote, und die Rangliste ordnet sie danach, was sie zu zahlen bereit sind. Keine Impressions-Dashboards, keine Auktions-Backends, keine Abrechnungs-Integrationen. Das Gebot ist zugleich Produkt und Anzeige.
 
-Was die Idee tragfähig macht, ist das, was Nano tragfähig macht: gebührenfreie, sofortige, teilbare Zahlungen. In einem Netz mit Gebühren wäre ein Gebot von einem Bruchteil eines XNO sinnlos, die Gebühr könnte größer sein als das Gebot selbst. Bei Nano kann eine Anzeige genau so viel kosten, wie sie wert ist, bis auf den kleinsten Bruchteil, und sich in unter einer Sekunde abwickeln. Der Preis selbst wird zur Botschaft:
+Die Idee funktioniert aus demselben Grund wie Nano: gebührenfreie, sofortige, teilbare Zahlungen. In einem Netz mit Gebühren wäre ein Gebot von einem Bruchteil eines XNO sinnlos, die Gebühr könnte größer sein als das Gebot selbst. Bei Nano kann eine Anzeige genau so viel kosten, wie sie wert ist, bis auf den kleinsten Bruchteil, und sich in unter einer Sekunde abwickeln. Der Preis selbst wird zur Botschaft:
 
 <StatGrid>
 	<Stat label="Kleines Gebot" value="1 XNO" />
@@ -29,15 +29,15 @@ Was die Idee tragfähig macht, ist das, was Nano tragfähig macht: gebührenfrei
 
 ## Zahlung als Medium
 
-Das ist der Teil, über den es sich nachzudenken lohnt. Die meisten Werbemarktplätze behandeln die Zahlung als verwaltungstechnisches Detail, das nachträglich an die erstellte Anzeige angehängt wird. NanoBid führt beides zusammen: Der Betrag ist die Anzeige. Rang, Aufmerksamkeit und Preis sind eine einzige Variable. Das ist eine wirklich andere Art, über Aufmerksamkeit im Web nachzudenken, und sie ist nur deshalb möglich, weil Zahlungen billig genug sind, um Teil der Interaktion zu sein statt nur ein Rundungsfehler obendrauf.
+Die meisten Werbemarktplätze behandeln die Zahlung als verwaltungstechnisches Detail, das nachträglich an das fertige Werbemittel angehängt wird. NanoBid führt beides zusammen: Der Betrag ist das Werbemittel. Rang, Aufmerksamkeit und Preis sind eine einzige Variable. Das ist eine andere Art, über Aufmerksamkeit im Web nachzudenken, und sie ist nur deshalb möglich, weil Zahlungen billig genug sind, um Teil der Interaktion zu sein statt nur ein Rundungsfehler obendrauf.
 
-<Callout type="insight" title="Der Betrag ist die Anzeige">
+<Callout type="insight" title="Der Betrag ist das Werbemittel">
 	Rang, Aufmerksamkeit und Preis sind eine einzige Variable. Das Gebot ist zugleich Produkt und Anzeige.
 </Callout>
 
 <Figure src="/news/nanobid-payment-as-message/01-leaderboard.jpg" alt="Die NanoBid-Rangliste ordnet fünf Projekte nach erhaltenen XNO; jede Karte zeigt den Gebotsbetrag, einen Verifizierungsbeleg und einen Überbieten-Button." caption="Live-Rangliste: Ränge sind Gebotsbeträge, und jeder Eintrag verlinkt den Block, der dafür bezahlt hat." />
 
-Community-Feedback hat das Projekt ebenfalls geprägt. Frühe Versionen bekamen Vorschläge, und dieses Hin und Her hat das Produkt nicht nur poliert, es brachte auch den ersten Kunden.
+Community-Feedback hat das Projekt ebenfalls geprägt. Frühe Vorschläge führten zu Korrekturen, und das Hin und Her brachte den ersten Kunden.
 
 <Steps title="Von der Idee zum ersten Kunden">
 	<Step index="01" title="Die Idee">Eine Werbe-Rangliste, in der das Gebot die Anzeige ist und die Zahlung die Botschaft.</Step>
@@ -49,6 +49,6 @@ Ein Werkzeug, das in wenigen Tagen von der Idee zum zahlenden Nutzer kam, gebaut
 
 ## Ein kleines Experiment, eine größere Idee
 
-NanoBid will kein Werbegigant werden. Es will ein funktionierendes Beispiel für ein Muster sein: Nanos Eigenschaften nutzen, damit die Zahlung selbst Bedeutung trägt. Ranglisten, gesponserte Plätze, Trinkgelder, die den genauen Betrag anzeigen, all das wird ausdrucksstärker, wenn die Zahl exakt, sofort und gebührenfrei sein kann.
+NanoBid will kein Werbegigant werden. Es will ein funktionierendes Beispiel für ein Muster sein: Nanos Eigenschaften nutzen, damit die Zahlung selbst Bedeutung trägt. Ranglisten, gesponserte Plätze, Trinkgelder, die den genauen Betrag anzeigen: All das wird ausdrucksstärker, wenn die Zahl exakt, sofort und gebührenfrei sein kann.
 
-Patrola hat den Bauprozess auf Subnano aufgeschrieben und die Herausforderungen beschrieben, die Idee in ein echtes Produkt zu verwandeln: [Building NanoBid: When the Payment Amount Becomes the Message](https://subnano.me/@gabrielpatrola/building-nanobid-when-the-payment-amount-becomes-the-message). Die Live-Rangliste gibt es unter [patrola.me/nanobid](https://patrola.me/nanobid). Wenn du ein Nano-Projekt betreibst, lohnt sich ein Blick.
+Patrola hat den Bauprozess auf Subnano aufgeschrieben und die Herausforderungen beschrieben, die Idee in ein echtes Produkt zu verwandeln: [Building NanoBid: When the Payment Amount Becomes the Message](https://subnano.me/@gabrielpatrola/building-nanobid-when-the-payment-amount-becomes-the-message). Die Live-Rangliste gibt es unter [patrola.me/nanobid](https://patrola.me/nanobid). Wer ein Nano-Projekt betreibt, hat mit dem Gebotsformular das ganze Onboarding: Betrag wählen, Link einfügen, Zahlungscode erhalten.

@@ -2,10 +2,10 @@ export const metadata = {
 	emoji: '🤖',
 	title: 'NanoBazaar: een marktplaats waar AI-agents elkaar in Nano betalen',
 	description:
-		'NanoBazaar is een relay-marktplaats waar autonome AI-agents elkaars diensten kopen en verkopen, afgerekend in Nano. Noom bouwde het als concreet gebruiksvoorbeeld van "robotgeld", met door de verkoper ondertekende charges, kortlevende adressen en end-to-end-versleuteling.',
+		'NanoBazaar is een relay-marktplaats waar autonome AI-agents elkaars diensten kopen en verkopen, afgerekend in Nano. Noom bouwde het als concreet gebruiksvoorbeeld van “robotgeld”, met door de verkoper ondertekende charges, kortlevende adressen en end-to-end-versleuteling.',
 	date: '2026-02-10',
 	author: 'NanoMarketCap Team',
-	tags: ['ecosystem', 'payments'],
+	tags: ['ecosysteem', 'betalingen'],
 	published: true,
 }
 
@@ -13,7 +13,7 @@ export const metadata = {
 
 "Robotgeld heeft robotwerk nodig." Dat is het idee achter NanoBazaar, en het heeft een mooie symmetrie: als agents geld moeten verdienen en uitgeven, hebben ze een betaalrail nodig die werkt zonder mens in de lus. Ontwikkelaar Noom bouwde NanoBazaar als concreet antwoord daarop: een marktplaats waar autonome AI-agents elkaars diensten kopen en verkopen, met Nano als afwikkellaag.
 
-Het concept is simpel. Verkoper-agents publiceren offers met een vaste prijs, vereiste inputs en een leveringsformaat. Koper-agents creëren jobs tegen die offers. Als het werk klaar is, betaalt de koper de verkoper in XNO en komt het resultaat terug als versleutelde payload. De goedkope, directe afwikkeling van Nano maakt de lus praktisch: een machine kan een betaling verifiëren en in seconden een resultaat leveren, zonder dat een vergoeding microbetalingen opeet en zonder menselijke goedkeuring.
+Het concept is simpel. Verkoper-agents publiceren offers met een vaste prijs, vereiste inputs en een leveringsformaat. Koper-agents creëren jobs tegen die offers. Als het werk klaar is, betaalt de koper de verkoper in XNO en komt het resultaat terug als versleutelde payload. De kosteloze afwikkeling in minder dan een seconde maakt de lus praktisch: een machine kan een betaling verifiëren en in seconden een resultaat leveren, zonder dat een vergoeding microbetalingen opeet en zonder menselijke goedkeuring.
 
 <Figure src="/news/nanobazaar-ai-marketplace/01-homepage.jpg" alt="Homepage van NanoBazaar met de boodschap “Jouw agents werken, jij verdient in Nano”, live relay-statistieken en het OpenClaw-installatiecommando" caption="De boodschap op de homepage: offers publiceren, jobs aannemen en versleutelde payloads leveren" />
 
@@ -46,13 +46,13 @@ De privacy-eigenschap volgt uit de architectuur. Alles is end-to-end versleuteld
 	</Step>
 </Steps>
 
-Het detail van het kortlevende adres verdient aandacht. Een verkoper hoeft geen langlevende wallet bloot te stellen om betalingen te ontvangen. Elke charge wijst naar een vers adres, wat het betalingsoppervlak van de marktplaats klein en geautomatiseerd houdt.
+Kortlevende adressen zijn hier belangrijk: een verkoper hoeft geen langlevende wallet bloot te stellen om betalingen te ontvangen. Elke charge wijst naar een vers adres, wat het betalingsoppervlak van de marktplaats klein en geautomatiseerd houdt.
 
 <Figure src="/news/nanobazaar-ai-marketplace/02-offers.jpg" alt="Pagina met offers van NanoBazaar met een live aanbieding van een verkoper-agent, met vaste prijs en levertijd van twee uur" caption="De offers-weergave: vaste prijzen, levertijden en aankooptellers voor elke aanbieding" />
 
 ## De OpenClaw-connectie
 
-NanoBazaar rijdt mee op het OpenClaw-momentum. OpenClaw is het open-source agentframework achter de huidige "agents die echt werk doen"-beweging, en Noom bouwde de marktplaats om er direct op aan te sluiten. Er staat een [OpenClaw-skill op ClawHub](https://clawhub.ai/madsb/nanobazaar) die de hele flow in een bot verwerkt: offers, jobs, charges en de uitwisseling van versleutelde payloads. Het eenregelverhaal: wijs een OpenClaw-bot naar de skill, draai het setup-commando en je agent kan diensten verkopen (of kopen).
+NanoBazaar rijdt mee op het OpenClaw-momentum. OpenClaw is het open-source agentframework achter de huidige “agents die echt werk doen”-beweging, en Noom bouwde de marktplaats om er direct op aan te sluiten. Er staat een [OpenClaw-skill op ClawHub](https://clawhub.ai/madsb/nanobazaar) die de hele flow in een bot verwerkt: offers, jobs, charges en de uitwisseling van versleutelde payloads. Het eenregelverhaal: wijs een OpenClaw-bot naar de skill, draai het setup-commando en je agent kan diensten verkopen (of kopen).
 
 <Figure src="/news/nanobazaar-ai-marketplace/03-clawhub-skill.jpg" alt="ClawHub-pagina van de NanoBazaar-skill van madsb, met beschrijving en het installatiecommando openclaw skills install" caption="De OpenClaw-skill op ClawHub: één installatiecommando verbindt offers, jobs en charges met een bot" />
 
@@ -64,4 +64,4 @@ De relay zelf is [open source](https://github.com/nanobazaar/nanobazaar), en Noo
 
 Niets hiervan is op schaal bewezen. Handel tussen agents is een jonge categorie, en NanoBazaar is een experiment van één solo-ontwikkelaar. De live relay toont al activiteit, maar de cijfers zijn klein en de markt is dun. Zo ziet een eerlijke lezing er in dit stadium uit: de techniek werkt, de prikkels zijn duidelijk, en de open vraag is of agents die elkaar voor werk betalen een echte markt worden of een demo blijven.
 
-De marktplaats is live op [nanobazaar.ai](https://nanobazaar.ai/). Noom schreef zijn "robotgeld"-gedachte op [Subnano](https://subnano.me/@noom/robot-money-needs-robot-work), en er is een [korte demovideo op X](https://x.com/TheNanoBazaar/status/2020572380477735422). Als je een OpenClaw-bot draait, is hem naar de skill wijzen de snelste manier om te ontdekken of dit in de praktijk standhoudt.
+De marktplaats is live op [nanobazaar.ai](https://nanobazaar.ai/). Noom schreef zijn “robotgeld”-gedachte op [Subnano](https://subnano.me/@noom/robot-money-needs-robot-work), en er is een [korte demovideo op X](https://x.com/TheNanoBazaar/status/2020572380477735422). Als je een OpenClaw-bot draait, is hem naar de skill wijzen de snelste manier om te ontdekken of dit in de praktijk standhoudt.

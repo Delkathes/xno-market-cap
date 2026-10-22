@@ -5,7 +5,7 @@ export const metadata = {
 		'Ӿ402Nano ist ein gebührenfreier, permissionless x402-Facilitator für Nano. Jeder x402-kompatible Server kann auf https://x402nano.org/facilitator zeigen und XNO von KI-Agenten annehmen: kein Konto, kein API-Key, Abrechnung nur bei Erfolg.',
 	date: '2026-08-20',
 	author: 'NanoMarketCap Team',
-	tags: ['payments', 'development', 'tools'],
+	tags: ['zahlungen', 'entwicklung', 'tools'],
 	published: true,
 }
 
@@ -23,9 +23,9 @@ Das Protokoll ist kettenagnostisch und wird inzwischen von der x402 Foundation b
 
 ## Warum es passt
 
-x402 zielt auf Maschine-zu-Maschine-Mikrozahlungen: ein KI-Agent, der pro API-Aufruf, pro Inference zahlt. Diese Beträge sind winzig, und winzige Beträge leiden am meisten unter Gebühren. Auf kostenpflichtigen Rails wird eine Zahlung von Bruchteilen eines Cents verschlungen, bevor sie ankommt. Auf Nano wird sie in unter einer Sekunde abgewickelt, ganz ohne Gebühren.
+x402 zielt auf Maschine-zu-Maschine-Mikrozahlungen: ein KI-Agent, der pro API-Aufruf, pro Inference zahlt. Diese Beträge sind winzig, und winzige Beträge leiden am meisten unter Gebühren. Auf Netzen mit Gebühren wird eine Zahlung von Bruchteilen eines Cents verschlungen, bevor sie ankommt. Auf Nano wird sie in unter einer Sekunde abgewickelt, ganz ohne Gebühren.
 
-Die Live-Tabelle zeigt genau diese Form: Zeilen mit Ӿ0.0001 und Ӿ0.005, Mikrozahlungen, die ein gebührenbasiertes Netzwerk nicht wirtschaftlich transportieren könnte. Die Zahlen dahinter, zum Zeitpunkt der Veröffentlichung:
+Die Live-Tabelle zeigt genau das: Zeilen mit Ӿ0.0001 und Ӿ0.005, Mikrozahlungen, die ein gebührenbasiertes Netzwerk nicht wirtschaftlich transportieren könnte. Die Zahlen dahinter, zum Zeitpunkt der Veröffentlichung:
 
 <StatGrid>
 	<Stat label="Transaktionen" value="116" />
@@ -33,7 +33,7 @@ Die Live-Tabelle zeigt genau diese Form: Zeilen mit Ӿ0.0001 und Ӿ0.005, Mikroz
 	<Stat label="Eindeutige Zahler" value="6" />
 </StatGrid>
 
-Ein ehrlicher Hinweis, bevor der Hype-Detektor anschlägt: Das Volumen wird von wiederholten Kleinstzahlungen zwischen denselben zwei Adressen dominiert, das sieht nach Tests aus. Sechs eindeutige Zahler sind keine Adoption, sondern ein früher Beweis, dass die Leitungen funktionieren. Der [Scanner](https://www.x402nano.org/scanner) zeigt den kompletten Verlauf, jede Transaktion verlinkt auf ihren Block bei nanexplorer.
+Ein ehrlicher Hinweis, bevor der Hype-Detektor anschlägt: Das Volumen wird von wiederholten Kleinstzahlungen zwischen denselben zwei Adressen dominiert, das sieht nach Tests aus. Sechs eindeutige Zahler sind noch keine Adoption. Sie sind ein früher Beweis, dass die Leitungen funktionieren. Der [Scanner](https://www.x402nano.org/scanner) zeigt den kompletten Verlauf, jede Transaktion verlinkt auf ihren Block bei nanexplorer.
 
 ## So läuft eine Zahlung ab
 
@@ -43,7 +43,7 @@ Die Doku beschreibt den Ablauf in fünf Schritten:
 2. Der Server antwortet mit 402; `PAYMENT-REQUIRED` trägt die akzeptierten Schemes, den Preis, das Netzwerk und die Nano-Adresse des Empfängers.
 3. Der Client baut einen Nano-Send-Block, signiert ihn und erzeugt Proof of Work.
 4. Der Client versucht es erneut mit dem Base64-kodierten Zahlungs-Payload in `PAYMENT-SIGNATURE`.
-5. Ihr Server reicht den Payload an den Facilitator weiter, der die Blocksignatur prüft und den Block an das Nano-Netzwerk sendet. Das Ergebnis kommt in `PAYMENT-RESPONSE` zurück; nach Bestätigung liefert der Server den Inhalt aus.
+5. Dein Server reicht den Payload an den Facilitator weiter, der die Blocksignatur prüft und den Block an das Nano-Netzwerk sendet. Das Ergebnis kommt in `PAYMENT-RESPONSE` zurück; nach Bestätigung liefert der Server den Inhalt aus.
 
 <Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="Die Dokumentationsseite von Ӿ402Nano mit dem Quick-Start-Abschnitt und dem fünfschrittigen Zahlungsfluss vom 402 Payment Required bis zur Abrechnung durch den Facilitator" caption="Doku: Quick Start und der fünfschrittige Zahlungsfluss" />
 
@@ -53,7 +53,7 @@ Die Doku beschreibt den Ablauf in fünf Schritten:
 
 ## Kein Konto, kein API-Key
 
-Permissionless ist hier das entscheidende Wort. Keine Anmeldung, kein Key, kein Dashboard: Server auf die URL zeigen lassen und loslegen. Ein optionaler `x-api-key`- oder Bearer-Header aktiviert nur Nutzungsstatistiken im Dashboard. Fehler kommen in einem einheitlichen JSON-Format zurück (400 ungültiger Body, 401 ungültiger Key, 429 Rate Limit, 500 Serverfehler), und die Limits liegen bei 200 Requests pro Minute und IP für `/facilitator/verify` und `/facilitator/settle`.
+Permissionless ist hier keine Floskel: keine Anmeldung, kein Key, kein Dashboard. Server auf die URL zeigen lassen und loslegen. Ein optionaler `x-api-key`- oder Bearer-Header aktiviert nur Nutzungsstatistiken im Dashboard. Fehler kommen in einem einheitlichen JSON-Format zurück (400 ungültiger Body, 401 ungültiger Key, 429 Rate Limit, 500 Serverfehler), und die Limits liegen bei 200 Requests pro Minute und IP für `/facilitator/verify` und `/facilitator/settle`.
 
 ## Der Blick für Entwickler
 
@@ -67,4 +67,4 @@ FACILITATOR_URL=https://x402nano.org/facilitator
 
 Der KI-Agenten-Abschnitt der Doku ist der Teil, der das Ganze interessant macht. Ein Agent kann einen geschützten Endpoint autonom entdecken, die Zahlungsbedingungen lesen, einen Nano-Block signieren, Proof of Work berechnen und erneut versuchen: kein Mensch, kein Konto, keine Karte. Genau dafür wurde Nano gebaut.
 
-Also ist Ӿ402Nano ein vielversprechendes Stück des KI-Zahlungs-Puzzles für Nano, noch nichts weiter. Die Leitungen sind live auf [x402nano.org](https://www.x402nano.org/), die Doku liegt unter [/docs](https://www.x402nano.org/docs), das Protokoll selbst ist auf [x402.org](https://www.x402.org) dokumentiert. Die Zahl, die man beobachten sollte, ist, ob sich die ersten echten Server registrieren.
+Damit ist Ӿ402Nano ein vielversprechender Baustein für KI-Zahlungen auf Nano, mehr noch nicht. Die Leitungen sind live auf [x402nano.org](https://www.x402nano.org/), die Doku liegt unter [/docs](https://www.x402nano.org/docs), das Protokoll selbst ist auf [x402.org](https://www.x402.org) dokumentiert. Ob sich die ersten echten Server registrieren, ist die Zahl, die es zu beobachten gilt.

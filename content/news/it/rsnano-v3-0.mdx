@@ -4,18 +4,18 @@ export const metadata = {
 	description:
 		'La riscrittura in Rust del nodo Nano ora funziona anche come nodo Banano: un feature flag al momento della compilazione, un binario rsban dedicato, immagini Docker ufficiali e un motore di bootstrap riscritto.',
 	date: '2026-06-05',
-	author: 'Team NanoMarketCap',
+	author: 'NanoMarketCap Team',
 	tags: ['sviluppo', 'strumenti'],
 	published: true,
 }
 
 # RsNano V3.0: un solo codice, due valute
 
-[RsNano](https://github.com/rsnano-node/rsnano-node) è la riscrittura in Rust del nodo Nano, e lo sviluppatore gschauwecker ha pubblicato la sua versione più corposa finora. V3.0 trasforma il progetto da nodo Nano a nodo per due catene: la stessa base di codice ora compila per Nano o per Banano, con la valuta scelta al momento della compilazione. La notizia principale di questa versione è il supporto Banano di prima classe.
+[RsNano](https://github.com/rsnano-node/rsnano-node) è la riscrittura in Rust del nodo Nano, e lo sviluppatore gschauwecker ha pubblicato la sua versione più corposa finora. V3.0 trasforma il progetto da nodo Nano a nodo per due catene: la stessa base di codice ora compila per Nano o per Banano, con la valuta scelta al momento della compilazione. La novità principale è il supporto Banano, trattato come Nano.
 
 ## Un solo codice, due valute
 
-Il supporto Banano è completo, non un ripiego. Un feature flag `banano` seleziona la valuta in fase di compilazione. Il repository include pesi dei rappresentanti e costanti valutarie integrati per entrambe le reti, e compilare per Banano produce un binario dedicato, `rsban`. Se interroghi il RPC della versione su una build Banano, risponde « RsBan ». Nessun fork separato da mantenere, nessuna seconda base di codice che possa divergere.
+Il supporto Banano è completo, non un ripiego. Un feature flag `banano` seleziona la valuta in fase di compilazione. Il repository include pesi dei rappresentanti e costanti valutarie integrati per entrambe le reti, e compilare per Banano produce un binario dedicato, `rsban`. Se interroghi il RPC della versione su una build Banano, risponde "RsBan". Nessun fork separato da mantenere, nessuna seconda base di codice che possa divergere.
 
 <StatGrid>
 	<Stat label="Base di codice" value="una base in Rust" />
@@ -45,7 +45,7 @@ La GUI di monitoraggio ha ricevuto un grosso aggiornamento. Nuove viste: visuali
 
 ## Motore di bootstrap riscritto
 
-Il sottosistema di sincronizzazione del ledger è stato riscritto a fondo, non rattoppato. Il traffico di rete live viene ignorato durante il bootstrap, così i blocchi in arrivo non interferiscono con la sincronizzazione. Priorità e dimensioni dei pull sono state calibrate sul comportamento del `nano_node` ufficiale, e l'annuncio elenca fix per stalli di sincronizzazione, freeze e perdite di block-handoff. Sono bug difficili da riprodurre, quindi questi fix meritano test in condizioni reali.
+Il sottosistema di sincronizzazione del ledger è stato riscritto a fondo, non rattoppato. Il traffico di rete in tempo reale viene ignorato durante il bootstrap, così i blocchi in arrivo non interferiscono con la sincronizzazione. Priorità e dimensioni dei pull sono state calibrate sul comportamento del `nano_node` ufficiale, e l'annuncio elenca fix per stalli di sincronizzazione, freeze e perdite di block-handoff. Sono bug difficili da riprodurre, quindi questi fix meritano test in condizioni reali.
 
 ## Il resto del changelog
 

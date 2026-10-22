@@ -2,30 +2,30 @@ export const metadata = {
 	emoji: '🔑',
 	title: "Nano rejoint l'Open Wallet Standard",
 	description:
-		"La PR #109 d'OWS ajoute Nano comme chaîne prise en charge : les wallets et outils du standard peuvent désormais dériver des adresses nano:mainnet et signer des blocs d'état Nano en Ed25519 avec preuve de travail distante.",
+		"La PR #109 d'OWS ajoute Nano comme chaîne prise en charge : les portefeuilles et outils du standard peuvent désormais dériver des adresses nano:mainnet et signer des blocs d'état Nano en Ed25519 avec preuve de travail distante.",
 	date: '2026-04-08',
-	author: 'NanoMarketCap Team',
-	tags: ['development', 'ecosystem', 'tools'],
+	author: 'Équipe NanoMarketCap',
+	tags: ['développement', 'écosystème', 'outils'],
 	published: true,
 }
 
 # Nano rejoint l'Open Wallet Standard
 
-Le 8 avril 2026, la [pull request #109](https://github.com/open-wallet-standard/core/pull/109) a été fusionnée dans le dépôt principal de l'Open Wallet Standard, et Nano est devenue une chaîne prise en charge. La PR a été écrite par cbrunnkvist et fusionnée par le mainteneur njdawn. L'effet pratique est simple : le CLI `ows` et les bibliothèques qui l'entourent peuvent désormais dériver des adresses Nano et signer des blocs d'état Nano exactement comme ils le font pour Solana, Sui ou TON.
+Le 8 avril 2026, la [PR #109](https://github.com/open-wallet-standard/core/pull/109) a été fusionnée dans le dépôt principal de l'Open Wallet Standard, et Nano est devenue une chaîne prise en charge. La PR a été écrite par cbrunnkvist et fusionnée par le mainteneur njdawn. L'effet pratique est simple : le CLI `ows` et les bibliothèques qui l'entourent peuvent désormais dériver des adresses Nano et signer des blocs d'état Nano exactement comme ils le font pour Solana, Sui ou TON.
 
-<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="La PR #109 de l'Open Wallet Standard sur GitHub : titre « feat: add Nano (XNO) chain support » et début de la description expliquant le block lattice et les détails de signature" caption="La PR #109 telle que fusionnée : le titre, l'état de fusion et une description qui commence par le block lattice de Nano" />
+<Figure src="/news/nano-open-wallet-standard/01-pr.jpg" alt="La PR #109 de l'Open Wallet Standard sur GitHub : titre « feat: add Nano (XNO) chain support » et début de la description expliquant le block-lattice et les détails de signature" caption="La PR #109 telle que fusionnée : le titre, l'état de fusion et une description qui commence par le block-lattice de Nano" />
 
 ## Ce qu'est l'Open Wallet Standard
 
-L'Open Wallet Standard est une couche partagée pour l'interopérabilité des wallets. Au lieu que chaque wallet et chaque application réimplémente la dérivation de clés et la signature pour chaque chaîne, OWS définit un flux unique : créer un wallet, dériver des clés à partir d'une phrase mnémonique, signer des transactions. Les chaînes s'intègrent comme signeurs. Avant cette PR, la liste était Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin et Tron. Nano fait dix.
+L'Open Wallet Standard est une couche partagée pour l'interopérabilité des portefeuilles. Au lieu que chaque portefeuille et chaque application réimplémente la dérivation de clés et la signature pour chaque chaîne, OWS définit un flux unique : créer un portefeuille, dériver des clés à partir d'une phrase mnémonique, signer des transactions. Les chaînes s'intègrent comme modules de signature. Avant cette PR, la liste était Solana, Sui, TON, XRPL, Bitcoin, EVM, Cosmos, Filecoin et Tron. Nano fait dix.
 
 <Callout type="insight" title="Pourquoi c'est important">
-	Les wallets et outils construits sur OWS peuvent désormais gérer Nano exactement comme Solana ou Sui. C'est un pas vers Nano en tant que citoyen de première classe de l'outillage wallet général, et pas seulement des applications spécifiques à Nano.
+	Les portefeuilles et outils construits sur OWS peuvent désormais gérer Nano exactement comme Solana ou Sui. C'est un pas vers Nano en tant que citoyen de première classe de l'outillage des portefeuilles en général, et pas seulement des applications spécifiques à Nano.
 </Callout>
 
 ## Ce que la PR change
 
-La surface du CLI bouge à peine : pas de nouvelles commandes, pas de nouveaux flags. `ows wallet create` et `ows mnemonic derive` émettent désormais des adresses `nano:mainnet`, et `ows sign tx` comme `ows sign send-tx` acceptent `--chain nano`. Le signeur n'ajoute aucune dépendance cryptographique : il réutilise la signature brute hazmat d'ed25519-dalek avec blake2b-512, plus blake2 et hex.
+L'interface du CLI change à peine : pas de nouvelles commandes, pas de nouvelles options. `ows wallet create` et `ows mnemonic derive` émettent désormais des adresses `nano:mainnet`, et `ows sign tx` comme `ows sign send-tx` acceptent `--chain nano`. Le module de signature n'ajoute aucune dépendance cryptographique : il réutilise la signature brute hazmat d'ed25519-dalek avec blake2b-512, plus blake2 et hex.
 
 <StatGrid>
 	<Stat label="Chaîne (CAIP-2)" value="nano:mainnet" accent />
@@ -36,9 +36,9 @@ La surface du CLI bouge à peine : pas de nouvelles commandes, pas de nouveaux f
 
 ## La partie vraiment différente
 
-Signer sur Nano est facile. Diffuser ne l'est pas, et c'est la partie intéressante de cette PR. Nano n'a pas de chaîne globale : chaque compte possède sa propre chaîne de blocs (le block lattice), et un transfert ne devient dépensable qu'une fois deux blocs en place, un bloc d'envoi sur la chaîne de l'expéditeur et un bloc de réception sur celle du destinataire.
+Signer sur Nano est facile. Diffuser ne l'est pas, et c'est la partie intéressante de cette PR. Nano n'a pas de chaîne globale : chaque compte possède sa propre chaîne de blocs (le block-lattice), et un transfert ne devient dépensable qu'une fois deux blocs en place, un bloc d'envoi sur la chaîne de l'expéditeur et un bloc de réception sur celle du destinataire.
 
-Un bloc d'état fait 176 octets (account, previous, representative, balance, link). Le signeur le hache avec blake2b-256 et signe le hash en Ed25519, de la cryptographie standard. C'est la diffusion qui sort de l'ordinaire : OWS doit interroger l'état du compte pour déterminer si le bloc est un envoi, une réception ou une ouverture, générer une preuve de travail (uniquement distante dans cette PR, déléguée aux endpoints RPC, environ une seconde, sans frais), puis publier via l'action `process` du RPC Nano. Et la réception reste explicite : le destinataire doit publier son bloc de réception, cela ne se fait pas tout seul.
+Un bloc d'état fait 176 octets (account, previous, representative, balance, link). Le module de signature calcule son empreinte avec blake2b-256 et signe cette empreinte en Ed25519, un algorithme de signature standard. C'est la diffusion qui sort de l'ordinaire : OWS doit interroger l'état du compte pour déterminer si le bloc est un envoi, une réception ou une ouverture, générer une preuve de travail (uniquement distante dans cette PR, déléguée aux points de terminaison RPC, environ une seconde, sans frais), puis publier via l'action `process` du RPC Nano. Et la réception reste explicite : le destinataire doit publier son bloc de réception, cela ne se fait pas tout seul.
 
 ## Le test mainnet, en résumé
 
@@ -58,10 +58,10 @@ L'auteur l'a prouvé sur le mainnet, pas seulement dans les tests. Il a construi
 
 ## Ce qui manque honnêtement dans cette PR
 
-Trois choses, dites clairement dans la PR elle-même. D'abord, la signature de messages : `sign message` existe pour d'autres chaînes, mais la version Nano est volontairement non implémentée, marquée #TBDL, en attendant un standard de fait sur ce qu'est un « message signé » sur Nano ([issue de suivi #183](https://github.com/open-wallet-standard/core/issues/183), même approche que XRPL). Ensuite, pas de commandes de plus haut niveau : il n'y a pas de `ows send --to ... --amount ...` ni de `ows balance`, car OWS est uniformément « apportez votre propre transaction non signée » sur toutes les chaînes. cbrunnkvist note que construire un bloc d'état à la main est pénible, et que Nano serait un bon candidat pour piloter une couche générique d'envoi et de solde si les mainteneurs le souhaitent. Troisièmement, la preuve de travail est uniquement distante : pas de PoW CPU ou GPU, tout passe par les endpoints RPC.
+Trois choses, dites clairement dans la PR elle-même. D'abord, la signature de messages : `sign message` existe pour d'autres chaînes, mais la version Nano est volontairement non implémentée, marquée #TBDL, en attendant un standard de fait sur ce qu'est un « message signé » sur Nano ([issue de suivi #183](https://github.com/open-wallet-standard/core/issues/183), même approche que XRPL). Ensuite, pas de commandes de plus haut niveau : il n'y a pas de `ows send --to ... --amount ...` ni de `ows balance`, car OWS est uniformément « apportez votre propre transaction non signée » sur toutes les chaînes. cbrunnkvist note que construire un bloc d'état à la main est pénible, et que Nano serait un bon candidat pour piloter une couche générique d'envoi et de solde si les mainteneurs le souhaitent. Troisièmement, la preuve de travail est uniquement distante : pas de PoW CPU ou GPU, tout passe par les points de terminaison RPC.
 
-Le volet tests est solide : 20 tests unitaires dans le signeur Nano (encodage d'adresse, vecteurs de dérivation mnémonique à 12 et 24 mots, signature, vérification, hachage de blocs d'état), les 458 tests du workspace passent, clippy est propre. Le fil a même attiré des réactions d'Exxenoz et de xnoforge.
+Le volet tests est solide : 20 tests unitaires dans le module de signature Nano (encodage d'adresse, vecteurs de dérivation mnémonique à 12 et 24 mots, signature, vérification, hachage de blocs d'état), les 458 tests du workspace passent, clippy est propre. Le fil a même attiré des réactions d'Exxenoz et de xnoforge.
 
-C'est une PR d'infrastructure, pas un lancement grand public. Pas de nouvelle app, pas de nouveau token. Ce qu'elle fait est discrètement important : Nano parle désormais le même langage de signature que le reste de l'écosystème wallet, et le prochain wallet qui supportera OWS pourra lister Nano dès la sortie de boîte. Le crate destiné aux développeurs est [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+C'est une PR d'infrastructure, pas un lancement grand public. Pas de nouvelle app, pas de nouveau jeton. Ce qu'elle fait est discrètement important : Nano parle désormais le même langage de signature que le reste de l'écosystème des portefeuilles, et le prochain portefeuille compatible OWS pourra proposer Nano sans travail supplémentaire. Le crate destiné aux développeurs est [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
 
 <GitHubRepo repo="open-wallet-standard/core" />

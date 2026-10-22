@@ -779,7 +779,9 @@
         "loading": "Voorbereiden...",
         "button": "Verstuur aanvraag"
       }
-    }
+    },
+    "partnerLabel": "Partner",
+    "visitPartner": "Bezoek {name}"
   },
   "about": {
     "title": "Over NanoMarketCap",

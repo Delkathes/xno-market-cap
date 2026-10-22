@@ -4,8 +4,8 @@ export const metadata = {
 	description:
 		'Gigaion mantiene vivo el fork de nanoNodeMonitor: tema moderno, compatibilidad con PHP 8.5, códigos QR locales, imágenes en GHCR, migración de config y v1.10.0 con el aviso de versión de RsNano corregido.',
 	date: '2026-06-23',
-	author: 'NanoMarketCap Team',
-	tags: ['development', 'tools'],
+	author: 'Equipo NanoMarketCap',
+	tags: ['desarrollo', 'herramientas'],
 	published: true,
 }
 
@@ -25,11 +25,11 @@ El paquete de modernización cubre lo básico para que una herramienta autoaloja
 - Compatibilidad con PHP 8.5.
 - Generación de códigos QR en local, sin la dependencia de terceros ni las llamadas externas que traía.
 - GitHub Container Registry (GHCR) como fuente de imágenes preferida, con Docker Hub como alternativa.
-- Lógica de migración de config.php para simplificar las actualizaciones. Los contenedores Docker migran la config al arrancar; las instalaciones manuales ejecutan un script que respalda la config antigua, conserva los ajustes y escribe un archivo limpio con un marcador de versión.
+- Lógica de migración de config.php para simplificar las actualizaciones. Los contenedores Docker migran la configuración al arrancar; las instalaciones manuales ejecutan un script que respalda la configuración antigua, conserva los ajustes y escribe un archivo limpio con un marcador de versión.
 
 ## v1.10.0: el arreglo del aviso de RsNano
 
-La versión del 23 de junio es pequeña pero útil. La comprobación de versión de nanoNodeMonitor solo entendía el nodo C++, así que quien operaba con RsNano, la reescritura en Rust que cubrimos aquí en junio, veía el aviso de "versión de servidor desactualizada" incluso en el último release. La v1.10.0 comprueba las versiones de RsNano correctamente: sin falsas alarmas en builds actuales, y el aviso ahora sugiere actualizar cuando sale una versión nueva de RsNano.
+La versión del 23 de junio es pequeña pero útil. La comprobación de versión de nanoNodeMonitor solo entendía el nodo C++, así que quien operaba con RsNano, la reescritura en Rust que cubrimos aquí en junio, veía el aviso de «versión de servidor desactualizada» incluso en la última versión. La v1.10.0 comprueba las versiones de RsNano correctamente: sin falsas alarmas en las versiones actuales, y el aviso ahora sugiere actualizar cuando sale una versión nueva de RsNano.
 
 Gigaion agradece a badsyntax_ el arreglo sugerido.
 
@@ -39,14 +39,14 @@ Tanto el anuncio como el README indican sin rodeos que se usó desarrollo asisti
 
 ## Pruébalo
 
-El despliegue es Docker-first y la imagen de GHCR es la fuente recomendada:
+El despliegue está pensado para Docker y la imagen de GHCR es la fuente recomendada:
 
 <Terminal title="descargar la imagen de GHCR">
 docker pull ghcr.io/gigaionllc/nanonodemonitor:latest
 </Terminal>
 
-Las instalaciones manuales siguen siendo posibles: clona el repositorio, copia config.sample.php a config.php y apunta a tu nodo. El README también documenta el script de migración para instalaciones existentes; las configs con lógica PHP personalizada se detectan y nunca se reescriben.
+Las instalaciones manuales siguen siendo posibles: clona el repositorio, copia config.sample.php a config.php y apunta a tu nodo. El README también documenta el script de migración para instalaciones existentes; las configuraciones con lógica PHP personalizada se detectan y nunca se reescriben.
 
-Si operas un nodo de Nano o Banano, este panel es de verdad útil. El fork del archivado [NanoTools/nanoNodeMonitor](https://github.com/NanoTools/nanoNodeMonitor) está vivo, mantenido y merece la pena echarle un vistazo.
+Si operas un nodo de Nano o Banano, este panel es útil. El fork del repositorio archivado [NanoTools/nanoNodeMonitor](https://github.com/NanoTools/nanoNodeMonitor) está vivo y mantenido, y merece la pena echarle un vistazo.
 
 <GitHubRepo repo="GigaionLLC/nanoNodeMonitor" />

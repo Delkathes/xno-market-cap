@@ -1,6 +1,6 @@
 export const metadata = {
 	emoji: '🧰',
-	title: 'nano-sdk v2: Tooling bereit machen, bevor Node V29 erscheint',
+	title: 'nano-sdk v2: Werkzeuge bereit, bevor Node V29 erscheint',
 	description:
 		'Die erste nano-sdk-v2-Beta zielt auf Nano Node V29 (Telemetrie v2, indizierte Delegator-Paginierung, sicherere große Zahlen), noch bevor der Node selbst veröffentlicht ist.',
 	date: '2026-08-25',
@@ -9,37 +9,37 @@ export const metadata = {
 	published: true,
 }
 
-# nano-sdk v2: Tooling bereit machen, bevor Node V29 erscheint
+# nano-sdk v2: Werkzeuge bereit, bevor Node V29 erscheint
 
-Wer irgendetwas auf Nano baut (eine Wallet, einen Explorer, einen Marktdatendienst), spricht früher oder später mit einem Node. [nano-sdk](https://github.com/infinitybay/nano-sdk) ist die TypeScript-Bibliothek, die diese Unterhaltung angenehm macht: typisierte RPC-Aufrufe, validierte WebSocket-Themen, Antwortschemata, die dem entsprechen, was der Node tatsächlich zurückgibt. Diese Woche hat Exxenoz die erste Beta von Version 2 veröffentlicht, und ein Detail zählt mehr als jede Funktion darin: Nano Node V29 ist noch gar nicht veröffentlicht. Das SDK ist dem Node einfach einen Schritt voraus.
+Wer irgendetwas auf Nano baut (eine Wallet, einen Explorer, einen Marktdatendienst), spricht früher oder später mit einem Node. [nano-sdk](https://github.com/infinitybay/nano-sdk) ist die TypeScript-Bibliothek, die diese Unterhaltung angenehm macht: typisierte RPC-Aufrufe, validierte WebSocket-Themen, Antwortschemata, die dem entsprechen, was der Node tatsächlich zurückgibt. Diese Woche hat Exxenoz die erste Beta von Version 2 veröffentlicht, und ein Detail ist wichtiger als jede Funktion darin: Nano Node V29 ist noch gar nicht veröffentlicht. Das SDK ist dem Node einfach einen Schritt voraus.
 
-## Die Trennlinie, früh gezogen
+## Eine Kompatibilitätslinie, früh gezogen
 
 Die Beta zieht eine klare Kompatibilitätslinie: Version 2 wird mit Nano Node V29 sprechen, Version 1 bleibt bei V28.2. Diese Trennung wiegt schwerer als jede einzelne neue Funktion, und sie wird bewusst vorab gezogen. Das SDK validiert bereits das neue Feld `topo_height` in Kontoverlauf und Blockinformationen, die umstrukturierten Bootstrap-Prioritäten und die V29-Peer-Fähigkeiten. Wenn der Node schließlich erscheint, steht das Tooling also schon bereit. Das ist der Unterschied zwischen einem Upgrade parallel zum Node-Release und einem hektischen Nachrüsten danach.
 
-<Terminal title="kompatibilitätsmatrix">
+<Terminal title="Kompatibilitätsmatrix">
 	nano-sdk 2.x  →  Nano Node V29.0
 	nano-sdk 1.x  →  Nano Node V28.2
 </Terminal>
 
-## Was V29 für Entwickler freischalten wird
+## Was V29 für Entwickler vorbereitet
 
-Das Spannende steht nicht im Changelog, sondern in dem, was die Änderungen vorbereiten:
+Wichtiger als das Changelog ist, was die Änderungen vorbereiten:
 
 <StatGrid>
 	<Stat label="Telemetrie" value="p50 · p90 · p99" accent />
-	<Stat label="Roh-Bereich" value="bis 10^30" />
+	<Stat label="Raw-Bereich" value="bis 10^30" />
 	<Stat label="Delegatoren" value="Cursor-Paginierung" />
 </StatGrid>
 
-- **Telemetrie v2.** V29-Nodes werden Perzentile der Bestätigungslatenz (p50, p90, p99), ihr Datenbank-Backend und den Bootstrap-Status melden. Aus Node-Monitoring wird damit echte Dashboard-Arbeit: Ein unterdimensionierter Node fällt an seiner Latenzkurve auf, bevor es die Nutzer merken.
+- **Telemetrie v2.** V29-Nodes werden Perzentile der Bestätigungslatenz (p50, p90, p99), ihr Datenbank-Backend und den Bootstrap-Status melden. Aus Vermutungen werden damit Dashboards: Ein unterdimensionierter Node fällt an seiner Latenzkurve auf, bevor es die Nutzer merken.
 - **Indizierte Delegator-Paginierung.** Delegatorlisten werden sich mit echten Fortsetzungs-Cursorn abrufen lassen, statt tausende Einträge auf einmal zu laden. Für jeden Dienst, der Repräsentanten-Seiten rendert, ist das der Unterschied zwischen Skalieren und Stillstand.
-- **Schlauere Repräsentanten-Abfragen.** Ein Gewichts-Schwellenwert (`threshold`) filtert winzige Repräsentanten bei Umfragen heraus. Weniger Rauschen, weniger Roundtrips.
+- **Schlauere Repräsentanten-Abfragen.** Ein Gewichts-Schwellenwert (`threshold`) filtert winzige Repräsentanten beim Abfragen heraus. Weniger Rauschen, weniger Roundtrips.
 - **Sicherere Zahlen.** Rohe Nano-Beträge gehen bis 10^30 und liegen weit jenseits des sicheren Ganzzahlbereichs von JavaScript. Der neue `UInt64String` validiert Dezimalstrings über den gesamten vorzeichenlosen 64-Bit-Bereich und behebt genau jene Überlauf-Fehlerklasse, die Statistiken oberhalb von 9 Billiarden stillschweigend verfälscht.
 
 ## Wer sich jetzt schon kümmern sollte
 
-Es ist eine Beta für einen noch nicht erschienenen Node, also zählt die Reihenfolge:
+Es ist eine Beta für einen noch nicht erschienenen Node, also kommt es auf die Reihenfolge an:
 
 <Steps title="Die Reihenfolge">
 	<Step index="01" title="Bleiben">
@@ -53,9 +53,7 @@ Es ist eine Beta für einen noch nicht erschienenen Node, also zählt die Reihen
 	</Step>
 </Steps>
 
-Eine Beta, die vor dem Node erscheint, verschafft dem ganzen Ökosystem einen Vorsprung.
-
-Die Nano-Tooling-Landschaft war jahrelang verstreut: kleine Helfer, halb gewartete Bibliotheken, Schemata, die vom echten Node-Verhalten abweichen. Ein typisiertes SDK, das Node-Kompatibilität als erstklassigen Vertrag behandelt, beendet genau das. v2 ist eine Beta für eine Node-Version, die es noch nicht gibt, aber eine Beta in die richtige Richtung.
+Eine Beta, die vor dem Node erscheint, verschafft dem ganzen Ökosystem einen Vorsprung. Die Werkzeuge rund um Nano waren jahrelang verstreut: kleine Helfer, halb gewartete Bibliotheken, Schemata, die vom echten Node-Verhalten abweichen. Ein typisiertes SDK, das Node-Kompatibilität als erstklassigen Vertrag behandelt, beendet genau das. v2 ist eine Beta für eine Node-Version, die es noch nicht gibt, aber eine Beta in die richtige Richtung.
 
 Das Release stammt von Exxenoz.
 

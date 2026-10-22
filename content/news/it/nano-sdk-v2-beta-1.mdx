@@ -2,16 +2,16 @@ export const metadata = {
 	emoji: '🧰',
 	title: 'nano-sdk v2: preparare gli strumenti prima che arrivi node V29',
 	description:
-		'La prima beta di nano-sdk v2 punta a Nano node V29 (telemetria v2, paginazione indicizzata dei delegatori, numeri grandi più sicuri) prima ancora che il nodo venga rilasciato.',
+		'La prima beta di nano-sdk v2 punta a Nano node V29 (telemetria v2, paginazione indicizzata dei delegatori, gestione più sicura dei numeri grandi) prima ancora che il nodo venga rilasciato.',
 	date: '2026-08-25',
-	author: 'Team NanoMarketCap',
+	author: 'NanoMarketCap Team',
 	tags: ['sviluppo', 'strumenti'],
 	published: true,
 }
 
 # nano-sdk v2: preparare gli strumenti prima che arrivi node V29
 
-Se costruisci qualcosa su Nano (un wallet, un explorer, un servizio di dati di mercato), prima o poi finisci a parlare con un nodo. [nano-sdk](https://github.com/infinitybay/nano-sdk) è la libreria TypeScript che rende piacevole quella conversazione: chiamate RPC tipizzate, topic WebSocket validati, schemi di risposta che corrispondono a ciò che il nodo restituisce davvero. Questa settimana Exxenoz ha rilasciato la prima beta della versione 2, e c'è un dettaglio che pesa più di qualsiasi funzione inclusa: Nano node V29 non è ancora stato rilasciato. L'SDK sta semplicemente arrivando prima.
+Se costruisci qualcosa su Nano (un portafoglio, un esploratore di blocchi, un servizio di dati di mercato), prima o poi finisci a parlare con un nodo. [nano-sdk](https://github.com/infinitybay/nano-sdk) è la libreria TypeScript che rende piacevole quella conversazione: chiamate RPC tipizzate, topic WebSocket validati, schemi di risposta che corrispondono a ciò che il nodo restituisce davvero. Questa settimana Exxenoz ha rilasciato la prima beta della versione 2, e c'è un dettaglio che pesa più di qualsiasi funzione inclusa: Nano node V29 non è ancora stato rilasciato. L'SDK sta semplicemente arrivando prima.
 
 ## La linea di demarcazione, tracciata in anticipo
 
@@ -22,17 +22,17 @@ La beta traccia una linea di compatibilità chiara: la versione 2 parlerà con N
 	nano-sdk 1.x  →  Nano node V28.2
 </Terminal>
 
-## Cosa sbloccherà V29 per chi costruisce
+## Cosa porterà V29 a chi costruisce
 
-La parte interessante non è nel changelog, ma in ciò che i cambiamenti preparano:
+Il changelog dice cosa cambia. La parte interessante è cosa preparano quei cambiamenti:
 
 <StatGrid>
 	<Stat label="Telemetria" value="p50 · p90 · p99" accent />
-	<Stat label="Range raw" value="fino a 10^30" />
+	<Stat label="Intervallo raw" value="fino a 10^30" />
 	<Stat label="Delegatori" value="paginazione a cursore" />
 </StatGrid>
 
-- **Telemetria v2.** I nodi V29 riporteranno i percentili di latenza di conferma (p50, p90, p99), il proprio backend di database e lo stato di bootstrap. Il monitoraggio dei nodi passa dalle congetture alle dashboard: un nodo sottodimensionato si riconosce dalla sua curva di latenza, prima che gli utenti se ne accorgano.
+- **Telemetria v2.** I nodi V29 riporteranno i percentili di latenza di conferma (p50, p90, p99), il proprio sistema di database e lo stato di bootstrap. Il monitoraggio dei nodi passa dalle congetture ai pannelli di controllo: un nodo sottodimensionato si riconosce dalla sua curva di latenza, prima che gli utenti se ne accorgano.
 - **Paginazione indicizzata dei delegatori.** Le liste dei delegatori potranno essere recuperate con veri cursori di continuazione invece di scaricare migliaia di voci in una volta. Per qualsiasi servizio che mostri pagine di rappresentanti, è la differenza tra scalare e bloccarsi.
 - **Query sui rappresentanti più intelligenti.** Un parametro di soglia di peso (`threshold`) permette di filtrare i rappresentanti piccoli nei sondaggi. Meno rumore, meno round-trip.
 - **Numeri più sicuri.** Gli importi raw di Nano arrivano a 10^30, ben oltre l'intervallo degli interi sicuri di JavaScript. Il nuovo `UInt64String` valida le stringhe decimali sull'intero intervallo unsigned a 64 bit, correggendo quel tipo di bug di overflow che corrompe silenziosamente le statistiche oltre i 9 biliardi.
@@ -42,20 +42,18 @@ La parte interessante non è nel changelog, ma in ciò che i cambiamenti prepara
 È una beta rivolta a un nodo non ancora rilasciato, quindi l'ordine conta:
 
 <Steps title="L'ordine delle cose">
-	<Step index="01" title="Restare">
+	<Step index="01" title="Restare sulla 1.x">
 		I servizi in produzione restano sulla 1.x e su V28.2 finché V29 non esce e si stabilizza.
 	</Step>
 	<Step index="02" title="Provare">
 		Preparare un ambiente di sviluppo contro una build di sviluppo di V29 e testare i nuovi percorsi di paginazione e telemetria.
 	</Step>
 	<Step index="03" title="Segnalare">
-		Aprire issue finché i maintainer sono più reattivi. Un feedback precoce sulla beta vale dieci lamentele dopo una release stabile.
+		Aprire issue adesso, quando i maintainer rispondono più in fretta. Un feedback precoce sulla beta vale dieci lamentele dopo una release stabile.
 	</Step>
 </Steps>
 
-Una beta che arriva prima del nodo dà un vantaggio a tutto l'ecosistema.
-
-L'ecosistema di strumenti Nano è stato a lungo frammentato: piccoli helper, librerie mantenute a metà, schemi che si allontanano da ciò che i nodi restituiscono davvero. Un SDK tipizzato che tratta la compatibilità dei nodi come un contratto di prima classe è ciò che mette fine a tutto questo. La v2 è una beta per una versione del nodo che ancora non esiste, ma una beta nella direzione giusta.
+Una beta che arriva prima del nodo dà un vantaggio a tutto l'ecosistema. Gli strumenti per Nano sono stati a lungo frammentati: piccoli helper, librerie mantenute a metà, schemi che si allontanano da ciò che i nodi restituiscono davvero. Un SDK tipizzato che tratta la compatibilità con i nodi come un contratto è la risposta. La v2 è una beta per una versione del nodo che ancora non esiste, ma una beta nella direzione giusta.
 
 La release è firmata Exxenoz.
 

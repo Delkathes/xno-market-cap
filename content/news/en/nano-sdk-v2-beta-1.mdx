@@ -1,6 +1,6 @@
 export const metadata = {
 	emoji: '🧰',
-	title: 'nano-sdk v2: Getting Tooling Ready Before Node V29 Ships',
+	title: 'nano-sdk v2: getting tooling ready before Node V29 ships',
 	description:
 		'The first nano-sdk v2 beta targets Nano node V29 (telemetry-v2, indexed delegator pagination, safer big-number handling) before the node itself is even released.',
 	date: '2026-08-25',
@@ -9,11 +9,11 @@ export const metadata = {
 	published: true,
 }
 
-# nano-sdk v2: Getting Tooling Ready Before Node V29 Ships
+# nano-sdk v2: getting tooling ready before Node V29 ships
 
 If you build anything on Nano (a wallet, an explorer, a market data service), at some point you end up talking to a node. [nano-sdk](https://github.com/infinitybay/nano-sdk) is the TypeScript library that makes that conversation pleasant: typed RPC calls, validated WebSocket topics, response schemas that match what the node actually returns. This week Exxenoz shipped the first beta of version 2, and one detail matters more than any feature in it: Nano node V29 has not been released yet. The SDK is simply getting there first.
 
-## The line in the sand, drawn early
+## A compatibility line, drawn early
 
 The beta draws a clear compatibility line: version 2 will speak Nano node V29, version 1 stays on V28.2. That split matters more than any single new feature, and it is drawn ahead of time, on purpose. The SDK already validates the new `topo_height` field in account history and block info, the restructured bootstrap priorities, and the V29 peer capabilities, so when the node finally ships, the tooling is already in place. It is the difference between upgrading alongside a node release and scrambling after one.
 
@@ -22,7 +22,7 @@ The beta draws a clear compatibility line: version 2 will speak Nano node V29, v
 	nano-sdk 1.x  →  Nano node V28.2
 </Terminal>
 
-## What V29 will unlock for builders
+## What V29 prepares for builders
 
 The interesting parts are not in the changelog, they are in what the changes prepare for:
 
@@ -53,9 +53,7 @@ It is a beta targeting an unreleased node, so the move order matters:
 	</Step>
 </Steps>
 
-A beta that arrives before the node does gives the ecosystem a head start.
-
-The Nano tooling landscape has been scattered for years: small helpers, half-maintained libraries, schemas that drift from what nodes actually return. A typed SDK that treats node compatibility as a first-class contract is how that stops. v2 is a beta for a node version that is not out yet, but it is a beta in the right direction.
+A beta that arrives before the node does gives the ecosystem a head start. Nano tooling has been scattered for years: small helpers, half-maintained libraries, schemas that drift from what nodes actually return. A typed SDK that treats node compatibility as a first-class contract is how that stops. v2 is a beta for a node version that is not out yet, but it is a beta in the right direction.
 
 The release is credited to Exxenoz.
 

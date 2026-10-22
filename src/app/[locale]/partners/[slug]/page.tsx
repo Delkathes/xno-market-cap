@@ -3,11 +3,13 @@ import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink, Sparkles } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
 import { getPartnerById, getPartnersWithPages } from '@/lib/partner-config'
+import { getPartnerCopy } from '@/lib/partner-copy'
 import { localePath, ogImage, ogLocale } from '@/lib/seo'
 
 import { env } from '@/env'
@@ -38,12 +40,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		return { title: 'Not Found' }
 	}
 
+	const copy = getPartnerCopy(partner, locale)
+	const tp = await getTranslations({ locale, namespace: 'partners' })
+
 	return {
-		title: `${partner.title} | Partner`,
-		description: partner.description,
+		title: `${copy.title} | ${tp('partnerLabel')}`,
+		description: copy.description,
 		openGraph: {
-			title: partner.title,
-			description: partner.description,
+			title: copy.title,
+			description: copy.description,
 			url: `/partners/${slug}`,
 			type: 'website',
 			locale: ogLocale(locale),
@@ -70,6 +75,10 @@ export default async function PartnerPage({ params }: Props) {
 	if (!partner?.hasInternalPage) {
 		notFound()
 	}
+
+	const copy = getPartnerCopy(partner, locale)
+	const tc = await getTranslations({ locale, namespace: 'common' })
+	const tp = await getTranslations({ locale, namespace: 'partners' })
 
 	// Try to load MDX content for this partner
 	let MdxContent: React.ComponentType | null = null
@@ -98,8 +107,8 @@ export default async function PartnerPage({ params }: Props) {
 					__html: JSON.stringify({
 						'@context': 'https://schema.org',
 						'@type': 'Organization',
-						name: partner.partnerName,
-						description: partner.description,
+						name: copy.partnerName,
+						description: copy.description,
 						url: partner.externalUrl ?? `${env.NEXT_PUBLIC_SITE_URL}/partners/${slug}`,
 						logo: partner.logoUrl ? `${env.NEXT_PUBLIC_SITE_URL}${partner.logoUrl}` : undefined,
 					}),
@@ -113,7 +122,7 @@ export default async function PartnerPage({ params }: Props) {
 					className="-ml-2 mb-10 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
 				>
 					<ArrowLeft className="h-3.5 w-3.5" />
-					Home
+					{tc('home')}
 				</Link>
 
 				{/* Header */}
@@ -142,12 +151,12 @@ export default async function PartnerPage({ params }: Props) {
 								>
 									<Link href={`/partners/info`}>
 										<Sparkles className="h-3 w-3" />
-										Partner
+										{tp('partnerLabel')}
 									</Link>
 								</Badge>
 							</div>
-							<h1 className="text-2xl font-bold tracking-tight text-balance">{partner.title}</h1>
-							<p className="mt-2 text-sm text-muted-foreground">{partner.description}</p>
+							<h1 className="text-2xl font-bold tracking-tight text-balance">{copy.title}</h1>
+							<p className="mt-2 text-sm text-muted-foreground">{copy.description}</p>
 							{partner.externalUrl && (
 								<Button
 									asChild
@@ -155,7 +164,7 @@ export default async function PartnerPage({ params }: Props) {
 									className="mt-3 h-auto cursor-pointer p-0 font-mono text-[11px] uppercase tracking-widest text-[#209CE9]"
 								>
 									<a href={partner.externalUrl} target="_blank" rel="noopener noreferrer partner">
-										Visit {partner.partnerName}
+										{tp('visitPartner', { name: partner.partnerName })}
 										<ExternalLink className="h-3.5 w-3.5 ml-2" />
 									</a>
 								</Button>

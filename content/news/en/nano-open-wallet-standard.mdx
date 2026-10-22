@@ -1,6 +1,6 @@
 export const metadata = {
 	emoji: '🔑',
-	title: 'Nano Joins the Open Wallet Standard',
+	title: 'Nano joins the Open Wallet Standard',
 	description:
 		'OWS PR #109 adds Nano as a supported chain: wallets and tools built on the standard can now derive nano:mainnet addresses and sign Nano state blocks with Ed25519 and remote proof of work.',
 	date: '2026-04-08',
@@ -9,7 +9,7 @@ export const metadata = {
 	published: true,
 }
 
-# Nano Joins the Open Wallet Standard
+# Nano joins the Open Wallet Standard
 
 On April 8, 2026, [pull request #109](https://github.com/open-wallet-standard/core/pull/109) merged into the Open Wallet Standard core repository, and Nano became a supported chain. The PR was authored by cbrunnkvist and merged by maintainer njdawn. The practical effect is simple: the `ows` CLI and the libraries around it can now derive Nano addresses and sign Nano state blocks the same way they handle Solana, Sui, or TON.
 
@@ -62,6 +62,6 @@ Three things, stated plainly in the PR itself. First, message signing: `sign mes
 
 The testing story is solid: 20 unit tests in the Nano signer (address encoding, 12- and 24-word mnemonic derivation vectors, signing, verification, state block hashing), all 458 workspace tests pass, clippy is clean. The thread even drew reactions from Exxenoz and xnoforge.
 
-This is an infrastructure PR, not a user-facing launch. No new app, no new token. What it does is quietly important: Nano now speaks the same signing language as the rest of the wallet ecosystem, and the next wallet that ships OWS support can list Nano out of the box. The dev-facing crate is [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
+This is an infrastructure PR, not a user-facing launch. No new app, no new token. The change is narrow and it matters: Nano now speaks the same signing language as the rest of the wallet ecosystem, so the next wallet that ships OWS support can list Nano out of the box. The dev-facing crate is [OpenRai/ows-nano](https://github.com/OpenRai/ows-nano).
 
 <GitHubRepo repo="open-wallet-standard/core" />

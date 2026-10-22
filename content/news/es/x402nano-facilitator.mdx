@@ -4,8 +4,8 @@ export const metadata = {
 	description:
 		'Ӿ402Nano es un facilitador x402 sin comisiones y sin permisos para Nano. Cualquier servidor compatible con x402 puede apuntar a https://x402nano.org/facilitator y aceptar XNO de agentes de IA: sin cuenta, sin clave API, liquidación solo en caso de éxito.',
 	date: '2026-08-20',
-	author: 'NanoMarketCap Team',
-	tags: ['payments', 'development', 'tools'],
+	author: 'Equipo NanoMarketCap',
+	tags: ['pagos', 'desarrollo', 'herramientas'],
 	published: true,
 }
 
@@ -13,23 +13,23 @@ export const metadata = {
 
 Nano ya tiene una puerta sin comisiones hacia x402, el protocolo de pago HTTP construido para agentes de IA. Ӿ402Nano es un facilitador para Nano: cualquier servidor de recursos compatible con x402 puede apuntar a `https://x402nano.org/facilitator` y empezar a aceptar XNO, sin cuenta, sin clave API y sin configurar más que una línea. El banner de la portada lo confirma: «facilitator live».
 
-<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="La portada de Ӿ402Nano: el banner «facilitator live», el hero que presenta el facilitador x402 sin comisiones para Nano, el fragmento FACILITATOR_URL, la fila de estadísticas en vivo y la tabla de transacciones recientes" caption="Portada: hero con la URL del facilitador, estadísticas en vivo y transacciones recientes" />
+<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="La portada de Ӿ402Nano: el banner «facilitator live», el bloque principal que presenta el facilitador x402 sin comisiones para Nano, el fragmento FACILITATOR_URL, la fila de estadísticas en vivo y la tabla de transacciones recientes" caption="Portada: bloque principal con la URL del facilitador, estadísticas en vivo y transacciones recientes" />
 
 ## Qué es x402
 
-El código de estado HTTP 402 Payment Required existe de verdad, definido en la especificación pero casi nunca usado. x402 le da un trabajo. Un endpoint protegido responde a una petición no pagada con 402 y una cabecera `PAYMENT-REQUIRED` codificada en Base64 que enuncia las condiciones: esquema aceptado, red, precio, dirección del destinatario. El cliente firma un pago y reintenta con una cabecera `PAYMENT-SIGNATURE`; el servidor verifica, liquida y sirve el contenido.
+El código de estado HTTP 402 Payment Required es real: está definido en la especificación, pero casi nunca se usa. x402 le da un trabajo. Un endpoint protegido responde a una petición no pagada con 402 y una cabecera `PAYMENT-REQUIRED` codificada en Base64 que enuncia las condiciones: esquema aceptado, red, precio, dirección del destinatario. El cliente firma un pago y reintenta con una cabecera `PAYMENT-SIGNATURE`; el servidor verifica, liquida y sirve el contenido.
 
 El protocolo es agnóstico respecto a la cadena, y ahora lo custodia la x402 Foundation, cuyo lanzamiento operativo anunció la Linux Foundation. Este facilitador implementa la parte de Nano del estándar.
 
 ## Por qué encaja
 
-x402 apunta a los micropagos máquina a máquina: un agente de IA que paga por llamada de API, por inferencia. Esos importes son diminutos, y es justo donde más duelen las comisiones. En raíles con comisiones, un pago de fracciones de céntimo se consume antes de llegar. En Nano se liquida en menos de un segundo y sin comisión alguna.
+x402 apunta a los micropagos máquina a máquina: un agente de IA que paga por llamada de API, por inferencia. Esos importes son diminutos, y es justo donde más duelen las comisiones. En una red con comisiones, un pago de fracciones de céntimo se consume antes de llegar; en Nano se liquida en menos de un segundo y sin comisión alguna.
 
-La tabla en vivo muestra exactamente esa forma: filas de Ӿ0.0001 y Ӿ0.005, micropagos que una red con comisiones no podría transportar de forma rentable. Las cifras que hay detrás, en el momento de escribir esto:
+La tabla en vivo muestra exactamente esa forma: filas de Ӿ0,0001 y Ӿ0,005, micropagos que una red con comisiones no podría transportar de forma rentable. Las cifras que hay detrás, en el momento de escribir esto:
 
 <StatGrid>
 	<Stat label="Transacciones" value="116" />
-	<Stat label="Volumen" value="Ӿ3.5606" />
+	<Stat label="Volumen" value="Ӿ3,5606" />
 	<Stat label="Pagadores únicos" value="6" />
 </StatGrid>
 
@@ -42,8 +42,8 @@ La documentación describe el flujo en cinco pasos:
 1. Un cliente solicita un recurso protegido.
 2. El servidor responde 402, con `PAYMENT-REQUIRED` transportando los esquemas aceptados, el precio, la red y la dirección Nano del destinatario.
 3. El cliente construye un bloque de envío Nano, lo firma y genera prueba de trabajo.
-4. El cliente reintenta con el payload de pago codificado en Base64 en `PAYMENT-SIGNATURE`.
-5. Tu servidor reenvía el payload al facilitador, que valida la firma del bloque y lo difunde a la red Nano. El resultado vuelve en `PAYMENT-RESPONSE`; una vez confirmado, el servidor sirve el contenido.
+4. El cliente reintenta con los datos de pago codificados en Base64 en `PAYMENT-SIGNATURE`.
+5. Tu servidor reenvía los datos al facilitador, que valida la firma del bloque y lo difunde a la red Nano. El resultado vuelve en `PAYMENT-RESPONSE`; una vez confirmado, el servidor sirve el contenido.
 
 <Figure src="/news/x402nano-facilitator/02-docs.jpg" alt="La página de documentación de Ӿ402Nano con la sección Quick Start y el flujo de pago en cinco pasos, del 402 Payment Required a la liquidación por el facilitador" caption="Documentación: Quick Start y el flujo de pago en cinco pasos" />
 
@@ -53,13 +53,13 @@ La documentación describe el flujo en cinco pasos:
 
 ## Sin cuenta, sin clave API
 
-Sin permisos es la palabra clave. Sin registro, sin clave, sin dashboard: apunta tu servidor a la URL y listo. Una cabecera `x-api-key` o Bearer opcional solo activa las estadísticas de uso en un dashboard. Los errores vuelven en un formato JSON coherente (400 cuerpo inválido, 401 clave inválida, 429 límite de peticiones, 500 error de servidor), y los límites son de 200 peticiones por minuto por IP para `/facilitator/verify` y `/facilitator/settle`.
+Sin permisos es la palabra clave. Sin registro, sin clave, sin panel: apunta tu servidor a la URL y listo. Una cabecera `x-api-key` o Bearer opcional solo activa las estadísticas de uso en un panel. Los errores vuelven en un formato JSON coherente (400 cuerpo inválido, 401 clave inválida, 429 límite de peticiones, 500 error de servidor), y los límites son de 200 peticiones por minuto por IP para `/facilitator/verify` y `/facilitator/settle`.
 
-## El ángulo del desarrollador
+## Lo que gana quien desarrolla
 
 Dos SDK cubren la integración. `@x402/next` da a los desarrolladores de Next.js `paymentProxy` (middleware que protege rutas de páginas) y `withX402` (envuelve los handlers de rutas API). `@x402/core` expone `HTTPFacilitatorClient` con verify/settle manuales para Express, Hono o cualquier framework. Ambos apuntan a la misma URL:
 
-<Terminal title="config del facilitador">
+<Terminal title="configuración del facilitador">
 FACILITATOR_URL=https://x402nano.org/facilitator
 </Terminal>
 
@@ -67,4 +67,4 @@ FACILITATOR_URL=https://x402nano.org/facilitator
 
 La sección de agentes de IA de la documentación es lo que hace esto interesante. Un agente puede descubrir de forma autónoma un endpoint protegido, leer los requisitos de pago, firmar un bloque Nano, calcular prueba de trabajo y reintentar: sin humano, sin cuenta, sin tarjeta. Es exactamente el flujo para el que se construyó Nano.
 
-Así que Ӿ402Nano es una pieza prometedora del puzle de pagos de IA para Nano, nada más por ahora. Los raíles están en vivo en [x402nano.org](https://www.x402nano.org/), la documentación está en [/docs](https://www.x402nano.org/docs), el protocolo documentado en [x402.org](https://www.x402.org). La cifra a vigilar es si se registran los primeros servidores reales.
+Así que Ӿ402Nano es una pieza prometedora del puzle de pagos de IA para Nano, nada más por ahora. La infraestructura está en vivo en [x402nano.org](https://www.x402nano.org/), la documentación está en [/docs](https://www.x402nano.org/docs), el protocolo documentado en [x402.org](https://www.x402.org). La cifra a vigilar es si se registran los primeros servidores reales.

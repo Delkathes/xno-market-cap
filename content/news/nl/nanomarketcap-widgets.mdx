@@ -11,7 +11,7 @@ export const metadata = {
 
 # NanoMarketCap-widgets: live Nano-instrumenten voor elke website
 
-De live polsslag van Nano laat zich nu overal op het web inbedden. [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets) is live: een widgetrack, een bouwpagina waarop iedereen een live Nano-instrument in elkaar zet en het met één kopieer-en-plak-actie op een website plaatst. Zeven instrumenten gaan vandaag van start: prijs, marktkapitalisatie, rekenmachine, netwerkstatistieken, accountsaldo, live transacties en donaties, in alle zes talen van de site. Geen account nodig, en elk getal blijft vanzelf actueel.
+De live polsslag van Nano laat zich nu overal op het web inbedden. [nanomarketcap.com/widgets](https://nanomarketcap.com/widgets) is live: een widgetrack, een bouwpagina waarop iedereen een live Nano-instrument in elkaar zet en het met één kopieer-en-plak-actie op een website plaatst. Zeven instrumenten zijn vandaag beschikbaar: prijs, marktkapitalisatie, rekenmachine, netwerkstatistieken, accountsaldo, live transacties en donaties, in alle zes talen van de site. Geen account nodig, en elk getal blijft vanzelf actueel.
 
 ## Wat het rack bevat
 
@@ -21,10 +21,10 @@ De builder is een configurator. Kies links een widget, pas de instellingen aan, 
 
 De zeven instrumenten:
 
-- **Prijs.** Live XNO-prijs met 1U-, 24U- en 7D-verschillen, plus marktkapitalisatie, circulatie en rang.
+- **Prijs.** Live XNO-prijs met verschillen over 1 uur, 24 uur en 7 dagen, plus marktkapitalisatie, aanbod en rang.
 - **Marktkapitalisatie.** Dezelfde kaart met een hypothetische variant: Nano tegen de kapitalisatie van Bitcoin.
 - **Rekenmachine.** Een interactieve XNO-naar-fiat-omzetter, vooraf geladen met de live prijs.
-- **Netwerkstatistieken.** Totaal aantal blokken, gecementeerde verhouding, online gewicht en hoofdrepresentanten.
+- **Netwerkstatistieken.** Totaal aantal blokken, aandeel gecementeerde blokken, online gewicht en hoofdvertegenwoordigers.
 - **Accountsaldo.** Een saldokaart voor elk `nano_`-adres.
 - **Live transacties.** Een WebSocket-feed van netwerkbrede bevestigingen op het moment dat ze binnenkomen.
 - **Donatie.** Een QR-donatiekaart voor je eigen adres.
@@ -67,17 +67,17 @@ Wil je alle zeven tegelijk op één pagina? Hier is een live demo op CodeSandbox
 
 ## De details die ertoe doen
 
-**Valutahiërarchie.** Elke widget heeft een primaire fiatvaluta (het grote getal), een rij secundaire fiatvaluta's en tot 8 crypto-activa waarin de waarde ook wordt getoond. Stablecoins zijn bewust uitgesloten van de cryptokiezer: «1 XNO = 1,3 USDT» is ruis, geen informatie.
+**Valutahiërarchie.** Elke widget heeft een primaire fiatvaluta (het grote getal), een rij secundaire fiatvaluta's en tot 8 crypto-activa waarin de waarde ook wordt getoond. Stablecoins zijn bewust uitgesloten van de cryptokiezer: “1 XNO = 1,3 USDT” is ruis, geen informatie.
 
-**Geen client-side API-aanroepen.** Prijzen, kapitalisaties en circulatie worden bij het renderen aan serverzijde ingevoegd en gecacht. De widget doet dus nul API-aanroepen vanuit de browser van de bezoeker, dus inbeddingen werken vanuit elke origin, op elke site die HTML accepteert, zonder CORS-headers te hoeven instellen. De live feed is de uitzondering: die heeft een WebSocket-verbinding vanuit de browser nodig, en is het enige deel van de widget dat dat doet.
+**Geen client-side API-aanroepen.** Prijzen, marktkapitalisaties en aanbod worden bij het renderen op de server ingevoegd en gecacht. De widget doet dus nul API-aanroepen vanuit de browser van de bezoeker, dus inbeddingen werken vanuit elke origin, op elke site die HTML accepteert, zonder CORS-headers te hoeven instellen. De live feed is de uitzondering: die heeft een WebSocket-verbinding vanuit de browser nodig, en is het enige deel van de widget dat dat doet.
 
-**Thema- en breedtebewust.** De widgets volgen het thema van de bezoeker, licht of donker, en schakelen onder 380px over naar een compacte layout, zodat ze zich goed gedragen op telefoons en in smalle zijbalken. Het embed-script past de iframe-hoogte automatisch aan, compact of volledig: geen verspilde ruimte.
+**Volgt thema en breedte.** De widgets volgen het thema van de bezoeker, licht of donker, en schakelen onder 380px over naar een compacte layout, zodat ze zich goed gedragen op telefoons en in smalle zijbalken. Het embed-script past de iframe-hoogte automatisch aan, compact of volledig: geen verspilde ruimte.
 
-**De naamsvermelding blijft.** Elke widget draagt een permanente plaat «Data by NanoMarketCap». Die is niet verwijderbaar, en dat is bewust: gratis live data, met de creditline eraan vast.
+**De naamsvermelding blijft.** Elke widget draagt een permanente plaat “Data by NanoMarketCap”. Die is niet verwijderbaar, en dat is bewust: gratis live data, met de naamsvermelding eraan vast.
 
 ## Voor wie
 
-Eerst de voor de hand liggende toepassingen: een communitysite met de prijs in de header, een exchange-pagina die live netwerkstatistieken wil naast de stortingsinstructies, een wallet-aanbieder die een saldokaart in zijn dashboard inbedt.
+Eerst de voor de hand liggende toepassingen: een communitysite met de prijs in de header, een beurspagina die live netwerkstatistieken wil naast de stortingsinstructies, een wallet-aanbieder die een saldokaart in het dashboard inbedt.
 
 En dan is er de donatiewidget, stilletjes het meest community-gedreven instrument van het rack. Iedereen die een project op Nano draait, kan in ongeveer een minuut een QR-donatiekaart voor zijn eigen adres genereren. Geen backend, geen aanmelding, geen kosten: een QR-code en deep links die elke Nano-wallet begrijpt.
 

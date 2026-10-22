@@ -1,129 +1,124 @@
-# RPC.Nano.To: Infrastruttura per sviluppatori per Nano
+RPC.Nano.To è un livello ospitato di RPC e pagamenti per Nano: 65 nodi in 20 regioni, proof of work su GPU e API REST con SDK per i linguaggi che gli sviluppatori usano davvero. È pensato per chi vuole un'integrazione Nano funzionante senza gestire un nodo.
 
-RPC.Nano.To è l'infrastruttura di pagamento completa per la rete di criptovalute Nano. Costruisci applicazioni Nano pronte per la produzione con nodi RPC distribuiti globalmente, proof of work alimentata da GPU e API progettate per gli sviluppatori — dalla tua prima chiamata RPC alla tua miliardesima transazione.
+## Perché RPC.Nano.To
 
-## Perché scegliere RPC.Nano.To?
+### Nodi in 20 regioni
 
-### Infrastruttura globale ultrarapida
+Oltre 65 nodi Nano distribuiti in 20 regioni tra Nord America, Europa, Asia, Africa e Caraibi. Le risposte arrivano sotto il secondo, ed è questo che fa sembrare istantaneo un flusso di pagamento.
 
-Accedi a oltre 65 nodi Nano distribuiti su 20 regioni che coprono Nord America, Europa, Asia, Africa e Caraibi. Tempi di risposta inferiori a un secondo garantiscono che la tua applicazione fornisca transazioni Nano istantanee ovunque nel mondo.
+### Proof of work fuori dal tuo server
 
-### Generazione proof of work GPU
+Cluster GPU dedicati generano la proof of work per le tue transazioni, così l'applicazione resta leggera e reattiva invece di portarsi il carico computazionale.
 
-Smetti di preoccuparti del sovraccarico computazionale. RPC.Nano.To fornisce cluster GPU dedicati che generano la proof of work per le tue transazioni, così la tua applicazione rimane leggera e reattiva.
+### API e SDK
 
-### API progettate per sviluppatori
+Endpoint REST con documentazione ed esempi per Node.js, JavaScript nel browser, Python, PHP e cURL. Gli esempi sono abbastanza brevi per partire in pochi minuti.
 
-API REST pulite e ben documentate con supporto multi-linguaggio. Che tu stia costruendo in Node.js, JavaScript browser, Python, PHP o usando cURL, la piattaforma fornisce SDK ed esempi chiari per iniziare in pochi minuti.
+## Funzioni principali
 
-## Caratteristiche principali
+- **Rete di nodi globale**: 65 nodi in 20 regioni, per disponibilità e latenza bassa
+- **Chiamate RPC**: un piano gratuito che cresce fino a richieste illimitate con l'app
+- **Proof of work**: i cluster GPU fanno il calcolo, la tua app no
+- **Checkout**: flussi di pagamento con webhook, metadati e tracciamento delle conferme
+- **WebSocket**: monitoraggio delle transazioni e conferme dei blocchi in tempo reale
+- **CLI**: gestione di portafogli e transazioni dal terminale
+- **Faucet**: 0,001 NANO per test e sviluppo
 
-- **Rete di nodi globale**: 65 nodi su 20 regioni che garantiscono massimo uptime e minima latenza
-- **Chiamate RPC illimitate**: Scala dal livello gratuito a richieste illimitate man mano che la tua app cresce
-- **Proof of work istantanea**: I cluster GPU gestiscono il lavoro computazionale così la tua app non deve farlo
-- **Sistema di pagamento**: Genera flussi di pagamento Nano con webhook, metadati e tracciamento conferme
-- **Supporto WebSocket**: Monitoraggio transazioni in tempo reale e conferme blocchi
-- **Strumenti CLI**: Gestisci wallet e transazioni direttamente dal tuo terminale
-- **Faucet gratuito**: Ottieni 0,001 NANO istantaneamente per test e sviluppo
+## Perché Nano
 
-## Perché Nano rende questo possibile
+- **Zero commissioni di transazione**: applicazioni di micropagamento senza l'economia delle commissioni
+- **Finalità sotto il secondo**: le transazioni si confermano in meno di un secondo, ed è ciò di cui hanno bisogno i flussi di pagamento in tempo reale
+- **Infrastruttura senza commissioni**: paghi l'accesso API e la proof of work, non la singola transazione
+- **Accesso aperto**: pagamenti da chiunque, ovunque, senza intermediari
 
-- **Zero commissioni di transazione**: Costruisci applicazioni di micropagamento senza preoccuparti dell'economia delle commissioni
-- **Finalità sotto un secondo**: Le transazioni si confermano in meno di un secondo, permettendo flussi di pagamento in tempo reale
-- **Infrastruttura senza commissioni**: Paga solo per l'accesso API e la proof of work, non commissioni per transazione
-- **Accessibilità globale**: Accetta pagamenti da chiunque, ovunque, senza intermediari
-
-## RPC.Nano.To vs Costruire il proprio nodo
+## Rispetto a un nodo in casa
 
 | Caratteristica | RPC.Nano.To | Nodo self-hosted |
 |----------------|-------------|------------------|
-| Tempo di configurazione | < 5 minuti | Ore a giorni |
-| Distribuzione globale | 65 nodi, 20 regioni | Posizione singola |
-| Proof of work | Cluster GPU inclusi | DIY o terze parti |
-| Manutenzione | Zero | Aggiornamenti continui, monitoraggio |
-| Scalabilità | Auto-scaling | Upgrade hardware manuali |
-| Livello gratuito | 50K chiamate/giorno | Costi server dal giorno 1 |
-| Strumenti sviluppatore | CLI, SDK, webhook | Costruire da soli |
-| Supporto | Ticket + livelli prioritari | Forum comunitari |
+| Tempo di configurazione | Meno di 5 minuti | Da ore a giorni |
+| Distribuzione globale | 65 nodi, 20 regioni | Una sola posizione |
+| Proof of work | Cluster GPU inclusi | Fai da te o fornitori esterni |
+| Manutenzione | Nessuna | Aggiornamenti e monitoraggio continui |
+| Scalabilità | Automatica | Upgrade hardware manuali |
+| Piano gratuito | 50.000 chiamate al giorno | Costi del server dal primo giorno |
+| Strumenti per sviluppatori | CLI, SDK, webhook | Da costruire |
+| Supporto | Ticket e livelli prioritari | Forum della community |
 
-## Chi usa RPC.Nano.To?
+## Chi lo usa
 
-**Sviluppatori di app**: Integra funzionalità di pagamento in app mobili, servizi web e piattaforme SaaS senza gestire l'infrastruttura blockchain.
+- **Sviluppatori di applicazioni**: funzioni di pagamento in app mobili, servizi web e piattaforme SaaS, senza gestire l'infrastruttura blockchain
+- **Negozi online**: checkout istantaneo e senza commissioni tramite l'API di pagamento e le conferme via webhook
+- **Portafogli crypto**: endpoint RPC affidabili e trasmissione immediata delle transazioni
+- **Piattaforme di pagamento**: gestione di pagamenti Nano su larga scala, con chiamate RPC illimitate e garanzie SLA
+- **Ricercatori e docenti**: piano gratuito e faucet per sperimentare con Nano senza costi di infrastruttura
 
-**Piattaforme e-commerce**: Integra flussi di checkout istantanei e senza commissioni usando l'API di pagamento con conferme webhook.
+## Come iniziare
 
-**Wallet crypto**: Alimenta applicazioni wallet con endpoint RPC affidabili e trasmissione transazioni istantanea.
+1. **Ottieni una chiave API gratuita**: iscriviti su rpc.nano.to per 50.000 chiamate RPC al giorno più 100 generazioni di proof of work
+2. **Installa la CLI**: esegui `npm install -g @nano/wallet` per gestire portafogli e transazioni dal terminale
+3. **Genera un portafoglio**: crea un portafoglio cifrato in locale con `nano-wallet generate --secret yourpassword`
+4. **Richiedi Nano di test**: usa il faucet per ricevere 0,001 NANO per sviluppo e test
+5. **Inizia a costruire**: fai la prima chiamata RPC, oppure aggiungi l'SDK Node.js o browser alla tua applicazione
 
-**Processori di pagamento**: Scala il processamento pagamenti Nano con chiamate RPC illimitate e garanzie SLA di livello enterprise.
+## Prezzi
 
-**Ricercatori ed educatori**: Usa il livello gratuito e il faucet per sperimentare con Nano senza costi di infrastruttura.
+**Piano gratuito**: 0 $ per sempre.
 
-## Iniziare con RPC.Nano.To
-
-1. **Ottieni la tua chiave API gratuita**: Iscriviti su rpc.nano.to e ricevi 50.000 chiamate RPC al giorno più 100 generazioni proof of work
-2. **Installa il CLI**: Esegui `npm install -g @nano/wallet` per gestire wallet e transazioni dal tuo terminale
-3. **Genera un wallet**: Crea un wallet cifrato localmente con `nano-wallet generate --secret tuapassword`
-4. **Richiedi Nano di test**: Usa il faucet per ricevere 0,001 NANO istantaneamente per sviluppo e test
-5. **Inizia a costruire**: Effettua la tua prima chiamata RPC o integra l'SDK Node.js/Browser nella tua applicazione
-
-## Esempi di prezzi reali
-
-**Livello gratuito** — $0/per sempre
 - 50.000 chiamate RPC al giorno
-- 100 generazioni proof of work al giorno
+- 100 generazioni di proof of work al giorno
 - Tutti gli endpoint RPC inclusi
 - Supporto tramite ticket
-- Perfetto per sviluppo e piccoli progetti
+- Abbastanza per sviluppo e piccoli progetti
 
-**Starter** — $10/mese
+**Starter**: 10 $ al mese.
+
 - Richieste RPC illimitate
 - 100.000 PoW al mese
 - Accesso RPC prioritario
 - Prova gratuita di 7 giorni
-- Consigliato per app in produzione
+- Il piano consigliato per le app in produzione
 
-**Enterprise** — $100/mese
-- RPC illimitato + PoW illimitato
+**Enterprise**: 100 $ al mese.
+
+- RPC illimitato e PoW illimitato
 - Risorse hardware dedicate
 - SLA garantito con disponibilità del 99,9%
 - Supporto prioritario con SSO e RBAC
-- Costruito per scala mission-critical
+- Pensato per volumi elevati
 
-## Esempio di codice: Inviare Nano in 5 comandi
+## Esempio di codice: inviare Nano in pochi comandi
 
 ```bash
 # Installare CLI globalmente
 npm install -g @nano/wallet
 
 # Impostare la chiave API
-export NANO_RPC_KEY=TUA_CHIAVE_API
+export NANO_RPC_KEY=YOUR_API_KEY
 
-# Generare wallet
-nano-wallet generate --secret miapassword
+# Generare portafoglio
+nano-wallet generate --secret mypassword
 
 # Richiedere Nano di test dal faucet
-nano-wallet faucet --secret miapassword
+nano-wallet faucet --secret mypassword
 
 # Ricevere blocchi in sospeso
-nano-wallet receive --secret miapassword
+nano-wallet receive --secret mypassword
 
 # Verificare saldo
-nano-wallet balance --secret miapassword
+nano-wallet balance --secret mypassword
 
 # Inviare Nano
-nano-wallet send nano_3destinatario... 0.1 --secret miapassword
+nano-wallet send nano_3recipient... 0.1 --secret mypassword
 ```
 
-## Il futuro dell'infrastruttura di pagamento
+## A cosa serve la piattaforma
 
-Costruire su blockchain non dovrebbe significare gestire nodi, sincronizzare database o generare proof of work da soli. Gli sviluppatori moderni hanno bisogno di un'infrastruttura che scala istantaneamente, risponde globalmente e resta fuori dai piedi.
+Costruire su una blockchain non dovrebbe voler dire gestire nodi, sincronizzare database e generare proof of work. RPC.Nano.To è il livello che toglie quei compiti: la stessa API per la prima e la milionesima transazione, con dietro le proprietà di Nano, senza commissioni e istantanee.
 
-RPC.Nano.To realizza questa visione: una piattaforma per sviluppatori dove scrivi codice, non script DevOps. Dove la tua prima transazione e la tua milionesima transazione usano la stessa API semplice. Dove le proprietà senza commissioni e istantanee di Nano diventano accessibili attraverso un'infrastruttura pulita e prevedibile.
+## Inizia a costruire
 
-## Inizia a costruire oggi
-
-Visita **[rpc.nano.to](https://rpc.nano.to)** per ottenere la tua chiave API gratuita e iniziare a effettuare chiamate RPC in meno di un minuto. Unisciti agli sviluppatori che stanno costruendo la prossima generazione di applicazioni di pagamento istantanee e senza commissioni su Nano.
+Le chiavi API gratuite sono su **[rpc.nano.to](https://rpc.nano.to)**. Documentazione e piano gratuito bastano per fare la prima chiamata RPC in meno di un minuto.
 
 ---
 
-*Questa è una pagina partner sponsorizzata. RPC.Nano.To supporta l'ecosistema Nano fornendo infrastruttura di livello produzione che rende la costruzione con Nano accessibile agli sviluppatori in tutto il mondo.*
+*Questa è una pagina partner sponsorizzata. RPC.Nano.To fornisce infrastruttura ospitata per costruire su Nano.*

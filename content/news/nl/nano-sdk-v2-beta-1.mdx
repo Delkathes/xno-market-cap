@@ -11,18 +11,18 @@ export const metadata = {
 
 # nano-sdk v2: tooling klaarzetten voordat node V29 uitkomt
 
-Als je iets op Nano bouwt (een wallet, een explorer, een marktdatadienst), praat je vroeg of laat met een node. [nano-sdk](https://github.com/infinitybay/nano-sdk) is de TypeScript-bibliotheek die dat gesprek aangenaam maakt: getypeerde RPC-calls, gevalideerde WebSocket-topics en antwoordschema's die overeenkomen met wat de node daadwerkelijk teruggeeft. Deze week bracht Exxenoz de eerste bèta van versie 2 uit, en één detail weegt zwaarder dan elke feature erin: Nano node V29 is nog niet uitgebracht. De SDK is de node gewoon vóór.
+Als je iets op Nano bouwt (een wallet, een explorer, een marktdatadienst), praat je vroeg of laat met een node. [nano-sdk](https://github.com/infinitybay/nano-sdk) is de TypeScript-bibliotheek die dat gesprek aangenaam maakt: getypeerde RPC-calls, gevalideerde WebSocket-topics en antwoordschema's die overeenkomen met wat de node daadwerkelijk teruggeeft. Deze week bracht Exxenoz de eerste bèta van versie 2 uit, en één detail weegt zwaarder dan elke functie erin: Nano node V29 is nog niet uitgebracht. De SDK is de node gewoon vóór.
 
-## De lijn in het zand, vroeg getrokken
+## De scheidslijn, vroeg getrokken
 
-De bèta trekt een duidelijke compatibiliteitslijn: versie 2 zal met Nano node V29 spreken, versie 1 blijft op V28.2. Die splitsing weegt zwaarder dan welke nieuwe feature dan ook, en ze wordt bewust op voorhand getrokken. De SDK valideert nu al het nieuwe `topo_height`-veld in accountgeschiedenis en blokinformatie, de herstructureerde bootstrap-prioriteiten en de V29-peer-capabilities, zodat de tooling al klaarstaat wanneer de node eindelijk uitkomt. Dat is het verschil tussen meebewegen met een node-release en erachteraan hollen.
+De bèta trekt een duidelijke compatibiliteitslijn: versie 2 zal met Nano node V29 spreken, versie 1 blijft op V28.2. Die splitsing weegt zwaarder dan welke nieuwe functie dan ook, en ze wordt bewust op voorhand getrokken. De SDK valideert nu al het nieuwe `topo_height`-veld in accountgeschiedenis en blokinformatie, de herstructureerde bootstrap-prioriteiten en de V29-peer-capabilities, zodat de tooling al klaarstaat wanneer de node eindelijk uitkomt. Dat is het verschil tussen meebewegen met een node-release en erachteraan hollen.
 
 <Terminal title="compatibiliteitsmatrix">
 	nano-sdk 2.x  →  Nano node V29.0
 	nano-sdk 1.x  →  Nano node V28.2
 </Terminal>
 
-## Wat V29 zal ontsluiten voor bouwers
+## Wat V29 voor bouwers voorbereidt
 
 Het interessante staat niet in de changelog, maar in wat de wijzigingen voorbereiden:
 
@@ -33,9 +33,9 @@ Het interessante staat niet in de changelog, maar in wat de wijzigingen voorbere
 </StatGrid>
 
 - **Telemetrie v2.** V29-nodes zullen bevestigingslatentie-percentielen (p50, p90, p99), hun database-backend en hun bootstrap-status rapporteren. Node-monitoring gaat van giswerk naar dashboards: een onderbemeten node herken je aan zijn latentiecurve, vóór je gebruikers het merken.
-- **Geïndexeerde delegator-paginering.** Delegatorlijsten zullen op te halen zijn met echte continuatiecursors in plaats van duizenden records in één keer te dumpen. Voor elke dienst die representatiefpagina's toont, is dat het verschil tussen schalen en vastlopen.
-- **Slimmere representatiefqueries.** Een gewichtsdrempel (`threshold`) filtert kleine representatiefs weg bij het pollen. Minder ruis, minder round-trips.
-- **Veiligere getallen.** Rauwe Nano-bedragen lopen tot 10^30, ver buiten het veilige integerbereik van JavaScript. De nieuwe `UInt64String` valideert decimale strings over het volledige unsigned 64-bitsbereik en verhelpt precies dat type overflow-bug dat statistieken boven de 9 biljard stilletjes corrumpeert.
+- **Geïndexeerde delegator-paginering.** Delegatorlijsten zullen op te halen zijn met echte continuatiecursors in plaats van duizenden records in één keer te dumpen. Voor elke dienst die pagina's met vertegenwoordigers toont, is dat het verschil tussen schalen en vastlopen.
+- **Slimmere query's voor vertegenwoordigers.** Een gewichtsdrempel (`threshold`) filtert kleine vertegenwoordigers weg bij het pollen. Minder ruis, minder round-trips.
+- **Veiligere getallen.** Nano-bedragen in raw lopen tot 10^30, ver buiten het veilige integerbereik van JavaScript. De nieuwe `UInt64String` valideert decimale strings over het volledige unsigned 64-bitsbereik en verhelpt dat type overflow-bug dat statistieken boven de 9 biljard stilletjes corrumpeert.
 
 ## Wie er nu al iets aan heeft
 
@@ -46,19 +46,17 @@ Het is een bèta gericht op een node die nog niet uit is, dus de volgorde telt:
 		Productiediensten blijven op 1.x en V28.2 tot V29 uitkomt en stabiliseert.
 	</Step>
 	<Step index="02" title="Testen">
-		Een dev-omgeving tegen een V29-developmentsbuild opzetten en de nieuwe paginerings- en telemetriepaden uitproberen.
+		Een ontwikkelomgeving tegen een V29-ontwikkelbuild opzetten en de nieuwe paginerings- en telemetriepaden uitproberen.
 	</Step>
 	<Step index="03" title="Melden">
-		Issues melden zolang de maintainers het meest responsief zijn. Vroege feedback op een bèta is tien klachten na een stabiele release waard.
+		Problemen melden zolang de onderhouders nog het snelst reageren. Vroege feedback op een bèta is tien klachten na een stabiele release waard.
 	</Step>
 </Steps>
 
-Een bèta die vóór de node arriveert, geeft het hele ecosysteem een voorsprong.
+Een bèta die vóór de node arriveert, geeft het hele ecosysteem een voorsprong. De Nano-tooling is jarenlang versnipperd geweest: kleine helpers, half onderhouden bibliotheken, schema's die afwijken van wat nodes echt teruggeven. Een getypeerde SDK die compatibiliteit met de node als contract behandelt, maakt daar een einde aan. v2 is een bèta voor een nodeversie die nog niet bestaat, maar een bèta in de goede richting.
 
-Het Nano-toolinglandschap is jarenlang versnipperd geweest: kleine helpers, half onderhouden bibliotheken, schema's die afwijken van wat nodes echt teruggeven. Een getypeerde SDK die node-compatibiliteit als eersteklas contract behandelt, maakt daar een einde aan. v2 is een bèta voor een nodeversie die nog niet bestaat, maar een bèta in de goede richting.
-
-De release is uitgebracht door Exxenoz.
+De release komt van Exxenoz.
 
 <GitHubRepo repo="infinitybay/nano-sdk" />
 
-Probeer hem tegen een V29-developmentsbuild en meld wat er breekt.
+Probeer hem tegen een V29-ontwikkelbuild en meld wat er breekt.

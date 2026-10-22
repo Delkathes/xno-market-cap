@@ -15,7 +15,7 @@ export const metadata = {
 
 ## Eén codebase, twee valuta's
 
-De Banano-ondersteuning is volwaardig, geen knutselwerk. Een `banano`-feature flag kiest de valuta bij het compileren. De repository bevat ingebouwde rep-gewichten en valuta-constanten voor beide netwerken, en een build voor Banano levert een eigen `rsban`-binary op. Vraag je de versie op via RPC bij een Banano-build, dan antwoordt die met "RsBan". Geen aparte fork om te onderhouden, geen tweede codebase die kan divergeren.
+De Banano-ondersteuning is volwaardig, geen knutselwerk. Een `banano`-feature flag kiest de valuta bij het compileren. De repository bevat ingebouwde gewichten van vertegenwoordigers en valuta-constanten voor beide netwerken, en een build voor Banano levert een eigen `rsban`-binary op. Vraag je de versie op via RPC bij een Banano-build, dan antwoordt die met “RsBan”. Geen aparte fork om te onderhouden, geen tweede codebase die kan divergeren.
 
 <StatGrid>
 	<Stat label="Codebase" value="één Rust-codebase" />
@@ -57,7 +57,7 @@ Het synchronisatiesubsysteem van de ledger is grondig herschreven in plaats van 
 </Callout>
 
 - Consistentiechecks van de ledger bij het opstarten.
-- Nieuwe CLI-tools: rep-gewichtsinformatie en een ledger-diff.
+- Nieuwe CLI-tools: informatie over het gewicht van vertegenwoordigers en een ledger-diff.
 - Overstap naar Rust edition 2024.
 
 V3.0 is een release met echte omvang: een tweede valuta, een herbouwd synchronisatiepad en nette distributie. Node-beheerders moeten het bootstrap-pad eerst op een staging-node testen voordat ze hun mainnet upgraden. Banano-beheerders hebben eindelijk een keuze.

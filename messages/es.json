@@ -779,7 +779,9 @@
         "loading": "Preparando...",
         "button": "Enviar solicitud"
       }
-    }
+    },
+    "partnerLabel": "Socio",
+    "visitPartner": "Visitar {name}"
   },
   "about": {
     "title": "Acerca de NanoMarketCap",

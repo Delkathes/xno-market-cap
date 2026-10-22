@@ -2,26 +2,26 @@ export const metadata = {
 	emoji: '🤖',
 	title: 'Subnano lanza una API de publicación para scripts, bots y agentes de IA',
 	description:
-		'Subnano, la plataforma de publicación de pago por artículo en Nano, ya tiene una API de publicación: los posts pueden crearse y publicarse mediante programación con una clave API personal. El desarrollador Noom la lanzó junto con un skill para agentes de IA, después de que su propio agente Pawl empezara a publicar en la plataforma.',
+		'Subnano, la plataforma de publicación de pago por artículo en Nano, ya tiene una API de publicación: los artículos pueden crearse y publicarse mediante programación con una clave API personal. El desarrollador Noom la lanzó junto con un módulo para agentes de IA, después de que su propio agente Pawl empezara a publicar en la plataforma.',
 	date: '2026-03-06',
-	author: 'NanoMarketCap Team',
-	tags: ['ecosystem', 'payments', 'development'],
+	author: 'Equipo NanoMarketCap',
+	tags: ['ecosistema', 'pagos', 'desarrollo'],
 	published: true,
 }
 
 # Subnano lanza una API de publicación para scripts, bots y agentes de IA
 
-Subnano, la plataforma de publicación de pago por artículo en Nano, ahora es programable. El 6 de marzo, el desarrollador Noom lanzó una API de publicación que permite crear y publicar posts desde scripts, aplicaciones o agentes de IA. Dice que la idea llevaba mucho tiempo dándole vueltas y que todo encajó cuando habilitó a su propio agente de IA, Pawl, para publicar en Subnano.
+Subnano, la plataforma de publicación de pago por artículo en Nano, ahora es programable. El 6 de marzo, el desarrollador Noom lanzó una API de publicación que permite crear y publicar artículos desde scripts, aplicaciones o agentes de IA. Dice que la idea llevaba mucho tiempo dándole vueltas y que todo encajó cuando habilitó a su propio agente de IA, Pawl, para publicar en Subnano.
 
 ## Qué hace la API
 
-La API v1 vive en `https://subnano.me/api/v1` y se autentica con una clave API personal enviada como token Bearer. Cubre todo el ciclo de vida del post: crear, listar, consultar, actualizar y eliminar borradores; transiciones de publicar y despublicar; subida de imágenes para el contenido y las imágenes OG; y contenido en Markdown. La publicación es idempotente: reintentar con la misma `Idempotency-Key` reproduce la respuesta almacenada en lugar de crear duplicados.
+La API v1 está en `https://subnano.me/api/v1` y se autentica con una clave API personal enviada como token Bearer. Cubre todo el ciclo de vida del artículo: crear, listar, consultar, actualizar y eliminar borradores; transiciones de publicar y despublicar; subida de imágenes para el contenido y las imágenes OG; y contenido en Markdown. La publicación es idempotente: reintentar con la misma `Idempotency-Key` reproduce la respuesta almacenada en lugar de crear duplicados.
 
 <Figure src="/news/subnano-publishing-api/01-api-docs.jpg" alt="La página de resumen de la API de publicación v1 de Subnano, con la URL base y la lista de endpoints admitidos" caption="El resumen v1: URL base, ciclo de vida de borradores, subida de imágenes y guía rápida" />
 
 La guía rápida de la documentación es corta: crear una clave API en los ajustes de Subnano, guardarla en un lugar seguro, crear un borrador y publicarlo. Todo el flujo empieza con una sola llamada curl:
 
-<Terminal title="create a draft">
+<Terminal title="crear un borrador">
 curl -X POST "https://subnano.me/api/v1/posts" \
 -H "Authorization: Bearer $SUBNANO_PUBLISH_KEY" \
 -H "Content-Type: application/json" \
@@ -40,20 +40,20 @@ curl -X POST "https://subnano.me/api/v1/posts" \
 &#125;'
 </Terminal>
 
-El ejemplo es revelador. Es un borrador con paywall a 0,1 XNO, ya que los precios se pasan en unidades raw, e incluye `creationMethod: ai_assisted_research` y `creationAttested: true`, una declaración de que el post fue revisado antes de publicarse. Ahora que publicar ya no exige necesariamente a un humano frente al teclado, ese tipo de metadatos importa.
+El ejemplo es revelador. Es un borrador con muro de pago a 0,1 XNO, ya que los precios se pasan en unidades raw, e incluye `creationMethod: ai_assisted_research` y `creationAttested: true`, una declaración de que el artículo fue revisado antes de publicarse. Ahora que publicar ya no exige necesariamente a un humano frente al teclado, ese tipo de metadatos importa.
 
-<Figure src="/news/subnano-publishing-api/02-create-draft.jpg" alt="El ejemplo curl de creación de borrador tal como aparece en la documentación de Subnano" caption="El ejemplo de creación de borrador de la documentación: un post con paywall creado por un agente" />
+<Figure src="/news/subnano-publishing-api/02-create-draft.jpg" alt="El ejemplo curl de creación de borrador tal como aparece en la documentación de Subnano" caption="El ejemplo de creación de borrador de la documentación: un artículo con muro de pago creado por un agente" />
 
 ## Pensada para agentes
 
-Junto a la API, Noom publicó un skill de un solo archivo para agentes de IA en `https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md`. Reúne los endpoints, las plantillas de payload JSON, las recetas curl, las reglas de subida de imágenes y el manejo de errores en un único documento que un agente puede cargar directamente, sin referencias adicionales. Su propio agente Pawl ya publica en Subnano a través de él.
+Junto a la API, Noom publicó un módulo de un solo archivo para agentes de IA en `https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md`. Reúne los endpoints, las plantillas de datos JSON, las recetas curl, las reglas de subida de imágenes y el manejo de errores en un único documento que un agente puede cargar directamente, sin referencias adicionales. Su propio agente Pawl ya publica en Subnano a través de él.
 
-Los casos de uso que menciona: agentes de IA que publican informes de pago, bots que publican resúmenes diarios de investigación, pipelines de GitHub o CI que publican devlogs, y herramientas SaaS que usan Subnano como backend de paywall impulsado por Nano.
+Los casos de uso que menciona: agentes de IA que publican informes que se venden, bots que publican resúmenes diarios de investigación, pipelines de GitHub o CI que publican devlogs, y herramientas SaaS que usan Subnano como servidor de muros de pago impulsado por Nano.
 
 ## Una capa de publicación programable
 
-El movimiento encaja con hacia dónde se dirigía Subnano. La plataforma añadió soporte de x402 hace meses: x402 es el flujo de pago HTTP 402, una forma legible por máquinas para que apps y agentes soliciten y liquiden pagos, el mismo protocolo que sirve el facilitador [x402nano.org](https://x402nano.org/) en Nano. Combina eso con paywalls instantáneos, pagos instantáneos a creadores y ahora una API de publicación, y Subnano se convierte en una capa de publicación programable. La propia definición de Noom: lista para la era de los agentes.
+El movimiento encaja con la dirección que llevaba Subnano. La plataforma añadió soporte de x402 hace meses: x402 es el flujo de pago HTTP 402, una forma legible por máquinas para que apps y agentes soliciten y liquiden pagos, el mismo protocolo que sirve el facilitador [x402nano.org](https://x402nano.org/) en Nano. Junta eso con muros de pago instantáneos, pagos instantáneos a creadores y ahora una API de publicación, y Subnano se convierte en una capa de publicación programable. La propia definición de Noom: lista para la era de los agentes.
 
 ## Primeros pasos
 
-Las salvedades honestas: la API es nueva, el proyecto es de un solo desarrollador y el anuncio no incluye cifras de uso, así que todavía no hay nada con qué medir la adopción. Lo que existe es concreto: una API documentada, un skill de agente funcional y una plataforma que paga a los creadores en XNO cuando un post se vende. La [documentación](https://docs.subnano.me/) recorre todo el contrato, el [skill para agentes](https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md) merece la lectura si gestionas agentes, y la plataforma está en línea en [subnano.me](https://subnano.me/). Noom pidió comentarios, y para una API tan joven esa es probablemente la aportación más valiosa que puede recibir ahora mismo.
+Las salvedades honestas: la API es nueva, el proyecto es de un solo desarrollador y el anuncio no incluye cifras de uso, así que todavía no hay nada con qué medir la adopción. Lo que existe es concreto: una API documentada, un módulo de agente funcional y una plataforma que paga a los creadores en XNO cuando un artículo se vende. La [documentación](https://docs.subnano.me/) recorre todo el contrato, el [módulo para agentes](https://docs.subnano.me/skills/subnano-publishing-api/SKILL.md) merece la lectura si gestionas agentes, y la plataforma está en línea en [subnano.me](https://subnano.me/). Noom pidió comentarios, y para una API tan joven esa es probablemente la aportación más valiosa que puede recibir ahora mismo.

@@ -1,59 +1,59 @@
 export const metadata = {
 	emoji: '🔬',
-	title: 'Comprendre Nano : La Technologie Derrière les Transactions Instantanées',
-	description: 'Une plongée approfondie dans l\'architecture block-lattice qui fait de Nano l\'une des cryptomonnaies les plus rapides et efficaces.',
+	title: 'Comprendre Nano : la technologie derrière les transactions instantanées',
+	description: 'Comment le block-lattice, les chaînes par compte et l\'Open Representative Voting produisent des transactions instantanées et sans frais.',
 	date: '2026-02-03',
 	author: 'Équipe NanoMarketCap',
 	tags: ['technologie', 'éducation'],
 }
 
-# Comprendre Nano : La Technologie Derrière les Transactions Instantanées
+# Comprendre Nano : la technologie derrière les transactions instantanées
 
-Vous êtes-vous déjà demandé comment Nano réalise des transactions instantanées et sans frais ? Dans cet article, nous explorons la technologie innovante qui distingue Nano des cryptomonnaies blockchain traditionnelles.
+Nano traite une transaction en moins d'une seconde et ne facture rien. Les deux propriétés viennent de la même décision de conception : il n'y a pas de chaîne globale derrière laquelle faire la queue, ni de minage à payer. Voici comment les pièces s'assemblent.
 
-## L'Architecture Block-Lattice
+## L'architecture block-lattice
 
-Contrairement à la blockchain unique de Bitcoin où toutes les transactions sont enregistrées séquentiellement, Nano utilise une structure **block-lattice** unique. Dans cette conception :
+Bitcoin enregistre chaque transaction dans une chaîne séquentielle unique. Nano non. Chaque compte tient sa propre chaîne de blocs, et cette architecture s'appelle un **block-lattice** :
 
-- Chaque compte possède sa propre blockchain (chaîne de compte)
-- Seul le propriétaire du compte peut modifier sa chaîne
-- Les transactions sont asynchrones et indépendantes
+- chaque compte a sa propre chaîne, une account-chain ;
+- seul le propriétaire du compte peut y ajouter des blocs ;
+- les transactions sont asynchrones et indépendantes les unes des autres.
 
-<Callout type="insight" title="Pas de file d’attente">Votre transaction est traitée immédiatement sur sa propre chaîne, pas derrière des milliers d’autres.</Callout>
+<Callout type="insight" title="Pas de file d'attente">Votre transaction est traitée immédiatement sur sa propre chaîne, sans attendre derrière des milliers d'autres.</Callout>
 
-## Vote des Représentants Ouverts (ORV)
+## Le vote ouvert par représentants (ORV)
 
-Nano utilise un mécanisme de consensus appelé **Vote des Représentants Ouverts** au lieu du minage énergivore :
+Nano atteint un consensus grâce à l'**Open Representative Voting**, au lieu d'un minage énergivore :
 
-1. **Délégation**: Les utilisateurs délèguent leur poids de vote à des représentants
-2. **Vote**: Les représentants votent sur la validité des transactions
-3. **Confirmation**: Les transactions sont confirmées lorsqu'elles atteignent le quorum (>50% du poids de vote)
+1. **Délégation** : les détenteurs attribuent leur poids de vote à un représentant
+2. **Vote** : les représentants votent pour savoir si un bloc est valide
+3. **Confirmation** : un bloc est confirmé dès qu'il atteint le quorum, soit plus de 50 % du poids de vote
 
-L’ensemble du processus se termine généralement en **moins d’une seconde**.
+La séquence complète se termine généralement en **moins d'une seconde**.
 
 <StatGrid>
-	<Stat label="Confirmation" value="moins d’1 seconde" accent />
-	<Stat label="Frais de transaction" value="0,00 €" />
+	<Stat label="Confirmation" value="moins d'une seconde" accent />
+	<Stat label="Frais de transaction" value="0,00 $" />
 	<Stat label="Énergie par transaction" value="0,000112 kWh" />
 </StatGrid>
 
-## Pourquoi C'est Important
+## Comment Nano se compare
 
 | Caractéristique | Nano | Bitcoin | Ethereum |
 |-----------------|------|---------|----------|
-| Temps de transaction | Moins d'1 sec | ~10 minutes | ~15 secondes |
-| Frais | 0,00 € | 1-50+ € | 1-100+ € |
+| Temps de transaction | Moins d'une seconde | ~10 minutes | ~15 secondes |
+| Frais | 0,00 $ | 1-50+ $ | 1-100+ $ |
 | Énergie par transaction | 0,000112 kWh | 1 173 kWh | 62,56 kWh |
 
-## Le Résultat : De l'Argent Numérique Qui Fonctionne
+## Ce que cette architecture produit
 
-La technologie de Nano permet :
+Quatre propriétés :
 
-- **Règlement instantané**: Pas d'attente de confirmations
-- **Zéro frais**: Envoyez 1 € ou 1 million € gratuitement
-- **Évolutivité**: Le réseau gère des milliers de TPS
-- **Durabilité**: Impact environnemental minimal
+- **Règlement instantané** : pas d'attente de confirmations
+- **Aucun frais** : envoyer 1 $ ou 1 million de dollars coûte la même chose, c'est-à-dire rien
+- **Montée en charge** : le réseau traite des milliers de transactions par seconde
+- **Faible consommation** : un impact environnemental minimal par transaction
 
 ---
 
-*Vous voulez l'essayer vous-même ? Rendez-vous sur notre page [Obtenir Nano](/get-nano) pour configurer un portefeuille et essayer une transaction !*
+*Pour essayer, la page [Obtenir Nano](/get-nano) couvre les portefeuilles et une première transaction.*

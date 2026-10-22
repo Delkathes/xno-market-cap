@@ -5,15 +5,15 @@ export const metadata = {
 		'Ӿ402Nano is een kosteloze, permissionless x402-facilitator voor Nano. Elke x402-compatibele server kan naar https://x402nano.org/facilitator wijzen en XNO van AI-agenten accepteren: geen account, geen API-sleutel, alleen vereffenen bij succes.',
 	date: '2026-08-20',
 	author: 'NanoMarketCap Team',
-	tags: ['payments', 'development', 'tools'],
+	tags: ['betalingen', 'ontwikkeling', 'tools'],
 	published: true,
 }
 
 # Ӿ402Nano: een kosteloze x402-facilitator voor AI-agentbetalingen
 
-Nano heeft nu een kosteloze deur naar x402, het HTTP-betalingsprotocol dat is gebouwd voor AI-agenten. Ӿ402Nano is een facilitator voor Nano: elke x402-compatibele bronserver kan naar `https://x402nano.org/facilitator` wijzen en meteen XNO accepteren, zonder account, zonder API-sleutel en zonder meer dan één configuratieregel. De banner op de homepage bevestigt het: "facilitator live".
+Nano heeft nu een kosteloze deur naar x402, het HTTP-betalingsprotocol dat is gebouwd voor AI-agenten. Ӿ402Nano is een facilitator voor Nano: elke x402-compatibele resource server kan naar `https://x402nano.org/facilitator` wijzen en meteen XNO accepteren, zonder account, zonder API-sleutel en zonder meer dan één configuratieregel. De banner op de homepage bevestigt het: “facilitator live”.
 
-<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="De homepage van Ӿ402Nano: de banner 'facilitator live', de hero die de kosteloze x402-facilitator voor Nano uitlegt, het FACILITATOR_URL-fragment, de live statistiekenrij en de tabel met recente transacties" caption="Homepage: hero met de facilitator-URL, live statistieken en recente transacties" />
+<Figure src="/news/x402nano-facilitator/01-homepage.jpg" alt="De homepage van Ӿ402Nano: de banner “facilitator live”, de grote kop die de kosteloze x402-facilitator voor Nano uitlegt, het FACILITATOR_URL-fragment, de live statistiekenrij en de tabel met recente transacties" caption="Homepage: kop met de facilitator-URL, live statistieken en recente transacties" />
 
 ## Wat is x402
 
@@ -25,15 +25,15 @@ Het protocol is ketenagnostisch en wordt nu beheerd door de x402 Foundation, waa
 
 x402 richt zich op machine-tot-machine-microbetalingen: een AI-agent die betaalt per API-call, per inferentie. Die bedragen zijn minuscuul, en juist daar doen kosten het meest pijn. Op rails met kosten wordt een betaling van een fractie van een cent opgeslokt voordat hij aankomt. Op Nano wordt hij in minder dan een seconde vereffend, helemaal zonder kosten.
 
-De live tabel laat precies die vorm zien: rijen van Ӿ0.0001 en Ӿ0.005, microbetalingen die een netwerk met kosten niet rendabel zou kunnen vervoeren. De cijfers erachter, op het moment van schrijven:
+De live tabel laat precies die vorm zien: rijen van Ӿ0,0001 en Ӿ0,005, microbetalingen die een netwerk met kosten niet rendabel zou kunnen vervoeren. De cijfers erachter, op het moment van schrijven:
 
 <StatGrid>
 	<Stat label="Transacties" value="116" />
-	<Stat label="Volume" value="Ӿ3.5606" />
+	<Stat label="Volume" value="Ӿ3,5606" />
 	<Stat label="Unieke betalers" value="6" />
 </StatGrid>
 
-Een eerlijke kanttekening voordat de hypedetector afgaat: het volume wordt gedomineerd door herhaalde kleine betalingen tussen dezelfde twee adressen, wat op testen lijkt. Zes unieke betalers is geen adoptie, het is vroeg bewijs dat de leidingen werken. De [scanner](https://www.x402nano.org/scanner) toont de volledige geschiedenis, waarbij elke transactie doorlinkt naar zijn blok op nanexplorer.
+Een eerlijke kanttekening voordat dit als adoptie wordt gelezen: het volume wordt gedomineerd door herhaalde kleine betalingen tussen dezelfde twee adressen, wat op testen lijkt. Zes unieke betalers is geen adoptie, het is vroeg bewijs dat de leidingen werken. De [scanner](https://www.x402nano.org/scanner) toont de volledige geschiedenis, waarbij elke transactie doorlinkt naar zijn blok op nanexplorer.
 
 ## Hoe een betaling verloopt
 
@@ -55,7 +55,7 @@ De docs beschrijven het proces in vijf stappen:
 
 Permissionless is hier het kernwoord. Geen aanmelding, geen sleutel, geen dashboard: wijs je server naar de URL en je bent klaar. Een optionele `x-api-key`- of Bearer-header schakelt alleen gebruiksstatistieken in een dashboard in. Fouten komen terug in een consistent JSON-formaat (400 ongeldige body, 401 ongeldige sleutel, 429 rate limit, 500 serverfout), en de limieten liggen op 200 verzoeken per minuut per IP voor `/facilitator/verify` en `/facilitator/settle`.
 
-## Het ontwikkelaarshoekje
+## Het ontwikkelaarsperspectief
 
 Twee SDK's dekken de integratie. `@x402/next` geeft Next.js-ontwikkelaars `paymentProxy` (middleware die paginaroutes beschermt) en `withX402` (omwikkelt API-routehandlers). `@x402/core` biedt `HTTPFacilitatorClient` met handmatige verify/settle voor Express, Hono of elk ander framework. Beide wijzen naar dezelfde URL:
 

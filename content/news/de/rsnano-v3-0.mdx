@@ -1,6 +1,6 @@
 export const metadata = {
 	emoji: '🍌',
-	title: 'RsNano V3.0: Eine Rust-Codebasis, zwei Währungen',
+	title: 'RsNano V3.0: eine Rust-Codebasis, zwei Währungen',
 	description:
 		'Die Rust-Neuimplementierung des Nano-Nodes läuft jetzt auch als Banano-Node: ein Feature-Flag zur Build-Zeit, ein eigenes rsban-Binary, offizielle Docker-Images und eine neu geschriebene Bootstrap-Engine.',
 	date: '2026-06-05',
@@ -9,13 +9,13 @@ export const metadata = {
 	published: true,
 }
 
-# RsNano V3.0: Eine Rust-Codebasis, zwei Währungen
+# RsNano V3.0: eine Rust-Codebasis, zwei Währungen
 
-[RsNano](https://github.com/rsnano-node/rsnano-node) ist die Rust-Neuimplementierung des Nano-Nodes, und Entwickler gschauwecker hat das bisher größte Release des Projekts veröffentlicht. V3.0 macht aus einem reinen Nano-Node einen Node für zwei Chains: Dieselbe Codebasis lässt sich jetzt wahlweise für Nano oder Banano kompilieren, die Währung wird zur Build-Zeit festgelegt. Die Schlagzeile dieses Releases ist der erstklassige Banano-Support.
+[RsNano](https://github.com/rsnano-node/rsnano-node) ist die Rust-Neuimplementierung des Nano-Nodes, und Entwickler gschauwecker hat das bisher größte Release des Projekts veröffentlicht. V3.0 macht aus einem reinen Nano-Node einen Node für zwei Chains: Dieselbe Codebasis lässt sich jetzt wahlweise für Nano oder Banano kompilieren, die Währung wird zur Build-Zeit festgelegt. Wichtigste Neuerung ist der erstklassige Banano-Support.
 
 ## Eine Codebasis, zwei Währungen
 
-Der Banano-Support ist ausgewachsen, kein Notbehelf. Ein `banano`-Feature-Flag wählt die Währung zur Build-Zeit. Das Repository enthält eingebaute Rep-Gewichte und Währungs-Konstanten für beide Netzwerke, und ein Build für Banano erzeugt ein eigenes `rsban`-Binary. Fragt man bei einem Banano-Build die Version per RPC ab, lautet die Antwort „RsBan". Kein separater Fork, keine zweite Codebasis, die auseinanderdriften kann.
+Der Banano-Support ist vollständig, kein Notbehelf. Ein `banano`-Feature-Flag wählt die Währung zur Build-Zeit. Das Repository enthält eingebaute Rep-Gewichte und Währungs-Konstanten für beide Netzwerke, und ein Build für Banano erzeugt ein eigenes `rsban`-Binary. Fragt man bei einem Banano-Build die Version per RPC ab, lautet die Antwort „RsBan“. Kein separater Fork, keine zweite Codebasis, die auseinanderdriften kann.
 
 <StatGrid>
 	<Stat label="Codebasis" value="eine Rust-Codebasis" />

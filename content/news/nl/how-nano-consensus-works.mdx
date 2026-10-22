@@ -10,30 +10,30 @@ export const metadata = {
 
 # Hoe de Nano-consensus echt werkt
 
-Nano wordt vaak beschreven als "de kosteloze, directe cryptocurrency", maar het interessante deel is niet wat het belooft, het is hoe het dat bereikt. De meeste cryptocurrencies vertrouwen op mining of staking, wat energieverbruik, kosten en wachttijden betekent. Nano gebruikt iets heel anders: open vertegenwoordigend stemmen, meestal afgekort tot ORV.
+Nano wordt vaak beschreven als “de kosteloze, directe cryptocurrency”, maar het interessante deel is niet wat het belooft, het is hoe het dat bereikt. De meeste cryptocurrencies vertrouwen op mining of staking, wat energieverbruik, kosten en wachttijden betekent. Nano gebruikt iets heel anders: open vertegenwoordigend stemmen, meestal afgekort tot ORV.
 
 ## Geen miners, alleen vertegenwoordigers
 
 Nano heeft geen miners. Het netwerk betaalt niemand om het te beveiligen, omdat dat niet nodig is. In plaats daarvan kan elk account met zijn saldo stemmen op een vertegenwoordiger. De vertegenwoordigers met het meeste gedelegeerde gewicht zijn degenen die transacties bevestigen namens het netwerk.
 
-Daar zit de kern. Door te delegeren verlies je nooit de controle over je geld, je saldo blijft op je account, het doet alleen ook dienst als stem. De meeste mensen laten hun wallet een standaardvertegenwoordiger kiezen, en dat is prima.
+Die delegatie is het hele mechanisme. Door te delegeren verlies je nooit de controle over je geld, je saldo blijft op je account, het doet alleen ook dienst als stem. De meeste mensen laten hun wallet een standaardvertegenwoordiger kiezen, en dat is prima.
 
 ## Wat een bevestiging eigenlijk is
 
 Wanneer je een Nano-transactie verstuurt, gebeuren er vier dingen achter elkaar:
 
 <Steps title="Van versturen naar bevestiging">
-	<Step index="01" title="Versturen">Je block wordt naar het netwerk gestuurd.</Step>
+	<Step index="01" title="Versturen">Je blok wordt naar het netwerk gestuurd.</Step>
 	<Step index="02" title="Controleren">Vertegenwoordigers controleren het tegen hun lokale ledger.</Step>
 	<Step index="03" title="Stemmen">Als het geldig is, stemmen ze ervoor.</Step>
 	<Step index="04" title="Bevestigen">Zodra genoeg stemgewicht het eens is, is de transactie bevestigd.</Step>
 </Steps>
 
-Omdat het netwerk is opgebouwd als een gerichte acyclische graaf in plaats van een keten, is er geen block om op te wachten en geen blockbeloning om over te vechten. Bevestigingen worden in minder dan een seconde geregeld, meestal ruim daaronder.
+Omdat het netwerk is opgebouwd als een gerichte acyclische graaf in plaats van een keten, is er geen blok om op te wachten en geen blokbeloning om over te vechten. Bevestigingen worden in minder dan een seconde geregeld, meestal ruim daaronder.
 
 ## Waarom dit in de praktijk telt
 
-De gevolgen zijn niet alleen technisch. Een netwerk zonder miners kent geen energie-wapenwedloop, geen kostenmarkt en geen congestie door blockruimte. 0,000001 XNO versturen kost evenveel als 1.000 XNO versturen: niets. Dat maakt Nano interessant voor micropayments, fooien en machine-naar-machine-betalingen, het soort use cases waar transactiekosten de hele waarde van de betaling zouden opeten.
+De gevolgen zijn niet alleen technisch. Een netwerk zonder miners kent geen energiewapenwedloop, geen kostenmarkt en geen congestie door beperkte blokruimte. 0,000001 XNO versturen kost evenveel als 1.000 XNO versturen: niets. Dat maakt Nano interessant voor micropayments, fooien en machine-naar-machine-betalingen, het soort situaties waarin transactiekosten de hele waarde van de betaling zouden opeten.
 
 <StatGrid>
 	<Stat label="0,000001 XNO versturen" value="kosten: niets" />
